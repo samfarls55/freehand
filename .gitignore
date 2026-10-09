@@ -1,0 +1,71 @@
+# .NET build outputs, packages, and test reports
+[Bb]in/
+[Oo]bj/
+/.dotnet/
+/.nuget/
+/artifacts/
+[Tt]est[Rr]esults/
+/coverage/
+*.trx
+*.coverage
+*.coveragexml
+*.binlog
+*.nupkg
+*.snupkg
+
+# Local IDE settings and caches
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.idea/
+.vscode/
+.avalonia-build-tasks/
+_ReSharper*/
+*.DotSettings.user
+
+# Migration records, local tooling, and unpublished verification results
+/work/
+
+# Speech weights and downloaded model caches. Keep the pinned manifest in packaging.
+models/
+*.onnx
+*.nemo
+*.safetensors
+*.pt
+*.pth
+/.cache/
+
+# Local profiles, dictation history, recordings, and diagnostics
+/data/
+/profiles/
+/logs/
+/settings.json
+/dictionary.txt
+transcripts*.jsonl
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.ogg
+*.log
+*.dmp
+*.etl
+*.tmp
+*.bak
+
+# Environment secrets, private keys, and signing certificates
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

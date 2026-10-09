@@ -1,0 +1,327 @@
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Freehand.Abstractions;
+using Freehand.Core;
+using Freehand.Speech;
+
+namespace Freehand.App;
+
+internal static class EngineeringChecks
+{
+    internal static async Task<int> MeasureDesktopAsync(Composition composition, string output)
+    {
+        var report = new DesktopBenchmarkReport();
+        try
+        {
+            var speech = composition.Speech ?? throw new IOException("Speech session unavailable");
+            if (composition.Settings.Data.IdleModelMinutes != 5) throw new IOException("The isolated profile did not receive the five-minute default");
+            await composition.Models.VerifyAsync(CancellationToken.None).ConfigureAwait(false);
+            await Task.Delay(2000).ConfigureAwait(false);
+            if (speech.WorkerId is not null) throw new IOException("Startup loaded a worker");
+            var before = Memory(speech);
+            report.BeforePrivateBytes = before.Private; report.BeforeWorkingSet = before.Working;
+            using var process = Process.GetCurrentProcess();
+            var cpuBefore = process.TotalProcessorTime; var sampleAt = Stopwatch.GetTimestamp();
+            await Task.Delay(TimeSpan.FromMinutes(1)).ConfigureAwait(false);
+            process.Refresh();
+            report.IdleCpuPercent = 100 * (process.TotalProcessorTime - cpuBefore).TotalSeconds
+                / Stopwatch.GetElapsedTime(sampleAt).TotalSeconds / Environment.ProcessorCount;
+            await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
+            if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Model failed to load");
+            CheckFixtureText(await speech.TranscribeAsync(ReadFixture(), [], CancellationToken.None).ConfigureAwait(false));
+            var loaded = Memory(speech); report.LoadedPrivateBytes = loaded.Private; report.LoadedWorkingSet = loaded.Working;
+            // Exercise the actual five-minute default, without shortened test policy.
+            speech.SetIdleTimeout(TimeSpan.FromMinutes(5));
+            var idleAt = Stopwatch.GetTimestamp(); speech.FinishWork();
+            await WaitAsync(() => speech.WorkerId is null, TimeSpan.FromMinutes(5) + TimeSpan.FromSeconds(7)).ConfigureAwait(false);
+            report.IdleExitMilliseconds = Stopwatch.GetElapsedTime(idleAt).TotalMilliseconds;
+            if (report.IdleExitMilliseconds < 299950 || report.IdleExitMilliseconds > 305000)
+                throw new IOException("Worker exit did not follow the five-minute idle policy");
+            var after = Memory(speech); report.AfterPrivateBytes = after.Private; report.AfterWorkingSet = after.Working;
+            GC.Collect(); GC.WaitForPendingFinalizers(); GC.Collect();
+            after = Memory(speech); report.AfterCollectionPrivateBytes = after.Private; report.AfterCollectionWorkingSet = after.Working;
+            report.WorkersAfterUnload = speech.WorkerId is null ? 0 : 1;
+        }
+        catch (Exception e) { report.Failures.Add(e.GetType().Name + ": " + e.Message); }
+        await File.WriteAllTextAsync(output, JsonSerializer.Serialize(report, BenchmarkJsonContext.Default.DesktopBenchmarkReport)).ConfigureAwait(false);
+        return report.Failures.Count == 0 ? 0 : 1;
+    }
+    internal static async Task<int> CheckDesktopAsync()
+    {
+        try
+        {
+            using var owner = PlatformFactory.CreateDesktopIntegration() ?? throw new InvalidOperationException("Desktop unavailable");
+            if (!owner.ClaimInstance()) throw new InvalidOperationException("Close Freehand before this check");
+            using (var second = PlatformFactory.CreateDesktopIntegration()!)
+                if (second.ClaimInstance()) throw new IOException("Two instances claimed ownership");
+            var activated = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            owner.ActivationRequested += (_, _) => activated.TrySetResult();
+            owner.StartNotifications();
+            await activated.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            using var hook = PlatformFactory.CreateHotkeySource(0xA3) ?? throw new IOException("Hook unavailable");
+            for (var cycle = 0; cycle < 10; cycle++)
+            {
+                if (!hook.Start()) throw new IOException("Hook failed to rearm");
+                hook.StopListening();
+            }
+            Console.WriteLine("  [ok] single instance, activation retained during startup, ten hook rearm cycles");
+            return 0;
+        }
+        catch (Exception e) { Console.Error.WriteLine("Desktop check failed: " + e); return 1; }
+    }
+    internal static async Task<int> CheckSpeechAsync()
+    {
+        try
+        {
+            var audio = ReadFixture();
+            using var models = new ModelResolver();
+            await using var speech = new SpeechWorkerClient(PlatformFactory.CreateWorkerLauncher() ?? throw new InvalidOperationException("Worker launcher unavailable"), models);
+            for (var run = 0; run < 2; run++)
+            {
+                await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
+                if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Bundled model invalid");
+                var text = await speech.TranscribeAsync(audio, [], CancellationToken.None).ConfigureAwait(false);
+                CheckFixtureText(text);
+                speech.FinishWork(); await speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
+                if (speech.WorkerId is not null) throw new IOException("Worker did not stop");
+            }
+            Console.WriteLine("  [ok] bundled model, known speech, worker stop and restart");
+            return 0;
+        }
+        catch (Exception e) { Console.Error.WriteLine("Speech check failed: " + e); return 1; }
+    }
+    internal static async Task<int> BenchmarkAsync(string output)
+    {
+        var report = new BenchmarkReport();
+        try
+        {
+            var audio = ReadFixture();
+            report.ClipSeconds = (double)audio.Length / AudioChunk.SampleRate;
+            using var models = new ModelResolver();
+            using var desktop = PlatformFactory.CreateDesktopIntegration() ?? throw new InvalidOperationException("Windows unavailable");
+            using var deliveryProbe = PlatformFactory.CreateDeliveryProbe();
+            ITextDeliveryProbe? probe = deliveryProbe;
+            void PrepareTrial()
+            {
+                if (probe is null) return;
+                try { probe.BeginTrial(); }
+                catch (InvalidOperationException e) { report.DeliveryLimitation = e.Message; probe = null; }
+            }
+            if (probe is null) report.DeliveryLimitation = "Foreground test field unavailable";
+            PrepareTrial();
+            var launcher = PlatformFactory.CreateWorkerLauncher() ?? throw new InvalidOperationException("Worker launcher unavailable");
+            var injector = PlatformFactory.CreateTextInjector() ?? throw new InvalidOperationException("Injector unavailable");
+            var speech = new SpeechWorkerClient(launcher, models, new WorkerOptions { IdleTimeout = TimeSpan.FromMilliseconds(100) });
+            var baseline = Memory(speech); report.BaselinePrivateBytes = baseline.Private; report.BaselineWorkingSet = baseline.Working;
+            var capture = new FixtureCapture(audio);
+            var key = new ScriptedKey();
+            await using (var engine = new DictationEngine(capture, key, speech, injector, () => [], foreground: desktop, injectEnabled: () => probe is not null))
+            {
+                var completed = 0;
+                engine.Completed += (_, _) => completed++;
+                // Warm dictations should keep the worker for the full sequence.
+                speech.SetIdleTimeout(TimeSpan.FromMinutes(5));
+                await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
+                await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false);
+                speech.FinishWork();
+                var warmWorker = speech.WorkerId;
+                for (var run = 0; run < 50; run++)
+                {
+                    PrepareTrial(); capture.Prepare(); key.Press();
+                    var trialTarget = desktop.Capture();
+                    await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                    var released = Stopwatch.GetTimestamp(); key.Release();
+                    await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
+                    var result = engine.LastResult ?? throw new IOException("Missing transcript");
+                    CheckFixtureText(result.Text);
+                    if (probe is not null)
+                    {
+                        try
+                        {
+                            if (result.Delivery != DeliveryOutcome.Delivered) throw new IOException("Delivery outcome: " + result.Delivery);
+                            await WaitAsync(() => probe.ReadText() == result.Text, TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+                            if (probe.FirstInputTimestamp == 0) throw new IOException("First input was not observed");
+                            report.ReleaseToFirstInputMilliseconds.Add(Stopwatch.GetElapsedTime(released, probe.FirstInputTimestamp).TotalMilliseconds);
+                            report.ReleaseToFullInputMilliseconds.Add(result.ProcessingTime.TotalMilliseconds);
+                        }
+                        catch (Exception e) when (e is IOException or OperationCanceledException)
+                        {
+                            if (!desktop.IsCurrent(trialTarget) || result.Delivery == DeliveryOutcome.TargetChanged)
+                                report.DeliveryLimitation = "Focus changed during delivery; remaining inference checks ran without insertion.";
+                            else report.Failures.Add($"Foreground delivery could not be confirmed: outcome={result.Delivery}, expected={result.Text.Length}, received={probe.ReadText().Length}");
+                            probe = null;
+                        }
+                    }
+                    if (completed != run + 1) throw new IOException("Duplicate completion");
+                    if (speech.WorkerId != warmWorker) throw new IOException("Worker was not reused");
+                    report.TranscriptCharacters = result.Text.Length;
+                    report.ReleaseToTranscriptMilliseconds.Add(result.TranscriptTime.TotalMilliseconds);
+                    report.LoadedPrivateBytes = Math.Max(report.LoadedPrivateBytes, Memory(speech).Private);
+                    report.LoadedWorkingSet = Math.Max(report.LoadedWorkingSet, Memory(speech).Working);
+                }
+                report.SequentialDictations = completed;
+                // Kill a real worker after capturing audio, before releasing it.
+                PrepareTrial(); capture.Prepare(); key.Press();
+                await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                using (var child = Process.GetProcessById(speech.WorkerId!.Value)) { child.Kill(); await child.WaitForExitAsync().ConfigureAwait(false); }
+                var recovery = Stopwatch.GetTimestamp(); key.Release();
+                await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(45)).ConfigureAwait(false);
+                report.RecoveryMilliseconds = Stopwatch.GetElapsedTime(recovery).TotalMilliseconds;
+                if (completed != 51 || engine.LastResult is null || (probe is not null && (engine.LastResult.Delivery != DeliveryOutcome.Delivered || probe.ReadText() != engine.LastResult.Text)))
+                    throw new IOException("Worker recovery lost audio or repeated delivery");
+                report.WorkerCrashRecoveryPassed = true;
+                speech.SetIdleTimeout(TimeSpan.FromMilliseconds(100));
+                await WaitAsync(() => speech.WorkerId is null, TimeSpan.FromSeconds(7)).ConfigureAwait(false);
+            }
+            // An actual native-worker deadline must retain one unresolved recording.
+            var timeoutSpeech = new SpeechWorkerClient(launcher, models, new WorkerOptions { InferenceTimeout = TimeSpan.FromTicks(1) });
+            capture = new FixtureCapture(audio); key = new ScriptedKey();
+            await using (var engine = new DictationEngine(capture, key, timeoutSpeech, injector, () => [], injectEnabled: () => false))
+            {
+                capture.Prepare(); key.Press(); await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false); key.Release();
+                await WaitAsync(() => engine.State == DictationState.AwaitingRetry, TimeSpan.FromSeconds(90)).ConfigureAwait(false);
+                if (engine.LastResult is not null || !engine.HasPendingAudio) throw new IOException("Timeout lost recoverable audio");
+                engine.Discard();
+                if (engine.State != DictationState.Idle || engine.HasPendingAudio) throw new IOException("Discard did not release recording");
+                report.TimeoutRetentionPassed = true;
+            }
+            // Keep delivery checks close to creation of the foreground test field.
+            // Cold-load cycles do not require focus and can run afterwards.
+            speech = new SpeechWorkerClient(launcher, models, new WorkerOptions { IdleTimeout = TimeSpan.FromMilliseconds(100) });
+            await using (speech)
+            {
+                for (var run = 0; run < 20; run++)
+                {
+                    await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
+                    if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Model not verified");
+                    report.ColdLoadMilliseconds.Add(speech.LastLoadTime.TotalMilliseconds);
+                    report.LoadedPrivateBytes = Math.Max(report.LoadedPrivateBytes, Memory(speech).Private);
+                    report.LoadedWorkingSet = Math.Max(report.LoadedWorkingSet, Memory(speech).Working);
+                    speech.FinishWork();
+                    await WaitAsync(() => speech.WorkerId is null, TimeSpan.FromSeconds(7)).ConfigureAwait(false);
+                    report.UnloadCycles++;
+                }
+            }
+            GC.Collect(); GC.WaitForPendingFinalizers(); GC.Collect();
+            var after = Memory(speech); report.AfterUnloadPrivateBytes = after.Private; report.AfterUnloadWorkingSet = after.Working;
+            report.OrphanWorkers = Process.GetProcessesByName("Freehand.App").Count(p =>
+            {
+                using (p) { try { return p.Id != Environment.ProcessId && p.MainModule?.FileName == Environment.ProcessPath; } catch (System.ComponentModel.Win32Exception) { return false; } }
+            });
+        }
+        catch (Exception e) { report.Failures.Add(e.GetType().Name + ": " + e.Message); }
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);
+        await File.WriteAllTextAsync(output, JsonSerializer.Serialize(report, BenchmarkJsonContext.Default.BenchmarkReport)).ConfigureAwait(false);
+        return report.Failures.Count == 0 && report.OrphanWorkers == 0 ? 0 : 1;
+    }
+    private static (long Private, long Working) Memory(SpeechWorkerClient client)
+    {
+        using var process = Process.GetCurrentProcess(); process.Refresh();
+        var memory = process.PrivateMemorySize64; var working = process.WorkingSet64;
+        if (client.WorkerId is { } pid) { using var child = Process.GetProcessById(pid); memory += child.PrivateMemorySize64; working += child.WorkingSet64; }
+        return (memory, working);
+    }
+    private static async Task WaitAsync(Func<bool> predicate, TimeSpan timeout)
+    {
+        using var deadline = new CancellationTokenSource(timeout);
+        while (!predicate()) await Task.Delay(10, deadline.Token).ConfigureAwait(false);
+    }
+    private static void CheckFixtureText(string text)
+    {
+        if (!text.Contains("fellow americans", StringComparison.OrdinalIgnoreCase) || !text.Contains("country", StringComparison.OrdinalIgnoreCase))
+            throw new InvalidDataException("Known speech fixture produced an unexpected transcript");
+    }
+    private static float[] ReadFixture()
+    {
+        using var reader = new BinaryReader(File.OpenRead(Path.Combine(AppContext.BaseDirectory, "fixtures", "jfk.wav")));
+        if (reader.ReadUInt32() != 0x46464952) throw new InvalidDataException("Not WAV");
+        reader.ReadUInt32(); if (reader.ReadUInt32() != 0x45564157) throw new InvalidDataException("Not WAV");
+        while (reader.BaseStream.Position < reader.BaseStream.Length)
+        {
+            var kind = reader.ReadUInt32(); var size = reader.ReadInt32(); var next = reader.BaseStream.Position + size + (size & 1);
+            if (kind == 0x20746D66)
+            {
+                if (reader.ReadUInt16() != 1 || reader.ReadUInt16() != 1 || reader.ReadInt32() != 16000) throw new InvalidDataException("Fixture must be 16kHz mono PCM");
+                reader.ReadInt32(); reader.ReadUInt16(); if (reader.ReadUInt16() != 16) throw new InvalidDataException("Fixture must be PCM16");
+            }
+            if (kind == 0x61746164)
+            {
+                var count = Math.Min(size / 2, 10 * AudioChunk.SampleRate);
+                var audio = new float[count]; for (var i = 0; i < count; i++) audio[i] = reader.ReadInt16() / 32768f;
+                return audio;
+            }
+            reader.BaseStream.Position = next;
+        }
+        throw new InvalidDataException("Fixture audio missing");
+    }
+    private sealed class ScriptedKey : IHotkeySource
+    {
+        public event EventHandler? Pressed;
+        public event EventHandler? Released;
+        public bool Start() => true;
+        public void StopListening() { }
+        public void Dispose() { }
+        internal void Press() => Pressed?.Invoke(this, EventArgs.Empty);
+        internal void Release() => Released?.Invoke(this, EventArgs.Empty);
+    }
+    private sealed class FixtureCapture(float[] audio) : IAudioCapture
+    {
+        internal TaskCompletionSource Started { get; private set; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal void Prepare() => Started = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public bool IsCapturing { get; private set; }
+        public async IAsyncEnumerable<AudioChunk> CaptureAsync([EnumeratorCancellation] CancellationToken cancellationToken)
+        {
+            IsCapturing = true; yield return new AudioChunk(audio.ToArray()); Started.TrySetResult();
+            try { await Task.Delay(Timeout.Infinite, cancellationToken).ConfigureAwait(false); } catch (OperationCanceledException) { }
+            IsCapturing = false;
+        }
+        public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+    }
+}
+internal sealed class BenchmarkReport
+{
+    public string ModelVersion { get; init; } = ModelResolver.Version;
+    public string Runtime { get; init; } = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
+    public int LogicalProcessors { get; init; } = Environment.ProcessorCount;
+    public double ClipSeconds { get; set; }
+    public int TranscriptCharacters { get; set; }
+    public List<double> ColdLoadMilliseconds { get; } = [];
+    public List<double> ReleaseToFirstInputMilliseconds { get; } = [];
+    public List<double> ReleaseToFullInputMilliseconds { get; } = [];
+    public List<double> ReleaseToTranscriptMilliseconds { get; } = [];
+    public string? DeliveryLimitation { get; set; }
+    public long BaselinePrivateBytes { get; set; }
+    public long BaselineWorkingSet { get; set; }
+    public long LoadedPrivateBytes { get; set; }
+    public long LoadedWorkingSet { get; set; }
+    public long AfterUnloadPrivateBytes { get; set; }
+    public long AfterUnloadWorkingSet { get; set; }
+    public int UnloadCycles { get; set; }
+    public int SequentialDictations { get; set; }
+    public double RecoveryMilliseconds { get; set; }
+    public bool WorkerCrashRecoveryPassed { get; set; }
+    public bool TimeoutRetentionPassed { get; set; }
+    public int OrphanWorkers { get; set; }
+    public List<string> Failures { get; } = [];
+}
+internal sealed class DesktopBenchmarkReport
+{
+    public long BeforePrivateBytes { get; set; }
+    public long BeforeWorkingSet { get; set; }
+    public double IdleCpuPercent { get; set; }
+    public long LoadedPrivateBytes { get; set; }
+    public long LoadedWorkingSet { get; set; }
+    public double IdleExitMilliseconds { get; set; }
+    public long AfterPrivateBytes { get; set; }
+    public long AfterWorkingSet { get; set; }
+    public long AfterCollectionPrivateBytes { get; set; }
+    public long AfterCollectionWorkingSet { get; set; }
+    public int WorkersAfterUnload { get; set; }
+    public List<string> Failures { get; } = [];
+}
+[JsonSourceGenerationOptions(WriteIndented = true)]
+[JsonSerializable(typeof(BenchmarkReport))]
+[JsonSerializable(typeof(DesktopBenchmarkReport))]
+internal sealed partial class BenchmarkJsonContext : JsonSerializerContext;
