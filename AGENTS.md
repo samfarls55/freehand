@@ -38,11 +38,12 @@ app. A startup self-test must exercise the published executable after packaging 
 - Preserve the versions in `Directory.Packages.props` unless updating dependencies is
   part of the requested work. sherpa-onnx provides its own ONNX Runtime.
 
-## Keep the recorder design
+## Keep the Compact design
 
 Use the tokens in `src/Freehand.App/Design/DesignTokens.cs` for interface styling.
-The design follows physical field recorders, with flat panels, small bevels, and brushed
-grain. Red indicates recording. Amber and green indicate instrumentation.
+Follow [DESIGN.md](DESIGN.md) for the approved Compact interface: a dark graphite window,
+text tabs, readable transcript rows, and restrained sage actions. Red indicates recording;
+amber indicates attention. Keep dictation in the tray and preserve native Windows controls.
 
 ## Verify the affected behavior
 

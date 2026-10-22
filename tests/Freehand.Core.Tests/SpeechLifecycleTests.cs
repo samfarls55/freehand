@@ -68,7 +68,9 @@ public sealed class SpeechLifecycleTests
     public async Task Cancelled_inference_stops_the_worker_before_the_next_recording()
     {
         var launcher = new PipeWorkerLauncher { HangInference = true };
-        await using var client = Client(launcher);
+        // This test owns cancellation; a short inference deadline can win before
+        // a busy runner schedules the pipe worker to receive the request.
+        await using var client = Client(launcher, inference: Timeout.InfiniteTimeSpan);
         await client.BeginWorkAsync(CancellationToken.None); await client.LoadAsync(CancellationToken.None);
         using var cancel = new CancellationTokenSource();
         var request = client.TranscribeAsync(new float[320], [], cancel.Token).AsTask();
@@ -83,11 +85,11 @@ public sealed class SpeechLifecycleTests
         client.FinishWork();
     }
 
-    private static SpeechWorkerClient Client(PipeWorkerLauncher launcher, TimeSpan? shutdown = null) =>
+    private static SpeechWorkerClient Client(PipeWorkerLauncher launcher, TimeSpan? shutdown = null, TimeSpan? inference = null) =>
         new(launcher, new VerifiedAssets(), new WorkerOptions
         {
             IdleTimeout = TimeSpan.FromMilliseconds(20), StartupTimeout = TimeSpan.FromSeconds(2),
-            InferenceTimeout = TimeSpan.FromMilliseconds(30), ShutdownTimeout = shutdown ?? TimeSpan.FromMilliseconds(30),
+            InferenceTimeout = inference ?? TimeSpan.FromMilliseconds(30), ShutdownTimeout = shutdown ?? TimeSpan.FromMilliseconds(30),
         });
     private sealed class VerifiedAssets : IModelAssets
     {

@@ -3,11 +3,7 @@ param()
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $tools = Join-Path $repositoryRoot 'artifacts/test-tools'
-New-Item -ItemType Directory -Path $tools -Force | Out-Null
-$pester = Join-Path $tools 'Pester/6.2.0/Pester.psd1'
-if (-not (Test-Path -LiteralPath $pester)) {
-    Save-PSResource -Name Pester -Version 6.2.0 -Path $tools -Repository PSGallery -TrustRepository
-}
+$pester = & (Join-Path $repositoryRoot 'scripts/setup-test-tools.ps1') -Destination $tools
 Import-Module $pester -Force
 $fixture = Join-Path $repositoryRoot ('artifacts/script-fixtures/' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path (Join-Path $fixture 'scripts') -Force | Out-Null

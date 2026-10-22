@@ -1,145 +1,112 @@
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Freehand.App.Controls;
 using Freehand.App.Design;
 
 namespace Freehand.App.Views;
 
-/// <summary>
-/// Shared panel furniture — search rows, footers, cards, buttons on a dark readout.
-/// </summary>
-/// <remarks>
-/// Every value comes from <see cref="Tokens"/>. Factoring these out is what stops the same
-/// padding being typed slightly differently in three views, which is how a design system
-/// erodes.
-/// </remarks>
+/// <summary>Shared Compact layout and control factories.</summary>
 internal static class Panels
 {
-    /// <summary>A search field styled for a dark readout well.</summary>
-    public static TextBox SearchBox(string placeholder) => new()
+    public static TextBlock Text(string text, double size = Tokens.Fonts.Body, bool muted = false) => new()
     {
-        Watermark = placeholder,
-        FontFamily = Tokens.Fonts.Grotesque,
-        FontSize = Tokens.Fonts.Body,
-        Foreground = Tokens.Brushes.InkOnDeck,
-        Background = Brushes.Transparent,
-        BorderThickness = new Thickness(0),
-        Padding = new Thickness(0),
-        VerticalAlignment = VerticalAlignment.Center,
+        Text = text, FontFamily = Tokens.Fonts.Grotesque, FontSize = size,
+        Foreground = muted ? Tokens.Brushes.Muted : Tokens.Brushes.Ink,
+        VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap,
     };
 
-    /// <summary>The row a search field sits in, with a seam beneath it.</summary>
+    public static TextBox SearchBox(string placeholder)
+    {
+        var search = new TextBox
+        {
+            Watermark = placeholder, HorizontalAlignment = HorizontalAlignment.Stretch,
+            InnerLeftContent = new Avalonia.Controls.Shapes.Path
+            {
+                Data = Geometry.Parse("M 15 15 L 21 21 M 17 10 A 7 7 0 1 1 3 10 A 7 7 0 1 1 17 10"),
+                Stroke = Tokens.Brushes.Muted, StrokeThickness = 1.5, Width = 18, Height = 18,
+                Stretch = Stretch.Uniform, Margin = new Thickness(Tokens.Space.Base, 0, Tokens.Space.Tight, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+            },
+        };
+        AutomationProperties.SetName(search, placeholder);
+        return search;
+    }
+
+    public static Button Button(string label, bool primary = false, bool quiet = false)
+    {
+        var button = new Button { Content = label, VerticalAlignment = VerticalAlignment.Center };
+        if (primary) button.Classes.Add("accent");
+        else if (quiet) CompactTheme.SetButtonResources(button.Resources, Brushes.Transparent, Tokens.Brushes.Muted);
+        return button;
+    }
+
+    public static Button More(string name)
+    {
+        var button = Button("", quiet: true);
+        var dots = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 3 };
+        for (var i = 0; i < 3; i++) dots.Children.Add(new Avalonia.Controls.Shapes.Ellipse { Width = 3, Height = 3, Fill = Tokens.Brushes.Muted });
+        button.Content = dots;
+        AutomationProperties.SetName(button, name); ToolTip.SetTip(button, name);
+        return button;
+    }
+
+    public static void Select(Button button, bool selected)
+    {
+        CompactTheme.SetButtonResources(button.Resources,
+            selected ? Tokens.Brushes.Cap : Brushes.Transparent,
+            selected ? Tokens.Brushes.Ink : Tokens.Brushes.Muted);
+        button.FontWeight = selected ? FontWeight.SemiBold : FontWeight.Normal;
+        AutomationProperties.SetName(button, button.Content + (selected ? ", selected" : ""));
+    }
+
+    public static Border Heading(string title, Control? action = null)
+    {
+        var label = Text(title, Tokens.Fonts.Title);
+        label.FontWeight = FontWeight.SemiBold;
+        var row = new DockPanel();
+        if (action is not null) row.Children.Add(Docked(action, Dock.Right));
+        row.Children.Add(label);
+        return new Border { Padding = new Thickness(0, Tokens.Space.Panel, 0, Tokens.Space.Wide), Child = row };
+    }
+
     public static Border SearchRow(Control search, Control? trailing = null)
     {
         var row = new DockPanel();
-
         if (trailing is not null)
         {
-            DockPanel.SetDock(trailing, Dock.Right);
-            row.Children.Add(trailing);
+            trailing.Margin = new Thickness(Tokens.Space.Base, 0, 0, 0);
+            row.Children.Add(Docked(trailing, Dock.Right));
         }
-
         row.Children.Add(search);
-
-        return new Border
-        {
-            Background = Tokens.Brushes.Deck,
-            Padding = new Thickness(Tokens.Space.Base, Tokens.Space.Snug),
-            BorderBrush = new SolidColorBrush(Tokens.Colors.Seam),
-            BorderThickness = new Thickness(0, 0, 0, Tokens.Border.Seam),
-            Child = row,
-        };
+        return new Border { Padding = new Thickness(0, 0, 0, Tokens.Space.Wide), Child = row };
     }
 
-    /// <summary>A footer strip with a count on the left and an action on the right.</summary>
     public static Border Footer(Control leading, Control trailing)
     {
         var row = new DockPanel();
-        DockPanel.SetDock(trailing, Dock.Right);
-        row.Children.Add(trailing);
+        row.Children.Add(Docked(trailing, Dock.Right));
         row.Children.Add(leading);
-
-        return new Border
-        {
-            Background = Tokens.Brushes.Deck,
-            Padding = new Thickness(Tokens.Space.Base, Tokens.Space.Snug),
-            BorderBrush = new SolidColorBrush(Tokens.Colors.Seam),
-            BorderThickness = new Thickness(0, Tokens.Border.Seam, 0, 0),
-            Child = row,
-        };
+        return new Border { Padding = new Thickness(0, Tokens.Space.Base, 0, Tokens.Space.Base), Child = row };
     }
 
-    /// <summary>A small outlined button for use on a dark readout.</summary>
-    public static Button DeckButton(string label) => new()
+    public static Border Row(Control content) => new()
     {
-        Content = label,
-        FontFamily = Tokens.Fonts.Grotesque,
-        FontSize = Tokens.Fonts.Silkscreen,
-        FontWeight = FontWeight.Medium,
-        Foreground = new SolidColorBrush(Tokens.Colors.InkOnDeck, 0.65),
-        Background = Brushes.Transparent,
-        BorderBrush = new SolidColorBrush(Tokens.Colors.InkOnDeck, 0.3),
-        BorderThickness = new Thickness(Tokens.Border.Hairline),
-        CornerRadius = new CornerRadius(Tokens.Radius.Chip),
-        Padding = new Thickness(Tokens.Space.Snug, Tokens.Space.Hair),
-        VerticalAlignment = VerticalAlignment.Center,
+        BorderBrush = Tokens.Brushes.Seam, BorderThickness = new Thickness(0, 0, 0, Tokens.Border.Hairline),
+        Padding = new Thickness(0, Tokens.Space.Roomy), Child = content,
     };
 
-    /// <summary>One row of content, on the dark readout surface.</summary>
-    public static Border DeckCard(Control content) => new()
+    public static Control EmptyState(string label) => new Border
     {
-        Background = Tokens.Brushes.Deck,
-        CornerRadius = new CornerRadius(Tokens.Radius.Panel),
-        BorderBrush = new SolidColorBrush(Tokens.Colors.Seam),
-        BorderThickness = new Thickness(Tokens.Border.Hairline),
-        Padding = new Thickness(Tokens.Space.Base),
-        Child = content,
+        Padding = new Thickness(0, Tokens.Space.Gutter),
+        Child = Text(label, Tokens.Fonts.Section, muted: true),
     };
 
-    /// <summary>Centred "nothing here yet" copy.</summary>
-    public static Control EmptyState(string label, string detail) => new StackPanel
-    {
-        HorizontalAlignment = HorizontalAlignment.Center,
-        VerticalAlignment = VerticalAlignment.Center,
-        Spacing = Tokens.Space.Snug,
-        Margin = new Thickness(0, Tokens.Space.Panel),
-        Children =
-        {
-            new Silkscreen
-            {
-                Text = label,
-                IsLarge = true,
-                Foreground = new SolidColorBrush(Tokens.Colors.InkOnDeck, 0.55),
-                HorizontalAlignment = HorizontalAlignment.Center,
-            },
-            new TextBlock
-            {
-                Text = detail,
-                FontFamily = Tokens.Fonts.Grotesque,
-                FontSize = Tokens.Fonts.Label,
-                Foreground = new SolidColorBrush(Tokens.Colors.InkOnDeck, 0.4),
-                HorizontalAlignment = HorizontalAlignment.Center,
-            },
-        },
-    };
+    public static Control Docked(Control control, Dock side) { DockPanel.SetDock(control, side); return control; }
 
-    /// <summary>
-    /// Docks a control and returns it, so it reads inline in a Children list.
-    /// </summary>
-    /// <remarks>Not named <c>Dock</c>: that shadows the <see cref="Avalonia.Controls.Dock"/>
-    /// enum at every call site.</remarks>
-    public static Control Docked(Control control, Dock side)
-    {
-        DockPanel.SetDock(control, side);
-        return control;
-    }
-
-    /// <summary>A silkscreen label above a control, the way a panel is printed.</summary>
     public static StackPanel Labelled(string label, Control content) => new()
     {
-        Spacing = Tokens.Space.Tight,
-        Children = { new Silkscreen { Text = label }, content },
+        Spacing = Tokens.Space.Snug, Children = { Text(label, Tokens.Fonts.Label, muted: true), content },
     };
 }

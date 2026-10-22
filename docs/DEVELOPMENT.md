@@ -54,6 +54,8 @@ The SonarQube job runs the .NET tests under the pinned `dotnet-coverage` tool an
 the deployment-script tests under Pester 6.2.0. It imports both reports into the
 existing quality gate. Run the script tests locally with
 `pwsh -File ./tests/Freehand.Scripts.Tests/Run.ps1` using PowerShell 7.4 or later.
+The runner downloads the exact Pester package directly and verifies its pinned
+SHA256 before extraction. It reuses the local test-tool cache on later runs.
 They execute unchanged copies of the scripts in a temporary fixture, with simulated
 SDK and installer processes. Your installed app and normal profile stay outside that
 fixture. Windows regression tests also check that an isolated profile leaves the
