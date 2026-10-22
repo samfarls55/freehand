@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
@@ -149,6 +150,52 @@ public sealed class MainWindowTests
             window.UpdateLayout(); UiCapture.Save(window, $"compact-recording-{width}.png");
             window.ToggleRecording(); window.IsRecording.ShouldBeFalse(); window.RecordLamp.IsLit.ShouldBeFalse();
             window.MinWidth.ShouldBe(720); window.MinHeight.ShouldBe(520);
+        }
+        finally { window.Close(); }
+    }
+
+    [AvaloniaFact]
+    public void Dictionary_toggle_preserves_focus_when_two_entries_write_the_same_text()
+    {
+        using var data = new UiData();
+        data.Dictionary.Add(DictionaryEntry.Correction("free hand", "Freehand"));
+        data.Dictionary.Add(DictionaryEntry.Correction("free hands", "Freehand"));
+        var window = data.Window(); window.Show(); window.ShowSection("Dictionary"); window.UpdateLayout();
+        try
+        {
+            var switches = window.GetVisualDescendants().OfType<ToggleSwitch>().ToArray();
+            switches[1].Focus();
+            window.KeyPressQwerty(PhysicalKey.Space, RawInputModifiers.None); window.KeyReleaseQwerty(PhysicalKey.Space, RawInputModifiers.None);
+            window.UpdateLayout(); Dispatcher.UIThread.RunJobs(); window.UpdateLayout();
+            switches = window.GetVisualDescendants().OfType<ToggleSwitch>().ToArray();
+            switches[1].IsFocused.ShouldBeTrue();
+            window.KeyPressQwerty(PhysicalKey.Space, RawInputModifiers.None); window.KeyReleaseQwerty(PhysicalKey.Space, RawInputModifiers.None);
+            Dispatcher.UIThread.RunJobs(); window.UpdateLayout();
+            data.Dictionary.Entries[0].IsEnabled.ShouldBeTrue();
+            data.Dictionary.Entries[1].IsEnabled.ShouldBeTrue();
+        }
+        finally { window.Close(); }
+    }
+
+    [AvaloniaTheory]
+    [InlineData("History")]
+    [InlineData("Dictionary")]
+    [InlineData("Settings")]
+    public void Successful_copy_only_dictation_stays_available_on_every_tab(string section)
+    {
+        using var data = new UiData();
+        data.Settings.Update(data.Settings.Data with { InjectText = false, KeepHistory = true });
+        var window = data.Window(); window.Show(); window.ShowSection(section); window.UpdateLayout();
+        try
+        {
+            var result = new DictationResult(DateTimeOffset.Now, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(0.4), "Ready to copy from this tab.", [])
+            { Delivery = Freehand.Abstractions.DeliveryOutcome.Disabled };
+            window.ApplyFeedback(DictationState.Idle, 0, result,
+                new DictationFeedback(DictationOutcome.Success, "Transcript ready to copy.", Guid.NewGuid()));
+            window.UpdateLayout();
+            var transcript = window.GetVisualDescendants().OfType<TextBox>().Single(t => t.IsReadOnly);
+            transcript.IsVisible.ShouldBeTrue(); transcript.Text.ShouldBe(result.Text);
+            window.GetVisualDescendants().OfType<Button>().Single(b => Equals(b.Content, "Copy")).IsVisible.ShouldBeTrue();
         }
         finally { window.Close(); }
     }

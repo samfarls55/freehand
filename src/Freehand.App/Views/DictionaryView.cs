@@ -64,16 +64,15 @@ public sealed class DictionaryView : UserControl
     }
     private Border BuildRow(DictionaryEntry entry)
     {
-        var enabled = new ToggleSwitch { IsChecked = entry.IsEnabled, OnContent = null, OffContent = null, VerticalAlignment = VerticalAlignment.Center };
+        var enabled = new ToggleSwitch { Tag = entry.Id, IsChecked = entry.IsEnabled, OnContent = null, OffContent = null, VerticalAlignment = VerticalAlignment.Center };
         Avalonia.Automation.AutomationProperties.SetName(enabled, "Enable " + entry.Write);
         enabled.IsCheckedChanged += (_, _) =>
         {
             _file.Update(entry with { IsEnabled = enabled.IsChecked == true });
             Dispatcher.UIThread.Post(() =>
             {
-                var name = "Enable " + entry.Write;
                 var replacement = this.GetVisualDescendants().OfType<ToggleSwitch>()
-                    .FirstOrDefault(t => string.Equals(Avalonia.Automation.AutomationProperties.GetName(t), name, StringComparison.Ordinal));
+                    .FirstOrDefault(t => Equals(t.Tag, entry.Id));
                 if (replacement is not null) replacement.Focus(); else _search.Focus();
             }, DispatcherPriority.Loaded);
         };

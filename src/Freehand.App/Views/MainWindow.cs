@@ -182,7 +182,8 @@ public sealed class MainWindow : Window
     {
         var attention = state == DictationState.AwaitingRetry || feedback?.Outcome is
             DictationOutcome.CaptureFailure or DictationOutcome.DeliveryFailure or DictationOutcome.EmptySpeech;
-        var showTranscript = lastResult is not null && (feedback?.Outcome == DictationOutcome.DeliveryFailure || _settings?.Data.KeepHistory == false);
+        var showTranscript = lastResult is not null && (feedback?.Outcome == DictationOutcome.DeliveryFailure
+            || lastResult.Delivery == Freehand.Abstractions.DeliveryOutcome.Disabled || _settings?.Data.KeepHistory == false);
         _feedback.IsVisible = attention || showTranscript;
         _feedback.BorderBrush = Tokens.Brushes.Attention;
         _feedback.BorderThickness = new Thickness(attention ? Tokens.Border.Hairline : 0);

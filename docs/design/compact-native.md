@@ -81,7 +81,7 @@ After syncing with main's performance updates on October 22, 2026:
 
 - The Release build with `--no-incremental -warnaserror` passed with zero warnings
   and errors.
-- All 118 .NET tests passed, covering 68 Core, 24 Dictionary, 6 Windows, and 20 App tests.
+- All 122 .NET tests passed, covering 68 Core, 24 Dictionary, 6 Windows, and 24 App tests.
 - All 23 deployment-script tests passed.
 - Installer packaging and the published executable's `--selftest` passed.
 - The [independent finish review](../../.impeccable/review/native-verdict.md)
@@ -92,6 +92,10 @@ The branch includes main through `78511e7`. Compact retains main's queued UI
 feedback, Parakeet TDT 110M configuration, and spacing between consecutive
 dictations. Settings now uses the model resolver's bundled directory and names
 the current model. A UI regression test checks bundled and custom model paths.
+PR review also added coverage for copying results on every tab when insertion is
+disabled, and keeping dictionary keyboard focus on the same entry when replacement
+text is shared. The cancellation test uses caller cancellation without racing an
+unrelated inference deadline.
 
 The [native captures](../../.impeccable/review/native) use Avalonia headless Skia
 rendering and synthetic data. History, dictionary, settings, and recording are
