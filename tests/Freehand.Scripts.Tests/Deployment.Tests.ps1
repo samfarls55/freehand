@@ -39,7 +39,11 @@ BeforeEach {
     Set-Content -LiteralPath (Join-Path $model 'tokens.txt') -Value 'fixture model'
     $script:asset = @{ Name = 'tokens.txt'; Size = (Get-Item (Join-Path $model 'tokens.txt')).Length; Sha256 = (Get-FileHash (Join-Path $model 'tokens.txt')).Hash }
     New-Item -ItemType Directory -Path (Join-Path $fixtureRoot 'packaging'), (Join-Path $fixtureRoot 'src/Freehand.App/obj') -Force | Out-Null
-    @{ Version = 'fixture/revision'; Files = @($asset) } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $fixtureRoot 'packaging/model-manifest.json')
+    $archiveBytes = [Text.Encoding]::UTF8.GetBytes('fixture archive')
+    $archiveHash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($archiveBytes))
+    @{ Version = 'fixture/revision'; DirectoryName = 'parakeet-110m'; Source = 'https://example.test/model.tar.bz2';
+       ArchiveSha256 = $archiveHash; ArchiveDirectory = 'fixture-model'; Files = @($asset) } |
+        ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $fixtureRoot 'packaging/model-manifest.json')
     @{ libraries = @{}; packageFolders = @{ (Split-Path -Parent $sdk) = @{} } } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $fixtureRoot 'src/Freehand.App/obj/project.assets.json')
     Set-Content -LiteralPath (Join-Path $fixtureRoot 'packaging/THIRD-PARTY-NOTICES.txt') -Value 'fixture notices'
     $script:installer = Join-Path $TestDrive 'FreehandSetup.exe'
@@ -71,10 +75,10 @@ Describe 'Version and SDK selection' {
 
     It 'finds the pinned model in an explicit directory or the installed package' {
         Find-FreehandModelDirectory $model | Should-Be $model
-        $bundled = Join-Path $env:LOCALAPPDATA 'Programs/Freehand/models/parakeet-v2'
+        $bundled = Join-Path $env:LOCALAPPDATA 'Programs/Freehand/models/parakeet-110m'
         New-Item -ItemType Directory -Path $bundled -Force | Out-Null
         Copy-Item -LiteralPath (Join-Path $model 'tokens.txt') -Destination $bundled
-        $cache = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-v2'
+        $cache = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-110m'
         if (Test-Path $cache) { Remove-Item -LiteralPath (Join-Path $cache 'tokens.txt') -Force -ErrorAction SilentlyContinue }
         Find-FreehandModelDirectory | Should-Be $bundled
     }
@@ -186,14 +190,21 @@ Describe 'Release packaging' {
     It 'verifies the package and checksum through the <Mode> command' -ForEach @(@{ Mode = 'download' }, @{ Mode = 'verification' }, @{ Mode = 'preview' }) {
         Mock git { $global:LASTEXITCODE = 0; if ($args[0] -eq 'rev-parse') { 'abc1234' } else { ' M fixture' } }
         Mock Invoke-WebRequest {
-            if ($Uri -like '*huggingface.co*') { Copy-Item -LiteralPath (Join-Path $model 'tokens.txt') -Destination $OutFile }
+            if ($Uri -like '*model.tar.bz2') { [IO.File]::WriteAllBytes($OutFile, [Text.Encoding]::UTF8.GetBytes('fixture archive')) }
             else { Set-Content -LiteralPath $OutFile -Value 'fixture speech' }
+        }
+        Mock tar {
+            $destination = $args[[array]::IndexOf($args, '-C') + 1]
+            $modelTarget = Join-Path $destination 'fixture-model'
+            New-Item -ItemType Directory -Path $modelTarget -Force | Out-Null
+            Copy-Item -LiteralPath (Join-Path $model 'tokens.txt') -Destination $modelTarget
+            $global:LASTEXITCODE = 0
         }
         Mock Get-FileHash { [pscustomobject]@{ Hash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([IO.File]::ReadAllBytes($LiteralPath))) } }
         Mock Get-FileHash { [pscustomobject]@{ Hash = '59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e' } } -ParameterFilter { $LiteralPath -like '*jfk.wav' }
         switch ($Mode) {
             'download' {
-                $cachedAsset = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-v2/tokens.txt'
+                $cachedAsset = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-110m/tokens.txt'
                 if (Test-Path -LiteralPath $cachedAsset) { Remove-Item -LiteralPath $cachedAsset }
                 & (Join-Path $scripts 'build-release.ps1') -Dotnet $sdk
             }
@@ -208,6 +219,32 @@ Describe 'Release packaging' {
         (Get-FileHash -LiteralPath $output).Hash.ToLowerInvariant() | Should-Be $expected
         if ($Mode -eq 'download') { Should-NotInvoke Start-Process }
         else { Should-Invoke Start-Process -Exactly -Times 1 }
+    }
+
+    It 'rejects an unverified model archive before extraction or publishing' {
+        Mock git { $global:LASTEXITCODE = 0; 'abc1234' }
+        $cachedAsset = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-110m/tokens.txt'
+        if (Test-Path -LiteralPath $cachedAsset) { Remove-Item -LiteralPath $cachedAsset }
+        $publishedAsset = Join-Path $fixtureRoot 'artifacts/publish/models/parakeet-110m/tokens.txt'
+        if (Test-Path -LiteralPath $publishedAsset) { Remove-Item -LiteralPath $publishedAsset }
+        $archive = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-110m.tar.bz2'
+        if (Test-Path -LiteralPath $archive) { Remove-Item -LiteralPath $archive }
+        Mock Invoke-WebRequest { Set-Content -LiteralPath $OutFile -Value 'damaged archive' }
+        Mock tar { throw 'Extraction must not run before verification.' }
+        { & (Join-Path $scripts 'build-release.ps1') -Dotnet $sdk } | Should-Throw '*Model archive checksum failed*'
+        Should-NotInvoke tar
+    }
+
+    It 'stops after archive extraction fails' {
+        Mock git { $global:LASTEXITCODE = 0; 'abc1234' }
+        foreach ($relative in @('artifacts/model-cache/parakeet-110m/tokens.txt', 'artifacts/publish/models/parakeet-110m/tokens.txt')) {
+            $path = Join-Path $fixtureRoot $relative
+            if (Test-Path -LiteralPath $path) { Remove-Item -LiteralPath $path }
+        }
+        $archive = Join-Path $fixtureRoot 'artifacts/model-cache/parakeet-110m.tar.bz2'
+        [IO.File]::WriteAllBytes($archive, [Text.Encoding]::UTF8.GetBytes('fixture archive'))
+        Mock tar { $global:LASTEXITCODE = 1 }
+        { & (Join-Path $scripts 'build-release.ps1') -Dotnet $sdk } | Should-Throw '*Model archive extraction failed*'
     }
 
     It 'rejects damaged models before publishing binaries' {

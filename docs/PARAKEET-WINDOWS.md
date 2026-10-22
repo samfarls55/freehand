@@ -1,25 +1,27 @@
 # The bundled Windows speech model
 
-The Windows installer includes NVIDIA Parakeet TDT 0.6B v2, exported to ONNX and
+The Windows installer includes NVIDIA Parakeet TDT 110M, exported to ONNX and
 quantized to int8. English dictation runs locally through sherpa-onnx on the CPU.
 The packaged app needs no model download or model service.
 
 ## Installed files
 
-The default model lives beside the installed executable in `models/parakeet-v2`.
+The model lives beside the installed executable in `models/parakeet-110m`.
 Settings shows the resolved path and distinguishes **installed** from **loaded**.
 An unloaded model is normal: Freehand starts without a speech worker and unloads after
 five idle minutes by default.
 
 | Asset | Exact bytes |
 |---|---:|
-| `encoder.int8.onnx` | 652,184,296 |
-| `decoder.int8.onnx` | 7,257,753 |
-| `joiner.int8.onnx` | 1,739,080 |
-| `tokens.txt` | 9,384 |
+| `encoder.int8.onnx` | 131,113,202 |
+| `decoder.int8.onnx` | 3,955,863 |
+| `joiner.int8.onnx` | 1,411,403 |
+| `tokens.txt` | 9,953 |
 
-`packaging/model-manifest.json` records each SHA-256 hash and revision
-`1ab9323565ddb038682214b292f588070a538ce2`. The installer validates its payload and
+`packaging/model-manifest.json` records each SHA-256 hash, the 80-feature encoder
+configuration, and the pinned upstream archive. The archive SHA-256 is
+`f628312e9fdf8686374cb01a69425c41732529d540860311f16f37cbc32cfe9b`.
+The installer validates its payload and
 the model. The app rechecks assets when file metadata changes; routine dictation does
 not rehash the model. Repair always verifies the full model.
 
@@ -35,22 +37,39 @@ Preserve these settings when changing speech code:
 ```text
 Sample rate:     16000 Hz
 Audio:           owned mono float32 samples
-Features:        128
+Features:        80
 Model type:      nemo_transducer
 Provider:        cpu
 Threads:         4
-Decoding:        greedy_search
+Decoding:        modified_beam_search
+Active paths:    2
+Blank penalty:  0
 ```
 
 Native loading and inference run only in the app-owned worker. The desktop app never
-loads the recognizer. Ten-minute recordings are split into pieces of at most 60 seconds
-using silence boundaries. That bounds native inference requests and avoids long-input
-encoder limits.
+loads the recognizer. Two decoding paths gave a modest word-error reduction in the public
+speech comparison, with little additional memory. Wider searches and a positive blank
+penalty did not improve the selected configuration. See [PERFORMANCE.md](PERFORMANCE.md)
+for the measurements and their limits.
+
+Recordings are split into pieces of at most 15 seconds, favoring
+pauses scored over 200 ms. Completed pieces decode while capture continues. Release
+drains capture and finishes the tail before correcting and inserting the whole transcript.
+One retained recording supports retry without repeating delivery.
+
+The published `speech-cpu.config` disables ONNX Runtime's CPU memory arena so temporary
+inference allocations are released after each request. Memory-pattern planning stays
+enabled. The 15-second segment limit bounds temporary memory. The smaller model replaced
+the 0.6B v2 model; this build has one model configuration.
+Keep this configuration file beside the executable when copying a build.
 
 For source builds, place the same pinned assets under the output directory's
-`models/parakeet-v2`, use the release script, or select their directory in Settings.
-The `%LOCALAPPDATA%\Freehand\models\parakeet-v2` cache may be reused at build time.
+`models/parakeet-110m`, use the release script, or select their directory in Settings.
+The `%LOCALAPPDATA%\Freehand\models\parakeet-110m` cache may be reused at build time.
 Packaged operation uses the installed assets independently of that folder.
+
+An old custom path to 0.6B v2 assets fails verification. Select **Use bundled model**
+after installing this build. The previous installed app remains unchanged until deployment.
 
 ## Troubleshooting
 

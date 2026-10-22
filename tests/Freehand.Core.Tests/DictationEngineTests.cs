@@ -26,15 +26,23 @@ public sealed class DictationEngineTests
         params DictionaryEntry[] dictionary) =>
         new(capture, hotkey, transcriber, injector, () => dictionary, new FakeClock());
 
-    /// <summary>Presses, waits for capture to drain, then releases.</summary>
+    /// <summary>Waits for actual audio before release, then waits for completion.</summary>
     private static async Task DictateAsync(FakeHotkeySource hotkey, DictationEngine engine)
     {
-        hotkey.Press();
-        for (var i = 0; i < 2000 && engine.State != DictationState.Recording; i++) await Task.Yield();
-        for (var i = 0; i < 20000 && engine.Level == 0; i++) await Task.Yield();
-
-        hotkey.Release();
-        for (var i = 0; i < 20000 && engine.State != DictationState.Idle; i++) await Task.Yield();
+        var captured = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        void OnChanged(object? sender, EventArgs args)
+        {
+            if (engine.Level > 0) captured.TrySetResult();
+        }
+        engine.Changed += OnChanged;
+        try
+        {
+            hotkey.Press();
+            await captured.Task.WaitAsync(TimeSpan.FromSeconds(5));
+            hotkey.Release();
+            await LifecycleTests.WaitUntilAsync(() => engine.State == DictationState.Idle);
+        }
+        finally { engine.Changed -= OnChanged; }
     }
 
     [Fact]
@@ -54,11 +62,60 @@ public sealed class DictationEngineTests
         await DictateAsync(hotkey, engine);
 
         injector.Injected.ShouldHaveSingleItem();
-        injector.Injected[0].ShouldBe("I use Claude Code every day");
+        injector.Injected[0].ShouldBe("I use Claude Code every day ");
 
         completed.ShouldNotBeNull();
         completed.Corrections.ShouldHaveSingleItem();
         completed.Corrections[0].To.ShouldBe("Claude Code");
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Consecutive_dictations_are_separated_by_a_space_without_changing_transcript_text(bool targeted)
+    {
+        var hotkey = new FakeHotkeySource();
+        var injector = new RecordingTextInjector();
+        ITextInjector destination = targeted ? new TargetedRecordingInjector(injector) : injector;
+        await using var engine = new DictationEngine(FakeAudioCapture.Tone(0.4), hotkey,
+            new FakeTranscriber("First sentence.", "Second sentence."), destination, () => []);
+
+        await DictateAsync(hotkey, engine);
+        engine.LastResult!.Text.ShouldBe("First sentence.");
+        await DictateAsync(hotkey, engine);
+        engine.LastResult!.Text.ShouldBe("Second sentence.");
+
+        injector.Injected.Count.ShouldBe(2);
+        string.Concat(injector.Injected).ShouldBe("First sentence. Second sentence. ");
+    }
+
+    [Theory]
+    [InlineData("End. ")]
+    [InlineData("End.  ")]
+    [InlineData("End.\n")]
+    [InlineData("End.\r\n")]
+    [InlineData("End.\t")]
+    [InlineData("")]
+    public async Task Literal_correction_endings_are_preserved_without_an_extra_space(string replacement)
+    {
+        var hotkey = new FakeHotkeySource();
+        var injector = new RecordingTextInjector();
+        await using var engine = Build(FakeAudioCapture.Tone(0.4), hotkey,
+            new FakeTranscriber("finish"), injector, DictionaryEntry.Correction("finish", replacement));
+
+        await DictateAsync(hotkey, engine);
+
+        injector.Injected.ShouldHaveSingleItem().ShouldBe(replacement);
+        engine.LastResult!.Text.ShouldBe(replacement);
+    }
+
+    private sealed class TargetedRecordingInjector(RecordingTextInjector inner) : ITargetedTextInjector
+    {
+        public ValueTask<bool> InjectAsync(string text, CancellationToken cancellationToken) =>
+            throw new InvalidOperationException("The captured target must be used.");
+
+        public async ValueTask<DeliveryOutcome> InjectAsync(string text, ForegroundTarget target, CancellationToken cancellationToken) =>
+            await inner.InjectAsync(text, cancellationToken) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
     }
 
     [Fact]
@@ -220,5 +277,16 @@ public sealed class AudioSegmenterTests
 
         firstCut.ShouldBeGreaterThanOrEqualTo(quietStart);
         firstCut.ShouldBeLessThanOrEqualTo(quietStart + AudioChunk.SampleRate);
+    }
+
+    [Fact]
+    public void A_pause_is_preferred_to_a_brief_quiet_sound_inside_a_word()
+    {
+        var samples = Enumerable.Repeat(0.5f, 30 * AudioChunk.SampleRate).ToArray();
+        var pause = 13 * AudioChunk.SampleRate;
+        Array.Fill(samples, 0.01f, pause, AudioChunk.SampleRate / 5);
+        Array.Clear(samples, 14 * AudioChunk.SampleRate, AudioChunk.SampleRate / 25);
+        var cut = AudioSegmenter.Split(samples)[0].Length;
+        cut.ShouldBeInRange(pause, pause + AudioChunk.SampleRate / 5);
     }
 }

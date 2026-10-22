@@ -33,7 +33,8 @@ app. A startup self-test must exercise the published executable after packaging 
 - Use `SendInput` for text insertion at the caret. UI Automation is not a substitute.
 - Keep native model loading and inference off the keyboard hook thread.
 - Dispatch background transcript updates onto Avalonia's UI thread.
-- Parakeet uses CPU inference, four threads, 128 features, and `nemo_transducer`.
+- Parakeet TDT 110M uses CPU inference, four threads, 80 features, and `nemo_transducer`.
+  `packaging/model-manifest.json` pins its assets and configuration.
 - Preserve the versions in `Directory.Packages.props` unless updating dependencies is
   part of the requested work. sherpa-onnx provides its own ONNX Runtime.
 

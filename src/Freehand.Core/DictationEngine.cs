@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Threading.Channels;
 using Freehand.Abstractions;
 using Freehand.Dictionary;
 
@@ -91,7 +92,8 @@ public sealed class DictationEngine : IAsyncDisposable
     private long _releasedAt;
     private Guid _job;
     private DictationState _state;
-    private sealed record FailedJob(Guid Id, float[] Audio, ForegroundTarget Target, IReadOnlyList<DictionaryEntry> Entries);
+    private sealed record FailedJob(Guid Id, IReadOnlyList<ReadOnlyMemory<float>> Audio, int SampleCount,
+        ForegroundTarget Target, IReadOnlyList<DictionaryEntry> Entries);
     /// <summary>Current dictation state.</summary>
     public DictationState State { get { lock (_sync) return _state; } }
     /// <summary>Input level.</summary>
@@ -178,26 +180,35 @@ public sealed class DictationEngine : IAsyncDisposable
     }
     private async Task RecordAsync(Guid job, ForegroundTarget target, CancellationTokenSource recording, TaskCompletionSource released)
     {
-        var chunks = new List<float[]>();
-        var count = 0;
+        // The recording limit also bounds the queued and retained audio. The reader is
+        // sequential because one native recognizer owns the speech worker.
+        var segments = Channel.CreateUnbounded<ReadOnlyMemory<float>>(new UnboundedChannelOptions
+        {
+            SingleReader = true, SingleWriter = true,
+        });
+        var audio = new RecordingBuffer(segment => segments.Writer.TryWrite(segment));
+        using var decodeStop = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
         var pressAt = Stopwatch.GetTimestamp();
         var load = Task.Run(async () =>
         {
             if (_speech is ISpeechSession session) await session.BeginWorkAsync(_lifetime.Token).ConfigureAwait(false);
             return await _speech.LoadAsync(_lifetime.Token).ConfigureAwait(false);
         });
+        Task<string>? transcript = null;
         try
         {
+            var entries = _dictionary().ToArray();
+            transcript = DecodeRecordingAsync(segments.Reader, load, entries, decodeStop.Token);
             using var limit = new CancellationTokenSource();
             var stopAtLimit = StopAtLimitAsync(limit.Token);
             try
             {
                 await foreach (var chunk in _capture.CaptureAsync(recording.Token).ConfigureAwait(false))
                 {
-                    if (count == 0) _log?.Write(job, "first-audio", Stopwatch.GetElapsedTime(pressAt));
-                    var available = (int)(_options.RecordingLimit.TotalSeconds * AudioChunk.SampleRate) - count;
+                    if (audio.Count == 0) _log?.Write(job, "first-audio", Stopwatch.GetElapsedTime(pressAt));
+                    var available = (int)(_options.RecordingLimit.TotalSeconds * AudioChunk.SampleRate) - audio.Count;
                     var take = Math.Min(chunk.Samples.Length, Math.Max(0, available));
-                    if (take > 0) { chunks.Add(chunk.Samples[..take].ToArray()); count += take; }
+                    if (take > 0) audio.Append(chunk.Samples[..take]);
                     Level = chunk.Rms(); Changed?.Invoke(this, EventArgs.Empty);
                     if (take < chunk.Samples.Length || available == take)
                     {
@@ -210,29 +221,44 @@ public sealed class DictationEngine : IAsyncDisposable
             finally { await limit.CancelAsync().ConfigureAwait(false); await stopAtLimit.ConfigureAwait(false); }
             Level = 0;
             await released.Task.WaitAsync(_lifetime.Token).ConfigureAwait(false);
-            var audio = new float[count];
-            var offset = 0;
-            foreach (var chunk in chunks) { chunk.CopyTo(audio, offset); offset += chunk.Length; }
-            chunks.Clear();
-            if (audio.Length == 0 || new AudioChunk(audio).Rms() < 0.00001f) { Report(DictationOutcome.EmptySpeech, "No audio was heard. Check your microphone and Windows microphone access."); return; }
-            await ProcessAsync(new FailedJob(job, audio, target, _dictionary().ToArray()), load).ConfigureAwait(false);
+            if (audio.IsSilent) { Report(DictationOutcome.EmptySpeech, "No audio was heard. Check your microphone and Windows microphone access."); return; }
+            audio.Complete();
+            segments.Writer.TryComplete();
+            await ProcessAsync(new FailedJob(job, audio.Segments, audio.Count, target, _dictionary().ToArray()), transcript).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { Report(DictationOutcome.Cancelled, "Dictation cancelled."); }
         catch (Exception e) { _log?.Write(job, "capture-" + e.GetType().Name); Report(DictationOutcome.CaptureFailure, "The microphone stopped. Reconnect it or open Windows microphone settings, then try again."); }
         finally
         {
+            segments.Writer.TryComplete();
+            await decodeStop.CancelAsync().ConfigureAwait(false);
+            // Observe inference on capture failure and Quit before releasing the session.
+            if (transcript is not null) { try { await transcript.ConfigureAwait(false); } catch (Exception e) { _log?.Write(job, "decode-" + e.GetType().Name); } }
             try { await load.ConfigureAwait(false); } catch (Exception e) { _log?.Write(job, "load-" + e.GetType().Name); }
             if (_speech is ISpeechSession session) session.FinishWork();
             recording.Dispose(); Level = 0;
             lock (_sync) { _recording = null; _released = null; if (!_disposed) SetState(_failed is null ? DictationState.Idle : DictationState.AwaitingRetry); }
         }
     }
+    private async Task<string> DecodeRecordingAsync(ChannelReader<ReadOnlyMemory<float>> segments,
+        Task<bool> load, IReadOnlyList<DictionaryEntry> entries, CancellationToken cancellationToken)
+    {
+        if (!await load.ConfigureAwait(false)) throw new InvalidOperationException("Model unavailable");
+        var bias = DictionaryCorrector.BiasPhrases(entries);
+        var texts = new List<string>();
+        await foreach (var segment in segments.ReadAllAsync(cancellationToken).ConfigureAwait(false))
+        {
+            var text = await _speech.TranscribeAsync(segment, bias, cancellationToken).ConfigureAwait(false);
+            if (!string.IsNullOrWhiteSpace(text)) texts.Add(text.Trim());
+        }
+        return string.Join(' ', texts);
+    }
     private async Task StopAtLimitAsync(CancellationToken token)
     {
         try { await Task.Delay(_options.RecordingLimit, token).ConfigureAwait(false); EndRecording(); Report(DictationOutcome.RecordingLimit, "Recording reached its limit. Finishing the captured audio."); }
         catch (OperationCanceledException) when (token.IsCancellationRequested) { }
     }
-    private async Task ProcessAsync(FailedJob job, Task<bool>? initialLoad = null)
+    private async Task ProcessAsync(FailedJob job, Task<string>? initialTranscript = null)
     {
         string? raw = null;
         for (var attempt = 0; attempt < 2; attempt++)
@@ -240,13 +266,20 @@ public sealed class DictationEngine : IAsyncDisposable
             try
             {
                 if (attempt > 0) { SetState(DictationState.Recovering); if (_speech is ISpeechSession session) await session.ResetAsync(_lifetime.Token).ConfigureAwait(false); }
-                var loaded = attempt == 0 && initialLoad is not null ? await initialLoad.ConfigureAwait(false) : await _speech.LoadAsync(_lifetime.Token).ConfigureAwait(false);
+                if (attempt == 0 && initialTranscript is not null)
+                {
+                    SetState(DictationState.Transcribing);
+                    raw = await initialTranscript.ConfigureAwait(false);
+                    break;
+                }
+                var loaded = await _speech.LoadAsync(_lifetime.Token).ConfigureAwait(false);
                 if (!loaded) throw new InvalidOperationException("Model unavailable");
                 SetState(DictationState.Transcribing);
                 var texts = new List<string>();
-                foreach (var piece in AudioSegmenter.Split(job.Audio))
+                var bias = DictionaryCorrector.BiasPhrases(job.Entries);
+                foreach (var piece in job.Audio)
                 {
-                    var text = await _speech.TranscribeAsync(piece, DictionaryCorrector.BiasPhrases(job.Entries), _lifetime.Token).ConfigureAwait(false);
+                    var text = await _speech.TranscribeAsync(piece, bias, _lifetime.Token).ConfigureAwait(false);
                     if (!string.IsNullOrWhiteSpace(text)) texts.Add(text.Trim());
                 }
                 raw = string.Join(' ', texts); break;
@@ -277,16 +310,20 @@ public sealed class DictationEngine : IAsyncDisposable
                 try
                 {
                     _lifetime.Token.ThrowIfCancellationRequested();
+                    // Separate consecutive dictations at delivery. Keep the transcript
+                    // and any literal whitespace supplied by dictionary corrections intact.
+                    var insertionText = corrected.Length > 0 && !char.IsWhiteSpace(corrected[^1])
+                        ? corrected + " " : corrected;
                     delivery = _injector is ITargetedTextInjector targeted
-                        ? await targeted.InjectAsync(corrected, job.Target, _lifetime.Token).ConfigureAwait(false)
-                        : await _injector.InjectAsync(corrected, _lifetime.Token).ConfigureAwait(false) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
+                        ? await targeted.InjectAsync(insertionText, job.Target, _lifetime.Token).ConfigureAwait(false)
+                        : await _injector.InjectAsync(insertionText, _lifetime.Token).ConfigureAwait(false) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
                 }
                 catch (OperationCanceledException) { delivery = DeliveryOutcome.Cancelled; }
                 catch (Exception e) { _log?.Write(job.Id, "delivery-" + e.GetType().Name); delivery = DeliveryOutcome.PartialOrUncertain; }
             }
         }
         _failed = null;
-        var result = new DictationResult(_clock.Now, new AudioChunk(job.Audio).Duration, Stopwatch.GetElapsedTime(_releasedAt), corrected, applied)
+        var result = new DictationResult(_clock.Now, TimeSpan.FromSeconds((double)job.SampleCount / AudioChunk.SampleRate), Stopwatch.GetElapsedTime(_releasedAt), corrected, applied)
             { JobId = job.Id, Delivery = delivery, FirstInsertionTime = firstInsertion, TranscriptTime = transcriptTime };
         LastResult = result;
         Report(delivery is DeliveryOutcome.Delivered or DeliveryOutcome.Disabled ? DictationOutcome.Success : DictationOutcome.DeliveryFailure,
@@ -325,7 +362,11 @@ public sealed class DictationEngine : IAsyncDisposable
         finally { lock (_sync) _configuring = false; }
     }
     private void Report(DictationOutcome outcome, string message) { Feedback = new(outcome, message, _job); Changed?.Invoke(this, EventArgs.Empty); }
-    private void SetState(DictationState state) { lock (_sync) _state = state; _log?.Write(_job, "dictation-" + state); Changed?.Invoke(this, EventArgs.Empty); }
+    private void SetState(DictationState state)
+    {
+        lock (_sync) { if (_disposed && state != DictationState.Stopping) return; _state = state; }
+        _log?.Write(_job, "dictation-" + state); Changed?.Invoke(this, EventArgs.Empty);
+    }
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {

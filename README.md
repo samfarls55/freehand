@@ -11,7 +11,7 @@ The installer includes the speech model and runtime. You don't need an account, 
 ## What it does
 
 - Dictates into a focused text field with a global push-to-talk key.
-- Runs NVIDIA Parakeet TDT 0.6B v2 locally through sherpa-onnx, using CPU inference.
+- Runs NVIDIA Parakeet TDT 110M locally through sherpa-onnx, using CPU inference.
 - Applies explicit corrections for names, product names, and phrases.
 - Keeps a searchable transcript history, with copy and delete controls.
 - Runs in the Windows tray and can start when you sign in.
@@ -26,8 +26,8 @@ This release supports English dictation and ships as a Windows x64 package. ARM6
 
 - Windows 11 on a 64-bit Intel or AMD PC. Windows 10 and Windows on ARM have not been validated for this release.
 - A working microphone, selected as your Windows default input device.
-- About 4 GB of free disk space for the download, installed files, repair cache, and temporary setup files. The installer is roughly 800 MB because it includes the speech model.
-- Enough available memory for the speech worker. On the development machine, the app and loaded worker used roughly 1 GB. Usage and transcription time depend on your computer.
+- About 2 GB of free disk space for the download, installed files, repair cache, and temporary setup files. The installer includes the speech model.
+- Enough available memory for the speech worker. The smaller model retained about 191 MiB in isolated tests on the development machine. The desktop interface and temporary inference buffers use additional RAM. Usage and transcription time depend on your computer.
 
 The installer includes .NET and the native speech dependencies. You don't need to install .NET or developer tools to use Freehand.
 
@@ -196,12 +196,12 @@ The build treats compiler and analyzer warnings as errors. Keep dependency versi
 pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source
 ```
 
-The script publishes a self-contained x64 app, downloads the pinned model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. An internet connection is needed for NuGet restore and uncached downloads. The model files total about 631 MiB.
+The script publishes a self-contained x64 app, downloads the pinned model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. An internet connection is needed for NuGet restore and uncached downloads. The model files total about 130 MiB.
 
 The script can reuse matching model files from your installed app or its build cache. To use an existing download in another folder:
 
 ```powershell
-pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source -ModelSource 'C:\models\parakeet-v2'
+pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source -ModelSource 'C:\models\parakeet-110m'
 ```
 
 That directory must contain the files listed in [packaging/model-manifest.json](packaging/model-manifest.json). A different model revision will fail verification. The cache is only a build input. The installed app uses its own bundled files.
@@ -216,7 +216,7 @@ artifacts/release/Freehand-1.0.0-win-x64-Setup.exe.sha256
 
 Run the generated installer using the installation steps above. You can also launch `artifacts/publish/Freehand.App.exe` to try the unpacked app. Keep the whole publish folder together, including the platform DLL, native libraries, and `models` directory. Copying only the executable will not produce a working installation.
 
-A plain `dotnet run --project src/Freehand.App -c Release` does not download or bundle the model. Package the app first, or place the exact model assets in the build output's `models/parakeet-v2` folder. See [model setup](docs/PARAKEET-WINDOWS.md) for the inference configuration.
+A plain `dotnet run --project src/Freehand.App -c Release` does not download or bundle the model. Package the app first, or place the exact model assets in the build output's `models/parakeet-110m` folder. See [model setup](docs/PARAKEET-WINDOWS.md) for the inference configuration.
 
 ### Verify the package
 

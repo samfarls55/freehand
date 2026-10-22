@@ -160,7 +160,7 @@ The installer must include these pinned model assets:
 - `joiner.int8.onnx`
 - `tokens.txt`
 
-Keep model assets as installed files rather than extracting roughly 661 MB on every launch. Build a manifest with the exact model version, file sizes, and SHA-256 hashes. Validate assets during installation or repair and after detected changes. Routine hotkey presses must not rehash the entire model.
+Keep model assets as installed files rather than extracting them on every launch. Build a manifest with the exact model version, configuration, file sizes, and SHA-256 hashes. Validate assets during installation or repair and after detected changes. Routine hotkey presses must not rehash the entire model.
 
 The default installation must be independent of the old checkout, its publish directories, and Sam's existing model folder. Existing verified identical assets may be reused, but a fresh installation must include everything it needs. If a configured external model becomes unavailable, the bundled model remains available through the app.
 
@@ -168,7 +168,7 @@ Create a Start Menu shortcut with a stable application identity and icon. Suppor
 
 Closing the main window hides it. Tray Show, Settings, and Quit must continue working across repeated hide and reopen cycles. Keep hotkey ownership in the application lifecycle rather than a window constructor.
 
-Upgrade must stop the old app and worker, replace the installation coherently, and preserve user data. Uninstall must remove installed binaries and login startup entries while preserving user data by default. Include model attribution and applicable dependency notices. The distributed model identifies its license as CC-BY-4.0. [Model repository](https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/blob/main/README.md)
+Upgrade must stop the old app and worker, replace the installation coherently, and preserve user data. Uninstall must remove installed binaries and login startup entries while preserving user data by default. Include model attribution and applicable dependency notices. The distributed model identifies its license as CC-BY-4.0. [Model repository](https://huggingface.co/nvidia/parakeet-tdt_ctc-110m)
 
 One application does not require every dependency and model byte to be embedded in one executable. The installer owns those files, and the user runs one app.
 

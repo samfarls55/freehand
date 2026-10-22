@@ -15,8 +15,8 @@ namespace Freehand.Core;
 /// Attempting to broadcast an axis by a dimension other than 1. 126 by 5126
 /// </code>
 /// <para>
-/// Memory is the tighter constraint in practice: a 7-second clip already has a ~2 GB working
-/// set, and 300 seconds takes it past 4 GB. So the ceiling here is well below the hard limit.
+/// Native temporary memory grows with input length. Short segments bound the peak and
+/// let dictation decode completed portions while the microphone is still recording.
 /// </para>
 /// <para>
 /// Cuts are placed at the quietest point in a search window rather than at a fixed offset,
@@ -29,22 +29,21 @@ public static class AudioSegmenter
     public const int EncoderCeilingSeconds = 400;
 
     /// <summary>
-    /// Longest segment we will actually produce. Far below the ceiling, because memory grows
-    /// with length and a 60-second segment already costs ~2.5 GB.
+    /// Bounds native temporary memory and the audio still to decode after key release.
     /// </summary>
-    public const int MaxSegmentSeconds = 60;
+    public const int MaxSegmentSeconds = 15;
 
     /// <summary>
     /// How far back from the cut point to look for a quiet moment. A cut is placed at the
     /// lowest-energy window found here, so it lands in a pause rather than mid-word.
     /// </summary>
-    public const int SilenceSearchSeconds = 8;
+    public const int SilenceSearchSeconds = 3;
 
     private const int MaxSegmentSamples = MaxSegmentSeconds * AudioChunk.SampleRate;
     private const int SearchSamples = SilenceSearchSeconds * AudioChunk.SampleRate;
 
-    /// <summary>Window used when scoring quietness, in samples (~20 ms).</summary>
-    private const int EnergyWindow = AudioChunk.SampleRate / 50;
+    /// <summary>A 200 ms window favors pauses over brief low-energy sounds within a word.</summary>
+    private const int EnergyWindow = AudioChunk.SampleRate / 5;
 
     /// <summary>
     /// Splits <paramref name="samples"/> into segments no longer than
@@ -86,7 +85,7 @@ public static class AudioSegmenter
     /// <summary>
     /// Finds the lowest-energy window in <c>[from, to)</c> and returns its midpoint.
     /// </summary>
-    private static int FindQuietestPoint(ReadOnlySpan<float> samples, int from, int to)
+    internal static int FindQuietestPoint(ReadOnlySpan<float> samples, int from, int to)
     {
         from = Math.Max(from, 0);
         to = Math.Min(to, samples.Length);

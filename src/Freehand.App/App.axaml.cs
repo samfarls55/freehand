@@ -17,6 +17,7 @@ public partial class App : Application
     private StatusIndicator? _indicator;
     private bool _quitting;
     private Task _quitTask = Task.CompletedTask;
+    private int _feedbackPending;
     /// <inheritdoc />
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
     /// <inheritdoc />
@@ -30,7 +31,7 @@ public partial class App : Application
             if (desktop.Args?.Contains("--tray", StringComparer.Ordinal) != true) desktop.MainWindow = _main;
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             desktop.ShutdownRequested += (_, e) => { if (!_quitting) { e.Cancel = true; RequestQuit(); } };
-            _composition.Changed += (_, _) => Dispatcher.UIThread.Post(SyncFeedback);
+            _composition.Changed += (_, _) => QueueFeedback();
             _main.PropertyChanged += (_, e) =>
             {
                 if (e.Property == Visual.IsVisibleProperty || e.Property == Window.WindowStateProperty) SyncFeedback();
@@ -94,6 +95,13 @@ public partial class App : Application
     {
         if (_main is null || _quitting) return;
         _main.Show(); _main.WindowState = WindowState.Normal; _main.Activate(); SyncFeedback();
+    }
+    private void QueueFeedback()
+    {
+        // Recording buffers and model events may arrive faster than the UI can render.
+        // One queued refresh always reads the latest state.
+        if (Interlocked.Exchange(ref _feedbackPending, 1) != 0) return;
+        Dispatcher.UIThread.Post(() => { Volatile.Write(ref _feedbackPending, 0); SyncFeedback(); });
     }
     private void SyncFeedback()
     {

@@ -1,10 +1,11 @@
+using System.Runtime.InteropServices;
 using Freehand.Abstractions;
 using SherpaOnnx;
 
 namespace Freehand.Speech;
 
 /// <summary>
-/// NVIDIA Parakeet TDT, running locally through sherpa-onnx.
+/// NVIDIA Parakeet TDT 110M, running locally through sherpa-onnx.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -13,30 +14,18 @@ namespace Freehand.Speech;
 /// transcribe until the model files are downloaded. See <c>docs/PARAKEET-WINDOWS.md</c>.
 /// </para>
 /// <para>
-/// <b>CPU only, deliberately.</b> sherpa-onnx ships no GPU package at all — setting a CUDA
-/// provider silently falls back to CPU. DirectML is several releases behind, forbids parallel
-/// inference, and wants fixed tensor shapes, which a variable-length audio model cannot
-/// provide. With int8 weights on four threads this runs roughly 40× faster than real time,
-/// so none of that is worth the dependency.
+/// The pinned Windows runtime uses CPU inference on four threads. The model manifest
+/// defines the encoder's feature dimension and verified assets.
 /// </para>
 /// <para>
-/// <b>Biasing is not supported by this engine.</b> sherpa-onnx's offline recogniser has no
-/// contextual-strings equivalent to Apple's <c>AnalysisContext</c>, so the dictionary's
-/// correction pass carries the whole job on Windows. That pass was always the guarantee and
-/// biasing only ever the nudge, so behaviour matches — the Windows build simply has one fewer
-/// chance to get a name right before correction.
+/// Dictionary corrections run after recognition. The app does not send dictionary terms
+/// as native hotwords.
 /// </para>
 /// </remarks>
 public sealed class ParakeetTranscriber : ITranscriber
 {
-    /// <summary>Threads for inference. Four measured fastest; eight measured slower.</summary>
+    /// <summary>CPU inference threads.</summary>
     private const int Threads = 4;
-
-    /// <summary>
-    /// Feature dimension. <b>Must be 128</b> — the library defaults to 80, which is wrong for
-    /// this model.
-    /// </summary>
-    private const int FeatureDim = 128;
 
     /// <summary>
     /// Model family. <b>Required.</b> Without it the model fails to load.
@@ -60,10 +49,10 @@ public sealed class ParakeetTranscriber : ITranscriber
     /// </remarks>
     public static IEnumerable<string> DefaultSearchPaths()
     {
-        yield return Path.Combine(AppContext.BaseDirectory, "models", "parakeet-v2");
+        yield return Path.Combine(AppContext.BaseDirectory, "models", ModelResolver.DirectoryName);
         yield return Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "Freehand", "models", "parakeet-v2");
+            "Freehand", "models", ModelResolver.DirectoryName);
 
         // AppContext.BaseDirectory, not Assembly.Location — the latter returns an empty
         // string in a single-file app, which silently resolves paths against the current
@@ -101,7 +90,7 @@ public sealed class ParakeetTranscriber : ITranscriber
 
         var config = new OfflineRecognizerConfig();
         config.FeatConfig.SampleRate = AudioChunk.SampleRate;
-        config.FeatConfig.FeatureDim = FeatureDim;
+        config.FeatConfig.FeatureDim = ModelResolver.FeatureDimension;
 
         config.ModelConfig.Transducer.Encoder = Path.Combine(_modelDirectory, "encoder.int8.onnx");
         config.ModelConfig.Transducer.Decoder = Path.Combine(_modelDirectory, "decoder.int8.onnx");
@@ -109,8 +98,11 @@ public sealed class ParakeetTranscriber : ITranscriber
         config.ModelConfig.Tokens = Path.Combine(_modelDirectory, "tokens.txt");
         config.ModelConfig.ModelType = ModelType;
         config.ModelConfig.NumThreads = Threads;
-        config.ModelConfig.Provider = "cpu";
-        config.DecodingMethod = "greedy_search";
+        config.ModelConfig.Provider = "cpu:" + Path.Combine(AppContext.BaseDirectory, "speech-cpu.config");
+        // Two paths reduced word errors in the public speech comparison. Wider searches
+        // added decoding time without reducing errors further.
+        config.DecodingMethod = "modified_beam_search";
+        config.MaxActivePaths = 2;
 
         _recognizer = new OfflineRecognizer(config);
         return ValueTask.FromResult(true);
@@ -118,7 +110,7 @@ public sealed class ParakeetTranscriber : ITranscriber
 
     /// <inheritdoc />
     /// <remarks>
-    /// <paramref name="biasPhrases"/> is accepted and ignored — see the class remarks. Audio
+    /// <paramref name="biasPhrases"/> is accepted and ignored. Audio
     /// longer than the encoder can handle is the caller's problem; <c>AudioSegmenter</c>
     /// splits it before this is reached.
     /// </remarks>
@@ -132,7 +124,11 @@ public sealed class ParakeetTranscriber : ITranscriber
         cancellationToken.ThrowIfCancellationRequested();
 
         using var stream = _recognizer.CreateStream();
-        stream.AcceptWaveform(AudioChunk.SampleRate, samples.ToArray());
+        // The worker already owns an exact-sized array. Sherpa accepts the whole array,
+        // so only sliced or non-array memory needs another copy.
+        var waveform = MemoryMarshal.TryGetArray(samples, out var segment) && segment.Offset == 0
+            && segment.Array is { } array && segment.Count == array.Length ? array : samples.ToArray();
+        stream.AcceptWaveform(AudioChunk.SampleRate, waveform);
         _recognizer.Decode(stream);
 
         return ValueTask.FromResult(stream.Result.Text?.Trim() ?? string.Empty);

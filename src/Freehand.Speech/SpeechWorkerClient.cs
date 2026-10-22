@@ -140,7 +140,14 @@ public sealed class SpeechWorkerClient : ISpeechSession
                 if (response.Kind != "text") throw new InvalidDataException("Unexpected transcription reply");
                 return response.Value ?? string.Empty;
             }
-            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { throw new TimeoutException("Inference segment timed out"); }
+            catch (OperationCanceledException)
+            {
+                // A cancelled pipe read can leave an obsolete reply behind. A replacement
+                // worker keeps the next accepted recording from consuming that reply.
+                await StopWorkerAsync().ConfigureAwait(false);
+                if (cancellationToken.IsCancellationRequested) throw;
+                throw new TimeoutException("Inference segment timed out");
+            }
         }
         finally { _gate.Release(); }
     }
