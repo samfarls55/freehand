@@ -10,343 +10,230 @@ using Freehand.Core;
 
 namespace Freehand.App.Views;
 
-/// <summary>
-/// The main window — the front panel of the unit.
-/// </summary>
-/// <remarks>
-/// <para>
-/// Laid out the way a deck is: transport and meter across the top on the panel itself, then a
-/// recessed well below holding whichever section is selected.
-/// </para>
-/// <para>
-/// Built in code rather than XAML, deliberately. Every value comes from <see cref="Tokens"/>,
-/// and XAML makes it far too easy to type a literal <c>Margin="12,8"</c> that silently escapes
-/// the design system. In C# a stray number is visible in review.
-/// </para>
-/// </remarks>
+/// <summary>The Compact history, dictionary, and settings window.</summary>
 public sealed class MainWindow : Window
 {
     private readonly Composition? _composition;
-    private readonly TransportKey _recordKey;
-    private readonly Lamp _recordLamp;
-    private readonly VuMeter _meter;
-    private readonly TextBlock _counter;
-    private readonly ContentControl _sectionHost;
-    private readonly TransportKey _transcriptionsKey;
-    private readonly TransportKey _dictionaryKey;
-    private readonly DispatcherTimer _counterTimer;
-
-    private Control? _transcriptionsView;
-    private Control? _dictionaryView;
-    private DateTimeOffset? _startedAt;
-    private readonly TextBlock _status = new() { TextWrapping = TextWrapping.Wrap, Foreground = Tokens.Brushes.Ink };
+    private readonly TranscriptStore? _transcripts;
+    private readonly DictionaryFile? _dictionary;
+    private readonly AppSettings? _settings;
+    private readonly ContentControl _sectionHost = new();
+    private readonly Dictionary<string, Button> _tabs = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Border> _tabLines = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Control> _views = new(StringComparer.Ordinal);
+    private readonly Button _record = Panels.Button("Record");
+    private readonly Lamp _recordLamp = new();
+    private readonly DictationActivity _activity = new() { IsVisible = false };
+    private readonly TextBlock _recordLabel = Panels.Text("Record", Tokens.Fonts.Control);
+    private readonly TextBlock _counter = Panels.Text("00:00", Tokens.Fonts.Label, muted: true);
+    private readonly TextBlock _shortcut = Panels.Text("Right Ctrl", Tokens.Fonts.Label, muted: true);
+    private readonly TextBlock _status = Panels.Text("", Tokens.Fonts.Control);
     private readonly TextBox _latest = new() { IsReadOnly = true, TextWrapping = TextWrapping.Wrap, MaxHeight = Tokens.Size.TranscriptHeight, AcceptsReturn = true };
-    private readonly Button _retry = new() { Content = "RETRY" };
-    private readonly Button _discard = new() { Content = "DISCARD" };
+    private readonly Button _retry = Panels.Button("Retry", primary: true);
+    private readonly Button _discard = Panels.Button("Discard", quiet: true);
+    private readonly Button _copy = Panels.Button("Copy", quiet: true);
+    private readonly Border _feedback;
+    private readonly DispatcherTimer _timer;
+    private DateTimeOffset? _startedAt;
+
     /// <summary>Only explicit application shutdown destroys this window.</summary>
     public bool AllowClose { get; set; }
-
-    /// <summary>Builds a window with no engine behind it. Used by headless tests.</summary>
+    /// <summary>Builds an empty window for layout tests.</summary>
     public MainWindow() : this(null) { }
+    /// <summary>Builds the window over the existing application services.</summary>
+    public MainWindow(Composition? composition) : this(composition, composition?.Transcripts, composition?.Dictionary, composition?.Settings) { }
 
-    /// <summary>Builds the window over <paramref name="composition"/>.</summary>
-    public MainWindow(Composition? composition)
+    internal MainWindow(Composition? composition, TranscriptStore? transcripts, DictionaryFile? dictionary, AppSettings? settings)
     {
-        _composition = composition;
-
+        _composition = composition; _transcripts = transcripts; _dictionary = dictionary; _settings = settings;
         Title = "Freehand";
-        MinWidth = 720;
-        MinHeight = 520;
-        Width = 880;
-        Height = 640;
+        Width = Tokens.Size.WindowWidth; Height = Tokens.Size.WindowHeight;
+        MinWidth = Tokens.Size.MinimumWidth; MinHeight = Tokens.Size.MinimumHeight;
         Background = Tokens.Brushes.Chassis;
-
-        _recordKey = new TransportKey { Content = "RECORD" };
-        _recordKey.Click += (_, _) => ToggleRecording();
-
-        _recordLamp = new Lamp { LampColor = Tokens.Colors.Record };
-        _meter = new VuMeter { Width = 168, Height = 54 };
-
-        _counter = new TextBlock
+        _counter.FontFamily = Tokens.Fonts.Mono;
+        _record.Content = new StackPanel
         {
-            Text = "00:00",
-            FontFamily = Tokens.Fonts.Mono,
-            FontSize = Tokens.Fonts.CounterLarge,
-            Foreground = Tokens.Brushes.InkOnDeck,
+            Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Base,
+            Children = { _recordLamp, _recordLabel, _activity, _counter },
         };
-
-        _transcriptionsKey = new TransportKey { Content = "TRANSCRIPTIONS", IsEngaged = true };
-        _dictionaryKey = new TransportKey { Content = "DICTIONARY" };
-        _transcriptionsKey.Click += (_, _) => ShowSection(transcriptions: true);
-        _dictionaryKey.Click += (_, _) => ShowSection(transcriptions: false);
-
-        _sectionHost = new ContentControl();
-
-        // The meter and counter are polled rather than pushed. The engine raises Changed on
-        // a background thread at buffer rate, and marshalling every one of those to the UI
-        // thread would be far more traffic than a display refresh needs.
-        _counterTimer = new DispatcherTimer(DispatcherPriority.Background)
+        _record.CornerRadius = new CornerRadius(Tokens.Radius.Status);
+        _record.Click += (_, _) => ToggleRecording();
+        _retry.Click += (_, _) =>
         {
-            Interval = TimeSpan.FromMilliseconds(100),
+            if (_composition?.Engine?.State == DictationState.AwaitingRetry) _composition.Engine.Retry();
+            else _composition?.Engine?.RefreshReadiness();
         };
-        _counterTimer.Tick += (_, _) => SyncFromEngine();
-        PropertyChanged += (_, e) => { if (e.Property == IsVisibleProperty) { if (IsVisible) _counterTimer.Start(); else _counterTimer.Stop(); } };
-
+        _discard.Click += (_, _) => _composition?.Engine?.Discard();
+        _copy.Click += async (_, _) =>
+        {
+            if (Clipboard is not null && _composition?.Engine?.LastResult is { } result)
+                await Clipboard.SetTextAsync(result.Text).ConfigureAwait(true);
+        };
+        _feedback = new Border
+        {
+            IsVisible = false, Background = Tokens.Brushes.Panel,
+            CornerRadius = new CornerRadius(Tokens.Radius.Panel), Padding = new Thickness(Tokens.Space.Roomy),
+            Margin = new Thickness(Tokens.Space.Gutter, 0, Tokens.Space.Gutter, 0),
+            Child = new StackPanel { Spacing = Tokens.Space.Snug, Children =
+            {
+                _status, _latest, new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, Children = { _retry, _discard, _copy } },
+            } },
+        };
         Content = BuildLayout();
-        ShowSection(transcriptions: true);
-
+        ShowSection("History");
+        _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromMilliseconds(100) };
+        _timer.Tick += (_, _) => SyncFromEngine();
+        PropertyChanged += (_, e) =>
+        {
+            if (e.Property == IsVisibleProperty) { if (IsVisible) _timer.Start(); else _timer.Stop(); }
+        };
         Closing += (_, e) => { if (_composition is not null && !AllowClose) { e.Cancel = true; Hide(); } };
+        SyncRecording(DictationState.Idle, 0);
+        SyncStatus();
     }
 
     private DockPanel BuildLayout()
     {
-        var root = new DockPanel { Margin = new Thickness(Tokens.Space.Roomy) };
-
-        root.Children.Add(Panels.Docked(BuildTransportPanel(), Dock.Top));
-        root.Children.Add(Panels.Docked(BuildSectionKeys(), Dock.Top));
-
-        var copy = new Button { Content = "COPY" };
-        copy.Click += async (_, _) => { if (Clipboard is not null && _composition?.Engine?.LastResult is { } result) await Clipboard.SetTextAsync(result.Text).ConfigureAwait(true); };
-        _retry.Click += (_, _) => { if (_composition?.Engine?.State == DictationState.AwaitingRetry) _composition.Engine.Retry(); else _composition?.Engine?.RefreshReadiness(); };
-        _discard.Click += (_, _) => _composition?.Engine?.Discard();
-        root.Children.Add(Panels.Docked(new StackPanel { Spacing = Tokens.Space.Snug, Children = { _status, _latest,
-            new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, Children = { _retry, _discard, copy } } } }, Dock.Top));
-
-        root.Children.Add(BuildWell(_sectionHost));
+        var nav = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, HorizontalAlignment = HorizontalAlignment.Center };
+        foreach (var section in new[] { "History", "Dictionary", "Settings" })
+        {
+            var tab = Panels.Button(section, quiet: true);
+            tab.Click += (_, _) => ShowSection(section);
+            _tabs.Add(section, tab);
+            var line = new Border { BorderThickness = new Thickness(0, 0, 0, Tokens.Material.NavigationUnderline), Padding = new Thickness(0, Tokens.Space.Snug), Child = tab };
+            _tabLines.Add(section, line); nav.Children.Add(line);
+        }
+        var wordmark = Panels.Text("Freehand", Tokens.Fonts.Section);
+        wordmark.FontWeight = FontWeight.SemiBold;
+        var brand = new StackPanel
+        {
+            Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Base, VerticalAlignment = VerticalAlignment.Center,
+            Children =
+            {
+                new Avalonia.Controls.Shapes.Path
+                {
+                    Data = Geometry.Parse("M 2 9 V 15 M 7 4 V 20 M 12 1 V 23 M 17 6 V 18 M 22 9 V 15"),
+                    Width = Tokens.Size.BrandMark, Height = Tokens.Size.BrandMark,
+                    Stroke = Tokens.Brushes.Ink, StrokeThickness = Tokens.Material.IconStroke,
+                    StrokeLineCap = PenLineCap.Round, Stretch = Stretch.Uniform,
+                },
+                wordmark,
+            },
+        };
+        var header = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto,*"),
+            Margin = new Thickness(Tokens.Space.Panel, 0), Children = { brand, nav },
+        };
+        Grid.SetColumn(nav, 1);
+        var footer = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto,*"),
+            Margin = new Thickness(Tokens.Space.Gutter, Tokens.Space.Roomy), Children = { _record, _shortcut },
+        };
+        Grid.SetColumn(_record, 1); Grid.SetColumn(_shortcut, 2); _shortcut.HorizontalAlignment = HorizontalAlignment.Right;
+        var root = new DockPanel();
+        root.Children.Add(Panels.Docked(new Border
+        {
+            BorderBrush = Tokens.Brushes.Seam, BorderThickness = new Thickness(0, 0, 0, Tokens.Border.Hairline), Child = header,
+        }, Dock.Top));
+        root.Children.Add(Panels.Docked(footer, Dock.Bottom));
+        root.Children.Add(Panels.Docked(_feedback, Dock.Bottom));
+        _sectionHost.Margin = new Thickness(Tokens.Space.Gutter, 0);
+        _sectionHost.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        _sectionHost.VerticalContentAlignment = VerticalAlignment.Stretch;
+        root.Children.Add(_sectionHost);
         return root;
     }
 
-    /// <summary>Record/stop, the record lamp, the level meter and the tape counter.</summary>
-    private BrushedPanel BuildTransportPanel()
+    internal void ShowSection(string section)
     {
-        var row = new StackPanel
+        foreach (var (name, tab) in _tabs)
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = Tokens.Space.Wide,
-            Margin = new Thickness(Tokens.Space.Roomy),
-        };
-
-        row.Children.Add(Panels.Labelled("TRANSPORT", new StackPanel
+            var selected = string.Equals(name, section, StringComparison.Ordinal);
+            CompactTheme.SetButtonResources(tab.Resources, Brushes.Transparent, selected ? Tokens.Brushes.Ink : Tokens.Brushes.Muted);
+            tab.FontWeight = selected ? FontWeight.SemiBold : FontWeight.Normal;
+            _tabLines[name].BorderBrush = selected ? Tokens.Brushes.Accent : Brushes.Transparent;
+            Avalonia.Automation.AutomationProperties.SetName(tab, name + (selected ? ", selected" : ""));
+        }
+        if (!_views.TryGetValue(section, out var view))
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = Tokens.Space.Snug,
-            Children =
+            view = section switch
             {
-                _recordKey,
-                new StackPanel
-                {
-                    Orientation = Orientation.Horizontal,
-                    Spacing = Tokens.Space.Tight,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Children = { _recordLamp, new Silkscreen { Text = "REC" } },
-                },
-            },
-        }));
-
-        row.Children.Add(Panels.Labelled("LEVEL", _meter));
-        row.Children.Add(Panels.Labelled("COUNTER", Deck(_counter)));
-
-        var settings = new TransportKey { Content = "SETTINGS" };
-        settings.Click += (_, _) => ShowSettings();
-
-        row.Children.Add(new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = Tokens.Space.Base,
-            VerticalAlignment = VerticalAlignment.Bottom,
-            Children = { settings, new Vents { Count = 8, VerticalAlignment = VerticalAlignment.Center } },
-        });
-
-        return new BrushedPanel { Child = row, Margin = new Thickness(0, 0, 0, Tokens.Space.Base) };
+                "History" when _transcripts is not null => new TranscriptionsView(_transcripts),
+                "Dictionary" when _dictionary is not null => new DictionaryView(_dictionary),
+                "Settings" when _settings is not null => new SettingsView(_settings, _composition),
+                _ => new StackPanel { Children = { Panels.Heading(section), Panels.EmptyState(section == "History" ? "No transcripts yet" : "No entries yet") } },
+            };
+            _views.Add(section, view);
+        }
+        _sectionHost.Content = view;
     }
 
-    private StackPanel BuildSectionKeys() => new()
-    {
-        Orientation = Orientation.Horizontal,
-        Spacing = Tokens.Space.Snug,
-        Margin = new Thickness(0, 0, 0, Tokens.Space.Base),
-        Children = { _transcriptionsKey, _dictionaryKey },
-    };
-
-    /// <summary>
-    /// A standing notice that the app cannot transcribe yet.
-    /// </summary>
-    /// <remarks>
-    /// Unlike macOS, Windows has no built-in engine to fall back on, so a missing model means
-    /// the app does nothing at all. That has to be visible on the front panel rather than
-    /// buried in Settings.
-    /// </remarks>
-    private static BrushedPanel BuildModelBanner() => new()
-    {
-        Margin = new Thickness(0, 0, 0, Tokens.Space.Base),
-        Child = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = Tokens.Space.Base,
-            Margin = new Thickness(Tokens.Space.Base),
-            Children =
-            {
-                new Lamp
-                {
-                    IsLit = true,
-                    LampColor = Tokens.Colors.MeterAmber,
-                    VerticalAlignment = VerticalAlignment.Center,
-                },
-                new TextBlock
-                {
-                    Text = "Speech model not installed — Freehand cannot transcribe yet. "
-                         + "See Settings, or docs/PARAKEET-WINDOWS.md.",
-                    FontFamily = Tokens.Fonts.Grotesque,
-                    FontSize = Tokens.Fonts.Label,
-                    Foreground = Tokens.Brushes.Ink,
-                    TextWrapping = TextWrapping.Wrap,
-                    VerticalAlignment = VerticalAlignment.Center,
-                },
-            },
-        },
-    };
-
-    /// <summary>A recessed well cut into the panel — content sits inside it.</summary>
-    private static Border BuildWell(Control content) => new()
-    {
-        Background = Tokens.Brushes.Well,
-        CornerRadius = new CornerRadius(Tokens.Radius.Panel),
-        BorderBrush = new SolidColorBrush(Tokens.Colors.Seam, 0.55),
-        BorderThickness = new Thickness(Tokens.Border.Hairline),
-        Padding = new Thickness(Tokens.Space.Hair),
-        Child = content,
-    };
-
-    /// <summary>The dark readout window of a tape deck.</summary>
-    private static Border Deck(Control content) => new()
-    {
-        Background = Tokens.Brushes.Deck,
-        CornerRadius = new CornerRadius(Tokens.Radius.Panel),
-        BorderBrush = new SolidColorBrush(Tokens.Colors.Seam),
-        BorderThickness = new Thickness(Tokens.Border.Hairline),
-        Padding = new Thickness(Tokens.Space.Base, Tokens.Space.Snug),
-        Child = content,
-    };
-
-    private void ShowSection(bool transcriptions)
-    {
-        _transcriptionsKey.IsEngaged = transcriptions;
-        _dictionaryKey.IsEngaged = !transcriptions;
-
-        if (_composition is null)
-        {
-            _sectionHost.Content = Panels.EmptyState(
-                transcriptions ? "NO RECORDINGS" : "DICTIONARY EMPTY",
-                transcriptions ? "Press Record to start." : "Add words it keeps getting wrong.");
-            return;
-        }
-
-        // Built once and reused: rebuilding would drop the user's search text every time
-        // they switched tabs.
-        if (transcriptions)
-        {
-            _transcriptionsView ??= new TranscriptionsView(_composition.Transcripts);
-            _sectionHost.Content = _transcriptionsView;
-        }
-        else
-        {
-            _dictionaryView ??= new DictionaryView(_composition.Dictionary);
-            _sectionHost.Content = _dictionaryView;
-        }
-    }
-
-    private void ShowSettings()
-    {
-        if (_composition is null) return;
-        _ = new SettingsWindow(_composition.Settings, _composition).ShowDialog(this);
-    }
-
-    /// <summary>Pulls state from the engine onto the panel.</summary>
-    private void SyncFromEngine()
-    {
-        var engine = _composition?.Engine;
-        if (engine is null)
-        {
-            if (_startedAt is not null) UpdateCounter();
-            return;
-        }
-
-        var recording = engine.State == DictationState.Recording;
-
-        _meter.Level = engine.Level;
-        _meter.IsActive = recording;
-        _recordLamp.IsLit = engine.State == DictationState.Recording;
-        _recordKey.IsEngaged = recording;
-        _recordKey.Content = recording ? "STOP" : "RECORD";
-
-        if (recording && _startedAt is null) _startedAt = DateTimeOffset.Now;
-        else if (!recording) _startedAt = null;
-
-        UpdateCounter();
-        SyncStatus();
-    }
-    /// <summary>Updates feedback on Avalonia's UI thread.</summary>
+    /// <summary>Updates feedback using the existing dictation state machine.</summary>
     public void SyncStatus()
     {
         var engine = _composition?.Engine;
         if (engine is null) return;
-        _status.Text = engine.Feedback?.Message ?? engine.State.ToString();
-        _latest.Text = engine.LastResult?.Text ?? "";
-        _latest.IsVisible = engine.LastResult is not null;
-        _retry.IsVisible = engine.State == DictationState.AwaitingRetry || engine.Feedback?.Outcome == DictationOutcome.CaptureFailure;
-        _discard.IsVisible = engine.State == DictationState.AwaitingRetry;
-        SyncLamp();
-    }
-    private void SyncLamp()
-    {
-        var recording = _composition?.Engine?.State == DictationState.Recording;
-        _recordLamp.IsLit = recording; _meter.IsActive = recording && IsVisible;
-        _recordKey.IsEngaged = recording; _recordKey.Content = recording ? "STOP" : "RECORD";
+        ApplyFeedback(engine.State, engine.Level, engine.LastResult, engine.Feedback);
     }
 
-    private void UpdateCounter()
+    internal void ApplyFeedback(DictationState state, float level, DictationResult? lastResult, DictationFeedback? feedback)
     {
+        var attention = state == DictationState.AwaitingRetry || feedback?.Outcome is
+            DictationOutcome.CaptureFailure or DictationOutcome.DeliveryFailure or DictationOutcome.EmptySpeech;
+        var showTranscript = lastResult is not null && (feedback?.Outcome == DictationOutcome.DeliveryFailure || _settings?.Data.KeepHistory == false);
+        _feedback.IsVisible = attention || showTranscript;
+        _feedback.BorderBrush = Tokens.Brushes.Attention;
+        _feedback.BorderThickness = new Thickness(attention ? Tokens.Border.Hairline : 0);
+        _status.Foreground = attention ? Tokens.Brushes.Attention : Tokens.Brushes.Ink;
+        _status.Text = feedback?.Message ?? state.ToString();
+        _latest.Text = lastResult?.Text ?? "";
+        _latest.IsVisible = showTranscript; _copy.IsVisible = showTranscript;
+        _retry.IsVisible = state == DictationState.AwaitingRetry || feedback?.Outcome == DictationOutcome.CaptureFailure;
+        _discard.IsVisible = state == DictationState.AwaitingRetry;
+        SyncRecording(state, level);
+    }
+
+    private void SyncFromEngine()
+    {
+        if (_composition?.Engine is not null) SyncStatus();
         var elapsed = _startedAt is null ? TimeSpan.Zero : DateTimeOffset.Now - _startedAt.Value;
-        _counter.Text = string.Create(
-            CultureInfo.InvariantCulture,
-            $"{(int)elapsed.TotalMinutes:00}:{elapsed.Seconds:00}");
+        _counter.Text = string.Create(CultureInfo.InvariantCulture, $"{(int)elapsed.TotalMinutes:00}:{elapsed.Seconds:00}");
+        if (!IsRecording) _activity.Advance();
     }
 
-    /// <summary>Toggles the transport. Exposed for headless tests.</summary>
+    private void SyncRecording(DictationState state, float level)
+    {
+        IsRecording = state == DictationState.Recording;
+        if (IsRecording && _startedAt is null) _startedAt = DateTimeOffset.Now;
+        else if (!IsRecording) _startedAt = null;
+        var processing = state is DictationState.Preparing or DictationState.Transcribing or DictationState.Recovering or DictationState.Delivering or DictationState.Stopping;
+        _recordLamp.IsLit = IsRecording;
+        _recordLabel.Text = state switch
+        {
+            DictationState.Recording => "Stop recording", DictationState.Preparing => "Preparing",
+            DictationState.Transcribing => "Transcribing", DictationState.Recovering => "Recovering",
+            DictationState.Delivering => "Inserting", DictationState.Stopping => "Finishing", _ => "Record",
+        };
+        _recordLabel.Foreground = IsRecording ? Tokens.Brushes.Record : Tokens.Brushes.Ink;
+        _activity.IsVisible = IsRecording || processing; _activity.Update(state, level);
+        _counter.IsVisible = IsRecording;
+        _record.IsEnabled = !processing && state != DictationState.AwaitingRetry;
+        var key = _settings?.Data.PushToTalkKey ?? 0xA3;
+        _shortcut.Text = SettingsView.KeyLabel(key);
+    }
+
+    /// <summary>Routes the button through the same engine used by the global hotkey.</summary>
     public void ToggleRecording()
     {
-        // With no engine — a headless test, or a machine with no platform layer — the panel
-        // still toggles so the visual state can be exercised.
-        if (_composition?.Engine is null)
-        {
-            IsRecording = !IsRecording;
-            _recordKey.Content = IsRecording ? "STOP" : "RECORD";
-            _recordKey.IsEngaged = IsRecording;
-            _recordLamp.IsLit = IsRecording;
-            _meter.IsActive = IsRecording;
-            _startedAt = IsRecording ? DateTimeOffset.Now : null;
-            return;
-        }
-
-        // The button is a convenience; the hotkey is the real trigger. Both funnel through
-        // the same engine so there is only ever one state machine.
-        _composition.Engine.TogglePushToTalk();
-        SyncFromEngine();
+        if (_composition?.Engine is { } engine) { engine.TogglePushToTalk(); SyncFromEngine(); }
+        else SyncRecording(IsRecording ? DictationState.Idle : DictationState.Recording, 0);
     }
-
-    /// <summary>Whether the transport is engaged. Exposed for headless tests.</summary>
+    /// <summary>Whether the engine is recording.</summary>
     public bool IsRecording { get; private set; }
-
-    /// <summary>The record lamp. Exposed for headless tests.</summary>
+    /// <summary>The visible recording dot.</summary>
     public Lamp RecordLamp => _recordLamp;
-
-    /// <summary>The level meter. Exposed for headless tests.</summary>
-    public VuMeter Meter => _meter;
-
     /// <inheritdoc />
-    protected override void OnClosed(EventArgs e)
-    {
-        _counterTimer.Stop();
-        base.OnClosed(e);
-    }
+    protected override void OnClosed(EventArgs e) { _timer.Stop(); base.OnClosed(e); }
 }

@@ -57,7 +57,7 @@ internal sealed class DictationActivity : Control
         var radius = Tokens.Material.StatusDotSize / 2;
         for (var i = 0; i < Tokens.Material.StatusDotCount; i++)
         {
-            var brush = new SolidColorBrush(Tokens.Colors.MeterAmber, i == _dot ? 1 : Tokens.Material.StatusDimOpacity);
+            var brush = new SolidColorBrush(Tokens.Colors.Accent, i == _dot ? 1 : Tokens.Material.StatusDimOpacity);
             context.DrawEllipse(brush, null, new Point(pitch * (i + 0.5), Bounds.Height / 2), radius, radius);
         }
     }

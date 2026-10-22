@@ -61,7 +61,7 @@ internal sealed class StatusIndicator : Window
         Content = new Border
         {
             Background = Tokens.Brushes.Deck,
-            BorderBrush = new SolidColorBrush(Tokens.Colors.InkOnDeck, Tokens.Material.StatusDimOpacity),
+            BorderBrush = Tokens.Brushes.Seam,
             BorderThickness = new Thickness(Tokens.Border.Hairline),
             CornerRadius = new CornerRadius(Tokens.Radius.Status),
             Child = row,
@@ -114,7 +114,8 @@ internal sealed class StatusIndicator : Window
             _attention = null;
         }
         Width = active ? Tokens.Size.StatusWidth : Tokens.Size.StatusAttentionWidth;
-        _lamp.LampColor = state == DictationState.Recording ? Tokens.Colors.Record : Tokens.Colors.MeterAmber;
+        _lamp.LampColor = state == DictationState.Recording ? Tokens.Colors.Record
+            : active ? Tokens.Colors.Accent : Tokens.Colors.MeterAmber;
         _text.Text = state switch
         {
             DictationState.Recording => "Recording",

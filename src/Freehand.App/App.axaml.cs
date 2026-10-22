@@ -19,7 +19,11 @@ public partial class App : Application
     private Task _quitTask = Task.CompletedTask;
     private int _feedbackPending;
     /// <inheritdoc />
-    public override void Initialize() => AvaloniaXamlLoader.Load(this);
+    public override void Initialize()
+    {
+        AvaloniaXamlLoader.Load(this);
+        Styles.Add(new Design.CompactTheme());
+    }
     /// <inheritdoc />
     public override void OnFrameworkInitializationCompleted()
     {

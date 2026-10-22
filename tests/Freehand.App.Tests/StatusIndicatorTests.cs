@@ -33,7 +33,7 @@ public sealed class StatusIndicatorTests
                 indicator.Update(mainHidden, state, 0.06f);
                 indicator.IsVisible.ShouldBeTrue($"{state} must be visible with the main window open or hidden");
                 indicator.GetVisualDescendants().OfType<Lamp>().Single().LampColor
-                    .ShouldBe(state == DictationState.Recording ? Tokens.Colors.Record : Tokens.Colors.MeterAmber);
+                    .ShouldBe(state == DictationState.Recording ? Tokens.Colors.Record : Tokens.Colors.Accent);
             }
             desktop.PointerReads.ShouldBe(1, "moving the pointer during processing must not relocate the bubble");
             indicator.ShowActivated.ShouldBeFalse();
@@ -112,9 +112,9 @@ public sealed class StatusIndicatorTests
     }
 
     [AvaloniaTheory]
-    [InlineData(0, 0, 1920, 1040, 1, 876, 984)]
-    [InlineData(-2560, -200, 2560, 1400, 1.5, -1406, 1116)]
-    [InlineData(1920, 48, 3840, 2112, 2, 3672, 2048)]
+    [InlineData(0, 0, 1920, 1040, 1, 856, 980)]
+    [InlineData(-2560, -200, 2560, 1400, 1.5, -1436, 1110)]
+    [InlineData(1920, 48, 3840, 2112, 2, 3632, 2040)]
     public void Position_centers_in_the_work_area_with_scaled_taskbar_clearance(
         int x, int y, int width, int height, double scale, int expectedX, int expectedY)
     {
@@ -129,7 +129,7 @@ public sealed class StatusIndicatorTests
     [AvaloniaTheory]
     [InlineData(false)]
     [InlineData(true)]
-    public void Compact_layout_renders_without_clipping_in_both_finishes(bool dark)
+    public void Compact_layout_renders_without_clipping_with_either_system_theme(bool dark)
     {
         var previousTheme = Application.Current!.RequestedThemeVariant;
         Application.Current.RequestedThemeVariant = dark ? Avalonia.Styling.ThemeVariant.Dark : Avalonia.Styling.ThemeVariant.Light;

@@ -2,364 +2,185 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Freehand.App.Controls;
+using Avalonia.Threading;
+using Avalonia.VisualTree;
 using Freehand.App.Design;
-using Freehand.Core;
 using Freehand.Dictionary;
+using Freehand.Core;
 
 namespace Freehand.App.Views;
 
-/// <summary>
-/// The dictionary: add, edit, delete, search.
-/// </summary>
-/// <remarks>
-/// Both entry kinds live in one list rather than separate tabs — they are two shapes of the
-/// same idea, and you want to see everything you have taught it at once. The kind is carried
-/// by a silkscreen tag on each row.
-/// </remarks>
+/// <summary>Search, edit, and enable the existing dictionary entries.</summary>
 public sealed class DictionaryView : UserControl
 {
     private readonly DictionaryFile _file;
-    private readonly TextBox _search;
-    private readonly StackPanel _list;
-    private readonly Silkscreen _count;
+    private readonly TextBox _search = Panels.SearchBox("Search dictionary");
+    private readonly StackPanel _list = new();
+    private readonly TextBlock _count = Panels.Text("", Tokens.Fonts.Label, muted: true);
+    private readonly TextBlock _error = Panels.Text("", Tokens.Fonts.Label);
 
-    /// <summary>Builds the view over <paramref name="file"/>.</summary>
+    /// <summary>Builds the dictionary view.</summary>
     public DictionaryView(DictionaryFile file)
     {
         _file = file;
-
-        _search = Panels.SearchBox("Search dictionary");
         _search.TextChanged += (_, _) => Refresh();
-
-        var add = Panels.DeckButton("ADD");
+        var add = Panels.Button("Add entry", primary: true);
         add.Click += (_, _) => ShowEditor(null);
-
-        _list = new StackPanel { Spacing = Tokens.Space.Tight, Margin = new Thickness(Tokens.Space.Base) };
-        _count = new Silkscreen { Foreground = new SolidColorBrush(Tokens.Colors.InkOnDeck, 0.5) };
-
-        var reveal = Panels.DeckButton("OPEN DICTIONARY.TXT");
+        var reveal = Panels.Button("Open dictionary.txt", quiet: true);
         reveal.Click += (_, _) => OpenInEditor(_file.FilePath);
-
-        Content = new DockPanel
+        _error.Foreground = Tokens.Brushes.Attention;
+        Content = new DockPanel { Children =
         {
-            Children =
-            {
-                Panels.Docked(Panels.SearchRow(_search, add), Dock.Top),
-                Panels.Docked(Panels.Footer(_count, reveal), Dock.Bottom),
-                new ScrollViewer { Content = _list },
-            },
-        };
-
-        _file.Changed += (_, _) => Refresh();
+            Panels.Docked(Panels.Heading("Dictionary", add), Dock.Top),
+            Panels.Docked(Panels.SearchRow(_search), Dock.Top),
+            Panels.Docked(_error, Dock.Bottom),
+            Panels.Docked(Panels.Footer(_count, reveal), Dock.Bottom),
+            new ScrollViewer { Content = _list, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled },
+        } };
         Refresh();
     }
-
+    /// <inheritdoc />
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e); _file.Changed += FileChanged; Refresh();
+    }
+    /// <inheritdoc />
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        _file.Changed -= FileChanged; base.OnDetachedFromVisualTree(e);
+    }
+    private void FileChanged(object? sender, EventArgs e)
+    {
+        if (Dispatcher.UIThread.CheckAccess()) Refresh(); else Dispatcher.UIThread.Post(Refresh);
+    }
     private void Refresh()
     {
         var entries = _file.Search(_search.Text ?? string.Empty);
-
         _list.Children.Clear();
-        _count.Text = $"{_file.Entries.Count} ENTRIES";
-
-        if (entries.Count == 0)
-        {
-            _list.Children.Add(Panels.EmptyState(
-                _file.Entries.Count == 0 ? "DICTIONARY EMPTY" : "NO MATCHES",
-                _file.Entries.Count == 0
-                    ? "Add words it keeps getting wrong."
-                    : "Try a different search."));
-            return;
-        }
-
+        _count.Text = string.Create(System.Globalization.CultureInfo.CurrentCulture, $"{_file.Entries.Count} entries");
+        _error.Text = _file.LastError; _error.IsVisible = !string.IsNullOrEmpty(_error.Text);
+        if (entries.Count == 0) _list.Children.Add(Panels.EmptyState(_file.Entries.Count == 0 ? "No dictionary entries yet" : "No matching entries"));
         foreach (var entry in entries) _list.Children.Add(BuildRow(entry));
     }
-
     private Border BuildRow(DictionaryEntry entry)
     {
-        var edit = Panels.DeckButton("EDIT");
-        edit.Click += (_, _) => ShowEditor(entry);
-
-        var toggle = Panels.DeckButton(entry.IsEnabled ? "OFF" : "ON");
-        toggle.Click += (_, _) => _file.Update(entry with { IsEnabled = !entry.IsEnabled });
-
-        var delete = Panels.DeckButton("DELETE");
-        delete.Click += (_, _) => _file.Remove(entry.Id);
-
-        var left = new StackPanel
+        var enabled = new ToggleSwitch { IsChecked = entry.IsEnabled, OnContent = null, OffContent = null, VerticalAlignment = VerticalAlignment.Center };
+        Avalonia.Automation.AutomationProperties.SetName(enabled, "Enable " + entry.Write);
+        enabled.IsCheckedChanged += (_, _) =>
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = Tokens.Space.Base,
-            VerticalAlignment = VerticalAlignment.Center,
-            Children =
+            _file.Update(entry with { IsEnabled = enabled.IsChecked == true });
+            Dispatcher.UIThread.Post(() =>
             {
-                new Lamp
-                {
-                    IsLit = entry.IsEnabled,
-                    LampColor = Tokens.Colors.MeterGreen,
-                    Width = 6,
-                    Height = 6,
-                    VerticalAlignment = VerticalAlignment.Center,
-                },
-                new Silkscreen
-                {
-                    Text = entry.Kind == EntryKind.Correction ? "FIX" : "TERM",
-                    Foreground = new SolidColorBrush(Tokens.Colors.InkOnDeck, 0.5),
-                    Width = 34,
-                    VerticalAlignment = VerticalAlignment.Center,
-                },
-                new TextBlock
-                {
-                    Text = entry.Kind == EntryKind.Correction
-                        ? $"{entry.Hear}  →  {entry.Write}"
-                        : entry.Write,
-                    FontFamily = Tokens.Fonts.Grotesque,
-                    FontSize = Tokens.Fonts.Body,
-                    Foreground = Tokens.Brushes.InkOnDeck,
-                    VerticalAlignment = VerticalAlignment.Center,
-                },
-            },
+                var name = "Enable " + entry.Write;
+                var replacement = this.GetVisualDescendants().OfType<ToggleSwitch>()
+                    .FirstOrDefault(t => string.Equals(Avalonia.Automation.AutomationProperties.GetName(t), name, StringComparison.Ordinal));
+                if (replacement is not null) replacement.Focus(); else _search.Focus();
+            }, DispatcherPriority.Loaded);
         };
-
-        var right = new StackPanel
+        var edit = Panels.Button("Edit", quiet: true);
+        edit.Click += (_, _) => ShowEditor(entry);
+        var more = Panels.More("Entry actions");
+        var delete = new MenuItem { Header = "Delete entry" };
+        delete.Click += (_, _) => { _file.Remove(entry.Id); _search.Focus(); };
+        more.ContextMenu = new ContextMenu { Items = { delete } };
+        more.Click += (_, _) => more.ContextMenu.Open(more);
+        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = Tokens.Space.Roomy };
+        row.Children.Add(new StackPanel { Spacing = Tokens.Space.Tight, Opacity = entry.IsEnabled ? 1 : 0.65, Children =
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = Tokens.Space.Tight,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            Children = { edit, toggle, delete },
-        };
-
-        return new Border
-        {
-            Background = Tokens.Brushes.Deck,
-            CornerRadius = new CornerRadius(Tokens.Radius.Chip),
-            Padding = new Thickness(Tokens.Space.Base, Tokens.Space.Snug),
-            Opacity = entry.IsEnabled ? 1 : 0.45,
-            Child = new Grid { Children = { left, right } },
-        };
+            Panels.Text(entry.Kind == EntryKind.Correction ? $"{entry.Hear} → {entry.Write}" : entry.Write),
+            Panels.Text(entry.Kind == EntryKind.Correction ? "Correction" : "Saved term", Tokens.Fonts.Label, muted: true),
+        } });
+        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, Children = { enabled, edit, more } };
+        Grid.SetColumn(actions, 1); row.Children.Add(actions);
+        return Panels.Row(row);
     }
-
     private void ShowEditor(DictionaryEntry? entry)
     {
-        var owner = TopLevel.GetTopLevel(this) as Window;
-        if (owner is null) return;
-
+        if (TopLevel.GetTopLevel(this) is not Window owner) return;
         var editor = new DictionaryEditorWindow(entry);
-        editor.Saved += (_, saved) =>
-        {
-            if (entry is null) _file.Add(saved); else _file.Update(saved);
-        };
-
+        editor.Saved += (_, saved) => { if (entry is null) _file.Add(saved); else _file.Update(saved); };
         _ = editor.ShowDialog(owner);
     }
-
-    /// <summary>Opens the dictionary in the user's default text editor.</summary>
     private static void OpenInEditor(string path)
     {
         try
         {
-            // The file must exist before the shell will open it — a brand-new install has
-            // never saved one.
-            if (!File.Exists(path))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-                File.WriteAllText(path, string.Empty);
-            }
-
+            if (!File.Exists(path)) { Directory.CreateDirectory(Path.GetDirectoryName(path)!); File.WriteAllText(path, string.Empty); }
             using var process = new System.Diagnostics.Process();
             process.StartInfo = new System.Diagnostics.ProcessStartInfo(path) { UseShellExecute = true };
             process.Start();
         }
-        catch (Exception e) when (e is System.ComponentModel.Win32Exception or IOException or UnauthorizedAccessException)
-        {
-            // Opening an editor is a convenience; failing to must never take the app down.
-        }
+        catch (Exception e) when (e is System.ComponentModel.Win32Exception or IOException or UnauthorizedAccessException) { }
     }
 }
 
-/// <summary>
-/// Add or edit one dictionary entry, with the false-positive warning shown live.
-/// </summary>
+/// <summary>Edits a term or literal correction, preserving the dictionary behavior contract.</summary>
 public sealed class DictionaryEditorWindow : Window
 {
-    private readonly TransportKey _termKey;
-    private readonly TransportKey _correctionKey;
+    private readonly Button _term = Panels.Button("Term", quiet: true);
+    private readonly Button _correction = Panels.Button("Correction", quiet: true);
     private readonly TextBox _hear;
     private readonly TextBox _write;
-    private readonly StackPanel _warnings;
-    private readonly TransportKey _save;
+    private readonly Control _hearField;
+    private readonly TextBlock _writeLabel = Panels.Text("Word or phrase", Tokens.Fonts.Label, muted: true);
+    private readonly StackPanel _warnings = new() { Spacing = Tokens.Space.Snug };
+    private readonly Button _save = Panels.Button("Save entry", primary: true);
     private readonly Guid _id;
     private readonly bool _wasEnabled;
-
     private EntryKind _kind;
-
-    /// <summary>Raised when the user saves.</summary>
+    /// <summary>Raised with the same dictionary entry format used by the existing store.</summary>
     public event EventHandler<DictionaryEntry>? Saved;
-
-    /// <summary>Creates the editor for a new or existing entry.</summary>
+    /// <summary>Builds an editor for a new or existing entry.</summary>
     public DictionaryEditorWindow(DictionaryEntry? entry)
     {
-        _id = entry?.Id ?? Guid.NewGuid();
-        _wasEnabled = entry?.IsEnabled ?? true;
-        _kind = entry?.Kind ?? EntryKind.Term;
-
-        Title = entry is null ? "New entry" : "Edit entry";
-        Width = 460;
-        SizeToContent = SizeToContent.Height;
-        CanResize = false;
-        Background = Tokens.Brushes.Chassis;
-        WindowStartupLocation = WindowStartupLocation.CenterOwner;
-
-        _termKey = new TransportKey { Content = "TERM", EngagedColor = Tokens.Colors.Ink };
-        _correctionKey = new TransportKey { Content = "CORRECTION", EngagedColor = Tokens.Colors.Ink };
-        _termKey.Click += (_, _) => SetKind(EntryKind.Term);
-        _correctionKey.Click += (_, _) => SetKind(EntryKind.Correction);
-
-        _hear = Field("cloud code", entry?.Hear ?? string.Empty);
-        _write = Field("Claude Code", entry?.Write ?? string.Empty);
-        _hear.TextChanged += (_, _) => Revalidate();
-        _write.TextChanged += (_, _) => Revalidate();
-
-        _warnings = new StackPanel { Spacing = Tokens.Space.Snug };
-
-        var cancel = new TransportKey { Content = "CANCEL" };
-        cancel.Click += (_, _) => Close();
-
-        _save = new TransportKey { Content = "SAVE", EngagedColor = Tokens.Colors.Ink };
-        _save.Click += (_, _) =>
+        _id = entry?.Id ?? Guid.NewGuid(); _wasEnabled = entry?.IsEnabled ?? true; _kind = entry?.Kind ?? EntryKind.Term;
+        Title = entry is null ? "New dictionary entry" : "Edit dictionary entry";
+        Width = 500; SizeToContent = SizeToContent.Height; CanResize = false;
+        Background = Tokens.Brushes.Chassis; WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        _hear = new TextBox { Text = entry?.Hear ?? "", Watermark = "cloud code" };
+        _write = new TextBox { Text = entry?.Write ?? "", Watermark = "Claude Code" };
+        Avalonia.Automation.AutomationProperties.SetName(_hear, "When you hear");
+        Avalonia.Automation.AutomationProperties.SetName(_write, "Write");
+        _hearField = Panels.Labelled("When you hear", _hear);
+        _term.Click += (_, _) => SetKind(EntryKind.Term);
+        _correction.Click += (_, _) => SetKind(EntryKind.Correction);
+        _hear.TextChanged += (_, _) => Revalidate(); _write.TextChanged += (_, _) => Revalidate();
+        var cancel = Panels.Button("Cancel", quiet: true); cancel.IsCancel = true; cancel.Click += (_, _) => Close();
+        _save.IsDefault = true;
+        _save.Click += (_, _) => { if (IsValid) { Saved?.Invoke(this, Draft); Close(); } };
+        Content = new StackPanel { Margin = new Thickness(Tokens.Space.Panel), Spacing = Tokens.Space.Wide, Children =
         {
-            if (!IsValid) return;
-            Saved?.Invoke(this, Draft);
-            Close();
-        };
-
-        Content = BuildContent(cancel);
+            new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, Children = { _term, _correction } },
+            _hearField,
+            new StackPanel { Spacing = Tokens.Space.Snug, Children = { _writeLabel, _write } },
+            _warnings,
+            new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Spacing = Tokens.Space.Snug, Children = { cancel, _save } },
+        } };
         SetKind(_kind);
+        Opened += (_, _) => { if (_kind == EntryKind.Correction) _hear.Focus(); else _write.Focus(); };
     }
-
     private DictionaryEntry Draft => new()
     {
-        Id = _id,
-        Kind = _kind,
-        Write = (_write.Text ?? string.Empty).Trim(),
-        Hear = _kind == EntryKind.Correction ? (_hear.Text ?? string.Empty).Trim() : string.Empty,
-        IsEnabled = _wasEnabled,
+        Id = _id, Kind = _kind, Write = (_write.Text ?? "").Trim(),
+        Hear = _kind == EntryKind.Correction ? (_hear.Text ?? "").Trim() : "", IsEnabled = _wasEnabled,
     };
-
-    private bool IsValid =>
-        Draft.Write.Length > 0 && (_kind == EntryKind.Term || Draft.Hear.Length > 0);
-
-    private StackPanel BuildContent(Control cancel)
-    {
-        var hearField = Panels.Labelled("WHEN YOU HEAR", _hear);
-        hearField.IsVisible = _kind == EntryKind.Correction;
-        _hearField = hearField;
-
-        _writeLabel = new Silkscreen { Text = "WORD OR PHRASE" };
-
-        return new StackPanel
-        {
-            Margin = new Thickness(Tokens.Space.Panel),
-            Spacing = Tokens.Space.Roomy,
-            Children =
-            {
-                new StackPanel
-                {
-                    Orientation = Orientation.Horizontal,
-                    Spacing = Tokens.Space.Snug,
-                    Children = { _termKey, _correctionKey },
-                },
-                hearField,
-                new StackPanel { Spacing = Tokens.Space.Tight, Children = { _writeLabel, _write } },
-                _warnings,
-                new StackPanel
-                {
-                    Orientation = Orientation.Horizontal,
-                    Spacing = Tokens.Space.Snug,
-                    HorizontalAlignment = HorizontalAlignment.Right,
-                    Children = { cancel, _save },
-                },
-            },
-        };
-    }
-
-    private StackPanel? _hearField;
-    private Silkscreen? _writeLabel;
-
+    private bool IsValid => Draft.Write.Length > 0 && (_kind == EntryKind.Term || Draft.Hear.Length > 0);
     private void SetKind(EntryKind kind)
     {
-        _kind = kind;
-        _termKey.IsEngaged = kind == EntryKind.Term;
-        _correctionKey.IsEngaged = kind == EntryKind.Correction;
-
-        if (_hearField is not null) _hearField.IsVisible = kind == EntryKind.Correction;
-        if (_writeLabel is not null) _writeLabel.Text = kind == EntryKind.Correction ? "WRITE" : "WORD OR PHRASE";
-
+        _kind = kind; Panels.Select(_term, kind == EntryKind.Term); Panels.Select(_correction, kind == EntryKind.Correction);
+        _hearField.IsVisible = kind == EntryKind.Correction;
+        _writeLabel.Text = kind == EntryKind.Correction ? "Write" : "Word or phrase";
         Revalidate();
     }
-
     private void Revalidate()
     {
         _warnings.Children.Clear();
-        if (_kind == EntryKind.Term) _warnings.Children.Add(new TextBlock
-        {
-            Text = "Bare terms are saved for reference. Use a correction pair to change recognized text.",
-            TextWrapping = TextWrapping.Wrap, FontFamily = Tokens.Fonts.Grotesque,
-            FontSize = Tokens.Fonts.Label, Foreground = Tokens.Brushes.Ink,
-        });
-
+        if (_kind == EntryKind.Term) _warnings.Children.Add(Panels.Text("Terms are saved for reference. Use a correction to change recognized text.", Tokens.Fonts.Label, muted: true));
         foreach (var warning in DictionaryWarning.Check(Draft))
         {
-            _warnings.Children.Add(new Border
-            {
-                BorderBrush = new SolidColorBrush(Tokens.Colors.MeterAmber, 0.4),
-                BorderThickness = new Thickness(Tokens.Border.Hairline),
-                CornerRadius = new CornerRadius(Tokens.Radius.Chip),
-                Padding = new Thickness(Tokens.Space.Snug),
-                Child = new StackPanel
-                {
-                    Orientation = Orientation.Horizontal,
-                    Spacing = Tokens.Space.Snug,
-                    Children =
-                    {
-                        new Lamp
-                        {
-                            IsLit = true,
-                            LampColor = Tokens.Colors.MeterAmber,
-                            Width = 6,
-                            Height = 6,
-                            VerticalAlignment = VerticalAlignment.Top,
-                            Margin = new Thickness(0, Tokens.Space.Tight, 0, 0),
-                        },
-                        new TextBlock
-                        {
-                            Text = warning.Message,
-                            FontFamily = Tokens.Fonts.Grotesque,
-                            FontSize = Tokens.Fonts.Label,
-                            Foreground = Tokens.Brushes.Ink,
-                            TextWrapping = TextWrapping.Wrap,
-                            MaxWidth = 340,
-                        },
-                    },
-                },
-            });
+            var label = Panels.Text(warning.Message, Tokens.Fonts.Label); label.Foreground = Tokens.Brushes.Attention;
+            _warnings.Children.Add(label);
         }
-
-        _save.IsEngaged = IsValid;
         _save.IsEnabled = IsValid;
     }
-
-    private static TextBox Field(string placeholder, string text) => new()
-    {
-        Text = text,
-        Watermark = placeholder,
-        FontFamily = Tokens.Fonts.Grotesque,
-        FontSize = Tokens.Fonts.Body,
-        Foreground = Tokens.Brushes.InkOnDeck,
-        Background = Tokens.Brushes.Deck,
-        BorderBrush = new SolidColorBrush(Tokens.Colors.Seam),
-        BorderThickness = new Thickness(Tokens.Border.Hairline),
-        CornerRadius = new CornerRadius(Tokens.Radius.Chip),
-        Padding = new Thickness(Tokens.Space.Snug),
-    };
 }
