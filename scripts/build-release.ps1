@@ -16,20 +16,32 @@ $publish = Join-Path $projectRoot 'artifacts/publish'
 $compiler = Join-Path $projectRoot 'artifacts/installer-runtime'
 $release = Join-Path $projectRoot 'artifacts/release'
 $modelInput = Find-FreehandModelDirectory $ModelSource
-$modelCache = Join-Path $projectRoot 'artifacts/model-cache/parakeet-v2'
-New-Item -ItemType Directory -Force -Path $modelCache | Out-Null
 $manifest = Get-Content -LiteralPath packaging/model-manifest.json -Raw | ConvertFrom-Json
-$revision = $manifest.Version.Split('/')[-1]
+$modelCache = Join-Path $projectRoot ('artifacts/model-cache/' + $manifest.DirectoryName)
+New-Item -ItemType Directory -Force -Path $modelCache | Out-Null
 foreach ($asset in $manifest.Files) {
     $source = if ($modelInput) { Join-Path $modelInput $asset.Name } else { $null }
     $destination = Join-Path $modelCache $asset.Name
     if ($source -and (Test-Path -LiteralPath $source) -and $source -ne $destination) {
         Copy-Item -LiteralPath $source -Destination $destination -Force
     }
-    if (-not (Test-Path -LiteralPath $destination)) {
-        $url = 'https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/' + $revision + '/' + $asset.Name
-        Invoke-WebRequest $url -OutFile $destination
+}
+$missing = @($manifest.Files | Where-Object { -not (Test-Path -LiteralPath (Join-Path $modelCache $_.Name)) })
+if ($missing.Count -gt 0) {
+    $archive = Join-Path $projectRoot ('artifacts/model-cache/' + $manifest.DirectoryName + '.tar.bz2')
+    if (-not (Test-Path -LiteralPath $archive)) { Invoke-WebRequest $manifest.Source -OutFile $archive }
+    if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ine $manifest.ArchiveSha256) { throw 'Model archive checksum failed.' }
+    $extracted = Join-Path $projectRoot ('artifacts/model-cache/' + $manifest.DirectoryName + '-download')
+    New-Item -ItemType Directory -Force -Path $extracted | Out-Null
+    & tar -xf $archive -C $extracted
+    if ($LASTEXITCODE -ne 0) { throw 'Model archive extraction failed.' }
+    foreach ($asset in $manifest.Files) {
+        $source = Join-Path (Join-Path $extracted $manifest.ArchiveDirectory) $asset.Name
+        Copy-Item -LiteralPath $source -Destination (Join-Path $modelCache $asset.Name) -Force
     }
+}
+foreach ($asset in $manifest.Files) {
+    $destination = Join-Path $modelCache $asset.Name
     if ((Get-Item -LiteralPath $destination).Length -ne $asset.Size -or (Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash -ne $asset.Sha256) { throw "Model verification failed: $($asset.Name)" }
 }
 foreach ($directory in @($publish, $compiler, $release)) {
@@ -46,7 +58,7 @@ foreach ($directory in @($publish, $compiler, $release)) {
 }
 & $Dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false "-p:InformationalVersion=$version+$build" --output $publish
 if ($LASTEXITCODE -ne 0) { throw 'Application publish failed' }
-$modelTarget = Join-Path $publish 'models/parakeet-v2'
+$modelTarget = Join-Path $publish ('models/' + $manifest.DirectoryName)
 New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
 foreach ($asset in $manifest.Files) { Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $modelTarget }
 Copy-Item -LiteralPath packaging/model-manifest.json -Destination (Join-Path $modelTarget 'manifest.json') -Force

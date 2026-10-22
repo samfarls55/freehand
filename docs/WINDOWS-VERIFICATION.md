@@ -1,5 +1,9 @@
 # Windows verification
 
+The [October 22 performance analysis](PERFORMANCE.md) records a later source audit,
+before-and-after native-worker measurements, capture conversion fixes, and current
+validation. The earlier release measurements below remain as historical results.
+
 Freehand is an early Windows x64 release. Automated checks establish build, storage, dictionary, speech-worker, and packaging behavior. Physical microphone capture, the physical dictation key, and delivery into everyday foreground apps need hands-on validation.
 
 ## Build and regression checks

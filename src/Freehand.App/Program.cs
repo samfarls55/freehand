@@ -18,6 +18,8 @@ public static class Program
     public static int Main(string[] args)
     {
         PlatformFactory.InstallResolver();
+        if (args.Length == 2 && args[0] == "--performance-check")
+            return PerformanceChecks.RunAsync(args[1]).GetAwaiter().GetResult();
         if (args.Contains("--desktop-selftest", StringComparer.Ordinal))
             return EngineeringChecks.CheckDesktopAsync().GetAwaiter().GetResult();
         if (args.Length == 2 && args[0] == "--benchmark")

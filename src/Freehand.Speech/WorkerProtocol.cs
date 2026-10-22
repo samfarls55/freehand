@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Buffers.Binary;
 using System.Runtime.InteropServices;
 using System.Text.Json;
@@ -44,15 +45,36 @@ internal static class WorkerProtocol
     internal static async Task WriteAudioAsync(Stream stream, ReadOnlyMemory<float> samples, CancellationToken token)
     {
         if (samples.Length > MaxSamples) throw new InvalidDataException("Segment exceeds sixty seconds");
-        var bytes = MemoryMarshal.AsBytes(samples.Span).ToArray();
-        await stream.WriteAsync(bytes, token).ConfigureAwait(false);
-        await stream.FlushAsync(token).ConfigureAwait(false);
+        var bytes = ArrayPool<byte>.Shared.Rent(65536);
+        try
+        {
+            for (var offset = 0; offset < samples.Length;)
+            {
+                var count = Math.Min(bytes.Length / sizeof(float), samples.Length - offset);
+                MemoryMarshal.AsBytes(samples.Span.Slice(offset, count)).CopyTo(bytes);
+                await stream.WriteAsync(bytes.AsMemory(0, count * sizeof(float)), token).ConfigureAwait(false);
+                offset += count;
+            }
+            await stream.FlushAsync(token).ConfigureAwait(false);
+        }
+        finally { ArrayPool<byte>.Shared.Return(bytes, clearArray: true); }
     }
     internal static async Task<float[]> ReadAudioAsync(Stream stream, int count, CancellationToken token)
     {
         if (count is < 1 or > MaxSamples) throw new InvalidDataException("Invalid sample count");
-        var bytes = new byte[count * sizeof(float)]; await stream.ReadExactlyAsync(bytes, token).ConfigureAwait(false);
-        var audio = MemoryMarshal.Cast<byte, float>(bytes).ToArray();
+        var audio = new float[count];
+        var bytes = ArrayPool<byte>.Shared.Rent(65536);
+        try
+        {
+            for (var offset = 0; offset < count;)
+            {
+                var length = Math.Min(bytes.Length / sizeof(float), count - offset);
+                await stream.ReadExactlyAsync(bytes.AsMemory(0, length * sizeof(float)), token).ConfigureAwait(false);
+                MemoryMarshal.Cast<byte, float>(bytes.AsSpan(0, length * sizeof(float))).CopyTo(audio.AsSpan(offset));
+                offset += length;
+            }
+        }
+        finally { ArrayPool<byte>.Shared.Return(bytes, clearArray: true); }
         foreach (var sample in audio) if (!float.IsFinite(sample) || sample is < -1 or > 1) throw new InvalidDataException("Invalid audio");
         return audio;
     }

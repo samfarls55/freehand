@@ -233,7 +233,7 @@ internal static class EngineeringChecks
         if (!text.Contains("fellow americans", StringComparison.OrdinalIgnoreCase) || !text.Contains("country", StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("Known speech fixture produced an unexpected transcript");
     }
-    private static float[] ReadFixture()
+    internal static float[] ReadFixture()
     {
         using var reader = new BinaryReader(File.OpenRead(Path.Combine(AppContext.BaseDirectory, "fixtures", "jfk.wav")));
         if (reader.ReadUInt32() != 0x46464952) throw new InvalidDataException("Not WAV");

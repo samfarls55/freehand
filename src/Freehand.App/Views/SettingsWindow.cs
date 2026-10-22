@@ -140,7 +140,7 @@ public sealed class SettingsWindow : Window
     }
     private StackPanel BuildModelStatus()
     {
-        var located = _composition?.Models.ResolvedDirectory ?? _settings.Data.ModelDirectory ?? Path.Combine(AppContext.BaseDirectory, "models", "parakeet-v2");
+        var located = _composition?.Models.ResolvedDirectory ?? _settings.Data.ModelDirectory ?? Path.Combine(AppContext.BaseDirectory, "models", ModelResolver.DirectoryName);
         var found = _composition?.Models.IsVerified ?? ParakeetTranscriber.IsComplete(located);
         var state = _composition?.Speech?.State ?? Freehand.Abstractions.ModelState.Unloaded;
 

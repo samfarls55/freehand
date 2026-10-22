@@ -64,6 +64,25 @@ public sealed class SpeechLifecycleTests
         client.WorkerId.ShouldBeNull(); launcher.LiveWorkers.ShouldBe(0); client.FinishWork();
     }
 
+    [Fact]
+    public async Task Cancelled_inference_stops_the_worker_before_the_next_recording()
+    {
+        var launcher = new PipeWorkerLauncher { HangInference = true };
+        await using var client = Client(launcher);
+        await client.BeginWorkAsync(CancellationToken.None); await client.LoadAsync(CancellationToken.None);
+        using var cancel = new CancellationTokenSource();
+        var request = client.TranscribeAsync(new float[320], [], cancel.Token).AsTask();
+        await launcher.InferenceReceived.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        await cancel.CancelAsync();
+        await Should.ThrowAsync<OperationCanceledException>(() => request);
+        client.WorkerId.ShouldBeNull();
+        launcher.HangInference = false;
+        await client.LoadAsync(CancellationToken.None);
+        (await client.TranscribeAsync(new float[320], [], CancellationToken.None)).ShouldBe("Speech.");
+        launcher.PeakWorkers.ShouldBe(1);
+        client.FinishWork();
+    }
+
     private static SpeechWorkerClient Client(PipeWorkerLauncher launcher, TimeSpan? shutdown = null) =>
         new(launcher, new VerifiedAssets(), new WorkerOptions
         {
@@ -79,11 +98,12 @@ public sealed class SpeechLifecycleTests
     {
         internal bool HoldShutdown { get; init; }
         internal bool StaleTranscript { get; init; }
-        internal bool HangInference { get; init; }
+        internal bool HangInference { get; set; }
         internal int Launches { get; private set; }
         internal int LiveWorkers;
         internal int PeakWorkers;
         internal TaskCompletionSource ShutdownReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal TaskCompletionSource InferenceReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal TaskCompletionSource AllowShutdown { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         public IWorkerProcess Launch(string pipeName, string secret)
         {
@@ -119,6 +139,7 @@ public sealed class SpeechLifecycleTests
                             {
                                 var audio = new byte[message.GetProperty("SampleCount").GetInt32() * 4];
                                 await pipe.ReadExactlyAsync(audio, _stop.Token);
+                                owner.InferenceReceived.TrySetResult();
                                 if (owner.HangInference) await Task.Delay(Timeout.Infinite, _stop.Token);
                                 await WriteAsync(pipe, owner.StaleTranscript ? Guid.NewGuid() : requestId, "text", "Speech.", 0, _stop.Token);
                             }

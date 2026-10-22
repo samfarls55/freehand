@@ -221,4 +221,15 @@ public sealed class AudioSegmenterTests
         firstCut.ShouldBeGreaterThanOrEqualTo(quietStart);
         firstCut.ShouldBeLessThanOrEqualTo(quietStart + AudioChunk.SampleRate);
     }
+
+    [Fact]
+    public void A_pause_is_preferred_to_a_brief_quiet_sound_inside_a_word()
+    {
+        var samples = Enumerable.Repeat(0.5f, 30 * AudioChunk.SampleRate).ToArray();
+        var pause = 13 * AudioChunk.SampleRate;
+        Array.Fill(samples, 0.01f, pause, AudioChunk.SampleRate / 5);
+        Array.Clear(samples, 14 * AudioChunk.SampleRate, AudioChunk.SampleRate / 25);
+        var cut = AudioSegmenter.Split(samples)[0].Length;
+        cut.ShouldBeInRange(pause, pause + AudioChunk.SampleRate / 5);
+    }
 }

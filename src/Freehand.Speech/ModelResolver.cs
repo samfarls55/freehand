@@ -10,6 +10,10 @@ public sealed class ModelResolver : IModelAssets, IDisposable
 {
     /// <summary>Pinned upstream revision.</summary>
     public static string Version => Manifest.Version;
+    /// <summary>Folder for the single bundled model.</summary>
+    public static string DirectoryName => Manifest.DirectoryName;
+    /// <summary>Mel feature count required by the pinned encoder.</summary>
+    public static int FeatureDimension => Manifest.FeatureDimension;
     private static readonly ModelManifest Manifest = LoadManifest();
     private static ModelManifest LoadManifest()
     {
@@ -29,7 +33,7 @@ public sealed class ModelResolver : IModelAssets, IDisposable
     /// <summary>Creates the shared resolver.</summary>
     public ModelResolver(string? customPath = null, string? baseDirectory = null, string? cacheDirectory = null)
     {
-        BundledDirectory = Path.Combine(baseDirectory ?? AppContext.BaseDirectory, "models", "parakeet-v2");
+        BundledDirectory = Path.Combine(baseDirectory ?? AppContext.BaseDirectory, "models", DirectoryName);
         ResolvedDirectory = ResolvePath(customPath);
         _cacheDirectory = cacheDirectory ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Freehand", "verification");
     }
@@ -98,7 +102,7 @@ public sealed class ModelResolver : IModelAssets, IDisposable
     public void Dispose() => _gate.Dispose();
 }
 internal sealed record ModelAsset(string Name, long Size, string Sha256);
-internal sealed record ModelManifest(string Version, ModelAsset[] Files);
+internal sealed record ModelManifest(string Version, string DirectoryName, int FeatureDimension, ModelAsset[] Files);
 internal sealed record AssetStamp(string Name, long Size, long Modified);
 internal sealed record VerificationCache(string Version, AssetStamp[] Stamps);
 [JsonSerializable(typeof(VerificationCache))]

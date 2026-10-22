@@ -33,10 +33,8 @@ public sealed class WasapiAudioCapture : IAudioCapture
     private WasapiCapture? _capture;
 
     private Channel<float[]>? _channel;
-    private BufferedWaveProvider? _rawSink;
-    private WdlResamplingSampleProvider? _pipeline;
+    private AudioResampler? _converter;
     private bool _nativeTargetFormat;
-    private float[] _pullBuffer = [];
 
     /// <summary>Captures from a specific device, or the default when null.</summary>
     /// <param name="deviceId">An <c>MMDevice.ID</c>, or null for the system default.</param>
@@ -156,26 +154,9 @@ public sealed class WasapiAudioCapture : IAudioCapture
 
     private void BuildManagedConverter(WaveFormat source)
     {
-        _rawSink = new BufferedWaveProvider(source)
-        {
-            BufferDuration = TimeSpan.FromSeconds(3),
-            DiscardOnBufferOverflow = true,
-        };
-
-        ISampleProvider provider = _rawSink.ToSampleProvider();
-        if (source.Channels == 2)
-        {
-            provider = new StereoToMonoSampleProvider(provider) { LeftVolume = 0.5f, RightVolume = 0.5f };
-        }
-        else if (source.Channels > 2)
-        {
-            provider = new DownmixSampleProvider(provider);
-        }
-
         // WDL, not MediaFoundationResampler: pure managed, so no COM apartment concerns and
         // nothing extra to extract from a single-file bundle.
-        _pipeline = new WdlResamplingSampleProvider(provider, AudioChunk.SampleRate);
-        _pullBuffer = new float[AudioChunk.SampleRate / 10];
+        _converter = new AudioResampler(source);
     }
 
     /// <summary>
@@ -200,19 +181,7 @@ public sealed class WasapiAudioCapture : IAudioCapture
             return;
         }
 
-        _rawSink!.AddSamples(e.Buffer, 0, e.BytesRecorded);   // AddSamples copies internally
-
-        // Drain until the resampler starves. A zero read means "no more buffered input right
-        // now" — it is not end-of-stream and not an error.
-        while (true)
-        {
-            var read = _pipeline!.Read(_pullBuffer, 0, _pullBuffer.Length);
-            if (read == 0) return;
-
-            var owned = new float[read];
-            Array.Copy(_pullBuffer, owned, read);
-            Publish(owned);
-        }
+        foreach (var owned in _converter!.Convert(e.Buffer, e.BytesRecorded)) Publish(owned);
     }
 
     private void Publish(float[] samples)
@@ -253,6 +222,7 @@ public sealed class WasapiAudioCapture : IAudioCapture
         try { _capture.StopRecording(); } catch (COMException) { /* already gone */ }
         _capture.Dispose();
         _capture = null;
+        _converter = null;
 
         _channel?.Writer.TryComplete();
         IsCapturing = false;

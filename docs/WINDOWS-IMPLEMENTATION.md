@@ -16,14 +16,22 @@ Startup/load, inference, shutdown, recording, and idle durations are named polic
 Defaults are 30 seconds for worker startup/load, 60 seconds per inference request,
 five seconds for graceful shutdown, ten minutes for recording, and five minutes idle.
 A deadline stops an unresponsive child. Each accepted dictation gets one automatic
-transcription retry. A second failure retains one owned audio buffer for Retry or Discard.
+transcription retry. A second failure retains one recording as owned audio segments for Retry or Discard.
 Delivery and history are never replayed by transcription retry.
 
-Capture and loading overlap. Early release waits for capture to drain and for model
-readiness. WASAPI is reopened for each recording. Device and Windows resume events
+Capture, loading, and decoding overlap. Completed segments of at most 15 seconds decode
+sequentially while capture continues. Release waits for capture to drain and for the
+remaining segments; correction and delivery still happen once for the entire recording.
+Failure discards partial text and retries all retained segments once. Cancelling inference
+stops the worker so an obsolete pipe reply cannot affect the next recording.
+WASAPI is reopened for each recording. Device and Windows resume events
 refresh the hook and capture readiness through platform interfaces. They preserve a
 healthy worker and reset failed or unloaded connections. Keyboard callbacks only queue ordered
 press/release notifications, and diagnostic storage runs through a bounded background queue.
+The fallback sample-rate converter stops when each callback's real input runs out.
+Its buffered source must use `ReadFully = false`; padding would keep the drain loop
+generating silent output indefinitely. Tests cover float mono, stereo and multichannel
+input, PCM16 input, later callbacks after underrun, and output ownership.
 
 ## Delivery, preferences, and data
 
@@ -49,6 +57,7 @@ the window. Tray actions and second launches reuse it. Activation requests arriv
 UI initialization remain in the named event until handlers are attached. Hidden recording
 feedback uses a nonactivating panel; hidden and idle meter animation stops. Explicit Quit
 confirms discarded audio and awaits owned work off the UI thread.
+Background status notifications share one pending UI refresh, preventing an event backlog.
 
 ## Installation
 

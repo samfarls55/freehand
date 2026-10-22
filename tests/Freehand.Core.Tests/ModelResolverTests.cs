@@ -7,6 +7,16 @@ namespace Freehand.CoreTests;
 public sealed class ModelResolverTests
 {
     [Fact]
+    public void The_bundled_model_contract_uses_the_small_transducer()
+    {
+        ModelResolver.FeatureDimension.ShouldBe(80);
+        ModelResolver.DirectoryName.ShouldBe("parakeet-110m");
+        ModelResolver.Version.ShouldStartWith("parakeet-tdt-110m-int8/");
+        using var models = new ModelResolver();
+        models.BundledDirectory.ShouldEndWith(Path.Combine("models", "parakeet-110m"));
+        ParakeetTranscriber.DefaultSearchPaths().ShouldAllBe(path => path.EndsWith("parakeet-110m", StringComparison.Ordinal));
+    }
+    [Fact]
     public async Task Missing_model_is_an_actionable_result_instead_of_an_exception()
     {
         using var models = new ModelResolver(baseDirectory: Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N")));

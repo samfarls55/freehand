@@ -26,13 +26,14 @@ function Resolve-FreehandDotnet([string]$RequestedPath) {
 
 function Find-FreehandModelDirectory([string]$RequestedPath) {
     if ($RequestedPath) { return (Resolve-Path -LiteralPath $RequestedPath).Path }
-    $candidates = @(
-        (Join-Path $projectRoot 'artifacts/model-cache/parakeet-v2'),
-        (Join-Path $env:LOCALAPPDATA 'Programs/Freehand/models/parakeet-v2'),
-        (Join-Path $env:LOCALAPPDATA 'Freehand/models/parakeet-v2'),
-        (Join-Path $projectRoot 'artifacts/publish/models/parakeet-v2')
-    )
     $manifest = Get-Content -LiteralPath (Join-Path $projectRoot 'packaging/model-manifest.json') -Raw | ConvertFrom-Json
+    $modelFolder = $manifest.DirectoryName
+    $candidates = @(
+        (Join-Path $projectRoot "artifacts/model-cache/$modelFolder"),
+        (Join-Path $env:LOCALAPPDATA "Programs/Freehand/models/$modelFolder"),
+        (Join-Path $env:LOCALAPPDATA "Freehand/models/$modelFolder"),
+        (Join-Path $projectRoot "artifacts/publish/models/$modelFolder")
+    )
     foreach ($candidate in $candidates) {
         $missing = @($manifest.Files | Where-Object { -not (Test-Path -LiteralPath (Join-Path $candidate $_.Name) -PathType Leaf) })
         if ($missing.Count -eq 0) { return $candidate }

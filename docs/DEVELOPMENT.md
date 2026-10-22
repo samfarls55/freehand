@@ -24,8 +24,10 @@ You can also install the SDK normally and let the scripts find it.
 
 Development reuses the pinned model from an existing installation or build cache.
 On a new machine, run `verify.ps1 -Package` once to download and verify the model.
-Use `-ModelSource 'C:/models/parakeet-v2'` to select an existing download. Packaging
+Use `-ModelSource 'C:/models/parakeet-110m'` to select an existing download. Packaging
 keeps a verified cache under `artifacts/model-cache` so later builds can reuse it.
+The model download is a pinned upstream `.tar.bz2` archive. Packaging verifies the
+archive before extraction with Windows `tar`, then verifies each model file separately.
 
 ## Make a change
 
