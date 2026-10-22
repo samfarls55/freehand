@@ -81,11 +81,11 @@ public sealed class WindowsDesktopIntegration : IDesktopIntegration
         else key.DeleteValue("Freehand", false);
     }
     /// <inheritdoc />
-    public void MakeNonActivating(nint window)
-    {
-        var style = GetWindowLongPtr(window, -20);
-        SetWindowLongPtr(window, -20, style | 0x08000000 | 0x00000080);
-    }
+    public (uint Style, uint ExtendedStyle) GetNonActivatingStyles(uint style, uint extendedStyle) =>
+        // WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW, without WS_EX_APPWINDOW.
+        (style, (extendedStyle | 0x08000000u | 0x00000080u) & ~0x00040000u);
+    /// <inheritdoc />
+    public (int X, int Y)? GetPointerPosition() => GetCursorPos(out var point) ? (point.X, point.Y) : null;
     /// <inheritdoc />
     public void Open(string path) => Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
     private void NotificationLoop()
@@ -125,9 +125,10 @@ public sealed class WindowsDesktopIntegration : IDesktopIntegration
     }
     [StructLayout(LayoutKind.Sequential)]
     private struct Message { internal nint Window; internal uint Id; internal nuint WParam; internal nint LParam; internal uint Time; internal int X, Y; internal uint Private; }
+    [StructLayout(LayoutKind.Sequential)]
+    private struct ScreenPoint { internal int X, Y; }
+    [DllImport("user32.dll")] [return: MarshalAs(UnmanagedType.Bool)] private static extern bool GetCursorPos(out ScreenPoint point);
     [DllImport("shell32.dll", CharSet = CharSet.Unicode)] private static extern int SetCurrentProcessExplicitAppUserModelID(string id);
-    [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW")] private static extern nint GetWindowLongPtr(nint window, int index);
-    [DllImport("user32.dll", EntryPoint = "SetWindowLongPtrW")] private static extern nint SetWindowLongPtr(nint window, int index, nint value);
     [DllImport("kernel32.dll")] private static extern uint GetCurrentThreadId();
     [DllImport("user32.dll", EntryPoint = "RegisterClassExW", CharSet = CharSet.Unicode)] private static extern ushort RegisterClassEx(ref WindowClass cls);
     [DllImport("user32.dll", EntryPoint = "CreateWindowExW", CharSet = CharSet.Unicode)] private static extern nint CreateWindowEx(uint exStyle, string cls, string title, uint style, int x, int y, int width, int height, nint parent, nint menu, nint instance, nint param);

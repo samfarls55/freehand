@@ -105,8 +105,10 @@ public interface IDesktopIntegration : IForegroundWindow, IDisposable
     void StartNotifications();
     /// <summary>Creates or removes the current user's login startup entry.</summary>
     void SetLoginStartup(bool enabled);
-    /// <summary>Marks a small window as nonactivating.</summary>
-    void MakeNonActivating(nint window);
+    /// <summary>Preserves nonactivating tool-window styles whenever the UI framework updates them.</summary>
+    (uint Style, uint ExtendedStyle) GetNonActivatingStyles(uint style, uint extendedStyle);
+    /// <summary>Gets the pointer's physical screen coordinates without changing focus.</summary>
+    (int X, int Y)? GetPointerPosition();
     /// <summary>Opens a folder or a Windows settings action.</summary>
     void Open(string path);
 }

@@ -18,7 +18,8 @@ public static class TestAppBuilder
 {
     /// <summary>Builds a headless Avalonia app for the test host.</summary>
     public static AppBuilder BuildAvaloniaApp() =>
-        AppBuilder.Configure<TestApp>().UseHeadless(new AvaloniaHeadlessPlatformOptions());
+        AppBuilder.Configure<TestApp>().UseSkia()
+            .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 }
 
 /// <summary>A minimal application shell for headless tests.</summary>
