@@ -46,7 +46,9 @@ public sealed class Composition : IAsyncDisposable
         Transcripts = new TranscriptStore(TranscriptStore.DefaultPath);
         Models = new ModelResolver(_applied.ModelDirectory, cacheDirectory: Path.Combine(AppDataPaths.DirectoryPath, "verification"));
         Logs = new DiagnosticLog(Path.Combine(Path.GetDirectoryName(AppSettings.DefaultPath)!, "logs"));
-        Logs.Write(Guid.Empty, "app-1.0.0-model-" + ModelResolver.Version);
+        var version = typeof(Composition).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+            .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().Single().InformationalVersion;
+        Logs.Write(Guid.Empty, "app-" + version + "-model-" + ModelResolver.Version);
         var capture = PlatformFactory.CreateAudioCapture();
         var hotkey = PlatformFactory.CreateHotkeySource(_applied.PushToTalkKey);
         var injector = PlatformFactory.CreateTextInjector();

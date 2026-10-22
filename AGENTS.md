@@ -5,6 +5,10 @@ sherpa-onnx for speech recognition. The solution, source, and tests are at the p
 Read [README.md](README.md) for build commands and
 [docs/PARAKEET-WINDOWS.md](docs/PARAKEET-WINDOWS.md) for model setup.
 
+For development, local installation updates, or public releases, read and follow
+[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md). Report source changes, installed updates,
+and GitHub publication separately.
+
 ## Preserve the behavior contract
 
 `shared/dictionary-test-vectors.json` specifies dictionary correction behavior.

@@ -1,37 +1,62 @@
+#Requires -Version 7.0
 param(
-    [string]$Dotnet = (Get-Command dotnet -ErrorAction Stop).Source,
-    [string]$ModelSource = "$env:LOCALAPPDATA\Freehand\models\parakeet-v2"
+    [string]$Dotnet,
+    [string]$ModelSource
 )
-$ErrorActionPreference = 'Stop'
-$projectRoot = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'common.ps1')
+$Dotnet = Resolve-FreehandDotnet $Dotnet
 Set-Location -LiteralPath $projectRoot
-if (-not (Test-Path -LiteralPath $Dotnet)) { throw 'Install the SDK pinned in global.json, then supply -Dotnet.' }
 $build = (git rev-parse --short HEAD).Trim()
-$version = '1.0.0'
+if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source commit.' }
+$changes = git status --porcelain
+if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect the source tree.' }
+if ($changes) { $build += '-dirty' }
+$version = Get-FreehandVersion
 $publish = Join-Path $projectRoot 'artifacts/publish'
 $compiler = Join-Path $projectRoot 'artifacts/installer-runtime'
 $release = Join-Path $projectRoot 'artifacts/release'
-foreach ($directory in @($publish, $compiler, $release)) { New-Item -ItemType Directory -Force -Path $directory | Out-Null }
-& $Dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false "-p:InformationalVersion=$version+$build" --output $publish
-if ($LASTEXITCODE -ne 0) { throw 'Application publish failed' }
-$modelTarget = Join-Path $publish 'models/parakeet-v2'
-New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
+$modelInput = Find-FreehandModelDirectory $ModelSource
+$modelCache = Join-Path $projectRoot 'artifacts/model-cache/parakeet-v2'
+New-Item -ItemType Directory -Force -Path $modelCache | Out-Null
 $manifest = Get-Content -LiteralPath packaging/model-manifest.json -Raw | ConvertFrom-Json
 $revision = $manifest.Version.Split('/')[-1]
 foreach ($asset in $manifest.Files) {
-    $source = Join-Path $ModelSource $asset.Name
-    $destination = Join-Path $modelTarget $asset.Name
-    if (Test-Path -LiteralPath $source) { Copy-Item -LiteralPath $source -Destination $destination -Force }
-    else {
+    $source = if ($modelInput) { Join-Path $modelInput $asset.Name } else { $null }
+    $destination = Join-Path $modelCache $asset.Name
+    if ($source -and (Test-Path -LiteralPath $source) -and $source -ne $destination) {
+        Copy-Item -LiteralPath $source -Destination $destination -Force
+    }
+    if (-not (Test-Path -LiteralPath $destination)) {
         $url = 'https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/' + $revision + '/' + $asset.Name
         Invoke-WebRequest $url -OutFile $destination
     }
     if ((Get-Item -LiteralPath $destination).Length -ne $asset.Size -or (Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash -ne $asset.Sha256) { throw "Model verification failed: $($asset.Name)" }
 }
+foreach ($directory in @($publish, $compiler, $release)) {
+    $resolved = [IO.Path]::GetFullPath($directory)
+    $allowed = @('publish', 'installer-runtime', 'release') | ForEach-Object { [IO.Path]::GetFullPath((Join-Path $projectRoot "artifacts/$_")) }
+    if ($resolved -notin $allowed) { throw "Refusing to clean unexpected output directory: $resolved" }
+    foreach ($process in @(Get-Process -Name Freehand.App,Freehand.Installer -ErrorAction SilentlyContinue)) {
+        if ($process.Path -and $process.Path.StartsWith($resolved + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+            throw "Quit the application running from $resolved before packaging."
+        }
+    }
+    if (Test-Path -LiteralPath $resolved) { Remove-Item -LiteralPath $resolved -Recurse -Force }
+    New-Item -ItemType Directory -Path $resolved | Out-Null
+}
+& $Dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false "-p:InformationalVersion=$version+$build" --output $publish
+if ($LASTEXITCODE -ne 0) { throw 'Application publish failed' }
+$modelTarget = Join-Path $publish 'models/parakeet-v2'
+New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
+foreach ($asset in $manifest.Files) { Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $modelTarget }
 Copy-Item -LiteralPath packaging/model-manifest.json -Destination (Join-Path $modelTarget 'manifest.json') -Force
 New-Item -ItemType Directory -Force -Path (Join-Path $publish 'fixtures') | Out-Null
+$fixtureCache = Join-Path $projectRoot 'artifacts/model-cache/jfk.wav'
+if (-not (Test-Path -LiteralPath $fixtureCache)) {
+    Invoke-WebRequest 'https://raw.githubusercontent.com/ggml-org/whisper.cpp/b0a11594aec50892a02cd8d129eee2dfe93a8bb8/samples/jfk.wav' -OutFile $fixtureCache
+}
 $fixture = Join-Path $publish 'fixtures/jfk.wav'
-Invoke-WebRequest 'https://raw.githubusercontent.com/ggml-org/whisper.cpp/b0a11594aec50892a02cd8d129eee2dfe93a8bb8/samples/jfk.wav' -OutFile $fixture
+Copy-Item -LiteralPath $fixtureCache -Destination $fixture
 if ((Get-FileHash -LiteralPath $fixture -Algorithm SHA256).Hash -ne '59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e') { throw 'Speech fixture checksum failed' }
 Copy-Item -LiteralPath packaging/THIRD-PARTY-NOTICES.txt -Destination $publish -Force
 $notices = Join-Path $publish 'licenses'

@@ -76,6 +76,8 @@ public sealed class WindowsDesktopIntegration : IDesktopIntegration
     /// <inheritdoc />
     public void SetLoginStartup(bool enabled)
     {
+        // A development or verification profile must not change the installed app's login entry.
+        if (Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY") is { Length: > 0 }) return;
         using var key = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
         if (enabled) key.SetValue("Freehand", "\"" + Environment.ProcessPath + "\" --tray", RegistryValueKind.String);
         else key.DeleteValue("Freehand", false);
