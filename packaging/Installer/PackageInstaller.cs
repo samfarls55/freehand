@@ -28,7 +28,7 @@ internal static class PackageInstaller
             var baseLength = await ExtractPayloadAsync(installerPath, zipPath).ConfigureAwait(false);
             ZipFile.ExtractToDirectory(zipPath, stage);
             progress.Report("Verifying application files and model hashes...");
-            await VerifyFilesAsync(stage).ConfigureAwait(false);
+            var manifest = await VerifyFilesAsync(stage).ConfigureAwait(false);
             await CopyPrefixAsync(installerPath, Path.Combine(stage, "FreehandUninstall.exe"), baseLength).ConfigureAwait(false);
             await StopApplicationAsync(root).ConfigureAwait(false);
             if (Directory.Exists(root))
@@ -47,7 +47,7 @@ internal static class PackageInstaller
             Shortcut.Create(ShortcutPath, Path.Combine(root, "Freehand.App.exe"));
             using (var key = Registry.CurrentUser.CreateSubKey(UninstallKey))
             {
-                key.SetValue("DisplayName", "Freehand"); key.SetValue("DisplayVersion", "1.0.0");
+                key.SetValue("DisplayName", "Freehand"); key.SetValue("DisplayVersion", manifest.Version);
                 key.SetValue("Publisher", "Sam"); key.SetValue("InstallLocation", root);
                 key.SetValue("DisplayIcon", Path.Combine(root, "Freehand.App.exe"));
                 key.SetValue("UninstallString", Quote(Path.Combine(root, "FreehandUninstall.exe")) + " --uninstall --directory " + Quote(root));
@@ -126,7 +126,7 @@ internal static class PackageInstaller
             await output.WriteAsync(buffer.AsMemory(0, read)).ConfigureAwait(false); remaining -= read;
         }
     }
-    private static async Task VerifyFilesAsync(string root)
+    private static async Task<PackageManifest> VerifyFilesAsync(string root)
     {
         var manifest = JsonSerializer.Deserialize(await File.ReadAllTextAsync(Path.Combine(root, "package-manifest.json")).ConfigureAwait(false),
             PackageJsonContext.Default.PackageManifest) ?? throw new InvalidDataException("Package manifest missing");
@@ -139,6 +139,7 @@ internal static class PackageInstaller
             if (!Convert.ToHexString(await SHA256.HashDataAsync(file).ConfigureAwait(false)).Equals(asset.Sha256, StringComparison.OrdinalIgnoreCase))
                 throw new InvalidDataException("Damaged package file: " + asset.Path);
         }
+        return manifest;
     }
     private static async Task StopApplicationAsync(string root)
     {

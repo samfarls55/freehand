@@ -161,6 +161,10 @@ This is an early public release. Build, regression, packaging, and native speech
 
 ## Build from source
 
+For the development, local update, and public release process, read
+[Development and deployments](docs/DEVELOPMENT.md). The scripts there select the SDK,
+keep development data separate, and provide repeatable verification and installation.
+
 Build the Windows app on Windows x64. Install:
 
 - [Git for Windows](https://git-scm.com/download/win).
@@ -194,7 +198,7 @@ pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source
 
 The script publishes a self-contained x64 app, downloads the pinned model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. An internet connection is needed for NuGet restore and uncached downloads. The model files total about 631 MiB.
 
-The script can reuse matching model files from `%LOCALAPPDATA%\Freehand\models\parakeet-v2`. To use an existing download in another folder:
+The script can reuse matching model files from your installed app or its build cache. To use an existing download in another folder:
 
 ```powershell
 pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source -ModelSource 'C:\models\parakeet-v2'
@@ -227,6 +231,8 @@ if ($check.ExitCode -ne 0) { throw "Self-test failed with exit code $($check.Exi
 With the full package present, this checks dictionary and storage behavior, reflected Windows platform loading, native model loading, known speech transcription, and worker stop/restart. It does not verify physical microphone capture or hotkey delivery into another app. The installer also runs this check against the installed executable.
 
 The [Windows workflow](.github/workflows/windows.yml) builds, tests, packages, and runs the published self-test. Its downloadable artifact contains the installer and checksum.
+Pushing a version tag also publishes a GitHub Release after those checks pass. See
+[the release process](docs/DEVELOPMENT.md#publish-a-version) for versioning and release notes.
 
 ## Contributing
 
