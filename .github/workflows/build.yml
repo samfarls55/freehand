@@ -51,13 +51,25 @@ jobs:
         shell: pwsh
         run: |
           $scanner = Join-Path $env:RUNNER_TEMP 'scanner/dotnet-sonarscanner.exe'
-          & $scanner begin /k:samfarls55_freehand /o:samfarls55 "/d:sonar.token=$env:SONAR_TOKEN" /d:sonar.cs.vscoveragexml.reportsPaths=artifacts/coverage/dotnet.xml /d:sonar.coverageReportPaths=artifacts/coverage/scripts.xml /d:sonar.test.inclusions=tests/**
+          & $scanner begin /k:samfarls55_freehand /o:samfarls55 "/d:sonar.token=$env:SONAR_TOKEN" /d:sonar.cs.vscoveragexml.reportsPaths=artifacts/coverage/dotnet*.xml /d:sonar.coverageReportPaths=artifacts/coverage/scripts.xml /d:sonar.test.inclusions=tests/**
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube initialization failed.' }
           dotnet build Freehand.sln -c Release --no-incremental
           if ($LASTEXITCODE -ne 0) { throw 'Analysis build failed.' }
           dotnet tool run dotnet-coverage collect 'dotnet test Freehand.sln -c Release --no-build' -f xml -o artifacts/coverage/dotnet.xml
           if ($LASTEXITCODE -ne 0) { throw 'Coverage test run failed.' }
           ./tests/Freehand.Scripts.Tests/Run.ps1
+          # Exercise the real speech worker and replay assertions under coverage.
+          # The profiler needs managed assemblies on disk rather than inside a bundle.
+          ./scripts/build-release.ps1 -Dotnet (Get-Command dotnet).Source
+          dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false --output artifacts/coverage-app
+          if ($LASTEXITCODE -ne 0) { throw 'Coverage application publish failed.' }
+          Copy-Item -LiteralPath artifacts/publish/models -Destination artifacts/coverage-app -Recurse -Force
+          Copy-Item -LiteralPath artifacts/publish/fixtures -Destination artifacts/coverage-app -Recurse -Force
+          $performanceApp = (Resolve-Path artifacts/coverage-app/Freehand.App.exe).Path
+          $performanceOutput = Join-Path $PWD 'artifacts/coverage/performance.json'
+          $performanceCommand = '"{0}" --performance-check "{1}"' -f $performanceApp, $performanceOutput
+          dotnet tool run dotnet-coverage collect $performanceCommand -f xml -o artifacts/coverage/dotnet-performance.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Covered performance replay failed.' }
           & $scanner end "/d:sonar.token=$env:SONAR_TOKEN"
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube upload failed.' }
       - name: Upload coverage reports

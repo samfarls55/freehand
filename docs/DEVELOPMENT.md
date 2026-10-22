@@ -59,6 +59,12 @@ SDK and installer processes. Your installed app and normal profile stay outside 
 fixture. Windows regression tests also check that an isolated profile leaves the
 installed app's login entry unchanged.
 
+SonarQube also collects coverage from the public-fixture performance replay through the
+real speech worker. A separate unbundled publish exposes the managed assemblies to the
+profiler. The Windows job verifies the shipped single-file package. Replay measurements
+made under the profiler include instrumentation overhead and are correctness checks,
+not comparable latency or memory benchmarks.
+
 ## Update this computer
 
 Quit the development app and resolve any active or retained recording in the installed

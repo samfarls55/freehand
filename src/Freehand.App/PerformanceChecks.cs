@@ -49,7 +49,7 @@ internal static class PerformanceChecks
                             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(60));
                             while (engine.State != DictationState.Idle) await Task.Delay(5, deadline.Token).ConfigureAwait(false);
                             var result = engine.LastResult ?? throw new IOException("Missing transcript");
-                            if (result.AudioDuration.TotalSeconds != seconds || !result.Text.Contains("fellow americans", StringComparison.OrdinalIgnoreCase)
+                            if (result.AudioDuration != TimeSpan.FromSeconds(seconds) || !result.Text.Contains("fellow americans", StringComparison.OrdinalIgnoreCase)
                                 || !result.Text.Contains("country", StringComparison.OrdinalIgnoreCase) || injector.Deliveries != completedBefore + 1)
                                 throw new IOException("Fixture correctness or delivery count failed");
                             trial.ReleaseToTranscriptMilliseconds = result.TranscriptTime.TotalMilliseconds;
