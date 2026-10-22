@@ -7,7 +7,7 @@ the change works. Publish a GitHub Release when that version is ready for other 
 |---|---|
 | `pwsh -File ./scripts/setup-dev.ps1` | Finds a compatible SDK or installs the pinned SDK locally, then restores dependencies |
 | `pwsh -File ./scripts/dev.ps1` | Builds and opens the development app with a separate data folder |
-| `pwsh -File ./scripts/verify.ps1` | Runs the Release build with warnings as errors and all regression tests |
+| `pwsh -File ./scripts/verify.ps1` | Runs the Release build with warnings as errors and the .NET regression tests |
 | `pwsh -File ./scripts/verify.ps1 -Package` | Also creates the installer and tests the published executable |
 | `pwsh -File ./scripts/deploy-local.ps1` | Verifies and packages the changes, saves the previous repair installer, then updates the installed app |
 
@@ -47,6 +47,15 @@ history, verification cache, and logs are separate from your installed app's dat
 It does not change Windows login startup. The first development launch uses a fresh
 dictionary; add test rules there as needed. `dev.ps1 -BuildOnly` builds and prepares
 the profile without opening a window.
+
+The SonarQube job runs the .NET tests under the pinned `dotnet-coverage` tool and
+the deployment-script tests under Pester 6.2.0. It imports both reports into the
+existing quality gate. Run the script tests locally with
+`pwsh -File ./tests/Freehand.Scripts.Tests/Run.ps1` using PowerShell 7.4 or later.
+They execute unchanged copies of the scripts in a temporary fixture, with simulated
+SDK and installer processes. Your installed app and normal profile stay outside that
+fixture. Windows regression tests also check that an isolated profile leaves the
+installed app's login entry unchanged.
 
 ## Update this computer
 
