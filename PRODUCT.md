@@ -95,7 +95,7 @@ bar and native controls. DESIGN.md records the implemented visual system.
 ## Implementation status
 
 Compact is implemented in the native source and rebased onto main's performance
-updates. The Release build, 122 .NET tests, 23 deployment-script tests, installer
+updates. The Release build, 122 .NET tests, 27 deployment-script tests, installer
 packaging, and the published executable's self-test passed on October 22, 2026.
 The installed copy has not been updated, and no GitHub publication occurred.
 Physical microphone, hotkey, and delivery checks remain hands-on validation.

@@ -92,6 +92,53 @@ Describe 'Version and SDK selection' {
     }
 }
 
+Describe 'Test tool bootstrap' {
+    It 'reuses the cached pinned module without a network request' {
+        $toolsDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $moduleDirectory = Join-Path $toolsDirectory 'Pester/6.2.0'
+        New-Item -ItemType Directory -Path $moduleDirectory -Force | Out-Null
+        $manifest = Join-Path $moduleDirectory 'Pester.psd1'
+        Set-Content -LiteralPath $manifest -Value 'fixture module'
+        Mock Invoke-WebRequest { throw 'Unexpected download' }
+        & (Join-Path $scripts 'setup-test-tools.ps1') -Destination $toolsDirectory | Should-Be $manifest
+        Should-NotInvoke Invoke-WebRequest
+    }
+
+    It 'downloads and extracts the exact package after checksum verification' {
+        $toolsDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        $source = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        New-Item -ItemType Directory -Path $source -Force | Out-Null
+        Set-Content -LiteralPath (Join-Path $source 'Pester.psd1') -Value 'fixture module'
+        $pesterFixtureArchive = Join-Path $fixtureRoot 'pester-fixture.zip'
+        [IO.Compression.ZipFile]::CreateFromDirectory($source, $pesterFixtureArchive)
+        Mock Invoke-WebRequest { Copy-Item -LiteralPath (Join-Path $env:FREEHAND_SCRIPT_TEST_ROOT 'pester-fixture.zip') -Destination $OutFile }
+        Mock Get-FileHash { [pscustomobject]@{ Hash = 'e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239' } }
+        $manifest = & (Join-Path $scripts 'setup-test-tools.ps1') -Destination $toolsDirectory
+        Get-Content -LiteralPath $manifest | Should-Be 'fixture module'
+        Should-Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter {
+            $Uri -eq 'https://www.powershellgallery.com/api/v2/package/Pester/6.2.0' -and $MaximumRetryCount -eq 3
+        }
+        Should-Invoke Get-FileHash -Times 1 -Exactly -ParameterFilter { $Algorithm -eq 'SHA256' }
+    }
+
+    It 'rejects a damaged cached archive before extraction' {
+        $toolsDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        New-Item -ItemType Directory -Path $toolsDirectory -Force | Out-Null
+        Set-Content -LiteralPath (Join-Path $toolsDirectory 'pester.6.2.0.nupkg') -Value 'damaged archive'
+        Mock Invoke-WebRequest { throw 'Unexpected download' }
+        { & (Join-Path $scripts 'setup-test-tools.ps1') -Destination $toolsDirectory } | Should-Throw '*Pinned Pester checksum failed*'
+        Test-Path -LiteralPath (Join-Path $toolsDirectory 'Pester') | Should-BeFalse
+        Should-NotInvoke Invoke-WebRequest
+    }
+
+    It 'stops after a package download fails without extracting a module' {
+        $toolsDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        Mock Invoke-WebRequest { throw 'Package download unavailable' }
+        { & (Join-Path $scripts 'setup-test-tools.ps1') -Destination $toolsDirectory } | Should-Throw '*Package download unavailable*'
+        Test-Path -LiteralPath (Join-Path $toolsDirectory 'Pester') | Should-BeFalse
+    }
+}
+
 Describe 'Development launch' {
     It 'builds with separate preferences and preserves existing development data' {
         $developmentData = Join-Path $fixtureRoot 'artifacts/dev-data'

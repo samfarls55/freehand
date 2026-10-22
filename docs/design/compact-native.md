@@ -82,7 +82,7 @@ After syncing with main's performance updates on October 22, 2026:
 - The Release build with `--no-incremental -warnaserror` passed with zero warnings
   and errors.
 - All 122 .NET tests passed, covering 68 Core, 24 Dictionary, 6 Windows, and 24 App tests.
-- All 23 deployment-script tests passed.
+- All 27 deployment-script tests passed, including the pinned Pester bootstrap.
 - Installer packaging and the published executable's `--selftest` passed.
 - The [independent finish review](../../.impeccable/review/native-verdict.md)
   resolved its waveform, amber feedback, and disabled-action findings and returned
