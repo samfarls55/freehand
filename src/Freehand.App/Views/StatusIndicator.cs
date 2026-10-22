@@ -129,7 +129,7 @@ internal sealed class StatusIndicator : Window
         AutomationProperties.SetName(this, "Freehand: " + _text.Text);
         _activity.Update(state, level);
         _activity.IsVisible = active;
-        if (!IsVisible || starting) SelectScreen();
+        if (_screen is null || starting) SelectScreen();
         PositionOnScreen();
         if (!IsVisible) Show();
         if (IsProcessing) _activityTimer.Start();

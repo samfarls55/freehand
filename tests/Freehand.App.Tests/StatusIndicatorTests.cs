@@ -50,10 +50,13 @@ public sealed class StatusIndicatorTests
         finally { indicator.Close(); }
     }
 
-    [AvaloniaFact]
-    public void Retry_notice_yields_to_main_window_and_returns_when_hidden()
+    [AvaloniaTheory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void Retry_keeps_the_recording_display_when_main_window_hides_the_notice(bool restoreNoticeBeforeRetry)
     {
-        var indicator = new StatusIndicator();
+        var desktop = new IndicatorDesktop();
+        var indicator = new StatusIndicator(desktop);
         try
         {
             indicator.Update(true, DictationState.Recording);
@@ -62,12 +65,19 @@ public sealed class StatusIndicatorTests
             Status(indicator).ShouldBe("Retry or discard in Freehand");
             indicator.Update(false, DictationState.AwaitingRetry);
             indicator.IsVisible.ShouldBeFalse();
-            indicator.Update(true, DictationState.AwaitingRetry);
-            indicator.IsVisible.ShouldBeTrue();
+            desktop.PointerPosition = (1000, 600);
+            if (restoreNoticeBeforeRetry)
+            {
+                indicator.Update(true, DictationState.AwaitingRetry);
+                indicator.IsVisible.ShouldBeTrue();
+            }
             indicator.Update(true, DictationState.Transcribing);
             Status(indicator).ShouldBe("Processing");
+            desktop.PointerReads.ShouldBe(1, "retrying or restoring a notice must keep the recording's display");
             indicator.Update(true, DictationState.Idle);
             indicator.IsVisible.ShouldBeFalse();
+            indicator.Update(true, DictationState.Recording);
+            desktop.PointerReads.ShouldBe(2, "a new recording chooses its display from the current pointer");
         }
         finally { indicator.Close(); }
     }
@@ -154,7 +164,8 @@ public sealed class StatusIndicatorTests
     private sealed class IndicatorDesktop : IDesktopIntegration
     {
         internal int PointerReads { get; private set; }
-        public (int X, int Y)? GetPointerPosition() { PointerReads++; return (100, 100); }
+        internal (int X, int Y) PointerPosition { get; set; } = (100, 100);
+        public (int X, int Y)? GetPointerPosition() { PointerReads++; return PointerPosition; }
         public (uint Style, uint ExtendedStyle) GetNonActivatingStyles(uint style, uint extendedStyle) => (style, extendedStyle);
         public ForegroundTarget Capture() => default;
         public bool IsCurrent(ForegroundTarget target) => true;
