@@ -26,12 +26,15 @@ public partial class App : Application
         {
             _composition = Composition.Create(Program.Desktop);
             _main = new MainWindow(_composition);
-            _indicator = new StatusIndicator(_composition);
+            _indicator = new StatusIndicator(_composition.Desktop);
             if (desktop.Args?.Contains("--tray", StringComparer.Ordinal) != true) desktop.MainWindow = _main;
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             desktop.ShutdownRequested += (_, e) => { if (!_quitting) { e.Cancel = true; RequestQuit(); } };
             _composition.Changed += (_, _) => Dispatcher.UIThread.Post(SyncFeedback);
-            _main.PropertyChanged += (_, e) => { if (e.Property == Visual.IsVisibleProperty) SyncFeedback(); };
+            _main.PropertyChanged += (_, e) =>
+            {
+                if (e.Property == Visual.IsVisibleProperty || e.Property == Window.WindowStateProperty) SyncFeedback();
+            };
             if (Program.Desktop is not null)
             {
                 Program.Desktop.ActivationRequested += (_, _) => Dispatcher.UIThread.Post(ShowMain);
@@ -100,7 +103,8 @@ public partial class App : Application
         var text = state == DictationState.Idle ? "Freehand ready" : "Freehand " + state.ToString().ToLowerInvariant();
         var icons = TrayIcon.GetIcons(this);
         if (icons is not null) foreach (var icon in icons) icon.ToolTipText = text;
-        _indicator.Update(!_main.IsVisible, state);
+        _indicator.Update(!_main.IsVisible || _main.WindowState == WindowState.Minimized,
+            state, _composition.Engine?.Level ?? 0, _composition.Engine?.Feedback);
     }
     private void RequestQuit() { if (!_quitting && _quitTask.IsCompleted) _quitTask = QuitAsync(); }
     private async Task QuitAsync()

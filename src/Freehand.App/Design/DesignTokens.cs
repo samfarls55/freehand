@@ -249,6 +249,9 @@ public static class Tokens
 
         /// <summary>The window itself.</summary>
         public const double Window = 8;
+
+        /// <summary>The floating dictation capsule, separate from the recorder's panel geometry.</summary>
+        public const double Status = Size.StatusHeight / 2;
     }
 
     /// <summary>Line weights. All 1 — a machined edge reads the same at any density.</summary>
@@ -302,6 +305,25 @@ public static class Tokens
         /// <summary>How far an unlit lamp sits below the lit value.</summary>
         public const double LampUnlitOpacity = 0.22;
 
+        /// <summary>Number of recent input levels in the dictation capsule.</summary>
+        public const int StatusBarCount = 5;
+        /// <summary>Width of the capsule's audio bars.</summary>
+        public const double StatusBarWidth = 3;
+        /// <summary>Gap between audio bars.</summary>
+        public const double StatusBarGap = 3;
+        /// <summary>Maximum audio bar height.</summary>
+        public const double StatusActivityHeight = 20;
+        /// <summary>Audio bars remain visible during silence.</summary>
+        public const double StatusBarMinimum = 4;
+        /// <summary>Gain applied after square-root compression of microphone RMS.</summary>
+        public const double StatusLevelGain = 3;
+        /// <summary>Number of processing dots.</summary>
+        public const int StatusDotCount = 3;
+        /// <summary>Diameter of processing dots.</summary>
+        public const double StatusDotSize = 4;
+        /// <summary>Opacity of inactive processing dots and the capsule's hairline.</summary>
+        public const double StatusDimOpacity = 0.35;
+
         /// <summary>Transport key height.</summary>
         public const double KeyHeight = 34;
 
@@ -324,10 +346,12 @@ public static class Tokens
     /// <summary>Recorder and background feedback geometry.</summary>
     public static class Size
     {
-        /// <summary>Width of the background status panel.</summary>
-        public const double StatusWidth = 300;
-        /// <summary>Height of the background status panel.</summary>
-        public const double StatusHeight = 68;
+        /// <summary>Width of the floating dictation capsule.</summary>
+        public const double StatusWidth = 168;
+        /// <summary>Height of the floating dictation capsule.</summary>
+        public const double StatusHeight = 40;
+        /// <summary>Width when an error needs an action.</summary>
+        public const double StatusAttentionWidth = 232;
         /// <summary>Maximum visible height of the latest transcript.</summary>
         public const double TranscriptHeight = 100;
         /// <summary>Width of the active-recording Quit confirmation.</summary>
@@ -350,6 +374,11 @@ public static class Tokens
 
         /// <summary>The record lamp coming on — instant, like a filament.</summary>
         public static TimeSpan Lamp { get; } = TimeSpan.FromMilliseconds(80);
+
+        /// <summary>Cadence of the dictation capsule's processing dots.</summary>
+        public static TimeSpan StatusActivity { get; } = TimeSpan.FromMilliseconds(180);
+        /// <summary>How long a completed dictation's error stays visible.</summary>
+        public static TimeSpan StatusAttention { get; } = TimeSpan.FromSeconds(3);
 
         /// <summary>
         /// VU ballistics: seconds to reach a step going up.
