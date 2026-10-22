@@ -310,9 +310,13 @@ public sealed class DictationEngine : IAsyncDisposable
                 try
                 {
                     _lifetime.Token.ThrowIfCancellationRequested();
+                    // Separate consecutive dictations at delivery. Keep the transcript
+                    // and any literal whitespace supplied by dictionary corrections intact.
+                    var insertionText = corrected.Length > 0 && !char.IsWhiteSpace(corrected[^1])
+                        ? corrected + " " : corrected;
                     delivery = _injector is ITargetedTextInjector targeted
-                        ? await targeted.InjectAsync(corrected, job.Target, _lifetime.Token).ConfigureAwait(false)
-                        : await _injector.InjectAsync(corrected, _lifetime.Token).ConfigureAwait(false) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
+                        ? await targeted.InjectAsync(insertionText, job.Target, _lifetime.Token).ConfigureAwait(false)
+                        : await _injector.InjectAsync(insertionText, _lifetime.Token).ConfigureAwait(false) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
                 }
                 catch (OperationCanceledException) { delivery = DeliveryOutcome.Cancelled; }
                 catch (Exception e) { _log?.Write(job.Id, "delivery-" + e.GetType().Name); delivery = DeliveryOutcome.PartialOrUncertain; }

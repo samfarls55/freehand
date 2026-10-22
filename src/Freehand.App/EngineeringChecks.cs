@@ -136,12 +136,13 @@ internal static class EngineeringChecks
                     await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
                     var result = engine.LastResult ?? throw new IOException("Missing transcript");
                     CheckFixtureText(result.Text);
+                    var insertedText = result.Text + " ";
                     if (probe is not null)
                     {
                         try
                         {
                             if (result.Delivery != DeliveryOutcome.Delivered) throw new IOException("Delivery outcome: " + result.Delivery);
-                            await WaitAsync(() => probe.ReadText() == result.Text, TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+                            await WaitAsync(() => probe.ReadText() == insertedText, TimeSpan.FromSeconds(2)).ConfigureAwait(false);
                             if (probe.FirstInputTimestamp == 0) throw new IOException("First input was not observed");
                             report.ReleaseToFirstInputMilliseconds.Add(Stopwatch.GetElapsedTime(released, probe.FirstInputTimestamp).TotalMilliseconds);
                             report.ReleaseToFullInputMilliseconds.Add(result.ProcessingTime.TotalMilliseconds);
@@ -150,7 +151,7 @@ internal static class EngineeringChecks
                         {
                             if (!desktop.IsCurrent(trialTarget) || result.Delivery == DeliveryOutcome.TargetChanged)
                                 report.DeliveryLimitation = "Focus changed during delivery; remaining inference checks ran without insertion.";
-                            else report.Failures.Add($"Foreground delivery could not be confirmed: outcome={result.Delivery}, expected={result.Text.Length}, received={probe.ReadText().Length}");
+                            else report.Failures.Add($"Foreground delivery could not be confirmed: outcome={result.Delivery}, expected={insertedText.Length}, received={probe.ReadText().Length}");
                             probe = null;
                         }
                     }
@@ -169,7 +170,7 @@ internal static class EngineeringChecks
                 var recovery = Stopwatch.GetTimestamp(); key.Release();
                 await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(45)).ConfigureAwait(false);
                 report.RecoveryMilliseconds = Stopwatch.GetElapsedTime(recovery).TotalMilliseconds;
-                if (completed != 51 || engine.LastResult is null || (probe is not null && (engine.LastResult.Delivery != DeliveryOutcome.Delivered || probe.ReadText() != engine.LastResult.Text)))
+                if (completed != 51 || engine.LastResult is null || (probe is not null && (engine.LastResult.Delivery != DeliveryOutcome.Delivered || probe.ReadText() != engine.LastResult.Text + " ")))
                     throw new IOException("Worker recovery lost audio or repeated delivery");
                 report.WorkerCrashRecoveryPassed = true;
                 speech.SetIdleTimeout(TimeSpan.FromMilliseconds(100));

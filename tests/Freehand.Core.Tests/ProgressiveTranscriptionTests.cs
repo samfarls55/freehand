@@ -29,7 +29,7 @@ public sealed class ProgressiveTranscriptionTests
         await LifecycleTests.WaitUntilAsync(() => engine.State == DictationState.Idle);
         speech.Samples.Sum().ShouldBe(15 * AudioChunk.SampleRate + 640);
         speech.Samples.ShouldAllBe(n => n <= 15 * AudioChunk.SampleRate);
-        injector.Injected.ShouldHaveSingleItem().ShouldBe("Claude Code");
+        injector.Injected.ShouldHaveSingleItem().ShouldBe("Claude Code ");
         engine.LastResult!.AudioDuration.TotalSeconds.ShouldBe(15.04, 0.0001);
     }
 
@@ -49,7 +49,7 @@ public sealed class ProgressiveTranscriptionTests
         await LifecycleTests.WaitUntilAsync(() => engine.State == DictationState.Idle);
         speech.Resets.ShouldBe(1);
         speech.Samples.Skip(2).Sum().ShouldBe(31 * AudioChunk.SampleRate + 320);
-        injector.Injected.ShouldHaveSingleItem().ShouldBe("recovered recovered recovered");
+        injector.Injected.ShouldHaveSingleItem().ShouldBe("recovered recovered recovered ");
     }
 
     [Fact]

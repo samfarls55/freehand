@@ -40,6 +40,12 @@ The platform captures the foreground HWND and process identity before recording.
 partial delivery preserve text for Copy. Dictionary correction semantics and shared
 vectors are unchanged. Bare dictionary terms carry no recognition-bias promise.
 
+Automatic insertion adds one trailing space to a nonempty corrected transcript unless
+it already ends in whitespace. This separates consecutive dictations. The saved transcript
+and explicit Copy retain the corrected text; literal trailing spaces, tabs and newlines
+from dictionary replacements are preserved. The separator is included in the single
+delivery attempt and follows the same focus and retry rules as the transcript.
+
 Live preferences are applied behind an idle reservation. Failed hotkey replacement
 rearms the previous key. Insertion and history preferences use the applied snapshot.
 Settings and dictionary writes use temporary files and atomic replacement. Unreadable
