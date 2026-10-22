@@ -90,11 +90,11 @@ Describe 'Version and SDK selection' {
 
 Describe 'Development launch' {
     It 'builds with separate preferences and preserves existing development data' {
-        $profile = Join-Path $fixtureRoot 'artifacts/dev-data'
-        New-Item -ItemType Directory -Path $profile -Force | Out-Null
-        @{ KeepHistory = $false } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $profile 'settings.json')
+        $developmentData = Join-Path $fixtureRoot 'artifacts/dev-data'
+        New-Item -ItemType Directory -Path $developmentData -Force | Out-Null
+        @{ KeepHistory = $false } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $developmentData 'settings.json')
         & (Join-Path $scripts 'dev.ps1') -Dotnet $sdk -ModelSource $model -BuildOnly
-        $settings = Get-Content -LiteralPath (Join-Path $profile 'settings.json') -Raw | ConvertFrom-Json
+        $settings = Get-Content -LiteralPath (Join-Path $developmentData 'settings.json') -Raw | ConvertFrom-Json
         $settings.StartAtLogin | Should-BeFalse
         $settings.KeepHistory | Should-BeFalse
         $settings.ModelDirectory | Should-Be $model

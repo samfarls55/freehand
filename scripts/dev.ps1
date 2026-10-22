@@ -11,9 +11,9 @@ if (-not $BuildOnly -and (Get-Process -Name Freehand.App -ErrorAction SilentlyCo
 }
 $model = Find-FreehandModelDirectory $ModelSource
 if (-not $model) { throw 'Model files were not found. Run ./scripts/verify.ps1 -Package once, or supply -ModelSource.' }
-$profile = Join-Path $projectRoot 'artifacts/dev-data'
-New-Item -ItemType Directory -Force -Path $profile | Out-Null
-$settingsPath = Join-Path $profile 'settings.json'
+$dataDirectory = Join-Path $projectRoot 'artifacts/dev-data'
+New-Item -ItemType Directory -Force -Path $dataDirectory | Out-Null
+$settingsPath = Join-Path $dataDirectory 'settings.json'
 $settings = if (Test-Path -LiteralPath $settingsPath) { Get-Content -LiteralPath $settingsPath -Raw | ConvertFrom-Json -AsHashtable } else { @{} }
 $settings.ModelDirectory = $model
 $settings.StartAtLogin = $false
@@ -24,13 +24,13 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Development build failed.' }
 } finally { Pop-Location }
 $exe = Join-Path $projectRoot 'src/Freehand.App/bin/Debug/net10.0/Freehand.App.exe'
-Write-Output "Development profile: $profile"
+Write-Output "Development profile: $dataDirectory"
 Write-Output "Model: $model"
 if ($BuildOnly) { Write-Output "Built: $exe"; return }
 $start = [Diagnostics.ProcessStartInfo]::new($exe)
 $start.UseShellExecute = $false
 $start.WorkingDirectory = $projectRoot
-$start.Environment['FREEHAND_DATA_DIRECTORY'] = $profile
+$start.Environment['FREEHAND_DATA_DIRECTORY'] = $dataDirectory
 $start.Environment['DOTNET_ROOT'] = Split-Path -Parent $dotnetPath
 $start.Environment['DOTNET_ROOT_X64'] = Split-Path -Parent $dotnetPath
 $app = [Diagnostics.Process]::Start($start)

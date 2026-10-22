@@ -41,10 +41,10 @@ function Find-FreehandModelDirectory([string]$RequestedPath) {
 }
 
 function Invoke-FreehandSelfTest([string]$Executable) {
-    $profile = Join-Path $projectRoot 'artifacts/selftest-data'
+    $dataDirectory = Join-Path $projectRoot 'artifacts/selftest-data'
     $previous = $env:FREEHAND_DATA_DIRECTORY
     try {
-        $env:FREEHAND_DATA_DIRECTORY = $profile
+        $env:FREEHAND_DATA_DIRECTORY = $dataDirectory
         $check = Start-Process -FilePath $Executable -ArgumentList '--selftest' -Wait -PassThru -WindowStyle Hidden
         if ($check.ExitCode -ne 0) { throw "Published self-test failed with exit code $($check.ExitCode)." }
     } finally { $env:FREEHAND_DATA_DIRECTORY = $previous }
