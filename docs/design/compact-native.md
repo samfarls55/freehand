@@ -77,15 +77,21 @@ field. Only one copy can own the global key. The full workflow is in
 
 ## Verification and limits
 
-After the final visual fixes on October 22, 2026:
+After syncing with main's performance updates on October 22, 2026:
 
 - The Release build with `--no-incremental -warnaserror` passed with zero warnings
   and errors.
-- All 91 tests passed, covering 46 Core, 24 Dictionary, 2 Windows, and 19 App tests.
+- All 118 .NET tests passed, covering 68 Core, 24 Dictionary, 6 Windows, and 20 App tests.
+- All 23 deployment-script tests passed.
 - Installer packaging and the published executable's `--selftest` passed.
 - The [independent finish review](../../.impeccable/review/native-verdict.md)
   resolved its waveform, amber feedback, and disabled-action findings and returned
   `disposition: ship`.
+
+The branch includes main through `78511e7`. Compact retains main's queued UI
+feedback, Parakeet TDT 110M configuration, and spacing between consecutive
+dictations. Settings now uses the model resolver's bundled directory and names
+the current model. A UI regression test checks bundled and custom model paths.
 
 The [native captures](../../.impeccable/review/native) use Avalonia headless Skia
 rendering and synthetic data. History, dictionary, settings, and recording are
@@ -99,7 +105,7 @@ published startup. They do not establish physical microphone capture, a physical
 hotkey press, or text delivery into a foreground application. Those hands-on
 checks have not been repeated for this design change.
 
-The installed application has not been updated. No commit, push, or GitHub
-publication occurred as part of this implementation. Use the development profile
+The Compact work is committed locally. The installed application has not been
+updated, and no push or GitHub publication occurred. Use the development profile
 to try the source, and follow [DEVELOPMENT.md](../DEVELOPMENT.md) for verification,
 local installation, and publication. Those remain separate operations.

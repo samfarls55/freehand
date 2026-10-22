@@ -33,7 +33,7 @@ running. Explicit Quit shuts it down.
 
 ## Capabilities and constraints
 
-- Local English speech recognition uses Parakeet through sherpa-onnx on the CPU.
+- Local English speech recognition uses Parakeet TDT 110M through sherpa-onnx on the CPU.
   The installer includes the speech model and runtime. Dictation works offline.
 - Transcripts appear after the user releases the key. The current product does not
   provide a live text stream while the user speaks.
@@ -94,8 +94,9 @@ bar and native controls. DESIGN.md records the implemented visual system.
 
 ## Implementation status
 
-Compact is implemented in the native source and passed the Release build, 91 tests,
-installer packaging, and the published executable's self-test on October 22, 2026.
+Compact is implemented in the native source and rebased onto main's performance
+updates. The Release build, 118 .NET tests, 23 deployment-script tests, installer
+packaging, and the published executable's self-test passed on October 22, 2026.
 The installed copy has not been updated, and no GitHub publication occurred.
 Physical microphone, hotkey, and delivery checks remain hands-on validation.
 
