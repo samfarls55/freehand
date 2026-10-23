@@ -115,6 +115,79 @@ public sealed class HotkeyEditorTests
         data.Settings.Data.DictationKeys.ShouldBe([0xA3]);
     }
 
+    [AvaloniaFact]
+    public async Task Minimizing_settings_cancels_capture_and_preserves_the_saved_shortcut()
+    {
+        using var data = new UiData(); var recorder = new PendingRecorder();
+        var view = new SettingsView(data.Settings, null, recorder);
+        var window = new Window { Content = view }; window.Show();
+        try
+        {
+            RecordButton(view).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            window.WindowState = WindowState.Minimized;
+            await WaitUntilAsync(() => recorder.Token.IsCancellationRequested && RecordButton(view).IsEnabled);
+            recorder.Progress!.Report([0x41]); Dispatcher.UIThread.RunJobs();
+            new AppSettings(data.SettingsPath).Data.DictationKeys.ShouldBe([0xA3]);
+            window.WindowState = WindowState.Normal;
+            view.GetVisualDescendants().OfType<TextBlock>().Any(t => t.Text == "Right Ctrl").ShouldBeTrue();
+        }
+        finally { window.Close(); }
+    }
+
+    [AvaloniaFact]
+    public void Recording_is_disabled_without_a_platform_recorder()
+    {
+        using var data = new UiData();
+        var view = new SettingsView(data.Settings);
+        var window = new Window { Content = view }; window.Show();
+        try
+        {
+            RecordButton(view).IsEnabled.ShouldBeFalse();
+            data.Settings.Data.DictationKeys.ShouldBe([0xA3]);
+        }
+        finally { window.Close(); }
+    }
+
+    [AvaloniaFact]
+    public void Busy_dictation_keeps_the_saved_binding_and_allows_a_later_attempt()
+    {
+        using var data = new UiData();
+        var view = new SettingsView(data.Settings, null, new UnavailableRecorder());
+        var window = new Window { Content = view }; window.Show();
+        try
+        {
+            RecordButton(view).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            RecordButton(view).IsEnabled.ShouldBeTrue();
+            view.GetVisualDescendants().OfType<TextBlock>().Any(t => t.Text == "Finish dictation first").ShouldBeTrue();
+            new AppSettings(data.SettingsPath).Data.DictationKeys.ShouldBe([0xA3]);
+        }
+        finally { window.Close(); }
+    }
+
+    [AvaloniaFact]
+    public async Task Capture_previews_keys_ignores_duplicate_starts_and_can_restart_after_hiding()
+    {
+        using var data = new UiData(); var recorder = new PendingRecorder();
+        var view = new SettingsView(data.Settings, null, recorder);
+        var window = new Window { Content = view }; window.Show();
+        try
+        {
+            RecordButton(view).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            recorder.Progress!.Report([0x41, 0xA2]);
+            await WaitUntilAsync(() => view.GetVisualDescendants().OfType<TextBlock>().Any(t => t.Text == "Left Ctrl + A"));
+            RecordButton(view).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            recorder.Calls.ShouldBe(1);
+            window.Hide();
+            await WaitUntilAsync(() => recorder.Token.IsCancellationRequested && RecordButton(view).IsEnabled);
+            window.Show();
+            RecordButton(view).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            recorder.Calls.ShouldBe(2);
+            recorder.Token.IsCancellationRequested.ShouldBeFalse();
+            new AppSettings(data.SettingsPath).Data.DictationKeys.ShouldBe([0xA3]);
+        }
+        finally { window.Close(); }
+    }
+
     private static Button RecordButton(Control view) => view.GetVisualDescendants().OfType<Button>()
         .Single(b => AutomationProperties.GetName(b) == "Change push-to-talk key");
 
@@ -132,12 +205,20 @@ public sealed class HotkeyEditorTests
 
     private sealed class PendingRecorder : IHotkeyRecorder
     {
+        internal int Calls { get; private set; }
         internal IProgress<IReadOnlyList<int>>? Progress { get; private set; }
         internal CancellationToken Token { get; private set; }
         public Task<IReadOnlyList<int>?> RecordAsync(IProgress<IReadOnlyList<int>> progress, CancellationToken cancellationToken)
         {
+            Calls++;
             Progress = progress; Token = cancellationToken;
             return new TaskCompletionSource<IReadOnlyList<int>?>(TaskCreationOptions.RunContinuationsAsynchronously).Task.WaitAsync(cancellationToken);
         }
+    }
+
+    private sealed class UnavailableRecorder : IHotkeyRecorder
+    {
+        public Task<IReadOnlyList<int>?> RecordAsync(IProgress<IReadOnlyList<int>> progress, CancellationToken cancellationToken) =>
+            Task.FromResult<IReadOnlyList<int>?>(null);
     }
 }

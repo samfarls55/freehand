@@ -86,7 +86,8 @@ internal sealed class HotkeyEditor : StackPanel
 
     private void OwnerPropertyChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
     {
-        if (e.Property == IsVisibleProperty && e.NewValue is false) Cancel();
+        if ((e.Property == IsVisibleProperty && e.NewValue is false)
+            || (e.Property == Window.WindowStateProperty && e.NewValue is WindowState.Minimized)) Cancel();
     }
     private static void CaptureKey(object? sender, KeyEventArgs e) => e.Handled = true;
 

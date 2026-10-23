@@ -74,6 +74,9 @@ internal static class PlatformFactory
     public static IHotkeySource? CreateHotkeySource(IReadOnlyList<int> virtualKeys) =>
         Create<IHotkeySource>("PushToTalkHook", [virtualKeys.ToArray()]);
 
+    /// <summary>Names keys using the active Windows keyboard layout.</summary>
+    public static IKeyNameProvider? CreateKeyNameProvider() => Create<IKeyNameProvider>("WindowsKeyNames", []);
+
     /// <summary>Creates the SendInput injector, or null off Windows.</summary>
     public static ITextInjector? CreateTextInjector() =>
         Create<ITextInjector>("SendInputTextInjector", []);
