@@ -11,11 +11,11 @@ public sealed class HotkeyLabelTests
     public void Oem_keys_use_the_layout_provider_in_settings_and_shortcut_labels()
     {
         var german = new GermanNames();
-        HotkeyLabel.KeyName(0xBA, german).ShouldBe("Ö");
-        HotkeyLabel.Format([0xBA, 0xA3], german).ShouldBe("Right Ctrl + Ö");
+        HotkeyLabel.KeyName(0xBA, german).ShouldBe("Ü");
+        HotkeyLabel.Format([0xC0, 0xA3], german).ShouldBe("Right Ctrl + Ö");
         HotkeyLabel.Format([0xDE, 0xA2], german).ShouldBe("Left Ctrl + Ä");
         HotkeyLabel.KeyName(0xE2, german).ShouldBe("<");
-        HotkeyLabel.KeyName(0xDB, german).ShouldBe("Key 0xDB");
+        HotkeyLabel.KeyName(0xDF, german).ShouldBe("Key 0xDF");
     }
 
     [Fact]
@@ -52,6 +52,6 @@ public sealed class HotkeyLabelTests
 
     private sealed class GermanNames : IKeyNameProvider
     {
-        public string? GetKeyName(int virtualKey) => virtualKey switch { 0xBA => "Ö", 0xDE => "Ä", 0xE2 => "<", _ => null };
+        public string? GetKeyName(int virtualKey) => virtualKey switch { 0xBA => "Ü", 0xC0 => "Ö", 0xDE => "Ä", 0xE2 => "<", _ => null };
     }
 }

@@ -21,9 +21,10 @@ public sealed class KeyNameTests
         Assert.NotEqual(0, german);
         try
         {
-            Assert.Equal("Ö", WindowsKeyNames.GetKeyName(0xBA, german));
+            Assert.Equal("Ü", WindowsKeyNames.GetKeyName(0xBA, german));
+            Assert.Equal("Ö", WindowsKeyNames.GetKeyName(0xC0, german));
             Assert.Equal("Ä", WindowsKeyNames.GetKeyName(0xDE, german));
-            Assert.Equal("Ü", WindowsKeyNames.GetKeyName(0xDB, german));
+            Assert.Equal("ß", WindowsKeyNames.GetKeyName(0xDB, german));
             Assert.Equal("<", WindowsKeyNames.GetKeyName(0xE2, german));
             Assert.Null(WindowsKeyNames.GetKeyName(0xA3, german));
             Assert.Null(WindowsKeyNames.GetKeyName(0, german));
