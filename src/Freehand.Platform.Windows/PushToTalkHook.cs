@@ -4,40 +4,8 @@ using Freehand.Abstractions;
 
 namespace Freehand.Platform.Windows;
 
-/// <summary>Keys that work as a push-to-talk trigger.</summary>
-public enum PushToTalkKey
-{
-    /// <summary>
-    /// Right Ctrl — <b>the default, and the right one.</b>
-    /// </summary>
-    /// <remarks>
-    /// Right Ctrl produces no character on any keyboard layout, so holding it is always safe.
-    /// </remarks>
-    RightControl = 0xA3,
-
-    /// <summary>Right Shift.</summary>
-    RightShift = 0xA1,
-
-    /// <summary>
-    /// Right Alt — <b>avoid unless you know the user's layout.</b>
-    /// </summary>
-    /// <remarks>
-    /// On German, Polish, UK, Nordic and most Latin-American layouts this key is AltGr: it is
-    /// how those users type <c>@</c>, <c>€</c>, <c>\</c>, <c>|</c> and <c>~</c>. Windows also
-    /// synthesises a phantom Left Ctrl around it. It is the natural port of the macOS build's
-    /// Right Option, and it is the wrong choice here.
-    /// </remarks>
-    RightAlt = 0xA5,
-
-    /// <summary>Caps Lock.</summary>
-    CapsLock = 0x14,
-
-    /// <summary>F13 — present on many full-size and gaming keyboards, bound to nothing.</summary>
-    F13 = 0x7C,
-}
-
 /// <summary>
-/// Detects press <i>and</i> release of a single held key, globally.
+/// Detects press and release of a held keyboard combination globally.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -62,7 +30,7 @@ public enum PushToTalkKey
 /// the modifier is held down forever.
 /// </para>
 /// </remarks>
-public sealed class PushToTalkHook : IHotkeySource
+public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
 {
     private const int WH_KEYBOARD_LL = 13;
     private const int HC_ACTION = 0;
@@ -147,21 +115,37 @@ public sealed class PushToTalkHook : IHotkeySource
     /// otherwise your app will crash with an ExecutionEngineException." A local variable here
     /// produces a crash minutes or hours later, at random, with no useful stack.
     /// </remarks>
-    private static HookProc? s_callback;
-
-    private static PushToTalkHook? s_instance;
+    private HookProc? _callback;
 
     private IntPtr _hook;
     private Thread? _thread;
     private uint _threadId;
-    private volatile bool _isDown;
+    private readonly object _sync = new();
+    private readonly HotkeyState _keys;
+    private Recording? _recording;
     private long _generation;
     private bool _disposed;
-    private readonly Channel<(long Generation, bool Down)> _events = Channel.CreateUnbounded<(long, bool)>(
+    private readonly Channel<Notification> _events = Channel.CreateUnbounded<Notification>(
         new UnboundedChannelOptions { SingleReader = true, SingleWriter = true });
 
     /// <summary>Dispatches ordered notifications outside the Windows hook thread.</summary>
-    public PushToTalkHook() => _ = DispatchAsync();
+    public PushToTalkHook() : this([0xA3]) { }
+
+    /// <summary>Observes any combination of Windows virtual keys.</summary>
+    public PushToTalkHook(int[] keys)
+    {
+        ArgumentNullException.ThrowIfNull(keys);
+        if (keys.Length == 0 || keys.Any(key => key is not (0x03 or >= 0x08 and <= 0xFE))) throw new ArgumentOutOfRangeException(nameof(keys));
+        _keys = new HotkeyState(keys);
+        _ = DispatchAsync();
+    }
+
+    private sealed record Recording(IProgress<IReadOnlyList<int>> Progress)
+    {
+        internal TaskCompletionSource<IReadOnlyList<int>?> Result { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    }
+
+    private readonly record struct Notification(long Generation, KeyUpdate Update, Recording? Recording);
 
     private async Task DispatchAsync()
     {
@@ -170,15 +154,46 @@ public sealed class PushToTalkHook : IHotkeySource
             if (notification.Generation != Interlocked.Read(ref _generation)) continue;
             try
             {
-                if (notification.Down) Pressed?.Invoke(this, EventArgs.Empty);
-                else Released?.Invoke(this, EventArgs.Empty);
+                if (notification.Recording is { } recording && notification.Update.CapturedKeys is { } keys)
+                {
+                    if (recording.Result.Task.IsCompleted) continue;
+                    try { recording.Progress.Report(keys); }
+                    finally { if (notification.Update.Complete) recording.Result.TrySetResult(keys); }
+                }
+                else if (notification.Update.Active is { } down)
+                {
+                    if (down) Pressed?.Invoke(this, EventArgs.Empty);
+                    else Released?.Invoke(this, EventArgs.Empty);
+                }
             }
             catch (Exception) { /* Subscriber failure must not terminate key dispatch. */ }
         }
     }
 
-    /// <summary>Which key triggers dictation.</summary>
-    public PushToTalkKey Key { get; set; } = PushToTalkKey.RightControl;
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<int>?> RecordAsync(IProgress<IReadOnlyList<int>> progress, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(progress);
+        cancellationToken.ThrowIfCancellationRequested();
+        var recording = new Recording(progress);
+        lock (_sync)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            if (_recording is not null) return null;
+            Interlocked.Increment(ref _generation);
+            _recording = recording; _keys.BeginCapture();
+        }
+        using var registration = cancellationToken.Register(() => recording.Result.TrySetCanceled(cancellationToken));
+        try { return await recording.Result.Task.ConfigureAwait(false); }
+        finally
+        {
+            lock (_sync)
+            {
+                _recording = null; _keys.EndCapture();
+                Interlocked.Increment(ref _generation);
+            }
+        }
+    }
 
     /// <inheritdoc />
     public event EventHandler? Pressed;
@@ -191,7 +206,6 @@ public sealed class PushToTalkHook : IHotkeySource
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
         StopListening();
-        s_instance = this;
 
         using var ready = new ManualResetEventSlim(false);
         var installed = false;
@@ -199,11 +213,11 @@ public sealed class PushToTalkHook : IHotkeySource
         _thread = new Thread(() =>
         {
             _threadId = GetCurrentThreadId();
-            s_callback = StaticCallback;
+            _callback = Callback;
 
             // Pass the running module's handle. IntPtr.Zero is documented as possibly
             // failing when threadId is 0, which is exactly the global case.
-            _hook = SetWindowsHookEx(WH_KEYBOARD_LL, s_callback, GetModuleHandle(null), 0);
+            _hook = SetWindowsHookEx(WH_KEYBOARD_LL, _callback, GetModuleHandle(null), 0);
             installed = _hook != IntPtr.Zero;
 
             // ReSharper disable once AccessToDisposedClosure
@@ -242,6 +256,7 @@ public sealed class PushToTalkHook : IHotkeySource
     public void StopListening()
     {
         Interlocked.Increment(ref _generation);
+        lock (_sync) { _keys.Reset(); _recording?.Result.TrySetCanceled(); }
         if (_thread is null) return;
 
         if (_threadId != 0) PostThreadMessage(_threadId, WM_QUIT, IntPtr.Zero, IntPtr.Zero);
@@ -249,24 +264,17 @@ public sealed class PushToTalkHook : IHotkeySource
 
         _thread = null;
         _threadId = 0;
-        _isDown = false;
-
-        if (ReferenceEquals(s_instance, this))
-        {
-            s_instance = null;
-            s_callback = null;
-        }
+        _callback = null;
     }
 
-    /// <summary>Static, per Microsoft's guidance. Keep the body short.</summary>
-    private static IntPtr StaticCallback(int code, IntPtr wParam, IntPtr lParam)
+    /// <summary>Rooted for the lifetime of this hook. Keep the body short.</summary>
+    private IntPtr Callback(int code, IntPtr wParam, IntPtr lParam)
     {
-        var self = s_instance;
-        if (code != HC_ACTION || self is null) return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
+        if (code != HC_ACTION) return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
 
         try
         {
-            self.Handle(wParam, lParam);
+            Handle(wParam, lParam);
         }
         catch (Exception)
         {
@@ -295,20 +303,17 @@ public sealed class PushToTalkHook : IHotkeySource
         var isUp = message is WM_KEYUP or WM_SYSKEYUP;
         if (!isDown && !isUp) return;
 
-        if (Normalize(e) != (int)Key) return;
+        ProcessKey((int)e.VirtualKey, (int)e.ScanCode, e.Flags, isDown, e.ExtraInfo);
+    }
 
-        if (isDown)
+    internal void ProcessKey(int virtualKey, int scanCode, uint flags, bool down, nint extraInfo = default)
+    {
+        if (extraInfo == InjectedTag) return;
+        var raw = new KBDLLHOOKSTRUCT { VirtualKey = (uint)virtualKey, ScanCode = (uint)scanCode, Flags = flags };
+        lock (_sync)
         {
-            // The OS re-fires key-down while a key is held; only the first is a press.
-            if (_isDown) return;
-            _isDown = true;
-            _events.Writer.TryWrite((Interlocked.Read(ref _generation), true));
-        }
-        else
-        {
-            if (!_isDown) return;
-            _isDown = false;
-            _events.Writer.TryWrite((Interlocked.Read(ref _generation), false));
+            var update = _keys.Update(Normalize(raw), down);
+            if (update != default) _events.Writer.TryWrite(new(Interlocked.Read(ref _generation), update, _recording));
         }
     }
 
@@ -349,7 +354,7 @@ public sealed class PushToTalkHook : IHotkeySource
     public void Dispose()
     {
         StopListening();
-        _disposed = true;
+        lock (_sync) _disposed = true;
         _events.Writer.TryComplete();
     }
 }

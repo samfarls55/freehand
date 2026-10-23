@@ -5,7 +5,7 @@ using Freehand.Speech;
 namespace Freehand.App;
 
 /// <summary>Application-owned services; windows do not own the hotkey.</summary>
-public sealed class Composition : IAsyncDisposable
+public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
 {
     private readonly SemaphoreSlim _preferencesGate = new(1);
     private readonly object _preferencesSync = new();
@@ -15,6 +15,7 @@ public sealed class Composition : IAsyncDisposable
     private bool _disposed;
     private Task _preferencesTask = Task.CompletedTask;
     private readonly Task _verification;
+    private IHotkeySource? _hotkey;
     /// <summary>Saved preferences.</summary>
     public AppSettings Settings { get; }
     /// <summary>Literal correction dictionary.</summary>
@@ -50,7 +51,8 @@ public sealed class Composition : IAsyncDisposable
             .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().Single().InformationalVersion;
         Logs.Write(Guid.Empty, "app-" + version + "-model-" + ModelResolver.Version);
         var capture = PlatformFactory.CreateAudioCapture();
-        var hotkey = PlatformFactory.CreateHotkeySource(_applied.PushToTalkKey);
+        var hotkey = PlatformFactory.CreateHotkeySource(_applied.DictationKeys);
+        _hotkey = hotkey;
         var injector = PlatformFactory.CreateTextInjector();
         var launcher = PlatformFactory.CreateWorkerLauncher();
         if (capture is not null && hotkey is not null && injector is not null && launcher is not null)
@@ -76,6 +78,23 @@ public sealed class Composition : IAsyncDisposable
     }
     /// <summary>Builds composition without loading the model.</summary>
     public static Composition Create(IDesktopIntegration? desktop = null) => new(desktop);
+
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<int>?> RecordAsync(IProgress<IReadOnlyList<int>> progress, CancellationToken cancellationToken)
+    {
+        if (Engine is null) return null;
+        IReadOnlyList<int>? keys = null;
+        try
+        {
+            await Engine.ApplyConfigurationAsync(async () =>
+            {
+                if (_hotkey is IHotkeyRecorder recorder)
+                    keys = await recorder.RecordAsync(progress, cancellationToken).ConfigureAwait(false);
+            }).ConfigureAwait(false);
+            return keys;
+        }
+        finally { if (_pendingPreferences || _refreshPending) QueuePreferences(); }
+    }
     private static async Task DisposeUnavailableCaptureAsync(IAudioCapture capture)
     {
         try { await capture.DisposeAsync().ConfigureAwait(false); } catch (Exception) { }
@@ -141,14 +160,15 @@ public sealed class Composition : IAsyncDisposable
                 }
                 return;
             }
-            if (requested.PushToTalkKey != _applied.PushToTalkKey)
+            if (!requested.DictationKeys.SequenceEqual(_applied.DictationKeys))
             {
-                var replacement = PlatformFactory.CreateHotkeySource(requested.PushToTalkKey);
+                var replacement = PlatformFactory.CreateHotkeySource(requested.DictationKeys);
                 if (replacement is null || !Engine.ReplaceHotkey(replacement))
                 {
-                    Settings.TryUpdate(requested with { PushToTalkKey = _applied.PushToTalkKey });
+                    Settings.TryUpdate(requested with { PushToTalkKey = _applied.PushToTalkKey, PushToTalkKeys = _applied.PushToTalkKeys });
                     return;
                 }
+                _hotkey = replacement;
             }
             if (requested.ModelDirectory != _applied.ModelDirectory)
             {
