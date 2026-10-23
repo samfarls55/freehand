@@ -82,12 +82,13 @@ public sealed class MainWindowTests
             var view = window.GetVisualDescendants().OfType<SettingsView>().Single();
             var toggles = view.GetVisualDescendants().OfType<ToggleSwitch>().ToArray();
             toggles[0].IsChecked = false; toggles[1].IsChecked = false;
-            var key = view.GetVisualDescendants().OfType<ComboBox>().Single(); key.SelectedIndex = 1;
+            data.Settings.Update(data.Settings.Data with { PushToTalkKey = 0xA1 });
             var persisted = new AppSettings(data.SettingsPath);
             persisted.Data.InjectText.ShouldBeFalse(); persisted.Data.KeepHistory.ShouldBeFalse();
             persisted.Data.PushToTalkKey.ShouldBe(0xA1);
             data.Settings.Update(data.Settings.Data with { PushToTalkKey = 0xA3, KeepHistory = true });
-            key.SelectedIndex.ShouldBe(0); toggles[1].IsChecked.ShouldBe(true);
+            view.GetVisualDescendants().OfType<TextBlock>().Any(t => t.Text == "Right Ctrl").ShouldBeTrue();
+            toggles[1].IsChecked.ShouldBe(true);
         }
         finally { window.Close(); }
     }

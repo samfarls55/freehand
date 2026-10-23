@@ -51,6 +51,7 @@ public sealed class MainWindow : Window
         MinWidth = Tokens.Size.MinimumWidth; MinHeight = Tokens.Size.MinimumHeight;
         Background = Tokens.Brushes.Chassis;
         _counter.FontFamily = Tokens.Fonts.Mono;
+        _shortcut.TextTrimming = TextTrimming.CharacterEllipsis;
         _record.Content = new StackPanel
         {
             Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Base,
@@ -221,8 +222,8 @@ public sealed class MainWindow : Window
         _activity.IsVisible = IsRecording || processing; _activity.Update(state, level);
         _counter.IsVisible = IsRecording;
         _record.IsEnabled = !processing && state != DictationState.AwaitingRetry;
-        var key = _settings?.Data.PushToTalkKey ?? 0xA3;
-        _shortcut.Text = SettingsView.KeyLabel(key);
+        _shortcut.Text = HotkeyLabel.Format(_settings?.Data.DictationKeys ?? [0xA3]);
+        ToolTip.SetTip(_shortcut, _shortcut.Text);
     }
 
     /// <summary>Routes the button through the same engine used by the global hotkey.</summary>

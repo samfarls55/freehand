@@ -219,6 +219,13 @@ discarding the current fields. Save stays disabled until the required fields
 contain text. Warnings use amber. Settings use the same native view from the main
 tab and tray window, including deferred preferences and model details.
 
+The push-to-talk field is a bordered button displaying the saved combination.
+Selecting it records simultaneous keys and saves after every key is released.
+Cancel appears beneath the field during capture, so Escape and Tab can be bound.
+Long combinations wrap in the field. The footer truncates long combinations and
+exposes the full shortcut on hover. Capture pauses dictation and cancels when the
+view or window closes or hides.
+
 The floating dictation indicator remains nonactivating and outside the taskbar.
 It is 208 by 44 DIPs during activity and widens to 288 DIPs for attention. Recording
 has a red dot and five bars driven by microphone levels. Processing has three

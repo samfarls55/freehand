@@ -233,6 +233,36 @@ public sealed class TranscriptStoreTests : IDisposable
 public sealed class AppSettingsTests : IDisposable
 {
     [Fact]
+    public void Custom_combination_survives_reopening_and_unrelated_preference_updates()
+    {
+        var settings = new AppSettings(_path);
+        settings.TryUpdate(settings.Data with { PushToTalkKey = 0x41, PushToTalkKeys = [0xA3, 0x41, 0x42, 0xA3] }).ShouldBeTrue();
+        var reopened = new AppSettings(_path);
+        reopened.Data.DictationKeys.ShouldBe([0x41, 0x42, 0xA3]);
+        reopened.TryUpdate(reopened.Data with { InjectText = false }).ShouldBeTrue();
+        new AppSettings(_path).Data.DictationKeys.ShouldBe([0x41, 0x42, 0xA3]);
+    }
+
+    [Theory]
+    [InlineData("null")]
+    [InlineData("[]")]
+    [InlineData("[0]")]
+    [InlineData("[256]")]
+    public void Invalid_or_absent_combinations_preserve_legacy_keys(string json)
+    {
+        File.WriteAllText(_path, "{\"PushToTalkKey\":124,\"PushToTalkKeys\":" + json + "}");
+        new AppSettings(_path).Data.DictationKeys.ShouldBe([0x7C]);
+    }
+
+    [Fact]
+    public void Invalid_combination_cannot_replace_a_saved_preference()
+    {
+        var settings = new AppSettings(_path);
+        settings.TryUpdate(settings.Data with { PushToTalkKeys = [0x41] }).ShouldBeTrue();
+        settings.TryUpdate(settings.Data with { PushToTalkKeys = [0x100] }).ShouldBeFalse();
+        new AppSettings(_path).Data.DictationKeys.ShouldBe([0x41]);
+    }
+    [Fact]
     public void Legacy_and_partial_settings_preserve_values_and_receive_new_defaults()
     {
         File.WriteAllText(_path, "{\"PushToTalkKey\":124,\"InjectText\":false,\"KeepHistory\":false}");

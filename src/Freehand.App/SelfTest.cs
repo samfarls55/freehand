@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Freehand.Abstractions;
 using Freehand.Core;
 using Freehand.Dictionary;
 using Freehand.Speech;
@@ -104,8 +105,8 @@ public static class SelfTest
                      && reopened.Records[0].Corrections?[0].To == "Claude Code";
 
             var settings = new AppSettings(Path.Combine(directory, "settings.json"));
-            settings.Update(settings.Data with { PushToTalkKey = 0x7C });
-            var settingsOk = new AppSettings(Path.Combine(directory, "settings.json")).Data.PushToTalkKey == 0x7C;
+            settings.Update(settings.Data with { PushToTalkKey = 0x7C, PushToTalkKeys = [0x7C, 0xA3] });
+            var settingsOk = new AppSettings(Path.Combine(directory, "settings.json")).Data.DictationKeys.SequenceEqual([0x7C, 0xA3]);
 
             return Check("history round-trips through source-generated JSON", ok)
                  + Check("settings round-trip", settingsOk);
@@ -157,6 +158,9 @@ public static class SelfTest
         var hotkey = PlatformFactory.CreateHotkeySource(0xA3);
         failures += Check("hotkey source constructs with Right Ctrl", hotkey is not null);
         hotkey?.Dispose();
+        var chord = PlatformFactory.CreateHotkeySource([0xA2, 0xA1, 0x41]);
+        failures += Check("custom hotkey combination and recorder construct", chord is IHotkeyRecorder);
+        chord?.Dispose();
 
         return failures;
     }

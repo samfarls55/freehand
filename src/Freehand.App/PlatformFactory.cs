@@ -68,24 +68,11 @@ internal static class PlatformFactory
         Create<IAudioCapture>("WasapiAudioCapture", [null]);
 
     /// <summary>Creates the low-level keyboard hook, or null off Windows.</summary>
-    [UnconditionalSuppressMessage(
-        "Trimming",
-        "IL2075:DynamicallyAccessedMembers",
-        Justification = "Freehand.Platform.Windows is published whole and never trimmed.")]
-    public static IHotkeySource? CreateHotkeySource(int virtualKey)
-    {
-        var hook = Create<IHotkeySource>("PushToTalkHook", []);
-        if (hook is null) return null;
+    public static IHotkeySource? CreateHotkeySource(int virtualKey) => CreateHotkeySource([virtualKey]);
 
-        // Key is an enum on the concrete type; set it by name to avoid referencing it.
-        var property = hook.GetType().GetProperty("Key");
-        if (property is not null && property.PropertyType.IsEnum)
-        {
-            property.SetValue(hook, Enum.ToObject(property.PropertyType, virtualKey));
-        }
-
-        return hook;
-    }
+    /// <summary>Creates a global keyboard combination without referencing Windows types.</summary>
+    public static IHotkeySource? CreateHotkeySource(IReadOnlyList<int> virtualKeys) =>
+        Create<IHotkeySource>("PushToTalkHook", [virtualKeys.ToArray()]);
 
     /// <summary>Creates the SendInput injector, or null off Windows.</summary>
     public static ITextInjector? CreateTextInjector() =>

@@ -16,6 +16,13 @@ public sealed record SettingsData
     /// </remarks>
     public int PushToTalkKey { get; init; } = 0xA3;
 
+    /// <summary>Custom keyboard combination. Null preserves the legacy single-key preference.</summary>
+    public int[]? PushToTalkKeys { get; init; }
+
+    /// <summary>The keys that must be held together to dictate.</summary>
+    [JsonIgnore]
+    public IReadOnlyList<int> DictationKeys => PushToTalkKeys is { Length: > 0 } ? PushToTalkKeys : [PushToTalkKey];
+
     /// <summary>Where the speech model lives, or null to search the default locations.</summary>
     public string? ModelDirectory { get; init; }
 
@@ -67,6 +74,9 @@ public sealed class AppSettings
         try
         {
             if (data.IdleModelMinutes is < 1 or > 60) throw new ArgumentOutOfRangeException(nameof(data));
+            if (!ValidKeys(data.DictationKeys)) throw new ArgumentOutOfRangeException(nameof(data));
+            if (data.PushToTalkKeys is not null)
+                data = data with { PushToTalkKeys = data.DictationKeys.Distinct().Order().ToArray() };
             Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
             if (_preserveExisting && File.Exists(_path))
                 File.Copy(_path, _path + ".unreadable-" + Guid.NewGuid().ToString("N") + ".bak");
@@ -99,7 +109,9 @@ public sealed class AppSettings
             // Source-generated init-only record deserialization supplies zero values for absent members.
             return data with
             {
-                PushToTalkKey = Has(nameof(SettingsData.PushToTalkKey)) ? data.PushToTalkKey : defaults.PushToTalkKey,
+                PushToTalkKey = Has(nameof(SettingsData.PushToTalkKey)) && ValidKeys([data.PushToTalkKey]) ? data.PushToTalkKey : defaults.PushToTalkKey,
+                PushToTalkKeys = data.PushToTalkKeys is { Length: > 0 } && ValidKeys(data.PushToTalkKeys)
+                    ? data.PushToTalkKeys.Distinct().Order().ToArray() : null,
                 InjectText = Has(nameof(SettingsData.InjectText)) ? data.InjectText : defaults.InjectText,
                 KeepHistory = Has(nameof(SettingsData.KeepHistory)) ? data.KeepHistory : defaults.KeepHistory,
                 IdleModelMinutes = Has(nameof(SettingsData.IdleModelMinutes)) ? Math.Clamp(data.IdleModelMinutes, 1, 60) : defaults.IdleModelMinutes,
@@ -113,6 +125,8 @@ public sealed class AppSettings
             return new SettingsData();
         }
     }
+
+    private static bool ValidKeys(IReadOnlyList<int> keys) => keys.Count > 0 && keys.All(key => key is 0x03 or >= 0x08 and <= 0xFE);
 }
 
 /// <summary>Source-generated JSON for settings.</summary>
