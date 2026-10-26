@@ -23,11 +23,11 @@ namespace Freehand.Platform.Windows;
 /// UI thread dies the first time the app does a slow layout pass.
 /// </para>
 /// <para>
-/// <b>Why the key is never swallowed:</b> the macOS build consumes Right Option because on
-/// macOS that key types characters. Here, suppression buys nothing and risks something much
-/// worse — if the key-down is swallowed but the key-up escapes (the hook timed out
-/// mid-gesture, or focus crossed into an elevated window), the target application believes
-/// the modifier is held down forever.
+/// Keys pass through so modifier downs and ups stay balanced. When a dictation shortcut
+/// uses Windows or Alt, a tagged, unassigned key marks the modifier as used so releasing it
+/// does not open Start or activate the foreground app's menu. Masking happens synchronously
+/// when the shortcut activates and before the menu key's final release, even if another
+/// chord member was released first. Shortcut recording uses the same masking.
 /// </para>
 /// </remarks>
 public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
@@ -122,6 +122,7 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
     private uint _threadId;
     private readonly object _sync = new();
     private readonly HotkeyState _keys;
+    private readonly Action _maskModifierMenu;
     private Recording? _recording;
     private long _generation;
     private bool _disposed;
@@ -132,11 +133,15 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
     public PushToTalkHook() : this([0xA3]) { }
 
     /// <summary>Observes any combination of Windows virtual keys.</summary>
-    public PushToTalkHook(int[] keys)
+    public PushToTalkHook(int[] keys) : this(keys, SendInputTextInjector.MaskModifierMenu) { }
+
+    internal PushToTalkHook(int[] keys, Action maskModifierMenu)
     {
         ArgumentNullException.ThrowIfNull(keys);
+        ArgumentNullException.ThrowIfNull(maskModifierMenu);
         if (keys.Length == 0 || keys.Any(key => key is not (0x03 or >= 0x08 and <= 0xFE))) throw new ArgumentOutOfRangeException(nameof(keys));
         _keys = new HotkeyState(keys);
+        _maskModifierMenu = maskModifierMenu;
         _ = DispatchAsync();
     }
 
@@ -313,6 +318,7 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
         lock (_sync)
         {
             var update = _keys.Update(Normalize(raw), down);
+            if (update.MaskModifierMenu) _maskModifierMenu();
             if (update != default) _events.Writer.TryWrite(new(Interlocked.Read(ref _generation), update, _recording));
         }
     }

@@ -107,7 +107,7 @@ public sealed class HotkeyTests
     [InlineData(0x12, 0x38, 0, 0xA4)]
     public async Task Hook_distinguishes_both_sides_of_shift_and_alt(int rawKey, int scan, uint flags, int key)
     {
-        using var hook = new PushToTalkHook([key]);
+        using var hook = new PushToTalkHook([key], static () => { });
         var pressed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         hook.Pressed += (_, _) => pressed.TrySetResult();
         hook.ProcessKey(rawKey, scan, flags, true);
