@@ -137,8 +137,8 @@ workflow is needed. The token needs Contents write permission only in the releas
 Installed copies check shortly after startup and every six hours. Settings includes a
 manual check and a switch for automatic checks. A check requests public GitHub release
 metadata without credentials, audio, transcript text, or settings. Downloads begin only
-after **Update** is accepted. Setup waits for idle dictation and restarts the app after
-success or restoration of the previous version. Development and isolated profiles do
+after **Update** is accepted. Setup waits for idle dictation and reopens the main window
+after success or restoration of the previous version. Development and isolated profiles do
 not check for updates or launch the installed updater.
 
 The first updater-enabled build requires a manual installation because older copies
@@ -156,7 +156,7 @@ packages with versions `0.0.1`, `0.0.2`, and `0.0.3`. The last has a correctly h
 but broken speech fixture, so installed verification must fail and restore `0.0.2`.
 The test uses separate installation and data directories and skips Windows registration.
 It starts the real app executable in a headless handoff mode with profile-scoped Windows
-ownership, then verifies that `--update` stops and restarts it after success and rollback.
+ownership, then verifies that `--update` stops and restarts it without `--tray` after success and rollback.
 The probe arms no capture or hotkey and never changes the normal installation.
 Failed fixtures and setup logs remain under `artifacts/update-verification` for diagnosis;
 CI also uploads the setup error logs. Successful fixtures are removed.

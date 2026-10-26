@@ -140,7 +140,7 @@ History is enabled by default. Turn it off in Settings to stop saving new transc
 
 Freehand checks for updates shortly after startup and every six hours while running. When a newer release is available, choose **Update** or **Later**. You can also use **Settings > Check for updates**, or turn off automatic checks there.
 
-After you accept, Freehand downloads and verifies the installer. Installation waits for recording, transcription, and text delivery to finish. Retry or discard any retained recording before updating. Setup preserves your settings, dictionary, and history, checks the updated app, and restarts it in the tray. If installed verification fails, setup restores the previous installation and attempts to reopen it.
+After you accept, Freehand downloads and verifies the installer. Installation waits for recording, transcription, and text delivery to finish. Retry or discard any retained recording before updating. Setup preserves your settings, dictionary, and history, checks the updated app, and reopens its main window. If installed verification fails, setup restores the previous installation and attempts to reopen it.
 
 Copies installed before automatic updates were added need one manual update from the [latest release](https://github.com/samfarls55/freehand/releases/latest). You can always download and run a newer installer yourself.
 
