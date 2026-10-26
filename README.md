@@ -89,7 +89,7 @@ In Settings, you can change the dictation key, automatic text insertion, transcr
 
 To set a custom shortcut, open **Settings**, click the current **Push-to-talk key**, hold the key or combination you want, then release all keys. Freehand saves it automatically and restores it when you next open the app. Single keys, modifier-only combinations, and combinations of several ordinary keys are supported. Left and right modifiers are distinct. Choose **Cancel** to keep your previous shortcut.
 
-Hold every key in the saved combination to dictate. Releasing any member stops recording. Shortcuts pass through to the foreground app, so choose a combination that won't interfere with your other shortcuts. Windows-reserved combinations such as Ctrl+Alt+Delete, and hardware keys that Windows does not report, cannot be used. Right Alt acts as AltGr on many keyboard layouts.
+Hold every key in the saved combination to dictate. Releasing any member stops recording. Shortcuts pass through to the foreground app, so choose a combination that won't interfere with your other shortcuts. When your dictation shortcut includes Windows or Alt, Freehand prevents their release from opening Start or activating the app's menu. Other Windows shortcuts still work normally. Windows-reserved combinations such as Ctrl+Alt+Delete, and hardware keys that Windows does not report, cannot be used. Right Alt acts as AltGr on many keyboard layouts.
 
 After five minutes without accepted dictation work, the speech worker exits and frees the model's memory. The tray app and hotkey remain ready. The next recording loads the model again. Each recording stops at ten minutes and transcribes the captured audio.
 

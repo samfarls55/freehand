@@ -33,6 +33,8 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     private const uint KEYEVENTF_UNICODE = 0x0004;
 
     private const int VK_RETURN = 0x0D;
+    // Unassigned by Windows. Unlike Ctrl or Escape, this has no normal shortcut action.
+    private const int VK_MENU_MASK = 0xE8;
 
     private const uint MAPVK_VK_TO_VSC = 0;
 
@@ -83,6 +85,13 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     private static extern uint MapVirtualKey(uint code, uint mapType);
 
     private static readonly int InputSize = Marshal.SizeOf<INPUT>();
+
+    /// <summary>Prevents held Windows/Alt keys from opening menus on release.</summary>
+    internal static void MaskModifierMenu()
+    {
+        INPUT[] inputs = [KeyInput(VK_MENU_MASK, up: false), KeyInput(VK_MENU_MASK, up: true)];
+        _ = SendInput((uint)inputs.Length, inputs, InputSize);
+    }
 
     /// <inheritdoc />
     public async ValueTask<bool> InjectAsync(string text, CancellationToken cancellationToken) =>
