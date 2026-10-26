@@ -24,7 +24,7 @@ public sealed class WindowsUpdateInstaller : IUpdateInstaller
         var start = new ProcessStartInfo(installer)
         {
             UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden,
-            WorkingDirectory = Path.GetTempPath(),
+            WorkingDirectory = Path.GetDirectoryName(installer) ?? installationDirectory,
         };
         start.ArgumentList.Add("--update"); start.ArgumentList.Add("--directory"); start.ArgumentList.Add(installationDirectory);
         start.Environment.Remove("FREEHAND_DATA_DIRECTORY");

@@ -65,7 +65,7 @@ public sealed class UpdateService(IUpdateSource source, IUpdateInstaller install
     /// <summary>Checks manually even when automatic checks are disabled.</summary>
     public async Task CheckAsync()
     {
-        if (!await _gate.WaitAsync(0).ConfigureAwait(false)) return;
+        if (!await _gate.WaitAsync(0, CancellationToken.None).ConfigureAwait(false)) return;
         var previous = Snapshot;
         try
         {
@@ -87,7 +87,7 @@ public sealed class UpdateService(IUpdateSource source, IUpdateInstaller install
     /// <summary>User acceptance is required before downloading.</summary>
     public async Task DownloadAsync()
     {
-        if (!await _gate.WaitAsync(0).ConfigureAwait(false)) return;
+        if (!await _gate.WaitAsync(0, CancellationToken.None).ConfigureAwait(false)) return;
         var package = Snapshot.Package;
         try
         {
@@ -109,7 +109,7 @@ public sealed class UpdateService(IUpdateSource source, IUpdateInstaller install
     /// <summary>Call only after reserving an idle dictation engine against new recordings.</summary>
     public async Task InstallAsync()
     {
-        if (!await _gate.WaitAsync(0).ConfigureAwait(false)) return;
+        if (!await _gate.WaitAsync(0, CancellationToken.None).ConfigureAwait(false)) return;
         var package = Snapshot.Package;
         try
         {
@@ -138,7 +138,7 @@ public sealed class UpdateService(IUpdateSource source, IUpdateInstaller install
     {
         await _lifetime.CancelAsync().ConfigureAwait(false);
         await _schedule.ConfigureAwait(false);
-        await _gate.WaitAsync().ConfigureAwait(false);
+        await _gate.WaitAsync(CancellationToken.None).ConfigureAwait(false);
         _gate.Release(); _gate.Dispose(); _lifetime.Dispose();
     }
 }

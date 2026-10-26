@@ -101,7 +101,7 @@ public sealed class GitHubUpdateSource(HttpClient client) : IUpdateSource
         while ((read = await input.ReadAsync(buffer, cancellationToken).ConfigureAwait(false)) > 0)
         {
             if (output.Length + read > limit) throw new InvalidDataException("Update metadata is too large.");
-            output.Write(buffer, 0, read);
+            await output.WriteAsync(buffer.AsMemory(0, read), cancellationToken).ConfigureAwait(false);
         }
         return System.Text.Encoding.UTF8.GetString(output.GetBuffer(), 0, checked((int)output.Length)).TrimStart('\uFEFF');
     }
