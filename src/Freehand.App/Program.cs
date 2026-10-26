@@ -51,6 +51,8 @@ public static class Program
         if (PlatformFactory.CreateUpdateInstaller()?.IsInstallationInProgress(AppContext.BaseDirectory) == true) return 0;
         if (desktop is not null && !desktop.ClaimInstance()) return 0;
         Desktop = desktop;
+        if (Environment.GetEnvironmentVariable("FREEHAND_UPDATE_HANDOFF_TEST") == "1")
+            return UpdateHandoffProbe.RunAsync(desktop).GetAwaiter().GetResult();
         return BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 

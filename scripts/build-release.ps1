@@ -91,11 +91,7 @@ foreach ($library in $assets.libraries.GetEnumerator()) {
 $index | Set-Content -LiteralPath (Join-Path $notices 'dependencies.txt')
 Copy-Item -LiteralPath (Join-Path (Split-Path $Dotnet) 'LICENSE.txt') -Destination (Join-Path $notices 'dotnet-LICENSE.txt') -Force
 Copy-Item -LiteralPath (Join-Path (Split-Path $Dotnet) 'ThirdPartyNotices.txt') -Destination (Join-Path $notices 'dotnet-ThirdPartyNotices.txt') -Force
-$files = foreach ($file in Get-ChildItem -LiteralPath $publish -File -Recurse) {
-    if ($file.Name -eq 'package-manifest.json') { continue }
-    @{ Path = [IO.Path]::GetRelativePath($publish,$file.FullName); Size = $file.Length; Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
-}
-@{ Version=$version; Build=$build; Files=@($files) } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $publish 'package-manifest.json')
+New-FreehandPackageManifest -Directory $publish -Version $version -Build $build
 & $Dotnet publish packaging/Installer/Freehand.Installer.csproj -c Release -r win-x64 --self-contained true "-p:Version=$version" -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output $compiler
 if ($LASTEXITCODE -ne 0) { throw 'Installer publish failed' }
 $installer = Join-Path $release "Freehand-$version-win-x64-Setup.exe"

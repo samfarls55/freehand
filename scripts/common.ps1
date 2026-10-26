@@ -29,6 +29,14 @@ function New-FreehandInstaller([string]$PublishDirectory, [string]$Runtime, [str
     } finally { if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force } }
 }
 
+function New-FreehandPackageManifest([string]$Directory, [string]$Version, [string]$Build) {
+    $files = foreach ($file in Get-ChildItem -LiteralPath $Directory -File -Recurse) {
+        if ($file.Name -eq 'package-manifest.json') { continue }
+        @{ Path = [IO.Path]::GetRelativePath($Directory, $file.FullName); Size = $file.Length; Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+    }
+    @{ Version = $Version; Build = $Build; Files = @($files) } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Directory 'package-manifest.json')
+}
+
 function Resolve-FreehandDotnet([string]$RequestedPath) {
     $candidates = if ($RequestedPath) { @($RequestedPath) } else {
         @((Join-Path $projectRoot '.dotnet/dotnet.exe'), (Get-Command dotnet -ErrorAction SilentlyContinue).Source)

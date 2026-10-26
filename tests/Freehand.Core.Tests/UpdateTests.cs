@@ -10,6 +10,17 @@ namespace Freehand.CoreTests;
 
 public sealed class UpdateTests
 {
+    [Fact]
+    public async Task Startup_schedule_checks_for_updates_without_downloading_and_cancels_on_exit()
+    {
+        var source = new FakeSource(); var installer = new FakeInstaller();
+        await using var service = new UpdateService(source, installer, new Version(1, 0, 0), "unused", "unused", () => true);
+        service.Start(); service.Start();
+        await source.FirstCheck.Task.WaitAsync(TimeSpan.FromSeconds(30));
+        await LifecycleTests.WaitUntilAsync(() => service.Snapshot.Phase == UpdatePhase.Available);
+        Assert.Equal(0, source.Downloads); Assert.Equal(0, installer.Calls);
+    }
+
     [Theory]
     [InlineData("1.0.0", false, false, false)]
     [InlineData("0.9.0", false, false, false)]
@@ -156,10 +167,14 @@ public sealed class UpdateTests
     }
     private sealed class FakeSource : IUpdateSource
     {
+        public TaskCompletionSource FirstCheck { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         public Exception? Failure { get; set; }
         public int Downloads { get; private set; }
-        public Task<UpdatePackage?> FindAsync(Version currentVersion, CancellationToken cancellationToken) => Failure is { } error
-            ? Task.FromException<UpdatePackage?>(error) : Task.FromResult<UpdatePackage?>(Package());
+        public Task<UpdatePackage?> FindAsync(Version currentVersion, CancellationToken cancellationToken)
+        {
+            FirstCheck.TrySetResult();
+            return Failure is { } error ? Task.FromException<UpdatePackage?>(error) : Task.FromResult<UpdatePackage?>(Package());
+        }
         public Task<string> DownloadAsync(UpdatePackage package, string directory, CancellationToken cancellationToken)
         { Downloads++; return Failure is { } error ? Task.FromException<string>(error) : Task.FromResult("verified.exe"); }
     }

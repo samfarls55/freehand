@@ -99,6 +99,14 @@ jobs:
           path: artifacts/build.binlog
           if-no-files-found: ignore
 
+      - name: Upload failed update verification logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: update-verification-logs
+          path: artifacts/update-verification/**/Freehand-setup-error.log
+          if-no-files-found: ignore
+
   release:
     name: Publish the verified installer
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

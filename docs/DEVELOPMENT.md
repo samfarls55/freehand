@@ -155,7 +155,11 @@ Run it after `verify.ps1 -Package`. It wraps the real published payload in fixtu
 packages with versions `0.0.1`, `0.0.2`, and `0.0.3`. The last has a correctly hashed
 but broken speech fixture, so installed verification must fail and restore `0.0.2`.
 The test uses separate installation and data directories and skips Windows registration.
-It never starts a second interactive dictation app or changes the normal installation.
+It starts the real app executable in a headless handoff mode with profile-scoped Windows
+ownership, then verifies that `--update` stops and restarts it after success and rollback.
+The probe arms no capture or hotkey and never changes the normal installation.
+Failed fixtures and setup logs remain under `artifacts/update-verification` for diagnosis;
+CI also uploads the setup error logs. Successful fixtures are removed.
 These checks establish package replacement and recovery, not physical microphone or
 hotkey behavior.
 

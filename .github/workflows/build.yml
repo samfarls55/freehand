@@ -57,14 +57,21 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Analysis build failed.' }
           dotnet tool run dotnet-coverage collect 'dotnet test Freehand.sln -c Release --no-build' -f xml -o artifacts/coverage/dotnet.xml
           if ($LASTEXITCODE -ne 0) { throw 'Coverage test run failed.' }
-          ./tests/Freehand.Scripts.Tests/Run.ps1
           # Exercise the real speech worker and replay assertions under coverage.
           # The profiler needs managed assemblies on disk rather than inside a bundle.
           ./scripts/build-release.ps1 -Dotnet (Get-Command dotnet).Source
+          if ($LASTEXITCODE -ne 0) { throw 'Coverage package build failed.' }
           dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false --output artifacts/coverage-app
           if ($LASTEXITCODE -ne 0) { throw 'Coverage application publish failed.' }
           Copy-Item -LiteralPath artifacts/publish/models -Destination artifacts/coverage-app -Recurse -Force
           Copy-Item -LiteralPath artifacts/publish/fixtures -Destination artifacts/coverage-app -Recurse -Force
+          . ./scripts/common.ps1
+          $identity = Get-Content -LiteralPath artifacts/publish/package-manifest.json -Raw | ConvertFrom-Json
+          New-FreehandPackageManifest -Directory (Join-Path $PWD 'artifacts/coverage-app') -Version $identity.Version -Build $identity.Build
+          $powershell = (Get-Command pwsh).Source
+          $updateCommand = '"{0}" -NoProfile -File ./tests/Freehand.Scripts.Tests/Run.ps1 -PackageIntegration -PublishDirectory ./artifacts/coverage-app' -f $powershell
+          dotnet tool run dotnet-coverage collect $updateCommand -f xml -o artifacts/coverage/dotnet-updates.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Covered update verification failed.' }
           $performanceApp = (Resolve-Path artifacts/coverage-app/Freehand.App.exe).Path
           $performanceOutput = Join-Path $PWD 'artifacts/coverage/performance.json'
           $performanceCommand = '"{0}" --performance-check "{1}"' -f $performanceApp, $performanceOutput

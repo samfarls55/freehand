@@ -1,5 +1,5 @@
 #Requires -Version 7.4
-param()
+param([switch]$PackageIntegration, [string]$PublishDirectory)
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $tools = Join-Path $repositoryRoot 'artifacts/test-tools'
@@ -11,10 +11,18 @@ Copy-Item -Path (Join-Path $repositoryRoot 'scripts/*.ps1') -Destination (Join-P
 $coverage = Join-Path $repositoryRoot 'artifacts/coverage'
 New-Item -ItemType Directory -Path $coverage -Force | Out-Null
 $previousFixture = $env:FREEHAND_SCRIPT_TEST_ROOT
+$previousPublish = $env:FREEHAND_VERIFIED_PUBLISH
+$previousInstaller = $env:FREEHAND_VERIFIED_INSTALLER
 try {
     $env:FREEHAND_SCRIPT_TEST_ROOT = $fixture
+    if ($PackageIntegration) {
+        $env:FREEHAND_VERIFIED_PUBLISH = if ($PublishDirectory) { [IO.Path]::GetFullPath($PublishDirectory) } else { Join-Path $repositoryRoot 'artifacts/publish' }
+        $env:FREEHAND_VERIFIED_INSTALLER = Join-Path $repositoryRoot 'artifacts/installer-runtime/Freehand.Installer.exe'
+    }
     $config = New-PesterConfiguration
-    $config.Run.Path = Join-Path $PSScriptRoot 'Deployment.Tests.ps1'
+    $testPaths = @((Join-Path $PSScriptRoot 'Deployment.Tests.ps1'))
+    if ($PackageIntegration) { $testPaths += Join-Path $PSScriptRoot 'UpdateIntegration.Tests.ps1' }
+    $config.Run.Path = $testPaths
     $config.Run.PassThru = $true
     $config.Output.Verbosity = 'Detailed'
     $config.CodeCoverage.Enabled = $true
@@ -39,4 +47,8 @@ try {
     }
     $outputReport.Save((Join-Path $coverage 'scripts.xml'))
     if ($result.FailedCount -gt 0 -or $result.FailedContainersCount -gt 0) { throw 'Deployment script regression tests failed.' }
-} finally { $env:FREEHAND_SCRIPT_TEST_ROOT = $previousFixture }
+} finally {
+    $env:FREEHAND_SCRIPT_TEST_ROOT = $previousFixture
+    $env:FREEHAND_VERIFIED_PUBLISH = $previousPublish
+    $env:FREEHAND_VERIFIED_INSTALLER = $previousInstaller
+}

@@ -27,7 +27,13 @@ public sealed class WindowsDesktopIntegration : IDesktopIntegration
     private static string InstanceName()
     {
         using var identity = WindowsIdentity.GetCurrent();
-        return "Local\\Freehand.Desktop." + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(identity.User!.Value)));
+        var owner = identity.User!.Value;
+        // Only the explicit headless packaging probe gets separate ownership. Ordinary
+        // development profiles still share the installed hotkey owner's identity.
+        if (Environment.GetEnvironmentVariable("FREEHAND_UPDATE_HANDOFF_TEST") == "1"
+            && Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY") is { Length: > 0 } profile)
+            owner += "|update-test|" + Path.GetFullPath(profile).ToUpperInvariant();
+        return "Local\\Freehand.Desktop." + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(owner)));
     }
     /// <inheritdoc />
     public void RequestExistingShutdown()
