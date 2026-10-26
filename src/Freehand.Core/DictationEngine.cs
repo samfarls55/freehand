@@ -371,7 +371,7 @@ public sealed class DictationEngine : IAsyncDisposable
         ArgumentNullException.ThrowIfNull(apply);
         lock (_sync) { if (_disposed || _configuring || _updating || _state is not (DictationState.Idle or DictationState.AwaitingRetry)) return; _configuring = true; }
         try { await apply().ConfigureAwait(false); }
-        finally { lock (_sync) _configuring = false; Changed?.Invoke(this, EventArgs.Empty); }
+        finally { lock (_sync) _configuring = false; }
     }
     private void Report(DictationOutcome outcome, string message) { Feedback = new(outcome, message, _job); Changed?.Invoke(this, EventArgs.Empty); }
     private void SetState(DictationState state)

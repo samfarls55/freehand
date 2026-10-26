@@ -112,7 +112,7 @@ Merging to `main` is the decision to ship. The Windows workflow automatically:
 2. Builds and tests the source, creates the installer, and runs the published self-test.
 3. Verifies an isolated package upgrade, corrupt-payload rejection, and rollback after
    an installed self-test failure. Runs the deployment and release script tests.
-4. Uploads the tested installer and checksum to a draft release, generates release
+4. Reserves the version tag, uploads the tested installer and checksum to a draft release, generates release
    notes from GitHub PRs, verifies both uploaded assets, then publishes the release.
 
 The workflow passes `FREEHAND_RELEASE_VERSION` to MSBuild and the packaging scripts,
@@ -123,9 +123,11 @@ unless an explicit `FREEHAND_RELEASE_VERSION` is set.
 
 PRs run verification without publishing. Documentation-only merges skip the Windows
 workflow. A failed check leaves the last published release available. An outdated main
-build skips publication if a newer main commit has arrived. Rerunning the current
+build skips publication if a newer application commit has arrived. Documentation-only
+commits do not suppress an otherwise verified release. Rerunning the current
 commit reuses its tag and leaves already published assets unchanged. An incomplete
-draft can be retried. Keep published tags and assets unchanged.
+draft can be retried. Its reserved tag keeps later changes from reusing that version.
+Keep published tags and assets unchanged.
 
 Use **Run workflow** on `main` to retry a failed release. Running the workflow on a
 different branch verifies that branch without publishing it. Publication happens in

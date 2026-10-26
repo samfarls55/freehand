@@ -10,6 +10,20 @@ namespace Freehand.CoreTests;
 public sealed class LifecycleTests
 {
     [Fact]
+    public async Task Configuration_of_retained_audio_does_not_reschedule_dictation_state_handlers()
+    {
+        var capture = new DrainingCapture(); var key = new FakeHotkeySource();
+        await using var engine = new DictationEngine(capture, key, new FailingSpeech(10), new RecordingTextInjector(), () => []);
+        key.Press(); await capture.Started.Task; key.Release();
+        await WaitUntilAsync(() => engine.State == DictationState.AwaitingRetry);
+        var rescheduled = 0;
+        engine.Changed += (_, _) => rescheduled++;
+        await engine.ApplyConfigurationAsync(() => Task.CompletedTask);
+        rescheduled.ShouldBe(0);
+        engine.State.ShouldBe(DictationState.AwaitingRetry); engine.HasPendingAudio.ShouldBeTrue();
+    }
+
+    [Fact]
     public async Task Update_reservation_refuses_active_or_retained_audio_and_blocks_new_recordings_until_released()
     {
         var capture = new DrainingCapture(); var key = new FakeHotkeySource();

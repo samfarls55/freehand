@@ -48,7 +48,7 @@ public partial class App : Application
                 Program.Desktop.ActivationRequested += (_, _) => Dispatcher.UIThread.Post(ShowMain);
                 Program.Desktop.ShutdownRequested += (_, _) => Dispatcher.UIThread.Post(() =>
                 {
-                    if (!_quitting && _composition?.TryPrepareForUpdate() == true) RequestQuit();
+                    if (CanRequestInstallerShutdown(_quitting, _quitTask) && _composition?.TryPrepareForUpdate() == true) RequestQuit();
                 });
                 Program.Desktop.StartNotifications();
             }
@@ -137,6 +137,7 @@ public partial class App : Application
         }
     }
     private void RequestQuit() { if (!_quitting && _quitTask.IsCompleted) _quitTask = QuitAsync(); }
+    internal static bool CanRequestInstallerShutdown(bool quitting, Task quitTask) => !quitting && quitTask.IsCompleted;
     private async Task QuitAsync()
     {
         if (ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop) return;

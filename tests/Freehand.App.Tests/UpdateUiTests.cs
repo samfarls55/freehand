@@ -13,6 +13,16 @@ namespace Freehand.AppTests;
 public sealed class UpdateUiTests
 {
     [AvaloniaFact]
+    public void Installer_cannot_reserve_dictation_while_a_quit_confirmation_is_pending()
+    {
+        var pending = new TaskCompletionSource();
+        App.App.CanRequestInstallerShutdown(false, pending.Task).ShouldBeFalse();
+        pending.SetResult();
+        App.App.CanRequestInstallerShutdown(false, pending.Task).ShouldBeTrue();
+        App.App.CanRequestInstallerShutdown(true, pending.Task).ShouldBeFalse();
+    }
+
+    [AvaloniaFact]
     public async Task Update_offer_does_not_activate_and_waits_after_user_acceptance()
     {
         var source = new Source();

@@ -140,6 +140,17 @@ Describe 'Release publication' {
         $script:missingAssets = $false
         $script:apiFails = $false
         $script:mainCommit = $commit
+        $script:changedPaths = @('src/Freehand.App/Program.cs')
+        $script:tagExists = $false
+        $script:tagCommit = $commit
+        $script:pushFails = $false
+        Mock git {
+            $global:LASTEXITCODE = 0
+            if ($args[0] -eq 'diff') { return $changedPaths }
+            if ($args[0] -eq 'tag' -and $args[1] -eq '--list' -and $tagExists) { return 'v1.2.3' }
+            if ($args[0] -eq 'rev-parse') { return $tagCommit }
+            if ($args[0] -eq 'push' -and $pushFails) { $global:LASTEXITCODE = 1 }
+        }
         Mock gh {
             $global:LASTEXITCODE = 0
             if ($args[0] -eq 'api') {
@@ -162,6 +173,7 @@ Describe 'Release publication' {
         & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
         Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'create' -and '--draft' -in $args }
         Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'edit' -and '--draft=false' -in $args }
+        Should-Invoke git -Times 1 -ParameterFilter { $args[0] -eq 'push' -and $args[2] -eq 'refs/tags/v1.2.3' }
     }
     It 'does not publish a draft after a failed upload' {
         $script:uploadFails = $true
@@ -193,6 +205,29 @@ Describe 'Release publication' {
     It 'skips a superseded main commit' {
         $script:mainCommit = 'b' * 40
         & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[0] -eq 'release' }
+    }
+    It 'publishes a verified application build after a docs-only main merge' {
+        $script:mainCommit = 'b' * 40; $script:changedPaths = @()
+        & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'edit' }
+        Should-Invoke git -Times 1 -ParameterFilter { $args[0] -eq 'diff' -and ':(top,glob)src/**' -in $args }
+    }
+    It 'keeps a failed upload version reserved for the same commit' {
+        $script:tagExists = $true
+        $script:existingReleases = '[[{"tag_name":"v1.2.3","draft":true}]]'
+        & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke git -Times 0 -ParameterFilter { $args[0] -eq 'push' }
+        Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'upload' }
+    }
+    It 'refuses to repurpose a tag from another commit' {
+        $script:tagExists = $true; $script:tagCommit = 'b' * 40
+        { & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit } | Should-Throw '*tag belongs to a different commit*'
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[0] -eq 'release' }
+    }
+    It 'stops before creating a draft if version reservation fails' {
+        $script:pushFails = $true
+        { & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit } | Should-Throw '*Cannot push the release tag*'
         Should-Invoke gh -Times 0 -ParameterFilter { $args[0] -eq 'release' }
     }
 }

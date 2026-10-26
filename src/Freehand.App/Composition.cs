@@ -101,7 +101,11 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             }).ConfigureAwait(false);
             return keys;
         }
-        finally { if (_pendingPreferences || _refreshPending) QueuePreferences(); }
+        finally
+        {
+            if (_pendingPreferences || _refreshPending) QueuePreferences();
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
     private static async Task DisposeUnavailableCaptureAsync(IAudioCapture capture)
     {
@@ -227,7 +231,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             }).ConfigureAwait(false);
         }
         catch (Exception e) { Logs.Write(Guid.Empty, "preferences-" + e.GetType().Name); Engine?.ReportStorageProblem("A preference could not be applied. Open Settings and try again."); }
-        finally { _preferencesGate.Release(); }
+        finally { _preferencesGate.Release(); Changed?.Invoke(this, EventArgs.Empty); }
     }
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
