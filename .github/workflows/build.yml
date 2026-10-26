@@ -68,8 +68,7 @@ jobs:
           . ./scripts/common.ps1
           $identity = Get-Content -LiteralPath artifacts/publish/package-manifest.json -Raw | ConvertFrom-Json
           New-FreehandPackageManifest -Directory (Join-Path $PWD 'artifacts/coverage-app') -Version $identity.Version -Build $identity.Build
-          $powershell = (Get-Command pwsh).Source
-          $updateCommand = '"{0}" -NoProfile -File ./tests/Freehand.Scripts.Tests/Run.ps1 -PackageIntegration -PublishDirectory ./artifacts/coverage-app' -f $powershell
+          $updateCommand = 'pwsh -NoProfile -File ./tests/Freehand.Scripts.Tests/Run.ps1 -PackageIntegration -PublishDirectory ./artifacts/coverage-app'
           dotnet tool run dotnet-coverage collect $updateCommand -f xml -o artifacts/coverage/dotnet-updates.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered update verification failed.' }
           $performanceApp = (Resolve-Path artifacts/coverage-app/Freehand.App.exe).Path
