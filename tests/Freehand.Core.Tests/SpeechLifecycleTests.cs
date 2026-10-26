@@ -11,6 +11,26 @@ namespace Freehand.CoreTests;
 public sealed class SpeechLifecycleTests
 {
     [Fact]
+    public async Task Child_protocol_failure_does_not_escape_process_wait_or_disposal()
+    {
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        var pipeName = "Freehand.test.protocol." + Guid.NewGuid().ToString("N");
+        using var pipe = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte,
+            PipeOptions.Asynchronous | PipeOptions.CurrentUserOnly);
+        var launcher = new PipeWorkerLauncher();
+        await using var process = launcher.Launch(pipeName, "fixture-secret");
+        await pipe.WaitForConnectionAsync(deadline.Token);
+        await WorkerProtocol.ReadAsync(pipe, deadline.Token);
+        await WorkerProtocol.WriteAsync(pipe, new WorkerMessage(WorkerProtocol.Version, Guid.Empty, "ack"), deadline.Token);
+        // Cancellation can leave an incomplete frame. A native child exits on a protocol
+        // error; waiting for it must not throw that child's managed exception in its parent.
+        await pipe.WriteAsync(new byte[] { 2, 0, 0, 0, (byte)'{', (byte)'"' }, deadline.Token);
+        await pipe.FlushAsync(deadline.Token);
+        await process.WaitForExitAsync(deadline.Token);
+        launcher.LiveWorkers.ShouldBe(0);
+    }
+
+    [Fact]
     public async Task Accepted_work_prevents_idle_unload_and_a_changed_timeout_takes_effect()
     {
         var launcher = new PipeWorkerLauncher();
@@ -47,7 +67,9 @@ public sealed class SpeechLifecycleTests
     public async Task A_stale_reply_cannot_become_a_transcript()
     {
         var launcher = new PipeWorkerLauncher { StaleTranscript = true };
-        await using var client = Client(launcher);
+        // This checks reply identity. Leave scheduling room for instrumented CI workers;
+        // the separate timeout test owns the short inference deadline.
+        await using var client = Client(launcher, inference: TimeSpan.FromSeconds(5));
         await client.BeginWorkAsync(CancellationToken.None); await client.LoadAsync(CancellationToken.None);
         await Should.ThrowAsync<InvalidDataException>(async () => await client.TranscribeAsync(new float[320], [], CancellationToken.None));
         client.FinishWork();
@@ -154,7 +176,7 @@ public sealed class SpeechLifecycleTests
                             }
                         }
                     }
-                    catch (Exception e) when (e is OperationCanceledException or IOException) { }
+                    catch (Exception e) when (e is OperationCanceledException or IOException or JsonException) { }
                     finally { Interlocked.Decrement(ref owner.LiveWorkers); }
                 });
             }

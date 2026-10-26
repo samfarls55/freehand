@@ -4,9 +4,37 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 
 function Get-FreehandVersion {
-    $version = ([xml](Get-Content -LiteralPath (Join-Path $projectRoot 'Version.props') -Raw)).Project.PropertyGroup.Version
+    $version = if ($env:FREEHAND_RELEASE_VERSION) { $env:FREEHAND_RELEASE_VERSION } else {
+        ([xml](Get-Content -LiteralPath (Join-Path $projectRoot 'Version.props') -Raw)).SelectSingleNode('/Project/PropertyGroup/Version[not(@Condition)]').InnerText
+    }
     if ($version -notmatch '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$') { throw 'Version.props must contain a major.minor.patch version.' }
     return [string]$version
+}
+
+function New-FreehandInstaller([string]$PublishDirectory, [string]$Runtime, [string]$Destination) {
+    $zip = $Destination + '.payload.zip'
+    try {
+        [IO.Compression.ZipFile]::CreateFromDirectory($PublishDirectory, $zip, [IO.Compression.CompressionLevel]::Fastest, $false)
+        Copy-Item -LiteralPath $Runtime -Destination $Destination -Force
+        $archiveStream = [IO.File]::OpenRead($zip)
+        $installerStream = [IO.File]::Open($Destination, [IO.FileMode]::Append)
+        try {
+            $archiveStream.CopyTo($installerStream)
+            $installerStream.Write([Convert]::FromHexString((Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash))
+            $installerStream.Write([BitConverter]::GetBytes([long]$archiveStream.Length))
+            $installerStream.Write([Text.Encoding]::ASCII.GetBytes('FREEHD01'))
+        } finally { $archiveStream.Dispose(); $installerStream.Dispose() }
+        $checksum = (Get-FileHash -LiteralPath $Destination -Algorithm SHA256).Hash.ToLowerInvariant()
+        ($checksum + '  ' + [IO.Path]::GetFileName($Destination)) | Set-Content -LiteralPath ($Destination + '.sha256')
+    } finally { if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force } }
+}
+
+function New-FreehandPackageManifest([string]$Directory, [string]$Version, [string]$Build) {
+    $files = foreach ($file in Get-ChildItem -LiteralPath $Directory -File -Recurse) {
+        if ($file.Name -eq 'package-manifest.json') { continue }
+        @{ Path = [IO.Path]::GetRelativePath($Directory, $file.FullName); Size = $file.Length; Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+    }
+    @{ Version = $Version; Build = $Build; Files = @($files) } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Directory 'package-manifest.json')
 }
 
 function Resolve-FreehandDotnet([string]$RequestedPath) {

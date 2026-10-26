@@ -1,6 +1,8 @@
 using Freehand.Abstractions;
 using Freehand.Core;
 using Freehand.Speech;
+using Freehand.Core.Updates;
+using System.Text.Json;
 
 namespace Freehand.App;
 
@@ -15,6 +17,10 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private bool _disposed;
     private Task _preferencesTask = Task.CompletedTask;
     private readonly Task _verification;
+    private readonly HttpClient _updateHttp = new() { Timeout = TimeSpan.FromMinutes(15) };
+    private bool _installingUpdate;
+    /// <summary>Update checks are available only in the normal installed copy.</summary>
+    public UpdateService? Updates { get; }
     private IHotkeySource? _hotkey;
     /// <summary>Saved preferences.</summary>
     public AppSettings Settings { get; }
@@ -50,6 +56,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         var version = typeof(Composition).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
             .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().Single().InformationalVersion;
         Logs.Write(Guid.Empty, "app-" + version + "-model-" + ModelResolver.Version);
+        Updates = CreateUpdates();
+        if (Updates is not null) Updates.Changed += OnUpdatesChanged;
         var capture = PlatformFactory.CreateAudioCapture();
         var hotkey = PlatformFactory.CreateHotkeySource(_applied.DictationKeys);
         _hotkey = hotkey;
@@ -93,7 +101,11 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             }).ConfigureAwait(false);
             return keys;
         }
-        finally { if (_pendingPreferences || _refreshPending) QueuePreferences(); }
+        finally
+        {
+            if (_pendingPreferences || _refreshPending) QueuePreferences();
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
     private static async Task DisposeUnavailableCaptureAsync(IAudioCapture capture)
     {
@@ -110,7 +122,37 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         if (Settings.LastError is not null) Engine?.ReportStorageProblem(Settings.LastError);
         if (Dictionary.LastError is not null) Engine?.ReportStorageProblem(Dictionary.LastError);
         if (Transcripts.LastError is not null) Engine?.ReportStorageProblem(Transcripts.LastError);
+        Updates?.Start();
     }
+    private UpdateService? CreateUpdates()
+    {
+        var installed = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "Freehand");
+        if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY"))
+            || !Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory).Equals(installed, StringComparison.OrdinalIgnoreCase)) return null;
+        try
+        {
+            using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(installed, "package-manifest.json")));
+            if (!UpdatePackage.TryParseVersion(manifest.RootElement.GetProperty("Version").GetString() ?? "", out var current)) return null;
+            var installer = PlatformFactory.CreateUpdateInstaller();
+            return installer is null ? null : new UpdateService(new GitHubUpdateSource(_updateHttp), installer, current, installed,
+                Path.Combine(AppDataPaths.DirectoryPath, "updates"), () => Settings.Data.CheckForUpdates,
+                message => Logs.Write(Guid.Empty, message));
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException or KeyNotFoundException)
+        { Logs.Write(Guid.Empty, "update-start-" + e.GetType().Name); return null; }
+    }
+    private void OnUpdatesChanged(object? sender, EventArgs e) => Changed?.Invoke(this, EventArgs.Empty);
+    /// <summary>Hands an accepted, verified update to setup only after atomically reserving idle dictation.</summary>
+    public async Task TryInstallUpdateAsync()
+    {
+        if (_disposed || _installingUpdate || Updates?.Snapshot.Phase != UpdatePhase.Ready
+            || Engine is not null && !Engine.TryPrepareForUpdate()) return;
+        _installingUpdate = true;
+        try { await Updates.InstallAsync().ConfigureAwait(true); }
+        finally { _installingUpdate = false; if (!_disposed) Engine?.ResumeAfterUpdateFailure(); }
+    }
+    /// <summary>Installer shutdown refuses unresolved audio and prevents new capture.</summary>
+    public bool TryPrepareForUpdate() => !_disposed && (Engine?.TryPrepareForUpdate() ?? true);
     private async Task VerifyModelAsync()
     {
         await Models.VerifyAsync(CancellationToken.None).ConfigureAwait(false);
@@ -189,7 +231,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             }).ConfigureAwait(false);
         }
         catch (Exception e) { Logs.Write(Guid.Empty, "preferences-" + e.GetType().Name); Engine?.ReportStorageProblem("A preference could not be applied. Open Settings and try again."); }
-        finally { _preferencesGate.Release(); }
+        finally { _preferencesGate.Release(); Changed?.Invoke(this, EventArgs.Empty); }
     }
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
@@ -197,6 +239,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         Task preferences;
         lock (_preferencesSync) { _disposed = true; preferences = _preferencesTask; }
         Settings.Changed -= OnSettingsChanged;
+        if (Updates is not null) { Updates.Changed -= OnUpdatesChanged; await Updates.DisposeAsync().ConfigureAwait(false); }
+        _updateHttp.Dispose();
         if (Desktop is not null) Desktop.ReadinessInvalidated -= OnReadinessInvalidated;
         await preferences.ConfigureAwait(false);
         await _verification.ConfigureAwait(false);

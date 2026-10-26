@@ -56,7 +56,7 @@ foreach ($directory in @($publish, $compiler, $release)) {
     if (Test-Path -LiteralPath $resolved) { Remove-Item -LiteralPath $resolved -Recurse -Force }
     New-Item -ItemType Directory -Path $resolved | Out-Null
 }
-& $Dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false "-p:InformationalVersion=$version+$build" --output $publish
+& $Dotnet publish src/Freehand.App/Freehand.App.csproj -c Release -r win-x64 --self-contained true "-p:Version=$version" -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false "-p:InformationalVersion=$version+$build" --output $publish
 if ($LASTEXITCODE -ne 0) { throw 'Application publish failed' }
 $modelTarget = Join-Path $publish ('models/' + $manifest.DirectoryName)
 New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
@@ -91,28 +91,9 @@ foreach ($library in $assets.libraries.GetEnumerator()) {
 $index | Set-Content -LiteralPath (Join-Path $notices 'dependencies.txt')
 Copy-Item -LiteralPath (Join-Path (Split-Path $Dotnet) 'LICENSE.txt') -Destination (Join-Path $notices 'dotnet-LICENSE.txt') -Force
 Copy-Item -LiteralPath (Join-Path (Split-Path $Dotnet) 'ThirdPartyNotices.txt') -Destination (Join-Path $notices 'dotnet-ThirdPartyNotices.txt') -Force
-$files = foreach ($file in Get-ChildItem -LiteralPath $publish -File -Recurse) {
-    if ($file.Name -eq 'package-manifest.json') { continue }
-    @{ Path = [IO.Path]::GetRelativePath($publish,$file.FullName); Size = $file.Length; Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
-}
-@{ Version=$version; Build=$build; Files=@($files) } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $publish 'package-manifest.json')
-& $Dotnet publish packaging/Installer/Freehand.Installer.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output $compiler
+New-FreehandPackageManifest -Directory $publish -Version $version -Build $build
+& $Dotnet publish packaging/Installer/Freehand.Installer.csproj -c Release -r win-x64 --self-contained true "-p:Version=$version" -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output $compiler
 if ($LASTEXITCODE -ne 0) { throw 'Installer publish failed' }
-$zip = Join-Path $release 'payload.zip'
-if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip }
-[IO.Compression.ZipFile]::CreateFromDirectory($publish, $zip, [IO.Compression.CompressionLevel]::Fastest, $false)
 $installer = Join-Path $release "Freehand-$version-win-x64-Setup.exe"
-Copy-Item -LiteralPath (Join-Path $compiler 'Freehand.Installer.exe') -Destination $installer -Force
-$archive = [IO.File]::OpenRead($zip)
-$output = [IO.File]::Open($installer,[IO.FileMode]::Append)
-try {
-    $archive.CopyTo($output)
-    $hash = [Convert]::FromHexString((Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash)
-    $output.Write($hash)
-    $output.Write([BitConverter]::GetBytes([long]$archive.Length))
-    $output.Write([Text.Encoding]::ASCII.GetBytes('FREEHD01'))
-} finally { $archive.Dispose(); $output.Dispose() }
-$checksum = (Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash.ToLowerInvariant()
-($checksum + '  ' + [IO.Path]::GetFileName($installer)) | Set-Content -LiteralPath ($installer + '.sha256')
+New-FreehandInstaller -PublishDirectory $publish -Runtime (Join-Path $compiler 'Freehand.Installer.exe') -Destination $installer
 Write-Output "Installer: $installer"
-Write-Output "SHA256: $checksum"

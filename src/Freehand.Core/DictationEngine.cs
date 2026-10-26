@@ -89,6 +89,7 @@ public sealed class DictationEngine : IAsyncDisposable
     private FailedJob? _failed;
     private bool _disposed;
     private bool _configuring;
+    private bool _updating;
     private long _releasedAt;
     private Guid _job;
     private DictationState _state;
@@ -159,7 +160,7 @@ public sealed class DictationEngine : IAsyncDisposable
         lock (_sync)
         {
             if (_disposed) return;
-            if (_state != DictationState.Idle || _configuring) { Report(DictationOutcome.Busy, _failed is null ? "Finishing the previous dictation or applying settings." : "Retry or discard the previous recording first."); return; }
+            if (_state != DictationState.Idle || _configuring || _updating) { Report(DictationOutcome.Busy, _failed is null ? "Finishing the previous dictation or applying settings." : "Retry or discard the previous recording first."); return; }
             _job = Guid.NewGuid(); Feedback = null;
             var target = _foreground?.Capture() ?? default;
             var recording = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
@@ -353,11 +354,22 @@ public sealed class DictationEngine : IAsyncDisposable
     public void Discard() { lock (_sync) { if (_state != DictationState.AwaitingRetry) return; _failed = null; Feedback = null; SetState(DictationState.Idle); } }
     /// <summary>Reports storage trouble independently of dictation delivery.</summary>
     public void ReportStorageProblem(string message) => Report(DictationOutcome.DeliveryFailure, message);
+    /// <summary>Atomically reserves an idle engine so setup cannot race a new recording.</summary>
+    public bool TryPrepareForUpdate()
+    {
+        lock (_sync)
+        {
+            if (_disposed || _configuring || _state != DictationState.Idle) return false;
+            _updating = true; return true;
+        }
+    }
+    /// <summary>Restores dictation if setup could not proceed.</summary>
+    public void ResumeAfterUpdateFailure() { lock (_sync) _updating = false; Changed?.Invoke(this, EventArgs.Empty); }
     /// <summary>Reserves an idle engine while live settings and readiness are updated.</summary>
     public async Task ApplyConfigurationAsync(Func<Task> apply)
     {
         ArgumentNullException.ThrowIfNull(apply);
-        lock (_sync) { if (_disposed || _configuring || _state is not (DictationState.Idle or DictationState.AwaitingRetry)) return; _configuring = true; }
+        lock (_sync) { if (_disposed || _configuring || _updating || _state is not (DictationState.Idle or DictationState.AwaitingRetry)) return; _configuring = true; }
         try { await apply().ConfigureAwait(false); }
         finally { lock (_sync) _configuring = false; }
     }

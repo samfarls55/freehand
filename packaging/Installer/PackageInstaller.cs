@@ -12,8 +12,12 @@ internal static class PackageInstaller
 {
     private const string UninstallKey = "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Freehand";
     private static string ShortcutPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "Freehand.lnk");
-    internal static async Task InstallAsync(string root, IProgress<string> progress)
+    internal static async Task InstallAsync(string root, IProgress<string> progress, bool isolated = false)
     {
+        var data = isolated ? Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY")
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Freehand");
+        if (string.IsNullOrWhiteSpace(data) || isolated && root.Equals(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "Freehand"), StringComparison.OrdinalIgnoreCase))
+            throw new IOException("Isolated verification requires a separate installation and data directory.");
         var parent = Path.GetDirectoryName(root) ?? throw new IOException("Invalid installation path");
         Directory.CreateDirectory(parent);
         var stage = Path.Combine(parent, ".Freehand-stage-" + Guid.NewGuid().ToString("N"));
@@ -44,35 +48,38 @@ internal static class PackageInstaller
             await RunAsync(Path.Combine(root, "Freehand.App.exe"), ["--verify-model"], TimeSpan.FromSeconds(90)).ConfigureAwait(false);
             await RunAsync(Path.Combine(root, "Freehand.App.exe"), ["--selftest"], TimeSpan.FromSeconds(120)).ConfigureAwait(false);
             verified = true;
-            Shortcut.Create(ShortcutPath, Path.Combine(root, "Freehand.App.exe"));
-            using (var key = Registry.CurrentUser.CreateSubKey(UninstallKey))
+            if (!isolated)
             {
-                key.SetValue("DisplayName", "Freehand"); key.SetValue("DisplayVersion", manifest.Version);
-                key.SetValue("Publisher", "Sam"); key.SetValue("InstallLocation", root);
-                key.SetValue("DisplayIcon", Path.Combine(root, "Freehand.App.exe"));
-                key.SetValue("UninstallString", Quote(Path.Combine(root, "FreehandUninstall.exe")) + " --uninstall --directory " + Quote(root));
-                key.SetValue("QuietUninstallString", Quote(Path.Combine(root, "FreehandUninstall.exe")) + " --uninstall --quiet --directory " + Quote(root));
-                key.SetValue("NoModify", 1); key.SetValue("NoRepair", 1);
-            }
-            // New installations start at login; upgrades preserve an existing preference.
-            var settings = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Freehand", "settings.json");
-            var startup = true;
-            if (File.Exists(settings))
-            {
-                try
+                Shortcut.Create(ShortcutPath, Path.Combine(root, "Freehand.App.exe"));
+                using (var key = Registry.CurrentUser.CreateSubKey(UninstallKey))
                 {
-                    using var document = JsonDocument.Parse(await File.ReadAllTextAsync(settings).ConfigureAwait(false));
-                    if (document.RootElement.ValueKind == JsonValueKind.Object && document.RootElement.TryGetProperty("StartAtLogin", out var property)
-                        && property.ValueKind is JsonValueKind.True or JsonValueKind.False) startup = property.GetBoolean();
+                    key.SetValue("DisplayName", "Freehand"); key.SetValue("DisplayVersion", manifest.Version);
+                    key.SetValue("Publisher", "Sam"); key.SetValue("InstallLocation", root);
+                    key.SetValue("DisplayIcon", Path.Combine(root, "Freehand.App.exe"));
+                    key.SetValue("UninstallString", Quote(Path.Combine(root, "FreehandUninstall.exe")) + " --uninstall --directory " + Quote(root));
+                    key.SetValue("QuietUninstallString", Quote(Path.Combine(root, "FreehandUninstall.exe")) + " --uninstall --quiet --directory " + Quote(root));
+                    key.SetValue("NoModify", 1); key.SetValue("NoRepair", 1);
                 }
-                catch (Exception e) when (e is JsonException or IOException or UnauthorizedAccessException) { }
+                // New installations start at login; upgrades preserve an existing preference.
+                var settings = Path.Combine(data, "settings.json");
+                var startup = true;
+                if (File.Exists(settings))
+                {
+                    try
+                    {
+                        using var document = JsonDocument.Parse(await File.ReadAllTextAsync(settings).ConfigureAwait(false));
+                        if (document.RootElement.ValueKind == JsonValueKind.Object && document.RootElement.TryGetProperty("StartAtLogin", out var property)
+                            && property.ValueKind is JsonValueKind.True or JsonValueKind.False) startup = property.GetBoolean();
+                    }
+                    catch (Exception e) when (e is JsonException or IOException or UnauthorizedAccessException) { }
+                }
+                using (var key = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))
+                {
+                    if (startup) key.SetValue("Freehand", Quote(Path.Combine(root, "Freehand.App.exe")) + " --tray");
+                    else key.DeleteValue("Freehand", false);
+                }
             }
-            using (var key = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run"))
-            {
-                if (startup) key.SetValue("Freehand", Quote(Path.Combine(root, "Freehand.App.exe")) + " --tray");
-                else key.DeleteValue("Freehand", false);
-            }
-            var cache = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Freehand", "installer", "FreehandSetup.exe");
+            var cache = Path.Combine(data, "installer", "FreehandSetup.exe");
             Directory.CreateDirectory(Path.GetDirectoryName(cache)!);
             if (!Path.GetFullPath(installerPath).Equals(cache, StringComparison.OrdinalIgnoreCase)) File.Copy(installerPath, cache, true);
             // Cleanup cannot invalidate a verified replacement or restore a partly deleted backup.
@@ -93,6 +100,14 @@ internal static class PackageInstaller
             try { File.Delete(zipPath); } catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
             TryCleanup(stage, parent);
         }
+    }
+    internal static void RestartApplication(string root)
+    {
+        var exe = Path.Combine(root, "Freehand.App.exe");
+        if (!File.Exists(exe) || IsInstallationRunning(exe)) return;
+        var start = new ProcessStartInfo(exe) { UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden, WorkingDirectory = root };
+        start.ArgumentList.Add("--tray");
+        Process.Start(start)?.Dispose();
     }
     private static async Task<long> ExtractPayloadAsync(string installer, string destination)
     {

@@ -1,7 +1,8 @@
 # Development and deployments
 
 Use the development build while changing Freehand. Update the installed app after
-the change works. Publish a GitHub Release when that version is ready for other people.
+the change works. Merging application changes to `main` publishes a verified release
+that installed copies can discover.
 
 | Command | Result |
 |---|---|
@@ -104,40 +105,66 @@ verifies the package before previewing the installation.
 
 ## Publish a version
 
-`Version.props` is the source of the application, installer, package, and Windows
-uninstall version. Use a patch increase for fixes, a minor increase for compatible
-features, and a major increase for changes that break compatibility. The next patch
-after `1.0.0` is `1.0.1`. Change the version deliberately; commits do not increase it.
+Merging to `main` is the decision to ship. The Windows workflow automatically:
 
-1. Set the new version in `Version.props` and write
-   `packaging/release-notes/<version>.md` describing the changes and validation.
-2. Run `verify.ps1 -Package` and complete the affected hands-on checks. Commit the
-   release changes, merge to `main`, and make sure the workspace is clean.
-3. From that commit on `main`, push the branch and then an annotated version tag.
-   For version `1.0.1`:
+1. Selects the next patch version from existing release tags and the baseline in
+   `Version.props`. All main runs queue together, including the publication job.
+2. Builds and tests the source, creates the installer, and runs the published self-test.
+3. Verifies an isolated package upgrade, corrupt-payload rejection, and rollback after
+   an installed self-test failure. Runs the deployment and release script tests.
+4. Reserves the version tag, uploads the tested installer and checksum to a draft release, generates release
+   notes from GitHub PRs, verifies both uploaded assets, then publishes the release.
 
-   ```powershell
-   git push origin main
-   git tag -a v1.0.1 -m 'Freehand 1.0.1'
-   git push origin v1.0.1
-   ```
+The workflow passes `FREEHAND_RELEASE_VERSION` to MSBuild and the packaging scripts,
+so the executable, installer, manifest, asset names, and Windows uninstall entry agree.
+It does not commit version changes back to the repository. To start a new minor or
+major version, raise the baseline in `Version.props`. Local builds use that baseline
+unless an explicit `FREEHAND_RELEASE_VERSION` is set.
 
-4. The Windows workflow checks the tag against `Version.props`, requires release
-   notes, builds, tests, packages, and runs the published self-test. Only after those
-   checks pass does it create the GitHub Release with the installer and checksum.
-5. Confirm the release has both assets, then install that installer to use the same
-   build that everyone can download. Record hands-on results with their actual limits.
+PRs run verification without publishing. Documentation-only merges skip the Windows
+workflow. A failed check leaves the last published release available. An outdated main
+build skips publication if a newer application commit has arrived. Documentation-only
+commits do not suppress an otherwise verified release. Rerunning the current
+commit reuses its tag and leaves already published assets unchanged. An incomplete
+draft can be retried. Its reserved tag keeps later changes from reusing that version.
+Keep published tags and assets unchanged.
 
-Pushing the tag is the publication step. Push it when publication is authorized.
-Ordinary branch pushes and pull requests run checks and produce build artifacts.
-They do not create releases or update installed apps. A failed tag build publishes
-nothing. Fix the failure and use a new version if the source needs to change; keep
-published version tags and assets unchanged.
+Use **Run workflow** on `main` to retry a failed release. Running the workflow on a
+different branch verifies that branch without publishing it. Publication happens in
+the same workflow using its repository token, so no personal token or second tag-triggered
+workflow is needed. The token needs Contents write permission only in the release job.
 
-The tag workflow follows GitHub's documented
-[workflow trigger behavior](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow).
-Publishing this workflow requires committing and pushing it first. Until then,
-these commands work locally and the existing remote workflow remains in effect.
+Installed copies check shortly after startup and every six hours. Settings includes a
+manual check and a switch for automatic checks. A check requests public GitHub release
+metadata without credentials, audio, transcript text, or settings. Downloads begin only
+after **Update** is accepted. Setup waits for idle dictation and restarts the app after
+success or restoration of the previous version. Development and isolated profiles do
+not check for updates or launch the installed updater.
+
+The first updater-enabled build requires a manual installation because older copies
+cannot discover releases. Use `deploy-local.ps1` to bootstrap this computer. After the
+workflow is merged, installed copies will offer newer published versions.
+
+For packaging changes, also run:
+
+```powershell
+pwsh -File ./scripts/verify-updates.ps1
+```
+
+Run it after `verify.ps1 -Package`. It wraps the real published payload in fixture
+packages with versions `0.0.1`, `0.0.2`, and `0.0.3`. The last has a correctly hashed
+but broken speech fixture, so installed verification must fail and restore `0.0.2`.
+The test uses separate installation and data directories and skips Windows registration.
+It starts the real app executable in a headless handoff mode with profile-scoped Windows
+ownership, then verifies that `--update` stops and restarts it after success and rollback.
+The probe arms no capture or hotkey and never changes the normal installation.
+Failed fixtures and setup logs remain under `artifacts/update-verification` for diagnosis;
+CI also uploads the setup error logs. Successful fixtures are removed.
+These checks establish package replacement and recovery, not physical microphone or
+hotkey behavior.
+
+GitHub documents [draft-first publication](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+and [workflow queuing](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency).
 
 ## Completion report
 

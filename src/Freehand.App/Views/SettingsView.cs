@@ -22,6 +22,7 @@ public sealed class SettingsView : UserControl
     private readonly ToggleSwitch _inject = Switch("Insert text into the focused app");
     private readonly ToggleSwitch _history = Switch("Keep transcript history");
     private readonly ToggleSwitch _login = Switch("Start at Windows login");
+    private readonly ToggleSwitch _updates = Switch("Check for updates automatically");
     private readonly NumericUpDown _idle = new() { Minimum = 1, Maximum = 60, Increment = 1, Width = 100 };
     private readonly TextBlock _warning = Panels.Text("", Tokens.Fonts.Label);
     private readonly TextBlock _error = Panels.Text("", Tokens.Fonts.Label);
@@ -42,6 +43,7 @@ public sealed class SettingsView : UserControl
         _inject.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { InjectText = _inject.IsChecked == true }); };
         _history.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { KeepHistory = _history.IsChecked == true }); };
         _login.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { StartAtLogin = _login.IsChecked == true }); };
+        _updates.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { CheckForUpdates = _updates.IsChecked == true }); };
         _idle.ValueChanged += (_, _) => { if (!_syncing && _idle.Value is { } value) Save(_settings.Data with { IdleModelMinutes = (int)value }); };
         _modelTimer.Tick += (_, _) => UpdateModelStatus();
         Content = new DockPanel { Children =
@@ -63,6 +65,10 @@ public sealed class SettingsView : UserControl
                         SettingRow("Release model after idle minutes", _idle),
                     } }),
                     Group("Speech model", BuildModelSection()),
+                    Group("Updates", new StackPanel { Spacing = Tokens.Space.Base, Children =
+                    {
+                        SettingRow("Check for updates automatically", _updates), new UpdateView(_composition?.Updates),
+                    } }),
                     Panels.Text("Changes made during dictation apply when it finishes.", Tokens.Fonts.Label, muted: true),
                 } },
             },
@@ -92,6 +98,7 @@ public sealed class SettingsView : UserControl
             _key.Synchronize(_settings.Data.DictationKeys);
             _inject.IsChecked = _settings.Data.InjectText; _history.IsChecked = _settings.Data.KeepHistory;
             _login.IsChecked = _settings.Data.StartAtLogin; _idle.Value = _settings.Data.IdleModelMinutes;
+            _updates.IsChecked = _settings.Data.CheckForUpdates;
             _warning.Text = _settings.Data.DictationKeys.Contains(0xA5) ? "Right Alt is AltGr on many European layouts. This can interfere with typing @, €, \\ and |." : "";
             _warning.IsVisible = !string.IsNullOrEmpty(_warning.Text);
             _error.Text = _settings.LastError; _error.IsVisible = !string.IsNullOrEmpty(_error.Text);

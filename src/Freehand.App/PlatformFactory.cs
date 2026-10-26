@@ -83,6 +83,7 @@ internal static class PlatformFactory
 
     public static IWorkerLauncher? CreateWorkerLauncher() => Create<IWorkerLauncher>("WindowsWorkerLauncher", []);
     public static IDesktopIntegration? CreateDesktopIntegration() => Create<IDesktopIntegration>("WindowsDesktopIntegration", []);
+    public static IUpdateInstaller? CreateUpdateInstaller() => Create<IUpdateInstaller>("WindowsUpdateInstaller", []);
     public static ITextDeliveryProbe? CreateDeliveryProbe() => Create<ITextDeliveryProbe>("WindowsDeliveryProbe", []);
 
     [UnconditionalSuppressMessage(
