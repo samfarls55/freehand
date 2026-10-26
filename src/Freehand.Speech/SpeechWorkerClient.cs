@@ -136,7 +136,9 @@ public sealed class SpeechWorkerClient : ISpeechSession
             deadline.CancelAfter(_options.InferenceTimeout);
             try
             {
-                var response = await RequestAsync("transcribe", null, samples.Length, samples, deadline.Token).ConfigureAwait(false);
+                var phrases = biasPhrases.Where(phrase => !string.IsNullOrWhiteSpace(phrase) && phrase.Length <= WorkerProtocol.MaxBiasPhraseLength)
+                    .Take(WorkerProtocol.MaxBiasPhrases).ToArray();
+                var response = await RequestAsync("transcribe", null, samples.Length, samples, deadline.Token, phrases).ConfigureAwait(false);
                 if (response.Kind != "text") throw new InvalidDataException("Unexpected transcription reply");
                 return response.Value ?? string.Empty;
             }
@@ -151,9 +153,10 @@ public sealed class SpeechWorkerClient : ISpeechSession
         }
         finally { _gate.Release(); }
     }
-    private async Task<WorkerMessage> RequestAsync(string kind, string? value, int count, ReadOnlyMemory<float> samples, CancellationToken token)
+    private async Task<WorkerMessage> RequestAsync(string kind, string? value, int count, ReadOnlyMemory<float> samples, CancellationToken token,
+        string[]? biasPhrases = null)
     {
-        var request = new WorkerMessage(WorkerProtocol.Version, Guid.NewGuid(), kind, value, count);
+        var request = new WorkerMessage(WorkerProtocol.Version, Guid.NewGuid(), kind, value, count, BiasPhrases: biasPhrases);
         var pipe = _pipe ?? throw new IOException("Worker disconnected");
         await WorkerProtocol.WriteAsync(pipe, request, token).ConfigureAwait(false);
         if (count > 0) await WorkerProtocol.WriteAudioAsync(pipe, samples, token).ConfigureAwait(false);

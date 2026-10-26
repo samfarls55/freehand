@@ -18,6 +18,18 @@ namespace Freehand.CoreTests;
 /// </remarks>
 public sealed class DictationEngineTests
 {
+    [Fact]
+    public async Task Spoken_currency_is_formatted_before_delivery()
+    {
+        var hotkey = new FakeHotkeySource();
+        var injector = new RecordingTextInjector();
+        await using var engine = Build(FakeAudioCapture.Tone(0.4), hotkey,
+            new FakeTranscriber("It costs twenty five dollars."), injector);
+        await DictateAsync(hotkey, engine);
+        engine.LastResult!.Text.ShouldBe("It costs $25.");
+        injector.Injected.ShouldHaveSingleItem().ShouldBe("It costs $25. ");
+    }
+
     private static DictationEngine Build(
         IAudioCapture capture,
         FakeHotkeySource hotkey,

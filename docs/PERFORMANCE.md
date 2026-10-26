@@ -1,5 +1,44 @@
 # Performance analysis, October 22, 2026
 
+## Dictionary bias and number formatting, October 26
+
+Enabled dictionary terms and correction targets now reach the speech worker and
+the per-stream native hotword graph. The recognizer keeps its pinned model,
+four inference threads and two active decoding paths. NVIDIA's original 10,962-byte
+SentencePiece vocabulary supplies the missing tokenizer information. English
+number/currency formatting runs in managed code after joining segments and applying
+literal corrections. It protects dictionary outputs and adds no inference model.
+
+A temporary console probe compared the previous recognizer configuration with
+the updated adapter in separate processes. Each process loaded the same verified
+110M assets, transcribed the first ten seconds of the public JFK fixture once to
+warm up, then ran twenty timed transcriptions. The forty-phrase case used invented
+`example phrase N` entries, not Sam's dictionary. A second series repeated baseline
+and biased runs to check ordinary timing variation.
+
+| Isolated process | Retained private memory | Working set | Warm median | Warm p95 |
+|---|---:|---:|---:|---:|
+| Previous configuration, two series | 186.6-187.2 MiB | 215.7-216.3 MiB | 223-237 ms | 261-279 ms |
+| Updated adapter, no hotwords | 189.0 MiB | 220.6 MiB | 259 ms | 281 ms |
+| Updated adapter, forty phrases, two series | 189.2-189.3 MiB | 221.1-221.2 MiB | 224-254 ms | 270-293 ms |
+
+Loading took 931-973 ms in these observations. All transcripts retained the same
+fixture wording. The observed incremental footprint was roughly 2-3 MiB private
+memory and 5 MiB working set. Timings overlap across series; they do not establish
+a speed improvement or a stable latency penalty. These are isolated process
+measurements, excluding the UI, capture, pipe overhead and delivery.
+
+The native tokenizer creates a pool based on hardware concurrency, so observed
+process threads increased from seventeen to thirty-nine, even though ASR inference
+still uses four threads. The pool belongs to the existing speech worker and exits
+with it after idle unload. This implementation does not introduce another resident
+service. Raw probe source and results remain in ignored `artifacts/native-probe`.
+
+The measurements do not establish recognition accuracy for Sam's names or physical
+microphone dictation. The published self-test exercises empty, populated and cleared
+hotword requests across worker restarts. Meaningful microphone and dictionary-term
+accuracy evaluation remains a hands-on check.
+
 The initial audit below used the former 0.6B model. The current source replaces it
 entirely with Parakeet TDT 110M, as requested after testing. See
 [the replacement measurements](#model-replacement-follow-up).

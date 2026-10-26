@@ -2,7 +2,7 @@
 
 [![Windows build](https://github.com/samfarls55/freehand/actions/workflows/windows.yml/badge.svg)](https://github.com/samfarls55/freehand/actions/workflows/windows.yml)
 
-Freehand is a local dictation app for Windows. Hold Right Ctrl, speak, and release. It transcribes your recording on your computer, applies your dictionary corrections, and types the result at the caret in the app where you started.
+Freehand is a local dictation app for Windows. Hold Right Ctrl, speak, and release. It transcribes your recording on your computer, applies your dictionary corrections, formats numbers and currency, and types the result at the caret in the app where you started.
 
 The installer includes the speech model and runtime. You don't need an account, API key, GPU, or separate speech service. Once installed, dictation works offline.
 
@@ -117,7 +117,15 @@ cloud code -> Claude Code
 Anthropic
 ```
 
-`# off:` disables a correction without deleting it. A bare term such as `Anthropic` is stored for reference; it does not bias the Windows speech recognizer. Use a `misheard phrase -> replacement` rule to change the output.
+`# off:` disables an entry without deleting it. Enabled terms such as `Anthropic`, along with the replacement side of corrections, now bias recognition on each recording. Dictionary edits apply to the next recording without reloading the model. Biasing improves the chance of recognizing a term; use a `misheard phrase -> replacement` rule when the output must use a specific spelling.
+
+Recognition uses up to 40 distinct dictionary phrases. Phrases longer than 256 characters, characters outside the model's English vocabulary, and reserved native syntax such as `/` and `:` are excluded from biasing. Literal replacement rules still apply to those entries.
+
+### Numbers and currency
+
+Freehand formats unambiguous English numbers, dollar amounts, cents, decimals, and percentages after transcription. For example, `twenty five dollars` becomes `$25`, and `twenty five percent` becomes `25%`. It preserves small standalone words such as `one` in `one step at a time`.
+
+Explicit dictionary replacements keep their exact text, including whitespace, and saved terms are protected from number formatting. Ambiguous forms such as `twenty twenty six` and `five dollars fifty` remain unchanged. This uses local rules and adds no inference model. It does not rewrite grammar or remove false starts.
 
 ### Local data and privacy
 

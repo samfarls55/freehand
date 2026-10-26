@@ -84,10 +84,12 @@ internal static class EngineeringChecks
                 if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Bundled model invalid");
                 var text = await speech.TranscribeAsync(audio, [], CancellationToken.None).ConfigureAwait(false);
                 CheckFixtureText(text);
+                CheckFixtureText(await speech.TranscribeAsync(audio, ["fellow Americans", "country"], CancellationToken.None).ConfigureAwait(false));
+                CheckFixtureText(await speech.TranscribeAsync(audio, [], CancellationToken.None).ConfigureAwait(false));
                 speech.FinishWork(); await speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
                 if (speech.WorkerId is not null) throw new IOException("Worker did not stop");
             }
-            Console.WriteLine("  [ok] bundled model, known speech, worker stop and restart");
+            Console.WriteLine("  [ok] bundled model, known speech, per-recording hotwords, worker stop and restart");
             return 0;
         }
         catch (Exception e) { Console.Error.WriteLine("Speech check failed: " + e); return 1; }

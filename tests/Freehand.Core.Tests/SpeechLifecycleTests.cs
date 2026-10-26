@@ -11,6 +11,23 @@ namespace Freehand.CoreTests;
 public sealed class SpeechLifecycleTests
 {
     [Fact]
+    public async Task Dictionary_bias_reaches_the_worker_and_is_scoped_to_each_request()
+    {
+        var launcher = new PipeWorkerLauncher();
+        await using var client = Client(launcher, inference: TimeSpan.FromSeconds(5));
+        await client.BeginWorkAsync(CancellationToken.None);
+        await client.LoadAsync(CancellationToken.None);
+        await client.TranscribeAsync(new float[320], ["Anthropic", "Claude Code", "C++"], CancellationToken.None);
+        launcher.LastBiasPhrases.ShouldBe(["Anthropic", "Claude Code", "C++"]);
+        await client.TranscribeAsync(new float[320], [new string('x', 1_048_577), "", "Freehand"], CancellationToken.None);
+        launcher.LastBiasPhrases.ShouldBe(["Freehand"]);
+        await client.TranscribeAsync(new float[320], [], CancellationToken.None);
+        launcher.LastBiasPhrases.ShouldBeEmpty();
+        launcher.Launches.ShouldBe(1);
+        client.FinishWork();
+    }
+
+    [Fact]
     public async Task Child_protocol_failure_does_not_escape_process_wait_or_disposal()
     {
         using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(5));
@@ -126,6 +143,7 @@ public sealed class SpeechLifecycleTests
         internal int Launches { get; private set; }
         internal int LiveWorkers;
         internal int PeakWorkers;
+        internal string[] LastBiasPhrases { get; private set; } = [];
         internal TaskCompletionSource ShutdownReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal TaskCompletionSource InferenceReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal TaskCompletionSource AllowShutdown { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -161,6 +179,8 @@ public sealed class SpeechLifecycleTests
                             if (kind == "load") await WriteAsync(pipe, requestId, "ready", null, 0, _stop.Token);
                             else if (kind == "transcribe")
                             {
+                                owner.LastBiasPhrases = message.TryGetProperty("BiasPhrases", out var phrases) && phrases.ValueKind == JsonValueKind.Array
+                                    ? phrases.EnumerateArray().Select(phrase => phrase.GetString()!).ToArray() : [];
                                 var audio = new byte[message.GetProperty("SampleCount").GetInt32() * 4];
                                 await pipe.ReadExactlyAsync(audio, _stop.Token);
                                 owner.InferenceReceived.TrySetResult();
@@ -185,7 +205,7 @@ public sealed class SpeechLifecycleTests
             public async ValueTask DisposeAsync() { _stop.Cancel(); await _task; _stop.Dispose(); }
             private static async Task WriteAsync(Stream stream, Guid id, string kind, string? value, int pid, CancellationToken token)
             {
-                var data = JsonSerializer.SerializeToUtf8Bytes(new { Version = 1, RequestId = id, Kind = kind, Value = value, SampleCount = 0, ProcessId = pid });
+                var data = JsonSerializer.SerializeToUtf8Bytes(new { Version = WorkerProtocol.Version, RequestId = id, Kind = kind, Value = value, SampleCount = 0, ProcessId = pid });
                 var header = new byte[4]; BinaryPrimitives.WriteInt32LittleEndian(header, data.Length);
                 await stream.WriteAsync(header, token); await stream.WriteAsync(data, token); await stream.FlushAsync(token);
             }

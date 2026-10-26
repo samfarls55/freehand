@@ -174,7 +174,6 @@ public sealed class DictionaryEditorWindow : Window
     private void Revalidate()
     {
         _warnings.Children.Clear();
-        if (_kind == EntryKind.Term) _warnings.Children.Add(Panels.Text("Terms are saved for reference. Use a correction to change recognized text.", Tokens.Fonts.Label, muted: true));
         foreach (var warning in DictionaryWarning.Check(Draft))
         {
             var label = Panels.Text(warning.Message, Tokens.Fonts.Label); label.Foreground = Tokens.Brushes.Attention;
