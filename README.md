@@ -35,17 +35,19 @@ The installer includes .NET and the native speech dependencies. You don't need t
 
 Open the [latest release](https://github.com/samfarls55/freehand/releases/latest). Under **Assets**, download:
 
-- `Freehand-1.0.0-win-x64-Setup.exe`
-- `Freehand-1.0.0-win-x64-Setup.exe.sha256`
+- `Freehand-<version>-win-x64-Setup.exe`
+- `Freehand-<version>-win-x64-Setup.exe.sha256`
 
 The **Source code** ZIP and tarball contain source, not an installable app. Use the `Setup.exe` asset for installation.
 
 ### 2. Verify the download
 
-Put both files in the same folder. Open PowerShell in that folder and run:
+Put both files in a folder containing just one Freehand installer. Open PowerShell in that folder and run:
 
 ```powershell
-$installer = '.\Freehand-1.0.0-win-x64-Setup.exe'
+$installers = @(Get-ChildItem -File -Filter 'Freehand-*-win-x64-Setup.exe')
+if ($installers.Count -ne 1) { throw 'Use a folder containing one Freehand installer and its checksum.' }
+$installer = $installers[0].FullName
 $expected = ((Get-Content -LiteralPath ($installer + '.sha256') -Raw).Trim() -split '\s+')[0]
 $actual = (Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash
 if ($actual -ine $expected) { throw 'Checksum mismatch. Download the installer again.' }
@@ -54,7 +56,7 @@ if ($actual -ine $expected) { throw 'Checksum mismatch. Download the installer a
 
 ### 3. Run setup
 
-Double-click `Freehand-1.0.0-win-x64-Setup.exe` and confirm **Install or repair**. Setup verifies the package and model, installs the app, and checks that the speech worker can transcribe known speech. Leave it running until it reports that Freehand is installed.
+Double-click the downloaded installer and confirm **Install or repair**. Setup verifies the package and model, installs the app, and checks that the speech worker can transcribe known speech. Leave it running until it reports that Freehand is installed.
 
 The installer is unsigned. Windows may show an unknown-publisher or SmartScreen prompt. Check that you downloaded it from this repository and verified the checksum before proceeding. On a managed computer, follow your organization's installation policy.
 
