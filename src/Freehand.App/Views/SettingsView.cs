@@ -5,6 +5,8 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Freehand.Abstractions;
+using Freehand.App.Controls;
 using Freehand.App.Design;
 using Freehand.Core;
 using Freehand.Speech;
@@ -14,11 +16,9 @@ namespace Freehand.App.Views;
 /// <summary>Native settings shared by the main tab and tray settings window.</summary>
 public sealed class SettingsView : UserControl
 {
-    private static readonly (int Key, string Label)[] Keys =
-    [ (0xA3, "Right Ctrl"), (0xA1, "Right Shift"), (0x14, "Caps Lock"), (0x7C, "F13"), (0xA5, "Right Alt") ];
     private readonly AppSettings _settings;
     private readonly Composition? _composition;
-    private readonly ComboBox _key = new() { MinWidth = 152, ItemsSource = Keys.Select(k => k.Label).ToArray() };
+    private readonly HotkeyEditor _key;
     private readonly ToggleSwitch _inject = Switch("Insert text into the focused app");
     private readonly ToggleSwitch _history = Switch("Keep transcript history");
     private readonly ToggleSwitch _login = Switch("Start at Windows login");
@@ -31,16 +31,14 @@ public sealed class SettingsView : UserControl
     private bool _syncing;
 
     /// <summary>Builds settings using the existing persistence and preference coordinator.</summary>
-    public SettingsView(AppSettings settings, Composition? composition = null)
+    public SettingsView(AppSettings settings, Composition? composition = null) : this(settings, composition, composition) { }
+
+    internal SettingsView(AppSettings settings, Composition? composition, IHotkeyRecorder? recorder)
     {
         _settings = settings; _composition = composition;
-        AutomationProperties.SetName(_key, "Push-to-talk key");
+        _key = new HotkeyEditor(recorder, keys => Save(_settings.Data with { PushToTalkKey = keys[0], PushToTalkKeys = keys.ToArray() }));
         AutomationProperties.SetName(_idle, "Release model after idle minutes");
         _warning.Foreground = Tokens.Brushes.Attention; _error.Foreground = Tokens.Brushes.Attention;
-        _key.SelectionChanged += (_, _) =>
-        {
-            if (!_syncing && _key.SelectedIndex >= 0) Save(_settings.Data with { PushToTalkKey = Keys[_key.SelectedIndex].Key });
-        };
         _inject.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { InjectText = _inject.IsChecked == true }); };
         _history.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { KeepHistory = _history.IsChecked == true }); };
         _login.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { StartAtLogin = _login.IsChecked == true }); };
@@ -72,8 +70,6 @@ public sealed class SettingsView : UserControl
         Synchronize();
     }
 
-    internal static string KeyLabel(int key) => Keys.FirstOrDefault(k => k.Key == key).Label ?? string.Create(System.Globalization.CultureInfo.InvariantCulture, $"Key 0x{key:X2}");
-
     /// <inheritdoc />
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
@@ -93,10 +89,10 @@ public sealed class SettingsView : UserControl
         _syncing = true;
         try
         {
-            _key.SelectedIndex = Array.FindIndex(Keys, k => k.Key == _settings.Data.PushToTalkKey);
+            _key.Synchronize(_settings.Data.DictationKeys);
             _inject.IsChecked = _settings.Data.InjectText; _history.IsChecked = _settings.Data.KeepHistory;
             _login.IsChecked = _settings.Data.StartAtLogin; _idle.Value = _settings.Data.IdleModelMinutes;
-            _warning.Text = _settings.Data.PushToTalkKey == 0xA5 ? "Right Alt is AltGr on many European layouts. This can interfere with typing @, €, \\ and |." : "";
+            _warning.Text = _settings.Data.DictationKeys.Contains(0xA5) ? "Right Alt is AltGr on many European layouts. This can interfere with typing @, €, \\ and |." : "";
             _warning.IsVisible = !string.IsNullOrEmpty(_warning.Text);
             _error.Text = _settings.LastError; _error.IsVisible = !string.IsNullOrEmpty(_error.Text);
             UpdateModelStatus();
