@@ -10,6 +10,42 @@ namespace Freehand.CoreTests;
 public sealed class LifecycleTests
 {
     [Fact]
+    public async Task Update_reservation_refuses_active_or_retained_audio_and_blocks_new_recordings_until_released()
+    {
+        var capture = new DrainingCapture(); var key = new FakeHotkeySource();
+        await using var engine = new DictationEngine(capture, key, new FailingSpeech(10), new RecordingTextInjector(), () => []);
+        key.Press(); await capture.Started.Task;
+        engine.TryPrepareForUpdate().ShouldBeFalse();
+        key.Release();
+        await WaitUntilAsync(() => engine.State == DictationState.AwaitingRetry);
+        engine.TryPrepareForUpdate().ShouldBeFalse(); engine.HasPendingAudio.ShouldBeTrue();
+        engine.Discard();
+        engine.TryPrepareForUpdate().ShouldBeTrue();
+        key.Press(); engine.State.ShouldBe(DictationState.Idle);
+        var applied = false;
+        await engine.ApplyConfigurationAsync(() => { applied = true; return Task.CompletedTask; });
+        applied.ShouldBeFalse();
+        engine.ResumeAfterUpdateFailure();
+        key.Press(); engine.State.ShouldBe(DictationState.Recording); key.Release();
+    }
+
+    [Fact]
+    public async Task Update_reservation_waits_for_loading_and_pending_text_delivery()
+    {
+        var capture = new DrainingCapture(); var speech = new ControlledSpeech(); var key = new FakeHotkeySource();
+        await using var engine = new DictationEngine(capture, key, speech, new RecordingTextInjector(), () => []);
+        engine.Changed += (_, _) =>
+        {
+            if (engine.HasPendingAudio) engine.TryPrepareForUpdate().ShouldBeFalse();
+        };
+        key.Press(); await speech.LoadStarted.Task; key.Release();
+        engine.TryPrepareForUpdate().ShouldBeFalse();
+        speech.AllowLoad.TrySetResult();
+        await WaitUntilAsync(() => engine.State == DictationState.Idle);
+        engine.LastResult.ShouldNotBeNull(); engine.TryPrepareForUpdate().ShouldBeTrue();
+    }
+
+    [Fact]
     public async Task Model_repair_can_run_while_failed_audio_is_retained_and_retry_waits()
     {
         var capture = new DrainingCapture(); var speech = new FailingSpeech(2); var key = new FakeHotkeySource();

@@ -5,11 +5,15 @@ name: Windows
 on:
   push:
     branches: [main]
-    tags: ['v*']
     paths: ['src/**', 'tests/**', 'shared/**', 'packaging/**', 'scripts/**', '*.props', '*.sln', '*.slnf', 'global.json', '.github/workflows/windows.yml']
   pull_request:
     paths: ['src/**', 'tests/**', 'shared/**', 'packaging/**', 'scripts/**', '*.props', '*.sln', '*.slnf', 'global.json', '.github/workflows/windows.yml']
   workflow_dispatch:
+
+# Keep version allocation, verification, and publication in order. PRs stay independent.
+concurrency:
+  group: windows-${{ github.ref == 'refs/heads/main' && 'release' || github.run_id }}
+  queue: max
 
 permissions:
   contents: read
@@ -28,23 +32,24 @@ jobs:
       version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
 
-      - name: Read version and validate release tag
+      - name: Select the package version
         id: version
         shell: pwsh
         run: |
           . ./scripts/common.ps1
-          $version = Get-FreehandVersion
+          $version = if ($env:GITHUB_REF -eq 'refs/heads/main' -and $env:GITHUB_EVENT_NAME -ne 'pull_request') {
+            ./scripts/release-version.ps1
+          } else { Get-FreehandVersion }
           "version=$version" >> $env:GITHUB_OUTPUT
-          if ($env:GITHUB_REF_TYPE -eq 'tag') {
-            if ($env:GITHUB_REF_NAME -cne "v$version") { throw 'The release tag must match Version.props.' }
-            if (-not (Test-Path -LiteralPath "packaging/release-notes/$version.md")) { throw 'Release notes are required for this version.' }
-          }
+          "FREEHAND_RELEASE_VERSION=$version" >> $env:GITHUB_ENV
 
       - name: Environment
         shell: pwsh
@@ -67,6 +72,14 @@ jobs:
           if-no-files-found: error
           compression-level: 0
 
+      - name: Verify isolated upgrade and rollback
+        shell: pwsh
+        run: ./scripts/verify-updates.ps1
+
+      - name: Verify deployment and release scripts
+        shell: pwsh
+        run: ./tests/Freehand.Scripts.Tests/Run.ps1
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
@@ -87,8 +100,8 @@ jobs:
           if-no-files-found: ignore
 
   release:
-    name: Publish the tagged installer
-    if: startsWith(github.ref, 'refs/tags/v')
+    name: Publish the verified installer
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: build-test
     runs-on: windows-latest
     permissions:
@@ -105,9 +118,6 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ github.ref_name }}
           RELEASE_VERSION: ${{ needs.build-test.outputs.version }}
         run: |
-          $installer = "artifacts/release/Freehand-$($env:RELEASE_VERSION)-win-x64-Setup.exe"
-          gh release create $env:RELEASE_TAG $installer ($installer + '.sha256') --verify-tag --title "Freehand $($env:RELEASE_VERSION)" --notes-file "packaging/release-notes/$($env:RELEASE_VERSION).md"
-          if ($LASTEXITCODE -ne 0) { throw 'GitHub Release creation failed.' }
+          ./scripts/publish-release.ps1 -Version $env:RELEASE_VERSION -Commit $env:GITHUB_SHA

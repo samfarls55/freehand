@@ -36,6 +36,8 @@ public sealed record SettingsData
     public int IdleModelMinutes { get; init; } = 5;
     /// <summary>Login startup is enabled for new installations.</summary>
     public bool StartAtLogin { get; init; } = true;
+    /// <summary>Checks public release metadata while dictation remains local and offline capable.</summary>
+    public bool CheckForUpdates { get; init; } = true;
 }
 
 /// <summary>Settings, persisted as JSON.</summary>
@@ -116,6 +118,7 @@ public sealed class AppSettings
                 KeepHistory = Has(nameof(SettingsData.KeepHistory)) ? data.KeepHistory : defaults.KeepHistory,
                 IdleModelMinutes = Has(nameof(SettingsData.IdleModelMinutes)) ? Math.Clamp(data.IdleModelMinutes, 1, 60) : defaults.IdleModelMinutes,
                 StartAtLogin = Has(nameof(SettingsData.StartAtLogin)) ? data.StartAtLogin : defaults.StartAtLogin,
+                CheckForUpdates = Has(nameof(SettingsData.CheckForUpdates)) ? data.CheckForUpdates : defaults.CheckForUpdates,
             };
         }
         catch (Exception e) when (e is JsonException or IOException or UnauthorizedAccessException)

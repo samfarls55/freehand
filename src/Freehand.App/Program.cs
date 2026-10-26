@@ -48,6 +48,7 @@ public static class Program
 
         using var desktop = PlatformFactory.CreateDesktopIntegration();
         if (args.Contains("--shutdown-for-update", StringComparer.Ordinal)) { desktop?.RequestExistingShutdown(); return 0; }
+        if (PlatformFactory.CreateUpdateInstaller()?.IsInstallationInProgress(AppContext.BaseDirectory) == true) return 0;
         if (desktop is not null && !desktop.ClaimInstance()) return 0;
         Desktop = desktop;
         return BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);

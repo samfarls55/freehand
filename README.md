@@ -136,7 +136,13 @@ History is enabled by default. Turn it off in Settings to stop saving new transc
 
 ### Update, repair, and uninstall
 
-Download the installer from a newer release and run it to update. Resolve any active recording first because setup closes Freehand before replacing files. Your settings, dictionary, and history are preserved. Updates are manual.
+Freehand checks for updates shortly after startup and every six hours while running. When a newer release is available, choose **Update** or **Later**. You can also use **Settings > Check for updates**, or turn off automatic checks there.
+
+After you accept, Freehand downloads and verifies the installer. Installation waits for recording, transcription, and text delivery to finish. Retry or discard any retained recording before updating. Setup preserves your settings, dictionary, and history, checks the updated app, and restarts it in the tray. If installed verification fails, setup restores the previous installation and attempts to reopen it.
+
+Copies installed before automatic updates were added need one manual update from the [latest release](https://github.com/samfarls55/freehand/releases/latest). You can always download and run a newer installer yourself.
+
+Update checks contact GitHub for public release metadata. They do not send recordings, transcripts, dictionary entries, or preferences. Failed checks leave dictation working offline.
 
 For missing or damaged files, use **Repair bundled model** in Settings or run the installer again. If a custom model directory is unavailable, choose **Use bundled model**.
 
@@ -233,7 +239,7 @@ if ($check.ExitCode -ne 0) { throw "Self-test failed with exit code $($check.Exi
 With the full package present, this checks dictionary and storage behavior, reflected Windows platform loading, native model loading, known speech transcription, and worker stop/restart. It does not verify physical microphone capture or hotkey delivery into another app. The installer also runs this check against the installed executable.
 
 The [Windows workflow](.github/workflows/windows.yml) builds, tests, packages, and runs the published self-test. Its downloadable artifact contains the installer and checksum.
-Pushing a version tag also publishes a GitHub Release after those checks pass. See
+Merging application changes to `main` publishes a GitHub Release after upgrade and rollback checks also pass. See
 [the release process](docs/DEVELOPMENT.md#publish-a-version) for versioning and release notes.
 
 ## Contributing

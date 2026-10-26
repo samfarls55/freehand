@@ -7,11 +7,30 @@ internal static class Program
     [STAThread]
     private static int Main(string[] args)
     {
-        var quiet = args.Contains("--quiet", StringComparer.Ordinal);
+        var update = args.Contains("--update", StringComparer.Ordinal);
+        var quiet = update || args.Contains("--quiet", StringComparer.Ordinal);
+        var isolated = args.Contains("--isolated", StringComparer.Ordinal);
         var uninstall = args.Contains("--uninstall", StringComparer.Ordinal);
         var root = Value(args, "--directory") ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs", "Freehand");
-        root = Path.GetFullPath(root);
+        root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
         Directory.SetCurrentDirectory(Path.GetTempPath());
+        using var mutex = new Mutex(false, "Local\\FreehandSetup-" + Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(root.ToUpperInvariant()))));
+        var acquired = false;
+        try { acquired = mutex.WaitOne(TimeSpan.FromSeconds(10)); } catch (AbandonedMutexException) { acquired = true; }
+        if (!acquired) return 1;
+        int result;
+        try { result = Run(args, root, quiet, uninstall, isolated); }
+        finally { mutex.ReleaseMutex(); }
+        // Release the setup lock before restarting; normal startup refuses to run under that lock.
+        if (update)
+        {
+            try { PackageInstaller.RestartApplication(root); }
+            catch (Exception e) { File.AppendAllText(Path.Combine(Path.GetTempPath(), "Freehand-setup-error.log"), e.ToString()); result = 1; }
+        }
+        return result;
+    }
+    private static int Run(string[] args, string root, bool quiet, bool uninstall, bool isolated)
+    {
         if (uninstall && !args.Contains("--cleanup", StringComparer.Ordinal))
             return PackageInstaller.LaunchUninstallHelper(root, quiet);
         if (quiet)
@@ -19,12 +38,12 @@ internal static class Program
             try
             {
                 if (uninstall) PackageInstaller.UninstallAsync(root).GetAwaiter().GetResult();
-                else PackageInstaller.InstallAsync(root, new Progress<string>()).GetAwaiter().GetResult();
+                else PackageInstaller.InstallAsync(root, new Progress<string>(), isolated).GetAwaiter().GetResult();
                 return 0;
             }
             catch (Exception e)
             {
-                var log = Path.Combine(Path.GetTempPath(), "Freehand-setup-error.log");
+                var log = Path.Combine(isolated ? Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY") ?? Path.GetTempPath() : Path.GetTempPath(), "Freehand-setup-error.log");
                 File.WriteAllText(log, e.ToString());
                 return 1;
             }

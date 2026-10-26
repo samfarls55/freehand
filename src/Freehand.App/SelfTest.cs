@@ -152,6 +152,7 @@ public static class SelfTest
 
         failures += Check("audio capture constructs", PlatformFactory.CreateAudioCapture() is not null);
         failures += Check("text injector constructs", PlatformFactory.CreateTextInjector() is not null);
+        failures += Check("update installer loads from the platform assembly", PlatformFactory.CreateUpdateInstaller() is not null);
         failures += Check("keyboard layout names load from the platform assembly",
             PlatformFactory.CreateKeyNameProvider()?.GetKeyName(0x41) == "A");
 

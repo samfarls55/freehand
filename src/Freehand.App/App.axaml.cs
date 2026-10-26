@@ -6,6 +6,7 @@ using Avalonia.Threading;
 using Freehand.App.Views;
 using Freehand.Core;
 using Freehand.App.Design;
+using Freehand.Core.Updates;
 
 namespace Freehand.App;
 
@@ -18,6 +19,8 @@ public partial class App : Application
     private bool _quitting;
     private Task _quitTask = Task.CompletedTask;
     private int _feedbackPending;
+    private Version? _lastPromptedUpdate;
+    private UpdateWindow? _updateWindow;
     /// <inheritdoc />
     public override void Initialize()
     {
@@ -43,7 +46,10 @@ public partial class App : Application
             if (Program.Desktop is not null)
             {
                 Program.Desktop.ActivationRequested += (_, _) => Dispatcher.UIThread.Post(ShowMain);
-                Program.Desktop.ShutdownRequested += (_, _) => Dispatcher.UIThread.Post(RequestQuit);
+                Program.Desktop.ShutdownRequested += (_, _) => Dispatcher.UIThread.Post(() =>
+                {
+                    if (!_quitting && _composition?.TryPrepareForUpdate() == true) RequestQuit();
+                });
                 Program.Desktop.StartNotifications();
             }
             _composition.Start();
@@ -117,6 +123,18 @@ public partial class App : Application
         if (icons is not null) foreach (var icon in icons) icon.ToolTipText = text;
         _indicator.Update(!_main.IsVisible || _main.WindowState == WindowState.Minimized,
             state, _composition.Engine?.Level ?? 0, _composition.Engine?.Feedback);
+        if (_composition.Updates is { } updates)
+        {
+            if (updates.Snapshot is { Phase: UpdatePhase.Available, Package: { } package }
+                && state == DictationState.Idle && package.Version != _lastPromptedUpdate)
+            {
+                _lastPromptedUpdate = package.Version;
+                _updateWindow?.Close(); _updateWindow = new UpdateWindow(updates);
+                _updateWindow.Closed += (_, _) => _updateWindow = null;
+                _updateWindow.Show();
+            }
+            if (updates.Snapshot.Phase == UpdatePhase.Ready) _ = _composition.TryInstallUpdateAsync();
+        }
     }
     private void RequestQuit() { if (!_quitting && _quitTask.IsCompleted) _quitTask = QuitAsync(); }
     private async Task QuitAsync()
@@ -134,6 +152,7 @@ public partial class App : Application
             if (!await dialog.ShowDialog<bool>(_main).ConfigureAwait(true)) return;
         }
         _quitting = true;
+        _updateWindow?.Close();
         try
         {
             _indicator?.Close();

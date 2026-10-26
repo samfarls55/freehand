@@ -5,6 +5,7 @@ BeforeAll {
     $script:originalLocation = (Get-Location).Path
     $script:originalLocalData = $env:LOCALAPPDATA
     $script:originalProfile = $env:FREEHAND_DATA_DIRECTORY
+    $script:originalReleaseVersion = $env:FREEHAND_RELEASE_VERSION
     $script:sdk = Join-Path $fixtureRoot 'sdk/dotnet.ps1'
     New-Item -ItemType Directory -Path (Split-Path -Parent $sdk) -Force | Out-Null
     @'
@@ -25,6 +26,7 @@ if ($CliArguments[0] -eq 'publish') {
 }
 
 BeforeEach {
+    $env:FREEHAND_RELEASE_VERSION = $null
     Set-Location -LiteralPath $fixtureRoot
     $env:LOCALAPPDATA = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
     $env:FREEHAND_DATA_DIRECTORY = 'previous-profile'
@@ -55,12 +57,19 @@ AfterEach {
     Set-Location -LiteralPath $originalLocation
     $env:LOCALAPPDATA = $originalLocalData
     $env:FREEHAND_DATA_DIRECTORY = $originalProfile
+    $env:FREEHAND_RELEASE_VERSION = $originalReleaseVersion
     $env:FREEHAND_TEST_FAIL_COMMAND = $null
     $env:FREEHAND_TEST_SETUP_EXIT = $null
     $env:FREEHAND_TEST_RUNNING_PATH = $null
 }
 
 Describe 'Version and SDK selection' {
+    It 'uses one validated CI version for the installer and application' {
+        $env:FREEHAND_RELEASE_VERSION = '2.3.4'
+        Get-FreehandVersion | Should-Be '2.3.4'
+        $env:FREEHAND_RELEASE_VERSION = '2.3.4-preview'
+        { Get-FreehandVersion } | Should-Throw '*major.minor.patch*'
+    }
     It 'reads the shared package version and rejects malformed versions' {
         Get-FreehandVersion | Should-Be '1.2.3'
         Set-Content -LiteralPath (Join-Path $fixtureRoot 'Version.props') -Value '<Project><PropertyGroup><Version>wrong</Version></PropertyGroup></Project>'
@@ -89,6 +98,102 @@ Describe 'Version and SDK selection' {
         $env:FREEHAND_TEST_SETUP_EXIT = '1'
         { Invoke-FreehandSelfTest $installer } | Should-Throw '*self-test failed*'
         $env:FREEHAND_DATA_DIRECTORY | Should-Be 'previous-profile'
+    }
+}
+
+Describe 'Automatic release version allocation' {
+    BeforeEach {
+        $script:versionRepository = Join-Path $TestDrive ('versions-' + [guid]::NewGuid().ToString('N'))
+        New-Item -ItemType Directory -Path $versionRepository | Out-Null
+        Set-Location -LiteralPath $versionRepository
+        git init --quiet
+        git -c user.name=Fixture -c user.email=fixture@example.invalid commit --quiet --allow-empty -m baseline
+    }
+    It 'uses the configured baseline when no version has been published' {
+        & (Join-Path $scripts 'release-version.ps1') | Should-Be '1.2.3'
+    }
+    It 'increments the greatest version and ignores prerelease tags' {
+        git tag v1.2.4; git tag v1.2.5-preview; git tag v99999999999.1.1
+        git -c user.name=Fixture -c user.email=fixture@example.invalid commit --quiet --allow-empty -m change
+        & (Join-Path $scripts 'release-version.ps1') | Should-Be '1.2.5'
+    }
+    It 'reuses a release version when the same commit is retried' {
+        git tag v1.2.4
+        & (Join-Path $scripts 'release-version.ps1') | Should-Be '1.2.4'
+    }
+    It 'uses a deliberate higher baseline for a new minor version' {
+        git tag v1.1.9
+        git -c user.name=Fixture -c user.email=fixture@example.invalid commit --quiet --allow-empty -m change
+        & (Join-Path $scripts 'release-version.ps1') | Should-Be '1.2.3'
+    }
+}
+
+Describe 'Release publication' {
+    BeforeEach {
+        $script:commit = 'a' * 40
+        $script:releaseInstaller = Join-Path $fixtureRoot 'artifacts/release/Freehand-1.2.3-win-x64-Setup.exe'
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $releaseInstaller) | Out-Null
+        Set-Content -LiteralPath $releaseInstaller -Value 'verified installer'
+        ((Get-FileHash -LiteralPath $releaseInstaller).Hash + '  ' + [IO.Path]::GetFileName($releaseInstaller)) | Set-Content -LiteralPath ($releaseInstaller + '.sha256')
+        $script:existingReleases = '[]'
+        $script:uploadFails = $false
+        $script:missingAssets = $false
+        $script:apiFails = $false
+        $script:mainCommit = $commit
+        Mock gh {
+            $global:LASTEXITCODE = 0
+            if ($args[0] -eq 'api') {
+                if ($args[1] -like '*/commits/main') { return $mainCommit }
+                if ($args[1] -like '*/commits/v*') { return $commit }
+                if ($apiFails) { $global:LASTEXITCODE = 1; return }
+                return $existingReleases
+            }
+            if ($args[1] -in @('create', 'upload') -and $uploadFails) { $global:LASTEXITCODE = 1; return }
+            if ($args[1] -eq 'view') {
+                if ($missingAssets) { return '{"isDraft":true,"assets":[]}' }
+                return @{ isDraft = $true; assets = @(
+                    @{ name = [IO.Path]::GetFileName($releaseInstaller); size = (Get-Item -LiteralPath $releaseInstaller).Length },
+                    @{ name = [IO.Path]::GetFileName($releaseInstaller + '.sha256'); size = (Get-Item -LiteralPath ($releaseInstaller + '.sha256')).Length }
+                ) } | ConvertTo-Json -Depth 5 -Compress
+            }
+        }
+    }
+    It 'uploads a draft before publishing the verified assets' {
+        & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'create' -and '--draft' -in $args }
+        Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'edit' -and '--draft=false' -in $args }
+    }
+    It 'does not publish a draft after a failed upload' {
+        $script:uploadFails = $true
+        { & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit } | Should-Throw '*upload failed*'
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[1] -eq 'edit' }
+    }
+    It 'never replaces assets on an already published release' {
+        $script:existingReleases = '[[{"tag_name":"v1.2.3","draft":false}]]'
+        & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[1] -in @('edit', 'create', 'upload') }
+    }
+    It 'can finish an incomplete draft without creating another release' {
+        $script:existingReleases = '[[{"tag_name":"v1.2.3","draft":true}]]'
+        & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'upload' }
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[1] -eq 'create' }
+        Should-Invoke gh -Times 1 -ParameterFilter { $args[1] -eq 'edit' }
+    }
+    It 'refuses publication when an uploaded asset is missing' {
+        $script:missingAssets = $true
+        { & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit } | Should-Throw '*asset verification failed*'
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[1] -eq 'edit' }
+    }
+    It 'does not treat API failure as a missing release' {
+        $script:apiFails = $true
+        { & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit } | Should-Throw '*Cannot inspect existing releases*'
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[0] -eq 'release' }
+    }
+    It 'skips a superseded main commit' {
+        $script:mainCommit = 'b' * 40
+        & (Join-Path $scripts 'publish-release.ps1') -Version '1.2.3' -Commit $commit
+        Should-Invoke gh -Times 0 -ParameterFilter { $args[0] -eq 'release' }
     }
 }
 
