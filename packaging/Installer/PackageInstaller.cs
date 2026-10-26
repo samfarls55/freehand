@@ -105,8 +105,7 @@ internal static class PackageInstaller
     {
         var exe = Path.Combine(root, "Freehand.App.exe");
         if (!File.Exists(exe) || IsInstallationRunning(exe)) return;
-        var start = new ProcessStartInfo(exe) { UseShellExecute = false, CreateNoWindow = true, WindowStyle = ProcessWindowStyle.Hidden, WorkingDirectory = root };
-        start.ArgumentList.Add("--tray");
+        var start = new ProcessStartInfo(exe) { UseShellExecute = false, WorkingDirectory = root };
         Process.Start(start)?.Dispose();
     }
     private static async Task<long> ExtractPayloadAsync(string installer, string destination)

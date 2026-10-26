@@ -57,6 +57,12 @@ function Start-IsolatedHost {
     $process.Dispose()
     return Wait-IsolatedHost
 }
+function Assert-WindowLaunch([Diagnostics.Process]$Process) {
+    $command = (Get-CimInstance Win32_Process -Filter "ProcessId = $($Process.Id)").CommandLine
+    if ([string]::IsNullOrWhiteSpace($command) -or $command -match '(?:^|\s)--tray(?:\s|$)') {
+        throw 'Update did not reopen the main window.'
+    }
+}
 function Stop-IsolatedHost {
     $ready = Join-Path $testProfile 'update-handoff.pid'
     if (-not (Test-Path -LiteralPath $ready)) { return }
@@ -96,6 +102,7 @@ try {
     if ((Invoke-IsolatedSetup $second -Update) -ne 0) { throw "Upgrade failed. See $testProfile/Freehand-setup-error.log" }
     if (-not $oldHost.WaitForExit(10000)) { throw 'Update did not stop the previous isolated app.' }
     $newHost = Wait-IsolatedHost $oldHost.Id
+    Assert-WindowLaunch $newHost
     $oldHost.Dispose()
     Assert-Installation '0.0.2'
     if (Test-Path -LiteralPath (Join-Path $installed 'obsolete.txt')) { throw 'Upgrade retained obsolete application files.' }
@@ -118,6 +125,7 @@ try {
     if ((Invoke-IsolatedSetup $broken -Update) -eq 0) { throw 'Broken speech package was accepted.' }
     if (-not $newHost.WaitForExit(10000)) { throw 'Rollback did not stop the previous isolated app.' }
     $restoredHost = Wait-IsolatedHost $newHost.Id
+    Assert-WindowLaunch $restoredHost
     $newHost.Dispose(); $restoredHost.Dispose()
     Assert-Installation '0.0.2'
     Invoke-FreehandSelfTest (Join-Path $installed 'Freehand.App.exe')
