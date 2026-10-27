@@ -1,7 +1,16 @@
 Describe 'Published update handoff' {
     It 'updates and rolls back a running isolated app without changing user data' {
+        # The readiness file can exist briefly before its writer fills it.
+        $script:readEmptyPid = $false
+        Mock Get-Content {
+            if ($LiteralPath -like '*update-handoff.pid' -and -not $script:readEmptyPid) {
+                $script:readEmptyPid = $true; return $null
+            }
+            [IO.File]::ReadAllText($LiteralPath)
+        }
         $scriptPath = Join-Path $env:FREEHAND_SCRIPT_TEST_ROOT 'scripts/verify-updates.ps1'
         $output = & $scriptPath -PublishDirectory $env:FREEHAND_VERIFIED_PUBLISH -InstallerRuntime $env:FREEHAND_VERIFIED_INSTALLER
+        $script:readEmptyPid | Should-BeTrue
         ($output -contains 'Passed: running 0.0.1 -> 0.0.2 update stopped and restarted the app and preserved user data.') | Should-BeTrue
         ($output -contains 'Passed: failed installed self-test restored and restarted a working previous version.') | Should-BeTrue
     }
@@ -18,7 +27,14 @@ Describe 'Published update handoff' {
         Test-Path -LiteralPath (Join-Path $failed[0].FullName 'data/Freehand-setup-error.log') | Should-BeTrue
         # The retention assertion is complete; remove only this test's known fixture.
         if ($failed[0].FullName.StartsWith([IO.Path]::GetFullPath($parent) + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
-            Remove-Item -LiteralPath $failed[0].FullName -Recurse -Force
+            # Antivirus and coverage can briefly retain the exited setup image.
+            for ($attempt = 0; ; $attempt++) {
+                try { Remove-Item -LiteralPath $failed[0].FullName -Recurse -Force -ErrorAction Stop; break }
+                catch [IO.IOException] {
+                    if ($attempt -ge 9) { throw }
+                    Start-Sleep -Milliseconds 200
+                }
+            }
         }
     }
 }

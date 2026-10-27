@@ -36,7 +36,7 @@ function Wait-IsolatedHost([int]$PreviousId = 0) {
     $limit = [DateTime]::UtcNow.AddSeconds(30)
     do {
         if (Test-Path -LiteralPath $ready) {
-            $text = (Get-Content -LiteralPath $ready -Raw).Trim()
+            $text = Get-Content -LiteralPath $ready -Raw
             $identifier = 0
             if ([int]::TryParse($text, [ref]$identifier) -and $identifier -ne $PreviousId) {
                 $candidate = Get-Process -Id $identifier -ErrorAction SilentlyContinue
@@ -67,7 +67,7 @@ function Stop-IsolatedHost {
     $ready = Join-Path $testProfile 'update-handoff.pid'
     if (-not (Test-Path -LiteralPath $ready)) { return }
     $identifier = 0
-    if (-not [int]::TryParse((Get-Content -LiteralPath $ready -Raw).Trim(), [ref]$identifier)) { return }
+    if (-not [int]::TryParse((Get-Content -LiteralPath $ready -Raw), [ref]$identifier)) { return }
     $process = Get-Process -Id $identifier -ErrorAction SilentlyContinue
     if ($process -and $process.Path -ieq (Join-Path $installed 'Freehand.App.exe')) {
         # Only the explicitly scoped headless fixture can be stopped here.
