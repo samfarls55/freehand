@@ -8,30 +8,42 @@ namespace Freehand.Core;
 internal static partial class EnglishTextNormalizer
 {
     private const string NumberWord = "zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|and|point|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth|thirteenth|fourteenth|fifteenth|sixteenth|seventeenth|eighteenth|nineteenth|twentieth|thirtieth|fortieth|fiftieth|sixtieth|seventieth|eightieth|ninetieth|hundredth|thousandth|millionth";
-    private const string SpokenNumber = @"(?!(?:and|point)\b)(?:" + NumberWord + @")(?:[ -]+(?:" + NumberWord + @"))*";
     private const string Unit = @"dollars?|cents?|percent|per\s+cent";
+    private const string Digits = @"-?\d+(?:,\d{3})*(?:\.\d+)?";
+    // Capture mixed forms as one phrase so unsupported amounts remain intact.
+    private const string Number = @"(?:minus\s+)?(?!(?:and|point)\b)(?:" + NumberWord + "|" + Digits + @")(?:[ -]+(?:" + NumberWord + "|" + Digits + @"))*";
+    private const string AmountTail = Number + @"|[.,][ \t]*\d+";
     private static readonly string[] Small = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
     private static readonly string[] Tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
     // URL/path characters prevent matching number words embedded in technical text.
-    [GeneratedRegex(@"(?<![\p{L}\p{N}_/\\$:.-])(?<number>(?:minus\s+)?" + SpokenNumber + @")(?:\s+(?<unit>" + Unit + @")(?:\s+(?<tail>" + SpokenNumber + @"))?)?(?![\p{L}\p{N}_/\\-]|\.[\p{L}\p{N}_])|(?<![\p{L}\p{N}_/\\$:.-])(?<number>-?\d+(?:,\d{3})*(?:\.\d+)?)(?:\s+(?<unit>" + Unit + @"))(?![\p{L}\p{N}_/\\-])", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 100)]
+    [GeneratedRegex(@"(?<![\p{L}\p{N}_/\\@$:.,-])(?<number>" + Number + @")(?:\s+(?<unit>" + Unit + @")(?:\s+(?<tail>" + AmountTail + @"))?)?(?![\p{L}\p{N}_/\\@-]|[.,][\p{L}\p{N}_])", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 100)]
     private static partial Regex Numbers();
 
-    internal static string Normalize(string text, IReadOnlyList<AppliedCorrection> corrections, IReadOnlyList<DictionaryEntry>? entries = null)
+    [GeneratedRegex(@"\S+", RegexOptions.CultureInvariant, 100)]
+    private static partial Regex Tokens();
+
+    [GeneratedRegex(@"(?<![\p{L}\p{N}_])\d[\d,._]*(?:(?:[ \t]+|['’])[.,]?\d[\d,._]*)+(?:[ \t]+(?:" + Unit + @"))?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 100)]
+    private static partial Regex NumericFragments();
+
+    internal static string Normalize(string text, IReadOnlyList<CorrectionRange> protectedRanges, IReadOnlyList<DictionaryEntry>? entries = null)
     {
-        // Protect literal replacement outputs before formatting anything else.
-        // Protecting additional identical occurrences is intentionally conservative.
-        var spans = new List<(int Start, int End)>();
-        foreach (var value in corrections.Select(c => c.To).Where(v => v.Length > 0).Distinct(StringComparer.Ordinal))
-            for (var at = text.IndexOf(value, StringComparison.Ordinal); at >= 0; at = text.IndexOf(value, at + value.Length, StringComparison.Ordinal))
-                spans.Add((at, at + value.Length));
+        // Ranges track the final literal characters even after correction cascades.
+        var spans = protectedRanges.ToList();
         foreach (var entry in entries ?? [])
             if (entry.IsEnabled && entry.Kind == EntryKind.Term && entry.Write.Length > 0)
                 for (var at = text.IndexOf(entry.Write, StringComparison.OrdinalIgnoreCase); at >= 0; at = text.IndexOf(entry.Write, at + entry.Write.Length, StringComparison.OrdinalIgnoreCase))
-                    spans.Add((at, at + entry.Write.Length));
+                    spans.Add(new CorrectionRange(at, entry.Write.Length));
         try
         {
-            return Numbers().Replace(text, match => spans.Any(span => match.Index < span.End && match.Index + match.Length > span.Start)
+            foreach (Match token in Tokens().Matches(text))
+                if (token.Value.Contains('@') || token.Value.Contains("::", StringComparison.Ordinal)
+                    || token.Value.Contains("://", StringComparison.Ordinal) || token.Value.Contains('=')
+                    || token.Value.Contains('/') || token.Value.Contains('\\') || token.Value.StartsWith("www.", StringComparison.OrdinalIgnoreCase))
+                    spans.Add(new CorrectionRange(token.Index, token.Length));
+            foreach (Match fragment in NumericFragments().Matches(text))
+                spans.Add(new CorrectionRange(fragment.Index, fragment.Length));
+            return Numbers().Replace(text, match => spans.Any(span => match.Index < span.Start + span.Length && match.Index + match.Length > span.Start)
                 ? match.Value : Format(match));
         }
         catch (RegexMatchTimeoutException) { return text; }
@@ -40,7 +52,7 @@ internal static partial class EnglishTextNormalizer
     private static string Format(Match match)
     {
         var number = match.Groups["number"].Value;
-        var unit = match.Groups["unit"].Value.ToLowerInvariant();
+        var unit = string.Concat(match.Groups["unit"].Value.Where(c => !char.IsWhiteSpace(c))).ToLowerInvariant();
         // An amount such as "five dollars fifty" needs a richer grammar. Keep
         // the complete phrase rather than formatting just part of it.
         if (match.Groups["tail"].Success) return match.Value;
@@ -50,6 +62,7 @@ internal static partial class EnglishTextNormalizer
         var decimalPlaces = 0;
         if (char.IsDigit(unsigned[0]))
         {
+            if (unit.Length == 0) return match.Value;
             if (!decimal.TryParse(unsigned, NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out amount)) return match.Value;
             var dot = unsigned.IndexOf('.');
             if (dot >= 0) decimalPlaces = unsigned.Length - dot - 1;
@@ -84,7 +97,7 @@ internal static partial class EnglishTextNormalizer
         return unit switch
         {
             "dollar" or "dollars" or "cent" or "cents" => sign + "$" + formatted,
-            "percent" or "per cent" => sign + formatted + "%",
+            "percent" => sign + formatted + "%",
             _ => sign + formatted,
         };
     }

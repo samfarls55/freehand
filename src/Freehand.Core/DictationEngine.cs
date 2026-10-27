@@ -296,8 +296,8 @@ public sealed class DictationEngine : IAsyncDisposable
         }
         _lifetime.Token.ThrowIfCancellationRequested();
         if (string.IsNullOrWhiteSpace(raw)) { _failed = null; Report(DictationOutcome.EmptySpeech, "No speech was recognized."); return; }
-        var (corrected, applied) = new DictionaryCorrector(job.Entries).Apply(raw);
-        corrected = EnglishTextNormalizer.Normalize(corrected, applied, job.Entries);
+        var (corrected, applied, protectedRanges) = new DictionaryCorrector(job.Entries).ApplyWithProtectedRanges(raw);
+        corrected = EnglishTextNormalizer.Normalize(corrected, protectedRanges, job.Entries);
         var transcriptTime = Stopwatch.GetElapsedTime(_releasedAt);
         _log?.Write(job.Id, "transcript-ready", transcriptTime);
         var delivery = DeliveryOutcome.Disabled;
