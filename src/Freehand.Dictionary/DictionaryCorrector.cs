@@ -211,8 +211,9 @@ public sealed class DictionaryCorrector
     /// <summary>
     /// The correct spellings — Term words and the <i>write</i> side of corrections — capped
     /// at <see cref="BiasLimit"/>, de-duplicated case-insensitively, in file order.
+    /// An optional engine predicate rejects unsupported phrases before applying the cap.
     /// </summary>
-    public static IReadOnlyList<string> BiasPhrases(IEnumerable<DictionaryEntry> entries)
+    public static IReadOnlyList<string> BiasPhrases(IEnumerable<DictionaryEntry> entries, Func<string, bool>? isSupported = null)
     {
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var phrases = new List<string>();
@@ -220,7 +221,7 @@ public sealed class DictionaryCorrector
         foreach (var entry in entries.Where(e => e.IsEnabled))
         {
             var phrase = entry.Write.Trim();
-            if (phrase.Length == 0 || !seen.Add(phrase)) continue;
+            if (phrase.Length == 0 || (isSupported is not null && !isSupported(phrase)) || !seen.Add(phrase)) continue;
             phrases.Add(phrase);
             if (phrases.Count == BiasLimit) break;
         }

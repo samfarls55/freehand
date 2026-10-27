@@ -22,20 +22,26 @@ internal sealed class ParakeetHotwords
         }
     }
 
+    // '/' separates phrases and ':' introduces native score syntax. Never
+    // interpret dictionary text as that syntax, or feed unknown characters.
+    internal bool Supports(string phrase) => !string.IsNullOrWhiteSpace(phrase)
+        && phrase.Length <= WorkerProtocol.MaxBiasPhraseLength
+        && phrase.Normalize(NormalizationForm.FormC).All(c => c is not ('/' or ':') && !char.IsControl(c)
+            && (char.IsWhiteSpace(c) || _characters.Contains(c)));
+
     internal string Format(IReadOnlyList<string> phrases)
     {
         var words = new List<string>();
         var seen = new HashSet<string>(StringComparer.Ordinal);
-        foreach (var phrase in phrases.Take(WorkerProtocol.MaxBiasPhrases))
+        var count = 0;
+        foreach (var phrase in phrases)
         {
-            // '/' separates phrases and ':' introduces native score syntax. Never
-            // interpret dictionary text as that syntax, or feed unknown characters.
-            if (string.IsNullOrWhiteSpace(phrase) || phrase.Length > WorkerProtocol.MaxBiasPhraseLength
-                || phrase.Any(c => c is '/' or ':' || char.IsControl(c) || (!char.IsWhiteSpace(c) && !_characters.Contains(c)))) continue;
+            if (!Supports(phrase)) continue;
             var normalized = string.Join(' ', phrase.Normalize(NormalizationForm.FormC).Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
             if (seen.Add(normalized)) words.Add(normalized);
             var lowercase = normalized.ToLowerInvariant();
             if (lowercase.All(c => c == ' ' || _characters.Contains(c)) && seen.Add(lowercase)) words.Add(lowercase);
+            if (++count == WorkerProtocol.MaxBiasPhrases) break;
         }
         return string.Join('/', words);
     }

@@ -113,6 +113,9 @@ public sealed class ParakeetTranscriber : ITranscriber
     }
 
     /// <inheritdoc />
+    public bool SupportsBiasPhrase(string phrase) => _hotwords?.Supports(phrase) == true;
+
+    /// <inheritdoc />
     /// <remarks>
     /// Audio longer than the encoder can handle is the caller's problem; <c>AudioSegmenter</c>
     /// splits it before this is reached.

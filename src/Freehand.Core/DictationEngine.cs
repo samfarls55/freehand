@@ -245,7 +245,7 @@ public sealed class DictationEngine : IAsyncDisposable
         Task<bool> load, IReadOnlyList<DictionaryEntry> entries, CancellationToken cancellationToken)
     {
         if (!await load.ConfigureAwait(false)) throw new InvalidOperationException("Model unavailable");
-        var bias = DictionaryCorrector.BiasPhrases(entries);
+        var bias = DictionaryCorrector.BiasPhrases(entries, _speech.SupportsBiasPhrase);
         var texts = new List<string>();
         await foreach (var segment in segments.ReadAllAsync(cancellationToken).ConfigureAwait(false))
         {
@@ -277,7 +277,7 @@ public sealed class DictationEngine : IAsyncDisposable
                 if (!loaded) throw new InvalidOperationException("Model unavailable");
                 SetState(DictationState.Transcribing);
                 var texts = new List<string>();
-                var bias = DictionaryCorrector.BiasPhrases(job.Entries);
+                var bias = DictionaryCorrector.BiasPhrases(job.Entries, _speech.SupportsBiasPhrase);
                 foreach (var piece in job.Audio)
                 {
                     var text = await _speech.TranscribeAsync(piece, bias, _lifetime.Token).ConfigureAwait(false);

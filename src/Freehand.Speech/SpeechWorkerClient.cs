@@ -8,6 +8,12 @@ namespace Freehand.Speech;
 /// <summary>Serializes IPC and worker transitions, and stops idle model residency.</summary>
 public sealed class SpeechWorkerClient : ISpeechSession
 {
+    private readonly Lazy<ParakeetHotwords> _hotwords = new(() => new ParakeetHotwords(
+        Path.Combine(AppContext.BaseDirectory, ParakeetHotwords.VocabularyFile)));
+
+    /// <inheritdoc />
+    public bool SupportsBiasPhrase(string phrase) => _hotwords.Value.Supports(phrase);
+
     private readonly IWorkerLauncher _launcher;
     private readonly IModelAssets _models;
     private readonly WorkerOptions _options;
@@ -136,7 +142,7 @@ public sealed class SpeechWorkerClient : ISpeechSession
             deadline.CancelAfter(_options.InferenceTimeout);
             try
             {
-                var phrases = biasPhrases.Where(phrase => !string.IsNullOrWhiteSpace(phrase) && phrase.Length <= WorkerProtocol.MaxBiasPhraseLength)
+                var phrases = biasPhrases.Where(SupportsBiasPhrase)
                     .Take(WorkerProtocol.MaxBiasPhrases).ToArray();
                 var response = await RequestAsync("transcribe", null, samples.Length, samples, deadline.Token, phrases).ConfigureAwait(false);
                 if (response.Kind != "text") throw new InvalidDataException("Unexpected transcription reply");

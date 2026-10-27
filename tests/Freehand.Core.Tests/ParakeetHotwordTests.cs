@@ -1,4 +1,5 @@
 using Freehand.Speech;
+using Freehand.Dictionary;
 using Shouldly;
 using Xunit;
 
@@ -6,6 +7,16 @@ namespace Freehand.CoreTests;
 
 public sealed class ParakeetHotwordTests
 {
+    [Fact]
+    public void Unsupported_entries_do_not_consume_the_recognition_hint_limit()
+    {
+        var entries = Enumerable.Range(0, 40).Select(i => DictionaryEntry.Term($"https://example.com/{i}"))
+            .Append(DictionaryEntry.Term("Claude Code"));
+        var hotwords = new ParakeetHotwords(Path.Combine(AppContext.BaseDirectory, ParakeetHotwords.VocabularyFile));
+        // Exercise selection before the worker request is bounded.
+        DictionaryCorrector.BiasPhrases(entries, hotwords.Supports).ShouldBe(["Claude Code"]);
+    }
+
     [Fact]
     public void Hotwords_preserve_phrase_boundaries_and_reject_native_control_syntax()
     {

@@ -17,8 +17,10 @@ public sealed class SpeechLifecycleTests
         await using var client = Client(launcher, inference: TimeSpan.FromSeconds(5));
         await client.BeginWorkAsync(CancellationToken.None);
         await client.LoadAsync(CancellationToken.None);
-        await client.TranscribeAsync(new float[320], ["Anthropic", "Claude Code", "C++"], CancellationToken.None);
-        launcher.LastBiasPhrases.ShouldBe(["Anthropic", "Claude Code", "C++"]);
+        var hints = Enumerable.Range(0, 40).Select(i => $"https://example.com/{i}")
+            .Concat(["Anthropic", "Claude Code", "C++"]).ToArray();
+        await client.TranscribeAsync(new float[320], hints, CancellationToken.None);
+        launcher.LastBiasPhrases.ShouldBe(["Anthropic", "Claude Code"]);
         await client.TranscribeAsync(new float[320], [new string('x', 1_048_577), "", "Freehand"], CancellationToken.None);
         launcher.LastBiasPhrases.ShouldBe(["Freehand"]);
         await client.TranscribeAsync(new float[320], [], CancellationToken.None);

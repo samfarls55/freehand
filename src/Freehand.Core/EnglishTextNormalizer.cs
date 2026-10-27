@@ -39,7 +39,8 @@ internal static partial class EnglishTextNormalizer
             foreach (Match token in Tokens().Matches(text))
                 if (token.Value.Contains('@') || token.Value.Contains("::", StringComparison.Ordinal)
                     || token.Value.Contains("://", StringComparison.Ordinal) || token.Value.Contains('=')
-                    || token.Value.Contains('/') || token.Value.Contains('\\') || token.Value.StartsWith("www.", StringComparison.OrdinalIgnoreCase))
+                    || token.Value.Contains('/') || token.Value.Contains('\\')
+                    || token.Value.Contains('#') || token.Value.Contains('?') || token.Value.StartsWith("www.", StringComparison.OrdinalIgnoreCase))
                     spans.Add(new CorrectionRange(token.Index, token.Length));
             foreach (Match fragment in NumericFragments().Matches(text))
                 spans.Add(new CorrectionRange(fragment.Index, fragment.Length));
