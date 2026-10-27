@@ -1,16 +1,20 @@
 Describe 'Published update handoff' {
     It 'updates and rolls back a running isolated app without changing user data' {
         # The readiness file can exist briefly before its writer fills it.
-        $script:readEmptyPid = $false
+        $env:FREEHAND_TEST_PID_READ = 'empty'
         Mock Get-Content {
-            if ($LiteralPath -like '*update-handoff.pid' -and -not $script:readEmptyPid) {
-                $script:readEmptyPid = $true; return $null
+            if ($LiteralPath -like '*update-handoff.pid' -and $env:FREEHAND_TEST_PID_READ -eq 'empty') {
+                $env:FREEHAND_TEST_PID_READ = 'read'; return $null
             }
-            [IO.File]::ReadAllText($LiteralPath)
+            $stream = [IO.File]::Open($LiteralPath, 'Open', 'Read', 'ReadWrite')
+            $reader = [IO.StreamReader]::new($stream)
+            try { $reader.ReadToEnd() } finally { $reader.Dispose() }
         }
         $scriptPath = Join-Path $env:FREEHAND_SCRIPT_TEST_ROOT 'scripts/verify-updates.ps1'
-        $output = & $scriptPath -PublishDirectory $env:FREEHAND_VERIFIED_PUBLISH -InstallerRuntime $env:FREEHAND_VERIFIED_INSTALLER
-        $script:readEmptyPid | Should-BeTrue
+        try {
+            $output = & $scriptPath -PublishDirectory $env:FREEHAND_VERIFIED_PUBLISH -InstallerRuntime $env:FREEHAND_VERIFIED_INSTALLER
+            $env:FREEHAND_TEST_PID_READ | Should-Be 'read'
+        } finally { $env:FREEHAND_TEST_PID_READ = $null }
         ($output -contains 'Passed: running 0.0.1 -> 0.0.2 update stopped and restarted the app and preserved user data.') | Should-BeTrue
         ($output -contains 'Passed: failed installed self-test restored and restarted a working previous version.') | Should-BeTrue
     }
