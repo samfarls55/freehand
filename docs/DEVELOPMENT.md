@@ -1,8 +1,12 @@
 # Development and deployments
 
-Use the development build while changing Freehand. Update the installed app after
-the change works. Merging application changes to `main` publishes a verified release
-that installed copies can discover.
+Use the development build while changing Freehand and let Sam evaluate changes
+through the isolated development preview. Passing checks or building an installer
+does not authorize updating the normal installation. Run `deploy-local.ps1` only
+when Sam explicitly requests an installed update.
+
+Merging application changes to `main` publishes a verified release that installed
+copies can discover. Merge or publish only when Sam explicitly requests shipping.
 
 | Command | Result |
 |---|---|
@@ -42,8 +46,9 @@ archive before extraction with Windows `tar`, then verifies each model file sepa
 5. Try the affected behavior in the development app. Changes involving capture,
    hotkeys, or text insertion need a physical microphone, a physical key press, and
    a foreground text field. Automated checks do not establish those hardware claims.
-6. Commit the verified source. Push the branch when you want it on GitHub. Open a
-   pull request ready for review when requested, then merge after its checks pass.
+6. Commit the verified source and keep the development preview available for
+   evaluation. Push the branch or open a pull request ready for review when
+   requested. Merge after its checks pass only when shipping is requested.
 
 The development profile lives in `artifacts/dev-data`. Its settings, dictionary,
 history, verification cache, and logs are separate from your installed app's data.

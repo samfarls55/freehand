@@ -18,6 +18,19 @@
   "version": 1,
   "cases": [
     {
+      "name": "later corrections can rewrite part of a literal replacement",
+      "entries": [
+        { "kind": "correction", "hear": "my price", "write": "twenty five dollars" },
+        { "kind": "correction", "hear": "dollars", "write": "USD" }
+      ],
+      "input": "my price",
+      "expected": "twenty five USD",
+      "expectedCorrections": [
+        { "to": "twenty five dollars", "count": 1 },
+        { "to": "USD", "count": 1 }
+      ]
+    },
+    {
       "name": "basic phrase replacement",
       "entries": [
         {

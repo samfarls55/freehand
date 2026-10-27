@@ -79,6 +79,9 @@ public interface ITranscriber : IAsyncDisposable
     /// <summary>Whether the model is loaded and ready.</summary>
     bool IsReady { get; }
 
+    /// <summary>Whether a phrase can be encoded as a recognition hint.</summary>
+    bool SupportsBiasPhrase(string phrase) => true;
+
     /// <summary>Loads the model. Slow — call once, at startup or first use.</summary>
     ValueTask<bool> LoadAsync(CancellationToken cancellationToken);
 

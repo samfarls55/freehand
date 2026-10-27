@@ -44,6 +44,8 @@ Threads:         4
 Decoding:        modified_beam_search
 Active paths:    2
 Blank penalty:  0
+Modeling unit:  bpe
+Hotword score:  1.5
 ```
 
 Native loading and inference run only in the app-owned worker. The desktop app never
@@ -56,6 +58,28 @@ Recordings are split into pieces of at most 15 seconds, favoring
 pauses scored over 200 ms. Completed pieces decode while capture continues. Release
 drains capture and finishes the tail before correcting and inserting the whole transcript.
 One retained recording supports retry without repeating delivery.
+
+Dictionary bias phrases cross the authenticated worker pipe with each segment.
+The worker creates a fresh native context graph for that request, using enabled
+terms and correction targets. Clearing or editing the dictionary changes the
+next recording without reloading model weights. Literal corrections still run
+after all segments are joined.
+
+The shipped `parakeet-110m.bpe.vocab` is NVIDIA's unchanged 10,962-byte tokenizer
+vocabulary, extracted from the original model at revision
+`431a349f3051ab85c22b9b7a2741b5fe77065665`. All 1,024 pieces match the pinned
+`tokens.txt` in order. The worker verifies its SHA-256 before native loading.
+Keep this file beside the executable. The pinned .NET wrapper omits the native
+per-stream hotword method, so a small SafeHandle binding calls the existing C
+API without changing package versions or reflecting into private handles.
+
+English number and currency formatting runs once in Core on the complete
+transcript, after dictionary correction. It protects literal replacements and
+saved terms and uses invariant culture. Its examples and exclusions are in
+`shared/text-normalization-test-vectors.json`. This managed pass does not use
+`RuleFsts` or `RuleFars`: those require separate compatible English grammar
+assets, which the pinned speech model does not include. No additional inference
+model or native runtime is added.
 
 The published `speech-cpu.config` disables ONNX Runtime's CPU memory arena so temporary
 inference allocations are released after each request. Memory-pattern planning stays

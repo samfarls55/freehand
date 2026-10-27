@@ -6,6 +6,9 @@ namespace Freehand.Dictionary;
 /// <summary>One correction that actually fired.</summary>
 public sealed record AppliedCorrection(string From, string To, int Count);
 
+/// <summary>A final text range whose characters came from literal replacements.</summary>
+public readonly record struct CorrectionRange(int Start, int Length);
+
 /// <summary>
 /// Rewrites transcribed text using the dictionary's correction pairs.
 /// </summary>
@@ -73,7 +76,14 @@ public sealed class DictionaryCorrector
     /// <returns>The rewritten text, plus one entry per rule that fired.</returns>
     public (string Text, IReadOnlyList<AppliedCorrection> Applied) Apply(string text)
     {
-        if (_rules.Count == 0 || string.IsNullOrEmpty(text)) return (text, []);
+        var (corrected, applied, _) = ApplyWithProtectedRanges(text);
+        return (corrected, applied);
+    }
+
+    /// <summary>Applies corrections and tracks surviving literal output through later rules.</summary>
+    public (string Text, IReadOnlyList<AppliedCorrection> Applied, IReadOnlyList<CorrectionRange> ProtectedRanges) ApplyWithProtectedRanges(string text)
+    {
+        if (_rules.Count == 0 || string.IsNullOrEmpty(text)) return (text, [], []);
 
         // Normalize to NFC before matching, exactly as the Swift side does. Decomposed and
         // composed forms of the same accented word are different sequences of code points —
@@ -81,6 +91,7 @@ public sealed class DictionaryCorrector
         // unless both sides agree. This is part of the shared contract, not an optimisation.
         var result = text.Normalize(NormalizationForm.FormC);
         var applied = new List<AppliedCorrection>();
+        var ranges = new List<CorrectionRange>();
 
         foreach (var rule in _rules)
         {
@@ -92,16 +103,57 @@ public sealed class DictionaryCorrector
             // ("CloudCode" matched by "cloud code").
             var heard = matches[0].Value;
 
-            // MatchEvaluator rather than a replacement string: it makes the replacement
-            // strictly literal. A plain Replace would treat "$1", "$&" and friends in the
-            // user's own text as substitutions, which is a real hazard when the replacement
-            // is arbitrary user input.
-            result = rule.Regex.Replace(result, _ => rule.Replacement);
+            // Append the replacement literally. Track its characters, including any
+            // surviving parts of earlier replacements that a later rule modifies.
+            (result, ranges) = Rewrite(result, matches, rule.Replacement, ranges);
 
             applied.Add(new AppliedCorrection(heard, rule.Replacement, matches.Count));
         }
 
-        return (result, applied);
+        return (result, applied, ranges);
+    }
+
+    private static (string Text, List<CorrectionRange> Ranges) Rewrite(string text, MatchCollection matches,
+        string replacement, List<CorrectionRange> previousRanges)
+    {
+        var output = new StringBuilder(text.Length);
+        var ranges = new List<CorrectionRange>();
+        var sourceAt = 0;
+        var rangeIndex = 0;
+        foreach (Match match in matches)
+        {
+            CopyUntil(match.Index);
+            AddRange(output.Length, replacement.Length);
+            output.Append(replacement);
+            sourceAt = match.Index + match.Length;
+        }
+        CopyUntil(text.Length);
+        return (output.ToString(), ranges);
+
+        void CopyUntil(int end)
+        {
+            var targetAt = output.Length;
+            output.Append(text, sourceAt, end - sourceAt);
+            while (rangeIndex < previousRanges.Count)
+            {
+                var range = previousRanges[rangeIndex];
+                var rangeEnd = range.Start + range.Length;
+                if (rangeEnd <= sourceAt) { rangeIndex++; continue; }
+                if (range.Start >= end) break;
+                var start = Math.Max(sourceAt, range.Start);
+                AddRange(targetAt + start - sourceAt, Math.Min(end, rangeEnd) - start);
+                if (rangeEnd <= end) rangeIndex++; else break;
+            }
+            sourceAt = end;
+        }
+
+        void AddRange(int start, int length)
+        {
+            if (length <= 0) return;
+            if (ranges.Count > 0 && ranges[^1].Start + ranges[^1].Length == start)
+                ranges[^1] = ranges[^1] with { Length = ranges[^1].Length + length };
+            else ranges.Add(new CorrectionRange(start, length));
+        }
     }
 
     /// <summary>Builds the pattern for one trigger phrase.</summary>
@@ -159,8 +211,9 @@ public sealed class DictionaryCorrector
     /// <summary>
     /// The correct spellings — Term words and the <i>write</i> side of corrections — capped
     /// at <see cref="BiasLimit"/>, de-duplicated case-insensitively, in file order.
+    /// An optional engine predicate rejects unsupported phrases before applying the cap.
     /// </summary>
-    public static IReadOnlyList<string> BiasPhrases(IEnumerable<DictionaryEntry> entries)
+    public static IReadOnlyList<string> BiasPhrases(IEnumerable<DictionaryEntry> entries, Func<string, bool>? isSupported = null)
     {
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var phrases = new List<string>();
@@ -168,7 +221,7 @@ public sealed class DictionaryCorrector
         foreach (var entry in entries.Where(e => e.IsEnabled))
         {
             var phrase = entry.Write.Trim();
-            if (phrase.Length == 0 || !seen.Add(phrase)) continue;
+            if (phrase.Length == 0 || (isSupported is not null && !isSupported(phrase)) || !seen.Add(phrase)) continue;
             phrases.Add(phrase);
             if (phrases.Count == BiasLimit) break;
         }

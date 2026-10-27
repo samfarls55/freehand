@@ -43,7 +43,7 @@ public static class SpeechWorker
                         case "transcribe":
                             if (transcriber is null) throw new InvalidDataException("Model not ready");
                             var samples = await WorkerProtocol.ReadAudioAsync(pipe, message.SampleCount, CancellationToken.None).ConfigureAwait(false);
-                            var text = await transcriber.TranscribeAsync(samples, [], CancellationToken.None).ConfigureAwait(false);
+                            var text = await transcriber.TranscribeAsync(samples, message.BiasPhrases ?? [], CancellationToken.None).ConfigureAwait(false);
                             await ReplyAsync("text", text).ConfigureAwait(false);
                             break;
                         case "shutdown":

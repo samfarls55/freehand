@@ -245,7 +245,7 @@ public sealed class DictationEngine : IAsyncDisposable
         Task<bool> load, IReadOnlyList<DictionaryEntry> entries, CancellationToken cancellationToken)
     {
         if (!await load.ConfigureAwait(false)) throw new InvalidOperationException("Model unavailable");
-        var bias = DictionaryCorrector.BiasPhrases(entries);
+        var bias = DictionaryCorrector.BiasPhrases(entries, _speech.SupportsBiasPhrase);
         var texts = new List<string>();
         await foreach (var segment in segments.ReadAllAsync(cancellationToken).ConfigureAwait(false))
         {
@@ -277,7 +277,7 @@ public sealed class DictationEngine : IAsyncDisposable
                 if (!loaded) throw new InvalidOperationException("Model unavailable");
                 SetState(DictationState.Transcribing);
                 var texts = new List<string>();
-                var bias = DictionaryCorrector.BiasPhrases(job.Entries);
+                var bias = DictionaryCorrector.BiasPhrases(job.Entries, _speech.SupportsBiasPhrase);
                 foreach (var piece in job.Audio)
                 {
                     var text = await _speech.TranscribeAsync(piece, bias, _lifetime.Token).ConfigureAwait(false);
@@ -296,7 +296,8 @@ public sealed class DictationEngine : IAsyncDisposable
         }
         _lifetime.Token.ThrowIfCancellationRequested();
         if (string.IsNullOrWhiteSpace(raw)) { _failed = null; Report(DictationOutcome.EmptySpeech, "No speech was recognized."); return; }
-        var (corrected, applied) = new DictionaryCorrector(job.Entries).Apply(raw);
+        var (corrected, applied, protectedRanges) = new DictionaryCorrector(job.Entries).ApplyWithProtectedRanges(raw);
+        corrected = EnglishTextNormalizer.Normalize(corrected, protectedRanges, job.Entries);
         var transcriptTime = Stopwatch.GetElapsedTime(_releasedAt);
         _log?.Write(job.Id, "transcript-ready", transcriptTime);
         var delivery = DeliveryOutcome.Disabled;

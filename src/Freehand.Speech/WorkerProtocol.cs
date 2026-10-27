@@ -19,10 +19,13 @@ public sealed record WorkerOptions
     /// <summary>Default model idle interval.</summary>
     public TimeSpan IdleTimeout { get; init; } = TimeSpan.FromMinutes(5);
 }
-internal sealed record WorkerMessage(int Version, Guid RequestId, string Kind, string? Value = null, int SampleCount = 0, int ProcessId = 0);
+internal sealed record WorkerMessage(int Version, Guid RequestId, string Kind, string? Value = null, int SampleCount = 0, int ProcessId = 0,
+    string[]? BiasPhrases = null);
 internal static class WorkerProtocol
 {
-    internal const int Version = 1;
+    internal const int Version = 2;
+    internal const int MaxBiasPhrases = 40;
+    internal const int MaxBiasPhraseLength = 256;
     internal const int MaxSamples = 60 * AudioChunk.SampleRate;
     internal static async Task WriteAsync(Stream stream, WorkerMessage message, CancellationToken token)
     {

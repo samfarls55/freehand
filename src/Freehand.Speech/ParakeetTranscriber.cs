@@ -18,8 +18,8 @@ namespace Freehand.Speech;
 /// defines the encoder's feature dimension and verified assets.
 /// </para>
 /// <para>
-/// Dictionary corrections run after recognition. The app does not send dictionary terms
-/// as native hotwords.
+/// Dictionary terms and replacement spellings bias each recognition stream.
+/// Literal dictionary corrections still run after recognition.
 /// </para>
 /// </remarks>
 public sealed class ParakeetTranscriber : ITranscriber
@@ -33,7 +33,8 @@ public sealed class ParakeetTranscriber : ITranscriber
     private const string ModelType = "nemo_transducer";
 
     private readonly string _modelDirectory;
-    private OfflineRecognizer? _recognizer;
+    private ParakeetRecognizer? _recognizer;
+    private ParakeetHotwords? _hotwords;
 
     /// <summary>Points the engine at a folder of model files.</summary>
     /// <param name="modelDirectory">
@@ -103,15 +104,20 @@ public sealed class ParakeetTranscriber : ITranscriber
         // added decoding time without reducing errors further.
         config.DecodingMethod = "modified_beam_search";
         config.MaxActivePaths = 2;
+        config.ModelConfig.ModelingUnit = "bpe";
+        config.ModelConfig.BpeVocab = Path.Combine(AppContext.BaseDirectory, ParakeetHotwords.VocabularyFile);
+        _hotwords = new ParakeetHotwords(config.ModelConfig.BpeVocab);
 
-        _recognizer = new OfflineRecognizer(config);
+        _recognizer = new ParakeetRecognizer(config);
         return ValueTask.FromResult(true);
     }
 
     /// <inheritdoc />
+    public bool SupportsBiasPhrase(string phrase) => _hotwords?.Supports(phrase) == true;
+
+    /// <inheritdoc />
     /// <remarks>
-    /// <paramref name="biasPhrases"/> is accepted and ignored. Audio
-    /// longer than the encoder can handle is the caller's problem; <c>AudioSegmenter</c>
+    /// Audio longer than the encoder can handle is the caller's problem; <c>AudioSegmenter</c>
     /// splits it before this is reached.
     /// </remarks>
     public ValueTask<string> TranscribeAsync(
@@ -123,15 +129,11 @@ public sealed class ParakeetTranscriber : ITranscriber
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        using var stream = _recognizer.CreateStream();
         // The worker already owns an exact-sized array. Sherpa accepts the whole array,
         // so only sliced or non-array memory needs another copy.
         var waveform = MemoryMarshal.TryGetArray(samples, out var segment) && segment.Offset == 0
             && segment.Array is { } array && segment.Count == array.Length ? array : samples.ToArray();
-        stream.AcceptWaveform(AudioChunk.SampleRate, waveform);
-        _recognizer.Decode(stream);
-
-        return ValueTask.FromResult(stream.Result.Text?.Trim() ?? string.Empty);
+        return ValueTask.FromResult(_recognizer.Transcribe(waveform, _hotwords!.Format(biasPhrases)));
     }
 
     /// <inheritdoc />
@@ -139,6 +141,7 @@ public sealed class ParakeetTranscriber : ITranscriber
     {
         _recognizer?.Dispose();
         _recognizer = null;
+        _hotwords = null;
         return ValueTask.CompletedTask;
     }
 }
