@@ -1,7 +1,7 @@
 # Experimental native recognizer
 
-This builds the Parakeet dictionary-hint adapter for the isolated accuracy
-preview. The normal 110M app profile remains separate. Build inputs and official
+This builds the Parakeet dictionary-hint adapter and bounded GPU weight uploads
+for the isolated accuracy preview. Build inputs and official
 GGML hashes are pinned in [source-manifest.json](source-manifest.json).
 
 Use PowerShell 7 on Windows x64 with Git, Windows tar, CMake, Ninja, and Visual
@@ -19,7 +19,9 @@ source, checks and applies [the patch](parakeet-hints.patch), generates import
 libraries from the official DLL exports, and builds with two compiler jobs.
 
 The output directory contains `transcribe.dll`, the unchanged official
-`ggml.dll`, `ggml-base.dll`, `ggml-cpu.dll`, and `ggml-vulkan.dll`, plus licenses.
+`ggml.dll`, `ggml-base.dll`, `ggml-vulkan.dll`, and the complete set of CPU
+backends, plus licenses. GGML selects the supported CPU instruction set at
+registration; `ggml-cpu-x64.dll` provides the generic fallback.
 `native-build.json` records the exact source/archive/patch hashes, compiler and
 build-tool versions, arguments, and output hashes. Local PE bytes can vary with
 toolchains and build paths. Verify that record for a source build; a hash from
@@ -28,10 +30,29 @@ rehash-verified on reuse. Source and build attempts remain under `_build` for
 inspection.
 
 The source is transcribe.cpp v0.4.1 commit
-`4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b`, under MIT. The official CUDA/Vulkan
-archive is used for its tested CPU/Vulkan subset; the CUDA module and external
-CUDA dependencies are not included in the output. The app owns backend
+`4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b`, under MIT. The complete official
+CPU/Vulkan archive keeps the optimized CPU modules paired with their matching
+GGML base. The app owns backend
 selection, model verification, and performance acceptance.
+
+GPU weights use one 32 MiB pinned host buffer when the selected device is first
+in its backend registry. GGML's Vulkan host allocator belongs to that first
+device, so selecting a later device retains synchronous 16 MiB uploads without
+initializing another GPU. Multiple tensors occupy separate slices, and every
+pending copy finishes before the buffer is reused, freed, or returned from
+loading. CPU and memory-mapped weights retain their existing paths. Missing
+pinning support also uses synchronous uploads.
+`TRANSCRIBE_NO_UPLOAD_BATCH=1` selects that fallback for comparison.
+
+The upload2 control compared every loaded Qwen1.7 weight with its GGUF bytes:
+709 tensors, 1,313,851,968 bytes, zero mismatches. All 120 Qwen0.6 development
+transcripts were byte-identical to the previous runtime after switching to the
+complete CPU/Vulkan bundle. Three fresh-worker repetitions with a populated
+file cache and the RTX as the sole visible Vulkan device reduced median
+model/session loading from 945 ms to 856 ms.
+These native controls exclude desktop delivery and do not establish a cold
+latency pass. The optional `upload_roundtrip` CMake target repeats the weight
+comparison for a supplied Qwen GGUF and explicitly loads the Vulkan backend.
 
 Pass up to 40 logical phrases through `transcribe_run_params.vocabulary`.
 Normalize them to NFC and collapse whitespace at the managed boundary. Native

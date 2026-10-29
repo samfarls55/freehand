@@ -82,6 +82,20 @@ internal static class EngineeringChecks
             {
                 await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
                 if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Bundled model invalid");
+                if (ModelResolver.UsesAcceleratedModel && run == 0)
+                {
+                    // Prepare the GPU's shader variants with public voiced audio;
+                    // a speech detector correctly skips all-zero warmups.
+                    var preparation = Stopwatch.GetTimestamp();
+                    foreach (var seconds in new[] { 15, 8, 4, 1 })
+                    {
+                        var preparationAudio = new float[seconds * AudioChunk.SampleRate];
+                        for (var sample = 0; sample < preparationAudio.Length; sample++) preparationAudio[sample] = audio[sample % audio.Length];
+                        if (string.IsNullOrWhiteSpace(await speech.TranscribeAsync(preparationAudio, [], CancellationToken.None).ConfigureAwait(false)))
+                            throw new InvalidDataException("GPU preparation speech produced no transcript");
+                    }
+                    Console.WriteLine(FormattableString.Invariant($"  GPU shader preparation: {Stopwatch.GetElapsedTime(preparation).TotalMilliseconds:F0} ms"));
+                }
                 var text = await speech.TranscribeAsync(audio, [], CancellationToken.None).ConfigureAwait(false);
                 CheckFixtureText(text);
                 CheckFixtureText(await speech.TranscribeAsync(audio, ["fellow Americans", "country"], CancellationToken.None).ConfigureAwait(false));
@@ -342,6 +356,7 @@ internal static class EngineeringChecks
 }
 internal sealed class BenchmarkReport
 {
+    public string ModelName { get; init; } = ModelResolver.DisplayName;
     public string ModelVersion { get; init; } = ModelResolver.Version;
     public string Runtime { get; init; } = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
     public int LogicalProcessors { get; init; } = Environment.ProcessorCount;

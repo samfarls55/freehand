@@ -87,7 +87,7 @@ $build = Join-Path $attempt 'build'
 New-Item -ItemType Directory -Path $source,$runtime,$imports -Force | Out-Null
 & $tarPath -xzf $sourceInput -C $source --strip-components=1 --exclude '*/ggml/.pi/SYSTEM.md'
 if ($LASTEXITCODE -ne 0) { throw 'Native source extraction failed.' }
-$runtimePrefix = 'transcribe-native-windows-x86_64-cuda'
+$runtimePrefix = $spec.RuntimePrefix
 $runtimeMembers = @($spec.Files | ForEach-Object { "$runtimePrefix/$($_.Name)" }) + "$runtimePrefix/licenses"
 & $tarPath -xzf $runtimeInput -C $runtime --strip-components=1 @runtimeMembers
 if ($LASTEXITCODE -ne 0) { throw 'Official GGML extraction failed.' }

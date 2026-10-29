@@ -72,13 +72,7 @@ public sealed class ParakeetTranscriber : ITranscriber
         RequiredFiles.All(f => File.Exists(Path.Combine(directory, f)));
 
     /// <summary>The files the engine needs.</summary>
-    public static IReadOnlyList<string> RequiredFiles { get; } =
-    [
-        "encoder.int8.onnx",
-        "decoder.int8.onnx",
-        "joiner.int8.onnx",
-        "tokens.txt",
-    ];
+    public static IReadOnlyList<string> RequiredFiles => ModelResolver.RequiredFiles;
 
     /// <inheritdoc />
     public bool IsReady => _recognizer is not null;

@@ -4,6 +4,7 @@
          -windows TFM means the model-locating logic stays testable anywhere. -->
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Freehand.Speech</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\parakeet-110m.bpe.vocab" Link="parakeet-110m.bpe.vocab" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="speech-cpu.config" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="Assets\parakeet-110m.bpe.vocab" Link="parakeet-110m.bpe.vocab" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    <Content Include="speech-cpu.config" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
     <EmbeddedResource Include="..\..\packaging\model-manifest.json" LogicalName="Freehand.ModelManifest.json" />
+    <EmbeddedResource Include="..\..\packaging\accuracy-model-manifest.json" LogicalName="Freehand.AccuracyModelManifest.json" />
     <ProjectReference Include="..\Freehand.Abstractions\Freehand.Abstractions.csproj" />
   </ItemGroup>
 </Project>

@@ -128,7 +128,7 @@ public sealed class SettingsView : UserControl
         repair.IsEnabled = _composition is not null; logs.IsEnabled = _composition is not null;
         return new StackPanel { Spacing = Tokens.Space.Base, Children =
         {
-            Panels.Text("Parakeet TDT 110M", Tokens.Fonts.Section), _modelStatus,
+            Panels.Text(ModelResolver.DisplayName, Tokens.Fonts.Section), _modelStatus,
             new Expander { Header = "Model details", HorizontalAlignment = HorizontalAlignment.Stretch,
                 Content = new StackPanel { Spacing = Tokens.Space.Base, Children =
                 {

@@ -1,0 +1,35 @@
+Freehand isolated GPU accuracy preview
+
+Qwen3-ASR 0.6B Q8_0, quantized GGUF conversion by handy-computer.
+Original model: https://huggingface.co/Qwen/Qwen3-ASR-0.6B
+GGUF repository revision: 7e7c69a577fa2725dfedbe34b5e999336e30a19b
+https://huggingface.co/handy-computer/Qwen3-ASR-0.6B-gguf
+Model SHA256: f081b2d5e23bd669d92cc331d722a8a0681943b8e6f34b48996fd5c319b5acd8
+Apache 2.0. The publisher LICENSE and NOTICE are included in licenses/.
+The GGUF's matching tokenizer encodes recognition hints.
+
+Silero VAD v6.2, CPU speech-presence detection, GGUF conversion by handy-computer.
+Source: https://github.com/snakers4/silero-vad
+GGUF revision: a9b2d61c20ae4ddf3644edb34969e8185a485448
+Model SHA256: 0d871a800c420fdd5d1b17a3aea4296d1c39608f0ff4a9295eb76457eb1c88e6
+MIT. The license is included in licenses/.
+
+transcribe.cpp 0.4.1 with the Freehand native patch.
+Base revision: 4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b
+https://github.com/handy-computer/transcribe.cpp
+MIT. Exact source and patch hashes are in tools/Freehand.Native/source-manifest.json.
+Native licenses, including ggml, miniz, and Silero, are in licenses/transcribe/.
+CPU and Vulkan modules are used. CUDA dependencies are not used.
+
+The unchanged 110M vocabulary retains the existing hint-character eligibility
+checks; its token IDs are not passed to the GPU model. It was extracted from
+NVIDIA's .nemo revision 431a349f3051ab85c22b9b7a2741b5fe77065665, under CC BY 4.0.
+It is used only as a validated character set for the GPU path.
+
+.NET, Avalonia, NAudio, SkiaSharp, sherpa-onnx and ONNX Runtime licenses are
+included in licenses/. The normal CPU model remains the public build default.
+No model, transcript, or recording is uploaded by the GPU recognition path.
+
+Engineering fixture: John F. Kennedy's 1961 inaugural address, a U.S. government
+work, copied from whisper.cpp revision b0a11594aec50892a02cd8d129eee2dfe93a8bb8.
+SHA256: 59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e

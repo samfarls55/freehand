@@ -1,3 +1,4 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -32,7 +32,7 @@
@@ -25,7 +26,7 @@
  
  # -----------------------------------------------------------------------------
  # Subdirs
-@@ -479,3 +486,16 @@
+@@ -479,3 +486,20 @@
  if(TRANSCRIBE_INSTALL AND NOT SKBUILD)
      include(cmake/transcribe-install.cmake)
  endif()
@@ -42,6 +43,11 @@
 +
 +add_executable(parakeet_hint_asr tests/parakeet_hint_asr.cpp)
 +target_link_libraries(parakeet_hint_asr PRIVATE transcribe transcribe-common-example)
++
++add_executable(upload_roundtrip tests/upload_roundtrip.cpp)
++target_include_directories(upload_roundtrip PRIVATE include src)
++target_link_libraries(upload_roundtrip PRIVATE transcribe ggml)
+diff --git a/examples/cli/main.cpp b/examples/cli/main.cpp
 --- a/examples/cli/main.cpp
 +++ b/examples/cli/main.cpp
 @@ -671,6 +671,12 @@
@@ -57,6 +63,8 @@
      std::ofstream   output_file;
      std::ofstream * output = nullptr;
      if (!args.output_path.empty()) {
+diff --git a/src/arch/parakeet/context-bias.h b/src/arch/parakeet/context-bias.h
+new file mode 100644
 --- /dev/null
 +++ b/src/arch/parakeet/context-bias.h
 @@ -0,0 +1,181 @@
@@ -241,6 +249,7 @@
 +}
 +
 +}  // namespace transcribe::parakeet
+diff --git a/src/arch/parakeet/decoder.h b/src/arch/parakeet/decoder.h
 --- a/src/arch/parakeet/decoder.h
 +++ b/src/arch/parakeet/decoder.h
 @@ -36,6 +36,7 @@
@@ -261,6 +270,7 @@
  
  // Run RNNT greedy decode end-to-end. Same predictor + joint code as TDT,
  // but the joint emits `vocab+1` logits (no duration extras) and the step
+diff --git a/src/arch/parakeet/decoder.cpp b/src/arch/parakeet/decoder.cpp
 --- a/src/arch/parakeet/decoder.cpp
 +++ b/src/arch/parakeet/decoder.cpp
 @@ -13,6 +13,7 @@
@@ -301,6 +311,7 @@
  
              last_token = pred_token;
              std::swap(state, next_state);  // commit
+diff --git a/src/arch/parakeet/model.cpp b/src/arch/parakeet/model.cpp
 --- a/src/arch/parakeet/model.cpp
 +++ b/src/arch/parakeet/model.cpp
 @@ -10,6 +10,7 @@
@@ -339,6 +350,8 @@
              case HostHeadKind::RNNT:
                  st = decode_rnnt_greedy(pm->host_decoder, enc, T_enc, d_enc, pc->n_threads, pc->raw_tokens);
                  break;
+diff --git a/tests/parakeet_hint_controls.cpp b/tests/parakeet_hint_controls.cpp
+new file mode 100644
 --- /dev/null
 +++ b/tests/parakeet_hint_controls.cpp
 @@ -0,0 +1,198 @@
@@ -540,6 +553,8 @@
 +                cases);
 +    return failures == 0 ? 0 : 1;
 +}
+diff --git a/tests/parakeet_hint_asr.cpp b/tests/parakeet_hint_asr.cpp
+new file mode 100644
 --- /dev/null
 +++ b/tests/parakeet_hint_asr.cpp
 @@ -0,0 +1,72 @@
@@ -614,4 +629,259 @@
 +    transcribe_model_free(model);
 +    std::fprintf(stderr, "dictionary ASR control failures: %d\n", failures);
 +    return failures == 0 ? 0 : 1;
++}
+diff --git a/src/transcribe-load-common.cpp b/src/transcribe-load-common.cpp
+--- a/src/transcribe-load-common.cpp
++++ b/src/transcribe-load-common.cpp
+@@ -706,14 +706,15 @@
+         st != TRANSCRIBE_OK) {
+         return st;
+     }
+-    return stream_tensor_data(path, gguf_data, ctx_meta, error_tag, &out);
++    return stream_tensor_data(path, gguf_data, ctx_meta, error_tag, &out, plan.primary);
+ }
+ 
+ transcribe_status stream_tensor_data(const std::string &   path,
+                                      const gguf_context *  gguf_data,
+                                      ggml_context *        ctx_meta,
+                                      const char *          error_tag,
+-                                     const WeightStorage * skip) {
++                                     const WeightStorage * skip,
++                                     ggml_backend_t        upload_backend) {
+     // std::ifstream rather than going through gguf's loader a third
+     // time: ifstream::seekg takes a streamoff (signed 64-bit on every
+     // platform we target), so multi-GB tensor offsets work without
+@@ -730,6 +731,54 @@
+     // process, to the largest single write (243 MiB for Qwen3-ASR-1.7B's token
+     // embedding), on top of ours.
+     constexpr size_t k_stage_chunk = size_t(16) << 20;
++
++    // Each async write keeps its source bytes until flush(). A single bounded
++    // pinned allocation lets the backend queue many small tensors before one
++    // fence wait. Ordinary vectors are not enough: Vulkan's async setter waits
++    // immediately when the source is not registered pinned host memory.
++    struct PinnedUploadBatch {
++        ggml_backend_t        backend;
++        const char *          tag;
++        ggml_backend_buffer_t buffer   = nullptr;
++        uint8_t *             data     = nullptr;
++        size_t                used     = 0;
++        size_t                writes   = 0;
++        size_t                waits    = 0;
++        int64_t               read_us  = 0;
++        int64_t               set_us   = 0;
++        int64_t               wait_us  = 0;
++        const size_t          capacity = size_t(32) << 20;
++
++        void flush() {
++            if (used == 0) {
++                return;
++            }
++            const int64_t start = ggml_time_us();
++            ggml_backend_synchronize(backend);
++            wait_us += ggml_time_us() - start;
++            ++waits;
++            used = 0;
++        }
++
++        ~PinnedUploadBatch() {
++            if (buffer == nullptr) {
++                return;
++            }
++            // A short file read can return while previous copies are pending.
++            // Drain them before releasing the memory they still read.
++            try {
++                flush();
++            } catch (const std::exception & e) {
++                log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: upload drain failed: %s", tag, e.what());
++                // Completion is unknown after a backend error. Keep this bounded
++                // allocation alive rather than free bytes a queued copy may use.
++                return;
++            }
++            safe_buffer_free(buffer);
++        }
++    } batch{ upload_backend, error_tag };
++
++    bool batch_checked = false;
+ 
+     const size_t         data_offset = gguf_get_data_offset(gguf_data);
+     std::vector<uint8_t> staging;
+@@ -769,6 +818,64 @@
+             continue;
+         }
+ 
++        if (!batch_checked) {
++            batch_checked = true;
++            if (upload_backend != nullptr && !env::flag("TRANSCRIBE_NO_UPLOAD_BATCH")) {
++                ggml_backend_dev_t     dev = ggml_backend_get_device(upload_backend);
++                ggml_backend_reg_t     reg = ggml_backend_dev_backend_reg(dev);
++                ggml_backend_dev_props props{};
++                // GGML's Vulkan host allocator belongs to registry device zero.
++                // Do not initialize an unrelated integrated GPU when AUTO has
++                // selected a later discrete device. The old uploader remains
++                // bounded and correct for that device.
++                if (ggml_backend_reg_dev_get(reg, 0) == dev) {
++                    ggml_backend_dev_get_props(dev, &props);
++                }
++                if (props.caps.async && props.caps.host_buffer) {
++                    ggml_backend_buffer_type_t host_type = ggml_backend_dev_host_buffer_type(dev);
++                    if (host_type != nullptr) {
++                        batch.buffer = ggml_backend_buft_alloc_buffer(host_type, batch.capacity);
++                        // Some backends return an ordinary CPU buffer when pinning
++                        // fails. Retain the existing bounded synchronous path then.
++                        if (batch.buffer != nullptr && ggml_backend_buffer_get_type(batch.buffer) != host_type) {
++                            safe_buffer_free(batch.buffer);
++                            batch.buffer = nullptr;
++                        }
++                        if (batch.buffer != nullptr) {
++                            batch.data = static_cast<uint8_t *>(ggml_backend_buffer_get_base(batch.buffer));
++                        }
++                    }
++                }
++            }
++        }
++
++        if (batch.buffer != nullptr) {
++            for (size_t done = 0; done < nbytes;) {
++                if (batch.used == batch.capacity) {
++                    batch.flush();
++                }
++                const size_t  n          = std::min(nbytes - done, batch.capacity - batch.used);
++                uint8_t *     source     = batch.data + batch.used;
++                const int64_t read_start = ggml_time_us();
++                fin.read(reinterpret_cast<char *>(source), static_cast<std::streamsize>(n));
++                batch.read_us += ggml_time_us() - read_start;
++                if (!fin) {
++                    log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: short read for tensor \"%s\" (%zu bytes)", error_tag,
++                            t->name, nbytes);
++                    return TRANSCRIBE_ERR_GGUF;
++                }
++                // Vulkan copy source offsets are four-byte aligned. Reserve
++                // the range before enqueueing so exceptional cleanup drains it.
++                batch.used              = (batch.used + n + 3) & ~size_t(3);
++                const int64_t set_start = ggml_time_us();
++                ggml_backend_tensor_set_async(upload_backend, t, source, done, n);
++                batch.set_us += ggml_time_us() - set_start;
++                ++batch.writes;
++                done += n;
++            }
++            continue;
++        }
++
+         const size_t chunk = std::min(nbytes, k_stage_chunk);
+         if (staging.size() < chunk) {
+             staging.resize(chunk);
+@@ -786,6 +893,13 @@
+         }
+     }
+ 
++    batch.flush();
++    if (batch.buffer != nullptr) {
++        log_msg(TRANSCRIBE_LOG_LEVEL_INFO,
++                "%s: pinned weight upload: 32 MiB, %zu writes, %zu waits; read=%.1f ms set=%.1f ms wait=%.1f ms",
++                error_tag, batch.writes, batch.waits, batch.read_us / 1000.0, batch.set_us / 1000.0,
++                batch.wait_us / 1000.0);
++    }
+     return TRANSCRIBE_OK;
+ }
+ 
+diff --git a/src/transcribe-load-common.h b/src/transcribe-load-common.h
+--- a/src/transcribe-load-common.h
++++ b/src/transcribe-load-common.h
+@@ -176,8 +176,10 @@
+ 
+ // Stream tensor data from the GGUF data section on disk into
+ // already-allocated backend buffer slots: read straight into host buffers,
+-// uploaded through ggml_backend_tensor_set in bounded (16 MiB) chunks
+-// otherwise. Tensors that `skip` maps are left alone (they already hold the
++// otherwise uploaded in bounded chunks. With an asynchronous upload_backend
++// and its pinned host buffer, multiple tensors share one 32 MiB batch; other
++// backends retain synchronous 16 MiB chunks. Tensors that `skip` maps are left
++// alone (they already hold the
+ // file bytes); with skip == nullptr every tensor in ctx_meta is streamed.
+ //
+ //   path:      filesystem path to the GGUF file, reopened fresh via
+@@ -197,7 +199,8 @@
+                                      const gguf_context *  gguf_data,
+                                      ggml_context *        ctx_meta,
+                                      const char *          error_tag,
+-                                     const WeightStorage * skip = nullptr);
++                                     const WeightStorage * skip           = nullptr,
++                                     ggml_backend_t        upload_backend = nullptr);
+ 
+ // allocate_weights + stream_tensor_data: the weight load every GGUF family
+ // does after init_backends. Same contract as allocate_weights, plus
+diff --git a/tests/upload_roundtrip.cpp b/tests/upload_roundtrip.cpp
+new file mode 100644
+--- /dev/null
++++ b/tests/upload_roundtrip.cpp
+@@ -0,0 +1,69 @@
++#include "arch/qwen3_asr/qwen3_asr.h"
++#include "ggml-backend.h"
++#include "gguf.h"
++#include "transcribe.h"
++
++#include <algorithm>
++#include <cstdio>
++#include <cstring>
++#include <fstream>
++#include <string>
++#include <vector>
++
++int main(int argc, char ** argv) {
++    if ((argc != 2 && argc != 3) || transcribe_init_backends_default() != TRANSCRIBE_OK) {
++        return 2;
++    }
++    transcribe_model_load_params params;
++    transcribe_model_load_params_init(&params);
++    params.backend          = argc == 3 ? TRANSCRIBE_BACKEND_AUTO : TRANSCRIBE_BACKEND_VULKAN;
++    transcribe_model * base = nullptr;
++    if (transcribe_model_load_file(argv[1], &params, &base) != TRANSCRIBE_OK) {
++        return 1;
++    }
++    auto * model = static_cast<transcribe::qwen3_asr::QwenAsrModel *>(base);
++    if (ggml_backend_dev_type(ggml_backend_get_device(model->plan.primary)) != GGML_BACKEND_DEVICE_TYPE_GPU) {
++        std::fprintf(stderr, "The upload control requires a discrete GPU.\n");
++        return 1;
++    }
++    gguf_init_params metadata_params{};
++    metadata_params.no_alloc = true;
++    gguf_context * metadata  = gguf_init_from_file(argv[1], metadata_params);
++    if (metadata == nullptr) {
++        return 1;
++    }
++    std::ifstream        file(argv[1], std::ios::binary);
++    constexpr size_t     chunk_size = size_t(16) << 20;
++    std::vector<uint8_t> expected(chunk_size), actual(chunk_size);
++    size_t               checked_bytes   = 0;
++    size_t               checked_tensors = 0;
++    for (ggml_tensor * tensor = ggml_get_first_tensor(model->ctx_meta); tensor != nullptr;
++         tensor               = ggml_get_next_tensor(model->ctx_meta, tensor)) {
++        const int64_t index = gguf_find_tensor(metadata, tensor->name);
++        if (index < 0 || gguf_get_tensor_size(metadata, index) != ggml_nbytes(tensor)) {
++            return 1;
++        }
++        const std::streamoff offset = static_cast<std::streamoff>(gguf_get_data_offset(metadata)) +
++                                      static_cast<std::streamoff>(gguf_get_tensor_offset(metadata, index));
++        file.seekg(offset);
++        for (size_t done = 0; done < ggml_nbytes(tensor);) {
++            const size_t size = std::min(chunk_size, ggml_nbytes(tensor) - done);
++            file.read(reinterpret_cast<char *>(expected.data()), static_cast<std::streamsize>(size));
++            if (!file) {
++                return 1;
++            }
++            ggml_backend_tensor_get(tensor, actual.data(), done, size);
++            if (std::memcmp(expected.data(), actual.data(), size) != 0) {
++                std::fprintf(stderr, "Upload mismatch in %s at offset %zu\n", tensor->name, done);
++                return 1;
++            }
++            checked_bytes += size;
++            done += size;
++        }
++        ++checked_tensors;
++    }
++    std::printf("{\"tensorsChecked\":%zu,\"bytesChecked\":%zu,\"mismatches\":0}\n", checked_tensors, checked_bytes);
++    gguf_free(metadata);
++    transcribe_model_free(base);
++    return 0;
 +}

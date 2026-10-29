@@ -1,32 +1,73 @@
 {
-  "Version": "transcribe.cpp-0.4.1-freehand-hints1",
+  "Version": "transcribe.cpp-0.4.1-freehand-upload2",
   "SourceRevision": "4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b",
   "SourceArchive": "https://codeload.github.com/handy-computer/transcribe.cpp/tar.gz/4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b",
   "SourceArchiveSha256": "77bfafa35bd7eee447ec37b832e99c342c62b7db0c6cb18c36e763563b586b1f",
-  "RuntimeArchive": "https://github.com/handy-computer/transcribe.cpp/releases/download/v0.4.1/transcribe-native-0.4.1-windows-x86_64-cuda.tar.gz",
-  "RuntimeArchiveSha256": "ba43fb21a3fe0ab2630e0614fbd742e039c389c68ad10fe23aca903f986adc5b",
+  "RuntimeArchive": "https://github.com/handy-computer/transcribe.cpp/releases/download/v0.4.1/transcribe-native-0.4.1-windows-x86_64-cpu-vulkan.tar.gz",
+  "RuntimeArchiveSha256": "272eb97795048ccb557c85bb9dd44c9e530e1c928443114c39816a8a5f76269d",
   "Patch": "parakeet-hints.patch",
-  "PatchSha256": "b5ff7b4ac4ee0b906baf4b99e1b59fe958c71321ed919108ee7ebd3261c38937",
+  "PatchSha256": "69413e584171dcdc7fdb2ef45592e8f42d1483289169ef1be0375fc2534b83a3",
   "Files": [
-    {
-      "Name": "ggml.dll",
-      "Size": 61952,
-      "Sha256": "460d4e678f5146fe9b574d7b143eaac896e698559eee959a9c499e9d70379cca"
-    },
     {
       "Name": "ggml-base.dll",
       "Size": 675328,
-      "Sha256": "67149b19511b62ff7acbeb0ea9f9cf7e804d79126c12e8058f1e692ee3d4f8f9"
+      "Sha256": "71050124f5ff1a7f023b5fa723c121acadfd54fd1301664c1077116313f9ce56"
     },
     {
-      "Name": "ggml-cpu.dll",
+      "Name": "ggml-cpu-alderlake.dll",
+      "Size": 1103360,
+      "Sha256": "62a689a925f8bac57d5caf59a396346f02059a130ae9bad05602439ce5c8d147"
+    },
+    {
+      "Name": "ggml-cpu-cannonlake.dll",
+      "Size": 1205760,
+      "Sha256": "8f317c7ff706599a7a42de3686804996bd0441e8d84af461597c4f5753584231"
+    },
+    {
+      "Name": "ggml-cpu-cascadelake.dll",
+      "Size": 1205760,
+      "Sha256": "8fb65624661e642123fe828d1d0db42a322cf7f23c2025bff5c2f5252130a00f"
+    },
+    {
+      "Name": "ggml-cpu-haswell.dll",
+      "Size": 1104896,
+      "Sha256": "f9710a339d994501f7c87e3e7e10a8e982efd5e9f4cf33640bdcc5de912f830c"
+    },
+    {
+      "Name": "ggml-cpu-icelake.dll",
+      "Size": 1205760,
+      "Sha256": "1f3a9560c7171f23a793c183e39267a8f493ab515e1720b848f21af25f91e090"
+    },
+    {
+      "Name": "ggml-cpu-sandybridge.dll",
+      "Size": 1075712,
+      "Sha256": "79aaea87231ee1b1963835428d0b4fcdeca5b26d3aec37f4802a55a3fb4502f6"
+    },
+    {
+      "Name": "ggml-cpu-skylakex.dll",
+      "Size": 1205760,
+      "Sha256": "c9531b4cf9981d4ecc7618d65dd55bdf20d53629b612a4028d39e0009a851957"
+    },
+    {
+      "Name": "ggml-cpu-sse42.dll",
+      "Size": 842240,
+      "Sha256": "fac884a6903670eded6654e868226232139d37ec23ba8a7d7230be93ef3ff550"
+    },
+    {
+      "Name": "ggml-cpu-x64.dll",
       "Size": 842752,
-      "Sha256": "0d096258de36d8b9f1d497baed2169e3648f9788e7206db86265942881ebaaa9"
+      "Sha256": "b6854388df7645e728a1273b69beeede414aa67fb5b7175cb96d580c397cf5c7"
     },
     {
       "Name": "ggml-vulkan.dll",
       "Size": 43652608,
-      "Sha256": "15bddd06766d153ce03b6e619f2e3039f885fe7e96c110434eacaa9d23fcb4fb"
+      "Sha256": "d4ef14886f4fd5a0850acc81ed4daf77e6c80f39db1bb7e8936ba95930b7e68d"
+    },
+    {
+      "Name": "ggml.dll",
+      "Size": 61952,
+      "Sha256": "7f4312af8bf5728c72f342702f5674d4a40cc3964f01d67e8b01db7559a2b530"
     }
-  ]
+  ],
+  "RuntimePrefix": "transcribe-native-windows-x86_64-cpu-vulkan"
 }
