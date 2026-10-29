@@ -150,4 +150,7 @@ hotkey and rapid consecutive dictation still need Sam's hands-on evaluation.
 The Release build completed with zero warnings or errors, all 274 .NET tests
 passed, and the published executable passed its native self-test. The evaluator's
 separate self-tests cover scoring, silent WAV input, repeated ASR failure and a
-completion deadline. No clipboard delivery path has been approved or enabled.
+completion deadline.
+
+After testing the preview, Sam chose to keep Unicode SendInput and leave the
+clipboard untouched. Clipboard paste is not part of this implementation.
