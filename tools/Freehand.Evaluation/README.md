@@ -56,6 +56,11 @@ removes apostrophes. It does not equate digit and word forms of numbers, so fina
 formatting WER needs interpretation. It never treats formatting WER as raw ASR
 quality. Warm repeat scores should match; repeated text is not independent audio.
 
+Keep final evaluation prompts separate from tuning prompts. Different speakers
+can read the same FLEURS reference, so splitting adjacent TSV rows does not
+guarantee independent prompts. Exclude both prompt IDs and exact reference text
+already present in the tuning set before selecting new evaluation recordings.
+
 The memory sampler records simultaneous sums for the evaluator and its worker,
 including loading. It excludes Avalonia UI and other Freehand instances. Working
 sets may double-count shared pages. These figures do not establish whole-app RAM
@@ -79,3 +84,35 @@ The scoring self-test runs without a model:
 ```powershell
 dotnet run --project tools/Freehand.Evaluation -c Release -- --selftest
 ```
+
+For the accuracy acceptance score, rescore saved reports with the standalone
+Python CLI. It equates number formats while preserving bracketed spoken words,
+fillers, negation, numeric signs, percentages, and currency. It retains the
+original literal score separately and never changes dictation output.
+
+```powershell
+python -m venv work/wer-env
+work/wer-env/Scripts/python -m pip install -r tools/Freehand.Evaluation/requirements-normalization.txt
+work/wer-env/Scripts/python tools/Freehand.Evaluation/score_reports.py --selftest
+work/wer-env/Scripts/python tools/Freehand.Evaluation/score_reports.py `
+  work/accuracy-evaluation/candidate.json `
+  work/accuracy-evaluation/candidate-heldout.json `
+  --max-word-error-rate 0.05 --output work/accuracy-evaluation/normalized.json
+```
+
+The inputs must include reference and transcript text. Generate the replay report
+with `-IncludeText`; the scoring CLI omits that text from its output by default.
+It selects gain 1/repeat 0, uses `RawText` or native-worker `Text`, and aggregates
+the supplied reports. Use `--gain`, `--repeat`, `--text-field FinalText`, or
+`--include-text` when explicitly needed. Exactly 5%, undefined WER, or recorded
+trial failures fail the normalized gate. Keep latency and whole-app RAM gates
+separate, and compare baseline and candidate with this same scoring metric.
+Known literal-threshold failures from a configured legacy literal gate are
+counted separately; operational or unrecognized failures still fail evaluation.
+
+The CLI vendors unmodified OpenAI Whisper normalizer source at revision
+`86098128c0b4f24f0e2aa2994de830614b474227`, with its MIT license. It verifies the
+source hashes in `normalization/source.json` and records them, the wrapper hash,
+dependency versions, input hashes, and exact S/D/I counts in each result.
+The wrapper preserves words that the official default normalizer deletes, and
+protects numeric signs and word-adjacent percent symbols before normalization.
