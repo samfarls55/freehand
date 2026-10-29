@@ -85,6 +85,7 @@ internal static class PlatformFactory
     public static IDesktopIntegration? CreateDesktopIntegration() => Create<IDesktopIntegration>("WindowsDesktopIntegration", []);
     public static IUpdateInstaller? CreateUpdateInstaller() => Create<IUpdateInstaller>("WindowsUpdateInstaller", []);
     public static ITextDeliveryProbe? CreateDeliveryProbe() => Create<ITextDeliveryProbe>("WindowsDeliveryProbe", []);
+    public static IProcessMemoryReader? CreateProcessMemoryReader() => Create<IProcessMemoryReader>("WindowsProcessMemoryReader", []);
 
     [UnconditionalSuppressMessage(
         "Trimming",

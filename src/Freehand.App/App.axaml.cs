@@ -59,6 +59,17 @@ public partial class App : Application
             var benchmark = Array.IndexOf(desktop.Args ?? [], "--desktop-benchmark");
             if (benchmark >= 0 && desktop.Args is { } args && benchmark + 1 < args.Length)
                 _ = CheckDesktopBenchmarkAsync(desktop, Path.GetFullPath(args[benchmark + 1]));
+            var deliveryBenchmark = Array.IndexOf(desktop.Args ?? [], "--desktop-delivery-benchmark");
+            if (deliveryBenchmark >= 0 && desktop.Args is { } deliveryArgs && deliveryBenchmark + 1 < deliveryArgs.Length)
+            {
+                var output = Path.GetFullPath(deliveryArgs[deliveryBenchmark + 1]);
+                _main.Opened += StartDeliveryBenchmark;
+                void StartDeliveryBenchmark(object? sender, EventArgs eventArgs)
+                {
+                    _main.Opened -= StartDeliveryBenchmark;
+                    Dispatcher.UIThread.Post(() => _ = CheckDesktopDeliveryBenchmarkAsync(desktop, output));
+                }
+            }
         }
         base.OnFrameworkInitializationCompleted();
     }
@@ -66,6 +77,11 @@ public partial class App : Application
     private async Task CheckDesktopBenchmarkAsync(IClassicDesktopStyleApplicationLifetime desktop, string output)
     {
         var result = await Task.Run(() => EngineeringChecks.MeasureDesktopAsync(_composition!, output)).ConfigureAwait(false);
+        Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Close(); desktop.Shutdown(result); });
+    }
+    private async Task CheckDesktopDeliveryBenchmarkAsync(IClassicDesktopStyleApplicationLifetime desktop, string output)
+    {
+        var result = await Task.Run(() => DesktopDeliveryBenchmark.RunAsync(_composition!, output)).ConfigureAwait(false);
         Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Close(); desktop.Shutdown(result); });
     }
     private async Task CheckWindowLifecycleAsync(IClassicDesktopStyleApplicationLifetime desktop)

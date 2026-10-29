@@ -22,7 +22,7 @@ namespace Freehand.Platform.Windows;
 public sealed class SendInputTextInjector : ITargetedTextInjector
 {
     /// <summary>Characters per <c>SendInput</c> call when typing.</summary>
-    private const int ChunkSize = 40;
+    private const int ChunkSize = 128;
 
     /// <summary>Pause between chunks, so slower targets keep up.</summary>
     private static readonly TimeSpan ChunkGap = TimeSpan.FromMilliseconds(4);

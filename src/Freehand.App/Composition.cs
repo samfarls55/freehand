@@ -22,6 +22,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     /// <summary>Update checks are available only in the normal installed copy.</summary>
     public UpdateService? Updates { get; }
     private IHotkeySource? _hotkey;
+    internal ITextDeliveryHotkeySource? DeliveryHotkey => _hotkey as ITextDeliveryHotkeySource;
     /// <summary>Saved preferences.</summary>
     public AppSettings Settings { get; }
     /// <summary>Literal correction dictionary.</summary>

@@ -4,6 +4,12 @@ The Windows installer includes NVIDIA Parakeet TDT 110M, exported to ONNX and
 quantized to int8. English dictation runs locally through sherpa-onnx on the CPU.
 The packaged app needs no model download or model service.
 
+The speech runtime is pinned to sherpa-onnx 2.0.0. Its NeMo feature extractor
+matches the model's additive log-zero guard, improving recognition of quiet
+speech without changing model weights. The packaged self-test covers quiet
+speech and silence. See [the accuracy validation](ACCURACY-VALIDATION.md) for
+paired results and their limits.
+
 ## Installed files
 
 The model lives beside the installed executable in `models/parakeet-110m`.
