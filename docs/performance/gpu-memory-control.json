@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "environment": {
+    "visibleDevices": "1",
+    "disableHostVisibleVideoMemory": "1"
+  },
+  "runtime": "Official transcribe.cpp v0.4.1 Windows cpu-vulkan native bundle",
+  "noModelLoaded": true,
+  "samplingIntervalMilliseconds": 200,
+  "samplesPerStage": 7,
+  "method": "Native device-local256/512MiB allocation, clear every byte, synchronize, measure, free and remeasure. Pinned-host256MiB allocation is the positive shared-system-memory control.",
+  "rawReport": {
+    "workspacePath": "work\\hillclimb-gpu-accounting\\device-local-control.json",
+    "sha256": "2c40f3eff6b731788775a28dc0df6dce62d621d312a670e12a2cd323d94b7554"
+  },
+  "artifacts": [
+    {
+      "workspacePath": "work\\hillclimb-gpu-accounting\\Program.cs",
+      "bytes": 9007,
+      "sha256": "be20bc0475276069ab4b6d35d78015bc74dd82d221a33b6d173f175cb24cecc1"
+    },
+    {
+      "workspacePath": "work\\hillclimb-gpu-accounting\\run\\probe.dll",
+      "bytes": 19968,
+      "sha256": "45c67eb3b186d86ab230fd0425ed1ec803bdbf8fc049b7bb9684655c8e2f5a10"
+    },
+    {
+      "workspacePath": "work\\hillclimb-gpu-accounting\\run\\ggml-vulkan.dll",
+      "bytes": 43652608,
+      "sha256": "d4ef14886f4fd5a0850acc81ed4daf77e6c80f39db1bb7e8936ba95930b7e68d"
+    },
+    {
+      "workspacePath": "work\\hillclimb-gpu-accounting\\run\\ggml-base.dll",
+      "bytes": 675328,
+      "sha256": "71050124f5ff1a7f023b5fa723c121acadfd54fd1301664c1077116313f9ce56"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "baseline",
+      "allocationBytes": 0,
+      "samples": 7,
+      "bufferType": null,
+      "isHost": null,
+      "medianHost": {
+        "workingSet": 36147200,
+        "privateCommit": 12144640,
+        "systemPhysicalUsed": 12850466816
+      },
+      "medianGpu": {
+        "dedicatedBytes": 0,
+        "sharedBytes": 0,
+        "totalCommittedBytes": 0
+      },
+      "systemPhysicalUsedRange": [
+        12848844800,
+        12864483328
+      ]
+    },
+    {
+      "stage": "backend-initialized",
+      "allocationBytes": 0,
+      "samples": 7,
+      "bufferType": null,
+      "isHost": null,
+      "medianHost": {
+        "workingSet": 104378368,
+        "privateCommit": 106905600,
+        "systemPhysicalUsed": 12914216960
+      },
+      "medianGpu": {
+        "dedicatedBytes": 5029888,
+        "sharedBytes": 12390400,
+        "totalCommittedBytes": 17485824
+      },
+      "systemPhysicalUsedRange": [
+        12908113920,
+        12924702720
+      ]
+    },
+    {
+      "stage": "device-local-filled",
+      "allocationBytes": 268435456,
+      "samples": 7,
+      "bufferType": "Vulkan0",
+      "isHost": false,
+      "medianHost": {
+        "workingSet": 105656320,
+        "privateCommit": 376803328,
+        "systemPhysicalUsed": 12905091072
+      },
+      "medianGpu": {
+        "dedicatedBytes": 273465344,
+        "sharedBytes": 12914688,
+        "totalCommittedBytes": 286445568
+      },
+      "systemPhysicalUsedRange": [
+        12897697792,
+        12930605056
+      ]
+    },
+    {
+      "stage": "device-local-freed",
+      "allocationBytes": 268435456,
+      "samples": 7,
+      "bufferType": "Vulkan0",
+      "isHost": false,
+      "medianHost": {
+        "workingSet": 108060672,
+        "privateCommit": 345493504,
+        "systemPhysicalUsed": 12978077696
+      },
+      "medianGpu": {
+        "dedicatedBytes": 5029888,
+        "sharedBytes": 12914688,
+        "totalCommittedBytes": 18010112
+      },
+      "systemPhysicalUsedRange": [
+        12945608704,
+        13010620416
+      ]
+    },
+    {
+      "stage": "device-local-filled",
+      "allocationBytes": 536870912,
+      "samples": 7,
+      "bufferType": "Vulkan0",
+      "isHost": false,
+      "medianHost": {
+        "workingSet": 108863488,
+        "privateCommit": 883617792,
+        "systemPhysicalUsed": 12934311936
+      },
+      "medianGpu": {
+        "dedicatedBytes": 541904896,
+        "sharedBytes": 12914688,
+        "totalCommittedBytes": 554885120
+      },
+      "systemPhysicalUsedRange": [
+        12931457024,
+        12952219648
+      ]
+    },
+    {
+      "stage": "device-local-freed",
+      "allocationBytes": 536870912,
+      "samples": 7,
+      "bufferType": "Vulkan0",
+      "isHost": false,
+      "medianHost": {
+        "workingSet": 109088768,
+        "privateCommit": 345976832,
+        "systemPhysicalUsed": 12926599168
+      },
+      "medianGpu": {
+        "dedicatedBytes": 5029888,
+        "sharedBytes": 12914688,
+        "totalCommittedBytes": 18010112
+      },
+      "systemPhysicalUsedRange": [
+        12901187584,
+        12935561216
+      ]
+    },
+    {
+      "stage": "pinned-host-filled",
+      "allocationBytes": 268435456,
+      "samples": 7,
+      "bufferType": "Vulkan_Host",
+      "isHost": true,
+      "medianHost": {
+        "workingSet": 377729024,
+        "privateCommit": 615137280,
+        "systemPhysicalUsed": 13160935424
+      },
+      "medianGpu": {
+        "dedicatedBytes": 5554176,
+        "sharedBytes": 281354240,
+        "totalCommittedBytes": 286973952
+      },
+      "systemPhysicalUsedRange": [
+        13149396992,
+        13170008064
+      ]
+    },
+    {
+      "stage": "pinned-host-freed",
+      "allocationBytes": 0,
+      "samples": 7,
+      "bufferType": null,
+      "isHost": null,
+      "medianHost": {
+        "workingSet": 109490176,
+        "privateCommit": 111017984,
+        "systemPhysicalUsed": 12917022720
+      },
+      "medianGpu": {
+        "dedicatedBytes": 5029888,
+        "sharedBytes": 12914688,
+        "totalCommittedBytes": 18010112
+      },
+      "systemPhysicalUsedRange": [
+        12901412864,
+        12945485824
+      ]
+    },
+    {
+      "stage": "backend-freed",
+      "allocationBytes": 0,
+      "samples": 7,
+      "bufferType": null,
+      "isHost": null,
+      "medianHost": {
+        "workingSet": 109703168,
+        "privateCommit": 111280128,
+        "systemPhysicalUsed": 12931780608
+      },
+      "medianGpu": {
+        "dedicatedBytes": 5029888,
+        "sharedBytes": 12914688,
+        "totalCommittedBytes": 18010112
+      },
+      "systemPhysicalUsedRange": [
+        12920696832,
+        12972539904
+      ]
+    }
+  ],
+  "limitations": [
+    "Medians describe this machine and driver, not a universal allocator guarantee.",
+    "System physical use is system-wide and includes unrelated processes.",
+    "Shared GPU memory can overlap working set; their sum is deliberately conservative.",
+    "Private commit includes WDDM backing-store obligation, not necessarily physical DRAM residency.",
+    "No production model, latency or memory gate was changed by this control."
+  ]
+}

@@ -86,6 +86,7 @@ internal static class PlatformFactory
     public static IUpdateInstaller? CreateUpdateInstaller() => Create<IUpdateInstaller>("WindowsUpdateInstaller", []);
     public static ITextDeliveryProbe? CreateDeliveryProbe() => Create<ITextDeliveryProbe>("WindowsDeliveryProbe", []);
     public static IProcessMemoryReader? CreateProcessMemoryReader() => Create<IProcessMemoryReader>("WindowsProcessMemoryReader", []);
+    public static IGpuMemoryReader? CreateGpuMemoryReader() => Create<IGpuMemoryReader>("WindowsGpuMemoryReader", []);
 
     [UnconditionalSuppressMessage(
         "Trimming",
