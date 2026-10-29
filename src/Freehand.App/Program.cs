@@ -66,6 +66,8 @@ public static class Program
     public static AppBuilder BuildAvaloniaApp() =>
         AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            // The Compact interface avoids a persistent Windows GPU context.
+            .With(new Win32PlatformOptions { RenderingMode = [Win32RenderingMode.Software] })
             .WithInterFont()
             .LogToTrace();
 }
