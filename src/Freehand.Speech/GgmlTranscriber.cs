@@ -49,10 +49,12 @@ internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
         _hotwords = new ParakeetHotwords(Path.Combine(AppContext.BaseDirectory, ParakeetHotwords.VocabularyFile));
         if (ModelResolver.VoiceActivityModel is { } detectorModel)
             _speechPresence = new SpeechPresenceDetector(Path.Combine(modelDirectory, detectorModel));
-        // Prepare encoder/decoder graphs while loading can overlap recording.
+        // Prepare encoder/decoder pipelines while loading can overlap recording.
+        // A short run avoids spending the cold-start budget on discarded audio;
+        // native graphs rebuild for the actual request size.
         // Run directly: the speech-presence guard correctly rejects this input.
         // The result stays inside initialization; every user request resets state.
-        _ = RunNative(_session, new float[ModelResolver.PreferredMaxSegmentSeconds * AudioChunk.SampleRate], [], cancellationToken);
+        _ = RunNative(_session, new float[AudioChunk.SampleRate], [], cancellationToken);
         return ValueTask.FromResult(true);
     }
 
