@@ -105,7 +105,7 @@ public sealed class SpeechWorkerClient : ISpeechSession
         if (!_options.PrepareWhileActive || _preparation is not null || !IsReady) return;
         var source = new CancellationTokenSource();
         _preparation = source;
-        _preparationTask = Task.Run(() => PrepareWhileActiveAsync(source));
+        _preparationTask = Task.Run(() => PrepareWhileActiveAsync(source), CancellationToken.None);
     }
     private async Task PrepareWhileActiveAsync(CancellationTokenSource source)
     {

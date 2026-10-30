@@ -21,7 +21,6 @@ internal sealed class SpeechPresenceDetector : IDisposable
         try { Check(Native.ModelLoad(encoded, ref load, out pointer)); }
         finally { Marshal.FreeCoTaskMem(encoded); }
         ModelHandle? model = new(pointer);
-        SessionHandle? session = null;
         try
         {
             Native.InfoInit(out var info);
@@ -31,15 +30,15 @@ internal sealed class SpeechPresenceDetector : IDisposable
             Native.SessionParamsInit(out var options);
             options.Threads = 1;
             Check(Native.SessionInit(model, ref options, out pointer));
-            session = new SessionHandle(pointer, model);
+            var session = new SessionHandle(pointer, model);
             _model = model;
             _session = session;
             model = null;
-            session = null;
         }
-        finally { session?.Dispose(); model?.Dispose(); }
+        finally { model?.Dispose(); }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "S6640", Justification = "Pinned owned PCM and fixed vocabulary buffers remain alive for the synchronous native ABI call; lengths are bounded by WorkerProtocol.")]
     internal unsafe bool ContainsSpeech(ReadOnlyMemory<float> samples)
     {
         var source = samples.Span;
@@ -117,6 +116,7 @@ internal sealed class SpeechPresenceDetector : IDisposable
         [DllImport(Library, EntryPoint = "transcribe_vad_session_init", CallingConvention = CallingConvention.Cdecl)] internal static extern int SessionInit(ModelHandle model, ref SessionParams options, out IntPtr session);
         [DllImport(Library, EntryPoint = "transcribe_vad_session_free", CallingConvention = CallingConvention.Cdecl)] internal static extern void SessionFree(IntPtr session);
         [DllImport(Library, EntryPoint = "transcribe_vad_params_init", CallingConvention = CallingConvention.Cdecl)] internal static extern void ParamsInit(out Params value);
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "S6640", Justification = "Pinned owned PCM and fixed vocabulary buffers remain alive for the synchronous native ABI call; lengths are bounded by WorkerProtocol.")]
         [DllImport(Library, EntryPoint = "transcribe_vad_run", CallingConvention = CallingConvention.Cdecl)] internal static extern unsafe int Run(SessionHandle session, float* samples, int count, ref Params options);
         [DllImport(Library, EntryPoint = "transcribe_vad_result_init", CallingConvention = CallingConvention.Cdecl)] internal static extern void ResultInit(out Result value);
         [DllImport(Library, EntryPoint = "transcribe_vad_get_result", CallingConvention = CallingConvention.Cdecl)] internal static extern int GetResult(SessionHandle session, ref Result value);

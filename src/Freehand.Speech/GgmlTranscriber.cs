@@ -77,6 +77,7 @@ internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
         return ValueTask.FromResult(RunNative(_session, samples, biasPhrases, cancellationToken));
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "S6640", Justification = "Pinned owned PCM and fixed vocabulary buffers remain alive for the synchronous native ABI call; lengths are bounded by WorkerProtocol.")]
     private static unsafe string RunNative(SessionHandle session, ReadOnlyMemory<float> samples,
         IReadOnlyList<string> biasPhrases, CancellationToken cancellationToken)
     {
@@ -156,6 +157,7 @@ internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
         [DllImport(Library, EntryPoint = "transcribe_get_model", CallingConvention = CallingConvention.Cdecl)] internal static extern IntPtr GetModel(SessionHandle session);
         [DllImport(Library, EntryPoint = "transcribe_model_device", CallingConvention = CallingConvention.Cdecl)] internal static extern IntPtr ModelDevice(IntPtr model);
         [DllImport(Library, EntryPoint = "transcribe_open", CallingConvention = CallingConvention.Cdecl)] internal static extern int Open(IntPtr path, ref LoadParams load, ref SessionParams session, out IntPtr result);
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "S6640", Justification = "Pinned owned PCM and fixed vocabulary buffers remain alive for the synchronous native ABI call; lengths are bounded by WorkerProtocol.")]
         [DllImport(Library, EntryPoint = "transcribe_run", CallingConvention = CallingConvention.Cdecl)] internal static extern unsafe int Run(SessionHandle session, void* samples, int count, ref RunParams p);
         [DllImport(Library, EntryPoint = "transcribe_full_text", CallingConvention = CallingConvention.Cdecl)] internal static extern IntPtr FullText(SessionHandle session);
         [DllImport(Library, EntryPoint = "transcribe_session_free", CallingConvention = CallingConvention.Cdecl)] internal static extern void SessionFree(IntPtr session);

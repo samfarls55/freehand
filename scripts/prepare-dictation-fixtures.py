@@ -33,7 +33,7 @@ def main():
             raise ValueError("FLEURS archive checksum mismatch")
     reference_bytes = urllib.request.urlopen(f"{BASE}/dev.tsv").read()
     git_blob = b"blob " + str(len(reference_bytes)).encode() + b"\0" + reference_bytes
-    if hashlib.sha1(git_blob).hexdigest() != REFERENCE_GIT_HASH:
+    if hashlib.sha1(git_blob, usedforsecurity=False).hexdigest() != REFERENCE_GIT_HASH:
         raise ValueError("FLEURS reference checksum mismatch")
     rows = list(csv.reader(io.StringIO(reference_bytes.decode("utf-8")), delimiter="\t"))[args.offset:args.offset + args.count]
     if len(rows) != args.count:

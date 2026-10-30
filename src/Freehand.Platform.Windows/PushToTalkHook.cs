@@ -162,7 +162,7 @@ public sealed class PushToTalkHook : ITextDeliveryHotkeySource, IHotkeyRecorder
 
     private async Task DispatchAsync()
     {
-        await foreach (var notification in _events.Reader.ReadAllAsync().ConfigureAwait(false))
+        await foreach (var notification in _events.Reader.ReadAllAsync(CancellationToken.None).ConfigureAwait(false))
         {
             if (notification.Generation != Interlocked.Read(ref _generation)) continue;
             try
@@ -262,7 +262,7 @@ public sealed class PushToTalkHook : ITextDeliveryHotkeySource, IHotkeyRecorder
 
         _thread.SetApartmentState(ApartmentState.STA);
         _thread.Start();
-        ready.Wait(TimeSpan.FromSeconds(3));
+        ready.Wait(TimeSpan.FromSeconds(3), CancellationToken.None);
 
         return installed;
     }
@@ -319,7 +319,7 @@ public sealed class PushToTalkHook : ITextDeliveryHotkeySource, IHotkeyRecorder
         Interlocked.Increment(ref _generation);
         lock (_sync)
         {
-            _keys.Reset(); _recording?.Result.TrySetCanceled();
+            _keys.Reset(); _recording?.Result.TrySetCanceled(CancellationToken.None);
             _deliveryPause?.Result.TrySetResult(false); _deliveryPause = null;
         }
         if (_thread is null) return;

@@ -243,7 +243,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private void QueuePreferences()
     {
         lock (_preferencesSync)
-            if (!_disposed) _preferencesTask = _preferencesTask.ContinueWith(_ => ApplyPreferencesAsync(), TaskScheduler.Default).Unwrap();
+            if (!_disposed) _preferencesTask = _preferencesTask.ContinueWith(_ => ApplyPreferencesAsync(), CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.Default).Unwrap();
     }
     private async Task ApplyPreferencesAsync()
     {
@@ -324,7 +324,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         await preferences.ConfigureAwait(false);
         await _readinessTask.ConfigureAwait(false);
         await _verification.ConfigureAwait(false);
-        if (Engine is not null) { Engine.Changed -= OnEngineChanged; await Task.Run(async () => await Engine.DisposeAsync().ConfigureAwait(false)).ConfigureAwait(false); }
+        if (Engine is not null) { Engine.Changed -= OnEngineChanged; await Task.Run(async () => await Engine.DisposeAsync().ConfigureAwait(false), CancellationToken.None).ConfigureAwait(false); }
         BenchmarkWorkers?.Dispose();
         Models.Dispose(); _preferencesGate.Dispose();
         await Logs.DisposeAsync().ConfigureAwait(false);
