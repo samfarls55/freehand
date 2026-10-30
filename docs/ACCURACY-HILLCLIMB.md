@@ -1,84 +1,86 @@
 # Accuracy hill climb
 
-Development status, October 29, 2026. The target is below 5% word error rate with the complete app below the provisional 650 MB system-RAM and 700 ms release-to-complete-text limits. Qwen 0.6 Q6 preserves the Q8 validation score and passes warm delivery and RAM checks, but cold delivery still fails. Parakeet v2 passed the desktop performance gates but missed the accuracy target on its frozen holdout. Direct Wispr Flow parity still needs matched measurements on this machine. See the [accuracy plan](DICTATION-ACCURACY-PLAN.md).
+Development status, October 30, 2026. Frozen source `b270da9`, **Qwen3-ASR 1.7B Q4_K_M**, scored **2.7173% normalized WER on the main fresh LibriSpeech 400** and **5.7823% on the separate fresh FLEURS 50**. The unchanged scorer gives **3.0955% across all 450**, with zero operational failures. The secondary set missed 5%; the candidate does not establish under 5% across every dataset or Sam's conversational dictation. Its complete desktop performance run passed the provisional ready-state latency and system RAM limits. On those same 450 recordings, the CPU baseline scored 4.1658%: the candidate made 102 fewer errors, a 25.69% reduction (paired recording bootstrap 95% interval 16.21–34.91%).
 
-Sam clarified that equivalent formats count as correct. The frozen metric, `freehand-content-preserving-en-v1`, uses pinned Whisper English normalization while preserving bracketed spoken content, fillers, numeric signs, currency, and percentages. Changed numbers, missing negation, wrong words, omissions, and additions remain errors. Literal scores are retained separately. The [scorer](../tools/Freehand.Evaluation/score_reports.py) passes 44 checks, including strict failure at exactly 5%.
+The working limits are **650,000,000 bytes of system RAM** and **700 ms from release to complete text receipt**. The new GPU policy applies that latency budget after the app reports ready; model startup is measured separately. The original fresh-worker 700 ms failure remains unresolved and recorded. These are provisional engineering limits: Wispr Flow has not been measured on this laptop, and Sam's microphone accuracy is unmeasured. See the [accuracy plan](DICTATION-ACCURACY-PLAN.md).
 
-## Development results
+## Current candidate and readiness policy
 
-These are the same 120 development recordings, with 2,461 normalized reference words and 2,442 literal words. They include repeated prompts and cannot establish independent accuracy.
+The candidate uses pinned transcribe.cpp 0.4.1 **freehand-read2**, English, four CPU threads, context 1024, and AUTO discrete Vulkan selection with a device check. Nine-second maximum segments retain quiet-boundary selection and permit recognition while recording continues. Silero tests speech presence using a normalized copy, leaving the original ASR waveform uncropped. Software UI rendering and noncomposite ReadyToRun reduce memory and startup work. The public CPU profile retains lazy loading, five-minute idle unloading, and 15-second segments.
 
-| Candidate | Normalized WER | Errors |
-|---|---:|---:|
-| Historical 110M with older runtime | 11.13% | 274 |
-| Current 110M runtime | 6.42% | 158 |
-| Larger v2 INT8 | 4.79% | 118 |
-| Larger v2 Q4 ONNX | 4.92% | 121 |
-| v2 Q4_K_M, selected Vulkan mode and production Core | 4.79% | 118 |
-| v2 F16, native Vulkan screen | 4.75% | 117 |
-| Qwen3-ASR 0.6B Q8, native screen | 4.31% | 106 |
-| Qwen3-ASR 1.7B Q4, native screen | 3.21% | 79 |
+The GPU profile loads the actual speech worker before enabling the hotkey and keeps that worker resident. In the full run, worker and model loading took **1,677.5778 ms** and app readiness **2,075.891 ms**. These costs are outside the ready-state release budget; they are not removed from the report or counted as solved fresh-worker latency. The same worker served all four ready recordings.
 
-The original literal scores remain 13.51% for the historical 110M baseline and 9.09% for the current runtime. They must not be compared with a normalized candidate score as though the metric were unchanged. None of these public read-speech results establish Sam's conversational microphone error rate.
+Startup performs a one-second zero-input native warmup and discards its output. During an active dictation job, a separate serialized loop immediately runs the same zero-input preparation, then waits **500 ms after completion** before the next run. Capture never awaits it. Preparation can complete during recognition or delivery after release and stops when the job becomes idle. It bypasses the VAD guard only for zero-input preparation; real recognition retains normal VAD, unchanged PCM, and reset native state. No preparation text enters the delivery path.
 
-## Desktop performance result
+The bounded copied-worker cadence experiment measured **294.1–298.5 ms** final 8-second recognition, including interval cancellation/in-flight drain. Preparation consumed about 19% of the capture window in elapsed native calls, versus about 14% for the one-second cadence. Those percentages are not GPU utilization or measured energy. The full desktop counters provide the separate policy check: successful preparations during each ready job were **2/6/14/17**, while all four measured 15-second idle intervals recorded **zero** preparations.
 
-Software rendering saved 136.5 MiB in the isolated shown-window probe, reducing resident memory from 249.9 to 113.4 MiB. Actual Compact controls, theme, fonts, tray, and indicator were retained. Main-window captures were pixel-identical. The source change is in [Program.cs](../src/Freehand.App/Program.cs).
+Read2 retains the bounded Windows CRT reader and reuses the loader's validated GGUF metadata instead of parsing a second tensor catalog. Catalog order, names, types, dimensions, and all 224 native transcript outputs matched read1; native Open saved about **40 ms**. The selected native DLL SHA is `6211252584ae7a478a9b8850bb1bab49e7479ff1c39847dfd53dfb7871bd9d34`. This does not establish a fixed whole-worker startup saving.
 
-The v2 Q4_K_M candidate uses transcribe.cpp v0.4.1, four CPU threads, Vulkan on the RTX 4060 Laptop GPU, device-local allocation, and COOPMAT2 disabled. The model is 475,491,840 bytes. The actual published desktop plus worker passed all measured gates:
+Delivery still uses paired Unicode key-down/key-up `SendInput` events. The clipboard remains untouched. Deterministic formatting preserves ambiguous comma-separated number phrases instead of partly rewriting them into text such as `17,89`.
 
-| Measurement | Result |
-|---|---:|
-| Conservative peak system RAM | 378,068,992 bytes |
-| Dedicated VRAM peak | 534,433,792 bytes |
-| Private commit peak, separate diagnostic | 1,230,848,000 bytes |
-| Warm complete delivery, median / p95 / maximum | 527.9 / 657.0 / 665.5 ms |
-| Cold-worker complete delivery, 1 / 3 / 10 s recording | 644.8 / 182.8 / 690.5 ms |
+## Frozen accuracy evidence
 
-All 50 warm and three cold trials received complete text without operational failures. The benchmark used the real Unicode SendInput path, actual Avalonia UI, and an owned Windows EDIT control. The clipboard remained unchanged. Timestamps measure received characters, not compositor paint. These limits remain provisional because Wispr Flow was not benchmarked on this machine.
+The frozen metric, `freehand-content-preserving-en-v1`, is unchanged. It uses pinned Whisper normalization while retaining fillers, bracketed spoken content, signs, currency, and percentages. Equivalent number formats count as correct; wrong words, changed numbers, missing negation, omissions, and additions remain errors. Literal scores remain separate.
 
-System RAM is the highest simultaneous desktop-plus-worker working set plus shared GPU memory. This deliberately permits double counting. Dedicated VRAM and WDDM private commit remain separate. A no-model allocation control showed that 512 MiB of device-local VRAM adds about 512 MiB of commit but less than 1 MiB of host working set. The [GPU accounting report](GPU-MEMORY-ACCOUNTING.md) records primary Microsoft documentation and the independent positive control.
+| Qwen 1.7 evaluation | Result | Status |
+|---|---:|---|
+| 224 development clips, selected active-job policy | Final 192/4,687 = 4.0964%; literal 240/4,654 = 5.1569% | Selection pass; zero operational failures |
+| Reused FLEURS 300, selected active-job policy | Final 313/6,733 = 4.6487%; literal 380/6,688 = 5.6818% | Validation pass; reused data; zero operational failures |
+| Fresh LibriSpeech 400 | Raw/final normalized 227/8,354 = 2.7173%; literal raw 250/8,321, final 271/8,321 | Main fresh gate passed; zero operational failures |
+| Separate fresh FLEURS 50 | Raw/final normalized 68/1,176 = 5.7823%; literal raw 81/1,171, final 76/1,171 | Secondary set failed 5%; zero operational failures |
+| All 450 fresh clips, descriptive combined result | Final normalized 295/9,530 = 3.0955%; literal 347/9,492 = 3.6557% | Observed combined mean; does not erase the secondary miss |
+| CPU baseline, same LibriSpeech 400 | Final 314/8,354 = 3.7587% | Candidate: 87 fewer errors; 27.71% relative reduction |
+| CPU baseline, same FLEURS 50 | Final 83/1,176 = 7.0578% | Candidate: 15 fewer errors; 18.07% relative reduction; both exceed 5% |
+| CPU baseline, descriptive 450 | Final 397/9,530 = 4.1658% | Candidate: 102 fewer errors; 25.69% relative reduction |
 
-First-use shader preparation is separate from dictation latency. Disabling COOPMAT2 reduced an isolated cold model-and-shader preparation from about 22 seconds to 5.5 seconds. The preview packager runs the published self-test before offering the app for dictation. Its first preparation logged 4,732 ms after model loading, and a cached repetition logged 359 ms.
+The package and scorer were frozen before either fresh evaluation. Freeze SHA is `8fc35eb68f27a45b48d7443c6db62daec23d1b2cd6bad5d181c00ab3966f3ae8`; the manifest pins source `b270da9`, model, native runtime, package, and scoring policy. Fresh results were recorded from aggregates before reading individual errors. Neither candidate nor scorer changed after these results, and there is no post-result tuning of this frozen candidate.
 
-The native dictionary adapter preserved all 120 empty-hint transcripts against stock. Positive names, unrelated hints, and request resets passed controls. The published self-test passed known and quiet speech, silence, hints, worker restart, and platform assembly loading. The strict Release build and all 283 .NET tests passed before the subsequent model experiments.
+The retained CPU baseline uses the exact `4606ae1` worker and the same selected-policy evaluator, formatter and frozen scorer, with its original 15-second CPU segmentation. Both baseline replays had zero operational failures. Paired whole-recording bootstrap intervals use 10,000 resamples and seed 20261030; they describe recording sampling variation and do not model shared speakers. The 400-set relative-reduction interval is 16.50–38.19%; the 50-set interval is 2.27–34.72%.
 
-## Frozen holdout result
+The **5.7823% secondary FLEURS result is the main accuracy limitation**. The main LibriSpeech gate and observed combined mean are under 5%, while the separate secondary dataset is above it. General conversational WER for Sam remains unmeasured.
 
-The v2 candidate was frozen before one run on 104 unique prompts excluding every tuning ID and exact reference. Raw and final text both scored **114 errors in 2,226 normalized words, or 5.1213% WER**, with 77 substitutions, 22 deletions, and 15 insertions. All 104 trials completed without operational failure. Literal raw WER was 145/2,212, or 6.56%; final literal WER was 142/2,212, or 6.42%.
+The previous frozen Qwen 0.6B Q6 candidate failed its independent FLEURS 300 evaluation: final **354/6,733 = 5.2577%**, raw 355/6,733 = 5.2725%, with zero operational failures. The exact package and reports remain under `work/accuracy-core/frozen-qwen06-seg9-read1-v2`; freeze SHA is `d50145024617055d87187798294902748c3f987877595de9fb8aca06fd827583`. On the same prompts and metric, the 110M CPU baseline scored **434/6,733 = 6.4459%**. Q6 reduced errors by 18.43%, with a paired interval of 9.15–27.05%, but still failed acceptance.
 
-This fails the strict under-5% target. Aggregate results were recorded before inspecting individual errors. Combining tuning and holdout scores does not turn it into an independent accuracy pass. The freeze, reports, and aggregate hashes remain under `work/accuracy-core/frozen-holdout-v1`.
+An earlier Parakeet v2 candidate failed its one 104-prompt holdout at **114/2,226 = 5.1213%**. Those clips were then explicitly promoted into the 224-clip development set. The failed Q6 FLEURS 300 is now reused validation for Qwen 1.7. No individual errors from that 300 were inspected to choose or tune Qwen 1.7; it had already been screened on the older development data.
 
-The next validation set is sealed: 300 unique FLEURS TEST prompts, 6,688 literal reference words, and zero normalized-reference overlap with all 224 previously used clips. Its manifest SHA-256 is `4a945aaf9a276df8b7370fd4fb384a35c7747451fdf55bf8101ef5628fdd3df0`. All audio hashes and PCM boundaries were checked. No inference has been run. Freeze the next model and settings before using it.
+Before freezing, the selected policy remained under 5% on old 224 and used FLEURS 300 and passed the complete desktop gates. One subsequent fresh evaluation used these pinned sets:
 
-## Work in progress
+- **LibriSpeech TEST 400:** 200 test-clean + 200 test-other recordings, 8,321 literal words, 73 speakers. Manifest SHA `e6e4830a66852770083cfd18e7373f5f865cce13cd1778ceea4fdcbee006103c`. This is the main fresh accuracy gate.
+- **Separate FLEURS TEST 50:** manifest SHA `ad6ccdda6ba111511209ca1029c3d9526d2a1d57c50c29097d34893a320f7f07`. Report its secondary result separately.
 
-Qwen0.6 reduced the old development score to 4.31%; Qwen1.7 reached 3.21%. Both passed short and quiet speech controls with forty unrelated dictionary terms. Qwen0.6 nevertheless hallucinated on silence and echoed dictionary terms over zero audio. A CPU Silero speech-presence guard is being verified without cropping or changing the audio passed to recognition. The optimized CPU control accepted all 120 speech clips and rejected tested zeros, noise, and constant signals, while reducing the guard's median cost from about 98 to 16 ms.
+Both fresh sets were evaluated once against the frozen candidate. LibriSpeech differs from FLEURS; its result is not directly comparable FLEURS evidence. The table preserves both separate results. The combined 450 mean is descriptive and does not replace either dataset result. The used FLEURS 300 validation gate also passed, addressing some dataset shift without making that reused set independent.
 
-Qwen1.7's exact ten-second fixture took about 275 ms of native recognition, and loading took about 2.3 seconds. These are not complete desktop results. The smaller model remains a performance candidate. A bounded pinned upload batch is being tested to remove hundreds of serialized model-upload waits. CPU backend changes must use a complete matching native bundle, followed by recognition and packaging checks.
+## Desktop evidence
 
-Post hoc two-bit v2 quantization damaged recognition. Trained Redux, Moonshine, and Bark controls remained above the target. Earlier cleanup probes did not justify adding a rewriting model. Evidence remains under ignored `work/hillclimb-*` folders and in [the earlier validation](ACCURACY-VALIDATION.md).
+| Source / policy | Result | Interpretation |
+|---|---|---|
+| `b270da9`, resident worker + active-job preparation, full run | Ready 1/3/8/10-second delivery 143.8078/254.8326/588.8067/488.4077 ms; warm 407.609 ms median / 482.5428 ms p95 / 547.4339 ms max; RAM 436,228,096 B | Complete ready-state performance gate passed |
+| `07769af`, resident worker without active preparation | 8-second delivery after idle 820.81 ms, including 558.97 ms recognition | Residency alone failed; retained evidence |
+| Qwen 1.7, forced-fresh read2 worker | About 965 ms in the retained failed diagnostic | Original fresh-worker budget remains unsolved |
+| `7d29409`, Qwen 1.7 read1, one-second startup warmup | Cold 1-second 723.024 ms; warm maximum 471.962 ms; RAM 420,655,104 B | Failed cold latency; all 26 workers/recovery/unload controls passed |
+| Frozen Q6, streamed desktop | Warm 372.1 ms median / 448.2 ms p95 / 537.5 ms max; cold 321.1/406.4/441.8 ms; RAM 426,655,744 B | Performance pass belongs to Q6, whose independent accuracy failed |
+| Q6 immediate-chunk stress | 50th warm delivery 788.5 ms despite recognition 217.9 ms | Retained failure; headless burst stress remains available |
 
-The normal installation has not been updated, and nothing has been published. The public default remains the 110M CPU model. The previous development preview was restored in the tray while experiments continue. Installation, publication, physical hotkey, and microphone validation follow the separate [development workflow](DEVELOPMENT.md).
+The full report preserves one prepared worker PID across all four ready recordings, with real capture scheduling and exact `SendInput` character receipt. Its sampler began **1,054.7214 ms after launch**, while initialization was still incomplete. Earlier UI/startup allocations may precede that sampling boundary. Recorded peak dedicated VRAM was **1,719,873,536 bytes** and shared GPU memory **33,886,208 bytes**. Shared GPU bytes are included in conservative system RAM; dedicated VRAM and private commit remain separate. See [GPU accounting](GPU-MEMORY-ACCOUNTING.md).
 
-## Pause checkpoint, October 29
+All **50 warm ten-second recordings and four ready recordings after idle** met the 700 ms complete-delivery limit, and measured RAM stayed below 650,000,000 bytes. Separate crash recovery, timeout retention, and 20 unload-cycle controls also passed; those failure/reload controls are not a claim of 700 ms delivery. All **24 owned workers exited**, with zero orphans. Ready-only and forced-fresh cold-only modes were separate diagnostics. The full report retains startup duration, sampling scope, residency, per-job preparation counts, and zero idle preparation counts. This proves the measured ready-state budget, not a universal fresh-worker 700 ms bound.
 
-Work stopped at Sam's request so the laptop can be closed. No benchmark, ASR, download, compiler, or worker probe remains running. The previous approved CPU development preview is restored in the tray. The installed application has not changed.
+The benchmark uses the actual Avalonia composition and its tracked published worker, an owned Windows EDIT control, and real `SendInput`. Recordings arrive in 50 ms chunks so progressive decoding can run before release. Timestamps measure character receipt, not compositor paint. RAM is the highest simultaneous desktop-plus-worker working set plus shared GPU bytes, conservatively permitting double counting. Fixture replay does not establish physical microphone, physical Right Ctrl, or delivery into Sam's real applications. Direct Wispr Flow parity is unmeasured.
 
-The latest Qwen0.6 Q8 selection result is203/4687=4.3311% across224 development/validation clips. Its packaged7232 runtime with optimized CPU VAD passed published self-test, including quiet speech, silence, hints, and restart. The desktop report `work/desktop-qwen06-q8-guard.json` records413,765,632bytes conservative RAM and50 warm deliveries at501.5ms median,533.1ms p95,582.0ms maximum. Cold1/3/10second deliveries are1323.0/499.2/855.5ms, so the strict performance gate still fails. It also reports one apparent orphan process, which needs ownership/exit-state diagnosis; no process remained after the benchmark app exited.
+## Selection history and verification
 
-Qwen0.6 Q4 is smaller and starts faster but has less accuracy margin:221/4687=4.7152% across224, including127/2461=5.1605% on the original120. Its guarded native API readiness was1048ms versus Q8's1740ms. Its native ten-second fixture warm p95 was175ms. No complete Q4 desktop acceptance run has been performed. A ready Q6 model may offer an intermediate tradeoff; it has not been downloaded or tested.
+| Alternative | Evidence | Outcome |
+|---|---|---|
+| Current 110M CPU runtime | 6.42% normalized on original 120; 6.4459% on FLEURS 300 | Above accuracy target |
+| Parakeet v2 Q4 Vulkan | Desktop pass; independent 104 at 5.1213% | Failed independent accuracy |
+| Qwen 0.6B Q6, stock reader | Cold delivery reached 1,132 ms | Reader bottleneck corrected |
+| Qwen 0.6B Q6, 8-second segments | Final 240/4,687 = 5.1205% | Rejected accuracy regression |
+| Earlier Qwen 1.7 Q4, 9-second warmup | Cold 1-second 731.6 ms; warm burst maximum 760.6 ms | Failed performance; preserved |
+| Shorter zero-input preparation | 100 ms input gave no reliable latency or compute saving | Rejected; selected preparation input remains one second |
 
-The next resume checks are staged worker/model/first-inference timing, the apparent orphan count, and a performance-preserving candidate choice. The official CPU/Vulkan release may replace the custom native fork because the guarded upload optimization is disabled on this hybrid laptop and Qwen does not use the custom Parakeet hint adapter. That simplification still needs parity controls. Freeze the eventual complete candidate before using the untouched300-prompt TEST set. Do not call the current candidate ready or independently below5% yet.
+Current source passes the strict Release build with warnings as errors, **319 .NET tests**, and published CPU and GPU preview self-tests. The active-preparation changes are recorded in `fb0ae24`, `2e8d56d`, `62851a6`, and `b270da9`; `b270da9` fixes the evaluator's active-job scope so preparation stops between jobs. Native read2 is `ad64ea0`. Earlier **45 script tests** and **three isolated update checks** passed; their update code is unchanged. The 1.7B NOTICE and model/runtime/source/output hashes are preserved.
 
-## Resumed measurements
+The published GPU executable also passed five hide/reopen and tray Settings cycles followed by explicit Quit after the final accuracy tests.
 
-Qwen 0.6 Q6 scores 201/4,687 normalized words (4.2885%) across the 224 development and validation clips, versus Q8's 203 errors. Literal Q6 WER is 231/4,654 (4.9635%). These remain selection results. The 300-prompt test set is still untouched.
+The isolated preview launcher is `artifacts/accuracy-preview/Start Freehand Accuracy.cmd`. Its profile and data remain separate from the installed app. The normal installation has not been updated; nothing has been pushed, merged, or published. The public default remains the 110M CPU model. Sam still needs to test a real microphone, Right Ctrl, and foreground text fields under the [development workflow](DEVELOPMENT.md).
 
-The official transcribe.cpp 0.4.1 CPU/Vulkan bundle replaces the custom native build. Q6 transcripts match byte-for-byte on all 120 original clips; all 23 dictionary, silence, short-speech and quiet-speech controls match. Silero's 120 speech probability sequences and ten controls also match. The preparer verifies the pinned release archive, all 13 DLLs, and all four native license files. Fresh extraction, cache reuse, binary corruption and nested-license corruption checks pass. No native compiler or patch is needed.
-
-The complete Q6 desktop report, `work/desktop-qwen06-q6-stock-v1.json`, records 416,317,440 bytes conservative RAM. All 50 warm deliveries pass, with a 593.1 ms maximum. Cold 1/3/10-second deliveries are 1,132.3/457.7/758.9 ms, so the cold gate still fails. All 26 owned workers exited; recovery, deadline retention and 20 unload cycles pass. The orphan check now retains the benchmark's exact worker handles and identities rather than counting unrelated same-path processes. Its regression and all 68 App tests pass.
-
-An isolated noncomposite ReadyToRun publish passes self-test and preserves all measured transcripts. Three alternating worker pairs reduce median load from 1,916.9 to 1,810.4 ms. This is useful startup margin but does not establish a cold-delivery pass. The preview publisher now enables that option. Native versus managed load-phase timing remains under investigation; there is no evidence that the desktop telemetry sampler causes the gap.
-
-The normal installation and public release remain unchanged. The new candidate must pass the production-Core replay and complete desktop gates before its model, settings and metric are frozen for the independent test.
