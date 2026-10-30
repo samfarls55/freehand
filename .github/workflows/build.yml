@@ -71,7 +71,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube initialization failed.' }
           dotnet build Freehand.sln -c Release --no-incremental
           if ($LASTEXITCODE -ne 0) { throw 'Analysis build failed.' }
-          dotnet tool run dotnet-coverage collect 'dotnet test Freehand.sln -c Release --no-build' -f xml -o artifacts/coverage/dotnet.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml 'dotnet test Freehand.sln -c Release --no-build' -f xml -o artifacts/coverage/dotnet.xml
           if ($LASTEXITCODE -ne 0) { throw 'Coverage test run failed.' }
           # Exercise the real speech worker and replay assertions under coverage.
           # The profiler needs managed assemblies on disk rather than inside a bundle.
@@ -85,15 +85,15 @@ jobs:
           $identity = Get-Content -LiteralPath artifacts/publish/package-manifest.json -Raw | ConvertFrom-Json
           New-FreehandPackageManifest -Directory (Join-Path $PWD 'artifacts/coverage-app') -Version $identity.Version -Build $identity.Build
           $updateCommand = 'pwsh -NoProfile -File ./tests/Freehand.Scripts.Tests/Run.ps1 -PackageIntegration -PublishDirectory ./artifacts/coverage-app'
-          dotnet tool run dotnet-coverage collect $updateCommand -f xml -o artifacts/coverage/dotnet-updates.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $updateCommand -f xml -o artifacts/coverage/dotnet-updates.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered update verification failed.' }
           $performanceApp = (Resolve-Path artifacts/coverage-app/Freehand.App.exe).Path
           $performanceOutput = Join-Path $PWD 'artifacts/coverage/performance.json'
           $performanceCommand = '"{0}" --performance-check "{1}"' -f $performanceApp, $performanceOutput
-          dotnet tool run dotnet-coverage collect $performanceCommand -f xml -o artifacts/coverage/dotnet-performance.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $performanceCommand -f xml -o artifacts/coverage/dotnet-performance.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered performance replay failed.' }
           $lifecycleCommand = '"{0}" --lifecycle-selftest' -f $performanceApp
-          dotnet tool run dotnet-coverage collect $lifecycleCommand -f xml -o artifacts/coverage/dotnet-lifecycle.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $lifecycleCommand -f xml -o artifacts/coverage/dotnet-lifecycle.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered desktop lifecycle failed.' }
           & $scanner end "/d:sonar.token=$env:SONAR_TOKEN"
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube upload failed.' }

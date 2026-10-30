@@ -45,3 +45,9 @@ Missing cancellation arguments now explicitly opt out where draining or cleanup
 must complete. The preparation loop still observes its own cancellation source.
 The VAD constructor disposes its model on session-creation failure and transfers
 the completed session directly into its readonly owner.
+
+Generated regex state-machine functions are excluded from profiler instrumentation
+through `.config/coverage.xml`. Application formatting logic and its tests remain
+covered. Two hosted runs exhausted the production 100 ms regex budget under the
+profiler and correctly returned unformatted text. This exclusion avoids measuring
+generated framework implementation while retaining the production timeout.

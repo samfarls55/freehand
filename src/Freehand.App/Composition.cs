@@ -248,7 +248,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private async Task ApplyPreferencesAsync()
     {
         await _readinessTask.ConfigureAwait(false);
-        await _preferencesGate.WaitAsync().ConfigureAwait(false);
+        await _preferencesGate.WaitAsync(CancellationToken.None).ConfigureAwait(false);
         try
         {
             if (_disposed || !CanApplyPreferences) return;
