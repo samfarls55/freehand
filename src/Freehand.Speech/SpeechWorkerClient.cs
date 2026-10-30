@@ -62,13 +62,14 @@ public sealed class SpeechWorkerClient : ISpeechSession
     /// <inheritdoc />
     public void SetIdleTimeout(TimeSpan timeout)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero);
+        if (timeout != Timeout.InfiniteTimeSpan) ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero);
         lock (_idleSync) { _idleTimeout = timeout; if (!_disposed && _active == 0) ScheduleIdle(); }
     }
     private void CancelIdle() { _generation++; _idle?.Cancel(); }
     private void ScheduleIdle()
     {
         CancelIdle();
+        if (_idleTimeout == Timeout.InfiniteTimeSpan) return;
         var source = new CancellationTokenSource(); _idle = source;
         var generation = _generation;
         _idleTask = IdleAsync(source, generation);
