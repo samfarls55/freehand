@@ -90,6 +90,21 @@ public partial class App : Application
         {
             await _composition!.ReadinessTask.ConfigureAwait(true);
             await _composition.RefreshReadinessAsync().ConfigureAwait(true);
+            var preferences = _composition.Settings.Data;
+            try
+            {
+                _composition.Settings.Update(preferences with
+                {
+                    ModelDirectory = Path.Combine(AppDataPaths.DirectoryPath, "lifecycle-missing-model"),
+                    IdleModelMinutes = preferences.IdleModelMinutes == 1 ? 2 : 1,
+                });
+                await _composition.PreferencesTask.ConfigureAwait(true);
+            }
+            finally
+            {
+                _composition.Settings.Update(preferences);
+                await _composition.PreferencesTask.ConfigureAwait(true);
+            }
             for (var cycle = 0; cycle < 5; cycle++)
             {
                 OnTrayShow(null, EventArgs.Empty);

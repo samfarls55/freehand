@@ -16,7 +16,7 @@ Coverage exclusions in `.github/workflows/build.yml` are limited to:
   integration. Hosted Windows CI lacks the discrete Vulkan hardware used for the
   recorded model, speech-presence, accuracy, and memory verification.
 - `DesktopDeliveryBenchmark.cs`, `EngineeringChecks.cs`, and
-  `WindowsGpuMemoryReader.cs`: diagnostic measurement and self-test infrastructure.
+  `WindowsGpuMemoryReader.cs` and `WindowsDeliveryProbe.cs`: diagnostic measurement and self-test infrastructure.
   The checks still run; their instrumentation is not application coverage.
 
 Worker orchestration, readiness coordination, UI, shared dictation, keyboard hooks,
@@ -51,3 +51,9 @@ through `.config/coverage.xml`. Application formatting logic and its tests remai
 covered. Two hosted runs exhausted the production 100 ms regex budget under the
 profiler and correctly returned unformatted text. This exclusion avoids measuring
 generated framework implementation while retaining the production timeout.
+
+The desktop lifecycle replay also applies a missing model directory and a changed
+idle timeout, waits for the actual preferences queue, then restores the original
+settings in a finally block. Both public CPU and missing-asset GPU profiles run in
+CI. This covers preference application and unavailable-model UI without pretending
+to verify native GPU inference.

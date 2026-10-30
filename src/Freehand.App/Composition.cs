@@ -29,6 +29,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private IHotkeySource? _hotkey;
     internal ITextDeliveryHotkeySource? DeliveryHotkey => _hotkey as ITextDeliveryHotkeySource;
     internal Task ReadinessTask => _readinessTask;
+    internal Task PreferencesTask => _preferencesTask;
     internal TimeSpan ReadinessTime { get; private set; }
     internal BenchmarkWorkerLauncher? BenchmarkWorkers { get; }
     internal bool IsPreparingSpeech => _preparingSpeech;

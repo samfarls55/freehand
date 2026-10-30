@@ -58,7 +58,7 @@ jobs:
             '/d:sonar.cs.vscoveragexml.reportsPaths=artifacts/coverage/dotnet*.xml'
             '/d:sonar.coverageReportPaths=artifacts/coverage/scripts.xml'
             '/d:sonar.test.inclusions=tests/**'
-            '/d:sonar.coverage.exclusions=tools/**,scripts/dev-accuracy.ps1,scripts/evaluate-dictation.ps1,scripts/prepare-dictation-fixtures.py,src/Freehand.Speech/GgmlTranscriber.cs,src/Freehand.Speech/SpeechPresenceDetector.cs,src/Freehand.App/DesktopDeliveryBenchmark.cs,src/Freehand.App/EngineeringChecks.cs,src/Freehand.Platform.Windows/WindowsGpuMemoryReader.cs'
+            '/d:sonar.coverage.exclusions=tools/**,scripts/dev-accuracy.ps1,scripts/evaluate-dictation.ps1,scripts/prepare-dictation-fixtures.py,src/Freehand.Speech/GgmlTranscriber.cs,src/Freehand.Speech/SpeechPresenceDetector.cs,src/Freehand.App/DesktopDeliveryBenchmark.cs,src/Freehand.App/EngineeringChecks.cs,src/Freehand.Platform.Windows/WindowsGpuMemoryReader.cs,src/Freehand.Platform.Windows/WindowsDeliveryProbe.cs'
             '/d:sonar.issue.ignore.multicriteria=cliScore,cliFixtures,exactBoundary'
             '/d:sonar.issue.ignore.multicriteria.cliScore.ruleKey=pythonsecurity:S8707'
             '/d:sonar.issue.ignore.multicriteria.cliScore.resourceKey=tools/Freehand.Evaluation/score_reports.py'
