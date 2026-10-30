@@ -1,0 +1,707 @@
+{
+  "schema_version": 1,
+  "candidate": "qwen35-9b-q8_0-v3",
+  "probe_metadata": {
+    "started_at_utc": "2026-10-30T19:21:20.5100271+00:00",
+    "corpus_path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/fixtures.json",
+    "corpus_sha256": "223BBA70CF0531EA437E980C50E25B35905F33B19534A858A5211C689A560019",
+    "manifest_path": "/workspace/freehand/artifacts/cleanup-assets-linux/cleanup-manifest.json",
+    "manifest_sha256": "C6B1162724F9E3967DCDC0ABEE7E10E7CE07E238A45DBE784E5D0A50B592DE45",
+    "model_id": "qwen35-9b-q8_0",
+    "prompt_style": "Qwen35",
+    "runtime": {
+      "path": "/workspace/freehand/artifacts/cleanup-assets-linux/runtime/llama-server",
+      "expected_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "actual_sha256": "9E0F40401CE7079BC0DE040B6CF0FB456417BBF9FBC4C82A0B96F591917682F6"
+    },
+    "model": {
+      "path": "/workspace/freehand/artifacts/cleanup-assets-linux/model.gguf",
+      "expected_sha256": "809626574d0cb43d4becfa56169980da2bb448f2299270f7be443cb89d0a6ae4",
+      "actual_sha256": "809626574D0CB43D4BECFA56169980DA2BB448F2299270F7BE443CB89D0A6AE4"
+    },
+    "threads": 4,
+    "context_size": 8192,
+    "max_output_tokens": 2048,
+    "gpu_layers": 0,
+    "cleanup_timeout_seconds": 120,
+    "split": "heldout",
+    "operating_system": "Debian GNU/Linux 13 (trixie)",
+    "architecture": "X64",
+    "framework": ".NET 10.0.0",
+    "logical_processor_count": 4,
+    "gc_total_available_memory_bytes": 12884901888,
+    "probe_version": "1.0.0.0",
+    "managed_assembly_sha256": {
+      "Freehand.Cleanup.Probe.dll": "672B0662B51098A116F970C565513543CCB3018FC3C5331108BB305B793499BC",
+      "Freehand.Core.dll": "F700EC371618040367618E47514DD12241F6ECD78F936D8A215020A680B7E5C4",
+      "Freehand.Cleanup.dll": "174EBB22C7D2A43C15300925B73C606C6A747E4FFA0757D46652BFBCE9F6D877",
+      "Freehand.Dictionary.dll": "E63FDF55691ADE617552C6C4C672913DD9AF4F9D3CBB5DD4CF87492EC9A5EC67",
+      "Freehand.Testing.dll": "87D154E16FBD79B7C87AB164D7D6BDF872EC25A6DAA014D781D7732B2A237B08",
+      "Freehand.Abstractions.dll": "88876E5ED1437E3D67C08E29457A6728714E1DAF568ADB3471151BD7B3AFA56D"
+    },
+    "limitations": "Text-fixture probe through the real DictationEngine, dictionary, number normalizer, optional cleanup provider and delivery orchestration. A generated tone and canned transcriber feed the selected transcript; RecordingTextInjector counts calls without typing. This does not test recognition accuracy, a microphone, a physical hotkey, foreground application insertion, Windows worker ownership or whole-desktop performance. Candidate text precedes Core validation; output is the accepted result or original-text fallback. Automatic checks do not establish semantic fidelity."
+  },
+  "scope": "Core probe output grading; consult probe metadata for runtime and measurement scope.",
+  "candidates": [
+    {
+      "id": "Core-normalized-no-cleanup",
+      "summary": {
+        "row_count": 30,
+        "attempt_count": 30,
+        "not_attempted_count": 0,
+        "completed_count": 30,
+        "operational_failures": 0,
+        "known_quality_failures": 14,
+        "target_matches": 16,
+        "review_required_nonmatches": 0,
+        "complete_response_seconds": {
+          "median": 0.0,
+          "p95_nearest_rank": 0.0,
+          "maximum": 0.0,
+          "sample_count": 30
+        },
+        "by_category": {
+          "accidental_repetition": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_clause": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_date": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_name": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_negation": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_number": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "correction_words": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "dictated_question": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "fillers": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "grammar": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "hedge": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "intentional_repetition": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "list_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_marker": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "long_late_correction": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "long_preserve_details": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "negation": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "no_change": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "paragraph_format": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "quoted_instructions": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "semantic_fillers": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_code": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_email": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_path": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "technical_url": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "unfinished": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "qwen35-9b-q8_0-v3.model-return",
+      "summary": {
+        "row_count": 30,
+        "attempt_count": 30,
+        "not_attempted_count": 0,
+        "completed_count": 30,
+        "operational_failures": 0,
+        "known_quality_failures": 4,
+        "target_matches": 24,
+        "review_required_nonmatches": 2,
+        "complete_response_seconds": {
+          "median": 17.070083500000003,
+          "p95_nearest_rank": 32.4217692,
+          "maximum": 40.9401302,
+          "sample_count": 30
+        },
+        "by_category": {
+          "accidental_repetition": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_clause": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_date": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_name": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_negation": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_number": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "correction_words": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "dictated_question": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "fillers": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "grammar": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "hedge": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "intentional_repetition": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 1
+          },
+          "list_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_marker": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "long_late_correction": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "long_preserve_details": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "negation": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "no_change": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "paragraph_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "quoted_instructions": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "semantic_fillers": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_code": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "technical_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_email": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_path": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_url": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "unfinished": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "qwen35-9b-q8_0-v3.app-final",
+      "summary": {
+        "row_count": 30,
+        "attempt_count": 30,
+        "not_attempted_count": 0,
+        "completed_count": 30,
+        "operational_failures": 0,
+        "known_quality_failures": 4,
+        "target_matches": 24,
+        "review_required_nonmatches": 2,
+        "complete_response_seconds": {
+          "median": 17.078249149999998,
+          "p95_nearest_rank": 32.4304905,
+          "maximum": 40.9451409,
+          "sample_count": 30
+        },
+        "by_category": {
+          "accidental_repetition": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_clause": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_date": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_name": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_negation": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_number": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "correction_words": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "dictated_question": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "fillers": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "grammar": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "hedge": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "intentional_repetition": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 1
+          },
+          "list_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_marker": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "long_late_correction": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "long_preserve_details": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "negation": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "no_change": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "paragraph_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "quoted_instructions": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "semantic_fillers": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_code": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "technical_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_email": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_path": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_url": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "unfinished": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          }
+        }
+      }
+    }
+  ],
+  "cleanup_status_counts": {
+    "Disabled": 0,
+    "Applied": 16,
+    "Unchanged": 14,
+    "Rejected": 0,
+    "Failed": 0,
+    "TimedOut": 0
+  },
+  "accepted_coverage": 1.0,
+  "accepted_only_quality": {
+    "row_count": 30,
+    "attempt_count": 30,
+    "not_attempted_count": 0,
+    "completed_count": 30,
+    "operational_failures": 0,
+    "known_quality_failures": 4,
+    "target_matches": 24,
+    "review_required_nonmatches": 2,
+    "complete_response_seconds": {
+      "median": 17.078249149999998,
+      "p95_nearest_rank": 32.4304905,
+      "maximum": 40.9451409,
+      "sample_count": 30
+    },
+    "by_category": {
+      "accidental_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_clause": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "backtrack_date": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_name": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_number": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "correction_words": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "dictated_question": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "grammar": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "hedge": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "intentional_repetition": {
+        "completed": 2,
+        "known_quality_failures": 1,
+        "target_matches": 1
+      },
+      "list_format": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_marker": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "long_late_correction": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "long_preserve_details": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "no_change": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "paragraph_format": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "quoted_instructions": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "semantic_fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_code": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "technical_currency": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_email": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_url": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "unfinished": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      }
+    }
+  },
+  "fallback_only_quality": {
+    "row_count": 0,
+    "attempt_count": 0,
+    "not_attempted_count": 0,
+    "completed_count": 0,
+    "operational_failures": 0,
+    "known_quality_failures": 0,
+    "target_matches": 0,
+    "review_required_nonmatches": 0,
+    "complete_response_seconds": {
+      "median": null,
+      "p95_nearest_rank": null,
+      "maximum": null,
+      "sample_count": 0
+    },
+    "by_category": {}
+  },
+  "limits": [
+    "Candidate quality, accepted coverage, and final fallback quality are separate quantities.",
+    "A good final fallback output does not establish that the model edited it correctly.",
+    "Provider parsing failures may not expose candidate_text; native HTTP replay retains those raw responses separately.",
+    "Automatic assertions and target similarity cannot establish semantic fidelity; review all outputs.",
+    "Core probe elapsed time is not native HTTP completion time or physical Windows delivery latency."
+  ],
+  "probe_report_sha256": "d1c4b9e104fe6a283096e5ebf909858d3113ad8ca73aa1258c9f041fe7774ff6",
+  "fixture_sha256": "223bba70cf0531ea437e980c50e25b35905f33b19534a858a5211c689a560019",
+  "input_snapshots": {
+    "probe": "source-probe.json",
+    "corpus": "source-corpus.json"
+  }
+}

@@ -72,6 +72,14 @@ case includes:
   Literal checks remain unchanged. These diagnostic derivatives do not replace
   human-approved references. Their replays happen before the timed candidate case.
 
+Dictionary integration references may set `references_are_normalized: true` when
+targets and checks already contain the final literal replacements and number
+formatting. This preserves those references without running the corrector again;
+otherwise a rule whose output matches another trigger can corrupt the reference.
+The input still goes through the real dictionary exactly once. The separate
+`tools/Freehand.Cleanup.Evaluation/integration-fixtures.json` corpus exercises this
+case, literal whitespace, multiple replacements and conservative Backtrack fallback.
+
 Metadata records corpus/manifest and managed assembly hashes, expected and final
 independently measured runtime/model hashes, inference settings, runtime/OS/architecture and logical CPU
 count. `gc_total_available_memory_bytes` is the runtime's GC memory availability,

@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "started_at_utc": "2026-10-30T19:15:53.3872023+00:00",
+    "corpus_path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/integration-fixtures.json",
+    "corpus_sha256": "7EC1485FA16DF21215E32AC7D44070AF45A5A8EE63D76EB2E320D4BA8F8EDA9F",
+    "manifest_path": "/workspace/freehand/artifacts/cleanup-assets-linux/cleanup-manifest.json",
+    "manifest_sha256": "C6B1162724F9E3967DCDC0ABEE7E10E7CE07E238A45DBE784E5D0A50B592DE45",
+    "model_id": "qwen35-9b-q8_0",
+    "prompt_style": "Qwen35",
+    "runtime": {
+      "path": "/workspace/freehand/artifacts/cleanup-assets-linux/runtime/llama-server",
+      "expected_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "actual_sha256": "9E0F40401CE7079BC0DE040B6CF0FB456417BBF9FBC4C82A0B96F591917682F6"
+    },
+    "model": {
+      "path": "/workspace/freehand/artifacts/cleanup-assets-linux/model.gguf",
+      "expected_sha256": "809626574d0cb43d4becfa56169980da2bb448f2299270f7be443cb89d0a6ae4",
+      "actual_sha256": "809626574D0CB43D4BECFA56169980DA2BB448F2299270F7BE443CB89D0A6AE4"
+    },
+    "threads": 4,
+    "context_size": 8192,
+    "max_output_tokens": 2048,
+    "gpu_layers": 0,
+    "cleanup_timeout_seconds": 120,
+    "split": "all",
+    "operating_system": "Debian GNU/Linux 13 (trixie)",
+    "architecture": "X64",
+    "framework": ".NET 10.0.0",
+    "logical_processor_count": 4,
+    "gc_total_available_memory_bytes": 12884901888,
+    "probe_version": "1.0.0.0",
+    "managed_assembly_sha256": {
+      "Freehand.Cleanup.Probe.dll": "672B0662B51098A116F970C565513543CCB3018FC3C5331108BB305B793499BC",
+      "Freehand.Core.dll": "F700EC371618040367618E47514DD12241F6ECD78F936D8A215020A680B7E5C4",
+      "Freehand.Cleanup.dll": "174EBB22C7D2A43C15300925B73C606C6A747E4FFA0757D46652BFBCE9F6D877",
+      "Freehand.Dictionary.dll": "E63FDF55691ADE617552C6C4C672913DD9AF4F9D3CBB5DD4CF87492EC9A5EC67",
+      "Freehand.Testing.dll": "87D154E16FBD79B7C87AB164D7D6BDF872EC25A6DAA014D781D7732B2A237B08",
+      "Freehand.Abstractions.dll": "88876E5ED1437E3D67C08E29457A6728714E1DAF568ADB3471151BD7B3AFA56D"
+    },
+    "limitations": "Text-fixture probe through the real DictationEngine, dictionary, number normalizer, optional cleanup provider and delivery orchestration. A generated tone and canned transcriber feed the selected transcript; RecordingTextInjector counts calls without typing. This does not test recognition accuracy, a microphone, a physical hotkey, foreground application insertion, Windows worker ownership or whole-desktop performance. Candidate text precedes Core validation; output is the accepted result or original-text fallback. Automatic checks do not establish semantic fidelity."
+  },
+  "incomplete": false,
+  "cases": [
+    {
+      "id": "integration-01",
+      "split": "development",
+      "input": "Um send it to cloud code please.",
+      "normalized_input": "Um send it to   Claude\tCode   please.",
+      "output": "Send it to   Claude\tCode  , please.",
+      "candidate_text": "Send it to [[FREEHAND_LITERAL_5e39575a23244f7caf3e174a3875e2fe_0_START]]  Claude\tCode  [[FREEHAND_LITERAL_5e39575a23244f7caf3e174a3875e2fe_0_END]], please.",
+      "cleanup_input": "Um send it to [[FREEHAND_LITERAL_5e39575a23244f7caf3e174a3875e2fe_0_START]]  Claude\tCode  [[FREEHAND_LITERAL_5e39575a23244f7caf3e174a3875e2fe_0_END]] please.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 36260.8056,
+      "processing_time_ms": 36335.8984,
+      "elapsed_ms": 36372.3671,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Send it to   Claude\tCode   please."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "um"
+        ],
+        "literals": [
+          "  Claude\tCode  "
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-02",
+      "split": "development",
+      "input": "Uh open project file and check the logs.",
+      "normalized_input": "Uh open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "output": "Open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "candidate_text": "Open [[FREEHAND_LITERAL_4ed7d86914ed4057b8828351a38ca157_0_START]]C:\\Work\\Freehand\\src\\App.cs[[FREEHAND_LITERAL_4ed7d86914ed4057b8828351a38ca157_0_END]] and check the logs.",
+      "cleanup_input": "Uh open [[FREEHAND_LITERAL_4ed7d86914ed4057b8828351a38ca157_0_START]]C:\\Work\\Freehand\\src\\App.cs[[FREEHAND_LITERAL_4ed7d86914ed4057b8828351a38ca157_0_END]] and check the logs.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 24796.028,
+      "processing_time_ms": 24797.8857,
+      "elapsed_ms": 24813.1284,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Open C:\\Work\\Freehand\\src\\App.cs and check the logs."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "C:\\Work\\Freehand\\src\\App.cs"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-03",
+      "split": "development",
+      "input": "Um the quoted price is special price exactly.",
+      "normalized_input": "Um the quoted price is $  42.00 exactly.",
+      "output": "The quoted price is $  42.00 exactly.",
+      "candidate_text": "The quoted price is [[FREEHAND_LITERAL_cdc85cda54b348c0b1ce9a701c70a3bc_0_START]]$  42.00[[FREEHAND_LITERAL_cdc85cda54b348c0b1ce9a701c70a3bc_0_END]] exactly.",
+      "cleanup_input": "Um the quoted price is [[FREEHAND_LITERAL_cdc85cda54b348c0b1ce9a701c70a3bc_0_START]]$  42.00[[FREEHAND_LITERAL_cdc85cda54b348c0b1ce9a701c70a3bc_0_END]] exactly.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 24559.6802,
+      "processing_time_ms": 24564.4956,
+      "elapsed_ms": 24574.5627,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "The quoted price is $  42.00 exactly."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "um"
+        ],
+        "literals": [
+          "$  42.00"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-04",
+      "split": "development",
+      "input": "Uh send company alias the config path this afternoon.",
+      "normalized_input": "Uh send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "output": "Send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "candidate_text": "Send [[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_0_START]]ACME  Labs[[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_0_END]] the [[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_1_START]]/etc/freehand/settings.json[[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_1_END]] this afternoon.",
+      "cleanup_input": "Uh send [[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_0_START]]ACME  Labs[[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_0_END]] the [[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_1_START]]/etc/freehand/settings.json[[FREEHAND_LITERAL_fd66e99945b9443cb4a5394a577a3f68_1_END]] this afternoon.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 35723.1056,
+      "processing_time_ms": 35723.8062,
+      "elapsed_ms": 35730.8384,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 2,
+      "normalized_targets": [
+        "Send ACME  Labs the /etc/freehand/settings.json this afternoon."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "ACME  Labs",
+          "/etc/freehand/settings.json"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-05",
+      "split": "development",
+      "input": "Um replace the snippet with code snippet exactly.",
+      "normalized_input": "Um replace the snippet with v2::Thing\u003CT\u003E\n  value exactly.",
+      "output": "Replace the snippet with v2::Thing\u003CT\u003E\n  value exactly.",
+      "candidate_text": "Replace the snippet with [[FREEHAND_LITERAL_3bb0b6743feb4ae0a9a93f5517a9f6e0_0_START]]v2::Thing\u003CT\u003E\n  value[[FREEHAND_LITERAL_3bb0b6743feb4ae0a9a93f5517a9f6e0_0_END]] exactly.",
+      "cleanup_input": "Um replace the snippet with [[FREEHAND_LITERAL_3bb0b6743feb4ae0a9a93f5517a9f6e0_0_START]]v2::Thing\u003CT\u003E\n  value[[FREEHAND_LITERAL_3bb0b6743feb4ae0a9a93f5517a9f6e0_0_END]] exactly.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 24916.0595,
+      "processing_time_ms": 24916.7035,
+      "elapsed_ms": 24930.8086,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Replace the snippet with v2::Thing\u003CT\u003E\n  value exactly."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "um"
+        ],
+        "literals": [
+          "v2::Thing\u003CT\u003E\n  value"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-06",
+      "split": "development",
+      "input": "Uh send fifty dollars to company alias before lunch.",
+      "normalized_input": "Uh send $50 to ACME before lunch.",
+      "output": "Send $50 to ACME before lunch.",
+      "candidate_text": "Send $50 to [[FREEHAND_LITERAL_d57caf6702924cba8515ab26deb646d7_0_START]]ACME[[FREEHAND_LITERAL_d57caf6702924cba8515ab26deb646d7_0_END]] before lunch.",
+      "cleanup_input": "Uh send $50 to [[FREEHAND_LITERAL_d57caf6702924cba8515ab26deb646d7_0_START]]ACME[[FREEHAND_LITERAL_d57caf6702924cba8515ab26deb646d7_0_END]] before lunch.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 25823.0849,
+      "processing_time_ms": 25826.4641,
+      "elapsed_ms": 25838.8047,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Send $50 to ACME before lunch."
+      ],
+      "normalized_checks": {
+        "include": [
+          "$50",
+          "before lunch"
+        ],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "ACME"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-07",
+      "split": "development",
+      "input": "Um alpha is ready.",
+      "normalized_input": "Um BetaProject is ready.",
+      "output": "BetaProject is ready.",
+      "candidate_text": "[[FREEHAND_LITERAL_83a1d9d0a2824484a31a343c15fa3745_0_START]]BetaProject[[FREEHAND_LITERAL_83a1d9d0a2824484a31a343c15fa3745_0_END]] is ready.",
+      "cleanup_input": "Um [[FREEHAND_LITERAL_83a1d9d0a2824484a31a343c15fa3745_0_START]]BetaProject[[FREEHAND_LITERAL_83a1d9d0a2824484a31a343c15fa3745_0_END]] is ready.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 23874.337,
+      "processing_time_ms": 23875.0006,
+      "elapsed_ms": 23880.8632,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "BetaProject is ready."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "GammaProject",
+          "um"
+        ],
+        "literals": [
+          "BetaProject"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-08",
+      "split": "development",
+      "input": "Send it to company alias on Thursday, sorry, Friday.",
+      "normalized_input": "Send it to ACME on Thursday, sorry, Friday.",
+      "output": "Send it to ACME on Friday.",
+      "candidate_text": "Send it to [[FREEHAND_LITERAL_e87134c646af41af8305418a458f2271_0_START]]ACME[[FREEHAND_LITERAL_e87134c646af41af8305418a458f2271_0_END]] on Friday.",
+      "cleanup_input": "Send it to [[FREEHAND_LITERAL_e87134c646af41af8305418a458f2271_0_START]]ACME[[FREEHAND_LITERAL_e87134c646af41af8305418a458f2271_0_END]] on Thursday, sorry, Friday.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 25738.2085,
+      "processing_time_ms": 25738.697,
+      "elapsed_ms": 25751.172,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Send it to ACME on Friday."
+      ],
+      "normalized_checks": {
+        "include": [
+          "Friday"
+        ],
+        "exclude": [
+          "Thursday"
+        ],
+        "literals": [
+          "ACME"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-09",
+      "split": "development",
+      "input": "Send it to company alias, sorry, send it to Priya instead.",
+      "normalized_input": "Send it to ACME, sorry, send it to Priya instead.",
+      "output": "Send it to ACME; sorry, send it to Priya instead.",
+      "candidate_text": "Send it to [[FREEHAND_LITERAL_718befda746041129cda5bf7f0d7093a_0_START]]ACME[[FREEHAND_LITERAL_718befda746041129cda5bf7f0d7093a_0_END]]; sorry, send it to Priya instead.",
+      "cleanup_input": "Send it to [[FREEHAND_LITERAL_718befda746041129cda5bf7f0d7093a_0_START]]ACME[[FREEHAND_LITERAL_718befda746041129cda5bf7f0d7093a_0_END]], sorry, send it to Priya instead.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 26612.9156,
+      "processing_time_ms": 26613.3901,
+      "elapsed_ms": 26622.2269,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Send it to Priya instead."
+      ],
+      "normalized_checks": {
+        "include": [
+          "Priya"
+        ],
+        "exclude": [
+          "ACME"
+        ],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "integration-10",
+      "split": "development",
+      "input": "Uh ask person alias whether the test passed.",
+      "normalized_input": "Uh ask Zo\u00EB Nguy\u1EC5n whether the test passed.",
+      "output": "Ask Zo\u00EB Nguy\u1EC5n whether the test passed.",
+      "candidate_text": "Ask [[FREEHAND_LITERAL_cfcd1e20837c464f938c55883d9bdcca_0_START]]Zo\u00EB Nguy\u1EC5n[[FREEHAND_LITERAL_cfcd1e20837c464f938c55883d9bdcca_0_END]] whether the test passed.",
+      "cleanup_input": "Uh ask [[FREEHAND_LITERAL_cfcd1e20837c464f938c55883d9bdcca_0_START]]Zo\u00EB Nguy\u1EC5n[[FREEHAND_LITERAL_cfcd1e20837c464f938c55883d9bdcca_0_END]] whether the test passed.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 25273.7607,
+      "processing_time_ms": 25274.4353,
+      "elapsed_ms": 25279.3824,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 1,
+      "normalized_targets": [
+        "Ask Zo\u00EB Nguy\u1EC5n whether the test passed."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "Zo\u00EB Nguy\u1EC5n"
+        ],
+        "any_of": [],
+        "ordered": []
+      }
+    }
+  ]
+}

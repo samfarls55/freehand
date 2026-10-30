@@ -2,15 +2,27 @@
 param(
     [string]$Dotnet,
     [string]$ModelSource,
-    [string]$CleanupSource
+    [string]$CleanupSource,
+    [switch]$SkipCleanup
 )
 . (Join-Path $PSScriptRoot 'common.ps1')
 $Dotnet = Resolve-FreehandDotnet $Dotnet
 Set-Location -LiteralPath $projectRoot
+if ($SkipCleanup -and $CleanupSource) { throw 'Choose either CleanupSource or SkipCleanup.' }
 $cleanupBundle = $null
-$cleanupInput = if ($CleanupSource) { $CleanupSource } else { Join-Path $projectRoot 'artifacts/cleanup-assets' }
-if ($CleanupSource -or (Test-Path -LiteralPath (Join-Path $cleanupInput 'cleanup-manifest.json') -PathType Leaf)) {
-    $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupInput
+$cleanupProvisioning = $null
+$selectedCleanup = Join-Path $projectRoot 'packaging/cleanup-model-manifest.json'
+if (-not $SkipCleanup) {
+    if ($CleanupSource) {
+        $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $CleanupSource
+    } elseif (Test-Path -LiteralPath $selectedCleanup -PathType Leaf) {
+        # Ship verified acquisition metadata; users explicitly choose Settings setup.
+        # Weights are kept out of the release asset and the ordinary CI workspace.
+        $cleanupProvisioning = & (Join-Path $PSScriptRoot 'get-cleanup-assets.ps1') -ManifestPath $selectedCleanup -ValidateManifestOnly
+    }
+    if ($cleanupBundle -and (Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe') {
+        throw 'Windows packaging requires a Windows cleanup bundle.'
+    }
 }
 $build = (git rev-parse --short HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source commit.' }
@@ -68,6 +80,12 @@ $modelTarget = Join-Path $publish ('models/' + $manifest.DirectoryName)
 New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
 foreach ($asset in $manifest.Files) { Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $modelTarget }
 Copy-Item -LiteralPath packaging/model-manifest.json -Destination (Join-Path $modelTarget 'manifest.json') -Force
+if ($cleanupProvisioning) {
+    $cleanupMetadata = Join-Path $publish 'models/cleanup-provisioning'
+    New-Item -ItemType Directory -Path $cleanupMetadata -Force | Out-Null
+    Copy-Item -LiteralPath $cleanupProvisioning.ModelManifestPath -Destination (Join-Path $cleanupMetadata 'cleanup-model-manifest.json')
+    Copy-Item -LiteralPath $cleanupProvisioning.RuntimeManifestPath -Destination (Join-Path $cleanupMetadata 'cleanup-runtime-manifest.json')
+}
 if ($cleanupBundle) {
     $cleanupTarget = Join-Path $publish 'models/cleanup'
     foreach ($asset in $cleanupBundle.Files) {

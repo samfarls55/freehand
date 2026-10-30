@@ -14,6 +14,11 @@ namespace Freehand.Cleanup;
 public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
 {
     private const int MaximumResponseBytes = 2 * 1024 * 1024;
+    private static readonly string[] InputControlTokens =
+    [
+        "<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>", "<end_of_turn>",
+        "[INST]", "[/INST]", "[SYSTEM_PROMPT]", "[/SYSTEM_PROMPT]", "<|endoftext|>",
+    ];
     private readonly LlamaCleanupOptions _options;
     private readonly ICleanupWorkerLauncher _launcher;
     private readonly HttpClient _http;
@@ -49,6 +54,9 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(text);
         ObjectDisposedException.ThrowIf(Volatile.Read(ref _disposed) != 0, this);
+        if (InputControlTokens.Any(control => text.Contains(control, StringComparison.Ordinal)))
+            throw new InvalidDataException("The transcript contains unsupported model control tokens.");
+        var literals = _options.PromptStyle == CleanupPromptStyle.QuillChatMl ? null : LiteralProtectionMask.Create(text);
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
         await _gate.WaitAsync(linked.Token).ConfigureAwait(false);
         try
@@ -59,8 +67,6 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             string output;
             if (_options.PromptStyle == CleanupPromptStyle.QuillChatMl)
             {
-                if (text.Contains("<|im_start|>", StringComparison.Ordinal) || text.Contains("<|im_end|>", StringComparison.Ordinal))
-                    throw new InvalidDataException("The transcript contains unsupported model control tokens.");
                 var prompt = "<|im_start|>system\nYou clean up dictated text.<|im_end|>\n"
                     + "<|im_start|>user\n" + text + "<|im_end|>\n"
                     + "<|im_start|>assistant\n<think>\n\n</think>\n\n";
@@ -72,7 +78,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             else
             {
                 var request = new ChatRequest(_options.ModelId,
-                    [new ChatMessage("system", CleanupPrompt.Text), new ChatMessage("user", text)],
+                    [new ChatMessage("system", CleanupPrompt.Text), new ChatMessage("user", CleanupPrompt.WrapTranscript(literals!.MaskedText))],
                     _options.MaxOutputTokens, new ChatTemplateOptions());
                 using var template = await PostAsync("apply-template", request, CleanupJsonContext.Default.ChatRequest, linked.Token).ConfigureAwait(false);
                 if (!template.RootElement.TryGetProperty("prompt", out var formatted) || formatted.ValueKind != JsonValueKind.String)
@@ -83,7 +89,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             }
             if (string.IsNullOrWhiteSpace(output) || ContainsControlOutput(output))
                 throw new InvalidDataException("Cleanup returned empty text or model control output.");
-            return output;
+            return literals is null ? output : literals.Restore(output);
         }
         catch
         {

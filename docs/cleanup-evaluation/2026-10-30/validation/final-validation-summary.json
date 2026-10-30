@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "completed_utc": "2026-10-30T19:34:05.276798+00:00",
+  "source": {
+    "commit": "6266be59ee2e18c8f04cf61050901aa9543a1480",
+    "branch": "codex/transcript-cleanup",
+    "working_tree_dirty": true
+  },
+  "environment": {
+    "os": "Linux",
+    "architecture": "x86_64",
+    "sdk": "10.0.100",
+    "runtime": "10.0.0"
+  },
+  "checks": {
+    "strict_solution_build": {
+      "status": "passed",
+      "exit_code": 0,
+      "warnings": 0,
+      "errors": 0,
+      "log": "/workspace/freehand/work/cleanup-poc/strict-final-build.log"
+    },
+    "app_tests": {
+      "status": "passed",
+      "exit_code": 0,
+      "passed": 134,
+      "failed": 0,
+      "skipped": 0,
+      "total": 134,
+      "log": "/workspace/freehand/work/cleanup-poc/app-final-tests.log",
+      "screenshots": "/workspace/freehand/artifacts/cleanup-ui-review"
+    },
+    "linux_publish": {
+      "status": "passed",
+      "exit_code": 0,
+      "runtime_identifier": "linux-x64",
+      "single_file": true,
+      "self_contained": false,
+      "directory": "/workspace/freehand/artifacts/cleanup-linux-metadata-publish",
+      "log": "/workspace/freehand/work/cleanup-poc/linux-publish.log"
+    },
+    "linux_published_selftest": {
+      "status": "passed",
+      "exit_code": 0,
+      "working_directory": "/tmp",
+      "isolated_profile": "/workspace/freehand/artifacts/cleanup-linux-selftest-profile",
+      "log": "/workspace/freehand/work/cleanup-poc/linux-published-selftest.log",
+      "metadata_sha256": {
+        "cleanup-model-manifest.json": "8a09c66d2ee10783afe63aa62ea63bdb1b8d95cd81968f75c62f96d106ea635b",
+        "cleanup-runtime-manifest.json": "f9d564467ef5dfa49c6a3cea279ca6d71983ec986a76891da1703c4b764875bf"
+      }
+    }
+  },
+  "skipped_or_not_established": [
+    "Windows platform assembly loading and native launchers (Linux host)",
+    "Bundled cleanup worker startup (metadata-only package, no bundled cleanup weights)",
+    "Real ASR inference (no genuine speech assets or JFK fixture; no fake fixture assets used)",
+    "Physical microphone, hotkey and foreground text delivery",
+    "Windows installer, installed upgrade and rollback verification"
+  ],
+  "normal_installation_updated": false,
+  "github_release_published": false
+}

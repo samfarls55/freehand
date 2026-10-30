@@ -32,9 +32,11 @@ public sealed class MainWindow : Window
     private readonly Button _retry = Panels.Button("Retry", primary: true);
     private readonly Button _discard = Panels.Button("Discard", quiet: true);
     private readonly Button _copy = Panels.Button("Copy", quiet: true);
+    private readonly Button _copyOriginal = Panels.Button("Copy original", quiet: true);
     private readonly Border _feedback;
     private readonly DispatcherTimer _timer;
     private DateTimeOffset? _startedAt;
+    private DictationResult? _lastResult;
 
     /// <summary>Only explicit application shutdown destroys this window.</summary>
     public bool AllowClose { get; set; }
@@ -67,8 +69,13 @@ public sealed class MainWindow : Window
         _discard.Click += (_, _) => _composition?.Engine?.Discard();
         _copy.Click += async (_, _) =>
         {
-            if (Clipboard is not null && _composition?.Engine?.LastResult is { } result)
+            if (Clipboard is not null && _lastResult is { } result)
                 await Clipboard.SetTextAsync(result.Text).ConfigureAwait(true);
+        };
+        _copyOriginal.Click += async (_, _) =>
+        {
+            if (Clipboard is not null && _lastResult?.OriginalText is { } original)
+                await Clipboard.SetTextAsync(original).ConfigureAwait(true);
         };
         _feedback = new Border
         {
@@ -77,7 +84,7 @@ public sealed class MainWindow : Window
             Margin = new Thickness(Tokens.Space.Gutter, 0, Tokens.Space.Gutter, 0),
             Child = new StackPanel { Spacing = Tokens.Space.Snug, Children =
             {
-                _status, _latest, new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, Children = { _retry, _discard, _copy } },
+                _status, _latest, new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, Children = { _retry, _discard, _copy, _copyOriginal } },
             } },
         };
         Content = BuildLayout();
@@ -191,6 +198,7 @@ public sealed class MainWindow : Window
 
     internal void ApplyFeedback(DictationState state, float level, DictationResult? lastResult, DictationFeedback? feedback)
     {
+        _lastResult = lastResult;
         var attention = state == DictationState.AwaitingRetry || feedback?.Outcome is
             DictationOutcome.CaptureFailure or DictationOutcome.DeliveryFailure or DictationOutcome.EmptySpeech;
         var showTranscript = lastResult is not null && (feedback?.Outcome == DictationOutcome.DeliveryFailure
@@ -202,6 +210,8 @@ public sealed class MainWindow : Window
         _status.Text = feedback?.Message ?? state.ToString();
         _latest.Text = lastResult?.Text ?? "";
         _latest.IsVisible = showTranscript; _copy.IsVisible = showTranscript;
+        _copyOriginal.IsVisible = showTranscript && lastResult is { OriginalText: { } original }
+            && !string.IsNullOrWhiteSpace(original) && !string.Equals(original, lastResult.Text, StringComparison.Ordinal);
         _retry.IsVisible = state == DictationState.AwaitingRetry || feedback?.Outcome == DictationOutcome.CaptureFailure;
         _discard.IsVisible = state == DictationState.AwaitingRetry;
         SyncRecording(state, level);

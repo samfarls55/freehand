@@ -44,6 +44,15 @@ candidate. CPU-only arguments are the default. Use a pinned runtime supporting
 the configured options. Quill uses its published minimal system prompt and raw
 ChatML with an empty think block; other candidates use the exact policy in
 `shared/transcript-cleanup-prompt.txt` with the model's Jinja template and thinking disabled.
+Their user message contains one compact JSON `transcript` field so questions and
+commands are presented as dictation data. This is an empirical editing cue, not
+a guarantee of fidelity. Known raw model control tokens are rejected; ordinary
+angle-bracket text remains supported. Quill retains its trained raw input contract.
+For general models, complete protected literal blocks are replaced by deterministic
+opaque identifiers. The adapter restores their original bytes only if every
+identifier survives exactly once and in order. Reports retain raw model output
+separately from restored provider output; restored literal bytes are not model
+copying successes. The Python adapter mirrors the managed provider.
 That policy matches Freehand's local cleanup provider. The prompt difference is
 recorded and is an intentional model-specific condition of the experiment.
 
@@ -55,7 +64,7 @@ recorded and is an intentional model-specific condition of the experiment.
 - `review.md` presents candidate labels for human comparison; `review-key.json`
   maps labels back to identities. Keep the key closed during initial review.
 - Each candidate's server log is retained separately.
-- Input corpus, prompt, configuration and normalization/probe report snapshots
+- Input corpus, evaluator source, prompt, configuration and normalization/probe report snapshots
   preserve the exact source evidence when later runs replace external files.
 
 The grader tests explicit expected facts, final corrected alternatives, exact

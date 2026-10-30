@@ -1,5 +1,49 @@
 # Freehand transcript cleanup handoff
 
+## Continuation on October 30, 2026
+
+Recovered branch `codex/transcript-cleanup` at `6266be5`, preserving the existing
+`work` branch. The active environment supports the publisher downloads: all four
+candidate GGUFs were downloaded, independently hashed and actually run with the
+pinned native CPU runtime. Qwen3.5 9B Q8 is now the selected default; its exact
+model, license, notices and inference settings are pinned in
+`packaging/cleanup-model-manifest.json`.
+
+The continuation adds an explicit, verified Settings setup flow, selected-model
+acquisition tooling and metadata-only default packaging within the existing
+2 GiB installer limit. General-model requests use a JSON transcript envelope and
+verified opaque literal identifiers; code restores dictionary replacement bytes
+before Core validates them. Original text remains copyable with history off.
+The pre-existing Linux UI test failure was fixed in the test font setup.
+
+See [the actual evaluation](TRANSCRIPT-CLEANUP-EVALUATION.md) for native candidate
+comparisons, the frozen integrated development/dictionary/held-out trials,
+latency and memory, actual failures and verification scope. Public synthetic
+reports, per-case review judgments and source/hash snapshots are retained under
+[cleanup-evaluation/2026-10-30](cleanup-evaluation/2026-10-30/). Structural checks
+cannot prove semantic fidelity; the held-out run exposes an accepted loss of
+intentional emphasis. Spoken-correction coverage also remains incomplete.
+
+Windows native startup, physical microphone/hotkey/foreground delivery and
+Windows laptop performance still require Windows validation. Source completion
+and cloud checks do not establish those claims. No normal installation update,
+push, PR, merge or public release was performed in this continuation.
+
+A fresh portable continuation bundle is at
+`work/cleanup-handoff/cleanup-handoff.tar.gz` in this workspace. Its transfer
+manifest records the final source commit and a complete patch against base
+`93e555ca57b502dd3b53a44dc6d44ddaaf50a16d`. It includes public synthetic evidence
+and excludes weights, native binaries, SDKs, credentials and private recordings.
+
+## Archived checkpoint below
+
+All remaining status statements describe the original `6266be5` checkpoint,
+including its former network blocker and absence of model inference/selection.
+They are retained as historical transfer context and are superseded by the
+continuation and evaluation linked above.
+
+---
+
 Prepared October 30, 2026. The user asked to stop and transfer this work to a new
 agent in an environment with model-download access.
 

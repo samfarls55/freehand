@@ -20,6 +20,9 @@ $settings.ModelDirectory = $model
 $cleanupInput = if ($CleanupSource) { $CleanupSource } else { Join-Path $projectRoot 'artifacts/cleanup-assets' }
 if ($CleanupSource -or (-not $settings.CleanupDirectory -and (Test-Path -LiteralPath (Join-Path $cleanupInput 'cleanup-manifest.json') -PathType Leaf))) {
     $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupInput
+    if ((Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe') {
+        throw 'Windows development requires a Windows cleanup bundle.'
+    }
     $settings.CleanupDirectory = $cleanupBundle.Directory
 }
 $settings.StartAtLogin = $false
@@ -29,6 +32,16 @@ try {
     & $dotnetPath build src/Freehand.App/Freehand.App.csproj -c Debug -warnaserror
     if ($LASTEXITCODE -ne 0) { throw 'Development build failed.' }
 } finally { Pop-Location }
+# Make explicit Settings setup available in the isolated preview, without fetching
+# model weights or changing an existing custom/prepared cleanup selection.
+$selectedCleanup = Join-Path $projectRoot 'packaging/cleanup-model-manifest.json'
+if (Test-Path -LiteralPath $selectedCleanup -PathType Leaf) {
+    $setup = & (Join-Path $PSScriptRoot 'get-cleanup-assets.ps1') -ManifestPath $selectedCleanup -ValidateManifestOnly
+    $metadata = Join-Path $projectRoot 'src/Freehand.App/bin/Debug/net10.0/models/cleanup-provisioning'
+    New-Item -ItemType Directory -Path $metadata -Force | Out-Null
+    Copy-Item -LiteralPath $setup.ModelManifestPath -Destination (Join-Path $metadata 'cleanup-model-manifest.json') -Force
+    Copy-Item -LiteralPath $setup.RuntimeManifestPath -Destination (Join-Path $metadata 'cleanup-runtime-manifest.json') -Force
+}
 $exe = Join-Path $projectRoot 'src/Freehand.App/bin/Debug/net10.0/Freehand.App.exe'
 Write-Output "Development profile: $dataDirectory"
 Write-Output "Model: $model"

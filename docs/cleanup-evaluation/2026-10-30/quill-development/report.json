@@ -1,0 +1,519 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-30T17:56:36Z",
+  "priority": "Meaning preservation and useful cleanup first; performance is descriptive.",
+  "platform": {
+    "system": "Linux-6.18.57-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "logical_cpus": 5
+  },
+  "fixture_sha256": "223bba70cf0531ea437e980c50e25b35905f33b19534a858a5211c689a560019",
+  "prompt_sha256": "e660b771eb6abc5d71c587cabb28a9d473ca5784d9954970537a21de0316d9f2",
+  "configuration_sha256": "5b8dd83163356c96827579e61e8650860cfa42e7306449f3c038927c5533c063",
+  "normalization_report_sha256": "9c459e8ec1e2400e63307fc0260a92e67e9cee8c16a9e9c485b3bb9a469bd496",
+  "baseline_input_stage": "Core dictionary/number-normalized",
+  "harness_sha256": "bbab78015599a350d7cc9878cdb8451202f79128ad9e7a75b8612cc3c9560949",
+  "selected_case_ids": [
+    "dev-001",
+    "dev-002",
+    "dev-003",
+    "dev-004",
+    "dev-005",
+    "dev-006",
+    "dev-007",
+    "dev-008",
+    "dev-009",
+    "dev-010",
+    "dev-011",
+    "dev-012",
+    "dev-013",
+    "dev-014",
+    "dev-015",
+    "dev-016",
+    "dev-017",
+    "dev-018",
+    "dev-019",
+    "dev-020",
+    "dev-021",
+    "dev-022",
+    "dev-023",
+    "dev-024",
+    "dev-025",
+    "dev-026",
+    "dev-027",
+    "dev-028",
+    "dev-029",
+    "dev-030",
+    "dev-031",
+    "dev-032",
+    "dev-033",
+    "dev-034",
+    "dev-035",
+    "dev-036",
+    "dev-037",
+    "dev-038",
+    "dev-039",
+    "dev-040",
+    "dev-041",
+    "dev-042",
+    "dev-043",
+    "dev-044",
+    "dev-045",
+    "dev-046",
+    "dev-047",
+    "dev-048",
+    "dev-049",
+    "dev-050",
+    "dev-051",
+    "dev-052",
+    "dev-053",
+    "dev-054",
+    "dev-055",
+    "dev-056",
+    "dev-057",
+    "dev-058",
+    "dev-059",
+    "dev-060"
+  ],
+  "split": "development",
+  "repetitions": 1,
+  "request_deadline_seconds": 120,
+  "max_output_tokens": 2048,
+  "candidates": [
+    {
+      "id": "no-cleanup",
+      "summary": {
+        "row_count": 60,
+        "attempt_count": 60,
+        "not_attempted_count": 0,
+        "completed_count": 60,
+        "operational_failures": 0,
+        "known_quality_failures": 27,
+        "target_matches": 31,
+        "review_required_nonmatches": 2,
+        "complete_response_seconds": {
+          "median": 0.0,
+          "p95_nearest_rank": 0.0,
+          "maximum": 0.0,
+          "sample_count": 60
+        },
+        "by_category": {
+          "accidental_repetition": {
+            "completed": 3,
+            "known_quality_failures": 3,
+            "target_matches": 0
+          },
+          "backtrack_date": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "backtrack_name": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_negation": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "backtrack_number": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "backtrack_scope": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "correction_words": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "dictated_question": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "fillers": {
+            "completed": 4,
+            "known_quality_failures": 4,
+            "target_matches": 0
+          },
+          "grammar": {
+            "completed": 4,
+            "known_quality_failures": 4,
+            "target_matches": 0
+          },
+          "hedge": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "intentional_repetition": {
+            "completed": 3,
+            "known_quality_failures": 0,
+            "target_matches": 3
+          },
+          "list_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_marker": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 1
+          },
+          "long_hedges": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "long_late_correction": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "long_preserve_details": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "negation": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "no_change": {
+            "completed": 6,
+            "known_quality_failures": 0,
+            "target_matches": 6
+          },
+          "paragraph_format": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "punctuation": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "quoted_instructions": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 1
+          },
+          "quoted_text": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "semantic_fillers": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "technical_code": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_email": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "technical_identifier": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "technical_path": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "technical_url": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_version": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "unfinished": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          }
+        }
+      },
+      "memory": {
+        "scope": "no cleanup subprocess; not complete Freehand memory"
+      },
+      "timing_note": "Zero cleanup-model cost by definition, not a measured application delivery time."
+    },
+    {
+      "id": "quill-4b",
+      "style": "quill_chatml",
+      "status": "completed",
+      "runtime_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+      "runtime_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "model_path": "/workspace/freehand/work/cleanup-poc/models/quill-4b-Q4_K_M.gguf",
+      "model_sha256": "e5e6bd7e92690c6f954399c473e740561d9deff0862e1bfe42c1f6055535b987",
+      "source": "https://huggingface.co/Quobi/Quill/resolve/4cc2cc3c8e7ea9ee69126becd55be23a3a949899/quill-4b-Q4_K_M.gguf",
+      "revision": "4cc2cc3c8e7ea9ee69126becd55be23a3a949899",
+      "candidate_config_sha256": "3b4240168b7ed1ac24f715c360050d9cac604fdcc74fa6ed82e6ad6b5d44b510",
+      "system_prompt": "You clean up dictated text.",
+      "request_example_sha256": "e9e0ee2702c1b6b1a080999a13cc6515421a887477f5f2bc6c64e6e4c28c55b6",
+      "startup_to_health_seconds": 4.48994156599997,
+      "server_command": [
+        "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+        "--model",
+        "/workspace/freehand/work/cleanup-poc/models/quill-4b-Q4_K_M.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "45577",
+        "--ctx-size",
+        "8192",
+        "--parallel",
+        "1",
+        "--threads",
+        "4",
+        "--threads-batch",
+        "4",
+        "--n-gpu-layers",
+        "0",
+        "--fit",
+        "off",
+        "--no-context-shift",
+        "--no-webui",
+        "--no-slots",
+        "--no-mmproj",
+        "--offline",
+        "--log-disable",
+        "--no-jinja"
+      ],
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      },
+      "summary": {
+        "row_count": 60,
+        "attempt_count": 60,
+        "not_attempted_count": 0,
+        "completed_count": 60,
+        "operational_failures": 0,
+        "known_quality_failures": 15,
+        "target_matches": 40,
+        "review_required_nonmatches": 5,
+        "complete_response_seconds": {
+          "median": 3.7891085039999552,
+          "p95_nearest_rank": 13.310343113000044,
+          "maximum": 16.19871048599998,
+          "sample_count": 60
+        },
+        "by_category": {
+          "accidental_repetition": {
+            "completed": 3,
+            "known_quality_failures": 0,
+            "target_matches": 3
+          },
+          "backtrack_date": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "backtrack_name": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_negation": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "backtrack_number": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 1
+          },
+          "backtrack_scope": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "correction_words": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "dictated_question": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "fillers": {
+            "completed": 4,
+            "known_quality_failures": 1,
+            "target_matches": 3
+          },
+          "grammar": {
+            "completed": 4,
+            "known_quality_failures": 0,
+            "target_matches": 4
+          },
+          "hedge": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "intentional_repetition": {
+            "completed": 3,
+            "known_quality_failures": 0,
+            "target_matches": 3
+          },
+          "list_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_marker": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "long_hedges": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "long_late_correction": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "long_preserve_details": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "negation": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "no_change": {
+            "completed": 6,
+            "known_quality_failures": 1,
+            "target_matches": 5
+          },
+          "paragraph_format": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "punctuation": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "quoted_instructions": {
+            "completed": 2,
+            "known_quality_failures": 2,
+            "target_matches": 0
+          },
+          "quoted_text": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "semantic_fillers": {
+            "completed": 2,
+            "known_quality_failures": 1,
+            "target_matches": 1
+          },
+          "technical_code": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_email": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_identifier": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 2
+          },
+          "technical_path": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_url": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "technical_version": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "unfinished": {
+            "completed": 2,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          }
+        }
+      },
+      "memory": {
+        "scope": "owned_cleanup_server_process_tree_only",
+        "sample_interval_seconds": 0.1,
+        "sample_count": 1797,
+        "unavailable_samples": 0,
+        "peak_working_set_bytes": 8894357504,
+        "peak_private_resident_bytes": 8895086592,
+        "peak_private_commit_bytes": null,
+        "peak_process_count": 1,
+        "notes": "Sampled simultaneous process-tree sums; shared pages may be counted twice. Linux private resident memory differs from Windows private commit. GPU memory and the Freehand desktop/ASR worker are excluded. Sampling can affect timing."
+      },
+      "not_run_count": 0
+    }
+  ],
+  "input_snapshots": {
+    "corpus": "source-corpus.json",
+    "prompt": "source-prompt.txt",
+    "normalization_report": "source-normalization-report.json",
+    "configuration": "source-configuration.json"
+  },
+  "limits": [
+    "Public synthetic fixtures have not established real dictation performance.",
+    "Automatic content checks and target similarity do not prove semantic equivalence.",
+    "Latency is isolated server complete-response time, excluding audio, recognition, and text delivery.",
+    "Memory excludes Freehand and GPU allocations. Low trial counts do not establish reliable tail percentiles.",
+    "Quill uses its published minimal system prompt/raw ChatML; other models use the shared cleanup policy."
+  ],
+  "finished_utc": "2026-10-30T18:01:31Z"
+}

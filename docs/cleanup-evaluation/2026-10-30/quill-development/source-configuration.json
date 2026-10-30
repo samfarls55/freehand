@@ -1,0 +1,37 @@
+{
+  "runtime_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+  "runtime_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+  "server_args": [
+    "--ctx-size",
+    "8192",
+    "--parallel",
+    "1",
+    "--threads",
+    "4",
+    "--threads-batch",
+    "4",
+    "--n-gpu-layers",
+    "0",
+    "--fit",
+    "off",
+    "--no-context-shift",
+    "--no-webui",
+    "--no-slots",
+    "--no-mmproj",
+    "--offline",
+    "--log-disable"
+  ],
+  "candidates": [
+    {
+      "id": "quill-4b",
+      "model_path": "/workspace/freehand/work/cleanup-poc/models/quill-4b-Q4_K_M.gguf",
+      "model_sha256": "e5e6bd7e92690c6f954399c473e740561d9deff0862e1bfe42c1f6055535b987",
+      "style": "quill_chatml",
+      "source": "https://huggingface.co/Quobi/Quill/resolve/4cc2cc3c8e7ea9ee69126becd55be23a3a949899/quill-4b-Q4_K_M.gguf",
+      "revision": "4cc2cc3c8e7ea9ee69126becd55be23a3a949899",
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  ]
+}

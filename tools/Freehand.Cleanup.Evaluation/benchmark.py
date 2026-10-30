@@ -26,6 +26,7 @@ import time
 import unicodedata
 import urllib.error
 import urllib.request
+from literal_protection import LiteralProtectionMask
 
 HERE = Path(__file__).resolve().parent
 QUILL_SYSTEM_PROMPT = "You clean up dictated text."
@@ -409,7 +410,11 @@ class OwnedServer:
 
 
 def make_request(candidate: dict, text: str, system_prompt: str, max_tokens: int) -> tuple[str, dict]:
-    common = {"temperature": 0, "seed": 0, "stream": False}
+    controls = ("<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>", "<end_of_turn>",
+                "[INST]", "[/INST]", "[SYSTEM_PROMPT]", "[/SYSTEM_PROMPT]", "<|endoftext|>")
+    if any(control in text for control in controls):
+        raise ValueError("Transcript contains unsupported model control tokens")
+    common = {"temperature": 0, "seed": 0, "stream": False, "cache_prompt": False}
     if candidate.get("style", "chat") == "quill_chatml":
         if "<|im_start|>" in text or "<|im_end|>" in text:
             raise ValueError("Transcript contains unsupported model control tokens")
@@ -418,7 +423,9 @@ def make_request(candidate: dict, text: str, system_prompt: str, max_tokens: int
                                "stop": ["<|im_end|>", "<|im_start|>"]}
     if candidate.get("style", "chat") != "chat":
         raise ValueError(f"Unknown candidate style: {candidate['style']}")
-    return "/v1/chat/completions", {**common, "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": text}],
+    protection = LiteralProtectionMask.create(text)
+    transcript = json.dumps({"transcript": protection.masked_text}, ensure_ascii=False, separators=(",", ":"))
+    return "/v1/chat/completions", {**common, "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": transcript}],
                                      "max_tokens": max_tokens,
                                      "chat_template_kwargs": candidate.get("chat_template_kwargs", {"enable_thinking": False})}
 
@@ -511,9 +518,12 @@ def run(arguments: argparse.Namespace) -> int:
     if arguments.normalization_report:
         cases = apply_normalization(cases, json.loads(arguments.normalization_report.read_text(encoding="utf-8")))
     arguments.output.mkdir(parents=True, exist_ok=False)
-    snapshots = {"corpus": "source-corpus.json", "prompt": "source-prompt.txt"}
+    snapshots = {"corpus": "source-corpus.json", "prompt": "source-prompt.txt", "harness": "source-harness.py",
+                 "literal_protection": "literal_protection.py"}
     (arguments.output / snapshots["corpus"]).write_bytes(arguments.corpus.read_bytes())
     (arguments.output / snapshots["prompt"]).write_bytes(arguments.prompt.read_bytes())
+    (arguments.output / snapshots["harness"]).write_bytes(Path(__file__).read_bytes())
+    (arguments.output / snapshots["literal_protection"]).write_bytes((HERE / "literal_protection.py").read_bytes())
     if arguments.normalization_report:
         snapshots["normalization_report"] = "source-normalization-report.json"
         (arguments.output / snapshots["normalization_report"]).write_bytes(arguments.normalization_report.read_bytes())
@@ -530,6 +540,7 @@ def run(arguments: argparse.Namespace) -> int:
               "normalization_report_sha256": sha256_file(arguments.normalization_report) if arguments.normalization_report else None,
               "baseline_input_stage": "Core dictionary/number-normalized" if arguments.normalization_report else "Provided synthetic transcript; production normalization not verified",
               "harness_sha256": sha256_file(Path(__file__)),
+              "literal_protection_sha256": sha256_file(HERE / "literal_protection.py"),
               "selected_case_ids": [case["id"] for case in cases], "split": arguments.split,
               "repetitions": arguments.repetitions, "request_deadline_seconds": arguments.request_timeout,
               "max_output_tokens": arguments.max_tokens, "candidates": [],
@@ -586,12 +597,20 @@ def run(arguments: argparse.Namespace) -> int:
                     row = {"candidate": name, "case_id": case["id"], "category": case["category"],
                            "split": case["split"], "repetition": repetition}
                     endpoint, payload = make_request(candidate, case["input"], prompt, arguments.max_tokens)
+                    protection = None if candidate.get("style") == "quill_chatml" else LiteralProtectionMask.create(case["input"])
+                    row["protected_literal_count"] = len(protection.blocks) if protection else 0
+                    row["literal_restoration_status"] = "not_applicable" if protection is None else "pending"
                     row["request_sha256"] = fingerprint({"endpoint": endpoint, "payload": payload})
                     started = time.perf_counter()
                     try:
                         response, elapsed = server.request(endpoint, payload, arguments.request_timeout)
                         row["raw_response"] = response
                         output, metadata = read_completion(candidate, response)
+                        row["raw_model_output"] = output
+                        if protection is not None:
+                            row["literal_restoration_status"] = "failed"
+                            output = protection.restore(output)
+                            row["literal_restoration_status"] = "verified"
                         row.update({"status": "completed", "output": output, "complete_response_seconds": elapsed,
                                     "provider_metadata": metadata, "grade": grade(case, output)})
                     except Exception as error:

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-10-30T18:54:09Z",
+  "finished_utc": "2026-10-30T18:54:14Z",
+  "command": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+    "--input",
+    "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/fixtures.json",
+    "--output",
+    "/workspace/freehand/work/cleanup-poc/matched-core-baseline-final.json",
+    "--split",
+    "all"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 5.794421328000681,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "logical_cpus": 5,
+  "measurement_source_sha256": "b033a6504c104379139da4d5e2c6bedbb9c61f7e54b778e0a6772c98febfb240",
+  "memory": {
+    "scope": "owned_managed_Core_probe_and_cleanup_worker_process_tree",
+    "sample_interval_seconds": 0.5,
+    "sample_count": 12,
+    "unavailable_samples": 0,
+    "peak_working_set_bytes": 77660160,
+    "peak_private_resident_bytes": 77238272,
+    "peak_private_commit_bytes": null,
+    "peak_process_count": 1,
+    "notes": "Simultaneous sampled process-tree sums, managed replay plus actual native worker. Excludes desktop UI, real ASR, audio capture, observer and GPU. Linux private resident differs from Windows private commit; shared pages may be counted twice and sampling can miss short peaks. Peak increase relative to the matched no-cleanup probe is synthetic pipeline evidence, not whole-app RAM."
+  }
+}

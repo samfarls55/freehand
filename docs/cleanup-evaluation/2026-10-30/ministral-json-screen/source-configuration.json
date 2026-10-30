@@ -1,0 +1,37 @@
+{
+  "runtime_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+  "runtime_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+  "server_args": [
+    "--ctx-size",
+    "8192",
+    "--parallel",
+    "1",
+    "--threads",
+    "4",
+    "--threads-batch",
+    "4",
+    "--n-gpu-layers",
+    "0",
+    "--fit",
+    "off",
+    "--no-context-shift",
+    "--no-webui",
+    "--no-slots",
+    "--no-mmproj",
+    "--offline",
+    "--log-disable"
+  ],
+  "candidates": [
+    {
+      "id": "ministral3-8b",
+      "model_path": "/workspace/freehand/work/cleanup-poc/models/Ministral-3-8B-Instruct-2512-Q8_0.gguf",
+      "model_sha256": "bd0ca58473b64618df4d08c1410cc25c910ca84e647833ebaf099e0fc0523b45",
+      "style": "chat",
+      "source": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-GGUF/resolve/0102285ad796bd99af90f58de616092e5630e970/Ministral-3-8B-Instruct-2512-Q8_0.gguf",
+      "revision": "0102285ad796bd99af90f58de616092e5630e970",
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  ]
+}

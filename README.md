@@ -2,9 +2,9 @@
 
 [![Windows build](https://github.com/samfarls55/freehand/actions/workflows/windows.yml/badge.svg)](https://github.com/samfarls55/freehand/actions/workflows/windows.yml)
 
-Freehand is a local dictation app for Windows. Hold Right Ctrl, speak, and release. It transcribes your recording on your computer, applies your dictionary corrections, formats numbers and currency, and types the result at the caret in the app where you started.
+Freehand is a local dictation app for Windows. Hold Right Ctrl, speak, and release. It transcribes your recording on your computer, applies your dictionary corrections, formats numbers and currency, optionally cleans up the complete transcript with a local model, and types the result at the caret in the app where you started.
 
-The installer includes the speech model and runtime. You don't need an account, API key, GPU, or separate speech service. Once installed, dictation works offline.
+The installer includes the speech model and runtime. Optional cleanup assets are downloaded only after you choose **Set up cleanup** in Settings. You don't need an account, API key, GPU, or separate speech service. Dictation and prepared cleanup run offline.
 
 [Download for Windows x64](https://github.com/samfarls55/freehand/releases/latest) · [Report a problem](https://github.com/samfarls55/freehand/issues) · [Build from source](#build-from-source)
 
@@ -13,6 +13,7 @@ The installer includes the speech model and runtime. You don't need an account, 
 - Dictates into a focused text field with a global push-to-talk key.
 - Runs NVIDIA Parakeet TDT 110M locally through sherpa-onnx, using CPU inference.
 - Applies explicit corrections for names, product names, and phrases.
+- Offers final local transcript cleanup, with the original available for recovery.
 - Keeps a searchable transcript history, with copy and delete controls.
 - Runs in the Windows tray and can start when you sign in.
 - Releases the speech model after five idle minutes by default.
@@ -26,8 +27,8 @@ This release supports English dictation and ships as a Windows x64 package. ARM6
 
 - Windows 11 on a 64-bit Intel or AMD PC. Windows 10 and Windows on ARM have not been validated for this release.
 - A working microphone, selected as your Windows default input device.
-- About 2 GB of free disk space for the download, installed files, repair cache, and temporary setup files. The installer includes the speech model.
-- Enough available memory for the speech worker. The smaller model retained about 191 MiB in isolated tests on the development machine. The desktop interface and temporary inference buffers use additional RAM. Usage and transcription time depend on your computer.
+- Free disk space for the installed models, downloaded installer, repair cache, and temporary setup and rollback copies. Cleanup setup downloads a separate local model into your profile and needs additional space for the model and its temporary setup files.
+- Enough available memory for the speech worker. The smaller model retained about 191 MiB in isolated tests on the development machine. That speech-only measurement excludes the desktop interface, temporary inference buffers, and the separate cleanup model. Enabling cleanup needs enough additional RAM for its model and runtime. Usage and complete-output time depend on your computer.
 
 The installer includes .NET and the native speech dependencies. You don't need to install .NET or developer tools to use Freehand.
 
@@ -87,7 +88,7 @@ The first recording loads the model while you speak, so it can take longer to fi
 
 Closing the main window keeps Freehand running. Right-click its tray icon for **Show**, **Settings**, or **Quit**. Opening Freehand again shows the existing app.
 
-In Settings, you can change the dictation key, automatic text insertion, transcript history, login startup, and model idle timeout. Changes apply without restarting. An active dictation finishes with the settings it started with.
+In Settings, you can change the dictation key, automatic text insertion, transcript history, local cleanup, login startup, and speech-model idle timeout. Changes apply without restarting. An active dictation finishes with the settings it started with.
 
 To set a custom shortcut, open **Settings**, click the current **Push-to-talk key**, hold the key or combination you want, then release all keys. Freehand saves it automatically and restores it when you next open the app. Single keys, modifier-only combinations, and combinations of several ordinary keys are supported. Left and right modifiers are distinct. Choose **Cancel** to keep your previous shortcut.
 
@@ -125,11 +126,25 @@ Recognition uses up to 40 distinct dictionary phrases. Phrases longer than 256 c
 
 Freehand formats unambiguous English numbers, dollar amounts, cents, decimals, and percentages after transcription. For example, `twenty five dollars` becomes `$25`, and `twenty five percent` becomes `25%`. It preserves small standalone words such as `one` in `one step at a time`.
 
-Explicit dictionary replacements keep their exact text, including whitespace, and saved terms are protected from number formatting. Ambiguous forms such as `twenty twenty six` and `five dollars fifty` remain unchanged. This uses local rules and adds no inference model. It does not rewrite grammar or remove false starts.
+Explicit dictionary replacements keep their exact text, including whitespace, and saved terms are protected from number formatting. Ambiguous forms such as `twenty twenty six` and `five dollars fifty` remain unchanged. These local rules add no inference model and do not rewrite grammar or remove false starts. Optional local cleanup runs afterward.
+
+### Local transcript cleanup
+
+**Settings > Clean up dictated text** enables a separate local editor after dictionary correction and number formatting. It processes the complete dictation before text insertion. The app shows **Cleaning up** while it waits for the full response. Keep the original text field focused until processing finishes.
+
+The editor is intended to remove fillers, accidental repetition and spoken false starts while preserving your meaning. Dictionary replacements must keep their exact literal text. An unavailable model, incomplete response, failed verification or timeout leaves the existing normalized transcript in place. Cleanup does not retry speech recognition or automatically insert a second version.
+
+The selected model can still weaken emphasis, add formatting, or leave spoken corrections partly cleaned. Structural checks do not catch every meaning change. See the [measured quality and resource costs](docs/TRANSCRIPT-CLEANUP-EVALUATION.md) when deciding whether to enable cleanup.
+
+When cleanup changes the text, **Copy original** retrieves the dictionary-corrected, number-formatted transcript from before model editing. With history enabled, the original is available beside the saved result. With history disabled, the main window still offers **Copy** and **Copy original** for the latest result held in memory; that result is not saved and lasts until replaced or you quit Freehand.
+
+Choose **Set up cleanup** in the **Cleanup model** section of Settings to download the pinned model and runtime. Setup displays download progress, verifies the assets, and installs them into your local data profile. Use **Cancel setup** to stop or **Retry setup** after a failure. Missing cleanup assets leave ordinary dictation available. You can also select a prepared local bundle or reload existing assets. Cleanup runs locally with no account, API key or separate model service. Its worker unloads after its configured idle interval, independently of the speech-model timeout.
+
+For source builds, asset preparation and the explicit speech-only package option, see [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md).
 
 ### Local data and privacy
 
-Freehand processes audio locally. It does not upload recordings or transcripts to a speech service. Recording buffers stay in memory, including a failed recording awaiting Retry or Discard. Quitting discards unresolved audio after confirmation.
+Freehand processes audio and transcript cleanup locally. It does not upload recordings or transcripts to an inference service. The cleanup worker receives only the current transcript; it does not receive audio, clipboard contents, screen context, or earlier dictations. Recording buffers stay in memory, including a failed recording awaiting Retry or Discard. Quitting discards unresolved audio after confirmation.
 
 The default data folder is `%LOCALAPPDATA%\Freehand`:
 
@@ -137,22 +152,23 @@ The default data folder is `%LOCALAPPDATA%\Freehand`:
 |---|---|
 | `settings.json` | Preferences |
 | `dictionary.txt` | Your terms and correction rules |
-| `transcripts.jsonl` | Saved transcript history when enabled |
+| `transcripts.jsonl` | Saved transcript history, including pre-cleanup originals when present, only when enabled |
 | `logs/` | Diagnostic states, timing, job IDs, and failure types |
 | `verification/` | Model verification cache |
+| `models/cleanup/` | Cleanup assets acquired through Settings setup |
 | `installer/` | Saved installer for repair |
 
-History is enabled by default. Turn it off in Settings to stop saving new transcripts. Use **Delete all** in the Transcriptions view to remove existing history. Logs do not contain audio or transcript text. Local history files are plain text, so handle them like other personal documents.
+History is enabled by default. Turn it off in Settings to stop saving new transcripts and their originals. The latest result and its pre-cleanup original can still remain in memory for copying. Use **Delete all** in the Transcriptions view to remove existing history. Logs do not contain audio or transcript text. Local history files are plain text, so handle them like other personal documents.
 
 ### Update, repair, and uninstall
 
 Freehand checks for updates shortly after startup and every six hours while running. When a newer release is available, choose **Update** or **Later**. You can also use **Settings > Check for updates**, or turn off automatic checks there.
 
-After you accept, Freehand downloads and verifies the installer. Installation waits for recording, transcription, and text delivery to finish. Retry or discard any retained recording before updating. Setup preserves your settings, dictionary, and history, checks the updated app, and reopens its main window. If installed verification fails, setup restores the previous installation and attempts to reopen it.
+After you accept, Freehand downloads and verifies the installer. Installation waits for recording, transcription, cleanup, and text delivery to finish. Retry or discard any retained recording before updating. Setup preserves your settings, dictionary, and history, checks the updated app, and reopens its main window. If installed verification fails, setup restores the previous installation and attempts to reopen it.
 
 Copies installed before automatic updates were added need one manual update from the [latest release](https://github.com/samfarls55/freehand/releases/latest). You can always download and run a newer installer yourself.
 
-Update checks contact GitHub for public release metadata. They do not send recordings, transcripts, dictionary entries, or preferences. Failed checks leave dictation working offline.
+Update checks contact GitHub for public release metadata. Cleanup setup contacts the pinned model and runtime publishers only after you request it. Neither operation sends recordings, transcripts, dictionary entries, or preferences. Failed checks leave dictation working offline.
 
 For missing or damaged files, use **Repair bundled model** in Settings or run the installer again. If a custom model directory is unavailable, choose **Use bundled model**.
 
@@ -167,6 +183,8 @@ To uninstall, open **Windows Settings > Apps > Installed apps > Freehand > Unins
 | The model says installed but unloaded | This is normal before the first dictation or after the idle timeout. Start a recording to load it. |
 | The first transcript takes longer | Model loading happens on demand. Keep the text field focused until processing completes. |
 | Missing or damaged model | Run setup again or use **Repair bundled model**. A custom directory must contain the exact pinned assets. |
+| Cleanup says no model is installed | Choose **Set up cleanup** in Settings, or select a prepared local bundle. Ordinary dictation remains available; source builds can prepare assets separately. |
+| Cleanup changed wording you wanted to keep | Use **Copy original** for the pre-cleanup text, and turn off **Clean up dictated text** to use dictionary correction and number formatting alone. |
 | Processing fails twice | Fix the reported problem, then use **Retry**, or choose **Discard** before recording again. |
 | Text was transcribed but not inserted | Keep the original field focused and enable automatic insertion in Settings. Use **Copy** if the app does not accept simulated text input. |
 | An administrator window receives no text | Windows can block input from a normally launched app into an elevated window. Use **Copy** and paste manually. |
@@ -214,7 +232,7 @@ The build treats compiler and analyzer warnings as errors. Keep dependency versi
 pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source
 ```
 
-The script publishes a self-contained x64 app, downloads the pinned model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. An internet connection is needed for NuGet restore and uncached downloads. The model files total about 130 MiB.
+The script publishes a self-contained x64 app, downloads the pinned speech model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. When the selected cleanup manifest is present, it validates and packages the pinned acquisition metadata for Settings setup. It does not download or embed cleanup weights by default; invalid setup metadata fails packaging. An internet connection is needed for NuGet restore and uncached downloads. The speech model files total about 130 MiB. Cleanup model, runtime and license downloads happen separately through explicit setup.
 
 The script can reuse matching model files from your installed app or its build cache. To use an existing download in another folder:
 
@@ -222,7 +240,9 @@ The script can reuse matching model files from your installed app or its build c
 pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source -ModelSource 'C:\models\parakeet-110m'
 ```
 
-That directory must contain the files listed in [packaging/model-manifest.json](packaging/model-manifest.json). A different model revision will fail verification. The cache is only a build input. The installed app uses its own bundled files.
+That directory must contain the files listed in [packaging/model-manifest.json](packaging/model-manifest.json). A different model revision will fail verification. The cache is only a build input. The installed app uses its own bundled speech files; Settings cleanup setup keeps its separate assets in the local data profile.
+
+The isolated `dev.ps1` preview includes validated setup metadata without downloading cleanup weights, so **Set up cleanup** is available in its Settings. To prepare a bundle before launching instead, run `pwsh -File ./scripts/get-cleanup-assets.ps1` and then `dev.ps1`. Existing profile selections and an explicit `-CleanupSource` are preserved. Release packaging includes only setup metadata for the selected default. Use `build-release.ps1 -SkipCleanup` or `verify.ps1 -Package -SkipCleanup` when deliberately creating a baseline package with no cleanup assets or setup metadata. `-CleanupSource` on `build-release.ps1` embeds an already verified custom bundle, provided the final installer remains below the 2 GiB release limit. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for offline cache reuse and exact artifact verification.
 
 Build outputs are:
 
@@ -246,7 +266,7 @@ $check = Start-Process -FilePath $app -ArgumentList '--selftest' -Wait -PassThru
 if ($check.ExitCode -ne 0) { throw "Self-test failed with exit code $($check.ExitCode)." }
 ```
 
-With the full package present, this checks dictionary and storage behavior, reflected Windows platform loading, native model loading, known speech transcription, and worker stop/restart. It does not verify physical microphone capture or hotkey delivery into another app. The installer also runs this check against the installed executable.
+With the full package present, this checks dictionary and storage behavior, reflected Windows platform loading, native speech-model loading, known speech transcription, and speech-worker stop/restart. Default cleanup setup metadata is validated without downloading weights. When cleanup assets are bundled, it also starts the actual cleanup worker and requires a complete response; that startup check is not a quality benchmark. It does not verify physical microphone capture or hotkey delivery into another app. The installer also runs this check against the installed executable.
 
 The [Windows workflow](.github/workflows/windows.yml) builds, tests, packages, and runs the published self-test. Its downloadable artifact contains the installer and checksum.
 Merging application changes to `main` publishes a GitHub Release after upgrade and rollback checks also pass. See
@@ -262,6 +282,7 @@ Start with an [issue](https://github.com/samfarls55/freehand/issues) for a bug o
 | `src/Freehand.Core` | Dictation coordination, settings, dictionary storage, and paged history |
 | `src/Freehand.Speech` | Model verification, speech worker, protocol, and Parakeet inference |
 | `src/Freehand.Dictionary` | Literal dictionary corrections |
+| `src/Freehand.Cleanup` | Local transcript-editor protocol, artifact verification, and worker lifecycle |
 | `src/Freehand.Abstractions` | Capture, hotkey, delivery, lifecycle, and process interfaces |
 | `src/Freehand.Platform.Windows` | WASAPI, keyboard hook, SendInput, and Windows process ownership |
 | `packaging` | Installer, pinned model manifest, and third-party notices |
@@ -279,4 +300,4 @@ Freehand derives from the Windows implementation in [Pat Simmons's Murmur reposi
 
 This repository is public, but it does not grant a new software license. The upstream repository had no license file when this release was prepared. Public availability does not establish an open-source license or grant general reuse rights. Resolve the applicable permissions before redistributing or adapting the application code.
 
-The speech model and dependencies have their own licenses. The pinned Parakeet distribution identifies its model license as CC-BY-4.0, and sherpa-onnx uses Apache-2.0. Attribution and dependency notices are included in [packaging/THIRD-PARTY-NOTICES.txt](packaging/THIRD-PARTY-NOTICES.txt) and each installed package's `licenses` folder. Those licenses do not license the Freehand application code.
+The speech model and dependencies have their own licenses. The pinned Parakeet distribution identifies its model license as CC-BY-4.0, and sherpa-onnx uses Apache-2.0. Attribution and dependency notices are included in [packaging/THIRD-PARTY-NOTICES.txt](packaging/THIRD-PARTY-NOTICES.txt) and each installed package's `licenses` folder. Prepared cleanup bundles, including those acquired through Settings, also preserve llama.cpp's MIT license, runtime notices, and the selected editor's model and base-model license texts. Those licenses do not license the Freehand application code.

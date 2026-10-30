@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Freehand.Cleanup;
 
+internal sealed record TranscriptInput([property: JsonPropertyName("transcript")] string Transcript);
 internal sealed record ChatMessage([property: JsonPropertyName("role")] string Role,
     [property: JsonPropertyName("content")] string Content);
 internal sealed record ChatTemplateOptions([property: JsonPropertyName("enable_thinking")] bool EnableThinking = false);
@@ -34,4 +35,5 @@ internal sealed record TokenizeRequest([property: JsonPropertyName("content")] s
 [JsonSerializable(typeof(ChatRequest))]
 [JsonSerializable(typeof(CompletionRequest))]
 [JsonSerializable(typeof(TokenizeRequest))]
+[JsonSerializable(typeof(TranscriptInput))]
 internal sealed partial class CleanupJsonContext : JsonSerializerContext;

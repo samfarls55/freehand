@@ -1,0 +1,37 @@
+{
+  "runtime_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+  "runtime_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+  "server_args": [
+    "--ctx-size",
+    "8192",
+    "--parallel",
+    "1",
+    "--threads",
+    "4",
+    "--threads-batch",
+    "4",
+    "--n-gpu-layers",
+    "0",
+    "--fit",
+    "off",
+    "--no-context-shift",
+    "--no-webui",
+    "--no-slots",
+    "--no-mmproj",
+    "--offline",
+    "--log-disable"
+  ],
+  "candidates": [
+    {
+      "id": "gemma4-e4b",
+      "model_path": "/workspace/freehand/work/cleanup-poc/models/gemma-4-E4B-it-Q8_0.gguf",
+      "model_sha256": "f8854aa4480df62585a279e7ca0a881554fc18a41c59c4f62642d16a2ae47012",
+      "style": "chat",
+      "source": "https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF/resolve/bfc15c382204943c3a8fff0c750b94ae2364d7a3/gemma-4-E4B-it-Q8_0.gguf",
+      "revision": "bfc15c382204943c3a8fff0c750b94ae2364d7a3",
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    }
+  ]
+}

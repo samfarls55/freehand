@@ -13,6 +13,9 @@ param(
     [Parameter(ParameterSetName = 'Prepare')][string]$ModelRevision,
     [Parameter(ParameterSetName = 'Prepare')][string]$RuntimeSourceUrl,
     [Parameter(ParameterSetName = 'Prepare')][string]$RuntimeRevision,
+    [Parameter(ParameterSetName = 'Prepare')][string[]]$ModelNotices = @(),
+    [Parameter(ParameterSetName = 'Prepare')][ValidateSet('win-x64-cpu', 'linux-x64-cpu')][string]$Platform = 'win-x64-cpu',
+    [Parameter(ParameterSetName = 'Prepare')][switch]$LinkModel,
     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(1, 256)][int]$Threads = 4,
     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(256, 1048576)][int]$ContextSize = 8192,
     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(1, 1048575)][int]$MaxOutputTokens = 2048,
@@ -67,8 +70,8 @@ function Get-PreparedCleanupBundle([string]$Directory) {
     }
     $runtime = Get-CleanupRelativePath $manifest.runtimePath
     $model = Get-CleanupRelativePath $manifest.modelPath
-    if ($runtime -ine 'runtime/llama-server.exe' -or $model -notmatch '\.gguf$') {
-        throw 'Cleanup manifest must select a local llama-server.exe and GGUF model.'
+    if ($runtime -notin @('runtime/llama-server.exe', 'runtime/llama-server') -or $model -notmatch '\.gguf$') {
+        throw 'Cleanup manifest must select a local llama-server and GGUF model.'
     }
     $known = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
     $files = @($manifest.files)
@@ -77,8 +80,11 @@ function Get-PreparedCleanupBundle([string]$Directory) {
         $relative = Get-CleanupRelativePath $file.path
         $runtimeNotice = $relative -match '^licenses/runtime/(?:LICENSE|LICENCE|NOTICE|COPYING|THIRD[-_ ]?PARTY)[^/]*$' -and
             [IO.Path]::GetExtension($relative) -in @('', '.txt', '.md')
+        $modelNotice = $relative -match '^licenses/model/[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:txt|md)$'
         $allowed = $relative -ieq $runtime -or $relative -ieq $model -or
             $relative -match '^runtime/[^/]+\.dll$' -or
+            ($runtime -eq 'runtime/llama-server' -and $relative -match '^runtime/[^/]+\.so(?:\.[0-9]+)*$') -or
+            $modelNotice -or
             $relative -match '^licenses/(?:model-LICENSE\.txt|runtime-LICENSE\.txt)$' -or
             $runtimeNotice
         if (-not $allowed -or -not $known.Add($relative)) { throw 'Cleanup manifest contains an unsupported or duplicate asset.' }
@@ -121,11 +127,20 @@ $runtimeInput = (Resolve-Path -LiteralPath $RuntimeDirectory).Path
 $modelInput = (Resolve-Path -LiteralPath $ModelPath).Path
 if ([IO.Path]::GetExtension($modelInput) -ine '.gguf') { throw 'ModelPath must select a GGUF file.' }
 if (-not (Test-Path -LiteralPath $modelInput -PathType Leaf)) { throw 'ModelPath must select a GGUF file.' }
-$serverInput = Join-Path $runtimeInput 'llama-server.exe'
-if (-not (Test-Path -LiteralPath $serverInput -PathType Leaf)) { throw 'RuntimeDirectory must contain llama-server.exe.' }
+$serverName = if ($Platform -eq 'win-x64-cpu') { 'llama-server.exe' } else { 'llama-server' }
+$serverInput = Join-Path $runtimeInput $serverName
+if (-not (Test-Path -LiteralPath $serverInput -PathType Leaf)) { throw "RuntimeDirectory must contain $serverName." }
 $modelLicenseInput = (Resolve-Path -LiteralPath $ModelLicense).Path
 $runtimeLicenseInput = (Resolve-Path -LiteralPath $RuntimeLicense).Path
-foreach ($license in @($modelLicenseInput, $runtimeLicenseInput)) {
+$modelNoticeInputs = @($ModelNotices | ForEach-Object { (Resolve-Path -LiteralPath $_).Path })
+$noticeNames = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+foreach ($notice in $modelNoticeInputs) {
+    $name = [IO.Path]::GetFileName($notice)
+    if ($name -notmatch '^[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:txt|md)$' -or -not $noticeNames.Add($name)) {
+        throw 'Model notice names must be distinct text filenames without path separators.'
+    }
+}
+foreach ($license in @($modelLicenseInput, $runtimeLicenseInput) + $modelNoticeInputs) {
     $item = Get-Item -LiteralPath $license
     if ($item.PSIsContainer -or $item.Length -lt 1 -or $item.Length -gt 2MB) { throw 'License inputs must be nonempty text files no larger than 2 MiB.' }
 }
@@ -133,7 +148,7 @@ if (-not $OutputDirectory) { $OutputDirectory = Join-Path (Split-Path -Parent $P
 $destination = [IO.Path]::GetFullPath($OutputDirectory)
 $parentDirectory = Split-Path -Parent $destination
 if (-not $parentDirectory -or $destination -eq [IO.Path]::GetPathRoot($destination)) { throw 'OutputDirectory must be a dedicated cleanup asset directory.' }
-foreach ($inputPath in @($runtimeInput, $modelInput, $modelLicenseInput, $runtimeLicenseInput)) {
+foreach ($inputPath in @($runtimeInput, $modelInput, $modelLicenseInput, $runtimeLicenseInput) + $modelNoticeInputs) {
     if ($inputPath.Equals($destination, [StringComparison]::OrdinalIgnoreCase) -or
         $inputPath.StartsWith($destination + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
         throw 'OutputDirectory must not contain any input artifacts.'
@@ -161,9 +176,11 @@ $stage = Join-Path $parentDirectory ('.cleanup-prepare-' + [guid]::NewGuid().ToS
 $backup = $null
 $completed = $false
 try {
-    New-Item -ItemType Directory -Path (Join-Path $stage 'runtime'), (Join-Path $stage 'licenses/runtime') -Force | Out-Null
-    Copy-Item -LiteralPath $serverInput -Destination (Join-Path $stage 'runtime/llama-server.exe')
-    foreach ($file in Get-ChildItem -LiteralPath $runtimeInput -File -Filter '*.dll') {
+    New-Item -ItemType Directory -Path (Join-Path $stage 'runtime'), (Join-Path $stage 'licenses/runtime'), (Join-Path $stage 'licenses/model') -Force | Out-Null
+    Copy-Item -LiteralPath $serverInput -Destination (Join-Path $stage "runtime/$serverName")
+    foreach ($file in Get-ChildItem -LiteralPath $runtimeInput -File | Where-Object {
+        $_.Extension -eq '.dll' -or ($Platform -eq 'linux-x64-cpu' -and $_.Name -match '\.so(?:\.[0-9]+)*$')
+    }) {
         Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $stage 'runtime')
     }
     foreach ($file in Get-ChildItem -LiteralPath $runtimeInput -File | Where-Object {
@@ -171,7 +188,12 @@ try {
     }) {
         Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $stage 'licenses/runtime')
     }
-    Copy-Item -LiteralPath $modelInput -Destination (Join-Path $stage 'model.gguf')
+    if ($LinkModel) {
+        New-Item -ItemType HardLink -Path (Join-Path $stage 'model.gguf') -Target $modelInput | Out-Null
+    } else { Copy-Item -LiteralPath $modelInput -Destination (Join-Path $stage 'model.gguf') }
+    foreach ($notice in $modelNoticeInputs) {
+        Copy-Item -LiteralPath $notice -Destination (Join-Path $stage 'licenses/model')
+    }
     Copy-Item -LiteralPath $modelLicenseInput -Destination (Join-Path $stage 'licenses/model-LICENSE.txt')
     Copy-Item -LiteralPath $runtimeLicenseInput -Destination (Join-Path $stage 'licenses/runtime-LICENSE.txt')
     $files = @(Get-ChildItem -LiteralPath $stage -File -Recurse | Sort-Object FullName | ForEach-Object {
@@ -183,8 +205,9 @@ try {
     })
     $manifest = [ordered]@{
         schemaVersion = 1
-        runtimePath = 'runtime/llama-server.exe'
-        runtimeSha256 = (Get-FileHash -LiteralPath (Join-Path $stage 'runtime/llama-server.exe') -Algorithm SHA256).Hash.ToLowerInvariant()
+        runtimePath = "runtime/$serverName"
+        platform = $Platform
+        runtimeSha256 = (Get-FileHash -LiteralPath (Join-Path $stage "runtime/$serverName") -Algorithm SHA256).Hash.ToLowerInvariant()
         modelPath = 'model.gguf'
         modelSha256 = (Get-FileHash -LiteralPath (Join-Path $stage 'model.gguf') -Algorithm SHA256).Hash.ToLowerInvariant()
         modelId = $ModelId

@@ -25,6 +25,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private bool _residentPrepared;
     private string? _preparationError;
     private readonly HttpClient _updateHttp = new() { Timeout = TimeSpan.FromMinutes(15) };
+    private readonly HttpClient _cleanupHttp = new() { Timeout = Timeout.InfiniteTimeSpan };
     private bool _installingUpdate;
     /// <summary>Update checks are available only in the normal installed copy.</summary>
     public UpdateService? Updates { get; }
@@ -38,6 +39,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     internal bool IsDictationReady => !ModelResolver.UsesAcceleratedModel || _residentPrepared && Speech?.IsReady == true;
     internal string? PreparationError => _preparationError;
     internal ConfiguredTranscriptPostProcessor Cleanup { get; }
+    internal CleanupSetupCoordinator CleanupSetup { get; }
     /// <summary>Saved preferences.</summary>
     public AppSettings Settings { get; }
     /// <summary>Literal correction dictionary.</summary>
@@ -71,6 +73,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         Logs = new DiagnosticLog(Path.Combine(Path.GetDirectoryName(AppSettings.DefaultPath)!, "logs"));
         Cleanup = new ConfiguredTranscriptPostProcessor(_applied.CleanupDirectory, PlatformFactory.CreateCleanupWorkerLauncher());
         Cleanup.Changed += OnCleanupChanged;
+        CleanupSetup = CleanupSetupCoordinator.Create(Settings, _cleanupHttp, ReloadCleanupModel);
+        CleanupSetup.Changed += OnCleanupChanged;
         var version = typeof(Composition).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
             .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().Single().InformationalVersion;
         Logs.Write(Guid.Empty, "app-" + version + "-model-" + ModelResolver.Version);
@@ -253,7 +257,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         _cleanupRefreshPending = true;
         if (CanApplyPreferences) QueuePreferences();
     }
-    private bool CanApplyPreferences => Engine?.State is DictationState.Idle or DictationState.AwaitingRetry;
+    private bool CanApplyPreferences => Engine is null || Engine.State is DictationState.Idle or DictationState.AwaitingRetry;
     private void OnSettingsChanged(object? sender, EventArgs e) { _pendingPreferences = true; if (CanApplyPreferences) QueuePreferences(); }
     private void OnReadinessInvalidated(object? sender, EventArgs e) { _refreshPending = true; Logs.Write(Guid.Empty, "readiness-invalidated"); if (CanApplyPreferences) QueuePreferences(); }
     private void QueuePreferences()
@@ -268,6 +272,13 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         try
         {
             if (_disposed || !CanApplyPreferences) return;
+            if (Engine is null)
+            {
+                var requested = Settings.Data;
+                await Cleanup.ConfigureAsync(requested.CleanupDirectory, requested.CleanupEnabled, _cleanupRefreshPending).ConfigureAwait(false);
+                _cleanupRefreshPending = false; _pendingPreferences = false; _applied = requested;
+                return;
+            }
             await Engine!.ApplyConfigurationAsync(async () =>
             {
             var requested = Settings.Data;
@@ -338,6 +349,9 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         Task preferences;
         lock (_preferencesSync) { if (_disposed) return; _disposed = true; preferences = _preferencesTask; }
         _lifetime.Cancel();
+        CleanupSetup.Changed -= OnCleanupChanged;
+        await CleanupSetup.DisposeAsync().ConfigureAwait(false);
+        _cleanupHttp.Dispose();
         Settings.Changed -= OnSettingsChanged;
         Cleanup.Changed -= OnCleanupChanged;
         if (Updates is not null) { Updates.Changed -= OnUpdatesChanged; await Updates.DisposeAsync().ConfigureAwait(false); }

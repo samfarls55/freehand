@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "candidate": "qwen35-9b-q8_0-v3",
+  "probe_metadata": {
+    "started_at_utc": "2026-10-30T19:15:53.3872023+00:00",
+    "corpus_path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/integration-fixtures.json",
+    "corpus_sha256": "7EC1485FA16DF21215E32AC7D44070AF45A5A8EE63D76EB2E320D4BA8F8EDA9F",
+    "manifest_path": "/workspace/freehand/artifacts/cleanup-assets-linux/cleanup-manifest.json",
+    "manifest_sha256": "C6B1162724F9E3967DCDC0ABEE7E10E7CE07E238A45DBE784E5D0A50B592DE45",
+    "model_id": "qwen35-9b-q8_0",
+    "prompt_style": "Qwen35",
+    "runtime": {
+      "path": "/workspace/freehand/artifacts/cleanup-assets-linux/runtime/llama-server",
+      "expected_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "actual_sha256": "9E0F40401CE7079BC0DE040B6CF0FB456417BBF9FBC4C82A0B96F591917682F6"
+    },
+    "model": {
+      "path": "/workspace/freehand/artifacts/cleanup-assets-linux/model.gguf",
+      "expected_sha256": "809626574d0cb43d4becfa56169980da2bb448f2299270f7be443cb89d0a6ae4",
+      "actual_sha256": "809626574D0CB43D4BECFA56169980DA2BB448F2299270F7BE443CB89D0A6AE4"
+    },
+    "threads": 4,
+    "context_size": 8192,
+    "max_output_tokens": 2048,
+    "gpu_layers": 0,
+    "cleanup_timeout_seconds": 120,
+    "split": "all",
+    "operating_system": "Debian GNU/Linux 13 (trixie)",
+    "architecture": "X64",
+    "framework": ".NET 10.0.0",
+    "logical_processor_count": 4,
+    "gc_total_available_memory_bytes": 12884901888,
+    "probe_version": "1.0.0.0",
+    "managed_assembly_sha256": {
+      "Freehand.Cleanup.Probe.dll": "672B0662B51098A116F970C565513543CCB3018FC3C5331108BB305B793499BC",
+      "Freehand.Core.dll": "F700EC371618040367618E47514DD12241F6ECD78F936D8A215020A680B7E5C4",
+      "Freehand.Cleanup.dll": "174EBB22C7D2A43C15300925B73C606C6A747E4FFA0757D46652BFBCE9F6D877",
+      "Freehand.Dictionary.dll": "E63FDF55691ADE617552C6C4C672913DD9AF4F9D3CBB5DD4CF87492EC9A5EC67",
+      "Freehand.Testing.dll": "87D154E16FBD79B7C87AB164D7D6BDF872EC25A6DAA014D781D7732B2A237B08",
+      "Freehand.Abstractions.dll": "88876E5ED1437E3D67C08E29457A6728714E1DAF568ADB3471151BD7B3AFA56D"
+    },
+    "limitations": "Text-fixture probe through the real DictationEngine, dictionary, number normalizer, optional cleanup provider and delivery orchestration. A generated tone and canned transcriber feed the selected transcript; RecordingTextInjector counts calls without typing. This does not test recognition accuracy, a microphone, a physical hotkey, foreground application insertion, Windows worker ownership or whole-desktop performance. Candidate text precedes Core validation; output is the accepted result or original-text fallback. Automatic checks do not establish semantic fidelity."
+  },
+  "scope": "Core probe output grading; consult probe metadata for runtime and measurement scope.",
+  "candidates": [
+    {
+      "id": "Core-normalized-no-cleanup",
+      "summary": {
+        "row_count": 10,
+        "attempt_count": 10,
+        "not_attempted_count": 0,
+        "completed_count": 10,
+        "operational_failures": 0,
+        "known_quality_failures": 10,
+        "target_matches": 0,
+        "review_required_nonmatches": 0,
+        "complete_response_seconds": {
+          "median": 0.0,
+          "p95_nearest_rank": 0.0,
+          "maximum": 0.0,
+          "sample_count": 10
+        },
+        "by_category": {
+          "literal_correction": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_currency": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_multiline": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_multiple": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_no_cascade": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_number_normalization": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_path": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_superseded": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_unicode": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_whitespace": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "qwen35-9b-q8_0-v3.model-return",
+      "summary": {
+        "row_count": 10,
+        "attempt_count": 10,
+        "not_attempted_count": 0,
+        "completed_count": 10,
+        "operational_failures": 0,
+        "known_quality_failures": 1,
+        "target_matches": 0,
+        "review_required_nonmatches": 9,
+        "complete_response_seconds": {
+          "median": 25.505984599999998,
+          "p95_nearest_rank": 36.2608056,
+          "maximum": 36.2608056,
+          "sample_count": 10
+        },
+        "by_category": {
+          "literal_correction": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_multiline": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_multiple": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_no_cascade": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_number_normalization": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_path": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_superseded": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_unicode": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          },
+          "literal_whitespace": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "qwen35-9b-q8_0-v3.app-final",
+      "summary": {
+        "row_count": 10,
+        "attempt_count": 10,
+        "not_attempted_count": 0,
+        "completed_count": 10,
+        "operational_failures": 0,
+        "known_quality_failures": 1,
+        "target_matches": 8,
+        "review_required_nonmatches": 1,
+        "complete_response_seconds": {
+          "median": 25.5152772,
+          "p95_nearest_rank": 36.372367100000005,
+          "maximum": 36.372367100000005,
+          "sample_count": 10
+        },
+        "by_category": {
+          "literal_correction": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_currency": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_multiline": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_multiple": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_no_cascade": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_number_normalization": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_path": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_superseded": {
+            "completed": 1,
+            "known_quality_failures": 1,
+            "target_matches": 0
+          },
+          "literal_unicode": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 1
+          },
+          "literal_whitespace": {
+            "completed": 1,
+            "known_quality_failures": 0,
+            "target_matches": 0
+          }
+        }
+      }
+    }
+  ],
+  "cleanup_status_counts": {
+    "Disabled": 0,
+    "Applied": 10,
+    "Unchanged": 0,
+    "Rejected": 0,
+    "Failed": 0,
+    "TimedOut": 0
+  },
+  "accepted_coverage": 1.0,
+  "accepted_only_quality": {
+    "row_count": 10,
+    "attempt_count": 10,
+    "not_attempted_count": 0,
+    "completed_count": 10,
+    "operational_failures": 0,
+    "known_quality_failures": 1,
+    "target_matches": 8,
+    "review_required_nonmatches": 1,
+    "complete_response_seconds": {
+      "median": 25.5152772,
+      "p95_nearest_rank": 36.372367100000005,
+      "maximum": 36.372367100000005,
+      "sample_count": 10
+    },
+    "by_category": {
+      "literal_correction": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_currency": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_multiline": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_multiple": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_no_cascade": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_number_normalization": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_superseded": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "literal_unicode": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_whitespace": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      }
+    }
+  },
+  "fallback_only_quality": {
+    "row_count": 0,
+    "attempt_count": 0,
+    "not_attempted_count": 0,
+    "completed_count": 0,
+    "operational_failures": 0,
+    "known_quality_failures": 0,
+    "target_matches": 0,
+    "review_required_nonmatches": 0,
+    "complete_response_seconds": {
+      "median": null,
+      "p95_nearest_rank": null,
+      "maximum": null,
+      "sample_count": 0
+    },
+    "by_category": {}
+  },
+  "limits": [
+    "Candidate quality, accepted coverage, and final fallback quality are separate quantities.",
+    "A good final fallback output does not establish that the model edited it correctly.",
+    "Provider parsing failures may not expose candidate_text; native HTTP replay retains those raw responses separately.",
+    "Automatic assertions and target similarity cannot establish semantic fidelity; review all outputs.",
+    "Core probe elapsed time is not native HTTP completion time or physical Windows delivery latency."
+  ],
+  "probe_report_sha256": "8598e1f120d50e727fc36ff3b537ef192c6a051b22574e7cfa4b4781bf6b8c24",
+  "fixture_sha256": "7ec1485fa16df21215e32ac7d44070af45a5a8ee63d76eb2e320d4ba8f8eda9f",
+  "input_snapshots": {
+    "probe": "source-probe.json",
+    "corpus": "source-corpus.json"
+  }
+}

@@ -2,7 +2,8 @@
 param(
     [string]$Dotnet,
     [string]$ModelSource,
-    [switch]$Package
+    [switch]$Package,
+    [switch]$SkipCleanup
 )
 . (Join-Path $PSScriptRoot 'common.ps1')
 $dotnetPath = Resolve-FreehandDotnet $Dotnet
@@ -15,7 +16,7 @@ try {
     & $dotnetPath test Freehand.sln -c Release --no-build --logger trx --results-directory artifacts/test-results
     if ($LASTEXITCODE -ne 0) { throw 'Tests failed.' }
     if ($Package) {
-        & (Join-Path $PSScriptRoot 'build-release.ps1') -Dotnet $dotnetPath -ModelSource $ModelSource
+        & (Join-Path $PSScriptRoot 'build-release.ps1') -Dotnet $dotnetPath -ModelSource $ModelSource -SkipCleanup:$SkipCleanup
         Invoke-FreehandSelfTest (Join-Path $projectRoot 'artifacts/publish/Freehand.App.exe')
     }
 } finally { Pop-Location }

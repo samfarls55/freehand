@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using Freehand.Abstractions;
+using Freehand.Cleanup;
 using Freehand.Core;
 using Freehand.Dictionary;
 using Freehand.Speech;
@@ -59,6 +60,9 @@ public static class SelfTest
         failures += CheckStorage();
         failures += CheckModelDiscovery();
         failures += CheckPlatformLayer();
+        failures += CheckProvisioningMetadata(Path.Combine(AppContext.BaseDirectory, "models", "cleanup-provisioning"));
+        failures += CheckCleanupAsync(ConfiguredTranscriptPostProcessor.DefaultDirectory,
+            PlatformFactory.CreateCleanupWorkerLauncher()).GetAwaiter().GetResult();
         if (File.Exists(Path.Combine(AppContext.BaseDirectory, "fixtures", "jfk.wav")))
             failures += EngineeringChecks.CheckSpeechAsync().GetAwaiter().GetResult();
 
@@ -82,6 +86,57 @@ public static class SelfTest
         return failures;
     }
 
+    internal static async Task<int> CheckCleanupAsync(string directory, ICleanupWorkerLauncher? launcher,
+        Func<LlamaCleanupOptions, ICleanupWorkerLauncher, ITranscriptPostProcessor>? factory = null)
+    {
+        if (!Directory.Exists(directory))
+        {
+            Console.WriteLine("  [skip] optional cleanup bundle (not installed)");
+            return 0;
+        }
+
+        try
+        {
+            // Resolve the packaged bundle, not a user's selected model folder. Running the
+            // actual native worker catches missing DLLs, bad model pins and publishing
+            // regressions that merely constructing the adapter cannot exercise.
+            var options = LlamaCleanupOptions.LoadManifest(Path.Combine(directory, "cleanup-manifest.json"));
+            if (launcher is null) return Check("bundled cleanup worker loads from the platform assembly", false);
+            factory ??= static (settings, workerLauncher) => new LlamaTranscriptPostProcessor(settings, workerLauncher);
+            await using var processor = factory(options, launcher);
+            using var deadline = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+            var text = await processor.ProcessAsync("Freehand is ready.", deadline.Token).ConfigureAwait(false);
+            return Check("bundled cleanup model produces a complete response", !string.IsNullOrWhiteSpace(text));
+        }
+        catch (Exception exception)
+        {
+            // Neither native output nor response text belongs in startup diagnostics.
+            Console.Error.WriteLine("  [FAIL] bundled cleanup startup/completion: " + exception.GetType().Name);
+            return 1;
+        }
+    }
+
+    internal static int CheckProvisioningMetadata(string directory)
+    {
+        if (!Directory.Exists(directory))
+        {
+            Console.WriteLine("  [skip] optional cleanup acquisition metadata (not installed)");
+            return 0;
+        }
+        try
+        {
+            var metadata = CleanupAssetInstaller.ValidateAcquisitionMetadata(
+                Path.Combine(directory, "cleanup-model-manifest.json"), Path.Combine(directory, "cleanup-runtime-manifest.json"));
+            Console.WriteLine("  cleanup model available for explicit installation: " + metadata.ModelId);
+            return Check("bundled cleanup acquisition metadata pins model, runtime and licenses", metadata.DownloadBytes > metadata.ModelBytes);
+        }
+        catch (Exception exception)
+        {
+            Console.Error.WriteLine("  [FAIL] bundled cleanup acquisition metadata: " + exception.GetType().Name);
+            return 1;
+        }
+    }
+
     private static int CheckStorage()
     {
         // Exercises the source-generated JSON, which is the part most likely to have been
@@ -97,16 +152,23 @@ public static class SelfTest
             {
                 At = DateTimeOffset.UtcNow,
                 Text = "Claude Code",
+                OriginalText = "um Claude Code",
+                CleanupOutcome = TranscriptCleanupOutcome.Applied,
+                CleanupSeconds = 0.5,
                 Corrections = [new AppliedCorrection("cloud code", "Claude Code", 1)],
             });
 
             var reopened = new TranscriptStore(Path.Combine(directory, "transcripts.jsonl"));
             var ok = reopened.Records.Count == 1
-                     && reopened.Records[0].Corrections?[0].To == "Claude Code";
+                     && reopened.Records[0].Corrections?[0].To == "Claude Code"
+                     && reopened.Records[0].OriginalText == "um Claude Code"
+                     && reopened.Records[0].CleanupOutcome == TranscriptCleanupOutcome.Applied
+                     && reopened.Records[0].CleanupSeconds == 0.5;
 
             var settings = new AppSettings(Path.Combine(directory, "settings.json"));
-            settings.Update(settings.Data with { PushToTalkKey = 0x7C, PushToTalkKeys = [0x7C, 0xA3] });
-            var settingsOk = new AppSettings(Path.Combine(directory, "settings.json")).Data.DictationKeys.SequenceEqual([0x7C, 0xA3]);
+            settings.Update(settings.Data with { PushToTalkKey = 0x7C, PushToTalkKeys = [0x7C, 0xA3], CleanupEnabled = false, CleanupDirectory = directory });
+            var saved = new AppSettings(Path.Combine(directory, "settings.json")).Data;
+            var settingsOk = saved.DictationKeys.SequenceEqual([0x7C, 0xA3]) && !saved.CleanupEnabled && saved.CleanupDirectory == directory;
 
             return Check("history round-trips through source-generated JSON", ok)
                  + Check("settings round-trip", settingsOk);

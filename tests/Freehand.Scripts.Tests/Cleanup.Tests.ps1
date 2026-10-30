@@ -7,6 +7,21 @@ Describe 'Cleanup asset preparation and packaging' {
         Copy-Item -Path (Join-Path $cleanupRepositoryRoot 'scripts/*.ps1') -Destination $cleanupScripts
         $script:cleanupOriginalLocation = (Get-Location).Path
         $script:cleanupOriginalReleaseVersion = $env:FREEHAND_RELEASE_VERSION
+
+        function Write-CleanupMetadataFixture {
+            @{
+                SchemaVersion = 1; ModelId = 'fixture-selected-editor'; PromptStyle = 'Qwen35'
+                Model = @{ Source = 'https://example.test/pinned/model.gguf'; Revision = 'a' * 40; Sha256 = '1' * 64; Size = [long]9000000000 }
+                ModelLicense = @{ Source = 'https://example.test/model-license.txt'; Sha256 = '2' * 64; Size = 500 }
+                RuntimeLicense = @{ Source = 'https://example.test/runtime-license.txt'; Sha256 = '3' * 64; Size = 500 }
+                Inference = @{ Threads = 4; ContextSize = 8192; MaxOutputTokens = 2048; GpuLayers = 0; StartupTimeoutSeconds = 60; IdleTimeoutSeconds = 60 }
+            } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-model-manifest.json')
+            @{
+                SchemaVersion = 1; SourceCommit = 'b' * 40
+                Artifacts = @(@{ Platform = 'win-x64-cpu'; Source = 'https://example.test/pinned/runtime.zip'
+                    ArchiveSha256 = '4' * 64; ArchiveSize = 1000; Executable = 'llama-server.exe'; ExecutableSha256 = '5' * 64 })
+            } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-runtime-manifest.json')
+        }
     }
 
     BeforeEach {
@@ -60,6 +75,29 @@ Describe 'Cleanup asset preparation and packaging' {
         }
     }
 
+    It 'preserves extra model notices and supports a self-contained Linux runtime bundle' {
+        Set-Content -LiteralPath (Join-Path $cleanupRuntime 'llama-server') -Value 'fixture Linux runtime'
+        Set-Content -LiteralPath (Join-Path $cleanupRuntime 'libllama.so.0') -Value 'fixture Linux shared library'
+        $notice = Join-Path $cleanupInputs 'BASE-LICENSE.txt'
+        Set-Content -LiteralPath $notice -Value 'fixture base model license'
+        $cleanupPrepare.Platform = 'linux-x64-cpu'
+        $cleanupPrepare.ModelNotices = @($notice)
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        $manifest.runtimePath | Should-Be 'runtime/llama-server'
+        $manifest.platform | Should-Be 'linux-x64-cpu'
+        @($manifest.files | Where-Object { $_.path -eq 'runtime/libllama.so.0' }).Count | Should-Be 1
+        Get-Content -LiteralPath (Join-Path $bundle.Directory 'licenses/model/BASE-LICENSE.txt') | Should-Be 'fixture base model license'
+        $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+    }
+
+    It 'can prepare the model as a hard link without a second weight-file allocation' {
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare -LinkModel
+        Set-Content -LiteralPath $cleanupModel -Value 'changed source proves shared storage'
+        Get-Content -LiteralPath (Join-Path $bundle.Directory 'model.gguf') | Should-Be 'changed source proves shared storage'
+        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory } | Should-Throw '*verification failed*'
+    }
+
     It 'rejects a changed <Asset> before packaging' -ForEach @(
         @{ Asset = 'model.gguf' }, @{ Asset = 'runtime/llama-server.exe' }, @{ Asset = 'runtime/llama.dll' }
     ) {
@@ -111,6 +149,10 @@ Describe 'Cleanup asset preparation and packaging' {
 
     Context 'Release and development entry points' {
         BeforeEach {
+            $selectedCleanupFixture = Join-Path $cleanupFixtureRoot 'packaging/cleanup-model-manifest.json'
+            if (Test-Path -LiteralPath $selectedCleanupFixture) { Remove-Item -LiteralPath $selectedCleanupFixture }
+            $debugCleanupMetadata = Join-Path $cleanupFixtureRoot 'src/Freehand.App/bin/Debug/net10.0/models/cleanup-provisioning'
+            if (Test-Path -LiteralPath $debugCleanupMetadata) { Remove-Item -LiteralPath $debugCleanupMetadata -Recurse -Force }
             $cachedCleanup = Join-Path $cleanupFixtureRoot 'artifacts/cleanup-assets'
             if (Test-Path -LiteralPath $cachedCleanup) { Remove-Item -LiteralPath $cachedCleanup -Recurse -Force }
             $script:cleanupSdk = Join-Path $cleanupFixtureRoot 'sdk/dotnet.ps1'
@@ -147,17 +189,9 @@ if ($CliArguments[0] -eq 'publish') {
             Mock Get-FileHash { [pscustomobject]@{ Hash = '59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e' } } -ParameterFilter { $LiteralPath -like '*jfk.wav' }
         }
 
-        It 'bundles <SourceMode> cleanup assets before generating the package manifest' -ForEach @(
-            @{ SourceMode = 'explicit' }, @{ SourceMode = 'cached' }
-        ) {
-            if ($SourceMode -eq 'cached') {
-                $cleanupPrepare.OutputDirectory = Join-Path $cleanupFixtureRoot 'artifacts/cleanup-assets'
-                $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
-                & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech
-            } else {
-                $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
-                & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $cleanupDestination
-            }
+        It 'bundles explicitly supplied cleanup assets before generating the package manifest' {
+            $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+            & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $cleanupDestination
             $publish = Join-Path $cleanupFixtureRoot 'artifacts/publish'
             $manifest = Get-Content -LiteralPath (Join-Path $publish 'package-manifest.json') -Raw | ConvertFrom-Json
             @($manifest.Files | Where-Object { $_.Path.Replace('\', '/') -eq 'models/cleanup/cleanup-manifest.json' }).Count | Should-Be 1
@@ -167,18 +201,137 @@ if ($CliArguments[0] -eq 'publish') {
             Should-NotInvoke Invoke-WebRequest
         }
 
+        It 'packages only pinned setup metadata even when a large-model bundle exists in the local cache' {
+            Write-CleanupMetadataFixture
+            $cleanupPrepare.OutputDirectory = Join-Path $cleanupFixtureRoot 'artifacts/cleanup-assets'
+            $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+            & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech
+            $publish = Join-Path $cleanupFixtureRoot 'artifacts/publish'
+            $package = Get-Content -LiteralPath (Join-Path $publish 'package-manifest.json') -Raw | ConvertFrom-Json
+            @($package.Files | Where-Object { $_.Path.Replace('\', '/') -like 'models/cleanup-provisioning/*' }).Count | Should-Be 2
+            (Test-Path -LiteralPath (Join-Path $publish 'models/cleanup/model.gguf')) | Should-BeFalse
+            (Test-Path -LiteralPath (Join-Path $cleanupPrepare.OutputDirectory 'model.gguf')) | Should-BeTrue
+            $selected = Get-Content -LiteralPath (Join-Path $publish 'models/cleanup-provisioning/cleanup-model-manifest.json') -Raw | ConvertFrom-Json
+            $selected.Model.Size | Should-Be 9000000000
+            $selected.ModelId | Should-Be 'fixture-selected-editor'
+            Should-NotInvoke Invoke-WebRequest
+        }
+
         It 'preserves baseline packaging when no cleanup bundle was prepared' {
             & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech
             (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/publish/models/cleanup')) | Should-BeFalse
             Should-NotInvoke Invoke-WebRequest
         }
 
+        It 'validates selected setup metadata before packaging' {
+            Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-model-manifest.json') -Value '{}'
+            Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-runtime-manifest.json') -Value '{}'
+            { & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech } |
+                Should-Throw '*immutable source revisions*'
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'allows an explicit baseline-only package without provisioning the selected default' {
+            Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-model-manifest.json') -Value '{}'
+            & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -SkipCleanup
+            (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/publish/models/cleanup')) | Should-BeFalse
+            (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/publish/models/cleanup-provisioning')) | Should-BeFalse
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'rejects a Linux cleanup bundle in a Windows installer' {
+            Set-Content -LiteralPath (Join-Path $cleanupRuntime 'llama-server') -Value 'fixture Linux runtime'
+            $cleanupPrepare.Platform = 'linux-x64-cpu'
+            $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+            { & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $cleanupDestination } |
+                Should-Throw '*Windows cleanup bundle*'
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'rejects an installer at the 2 GiB release limit before replacing an existing installer' {
+            . (Join-Path $cleanupScripts 'common.ps1')
+            $payload = Join-Path $cleanupInputs 'payload'
+            New-Item -ItemType Directory -Path $payload -Force | Out-Null
+            Set-Content -LiteralPath (Join-Path $payload 'small.txt') -Value 'small fixture payload'
+            $destination = Join-Path $cleanupInputs 'Setup.exe'
+            $zip = $destination + '.payload.zip'
+            [IO.Compression.ZipFile]::CreateFromDirectory($payload, $zip, [IO.Compression.CompressionLevel]::Fastest, $false)
+            $script:cleanupSimulatedRuntimeSize = 2GB - 48L - (Get-Item -LiteralPath $zip).Length
+            Remove-Item -LiteralPath $zip
+            Set-Content -LiteralPath $destination -Value 'preserve existing installer'
+            $runtime = Join-Path $cleanupRuntime 'llama-server.exe'
+            Mock Get-Item { [IO.FileInfo]::new([string]$LiteralPath) }
+            Mock Get-Item { [pscustomobject]@{ Length = $cleanupSimulatedRuntimeSize } } -ParameterFilter { $LiteralPath -eq $runtime }
+            { New-FreehandInstaller -PublishDirectory $payload -Runtime $runtime -Destination $destination } | Should-Throw '*smaller than 2 GiB*'
+            Get-Content -LiteralPath $destination | Should-Be 'preserve existing installer'
+            (Test-Path -LiteralPath $zip) | Should-BeFalse
+        }
+
+        It 'makes setup available in the isolated preview without downloading weights or replacing its selected folder' {
+            Write-CleanupMetadataFixture
+            $profile = Join-Path $cleanupFixtureRoot 'artifacts/dev-data'
+            New-Item -ItemType Directory -Path $profile -Force | Out-Null
+            $selectedFolder = Join-Path $cleanupInputs 'already-selected-cleanup'
+            @{ KeepHistory = $false; CleanupDirectory = $selectedFolder } | ConvertTo-Json |
+                Set-Content -LiteralPath (Join-Path $profile 'settings.json')
+            & (Join-Path $cleanupScripts 'dev.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -BuildOnly
+            $metadata = Join-Path $cleanupFixtureRoot 'src/Freehand.App/bin/Debug/net10.0/models/cleanup-provisioning'
+            $selected = Get-Content -LiteralPath (Join-Path $metadata 'cleanup-model-manifest.json') -Raw | ConvertFrom-Json
+            $selected.ModelId | Should-Be 'fixture-selected-editor'
+            $selected.Model.Size | Should-Be 9000000000
+            (Test-Path -LiteralPath (Join-Path $metadata 'cleanup-runtime-manifest.json')) | Should-BeTrue
+            @(Get-ChildItem -LiteralPath $metadata -File).Count | Should-Be 2
+            $settings = Get-Content -LiteralPath (Join-Path $profile 'settings.json') -Raw | ConvertFrom-Json
+            $settings.CleanupDirectory | Should-Be $selectedFolder
+            $settings.KeepHistory | Should-BeFalse
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'rejects invalid preview setup metadata without downloading weights' {
+            Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-model-manifest.json') -Value '{}'
+            Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-runtime-manifest.json') -Value '{}'
+            { & (Join-Path $cleanupScripts 'dev.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -BuildOnly } |
+                Should-Throw '*immutable source revisions*'
+            (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'src/Freehand.App/bin/Debug/net10.0/models/cleanup-provisioning')) | Should-BeFalse
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'rejects a valid Linux <SourceMode> bundle before changing Windows development preferences' -ForEach @(
+            @{ SourceMode = 'explicit' }, @{ SourceMode = 'cached' }
+        ) {
+            Set-Content -LiteralPath (Join-Path $cleanupRuntime 'llama-server') -Value 'fixture Linux launcher, never executed'
+            $cleanupPrepare.Platform = 'linux-x64-cpu'
+            if ($SourceMode -eq 'cached') { $cleanupPrepare.OutputDirectory = Join-Path $cleanupFixtureRoot 'artifacts/cleanup-assets' }
+            $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+            $validated = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+            $manifest = Get-Content -LiteralPath $validated.ManifestPath -Raw | ConvertFrom-Json
+            $manifest.runtimePath | Should-Be 'runtime/llama-server'
+            (Get-FileHash -LiteralPath (Join-Path $bundle.Directory $manifest.runtimePath)).Hash.ToLowerInvariant() | Should-Be $manifest.runtimeSha256
+            $profile = Join-Path $cleanupFixtureRoot 'artifacts/dev-data'
+            New-Item -ItemType Directory -Path $profile -Force | Out-Null
+            $settingsPath = Join-Path $profile 'settings.json'
+            Set-Content -LiteralPath $settingsPath -Value '{ "KeepHistory": false, "StartAtLogin": true, "ModelDirectory": "preserve-existing-speech-folder" }'
+            $original = Get-Content -LiteralPath $settingsPath -Raw
+            if ($SourceMode -eq 'explicit') {
+                { & (Join-Path $cleanupScripts 'dev.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $bundle.Directory -BuildOnly } |
+                    Should-Throw '*Windows cleanup bundle*'
+            } else {
+                { & (Join-Path $cleanupScripts 'dev.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -BuildOnly } |
+                    Should-Throw '*Windows cleanup bundle*'
+            }
+            Get-Content -LiteralPath $settingsPath -Raw | Should-Be $original
+            Should-NotInvoke Invoke-WebRequest
+        }
+
         It 'points the isolated development profile at explicitly verified cleanup assets' {
+            Write-CleanupMetadataFixture
             $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
             & (Join-Path $cleanupScripts 'dev.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $cleanupDestination -BuildOnly
             $settings = Get-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/dev-data/settings.json') -Raw | ConvertFrom-Json
             $settings.CleanupDirectory | Should-Be $cleanupDestination
             $settings.StartAtLogin | Should-BeFalse
+            (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'src/Freehand.App/bin/Debug/net10.0/models/cleanup-provisioning/cleanup-model-manifest.json')) | Should-BeTrue
+            Should-NotInvoke Invoke-WebRequest
         }
     }
 }

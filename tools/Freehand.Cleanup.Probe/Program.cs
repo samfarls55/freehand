@@ -171,7 +171,15 @@ internal static class Program
                 checks = new FixtureChecks(ReadStrings(checksElement, "include"), ReadStrings(checksElement, "exclude"),
                     ReadStrings(checksElement, "literals"), ReadStringGroups(checksElement, "any_of"), ReadStringGroups(checksElement, "ordered"));
             }
-            if (split == "all" || split == caseSplit) result.Add(new Fixture(id, input, caseSplit, dictionary, targets, checks));
+            var referencesAreNormalized = false;
+            if (item.TryGetProperty("references_are_normalized", out var referenceStage))
+            {
+                if (referenceStage.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
+                    throw new InvalidDataException("references_are_normalized must be a Boolean.");
+                referencesAreNormalized = referenceStage.GetBoolean();
+            }
+            if (split == "all" || split == caseSplit)
+                result.Add(new Fixture(id, input, caseSplit, dictionary, targets, checks, referencesAreNormalized));
         }
         if (result.Count == 0) throw new InvalidDataException("No cases match the requested split.");
         return result;
@@ -214,6 +222,9 @@ internal static class Program
 
     private static async Task<ReferenceNormalization> NormalizeReferencesAsync(Fixture fixture, CancellationToken cancellationToken)
     {
+        // Dictionary integration targets already contain final literal replacements.
+        // Replaying them through the dictionary can cascade a replacement a second time.
+        if (fixture.ReferencesAreNormalized) return new(fixture.Targets ?? [], fixture.Checks);
         var cache = new Dictionary<string, string>(StringComparer.Ordinal);
         async Task<string> NormalizeAsync(string text)
         {
@@ -343,7 +354,14 @@ internal static class Program
                 || result.InsertionCount != 1 || result.CleanupStatus != "Disabled")
                 throw new InvalidDataException("Managed pipeline self-test failed: " + fixtures[index].Id);
         }
-        Console.WriteLine("Managed pipeline self-test passed: dictionary correction, number formatting, path and literal whitespace preservation, single recorded insertion.");
+        var cascade = new Fixture("final-reference", "alpha", "development",
+            [DictionaryEntry.Correction("alpha", "BetaProject"), DictionaryEntry.Correction("BetaProject", "GammaProject")],
+            ["BetaProject"], ReferencesAreNormalized: true);
+        var references = await NormalizeReferencesAsync(cascade, CancellationToken.None).ConfigureAwait(false);
+        var actual = await RunCaseAsync(cascade, null, TimeSpan.FromSeconds(5), CancellationToken.None).ConfigureAwait(false);
+        if (references.Targets.Single() != "BetaProject" || actual.Output != "BetaProject")
+            throw new InvalidDataException("Final dictionary references must not be corrected twice.");
+        Console.WriteLine("Managed pipeline self-test passed: dictionary correction, number formatting, path and literal whitespace preservation, final-reference provenance, single recorded insertion.");
         return 0;
     }
 
@@ -366,7 +384,7 @@ internal static class Program
 
     private sealed record Arguments(string Input, string Output, string? Manifest, string Split, TimeSpan CleanupTimeout);
     private sealed record Fixture(string Id, string Input, string Split, IReadOnlyList<DictionaryEntry> Dictionary,
-        IReadOnlyList<string>? Targets = null, FixtureChecks? Checks = null);
+        IReadOnlyList<string>? Targets = null, FixtureChecks? Checks = null, bool ReferencesAreNormalized = false);
     private sealed record ReferenceNormalization(IReadOnlyList<string> Targets, FixtureChecks? Checks);
 }
 
