@@ -122,9 +122,9 @@ internal static class EngineeringChecks
         return report.Failures.Count == 0 && report.OrphanWorkers == 0 ? 0 : 1;
     }
     internal static async Task<BenchmarkReport> RunDeliveryReplayAsync(Action<SpeechWorkerClient>? observeSession = null,
-        ITextDeliveryHotkeySource? deliveryHotkey = null)
+        ITextDeliveryHotkeySource? deliveryHotkey = null, bool realtimeWarmCapture = false)
     {
-        var report = new BenchmarkReport();
+        var report = new BenchmarkReport { RealtimeWarmCapture = realtimeWarmCapture };
         BenchmarkWorkerLauncher? trackedLauncher = null;
         try
         {
@@ -186,9 +186,9 @@ internal static class EngineeringChecks
                 var warmWorker = speech.WorkerId;
                 for (var run = 0; run < 50; run++)
                 {
-                    PrepareTrial(); capture.Prepare(); key.Press();
+                    PrepareTrial(); capture.Prepare(realtime: realtimeWarmCapture); key.Press();
                     var trialTarget = desktop.Capture();
-                    await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                    await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(realtimeWarmCapture ? 15 : 5)).ConfigureAwait(false);
                     var released = Stopwatch.GetTimestamp(); key.Release();
                     await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
                     var result = engine.LastResult ?? throw new IOException("Missing transcript");
@@ -227,8 +227,11 @@ internal static class EngineeringChecks
                 var recovery = Stopwatch.GetTimestamp(); key.Release();
                 await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(45)).ConfigureAwait(false);
                 report.RecoveryMilliseconds = Stopwatch.GetElapsedTime(recovery).TotalMilliseconds;
-                if (completed != warmStarted + 51 || engine.LastResult is null || (probe is not null && (engine.LastResult.Delivery != DeliveryOutcome.Delivered || probe.ReadText() != engine.LastResult.Text + " ")))
+                var recovered = engine.LastResult;
+                if (completed != warmStarted + 51 || recovered is null || (probe is not null && recovered.Delivery != DeliveryOutcome.Delivered))
                     throw new IOException("Worker recovery lost audio or repeated delivery");
+                if (probe is not null)
+                    await WaitAsync(() => probe.ReadText() == recovered.Text + " ", TimeSpan.FromSeconds(2)).ConfigureAwait(false);
                 report.WorkerCrashRecoveryPassed = true;
                 speech.SetIdleTimeout(TimeSpan.FromMilliseconds(100));
                 await WaitAsync(() => speech.WorkerId is null, TimeSpan.FromSeconds(7)).ConfigureAwait(false);
@@ -393,6 +396,7 @@ internal sealed record BenchmarkWorkerIdentity(int ProcessId, DateTime StartTime
 
 internal sealed class BenchmarkReport
 {
+    public bool RealtimeWarmCapture { get; set; }
     public string ModelName { get; init; } = ModelResolver.DisplayName;
     public string ModelVersion { get; init; } = ModelResolver.Version;
     public string Runtime { get; init; } = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;

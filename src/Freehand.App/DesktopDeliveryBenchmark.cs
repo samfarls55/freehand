@@ -35,7 +35,7 @@ internal static class DesktopDeliveryBenchmark
             try
             {
                 report.Replay = await EngineeringChecks.RunDeliveryReplayAsync(session => Volatile.Write(ref observedSession, session),
-                    composition.DeliveryHotkey).ConfigureAwait(false);
+                    composition.DeliveryHotkey, realtimeWarmCapture: true).ConfigureAwait(false);
                 if (report.Replay.Failures.Count != 0 || report.Replay.OrphanWorkers != 0)
                     report.Failures.Add("The native worker and delivery replay failed.");
                 else if (report.Replay.ReleaseToFullInputMilliseconds.Count != 50)
