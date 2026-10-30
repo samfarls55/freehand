@@ -34,6 +34,40 @@ public sealed class ProgressiveTranscriptionTests
     }
 
     [Fact]
+    public async Task Eight_second_policy_decodes_before_ten_second_release_and_preserves_every_sample()
+    {
+        var capture = new QueuedCapture();
+        var speech = new ObservedSpeech();
+        var key = new FakeHotkeySource();
+        var injector = new RecordingTextInjector();
+        var completed = 0;
+        var audio = Enumerable.Range(0, 10 * AudioChunk.SampleRate)
+            .Select(sample => 0.25f + (float)sample / (20 * AudioChunk.SampleRate)).ToArray();
+        Array.Fill(audio, 0f, 6 * AudioChunk.SampleRate + AudioChunk.SampleRate / 5, 2 * AudioChunk.SampleRate / 5);
+        await using var engine = new DictationEngine(capture, key, speech, injector, () => [],
+            options: new DictationOptions { MaxSegmentSeconds = 8 });
+        engine.Completed += (_, _) => completed++;
+        key.Press();
+        var firstChunkSamples = 8 * AudioChunk.SampleRate + 320;
+        await capture.SendAndWaitAsync(audio[..firstChunkSamples]).WaitAsync(TimeSpan.FromSeconds(2));
+        await speech.FirstSegment.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        engine.State.ShouldBe(DictationState.Recording);
+        completed.ShouldBe(0);
+        injector.Injected.ShouldBeEmpty();
+        speech.Samples.ShouldHaveSingleItem().ShouldBeLessThanOrEqualTo(8 * AudioChunk.SampleRate);
+        await capture.SendAndWaitAsync(audio[firstChunkSamples..]).WaitAsync(TimeSpan.FromSeconds(2));
+        injector.Injected.ShouldBeEmpty();
+        key.Release();
+        await LifecycleTests.WaitUntilAsync(() => engine.State == DictationState.Idle);
+        speech.Samples.Count.ShouldBe(2);
+        speech.Audio.SelectMany(segment => segment.ToArray()).ShouldBe(audio.Concat(Tone(320)));
+        speech.Samples.ShouldAllBe(count => count <= 8 * AudioChunk.SampleRate);
+        engine.LastResult!.AudioDuration.TotalSeconds.ShouldBe(10.02, 0.0001);
+        completed.ShouldBe(1);
+        injector.Injected.ShouldHaveSingleItem();
+    }
+
+    [Fact]
     public async Task Failed_progressive_inference_replays_the_recording_once_and_discards_partial_text()
     {
         var capture = new QueuedCapture();
@@ -106,19 +140,27 @@ public sealed class ProgressiveTranscriptionTests
 
     private sealed class QueuedCapture : IAudioCapture
     {
-        private readonly Channel<float[]> _chunks = Channel.CreateUnbounded<float[]>();
+        private readonly Channel<(float[] Samples, TaskCompletionSource? Consumed)> _chunks =
+            Channel.CreateUnbounded<(float[], TaskCompletionSource?)>();
         public bool IsCapturing { get; private set; }
-        internal void Send(float[] samples) => _chunks.Writer.TryWrite(samples);
+        internal void Send(float[] samples) => _chunks.Writer.TryWrite((samples, null));
+        internal Task SendAndWaitAsync(float[] samples)
+        {
+            var consumed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            _chunks.Writer.TryWrite((samples, consumed));
+            return consumed.Task;
+        }
         internal void Fail() => _chunks.Writer.TryComplete(new IOException("Microphone disconnected"));
         public async IAsyncEnumerable<AudioChunk> CaptureAsync([EnumeratorCancellation] CancellationToken cancellationToken)
         {
             IsCapturing = true;
             while (true)
             {
-                float[] samples;
-                try { samples = await _chunks.Reader.ReadAsync(cancellationToken); }
+                (float[] Samples, TaskCompletionSource? Consumed) chunk;
+                try { chunk = await _chunks.Reader.ReadAsync(cancellationToken); }
                 catch (OperationCanceledException) { break; }
-                yield return new AudioChunk(samples);
+                yield return new AudioChunk(chunk.Samples);
+                chunk.Consumed?.TrySetResult();
             }
             // Preserve the capture callback that arrives while the device stops.
             yield return new AudioChunk(Tone(320));
@@ -132,6 +174,7 @@ public sealed class ProgressiveTranscriptionTests
         internal bool FailSecondSegment { get; init; }
         internal bool HoldInference { get; init; }
         internal List<int> Samples { get; } = [];
+        internal List<ReadOnlyMemory<float>> Audio { get; } = [];
         internal TaskCompletionSource FirstSegment { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal TaskCompletionSource Failed { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal int Resets { get; private set; }
@@ -147,6 +190,7 @@ public sealed class ProgressiveTranscriptionTests
         public async ValueTask<string> TranscribeAsync(ReadOnlyMemory<float> samples, IReadOnlyList<string> biasPhrases, CancellationToken cancellationToken)
         {
             Samples.Add(samples.Length);
+            Audio.Add(samples);
             FirstSegment.TrySetResult();
             if (HoldInference) await Task.Delay(Timeout.Infinite, cancellationToken);
             if (FailSecondSegment && Samples.Count == 2) { Failed.TrySetResult(); throw new IOException("Worker failed"); }

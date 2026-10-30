@@ -150,7 +150,8 @@ internal static class EngineeringChecks
             var baseline = Memory(speech); report.BaselinePrivateBytes = baseline.Private; report.BaselineWorkingSet = baseline.Working;
             var capture = new FixtureCapture(audio);
             var key = new ScriptedKey(deliveryHotkey);
-            await using (var engine = new DictationEngine(capture, key, speech, injector, () => [], foreground: desktop, injectEnabled: () => probe is not null))
+            await using (var engine = new DictationEngine(capture, key, speech, injector, () => [], foreground: desktop, injectEnabled: () => probe is not null,
+                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds }))
             {
                 var completed = 0;
                 engine.Completed += (_, _) => completed++;
@@ -166,6 +167,8 @@ internal static class EngineeringChecks
                     var result = engine.LastResult ?? throw new IOException("Cold dictation produced no transcript");
                     if (completed != report.ColdRecordingSeconds.Count + 1) throw new IOException("Cold dictation did not complete exactly once");
                     report.ColdRecordingSeconds.Add(seconds);
+                    report.ColdDictationLoadMilliseconds.Add(speech.LastLoadTime.TotalMilliseconds);
+                    report.ColdInferenceMilliseconds.Add(speech.LastInferenceTime.TotalMilliseconds);
                     report.ColdReleaseToTranscriptMilliseconds.Add(result.TranscriptTime.TotalMilliseconds);
                     if (probe is not null)
                     {
@@ -234,7 +237,8 @@ internal static class EngineeringChecks
             var timeoutSpeech = new SpeechWorkerClient(launcher, models, new WorkerOptions { InferenceTimeout = TimeSpan.FromTicks(1) });
             observeSession?.Invoke(timeoutSpeech);
             capture = new FixtureCapture(audio); key = new ScriptedKey(deliveryHotkey);
-            await using (var engine = new DictationEngine(capture, key, timeoutSpeech, injector, () => [], injectEnabled: () => false))
+            await using (var engine = new DictationEngine(capture, key, timeoutSpeech, injector, () => [], injectEnabled: () => false,
+                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds }))
             {
                 capture.Prepare(); key.Press(); await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false); key.Release();
                 await WaitAsync(() => engine.State == DictationState.AwaitingRetry, TimeSpan.FromSeconds(90)).ConfigureAwait(false);
@@ -399,6 +403,8 @@ internal sealed class BenchmarkReport
     public List<double> ReleaseToFirstInputMilliseconds { get; } = [];
     public List<double> ReleaseToFullInputMilliseconds { get; } = [];
     public List<int> ColdRecordingSeconds { get; } = [];
+    public List<double> ColdDictationLoadMilliseconds { get; } = [];
+    public List<double> ColdInferenceMilliseconds { get; } = [];
     public List<double> ColdReleaseToTranscriptMilliseconds { get; } = [];
     public List<double> ColdReleaseToFullInputMilliseconds { get; } = [];
     public List<double> ReleaseToTranscriptMilliseconds { get; } = [];

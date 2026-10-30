@@ -37,6 +37,8 @@ public sealed class SpeechWorkerClient : ISpeechSession
     public int? WorkerId { get { var process = _process; return process?.HasExited == false ? process.Id : null; } }
     /// <summary>Most recent connection and loading duration.</summary>
     public TimeSpan LastLoadTime { get; private set; }
+    /// <summary>Most recent successful transcription request duration, including IPC.</summary>
+    public TimeSpan LastInferenceTime { get; private set; }
     /// <inheritdoc />
     public event EventHandler? Changed;
     /// <summary>Creates an unloaded session. No child starts here.</summary>
@@ -144,8 +146,10 @@ public sealed class SpeechWorkerClient : ISpeechSession
             {
                 var phrases = biasPhrases.Where(SupportsBiasPhrase)
                     .Take(WorkerProtocol.MaxBiasPhrases).ToArray();
+                var started = Stopwatch.GetTimestamp();
                 var response = await RequestAsync("transcribe", null, samples.Length, samples, deadline.Token, phrases).ConfigureAwait(false);
                 if (response.Kind != "text") throw new InvalidDataException("Unexpected transcription reply");
+                LastInferenceTime = Stopwatch.GetElapsedTime(started);
                 return response.Value ?? string.Empty;
             }
             catch (OperationCanceledException)

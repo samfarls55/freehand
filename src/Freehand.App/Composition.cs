@@ -69,7 +69,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             Speech = new SpeechWorkerClient(launcher, Models);
             Speech.SetIdleTimeout(TimeSpan.FromMinutes(_applied.IdleModelMinutes));
             Engine = new DictationEngine(capture, hotkey, Speech, injector, () => Dictionary.Entries,
-                injectEnabled: () => _applied.InjectText, foreground: desktop, log: Logs);
+                injectEnabled: () => _applied.InjectText, foreground: desktop, log: Logs,
+                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds });
             Engine.Completed += OnCompleted;
             Engine.Changed += OnEngineChanged;
             Speech.Changed += (_, _) => { Logs.Write(Guid.Empty, "model-" + Speech.State); Changed?.Invoke(this, EventArgs.Empty); };

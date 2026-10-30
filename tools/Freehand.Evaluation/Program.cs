@@ -119,7 +119,8 @@ internal static partial class Program
                     var capture = new ReplayCapture(samples, realtime);
                     var injector = new CountingInjector();
                     var completed = new TaskCompletionSource<DictationResult>(TaskCreationOptions.RunContinuationsAsynchronously);
-                    await using var engine = new DictationEngine(capture, key, observed, injector, () => []);
+                    await using var engine = new DictationEngine(capture, key, observed, injector, () => [],
+                        options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds });
                     engine.Completed += (_, result) => completed.TrySetResult(result);
                     using var monitorStop = new CancellationTokenSource();
                     var peak = new MemoryPeak();

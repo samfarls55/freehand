@@ -49,17 +49,27 @@ internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
         _hotwords = new ParakeetHotwords(Path.Combine(AppContext.BaseDirectory, ParakeetHotwords.VocabularyFile));
         if (ModelResolver.VoiceActivityModel is { } detectorModel)
             _speechPresence = new SpeechPresenceDetector(Path.Combine(modelDirectory, detectorModel));
+        // Prepare encoder/decoder graphs while loading can overlap recording.
+        // Run directly: the speech-presence guard correctly rejects this input.
+        // The result stays inside initialization; every user request resets state.
+        _ = RunNative(_session, new float[ModelResolver.PreferredMaxSegmentSeconds * AudioChunk.SampleRate], [], cancellationToken);
         return ValueTask.FromResult(true);
     }
 
     public bool SupportsBiasPhrase(string phrase) => _hotwords?.Supports(phrase) == true;
 
-    public unsafe ValueTask<string> TranscribeAsync(ReadOnlyMemory<float> samples,
+    public ValueTask<string> TranscribeAsync(ReadOnlyMemory<float> samples,
         IReadOnlyList<string> biasPhrases, CancellationToken cancellationToken)
     {
         if (_session is null || samples.IsEmpty) return ValueTask.FromResult(string.Empty);
         cancellationToken.ThrowIfCancellationRequested();
         if (_speechPresence?.ContainsSpeech(samples) == false) return ValueTask.FromResult(string.Empty);
+        return ValueTask.FromResult(RunNative(_session, samples, biasPhrases, cancellationToken));
+    }
+
+    private static unsafe string RunNative(SessionHandle session, ReadOnlyMemory<float> samples,
+        IReadOnlyList<string> biasPhrases, CancellationToken cancellationToken)
+    {
         Native.RunParamsInit(out var run);
         run.Timestamps = 0;
         var phrases = new IntPtr[biasPhrases.Count];
@@ -78,10 +88,10 @@ internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
                 run.Vocabulary = (IntPtr)vocabulary;
                 run.VocabularyCount = phrases.Length;
                 run.Language = (IntPtr)language;
-                Check(Native.Run(_session, pcm.Pointer, samples.Length, ref run));
+                Check(Native.Run(session, pcm.Pointer, samples.Length, ref run));
             }
             cancellationToken.ThrowIfCancellationRequested();
-            return ValueTask.FromResult(Marshal.PtrToStringUTF8(Native.FullText(_session))?.Trim() ?? string.Empty);
+            return Marshal.PtrToStringUTF8(Native.FullText(session))?.Trim() ?? string.Empty;
         }
         finally { foreach (var phrase in phrases) Marshal.FreeCoTaskMem(phrase); }
     }

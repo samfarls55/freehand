@@ -67,6 +67,8 @@ public sealed record DictationOptions
 {
     /// <summary>Initial ten-minute limit.</summary>
     public TimeSpan RecordingLimit { get; init; } = TimeSpan.FromMinutes(10);
+    /// <summary>Maximum progressive segment duration, from one to fifteen seconds.</summary>
+    public int MaxSegmentSeconds { get; init; } = AudioSegmenter.MaxSegmentSeconds;
 }
 /// <summary>Owns capture, one retained recording, correction and delivery.</summary>
 public sealed class DictationEngine : IAsyncDisposable
@@ -118,7 +120,10 @@ public sealed class DictationEngine : IAsyncDisposable
         _capture = capture; _hotkey = hotkey; _speech = transcriber; _injector = injector;
         _dictionary = dictionary; _clock = clock ?? SystemClock.Instance;
         _injectEnabled = injectEnabled ?? (() => true); _foreground = foreground; _log = log;
-        _options = options ?? new DictationOptions(); Subscribe(_hotkey);
+        _options = options ?? new DictationOptions();
+        ArgumentOutOfRangeException.ThrowIfLessThan(_options.MaxSegmentSeconds, 1, nameof(options));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(_options.MaxSegmentSeconds, AudioSegmenter.MaxSegmentSeconds, nameof(options));
+        Subscribe(_hotkey);
     }
     /// <summary>Arms the hotkey and reports startup failure.</summary>
     public bool Start()
@@ -187,7 +192,7 @@ public sealed class DictationEngine : IAsyncDisposable
         {
             SingleReader = true, SingleWriter = true,
         });
-        var audio = new RecordingBuffer(segment => segments.Writer.TryWrite(segment));
+        var audio = new RecordingBuffer(_options.MaxSegmentSeconds, segment => segments.Writer.TryWrite(segment));
         using var decodeStop = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
         var pressAt = Stopwatch.GetTimestamp();
         var load = Task.Run(async () =>

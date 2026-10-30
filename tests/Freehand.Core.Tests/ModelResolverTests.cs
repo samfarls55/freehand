@@ -10,6 +10,7 @@ public sealed class ModelResolverTests
     public void The_bundled_model_contract_uses_the_small_transducer()
     {
         ModelResolver.FeatureDimension.ShouldBe(80);
+        ModelResolver.PreferredMaxSegmentSeconds.ShouldBe(15);
         ModelResolver.DirectoryName.ShouldBe("parakeet-110m");
         ModelResolver.Version.ShouldStartWith("parakeet-tdt-110m-int8/");
         using var models = new ModelResolver();

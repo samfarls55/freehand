@@ -26,6 +26,8 @@ public sealed class ModelResolver : IModelAssets, IDisposable
     public static int FeatureDimension => Manifest.FeatureDimension;
     /// <summary>The selected model's name for settings and measurements.</summary>
     public static string DisplayName => Manifest.DisplayName ?? "Parakeet TDT 110M";
+    /// <summary>Maximum progressive segment duration preferred by the selected model.</summary>
+    public static int PreferredMaxSegmentSeconds => Manifest.PreferredMaxSegmentSeconds;
     internal static int DecoderContext => Manifest.DecoderContext;
     internal static string? VoiceActivityModel => Manifest.VoiceActivityModel;
     private static readonly ModelManifest Manifest = LoadManifest();
@@ -123,7 +125,7 @@ public sealed class ModelResolver : IModelAssets, IDisposable
 }
 internal sealed record ModelAsset(string Name, long Size, string Sha256, string? Source = null);
 internal sealed record ModelManifest(string Version, string DirectoryName, int FeatureDimension, ModelAsset[] Files,
-    int DecoderContext = 0, string? DisplayName = null, string? VoiceActivityModel = null);
+    int DecoderContext = 0, string? DisplayName = null, string? VoiceActivityModel = null, int PreferredMaxSegmentSeconds = 15);
 internal sealed record AssetStamp(string Name, long Size, long Modified);
 internal sealed record VerificationCache(string Version, AssetStamp[] Stamps);
 [JsonSerializable(typeof(VerificationCache))]
