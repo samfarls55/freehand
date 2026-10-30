@@ -1,5 +1,10 @@
 # Transcript cleanup evaluation — October 30, 2026
 
+Subsequent [small-model research](TRANSCRIPT-CLEANUP-SMALL-MODELS.md) reopens
+production selection. References below to the selected Qwen model describe this
+historical experiment and its pinned prototype; they do not establish the best
+production candidate across the newly researched specialists.
+
 This continuation started from checkpoint `6266be5` on `codex/transcript-cleanup`.
 The [handoff](TRANSCRIPT-CLEANUP-HANDOFF.md) makes output quality the first
 selection criterion. Earlier additional-memory and additional-delay limits do

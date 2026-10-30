@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-30T20:42:33.711907+00:00",
+  "user_request": "Hilariously exhaustive research into S1-mini and similar usable/testable local transcript cleanup models.",
+  "scope": "English final full-utterance cleanup for Freehand Windows x64, including fillers, accidental repeats, spoken corrections, grammar, punctuation, preserved intent and exact surviving dictionary literals.",
+  "resource_targets": {
+    "whole_app_system_ram_bytes": 650000000,
+    "ready_release_to_complete_text_ms": 700,
+    "notes": "Targets are whole-app and full delivery; dedicated VRAM reported separately; historical CPU and GPU ASR profiles are separate, not interchangeable baselines."
+  },
+  "not_this_phase": [
+    "new weight downloads",
+    "new model inference or performance benchmarks",
+    "application dependency/runtime/provider changes",
+    "installation updates",
+    "public release"
+  ],
+  "research_workstreams": [
+    "official S1 and derivatives/conversions",
+    "task-specific specialist discovery",
+    "local dictation products and implementation traces",
+    "compact general controls",
+    "seq2seq/taggers/disfluency/punctuation/editing architectures",
+    "Windows runtime and measurement feasibility"
+  ],
+  "evidence_levels": [
+    "Pinned metadata and artifact inventory; publisher SHA is not independently downloaded weight verification",
+    "Primary source contract/license/config checked",
+    "Publisher-reported performance or quality; not Freehand measurement",
+    "Existing earlier Freehand inference evidence explicitly historical",
+    "Hypothesis or integration work not yet validated"
+  ],
+  "root_queries": [
+    "\"dictation cleanup\" \"model\" \"GGUF\"",
+    "\"ASR post-processing\" \"model\" small",
+    "\"speech\" \"self-correction\" \"text normalization\" model",
+    "\"local dictation\" \"cleanup\" \"model\" 2026",
+    "\"dictation cleanup\" model benchmark S1-mini Fluid-1 EG-1",
+    "\"transcript cleanup\" \"GGUF\" \"350m\"",
+    "\"dictation cleanup\" \"135M\" OR \"77M\" OR \"230M\"",
+    "\"dictation cleanup\" \"benchmark\" \"latency\" memory",
+    "site:github.com \"dictation cleanup\" \"benchmark\" \"S1-mini\"",
+    "site:huggingface.co \"dictation-cleanup\" \"license\" model",
+    "site:huggingface.co \"transcript-cleanup\" \"SmolLM2\"",
+    "site:huggingface.co \"speech\" \"cleanup\" \"350M\""
+  ],
+  "known_prior_reference": {
+    "model": "Qwen3.5-9B Q8_0",
+    "frozen_heldout_review": "29/30 faithful,25/30 fully acceptable",
+    "median_cleanup_seconds": 17.0700835,
+    "heldout_peak_probe_and_worker_rss_mib": 9907.03125,
+    "scope": "Linux Core replay and native worker; excludes real ASR and desktop. Production selection reopened."
+  }
+}

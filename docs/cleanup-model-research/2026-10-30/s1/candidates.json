@@ -1,0 +1,931 @@
+{
+  "schema_version": 1,
+  "researched_utc": "2026-10-30T20:46:58.688276+00:00",
+  "scope": "Metadata/license/source verification only; no complete weights downloaded and no inference benchmark. Same-family quantizations are separate artifacts, not independent evidence of model capability.",
+  "official_refs_warning": "Both official repos advertise v1 but refsAPI has no tags; pin commits.",
+  "official_family_repos": [
+    "superwhisper/s1-mini",
+    "superwhisper/s1-mini-GGUF"
+  ],
+  "nominal_f16_kv_bytes_per_context_token": 114688,
+  "nominal_kv_formula": "2 K+V *28layers *8KVheads *128head_dimensions *2bytes; capacity calculation only, not measured resident RAM",
+  "candidates": [
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-official-q4-k-m",
+      "priority": 1,
+      "role": "first_specialist_POC",
+      "artifact": {
+        "repository": "superwhisper/s1-mini-GGUF",
+        "revision": "34add00a48a2e5d24e5a4ee5405a99620a3a240c",
+        "filename": "s1-mini-q4_k_m.gguf",
+        "source": "https://huggingface.co/superwhisper/s1-mini-GGUF/resolve/34add00a48a2e5d24e5a4ee5405a99620a3a240c/s1-mini-q4_k_m.gguf",
+        "size": 484219808,
+        "sha256": "3b41ebe2502cbd03e811d5d16b022f5ab551eda58d62597d152f89535003c634",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/superwhisper/s1-mini-GGUF/blob/34add00a48a2e5d24e5a4ee5405a99620a3a240c/README.md"
+      ],
+      "notes": "Official measured publisher quant; exact prompt required. 484219808 bytes is 461.79MiB, not total RAM."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-official-f16",
+      "priority": 2,
+      "role": "precision_control",
+      "artifact": {
+        "repository": "superwhisper/s1-mini-GGUF",
+        "revision": "34add00a48a2e5d24e5a4ee5405a99620a3a240c",
+        "filename": "s1-mini-f16.gguf",
+        "source": "https://huggingface.co/superwhisper/s1-mini-GGUF/resolve/34add00a48a2e5d24e5a4ee5405a99620a3a240c/s1-mini-f16.gguf",
+        "size": 1509347232,
+        "sha256": "0370da4f1bae19e3150bcafa33c5d396c15f97bf25519540a3e013db5cc00af4",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/superwhisper/s1-mini-GGUF/blob/34add00a48a2e5d24e5a4ee5405a99620a3a240c/README.md"
+      ],
+      "notes": "Larger diagnostic control; do not require that it itself fit strict product RAM."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-q4-k-m",
+      "priority": 2,
+      "role": "quantization_comparison",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-Q4_K_M.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-Q4_K_M.gguf",
+        "size": 484220576,
+        "sha256": "ed859ccf2e772fd0a89de17be8fa43a4b8bf191a0de65e1251ff035e696852f9",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Community converter; WikiText-103 calibration; quality improvement anecdotal. Source repo lacks LICENSE/NOTICE files; retain upstream texts."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-q6-k",
+      "priority": 2,
+      "role": "precision_control",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-Q6_K.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-Q6_K.gguf",
+        "size": 622733984,
+        "sha256": "165b40ecc0c6b45723ef4025b131ac74245441447570439dbd424cc972c2c9c1",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Community higher-precision alternative linked from official issue; no independently verified equivalence."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-iq2-m",
+      "priority": 3,
+      "role": "later_resource_or_precision_sweep",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-IQ2_M.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-IQ2_M.gguf",
+        "size": 331761312,
+        "sha256": "2a7b2bc548f3fcd12b5edb9aa67ee2776de774e7ca70ab2ac75b09031f9027cd",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Same specialist family, not independent training evidence; no measured Freehand quality/speed/RAM."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-iq3-m",
+      "priority": 3,
+      "role": "later_resource_or_precision_sweep",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-IQ3_M.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-IQ3_M.gguf",
+        "size": 402879136,
+        "sha256": "c351ae28c0507551a0f7291ac049729443c5b33ca2443c95dd9f05bb439d3ded",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Same specialist family, not independent training evidence; no measured Freehand quality/speed/RAM."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-iq4-xs",
+      "priority": 3,
+      "role": "later_resource_or_precision_sweep",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-IQ4_XS.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-IQ4_XS.gguf",
+        "size": 450457248,
+        "sha256": "fc2316ebebea0368eb5f077b07a9541231cece91195f524c2d789e70c18e91fd",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Same specialist family, not independent training evidence; no measured Freehand quality/speed/RAM."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-q5-k-m",
+      "priority": 3,
+      "role": "later_resource_or_precision_sweep",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-Q5_K_M.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-Q5_K_M.gguf",
+        "size": 551378592,
+        "sha256": "87d1dd8ab672ad1a13661c56ad268c73fbb120c2bacc2e176c703d0ea7e3afd2",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Same specialist family, not independent training evidence; no measured Freehand quality/speed/RAM."
+    },
+    {
+      "family": "superwhisper-s1-mini",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report"
+      ],
+      "id": "s1-mini-imatrix-q8-0",
+      "priority": 3,
+      "role": "later_resource_or_precision_sweep",
+      "artifact": {
+        "repository": "liodon-ai/s1-mini-imatrix-GGUF",
+        "revision": "5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3",
+        "filename": "s1-mini-Q8_0.gguf",
+        "source": "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/resolve/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/s1-mini-Q8_0.gguf",
+        "size": 804754080,
+        "sha256": "91102856faa0beff7e70e9db340ed74009dd22161393cd8ec7b7d57c0893a925",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/liodon-ai/s1-mini-imatrix-GGUF/blob/5d15b4a07dda48e8d236dbb28f7cf9b4ee76c9f3/README.md"
+      ],
+      "notes": "Same specialist family, not independent training evidence; no measured Freehand quality/speed/RAM."
+    },
+    {
+      "family": "s1-asr-cleanup-v1",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general] [Layers: 1,2]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report",
+        "more aggressive personalized deletion/formatting policy"
+      ],
+      "id": "s1-asr-cleanup-v1-q4-k-m",
+      "priority": 3,
+      "role": "personalized_finetune_comparison",
+      "artifact": {
+        "repository": "danielrosehill/S1-ASR-Cleanup",
+        "revision": "6b38b1877e59b6524465b7206f92102f40744028",
+        "filename": "s1-asr-cleanup-v1.0-Q4_K_M.gguf",
+        "source": "https://huggingface.co/danielrosehill/S1-ASR-Cleanup/resolve/6b38b1877e59b6524465b7206f92102f40744028/s1-asr-cleanup-v1.0-Q4_K_M.gguf",
+        "size": 396704480,
+        "sha256": "b7d9a71855b4fb804624046c2f233a79a310b1e880e9a7bd3e7711c3d456af19",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/danielrosehill/S1-ASR-Cleanup/blob/6b38b1877e59b6524465b7206f92102f40744028/README.md"
+      ],
+      "notes": "Merged rank16 LoRA,4epochs,405 personal+syntheticpairs. Deliberate aside/spelled-clarification removal can conflict with fidelity; own card dinner example omits requested dinner activity. Q4 not benchmarked againstQ8 by publisher."
+    },
+    {
+      "family": "s1-asr-cleanup-v1",
+      "unique_parameters": 596000000,
+      "base_model": "Qwen/Qwen3-0.6B",
+      "task": "ASR transcript normalization",
+      "language": "en",
+      "full_model_downloaded": false,
+      "inference_tested_by_us": false,
+      "sla_proven": false,
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "input_contract": {
+        "system_prompt": "You are a text normalizer for speech-to-text transcripts. The input begins with a control line specifying the styling, structure, and context settings; clean the transcript to match those settings and output only the cleaned text.",
+        "control_line": "[Styling: semi-formal] [Structure: prose] [Context: general] [Layers: 1,2]",
+        "thinking": false,
+        "required_assistant_prefix": "<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "decoding": "greedy",
+        "recommended_max_input_tokens": 1000,
+        "output_ceiling_guidance": "about 1.3 times input tokens plus 32; fit full input+output and report overflow bypass",
+        "empty_output": "legitimate for filler-only input; conflicts with present Freehand unconditional empty rejection"
+      },
+      "runtime_architecture": "qwen3",
+      "risks": [
+        "quality claims not reproduced",
+        "opaque dictionary token survival untested",
+        "already formatted input differs from raw lowercase training shape",
+        "complete local app RAM/delivery budget unproven",
+        "long inputs can repeat/drop content per community report",
+        "more aggressive personalized deletion/formatting policy"
+      ],
+      "id": "s1-asr-cleanup-v1-q8-0",
+      "priority": 3,
+      "role": "personalized_finetune_comparison",
+      "artifact": {
+        "repository": "danielrosehill/S1-ASR-Cleanup",
+        "revision": "6b38b1877e59b6524465b7206f92102f40744028",
+        "filename": "s1-asr-cleanup-v1.0-Q8_0.gguf",
+        "source": "https://huggingface.co/danielrosehill/S1-ASR-Cleanup/resolve/6b38b1877e59b6524465b7206f92102f40744028/s1-asr-cleanup-v1.0-Q8_0.gguf",
+        "size": 639446560,
+        "sha256": "d7b73071fec1ad0c647564863f03ca24fef075272f63fb407a9abefc27328ce1",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "sources": [
+        "https://huggingface.co/danielrosehill/S1-ASR-Cleanup/blob/6b38b1877e59b6524465b7206f92102f40744028/README.md"
+      ],
+      "notes": "Merged rank16 LoRA,4epochs,405 personal+syntheticpairs. Deliberate aside/spelled-clarification removal can conflict with fidelity; own card dinner example omits requested dinner activity. Q4 not benchmarked againstQ8 by publisher."
+    }
+  ],
+  "format_alternatives": [
+    {
+      "id": "s1-mini-elbruno-onnx-int4",
+      "repository": "elbruno/s1-mini-onnx",
+      "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+      "priority": 2,
+      "role": "alternative_runtime_format_of_same_S1_family",
+      "assets": [
+        {
+          "repository": "elbruno/s1-mini-onnx",
+          "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+          "filename": "int4/chat_template.jinja",
+          "size": 4256,
+          "git_blob_sha1": "b11e13ef0c59aa4b052a74de766e263c5b9332ec",
+          "sha256": "51fa65c79bb57f058dc7ef8734884bd325fe9d45bb03a61bfef59785d3bc2da9",
+          "source": "https://huggingface.co/elbruno/s1-mini-onnx/resolve/4231669ff51c8fb53315beadfe2311975d06169d/int4/chat_template.jinja"
+        },
+        {
+          "repository": "elbruno/s1-mini-onnx",
+          "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+          "filename": "int4/genai_config.json",
+          "size": 1571,
+          "git_blob_sha1": "a6331af98be191af2549c36bd5f4148f957326fd",
+          "sha256": "d3ac902faa3c61cd73eef960bce245b4f09996a40bc12fba4c8862df4339250b",
+          "source": "https://huggingface.co/elbruno/s1-mini-onnx/resolve/4231669ff51c8fb53315beadfe2311975d06169d/int4/genai_config.json"
+        },
+        {
+          "repository": "elbruno/s1-mini-onnx",
+          "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+          "filename": "int4/model.onnx",
+          "source": "https://huggingface.co/elbruno/s1-mini-onnx/resolve/4231669ff51c8fb53315beadfe2311975d06169d/int4/model.onnx",
+          "size": 299040,
+          "sha256": "28a81e853e1d527556ba13613c462f2b1e656df8a63b0f884d686e6f0c8e427b",
+          "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+        },
+        {
+          "repository": "elbruno/s1-mini-onnx",
+          "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+          "filename": "int4/model.onnx.data",
+          "source": "https://huggingface.co/elbruno/s1-mini-onnx/resolve/4231669ff51c8fb53315beadfe2311975d06169d/int4/model.onnx.data",
+          "size": 393740288,
+          "sha256": "28a9f8482081061d853db8f01070dae64a762d463d88b8c40a8497d8defd87fd",
+          "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+        },
+        {
+          "repository": "elbruno/s1-mini-onnx",
+          "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+          "filename": "int4/tokenizer.json",
+          "source": "https://huggingface.co/elbruno/s1-mini-onnx/resolve/4231669ff51c8fb53315beadfe2311975d06169d/int4/tokenizer.json",
+          "size": 11422650,
+          "sha256": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506",
+          "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+        },
+        {
+          "repository": "elbruno/s1-mini-onnx",
+          "revision": "4231669ff51c8fb53315beadfe2311975d06169d",
+          "filename": "int4/tokenizer_config.json",
+          "size": 723,
+          "git_blob_sha1": "f026c67d4ba696dbfcb13fefc1a7a0a0807b9a28",
+          "sha256": "dc1a492327fcf632b460e13c08a624168bdc4c5ac9aaa49e4b6fde4a9f5cbd30",
+          "source": "https://huggingface.co/elbruno/s1-mini-onnx/resolve/4231669ff51c8fb53315beadfe2311975d06169d/int4/tokenizer_config.json"
+        }
+      ],
+      "total_package_bytes": 405468528,
+      "runtime": "ONNX Runtime GenAI; CPU supported by converter documentation",
+      "license_assets": [
+        {
+          "name": "LICENSE",
+          "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+          "size": 12033,
+          "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+          "verified": "downloaded_text_sha256"
+        },
+        {
+          "name": "NOTICE",
+          "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+          "size": 470,
+          "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+          "verified": "downloaded_text_sha256"
+        }
+      ],
+      "notes": [
+        "Unofficial conversion; MIT C# wrapper license is distinct from model license.",
+        "FP16CPU variant fails per converter on ORTGenAI0.15.1; do not generalize to everyruntime.",
+        "Native temperature0 and emptydecode traps guarded in publishedC# implementation.",
+        "Requires explicit context/max_length cap; shipped config says40960.",
+        "No NOTICE in derivative inventory; preserve original S1NOTICE.",
+        "Do not copy automaticdownloads or punctuation-splitting chunkhelper into Freehand."
+      ],
+      "inference_tested_by_us": false,
+      "sla_proven": false
+    },
+    {
+      "id": "onnx-community-s1-mini-ONNX",
+      "artifact": {
+        "repository": "onnx-community/s1-mini-ONNX",
+        "revision": "545466fa40a4c79f4063cf5359df037dee8f2c8d",
+        "filename": "onnx/model_q4.onnx_data",
+        "source": "https://huggingface.co/onnx-community/s1-mini-ONNX/resolve/545466fa40a4c79f4063cf5359df037dee8f2c8d/onnx/model_q4.onnx_data",
+        "size": 403007488,
+        "sha256": "85bcddf9b558e4881215c32652bc9345672530d77a432d2aee7f2e0c1ee62869",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "role": "alternative_ONNX_format_not_GenAI_dropin",
+      "priority": 4,
+      "notes": "Format/runtime reference; not a distinct independent cleanup family. License/completepackage/runtime compatibility must be verified before distribution. See report for publisher numeric parity/performance and known failures.",
+      "inference_tested_by_us": false,
+      "sla_proven": false
+    },
+    {
+      "id": "mlx-community-S1-mini-MLX-4bit",
+      "artifact": {
+        "repository": "mlx-community/S1-mini-MLX-4bit",
+        "revision": "5cbd7aec3401144f88a331d385c40b65fd2548eb",
+        "filename": "model.safetensors",
+        "source": "https://huggingface.co/mlx-community/S1-mini-MLX-4bit/resolve/5cbd7aec3401144f88a331d385c40b65fd2548eb/model.safetensors",
+        "size": 335450548,
+        "sha256": "284990f04854426d6164d634d8c472d7eb6e79c68f8fd8b4c8a80a4f234276ba",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "role": "MLX_reference_not_current_Windows_provider_format",
+      "priority": 4,
+      "notes": "Format/runtime reference; not a distinct independent cleanup family. License/completepackage/runtime compatibility must be verified before distribution. See report for publisher numeric parity/performance and known failures.",
+      "inference_tested_by_us": false,
+      "sla_proven": false
+    },
+    {
+      "id": "mlboydaisuke-S1-mini-CoreAI",
+      "artifact": {
+        "repository": "mlboydaisuke/S1-mini-CoreAI",
+        "revision": "5dfd28010d22b7b73b8d62e524c42fe84a58ad70",
+        "filename": "gpu-pipelined/s1_mini_decode_int8lin/s1_mini_decode_int8lin.aimodel/main.mlirb",
+        "source": "https://huggingface.co/mlboydaisuke/S1-mini-CoreAI/resolve/5dfd28010d22b7b73b8d62e524c42fe84a58ad70/gpu-pipelined/s1_mini_decode_int8lin/s1_mini_decode_int8lin.aimodel/main.mlirb",
+        "size": 779827881,
+        "sha256": "370181af9391e036770213fee4cbf2ff48e95d800b27ff3ededf574b8579a952",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "role": "Apple_CoreAI_reference",
+      "priority": 4,
+      "notes": "Format/runtime reference; not a distinct independent cleanup family. License/completepackage/runtime compatibility must be verified before distribution. See report for publisher numeric parity/performance and known failures.",
+      "inference_tested_by_us": false,
+      "sla_proven": false
+    },
+    {
+      "id": "mlboydaisuke-S1-mini-LiteRT",
+      "artifact": {
+        "repository": "mlboydaisuke/S1-mini-LiteRT",
+        "revision": "a3d78f62c4e8105b6d53e9978a7aa556d114343b",
+        "filename": "S1-mini_int8.litertlm",
+        "source": "https://huggingface.co/mlboydaisuke/S1-mini-LiteRT/resolve/a3d78f62c4e8105b6d53e9978a7aa556d114343b/S1-mini_int8.litertlm",
+        "size": 688157792,
+        "sha256": "94828f0da7774e36acaedf36bfbc54ec9d81a3076ea10ed3c5e45f4ccbdb94e5",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "role": "LiteRT_runtime_research",
+      "priority": 4,
+      "notes": "Format/runtime reference; not a distinct independent cleanup family. License/completepackage/runtime compatibility must be verified before distribution. See report for publisher numeric parity/performance and known failures.",
+      "inference_tested_by_us": false,
+      "sla_proven": false
+    },
+    {
+      "id": "HyperLinked-s1-mini-litertlm",
+      "artifact": {
+        "repository": "HyperLinked/s1-mini-litertlm",
+        "revision": "0f7525f283ff17cf0b5b58f1513c04039a2d219a",
+        "filename": "s1-mini_q8_ekv2048.litertlm",
+        "source": "https://huggingface.co/HyperLinked/s1-mini-litertlm/resolve/0f7525f283ff17cf0b5b58f1513c04039a2d219a/s1-mini_q8_ekv2048.litertlm",
+        "size": 648634192,
+        "sha256": "d444ae7e52adab5f9eac36adb9609d1af7b76c73021ba5885f5b90d8503534fb",
+        "verified": "publisher_LFS_metadata_only_no_complete_weight_download"
+      },
+      "role": "LiteRT_Android_app_reference",
+      "priority": 4,
+      "notes": "Format/runtime reference; not a distinct independent cleanup family. License/completepackage/runtime compatibility must be verified before distribution. See report for publisher numeric parity/performance and known failures.",
+      "inference_tested_by_us": false,
+      "sla_proven": false
+    }
+  ],
+  "unavailable_or_excluded": [
+    {
+      "repository": "nub235/s1-mini-GGUF",
+      "reason": "linked in official issue but live model API returned401; no actualartifact verified"
+    },
+    {
+      "repository": "danielrosehill/S1-mini-Parakeet-Cleanup-LoRA",
+      "reason": "old placeholder name; liveAPI401; new merged S1-ASR-Cleanup separately verified"
+    },
+    {
+      "name": "S1-Language",
+      "reason": "Superwhisper docs identify cloud text service; not published local S1-miniweights"
+    },
+    {
+      "name": "S1-Voice",
+      "reason": "cloud ASR service, not local textcleanup model"
+    },
+    {
+      "name": "fishaudio/s1-mini / Intern-S1-mini",
+      "reason": "unrelated name collisions, not Superwhisper transcript normalizer"
+    }
+  ]
+}

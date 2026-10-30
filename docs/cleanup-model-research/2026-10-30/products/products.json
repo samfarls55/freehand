@@ -1,0 +1,692 @@
+{
+  "schema_version": 2,
+  "generated_utc": "2026-10-30T20:48:07.077805+00:00",
+  "scope": "Product architecture/model/license research only. No fullweights,modelinference,appchanges orWindowsperformanceverification.",
+  "products": [
+    {
+      "id": "superwhisper",
+      "name": "Superwhisper",
+      "platforms": [
+        "macOS",
+        "Windows x64"
+      ],
+      "cleanup_models": [
+        "superwhisper/s1-mini",
+        "superwhisper/s1-mini-GGUF"
+      ],
+      "findings": [
+        "Ships S1-mini on macOS and Windows x64; full offline processing also requires a local voice model.",
+        "English Message and Mail modes only. Default S1-Language and broader mode selections can be cloud.",
+        "462 MB is listed model size. Speed10 is a relative rating; the public measured benchmark covers speech models."
+      ],
+      "model_reuse_status": "Consult the separate S1-mini license audit before bundling.",
+      "sources": [
+        "https://github.com/superultrainc/superwhisper-docs/blob/19f607bd16b55c4c825ebc6382f2e6e4c0d64356/models/language.mdx",
+        "https://github.com/superultrainc/superwhisper-docs/blob/19f607bd16b55c4c825ebc6382f2e6e4c0d64356/models/benchmarks.mdx",
+        "https://github.com/superultrainc/superwhisper-docs/blob/19f607bd16b55c4c825ebc6382f2e6e4c0d64356/common-issues/performance-tips.mdx",
+        "https://github.com/superultrainc/superwhisper-docs/blob/19f607bd16b55c4c825ebc6382f2e6e4c0d64356/get-started/windows.mdx"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "dikt",
+      "name": "Dikt",
+      "platforms": [
+        "Windows"
+      ],
+      "cleanup_models": [
+        "superwhisper/s1-mini-GGUF"
+      ],
+      "findings": [
+        "Official guide documents local Whisper followed by S1-mini in Windows Local-Only mode.",
+        "Guide lists a 462 MB download and approximately 600 MB active cleanup RAM; it provides no matched whole-app latency distribution.",
+        "Optional cloud AI cleanup runs after local cleanup and sends the resulting text to its provider."
+      ],
+      "model_reuse_status": "Independent S1-mini deployment evidence; same model terms apply.",
+      "sources": [
+        "https://www.dikt.app/docs/offline-cleanup"
+      ],
+      "publisher_performance": {
+        "scope": "cleanup only",
+        "active_memory_MB_approx": 600,
+        "latency_distribution": null
+      },
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "spokenly",
+      "name": "Spokenly",
+      "platforms": [
+        "macOS Apple silicon",
+        "Windows x64 AVX2",
+        "Linux x64 AVX2",
+        "Linux ARM64"
+      ],
+      "cleanup_models": [
+        "spokenly/cleanup-1",
+        "spokenly/cleanup-1-gguf",
+        "spokenly/cleanup-1-coreml"
+      ],
+      "findings": [
+        "Ships a task-trained Qwen3-0.6B-Base fine-tune with rank 32 all-layer LoRA, greedy decoding and a 4096-token prompt-plus-answer training window.",
+        "Windows/Linux use Q8_0 GGUF and llama.cpp. Mac uses fixed-window Core ML on the Neural Engine; macOS15 uses a shorter CPU/Float32 path.",
+        "Special key:value prompt ends in out:; only text is required. Six languages beyond English have lower stated quality.",
+        "Publisher reports approximately 120 tokens/s on Core i5-12400F,0.3 s short cleanup and 650 MB model-loaded RAM; long inputs take seconds and more memory. These are not our measurements."
+      ],
+      "model_reuse_status": "Apache-2.0 text and notices retrieved at immutable revisions; concrete reusable model lead.",
+      "sources": [
+        "https://spokenly.app/docs/local-model-cleanup",
+        "https://huggingface.co/spokenly/cleanup-1/blob/a83ba762e3c4ab6a3a20814ec68050f381d92cf8/README.md",
+        "https://huggingface.co/spokenly/cleanup-1-gguf/blob/79936c95e5c0ea9162ae7a435e64cb3127020e36/README.md",
+        "https://huggingface.co/spokenly/cleanup-1-coreml/blob/8820121fbf214445b6106332adfe13fafc55bbb6/README.md"
+      ],
+      "publisher_performance": {
+        "scope": "publisher model-only statements; not our measurement",
+        "windows_hardware": "Core i5-12400F,6CPUcores",
+        "cpu_tokens_per_second_approx": 120,
+        "one_two_sentences_seconds_approx": 0.3,
+        "200_words_seconds_approx": 4.5,
+        "800_words_seconds_approx": 26,
+        "active_memory_MB_approx": 650,
+        "longest_memory_MB_approx": 1100,
+        "mac_M4_Pro_tokens_per_second_short_approx": 210,
+        "mac_short_memory_GB_approx": 0.6,
+        "first_ANE_compile_seconds_approx": 8,
+        "later_load_seconds_approx": 0.2
+      },
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "whisperstream",
+      "name": "Whisperstream",
+      "platforms": [
+        "Windows",
+        "macOS beta"
+      ],
+      "cleanup_models": [
+        "whisperstream/stream-1-mini",
+        "unsloth/gemma-4-E2B-it-GGUF",
+        "google/gemma-4-E2B-it-qat-q4_0-gguf"
+      ],
+      "findings": [
+        "Actual source identifies its own Stream-1 Mini fine-tune, distinct from Superwhisper S1-mini.",
+        "Default English Chat/Email artifact is 484,215,648 bytes at a pinned revision. Gemma E2B is a separate Customizable option.",
+        "llama-server uses bounded4096-token context, preparation during recording, resident workers and idle offload. Each model must pass a per-machine speed check."
+      ],
+      "model_reuse_status": "Consult the specialist model audit; application source is GPL-3.0-only and model terms are separate.",
+      "sources": [
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/README.md",
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/docs/offline/articles/enhancement-providers.md",
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/src/whisperstream/enhancement_models.py",
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/src/whisperstream/windows_local_llm_runtime.py",
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/src/whisperstream/llama_server.py",
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/src/whisperstream/resident_llama_pool.py",
+        "https://github.com/lanreal-io/whisperstream/blob/b39c3c377ac56015c716e91a7055b4580ce35a1e/src/whisperstream/stream_mini_vocabulary_prompts.py",
+        "https://whisperstream.io/docs/reference/model-recovery"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "voiceink",
+      "name": "VoiceInk / Refine V1",
+      "platforms": [
+        "Apple silicon macOS"
+      ],
+      "cleanup_models": [
+        "beingpax/VoiceInk-Refine-V1@ad665418d3850e379e29236e66be3ddc0ac0bf04"
+      ],
+      "findings": [
+        "Source ships Refine V1, a Qwen3.5-2B task fine-tune with affine4-bit/group 64 weights; weight artifact is 1,059,404,951 bytes.",
+        "MLX GPU inference disables thinking, warms before cleanup, clears request sessions and uses a separate XPC worker with 10-second idle grace.",
+        "64 MiB is an allocator-cache limit, not total model memory. Availability requires Apple silicon and 16 GiB physical memory."
+      ],
+      "model_reuse_status": "Restricted: license prohibits commercial use, redistribution and use in other software or open-source projects without permission. Architecture reference only.",
+      "sources": [
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/README.md",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/LICENSE",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/VoiceInk/Features/ModelLibrary/State/VoiceInkRefineService.swift",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/VoiceInkRefineXPC/VoiceInkRefineInferenceEngine.swift",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/VoiceInk/Infrastructure/Providers/Enhancement/VoiceInkRefine/VoiceInkRefineModelDownloader.swift",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/VoiceInk/Infrastructure/Providers/Enhancement/VoiceInkRefine/VoiceInkRefineXPCClient.swift",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/VoiceInk/Infrastructure/Providers/Enhancement/Ollama/OllamaService.swift",
+        "https://github.com/Beingpax/VoiceInk/blob/19546d2a7f85578f49efb538eb888b37ff2f8f8c/VoiceInk/Core/Enhancement/AIPrompts.swift",
+        "https://huggingface.co/beingpax/VoiceInk-Refine-V1/blob/ad665418d3850e379e29236e66be3ddc0ac0bf04/LICENSE.md"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "quobi",
+      "name": "Quobi (voice-type paths) / Quill",
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "cleanup_models": [
+        "Quobi/Quill:Qwen3.5-derived0.8B,2B,4B"
+      ],
+      "findings": [
+        "CPU Parakeet ASR is followed by Quill cleanup through llama.cpp Vulkan, with CPU fallback.",
+        "Quill comprises task-trained Qwen3.5-derived0.8B,2B and 4B models with distinct cleanup modes.",
+        "Approximate extra-second cleanup is a publisher product claim without a matched workload distribution. Existing Freehand Quill4B failures remain relevant."
+      ],
+      "model_reuse_status": "Base Quill models are Apache-2.0; application is AGPL-3.0 with a commercial licensing option.",
+      "sources": [
+        "https://github.com/Quobi-AI/Quobi/blob/bae60c27bb8c96e861007462646307b343f7ecb3/README.md",
+        "https://github.com/Quobi-AI/Quobi/blob/bae60c27bb8c96e861007462646307b343f7ecb3/LICENSING.md",
+        "https://github.com/Quobi-AI/Quobi/blob/bae60c27bb8c96e861007462646307b343f7ecb3/shared/cleanup-base.txt",
+        "https://github.com/Quobi-AI/Quobi/blob/bae60c27bb8c96e861007462646307b343f7ecb3/voice-type/voice_type/local_llm.py",
+        "https://github.com/Quobi-AI/Quobi/blob/bae60c27bb8c96e861007462646307b343f7ecb3/voice-type/voice_type/download.py",
+        "https://github.com/Quobi-AI/Quobi/blob/bae60c27bb8c96e861007462646307b343f7ecb3/voice-type/training/quill_modelcard.md"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "muesli",
+      "name": "Muesli",
+      "platforms": [
+        "Apple silicon macOS"
+      ],
+      "cleanup_models": [
+        "Muesli-HQ/qwen35-0.8b-muesli-cleanup-v12-gguf",
+        "Muesli-HQ/qwen35-2b-muesli-cleanup-v12-gguf",
+        "Muesli-HQ/lfm25-1.2b-muesli-cleanup-v12-gguf",
+        "Muesli-HQ/gemma4-e2b-muesli-cleanup-v12-litert"
+      ],
+      "findings": [
+        "Actual managed catalog pins task-trained Qwen0.8B/2B, LFM1.2B and Gemma E2B variants.",
+        "Qwen0.8B Q4 is 529,296,832 bytes;2B Q4 is 1,274,396,096 bytes; LFM Q4 is 730,898,432 bytes; Gemma LiteRT is 2,946,098,832 bytes.",
+        "Source includes GGUF/MLX paths and a LiteRT Gemma artifact with an MTP head. Resolve abbreviated revisions to complete commits before acquisition."
+      ],
+      "model_reuse_status": "Application is MIT. Qwen/Gemma and LFM derivative terms require separate model audits.",
+      "sources": [
+        "https://github.com/Muesli-HQ/muesli/blob/e1b52117ffb1ab6980f7266b72d9cb9e706a5afb/README.md",
+        "https://github.com/Muesli-HQ/muesli/blob/e1b52117ffb1ab6980f7266b72d9cb9e706a5afb/LICENSE",
+        "https://github.com/Muesli-HQ/muesli/blob/e1b52117ffb1ab6980f7266b72d9cb9e706a5afb/native/MuesliNative/Sources/MuesliNativeApp/ManagedCleanupModel.swift",
+        "https://github.com/Muesli-HQ/muesli/blob/e1b52117ffb1ab6980f7266b72d9cb9e706a5afb/native/MuesliNative/Sources/MuesliNativeApp/QwenCleanupMLXArtifacts.swift",
+        "https://github.com/Muesli-HQ/muesli/blob/e1b52117ffb1ab6980f7266b72d9cb9e706a5afb/native/MuesliNative/Sources/MuesliNativeApp/TranscriptCleanupClient.swift",
+        "https://muesli.works/blog/muesli-models-hugging-face/"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "handy",
+      "name": "Handy",
+      "platforms": [
+        "Windows",
+        "macOS",
+        "Linux"
+      ],
+      "cleanup_models": [
+        "User-selected local model through OpenAI-compatible endpoint",
+        "Apple SystemLanguageModel on supported macOS"
+      ],
+      "findings": [
+        "Local ASR and optional text postprocessing are separate. Postprocessing is disabled by default.",
+        "Source includes Apple Intelligence on macOS ARM64 and a custom OpenAI-compatible provider defaulting to localhost:11434/v1.",
+        "Default provider is OpenAI when postprocessing is enabled without another choice. No bundled task-trained cleanup weights were established."
+      ],
+      "model_reuse_status": "Application MIT; local server and selected model terms remain independent.",
+      "sources": [
+        "https://github.com/cjpais/Handy/blob/7bfb2e2c934b798bcf6e3627653aed2439996f89/README.md",
+        "https://github.com/cjpais/Handy/blob/7bfb2e2c934b798bcf6e3627653aed2439996f89/LICENSE",
+        "https://github.com/cjpais/Handy/blob/7bfb2e2c934b798bcf6e3627653aed2439996f89/src-tauri/src/llm_client.rs",
+        "https://github.com/cjpais/Handy/blob/7bfb2e2c934b798bcf6e3627653aed2439996f89/src-tauri/src/settings.rs"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "openwhispr",
+      "name": "OpenWhispr",
+      "platforms": [
+        "Windows",
+        "macOS",
+        "Linux"
+      ],
+      "cleanup_models": [
+        "LiquidAI/LFM2.5-230M-GGUF Q8_0",
+        "LiquidAI/LFM2.5-350M-GGUF Q8_0",
+        "LiquidAI/LFM2.5-1.2B-Instruct-GGUF Q4_K_M",
+        "bartowski/Qwen_Qwen3.5-0.8B-GGUF Q4_K_M",
+        "Larger Qwen/Ministral/Gemma catalog"
+      ],
+      "findings": [
+        "Actual local llama.cpp integration and a 42-model catalog provide general-model discovery leads.",
+        "Catalog includes LFM2.5 230M Q8 at 246.6 MB,350M Q8 at 379.2 MB,1.2B Q4 at 730.9 MB and Qwen3.5-0.8B Q4 at 579.6 MB.",
+        "GPU selection, context sizing and thinking suppression are implemented; catalog adjectives and recommendation flags do not prove fidelity."
+      ],
+      "model_reuse_status": "Application MIT; inspect each upstream model license, particularly Liquid terms.",
+      "sources": [
+        "https://github.com/OpenWhispr/openwhispr/blob/b9e9ebefac4b961456c269164a93ddfdd53438b9/README.md",
+        "https://github.com/OpenWhispr/openwhispr/blob/b9e9ebefac4b961456c269164a93ddfdd53438b9/LICENSE",
+        "https://github.com/OpenWhispr/openwhispr/blob/b9e9ebefac4b961456c269164a93ddfdd53438b9/src/models/modelRegistryData.json",
+        "https://github.com/OpenWhispr/openwhispr/blob/b9e9ebefac4b961456c269164a93ddfdd53438b9/src/helpers/llamaServer.js",
+        "https://github.com/OpenWhispr/openwhispr/blob/b9e9ebefac4b961456c269164a93ddfdd53438b9/src/helpers/llamaContextPolicy.js",
+        "https://github.com/OpenWhispr/openwhispr/blob/b9e9ebefac4b961456c269164a93ddfdd53438b9/src/helpers/modelManagerBridge.js"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "macwhisper",
+      "name": "MacWhisper",
+      "platforms": [
+        "macOS"
+      ],
+      "cleanup_models": [
+        "Apple on-device Foundation Models",
+        "User-selected Ollama model",
+        "User-selected LMStudio model"
+      ],
+      "findings": [
+        "Official support distinguishes AI provider selection from speech model selection.",
+        "Apple on-device Foundation Models, Ollama and LM Studio can process transcript text locally; hosted AI services send transcript text remotely.",
+        "External servers must remain running and count toward complete-pipeline resource measurements. No distinct bundled specialist model was established."
+      ],
+      "model_reuse_status": "Proprietary application; platform and user-selected model licenses are independent.",
+      "sources": [
+        "https://docs.macwhisper.com/article/58-setting-up-ai-providers-in-macwhisper",
+        "https://docs.macwhisper.com/article/52-keeping-transcriptions-private"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "voicetypr",
+      "name": "Voicetypr (ideaplexa)",
+      "platforms": [
+        "Windows",
+        "macOS"
+      ],
+      "cleanup_models": [
+        "User-selected OpenAI-compatible local model",
+        "S1-mini and trainedLFM350 are plan-only leads"
+      ],
+      "findings": [
+        "Actual source supports custom-endpoint AI polish, output guards, protected terms and a conservative no-op detector for clean short text.",
+        "S1-mini integration and a trained350M model are discussed in a future plan, not established as a shipped native model by inspected source.",
+        "Plan056 explicitly leaves exact S1-mini license wording unresolved and says not to bundle until resolved."
+      ],
+      "model_reuse_status": "Application AGPL-3.0; endpoint model terms independent. Do not treat a plan as deployment or permission.",
+      "sources": [
+        "https://github.com/ideaplexa/voicetypr/blob/f86e571df5bd5c0a4d8950095167b45185fa59d4/README.md",
+        "https://github.com/ideaplexa/voicetypr/blob/f86e571df5bd5c0a4d8950095167b45185fa59d4/LICENSE",
+        "https://github.com/ideaplexa/voicetypr/blob/f86e571df5bd5c0a4d8950095167b45185fa59d4/plans/056-local-polish-model.md",
+        "https://github.com/ideaplexa/voicetypr/blob/f86e571df5bd5c0a4d8950095167b45185fa59d4/src-tauri/src/ai/polish.rs",
+        "https://github.com/ideaplexa/voicetypr/blob/f86e571df5bd5c0a4d8950095167b45185fa59d4/src-tauri/src/ai/skip.rs",
+        "https://github.com/ideaplexa/voicetypr/blob/f86e571df5bd5c0a4d8950095167b45185fa59d4/src-tauri/src/ai/output_guard.rs"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "typewhisper",
+      "name": "TypeWhisper",
+      "platforms": [
+        "Windows",
+        "Apple silicon macOS"
+      ],
+      "cleanup_models": [
+        "unsloth/Qwen3.5-2B-GGUF Q4_K_M",
+        "unsloth/gemma-4-E2B-it-GGUF Q4_K_M",
+        "Larger Gemma variants",
+        "LiquidAI/LFM2.5-2.6B-GGUF Q4_K_M"
+      ],
+      "findings": [
+        "Windows local text plugin uses LLamaSharp CPU; Mac plugins use MLX or llama.cpp Metal.",
+        "Fixed catalog starts at Qwen3.5-2B Q4 around 1.3 GB; larger Gemma and LFM choices plus custom GGUF imports are supported.",
+        "Explicit load/unload and cached verification are implemented. LFM2.5-2.6B always reasons and source warns of several-second responses."
+      ],
+      "model_reuse_status": "Application GPL/commercial options; Qwen/Gemma Apache declarations, Liquid custom terms and runtime MIT remain separate.",
+      "sources": [
+        "https://github.com/TypeWhisper/typewhisper-win/blob/75efcb65835614d1679f76590fc53d513f96e476/README.md",
+        "https://github.com/TypeWhisper/typewhisper-win/blob/75efcb65835614d1679f76590fc53d513f96e476/plugins/TypeWhisper.Plugin.LocalLlm/README.md",
+        "https://github.com/TypeWhisper/typewhisper-win/blob/75efcb65835614d1679f76590fc53d513f96e476/plugins/TypeWhisper.Plugin.LocalLlm/LocalLlmPlugin.cs",
+        "https://github.com/TypeWhisper/typewhisper-win/blob/75efcb65835614d1679f76590fc53d513f96e476/plugins/TypeWhisper.Plugin.GemmaLocal/README.md",
+        "https://github.com/TypeWhisper/typewhisper-win/blob/75efcb65835614d1679f76590fc53d513f96e476/src/TypeWhisper.Core/Services/PostProcessingPipeline.cs",
+        "https://github.com/TypeWhisper/typewhisper-mac/blob/4620bb59a804a2aeeaf5607cf10aa437c7589504/LICENSE-COMMERCIAL.md",
+        "https://github.com/TypeWhisper/typewhisper-mac/blob/4620bb59a804a2aeeaf5607cf10aa437c7589504/TypeWhisperPluginSDK/Plugins/LlamaCppPlugin/README.md",
+        "https://github.com/TypeWhisper/typewhisper-mac/blob/4620bb59a804a2aeeaf5607cf10aa437c7589504/TypeWhisperPluginSDK/Plugins/LlamaCppPlugin/LlamaCppModels.swift",
+        "https://github.com/TypeWhisper/typewhisper-mac/blob/4620bb59a804a2aeeaf5607cf10aa437c7589504/TypeWhisper/Services/LLM/FoundationModelsProvider.swift"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "fluidvoice",
+      "name": "FluidVoice / Fluid Intelligence",
+      "platforms": [
+        "macOS"
+      ],
+      "cleanup_models": [
+        "fluid-1-pico-96k-dflash",
+        "fluid-1-mini-96k-dflash"
+      ],
+      "findings": [
+        "Optional Fluid Intelligence is local, but its runtime is privately maintained.",
+        "Public provider boundary names Pico/Mini hardware tiers; base-model identity and reusable weight license were not established.",
+        "Hardware selection uses memory and GPU bandwidth heuristics, explicitly without a latency guarantee. Avoid the unaffiliated fluidvoice.org domain."
+      ],
+      "model_reuse_status": "Core application GPLv3; private runtime/model is architecture-only evidence for this inventory.",
+      "sources": [
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/README.md",
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/Sources/Fluid/Services/LLMClient.swift",
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/Sources/Fluid/UI/AISettings/PrivateAIModelPresentation.swift",
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/Sources/Fluid/Services/PrivateAIHardwareRecommendation.swift",
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/Sources/Fluid/Services/PrivateAIProvider.swift",
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/Sources/Fluid/Services/PrivateAIIntegrationService.swift",
+        "https://github.com/altic-dev/FluidVoice/blob/ea94c8a6736d453c764a2431503832b3fb134911/Sources/Fluid/Services/PrivateAIIdleUnloader.swift"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "whisperlocal",
+      "name": "WhisperLocal (usingcolor)",
+      "platforms": [
+        "macOS"
+      ],
+      "cleanup_models": [
+        "AppleSystemLanguageModel",
+        "Gemma4E2BIT throughMLX"
+      ],
+      "findings": [
+        "Actual on-device choices are Apple SystemLanguageModel and optional Gemma4 E2B through MLX, after filler stripping.",
+        "Published125-case scripted benchmark reports substantial hard failures; one author, one judge and one run per case limit generalization.",
+        "Its four OSS benchmark challengers are not shipped providers. No universal650 MB/700 ms claim follows."
+      ],
+      "model_reuse_status": "Application MIT; Gemma Apache terms separate, Apple system API is not redistributable Windows weights.",
+      "sources": [
+        "https://github.com/usingcolor/WhisperLocal/blob/ba57aa1dd1e6fb00d51dcadda17741854906cdc4/README.md",
+        "https://github.com/usingcolor/WhisperLocal/blob/ba57aa1dd1e6fb00d51dcadda17741854906cdc4/Benchmarks/README.md",
+        "https://github.com/usingcolor/WhisperLocal/blob/ba57aa1dd1e6fb00d51dcadda17741854906cdc4/WhisperLocal/Services/Polishers/LocalLLMPolisher.swift"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "scribe",
+      "name": "Scribe",
+      "platforms": [
+        "Windows",
+        "macOS"
+      ],
+      "cleanup_models": [
+        "Gemma4E2B/E4B/12B/26B-A4B",
+        "Qwen3/3.8",
+        "Phi4Mini",
+        "Qwen2.5-1.5B",
+        "Othercatalogmodels"
+      ],
+      "findings": [
+        "Actual Windows product supports Ollama, LM Studio, TensorSharp and Foundry Local.",
+        "Published benchmark uses RTX5080 16 GB, Ryzen9 9900X and 95 GB RAM;25 difficult dictations and AI judge scores.",
+        "Gemma E2B cleanup median/p95 is 327/532 ms on GPU; CPU examples are2.4\u20133.3 s. The measurements exclude ASR and delivery.",
+        "Techniques include static prompt prefixes, mentioned vocabulary, GPU residency and optional MTP speculation."
+      ],
+      "model_reuse_status": "Source/runtime/model terms need individual review; no new exclusive small specialist weights established.",
+      "sources": [
+        "https://github.com/ChrisMcKee1/scribe/blob/13cbd167aa059d58d3fa7443091a64fc5fbc277a/README.md",
+        "https://github.com/ChrisMcKee1/scribe/blob/13cbd167aa059d58d3fa7443091a64fc5fbc277a/docs/local-model-benchmark.md",
+        "https://github.com/ChrisMcKee1/scribe/blob/13cbd167aa059d58d3fa7443091a64fc5fbc277a/docs/local-performance-benchmark.md",
+        "https://github.com/ChrisMcKee1/scribe/blob/13cbd167aa059d58d3fa7443091a64fc5fbc277a/macos/CLEANUP-MODEL-BENCHMARK.md"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "winpepper",
+      "name": "Winpepper",
+      "platforms": [
+        "Windows"
+      ],
+      "cleanup_models": [
+        "Qwen/Qwen2.5-0.5B-Instruct-GGUF Q4_K_M",
+        "LiquidAI/LFM2.5-1.2B-Instruct-GGUF Q4_K_M",
+        "ibm-granite/granite-4.0-1b-GGUF Q4_K_M",
+        "juanquivilla/sotto-cleanup-lfm25-350m manualQ8conversion"
+      ],
+      "findings": [
+        "Actual Windows source uses in-process LLamaSharp cleanup after ASR; default Qwen2.5-0.5B Q4 is 491,400,032 bytes.",
+        "Additional catalog entries include LFM1.2B, Granite1B and manual Sotto350M Q8 conversion, with model-specific prompt handling.",
+        "Source records an LFM worked-example echo problem; removing the example improved that particular test. Readme acknowledges several-second cleanup on weak hardware."
+      ],
+      "model_reuse_status": "Review each upstream license. Sotto MIT wording in a source comment does not replace review of underlying Liquid terms.",
+      "sources": [
+        "https://github.com/obra/winpepper/blob/5afd6365abdbdc24721e300da52610f5505f4ec4/README.md",
+        "https://github.com/obra/winpepper/blob/5afd6365abdbdc24721e300da52610f5505f4ec4/src/Winpepper.Cleanup/CleanupOptions.cs",
+        "https://github.com/obra/winpepper/blob/5afd6365abdbdc24721e300da52610f5505f4ec4/src/Winpepper.Cleanup/LlamaCleanupBackend.cs",
+        "https://github.com/obra/winpepper/blob/5afd6365abdbdc24721e300da52610f5505f4ec4/scripts/download-cleanup-model.ps1",
+        "https://github.com/obra/winpepper/blob/5afd6365abdbdc24721e300da52610f5505f4ec4/src/Winpepper.Models/ModelRegistry.cs"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "whispering",
+      "name": "Whispering / Epicenter",
+      "platforms": [
+        "Desktop app andbrowserendpointclient"
+      ],
+      "cleanup_models": [
+        "User-selectedtextendpointmodel"
+      ],
+      "findings": [
+        "Current app uses user-authored transformations and a saved text endpoint; none runs until configured.",
+        "Requests send transformation instructions and transcript text to the selected local or remote endpoint. Local file storage is independent of inference locality.",
+        "A historic migration ADR is not proof of a currently bundled specialist model."
+      ],
+      "model_reuse_status": "Application/source and external model licenses remain separate.",
+      "sources": [
+        "https://github.com/EpicenterHQ/epicenter/blob/7cc869b4a1295e2566b61e1a4d5967a89f413b9b/apps/whispering/README.md",
+        "https://github.com/EpicenterHQ/epicenter/blob/7cc869b4a1295e2566b61e1a4d5967a89f413b9b/apps/whispering/src/lib/post-processing.ts",
+        "https://github.com/EpicenterHQ/epicenter/blob/7cc869b4a1295e2566b61e1a4d5967a89f413b9b/docs/adr/0099-replace-transformations-with-a-dictionary-polish-and-a-portable-recipe-library.md"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "pomvox",
+      "name": "Pomvox cleanup engine SDK",
+      "platforms": [
+        "Apple siliconmacOS MLX"
+      ],
+      "cleanup_models": [
+        "simplewords-v3 pack: abhiram3040/simplewords-dictation-cleanup-v3@b1f7ac8282ce060e4ad1374cb9a34750e31723c1"
+      ],
+      "findings": [
+        "Inspectable public-beta Swift SDK supports MLX prefix preparation and prompt-lookup speculative verification, with explicit queue/deadline/fallback outcomes.",
+        "Pinned Simplewords8-bit weight artifact is approximately 2 GB and access is gated. Pack model ID and license URL use different repository names.",
+        "README explicitly labels sub100 ms cleanup as a target, not a measured capability. M1 16 GiB is tested; Windows/Linux inference is not supported in this milestone."
+      ],
+      "model_reuse_status": "Core SDK MIT. Pack Apache label is not a full upstream model-license/access audit.",
+      "sources": [
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/README.md",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/LICENSE",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/Runtime/MLX/Sources/PomvoxCleanupMLX/SpeculativeDecoder.swift",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/Runtime/MLX/Sources/PomvoxCleanupMLX/PromptLookupDrafter.swift",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/Sources/CleanupCore/CleanupBudgetPolicy.swift",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/packs/simplewords-v3/pack.json",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/Runtime/MLX/Sources/PomvoxCleanupMLX/MLXRuntime.swift",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/docs/packs.md",
+        "https://github.com/pomvox/pomvox-cleanup-engine/blob/33d5b3c9e22f4c6f46cf2db1e1d556e189ee147f/docs/testing.md"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "windows-fluid-access",
+      "name": "Windows Voice Access + Fluid dictation",
+      "platforms": [
+        "EligibleWindows11Copilot+PCs"
+      ],
+      "cleanup_models": [
+        "WindowsPhiSilica systemcomponent"
+      ],
+      "findings": [
+        "Microsoft documents offline Voice Access ASR plus on-device Phi Silica grammar/punctuation/filler refinement on eligible Copilot+ PCs.",
+        "Copilot+ eligibility requires 40+ NPU TOPS. Intel officially lists Core Ultra7 155H at 11 NPU TOPS.",
+        "No inspected source establishes the same complete-app RAM and release-to-delivery budget or full spoken-correction fidelity."
+      ],
+      "model_reuse_status": "Closed platform feature/API, not redistributable GGUF weights.",
+      "sources": [
+        "https://support.microsoft.com/en-us/accessibility/windows/voice-access/fluid-dictation",
+        "https://support.microsoft.com/en-us/accessibility/windows/voice-access/set-up-voice-access",
+        "https://learn.microsoft.com/en-us/windows/ai/apis/phi-silica",
+        "https://www.intel.com/content/www/us/en/products/sku/236847/intel-core-ultra-7-processor-155h-24m-cache-up-to-4-80-ghz/specifications.html"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    },
+    {
+      "id": "windows-fluid-voice-typing",
+      "name": "Windows Win+H Voice Typing + Fluid dictation",
+      "platforms": [
+        "EligibleWindows11Copilot+PCs"
+      ],
+      "cleanup_models": [
+        "WindowsPhiSilica systemcomponent"
+      ],
+      "findings": [
+        "Microsoft documents local Phi Silica refinement in Win+H, but voice typing itself still uses Azure online speech recognition.",
+        "This is a hybrid flow; Voice Access is the separate offline speech path."
+      ],
+      "model_reuse_status": "Closed platform feature; not a fully local pipeline.",
+      "sources": [
+        "https://support.microsoft.com/en-us/accessibility/windows/use-voice-typing-to-talk-instead-of-type-on-your-pc"
+      ],
+      "publisher_performance": null,
+      "matches_freehand_SLA_on_target_hardware": "not established"
+    }
+  ],
+  "exact_HF_metadata": [
+    {
+      "model_id": "spokenly/cleanup-1",
+      "revision": "a83ba762e3c4ab6a3a20814ec68050f381d92cf8",
+      "card_license": "apache-2.0",
+      "gated": false,
+      "artifacts": [
+        {
+          "filename": "assets/header-dark.png",
+          "size_bytes": 164444,
+          "publisher_sha256": "61c017c9ba979f6a0e25b6baf4c4881563e9d54aabc96b79cba15d030e8cd10e"
+        },
+        {
+          "filename": "assets/header-light.png",
+          "size_bytes": 161368,
+          "publisher_sha256": "5637b9097fde21bbd6a2dcf28846554dcc435bac94fb7568cd394d356c2c87ec"
+        },
+        {
+          "filename": "model.safetensors",
+          "size_bytes": 1192134935,
+          "publisher_sha256": "dcf73ee83277b6dc4a40e8d9630f4e725f2499ed009be4ae0dd8b35d3ae38400"
+        },
+        {
+          "filename": "tokenizer.json",
+          "size_bytes": 11422650,
+          "publisher_sha256": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506"
+        }
+      ],
+      "actual_weights_downloaded": false,
+      "raw_evidence_directory": "raw/huggingface/spokenly__cleanup-1"
+    },
+    {
+      "model_id": "spokenly/cleanup-1-gguf",
+      "revision": "79936c95e5c0ea9162ae7a435e64cb3127020e36",
+      "card_license": "apache-2.0",
+      "gated": false,
+      "artifacts": [
+        {
+          "filename": "cleanup-1-q8_0.gguf",
+          "size_bytes": 639442784,
+          "publisher_sha256": "66509e0fe1578d2ac4b0773c79a6c83e8d6f218618dfe11e4532beacd999b6e8"
+        }
+      ],
+      "actual_weights_downloaded": false,
+      "raw_evidence_directory": "raw/huggingface/spokenly__cleanup-1-gguf"
+    },
+    {
+      "model_id": "beingpax/VoiceInk-Refine-V1",
+      "revision": "ad665418d3850e379e29236e66be3ddc0ac0bf04",
+      "card_license": "other",
+      "gated": false,
+      "artifacts": [
+        {
+          "filename": "model.safetensors",
+          "size_bytes": 1059404951,
+          "publisher_sha256": "3cdfe2f506f71f2c5d5af23aa8fe3572989d2f364a7317322220621a86aaf5f6"
+        },
+        {
+          "filename": "tokenizer.json",
+          "size_bytes": 19989325,
+          "publisher_sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+        }
+      ],
+      "actual_weights_downloaded": false,
+      "raw_evidence_directory": "raw/huggingface/beingpax__VoiceInk-Refine-V1"
+    },
+    {
+      "model_id": "spokenly/cleanup-1-coreml",
+      "revision": "8820121fbf214445b6106332adfe13fafc55bbb6",
+      "card_license": "apache-2.0",
+      "gated": false,
+      "artifacts": [
+        {
+          "filename": "CleanupMacOS15.mlmodelc/analytics/coremldata.bin",
+          "size_bytes": 243,
+          "publisher_sha256": "43febd3955ced39590e7b1174e51cab36103188d2278b518e62b3810462c2ed8"
+        },
+        {
+          "filename": "CleanupMacOS15.mlmodelc/coremldata.bin",
+          "size_bytes": 916,
+          "publisher_sha256": "838d4e83583a8cfe29850e2a81749922d1694cae4979866ce864e58fb315d55a"
+        },
+        {
+          "filename": "CleanupMacOS15.mlmodelc/weights/weight.bin",
+          "size_bytes": 599810240,
+          "publisher_sha256": "1bbe1837617e629ffd6fda53be2765954859a0a1796507c6d9b1dbb3c9a7c370"
+        },
+        {
+          "filename": "CleanupNeuralEngine.mlmodelc/analytics/coremldata.bin",
+          "size_bytes": 243,
+          "publisher_sha256": "016612f903140bbf452208eebfcbe6f7725bf024a5771642cb340f9f00d3b3b9"
+        },
+        {
+          "filename": "CleanupNeuralEngine.mlmodelc/coremldata.bin",
+          "size_bytes": 916,
+          "publisher_sha256": "838d4e83583a8cfe29850e2a81749922d1694cae4979866ce864e58fb315d55a"
+        },
+        {
+          "filename": "CleanupNeuralEngine.mlmodelc/weights/weight.bin",
+          "size_bytes": 753621856,
+          "publisher_sha256": "f458c8c07281deb10b6a6322b091f41ac0a96e2f9a71a317d28c9b5ea66836e5"
+        },
+        {
+          "filename": "tokenizer.json",
+          "size_bytes": 11422650,
+          "publisher_sha256": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506"
+        }
+      ],
+      "actual_weights_downloaded": false,
+      "raw_evidence_directory": "raw/huggingface/spokenly__cleanup-1-coreml"
+    }
+  ],
+  "source_capture": {
+    "github_file_count": 90,
+    "github_bytes_verified_against_git_blob_sha": true,
+    "website_evidence": "Webtool text extraction snapshots; not rawHTML, notimmutablepublisherrefs. URLandcapturetimepreserved.",
+    "performance": "All new external performance figures are publisher-reported, not independently rerun."
+  },
+  "limitations": [
+    "No inspected product establishes both 650 MB total host RAM and 700 ms complete delivery on matched target-hardware trials.",
+    "Short-input latency cannot be extended to long paragraphs.",
+    "Cleanup weight-file size is not whole-app RAM.",
+    "Report prefix-cache state, GPU/CPU choice, work during recording and fallback/bypass coverage separately.",
+    "Local ASR or local history storage does not prove local enhancement."
+  ]
+}

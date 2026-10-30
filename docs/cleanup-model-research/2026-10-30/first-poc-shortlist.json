@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "status": "research_priority_not_quality_ranking_or_shipping_manifest",
+  "primary_artifact_verification": "Declared byte counts and LFS SHA only unless separately noted by earlier experiment. New range probes validate reachability/magic, not full bytes or runtime execution.",
+  "primary_model_profiles": [
+    {
+      "id": "s1-mini-official-q4",
+      "role": "lead_specialist",
+      "repository": "superwhisper/s1-mini-GGUF",
+      "revision": "34add00a48a2e5d24e5a4ee5405a99620a3a240c",
+      "filename": "s1-mini-q4_k_m.gguf",
+      "bytes": 484219808,
+      "publisher_sha256": "3b41ebe2502cbd03e811d5d16b022f5ab551eda58d62597d152f89535003c634",
+      "immutable_url": "https://huggingface.co/superwhisper/s1-mini-GGUF/resolve/34add00a48a2e5d24e5a4ee5405a99620a3a240c/s1-mini-q4_k_m.gguf",
+      "license": {
+        "label": "Apache-2.0 plus mandatory exact S1-mini by Superwhisper naming term",
+        "commercial_use": "not prohibited in inspected license; official card explicitly contemplates embedding",
+        "redistribution": "preserve LICENSE, NOTICE and exact original model attribution; state significant modifications",
+        "assets": [
+          {
+            "name": "LICENSE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/LICENSE",
+            "size": 12033,
+            "sha256": "f715982df6ce767ae64864d74b95644e5d658aab54717dbceeb252eb3cbcb421",
+            "verified": "downloaded_text_sha256"
+          },
+          {
+            "name": "NOTICE",
+            "source": "https://huggingface.co/superwhisper/s1-mini/resolve/88f6b15896c73bbb13a3b596e0afe8ea0d5150b4/NOTICE",
+            "size": 470,
+            "sha256": "4feae786f1766dc58e807bcae1e7bdd06bf3610a03a23d0621b6c6c4d05f2980",
+            "verified": "downloaded_text_sha256"
+          }
+        ]
+      },
+      "source_catalog": "s1/candidates.json",
+      "verification": "publisher_LFS_metadata_only_no_complete_weight_download",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "s1/candidates.json#candidates[0].input_contract"
+    },
+    {
+      "id": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "role": "lead_specialist",
+      "repository": "MagicNoThief/handy-editor-lfm2.5-350m",
+      "revision": "f1f01e16ab10143f51ffb0fb180ac715dcef964e",
+      "filename": "handy-editor-350m-Q4_K_M.gguf",
+      "bytes": 229315072,
+      "publisher_sha256": "eace6ae31325690abe7a731b02b6d6b92ca9ca8b479b94fe1a6f6bfbefb41356",
+      "immutable_url": "https://huggingface.co/MagicNoThief/handy-editor-lfm2.5-350m/resolve/f1f01e16ab10143f51ffb0fb180ac715dcef964e/handy-editor-350m-Q4_K_M.gguf",
+      "license": {
+        "metadata_declaration": "other",
+        "assessment": "English self-correction editor; LFM Open License v1.0 obligations.",
+        "documents": [],
+        "metadata_name": "lfm1.0",
+        "metadata_link": "https://huggingface.co/LiquidAI/LFM2.5-350M/blob/main/LICENSE",
+        "upstream_note": "LFM-derived weights: preserve applicable LFM Open License v1.0 and contributor terms; a fine-tuner MIT/Apache metadata badge does not waive upstream obligations.",
+        "upstream_license_evidence": "evidence/LiquidAI__LFM2.5-350M/LICENSE"
+      },
+      "assessment": "Deeply reviewed; ready GGUF. Empty system ChatML is material; no ordinary cleanup instructions. Published100ms table is RTX3060 Vulkan, not CPU. Card contains stale66/68 vs68/68 language. Empty-systemclaimisrenderer/versionspecific; currentllama.cpp --jinja evaluatesJinjatemplates. Freezeactualrenderedbytes.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    },
+    {
+      "id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "role": "lead_specialist",
+      "repository": "PromethicLabs/Emberon-2",
+      "revision": "d9b5cf07c0cb5d44711011e9d41c072c709d3af2",
+      "filename": "Emberon-2-Q4_K_M.gguf",
+      "bytes": 199996928,
+      "publisher_sha256": "18fead8b8df3808ed47a84cd41a5a0617e3374d1a62dd52e3ba4bfb839810ffd",
+      "immutable_url": "https://huggingface.co/PromethicLabs/Emberon-2/resolve/d9b5cf07c0cb5d44711011e9d41c072c709d3af2/Emberon-2-Q4_K_M.gguf",
+      "license": {
+        "metadata_declaration": "other",
+        "assessment": "Independent LFM350M dictation fine-tune, successor to Emberon1.2B; exact short system prompt.",
+        "documents": [
+          {
+            "path": "evidence/PromethicLabs__Emberon-2/LICENSE",
+            "url": "https://huggingface.co/PromethicLabs/Emberon-2/resolve/d9b5cf07c0cb5d44711011e9d41c072c709d3af2/LICENSE",
+            "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+            "size": 10574
+          },
+          {
+            "path": "evidence/PromethicLabs__Emberon-2/NOTICE",
+            "url": "https://huggingface.co/PromethicLabs/Emberon-2/resolve/d9b5cf07c0cb5d44711011e9d41c072c709d3af2/NOTICE",
+            "sha256": "a8f3569920929571848dd5a5937c4066b4bd4b3ee58326119695896d129a558f",
+            "size": 1740
+          }
+        ],
+        "metadata_name": "lfm1.0",
+        "metadata_link": "LICENSE",
+        "upstream_note": "LFM-derived weights: preserve applicable LFM Open License v1.0 and contributor terms; a fine-tuner MIT/Apache metadata badge does not waive upstream obligations."
+      },
+      "assessment": "Deeply reviewed; ready199,996,928-byte Q4 GGUF with vocabulary pruning32,158 tokens. PublisherCPU-only AppleSilicon115ms median/369ms p95; not Windows/SLA. Real178 row overlaps training recordings and is explicitly not heldout.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    },
+    {
+      "id": "dhanr4j/bitvoice-dictation:gguf/smollm2-360m-ft.gguf",
+      "role": "lead_specialist",
+      "repository": "dhanr4j/bitvoice-dictation",
+      "revision": "572820f65a5a7effdd13a515baec3d3cd0112468",
+      "filename": "gguf/smollm2-360m-ft.gguf",
+      "bytes": 270590464,
+      "publisher_sha256": "3ba70fbfd07313a5c3e6dce50cc526c832f992f82edf1e37d65f94382797ce3d",
+      "immutable_url": "https://huggingface.co/dhanr4j/bitvoice-dictation/resolve/572820f65a5a7effdd13a515baec3d3cd0112468/gguf/smollm2-360m-ft.gguf",
+      "license": {
+        "metadata_declaration": "other",
+        "assessment": "Multiple independently trained bases; per-artifact licensing differs. Smol/Qwen Apache; Llama/Falcon have own terms.",
+        "documents": [],
+        "metadata_name": null,
+        "metadata_link": null
+      },
+      "assessment": "Deeply reviewed multi-base family. First test SmolLM2-360M Q3/Q4 and Qwen3-0.6B known ft artifacts; v2 files present but card does not map all new benchmarks unambiguously.30curated+500holdout behavioral tests are publisher results.135M was rejected by publisher for weak heldout injection resistance.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    },
+    {
+      "id": "manasdutta04/kudu-writer-tiny:kudu-writer-tiny-v1-iq4_xs.gguf",
+      "role": "lead_specialist",
+      "repository": "manasdutta04/kudu-writer-tiny",
+      "revision": "0a45ae280eb00f7cdb57647885a8eaef3acaecd1",
+      "filename": "kudu-writer-tiny-v1-iq4_xs.gguf",
+      "bytes": 226661280,
+      "publisher_sha256": "80f9679bdf3de5f512b834357ee646af63050a3f03356120ff30cc974e10c56d",
+      "immutable_url": "https://huggingface.co/manasdutta04/kudu-writer-tiny/resolve/0a45ae280eb00f7cdb57647885a8eaef3acaecd1/kudu-writer-tiny-v1-iq4_xs.gguf",
+      "license": {
+        "metadata_declaration": "apache-2.0",
+        "assessment": "Independent SmolLM2-360M task fine-tune, Apache2; promising memory, no proven700ms total latency.",
+        "documents": [],
+        "metadata_name": null,
+        "metadata_link": null
+      },
+      "source_catalog": "specialists/candidates.json",
+      "trained_contract_reference": "s1/kudu-contract.json",
+      "verification": "Publisher metadata and public app catalog hash binding; complete weight not downloaded in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "qualification": "Separate model output from app preprocessing/guards; freeze trained v2 Prose/Polished condition explicitly."
+    },
+    {
+      "id": "Radiumcoders/localflow-clean:localflow-clean-q4_k_m.gguf",
+      "role": "lead_specialist",
+      "repository": "Radiumcoders/localflow-clean",
+      "revision": "4db187970c570ab861e64a61b8dadca4a285d559",
+      "filename": "localflow-clean-q4_k_m.gguf",
+      "bytes": 350373280,
+      "publisher_sha256": "0fa7ba4e4a38b50067a2dbd6eb01ce2e0aa6db755afc4a216cffd27566eb3206",
+      "immutable_url": "https://huggingface.co/Radiumcoders/localflow-clean/resolve/4db187970c570ab861e64a61b8dadca4a285d559/localflow-clean-q4_k_m.gguf",
+      "license": {
+        "metadata_declaration": "apache-2.0",
+        "assessment": "Qwen3.5-0.8B task fine-tune plus vocabulary pruning, Apache2.",
+        "documents": [
+          {
+            "path": "evidence/Radiumcoders__localflow-clean/LICENSE",
+            "url": "https://huggingface.co/Radiumcoders/localflow-clean/resolve/4db187970c570ab861e64a61b8dadca4a285d559/LICENSE",
+            "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+            "size": 11544
+          }
+        ],
+        "metadata_name": null,
+        "metadata_link": "LICENSE"
+      },
+      "assessment": "Deeply reviewed; ready350,373,280-byte pruned Q4 GGUF. Card reports vocab248k\u219232k; Vulkan GPU timing56ms/338ms on RX9070XT. Written41cases and selection-favoring142set are limited evidence.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    },
+    {
+      "id": "spokenly/cleanup-1-gguf:cleanup-1-q8_0.gguf",
+      "role": "lead_specialist",
+      "repository": "spokenly/cleanup-1-gguf",
+      "revision": "79936c95e5c0ea9162ae7a435e64cb3127020e36",
+      "filename": "cleanup-1-q8_0.gguf",
+      "bytes": 639442784,
+      "publisher_sha256": "66509e0fe1578d2ac4b0773c79a6c83e8d6f218618dfe11e4532beacd999b6e8",
+      "immutable_url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/cleanup-1-q8_0.gguf",
+      "license": {
+        "metadata_declaration": "apache-2.0",
+        "assessment": "Pure format conversion of spokenly/cleanup-1; not an independent model.",
+        "documents": [
+          {
+            "path": "evidence/spokenly__cleanup-1-gguf/LICENSE",
+            "url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/LICENSE",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "size": 11358
+          },
+          {
+            "path": "evidence/spokenly__cleanup-1-gguf/NOTICE",
+            "url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/NOTICE",
+            "sha256": "c8c2a5b22187685c78261d15938882f1fa91ba75d05d6c469f3b7cb4162fb769",
+            "size": 554
+          }
+        ],
+        "metadata_name": null,
+        "metadata_link": null
+      },
+      "assessment": "Deeply reviewed; actual Windows/Linux deployed GGUF Q8. Plain key:value lines then out:, no chat wrapper; base is Qwen3-0.6B-Base. Publisher~650MB model-memory and0.3s short-dictation CPU excludes speech/UI; fails to establish whole-app650MB.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    },
+    {
+      "id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "role": "lead_specialist",
+      "repository": "scribekey/scribekey-cleanup-fast-GGUF",
+      "revision": "735362ed519c41be30352d8b8ef902a661d017f8",
+      "filename": "scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "bytes": 379219904,
+      "publisher_sha256": "2dfd7463ae0a8ca7dd2e4abebeed9cc77a584569b9c99dc9e68ad85f1399b55a",
+      "immutable_url": "https://huggingface.co/scribekey/scribekey-cleanup-fast-GGUF/resolve/735362ed519c41be30352d8b8ef902a661d017f8/scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "license": {
+        "metadata_declaration": "other",
+        "assessment": "Quantized export of scribekey/scribekey-cleanup-fast; LFM license plus additional naming/attribution terms.",
+        "documents": [
+          {
+            "path": "evidence/scribekey__scribekey-cleanup-fast-GGUF/LICENSE",
+            "url": "https://huggingface.co/scribekey/scribekey-cleanup-fast-GGUF/resolve/735362ed519c41be30352d8b8ef902a661d017f8/LICENSE",
+            "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+            "size": 10574
+          },
+          {
+            "path": "evidence/scribekey__scribekey-cleanup-fast-GGUF/NOTICE",
+            "url": "https://huggingface.co/scribekey/scribekey-cleanup-fast-GGUF/resolve/735362ed519c41be30352d8b8ef902a661d017f8/NOTICE",
+            "sha256": "4d0d40d15ca51c17c0d9b61ed5a0f9c06ed3640a106ae20cfea4a8f36cd02b73",
+            "size": 5713
+          },
+          {
+            "path": "evidence/scribekey__scribekey-cleanup-fast-GGUF/ADDITIONAL_TERMS.md",
+            "url": "https://huggingface.co/scribekey/scribekey-cleanup-fast-GGUF/resolve/735362ed519c41be30352d8b8ef902a661d017f8/ADDITIONAL_TERMS.md",
+            "sha256": "3778f7257e4a80126d5307179fbe9157db49e09fd091364df5dbc56628815bb1",
+            "size": 2015
+          }
+        ],
+        "metadata_name": "scribekey-fast-model-terms-v1.0-with-lfm-open-license-v1.0",
+        "metadata_link": "https://huggingface.co/scribekey/scribekey-cleanup-fast-GGUF/blob/main/ADDITIONAL_TERMS.md"
+      },
+      "assessment": "Deeply reviewed v1.1 Q8 artifact379,219,904B. Exact task control line inside BOS/### completion, no ordinary chat/system/history. Current artifact phone runtime not measured; earlier v1 phone numbers cannot be promoted to v1.1 guarantees.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    },
+    {
+      "id": "scribekey/sotto-cleanup-350m-gguf:sotto-cleanup-350m-Q4_K_M.gguf",
+      "role": "diagnostic_original_model_control",
+      "repository": "scribekey/sotto-cleanup-350m-gguf",
+      "revision": "7c66975328fc550bb901cecd3efa62b4120659b9",
+      "filename": "sotto-cleanup-350m-Q4_K_M.gguf",
+      "bytes": 229311232,
+      "publisher_sha256": "8dee488f3bd679b3f0224a70f41fab63ec6895b3b151fff63bce3be80fd30203",
+      "immutable_url": "https://huggingface.co/scribekey/sotto-cleanup-350m-gguf/resolve/7c66975328fc550bb901cecd3efa62b4120659b9/sotto-cleanup-350m-Q4_K_M.gguf",
+      "license": {
+        "metadata_declaration": "other",
+        "assessment": "Sotto export, not a new fine-tune; inherited LFM license plus Sotto MIT notices.",
+        "documents": [
+          {
+            "path": "evidence/scribekey__sotto-cleanup-350m-gguf/LICENSE",
+            "url": "https://huggingface.co/scribekey/sotto-cleanup-350m-gguf/resolve/7c66975328fc550bb901cecd3efa62b4120659b9/LICENSE",
+            "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+            "size": 10574
+          },
+          {
+            "path": "evidence/scribekey__sotto-cleanup-350m-gguf/NOTICE",
+            "url": "https://huggingface.co/scribekey/sotto-cleanup-350m-gguf/resolve/7c66975328fc550bb901cecd3efa62b4120659b9/NOTICE",
+            "sha256": "3249ad1e7c9c2994de5cab0ec8801668ae13461325b7500c925eaf1c2c6c38ac",
+            "size": 1703
+          }
+        ],
+        "metadata_name": "lfm1.0",
+        "metadata_link": "LICENSE",
+        "upstream_note": "LFM-derived weights: preserve applicable LFM Open License v1.0 and contributor terms; a fine-tuner MIT/Apache metadata badge does not waive upstream obligations."
+      },
+      "assessment": "Deeply reviewed; pure conversion of Sotto at6df6f019170b8b55333c047b901886a51750a965. Correct BOS is mandatory; withoutBOS card says period-only outputs. StopEOS or###. Q4~229MB/Q8~379MB. Pure-export149caseQ8stressresult: protectedspans75.2%,selfcorrection4.8%,newvalues10.1%; Q4selfcorrection19%. Cheapdiagnosticcontrol, notfirstqualityhope.",
+      "source_catalog": "specialists/candidates.json",
+      "verification": "Publisher metadata; complete weights not downloaded or independently rehashed in this research.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "specialists/report.md"
+    }
+  ],
+  "additional_controls": [
+    {
+      "id": "LFM2.5 230M",
+      "role": "generic_resource_control",
+      "repository": "LiquidAI/LFM2.5-230M-GGUF",
+      "revision": "03502067c64ce32ac4fe87b0cec0310a1a13d3e9",
+      "filename": "LFM2.5-230M-Q4_K_M.gguf",
+      "bytes": 153406304,
+      "publisher_sha256": "7bbd90384d3deffe4c646ec9643b212802d32d4ce417c90a1ec9282100650062",
+      "immutable_url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q4_K_M.gguf",
+      "license": "LFM Open License v1.0: copyright and redistribution grants with a commercial-use annual-revenue limitation. The license defines the threshold as $10,000,000 or more, while its grant uses not-exceeding/exceeds language. Preserve the exact text and clarify the boundary if relevant. This is not ordinary Apache 2.0.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "compact/report.md",
+      "source_catalog": "compact/candidates.json"
+    },
+    {
+      "id": "Granite4.0 H350M",
+      "role": "generic_resource_control",
+      "repository": "ibm-granite/granite-4.0-h-350m-GGUF",
+      "revision": "a864f823cce6e6048b5752e2816fe7a23987d790",
+      "filename": "granite-4.0-h-350m-Q4_K_M.gguf",
+      "bytes": 222662560,
+      "publisher_sha256": "0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb",
+      "immutable_url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_K_M.gguf",
+      "license": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "compact/report.md",
+      "source_catalog": "compact/candidates.json"
+    },
+    {
+      "id": "SmolLM2 135M Instruct",
+      "role": "generic_resource_control",
+      "repository": "unsloth/SmolLM2-135M-Instruct-GGUF",
+      "revision": "9e6855bc4be717fca1ef21360a1db4b29d5c559a",
+      "filename": "SmolLM2-135M-Instruct-Q4_K_M.gguf",
+      "bytes": 105454144,
+      "publisher_sha256": "ed5fa30c487b282ec156c29062f1222e5c20875a944ac98289dbd242e947f747",
+      "immutable_url": "https://huggingface.co/unsloth/SmolLM2-135M-Instruct-GGUF/resolve/9e6855bc4be717fca1ef21360a1db4b29d5c559a/SmolLM2-135M-Instruct-Q4_K_M.gguf",
+      "license": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "compact/report.md",
+      "source_catalog": "compact/candidates.json"
+    },
+    {
+      "id": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "role": "task_oriented_formatting_control_not_proven_full_Backtrack",
+      "repository": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "revision": "c926e4c06cfc458892d37a16ef032a0a98bd77b2",
+      "filename": "SmolLM2-135M-Post-ASR-Q4_K_M.gguf",
+      "bytes": 105454592,
+      "publisher_sha256": "c2ea857ceade00e134d38a1692939a761c190a7b9daf72b8307aa8ca0794a467",
+      "immutable_url": "https://huggingface.co/vikramlingam/SmolLM2-135M-Post-ASR-Engine/resolve/c926e4c06cfc458892d37a16ef032a0a98bd77b2/SmolLM2-135M-Post-ASR-Q4_K_M.gguf",
+      "license": "Apache2 declaration; SmolLM2baseApache2; retainbaseandfine-tunecards/notices.",
+      "inference_tested": false,
+      "sla_proven": false,
+      "trained_contract_reference": "Publishedsystem+ChatML; <|task:clean_punctuate|> for faithful cleanup scope; greedystop<|im_end|>",
+      "source_catalog": "editing/candidates.json"
+    }
+  ],
+  "S1_precision_comparison_refs": [
+    "s1-mini-official-f16",
+    "s1-mini-imatrix-q4-k-m"
+  ],
+  "followup_rules": [
+    "Freeze actual renderer/prompt bytes, not merely system prompt; Handy empty-system observation is renderer-specific.",
+    "Do not call Emberon full-vocabulary F16 an isolated precision control for its pruned/calibratedQ4.",
+    "Use current exact ScribeKeyv1.1 contract; do not promote prior version phone timings.",
+    "Sotto original is a cheap diagnostic control with negative publisher evidence, not a presumptive finalist.",
+    "Follow conditional and naming license obligations; no permissions inferred from a converter tag.",
+    "No production default chosen; use a new frozen holdout after tuning.",
+    "Kudu contract was resolved from pinned public application code; training-repository unavailability remains an evidence limitation."
+  ]
+}

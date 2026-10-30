@@ -1,5 +1,15 @@
 # Transcript cleanup research
 
+## Expanded small-model audit — October 30, 2026
+
+The earlier candidate search was incomplete. Use the
+[small local model research and pinned test shortlist](TRANSCRIPT-CLEANUP-SMALL-MODELS.md)
+before further selection. It deeply verifies S1-mini, searches purpose-trained
+small editors and non-chat alternatives, traces existing products, checks reuse
+terms, and records runtime/budget constraints. The prior 9B experiment is a
+quality reference; production-model selection is open. This research changes
+documentation and the test plan, not application behavior or the acquisition pin.
+
 ## Quality-first direction — October 30, 2026
 
 Sam now prioritizes the highest-quality final text and accepts a slower, larger

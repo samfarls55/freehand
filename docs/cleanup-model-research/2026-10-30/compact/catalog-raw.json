@@ -1,0 +1,3163 @@
+[
+  {
+    "id": "LiquidAI/LFM2.5-230M",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-230M?blobs=true",
+    "revision": "40cb2ad3b3044d5a41eee083a6103c8b523afa45",
+    "gated": false,
+    "license": "other",
+    "architecture": "lfm2",
+    "downloads": 40471,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/README.md",
+        "sha256": "f614b46c1e8328d38af7ae88d020dc0b7871b27e6addfa528821bee823d47270",
+        "size": 14095
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/LICENSE",
+        "sha256": "30adf9d6478191fb87f2424f63ba0728598335aaf99cd2848ef17e8e545fe94b",
+        "size": 10574
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M/config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/config.json",
+        "sha256": "f7d0bcc454b7a30fa471b1e7b9e359e11fb25b56f5b4ffd59bb18248e3c2ea3d",
+        "size": 1568
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M/tokenizer_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/tokenizer_config.json",
+        "sha256": "75c287923e252b08b0a0f1c367bbe557ab23a681d0b71c5a34e0932ddbe2f5ee",
+        "size": 489
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M/chat_template.jinja",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/chat_template.jinja",
+        "sha256": "c5b67247c9f736f6c40eaa91ae1ef27dc67f5b041eedaadb97a1bea5030fb0ff",
+        "size": 4762
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M/generation_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/generation_config.json",
+        "sha256": "4f88574c47c3215f7f952e1f520d1df7387422dde0345655228fb7b3fde6858c",
+        "size": 303
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.602239+00:00",
+    "context": 128000,
+    "architectures": [
+      "Lfm2ForCausalLM"
+    ]
+  },
+  {
+    "id": "LiquidAI/LFM2.5-230M-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-230M-GGUF?blobs=true",
+    "revision": "03502067c64ce32ac4fe87b0cec0310a1a13d3e9",
+    "gated": false,
+    "license": "other",
+    "architecture": null,
+    "downloads": 261764,
+    "selected_files": [
+      {
+        "filename": "LFM2.5-230M-BF16.gguf",
+        "size": 461884256,
+        "sha256": "9a47cffa8c86d071e4cdb2adf6861251fecd6191c226c88607a193a0d9cc5a38",
+        "blob_id": "68fda3c9adc3b5e4b5975e37222e5b500c9e170d",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-BF16.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-F16.gguf",
+        "size": 461884256,
+        "sha256": "4d364976c7ae1b85bd380f743155aa2d532f7a10291beaa6b27a7d6c9b10527f",
+        "blob_id": "2c733d6d9dd944e0e4ce4579c27e92e5fc1e18e4",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-F16.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-Q4_0.gguf",
+        "size": 149080928,
+        "sha256": "430fbec5b1b355e9bb12cd0638c9f2a8f21fedd6eafb4103e42c7e88887daa73",
+        "blob_id": "ecdf26ccafa7226e76a44cf63db194b654a796d2",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q4_0.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-Q4_K_M.gguf",
+        "size": 153406304,
+        "sha256": "7bbd90384d3deffe4c646ec9643b212802d32d4ce417c90a1ec9282100650062",
+        "blob_id": "9ad2387757e304a1ecce2d68a850ca2edca4c3de",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q4_K_M.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-Q5_K_M.gguf",
+        "size": 171625312,
+        "sha256": "65bceea824d701506de53f02d7276578a64706ad9c17f00d6e8917bf491de6db",
+        "blob_id": "d3e4c630440467cef1318a515a859aadef3613e3",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q5_K_M.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-Q6_K.gguf",
+        "size": 190983008,
+        "sha256": "17a451304bfdfa7098902d5e8e0122440bbfc585f722bd1475435cbc5bab0219",
+        "blob_id": "5de291703af152ced511594fce297628704fdeca",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q6_K.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-Q8_0.gguf",
+        "size": 246598496,
+        "sha256": "855be85429300602eda72958547614703541b7d6dd965a8f8f6052b85a7aa935",
+        "blob_id": "d85b80d116e1e76ea5153585d3d3ab80457f7ea9",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q8_0.gguf"
+      },
+      {
+        "filename": "LFM2.5-230M-QAD-Q4_0.gguf",
+        "size": 149081056,
+        "sha256": "e75f83268de11b2a1bcfab5f3b5c5c0c97569ddbbc0990aad88437e45b8ba292",
+        "blob_id": "583b900e58d17b849cebeffd2845a661b24541fe",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-QAD-Q4_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M-GGUF/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/raw/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/README.md",
+        "sha256": "064d602dc511c7ba828fb4bc8a98db501d419a1e681d1296981019947c725171",
+        "size": 3299
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-230M-GGUF/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/raw/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LICENSE",
+        "sha256": "30adf9d6478191fb87f2424f63ba0728598335aaf99cd2848ef17e8e545fe94b",
+        "size": 10574
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:29.091874+00:00"
+  },
+  {
+    "id": "LiquidAI/LFM2.5-350M",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-350M?blobs=true",
+    "revision": "9e6c6ccf47cd318696e137d381a7ded8fe4df09f",
+    "gated": false,
+    "license": "other",
+    "architecture": "lfm2",
+    "downloads": 86811,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/README.md",
+        "sha256": "a2bb9f40aca96e21d0e2c497af58f459a4b1f92c9d459dc0ece67ec63f7480b5",
+        "size": 14508
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/LICENSE",
+        "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+        "size": 10574
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M/config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/config.json",
+        "sha256": "720b43d6ddc2ed25be23eed355aefcf342434a176dedad23dbe0a5e3ac24bbb8",
+        "size": 1281
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M/tokenizer_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/tokenizer_config.json",
+        "sha256": "3701f370c70034d06e28947ff51c1063983393319f429e3ce58f06a45fae67cc",
+        "size": 595
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M/chat_template.jinja",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/chat_template.jinja",
+        "sha256": "ba551d58630afa3190b1be3602e28301f3d2e9bbac978dfc49d6d825171648b6",
+        "size": 5487
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M/generation_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/generation_config.json",
+        "sha256": "0ec7d228c4de7e3453e98bf6910c7eb7841e87fede63ea11c0f75a5c64e1c3c3",
+        "size": 134
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.665211+00:00",
+    "context": 128000,
+    "architectures": [
+      "Lfm2ForCausalLM"
+    ]
+  },
+  {
+    "id": "LiquidAI/LFM2.5-350M-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-350M-GGUF?blobs=true",
+    "revision": "657e078c94084481950a2d555a941481f715536b",
+    "gated": false,
+    "license": "other",
+    "architecture": null,
+    "downloads": 105649,
+    "selected_files": [
+      {
+        "filename": "LFM2.5-350M-BF16.gguf",
+        "size": 711485152,
+        "sha256": "8da576155e67ae093f49e4ebf638c025a04c0d28d5ec42bd28617ca18a52539d",
+        "blob_id": "dea5bb326fbf5a31493c342df677d1e5bd16bc5c",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-BF16.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-F16.gguf",
+        "size": 711485152,
+        "sha256": "18e2f6b61045bed8c3e8575c01fa7898b2df5ae884964322dcf49e5d12f6eb79",
+        "blob_id": "9fe7bd04f2bee811e6a7e055a00c5bcec7ab7f98",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-F16.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-Q4_0.gguf",
+        "size": 219309792,
+        "sha256": "85e32858daafad55b7bcd6b97a1343ee0661188e8036f9862d14d6b563142f50",
+        "blob_id": "ac0fa5b48712836834f86d94462f4a756fc2603a",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q4_0.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-Q4_K_M.gguf",
+        "size": 229312224,
+        "sha256": "7e6f72643caafc9a68256686638c4d7916f2cec76d1df478d4c3ddcd95a6aed4",
+        "blob_id": "bdbc79b3f36ce3828f89fd15557da48bce324128",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q4_K_M.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-Q5_K_M.gguf",
+        "size": 260376288,
+        "sha256": "e8985a31d95fab69e894216ce1712b57a55f1561093ec7cf408b781834eb8435",
+        "blob_id": "cca75c3baffacaebb9e50514e25e9fc3fda5be5c",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q5_K_M.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-Q6_K.gguf",
+        "size": 293381856,
+        "sha256": "3ed48149a87dd9a0b04688780828854fc0c607d8c241af2b1100045e0d6b45c7",
+        "blob_id": "4378d68d8bd5134233d6f1b2722c73c4a3c29a34",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q6_K.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-Q8_0.gguf",
+        "size": 379217632,
+        "sha256": "be036a757295e550098b85e13f6af2735d0fa73b41e1156a40c7d8e8e32a5766",
+        "blob_id": "03b4e3159538185977f75bc7806c3a1076e64b5a",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q8_0.gguf"
+      },
+      {
+        "filename": "LFM2.5-350M-QAD-Q4_0.gguf",
+        "size": 219312832,
+        "sha256": "3d10b6ab8fc91a919534b9558e266255aca0bbc7f6d015963599aa9e74e05b1d",
+        "blob_id": "2acf9261ca12dac80f61386de9bb379f73ebe76e",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-QAD-Q4_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M-GGUF/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/raw/657e078c94084481950a2d555a941481f715536b/README.md",
+        "sha256": "4773739eb49540664b16566dc655d03a51df3937639e9dbf28d48a15d01b2436",
+        "size": 3277
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-350M-GGUF/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/raw/657e078c94084481950a2d555a941481f715536b/LICENSE",
+        "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+        "size": 10596
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.375544+00:00"
+  },
+  {
+    "id": "LiquidAI/LFM2.5-1.2B-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-1.2B-Instruct?blobs=true",
+    "revision": "0f604ada3f766f9f257460c4c9f0b5d6f69d431b",
+    "gated": false,
+    "license": "other",
+    "architecture": "lfm2",
+    "downloads": 128523,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/README.md",
+        "sha256": "682de876c2d172eaeffff775ad8422b5fd7ada701543916e62129e3be8eab077",
+        "size": 16291
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/LICENSE",
+        "sha256": "61d7e939a05911c765b7e98ffaa1ab5ca6c0174a65350766c25cb10197d19fc8",
+        "size": 10644
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/config.json",
+        "sha256": "15d6157fb6df3f8272e2fe90e18f57727ccf02a125c94469198b0f3281510185",
+        "size": 1224
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/tokenizer_config.json",
+        "sha256": "2a52ec012d3df831ba434b081bef3726a6ee22501f062ad8353c557a0cfa0d01",
+        "size": 92225
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/chat_template.jinja",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/chat_template.jinja",
+        "sha256": "ba551d58630afa3190b1be3602e28301f3d2e9bbac978dfc49d6d825171648b6",
+        "size": 5487
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/generation_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/generation_config.json",
+        "sha256": "5ffd97da1dec4308543894569662d96e923ed01f7a9d8c7ff5aea7f800738cbd",
+        "size": 132
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.425655+00:00",
+    "context": 128000,
+    "architectures": [
+      "Lfm2ForCausalLM"
+    ]
+  },
+  {
+    "id": "LiquidAI/LFM2.5-1.2B-Instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2.5-1.2B-Instruct-GGUF?blobs=true",
+    "revision": "8ed288026e23958ad9dfa92d53ed773a8eee7125",
+    "gated": false,
+    "license": "other",
+    "architecture": null,
+    "downloads": 283883,
+    "selected_files": [
+      {
+        "filename": "LFM2.5-1.2B-Instruct-BF16.gguf",
+        "size": 2343326528,
+        "sha256": "3d80914b903cd6f3cc041208cf20ec46a3224f840c732e5fd7698832b4743d1b",
+        "blob_id": "b97a74899d7f7ac866950f15d48fd4edc30f57a8",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-BF16.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-F16.gguf",
+        "size": 2343326528,
+        "sha256": "1e1d8a5ca01c0f1ee51a6fd729c80efd626f54812a1241358bea20824fea790d",
+        "blob_id": "e4971ef4b945d2fb55d7ee28d3b4bf4521a5a0da",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-F16.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-Q4_0.gguf",
+        "size": 695751488,
+        "sha256": "2ea801949d760cdf1a2cc04a54262c22c3c0c54f0769d57760c9adeb0e59233f",
+        "blob_id": "1eaa36ea1f0bfbe6cd053480a8977cc60e510849",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q4_0.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-Q4_K_M.gguf",
+        "size": 730895168,
+        "sha256": "b1b3de114215d9507409a662a501a631095a479a419584e8a2ded6304b19b4f5",
+        "blob_id": "98e92dac403a4753fe75d30990cdea453d38273e",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q4_K_M.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-Q5_K_M.gguf",
+        "size": 843354944,
+        "sha256": "fa03f3ac4da941a53a0cd4450aacf6a80804c6a1ff885d2fdcbe9406c03215c4",
+        "blob_id": "931254d7e25c290ed1bf0beb0d0a366f78f3d870",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q5_K_M.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-Q6_K.gguf",
+        "size": 962843456,
+        "sha256": "c5e895c191a066f6b26a8f09f10e94cdb799e579216f87df61a7e27beacd9a2b",
+        "blob_id": "2a6a7d031d91477d0c23558dfde05d3002dff966",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q6_K.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-Q8_0.gguf",
+        "size": 1246253888,
+        "sha256": "f6b981dcb86917fa463f78a362320bd5e2dc45445df147287eedb85e5a30d26a",
+        "blob_id": "f35eb989e16aeb44729ca2904e7e9f1a98bf26c4",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q8_0.gguf"
+      },
+      {
+        "filename": "LFM2.5-1.2B-Instruct-QAD-Q4_0.gguf",
+        "size": 695755488,
+        "sha256": "bb741ebb106d543e9de114b843a3d3d73d51c74b5801e69da2abde821a0cb3e1",
+        "blob_id": "a4df0d757cfe8eb5f4d3500c8b88a8390981296d",
+        "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-QAD-Q4_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct-GGUF/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/raw/8ed288026e23958ad9dfa92d53ed773a8eee7125/README.md",
+        "sha256": "f89d69dd107c19936b98ff981456302bc59255cce34b216ecc489d7bafa782e9",
+        "size": 3544
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct-GGUF/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/raw/8ed288026e23958ad9dfa92d53ed773a8eee7125/LICENSE",
+        "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+        "size": 10596
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:29.180440+00:00"
+  },
+  {
+    "id": "LiquidAI/LFM2-350M",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2-350M?blobs=true",
+    "revision": "f37d3f5c8c5484bc01dad379a595cf4c68c4e70e",
+    "gated": false,
+    "license": "other",
+    "architecture": "lfm2",
+    "downloads": 17604,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2-350M/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/README.md",
+        "sha256": "d9fabbc6c7c168550923e62ae9e4de6ae5f6c30383fd0ee37ca3825ecc61e4fb",
+        "size": 13058
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-350M/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/LICENSE",
+        "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+        "size": 10596
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-350M/config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/config.json",
+        "sha256": "fd3b3fba4e50e7b9a22bd41cbab59e9b28e319b2de19668d7fd9777c8d1a9ba1",
+        "size": 999
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-350M/tokenizer_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/tokenizer_config.json",
+        "sha256": "63ced8ee8627fa4b0638c4c057351f00fb4e332ca2327a9a00eecc5978e84835",
+        "size": 91565
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-350M/chat_template.jinja",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/chat_template.jinja",
+        "sha256": "5504d163d879bfb6fd4135b7fa3d56768b2e69dd718338f7b146750289f46ab0",
+        "size": 3099
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-350M/generation_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/generation_config.json",
+        "sha256": "0f678f07a00ae4bdeb2b2bd5f37988a4b33a87686d9103fefe08de7a46522373",
+        "size": 137
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.961691+00:00",
+    "context": 128000,
+    "architectures": [
+      "Lfm2ForCausalLM"
+    ]
+  },
+  {
+    "id": "LiquidAI/LFM2-350M-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2-350M-GGUF?blobs=true",
+    "revision": "8fdc9d526b7ed346b19257551b05816c7912ecc2",
+    "gated": false,
+    "license": "other",
+    "architecture": null,
+    "downloads": 7982,
+    "selected_files": [
+      {
+        "filename": "LFM2-350M-F16.gguf",
+        "size": 711482304,
+        "sha256": "379ffdcbf08147c0313f6f1ce7ff558a2bc935eda633f4b46c52347032419c42",
+        "blob_id": "98dd369ca8730035a717a55fc340ff84494a9950",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-F16.gguf"
+      },
+      {
+        "filename": "LFM2-350M-Q4_0.gguf",
+        "size": 219306944,
+        "sha256": "8e3ebc1c608dc8683adf8c3b3e6a40e2f4eab22aa33b908bff2ac03a1c16d796",
+        "blob_id": "b15c966671b1e83394431fb640e61b81d973fe7d",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q4_0.gguf"
+      },
+      {
+        "filename": "LFM2-350M-Q4_K_M-hip-optimized.gguf",
+        "size": 254958528,
+        "sha256": "78ed4f5583424adfb1bad52332ea19f18307f87188defb4c222ab7ed329c3cc6",
+        "blob_id": "58faaa484631c7a0200ce5ada4c650c26b2ca0ce",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q4_K_M-hip-optimized.gguf"
+      },
+      {
+        "filename": "LFM2-350M-Q4_K_M.gguf",
+        "size": 229309376,
+        "sha256": "a4d000c7064bd3b2e42c6845836286a899a4e79cf1791da1a6797b58d575957d",
+        "blob_id": "677e871821f6f7ef47c768929f7eb2fc3abd8c3c",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q4_K_M.gguf"
+      },
+      {
+        "filename": "LFM2-350M-Q5_K_M.gguf",
+        "size": 260373440,
+        "sha256": "722fa02312490ed221348b98d9782644f412e8c5bb71e0df69eacdacec29c785",
+        "blob_id": "8ab05d92a093af6fbbcef85342006e05de6d1193",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q5_K_M.gguf"
+      },
+      {
+        "filename": "LFM2-350M-Q6_K.gguf",
+        "size": 293379008,
+        "sha256": "877271ee22b484911ed89e7f598a457525076f53e6f2a05cab57a0cd4f29688a",
+        "blob_id": "e636262ac33d9da60d6dc040096c2df38268a5c1",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q6_K.gguf"
+      },
+      {
+        "filename": "LFM2-350M-Q8_0.gguf",
+        "size": 379214784,
+        "sha256": "b7bfeab6495a1ae3ae78811c1297df9f301b35261ff9580d42fb30dc4dc9034b",
+        "blob_id": "ee70d584ac038ec8be21edd3925603f112c9907e",
+        "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2-350M-GGUF/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/raw/8fdc9d526b7ed346b19257551b05816c7912ecc2/README.md",
+        "sha256": "a2a329a07cd35915b8716fc12b3a5bc11e5b11c65f38dae12e17bf646c942fb1",
+        "size": 1708
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-350M-GGUF/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/raw/8fdc9d526b7ed346b19257551b05816c7912ecc2/LICENSE",
+        "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+        "size": 10596
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.502266+00:00"
+  },
+  {
+    "id": "LiquidAI/LFM2-700M",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2-700M?blobs=true",
+    "revision": "86f49fc9a3800c3a325b7320bde179c318062583",
+    "gated": false,
+    "license": "other",
+    "architecture": "lfm2",
+    "downloads": 4472,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2-700M/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/README.md",
+        "sha256": "aca0207f13012f61865754d9ceb350aadbb0bfdd1af434d53e982a7cdf6ef149",
+        "size": 13024
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-700M/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/LICENSE",
+        "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+        "size": 10596
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-700M/config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/config.json",
+        "sha256": "2e12f44e97f35b0362ea4f3583db141e8e8cd4adaf4be6614d22682d58693d29",
+        "size": 1000
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-700M/tokenizer_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/tokenizer_config.json",
+        "sha256": "63ced8ee8627fa4b0638c4c057351f00fb4e332ca2327a9a00eecc5978e84835",
+        "size": 91565
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-700M/chat_template.jinja",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/chat_template.jinja",
+        "sha256": "5504d163d879bfb6fd4135b7fa3d56768b2e69dd718338f7b146750289f46ab0",
+        "size": 3099
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-700M/generation_config.json",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/generation_config.json",
+        "sha256": "0f678f07a00ae4bdeb2b2bd5f37988a4b33a87686d9103fefe08de7a46522373",
+        "size": 137
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.262963+00:00",
+    "context": 128000,
+    "architectures": [
+      "Lfm2ForCausalLM"
+    ]
+  },
+  {
+    "id": "LiquidAI/LFM2-700M-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/LiquidAI/LFM2-700M-GGUF?blobs=true",
+    "revision": "fd39e80d7a5ac61494ffff577e61bbbfddbd0d02",
+    "gated": false,
+    "license": "other",
+    "architecture": null,
+    "downloads": 13843,
+    "selected_files": [
+      {
+        "filename": "LFM2-700M-F16.gguf",
+        "size": 1487557568,
+        "sha256": "e51cf86c25c2c96e157a3882ae3acd6462cac8cab40cf1c72e830cdbefc3456b",
+        "blob_id": "1c9282261426ded8bfe6c3c72d7cf5ecfe484fab",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-F16.gguf"
+      },
+      {
+        "filename": "LFM2-700M-Q4_0.gguf",
+        "size": 446321600,
+        "sha256": "bf9c70678aff2a6ee2152b6fef4b2993892eae6449d056cf77cc1e34072424b3",
+        "blob_id": "90c8b088ad13c3c97a5e55e3daaed34952af04b2",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q4_0.gguf"
+      },
+      {
+        "filename": "LFM2-700M-Q4_K_M-hip-optimized.gguf",
+        "size": 513954752,
+        "sha256": "3a52599c1f1da9b018e8ee92df06ac3e2d51416199afbe2205f31d07771ae410",
+        "blob_id": "6f7e3318624f0a35d750139675ae35dfc0d2aacf",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q4_K_M-hip-optimized.gguf"
+      },
+      {
+        "filename": "LFM2-700M-Q4_K_M.gguf",
+        "size": 468624320,
+        "sha256": "684e8406dc13321452b3f6aeca432776e2a6a7e1ad6c23f7887b8fe3efbe2efa",
+        "blob_id": "30c2fe0c96aa2e7cde60ca3e0e30cbda488b8f41",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q4_K_M.gguf"
+      },
+      {
+        "filename": "LFM2-700M-Q5_K_M.gguf",
+        "size": 538026944,
+        "sha256": "af3856f0072c09376792305e6c2af6f888e89cff9e9ff54ffea681363cdc074b",
+        "blob_id": "3d10eb954ad45820b7a0bd4c7a05785a53b58ad1",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q5_K_M.gguf"
+      },
+      {
+        "filename": "LFM2-700M-Q6_K.gguf",
+        "size": 611767232,
+        "sha256": "11bdf172b409c39e71a84748df07f2c9298699484777a5464a6cc048dc82bd7b",
+        "blob_id": "88f70b1e2c48e1a47ade5278ddb95f9a311f20c6",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q6_K.gguf"
+      },
+      {
+        "filename": "LFM2-700M-Q8_0.gguf",
+        "size": 791565248,
+        "sha256": "0967d902ed270d07cb374a1972bb5da4338d2a303b565cf4eb7948b958e751ab",
+        "blob_id": "e751492913b2085f9f114372e26641dd2a3d7655",
+        "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/LiquidAI__LFM2-700M-GGUF/README.md",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/raw/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/README.md",
+        "sha256": "f9e84b6fe91e2c150a8bdcfb28d1308b005928835456edb431f76fefa5880bf6",
+        "size": 1486
+      },
+      {
+        "path": "evidence/LiquidAI__LFM2-700M-GGUF/LICENSE",
+        "source": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/raw/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LICENSE",
+        "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+        "size": 10596
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:28.452954+00:00"
+  },
+  {
+    "id": "Qwen/Qwen3-0.6B",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3-0.6B?blobs=true",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "qwen3",
+    "downloads": 23941880,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B/raw/c1899de289a04d12100db370d81485cdf75e47ca/README.md",
+        "sha256": "1ab64a26fcb3b461423b89a433a8c858f1bf8d4086f979cbb3ff878d47cf20e9",
+        "size": 13965
+      },
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B/raw/c1899de289a04d12100db370d81485cdf75e47ca/LICENSE",
+        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+        "size": 11343
+      },
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B/config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B/raw/c1899de289a04d12100db370d81485cdf75e47ca/config.json",
+        "sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd",
+        "size": 726
+      },
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B/tokenizer_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B/raw/c1899de289a04d12100db370d81485cdf75e47ca/tokenizer_config.json",
+        "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "size": 9732
+      },
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B/generation_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B/raw/c1899de289a04d12100db370d81485cdf75e47ca/generation_config.json",
+        "sha256": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "size": 239
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:30.666541+00:00",
+    "context": 40960,
+    "architectures": [
+      "Qwen3ForCausalLM"
+    ]
+  },
+  {
+    "id": "Qwen/Qwen3-0.6B-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3-0.6B-GGUF?blobs=true",
+    "revision": "23749fefcc72300e3a2ad315e1317431b06b590a",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 227232,
+    "selected_files": [
+      {
+        "filename": "Qwen3-0.6B-Q8_0.gguf",
+        "size": 639446688,
+        "sha256": "9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031",
+        "blob_id": "11bf194c8059f3b03e4454376ac67813a1e0eb52",
+        "url": "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B-GGUF/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/raw/23749fefcc72300e3a2ad315e1317431b06b590a/README.md",
+        "sha256": "44adabae2153c3a7bb741b86fbffd48736bc95118831935fdfc4d3cc1854f2f5",
+        "size": 6236
+      },
+      {
+        "path": "evidence/Qwen__Qwen3-0.6B-GGUF/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/raw/23749fefcc72300e3a2ad315e1317431b06b590a/LICENSE",
+        "sha256": "5de36594c10839788a8c589443a8ef9d8b8d17c65a1b5807206ae037fc36c6bd",
+        "size": 11544
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:30.650279+00:00"
+  },
+  {
+    "id": "Qwen/Qwen3.5-0.8B",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B?blobs=true",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "qwen3_5",
+    "downloads": 3811593,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen3.5-0.8B/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/2fc06364715b967f1860aea9cf38778875588b17/README.md",
+        "sha256": "87a163af54f32fa608a0f8d3ac67945c53dd2b4a7c96740b3d7fdc28e8458864",
+        "size": 61705
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-0.8B/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/2fc06364715b967f1860aea9cf38778875588b17/LICENSE",
+        "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+        "size": 11544
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-0.8B/config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/2fc06364715b967f1860aea9cf38778875588b17/config.json",
+        "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+        "size": 2907
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-0.8B/tokenizer_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/2fc06364715b967f1860aea9cf38778875588b17/tokenizer_config.json",
+        "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c",
+        "size": 16709
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-0.8B/chat_template.jinja",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/2fc06364715b967f1860aea9cf38778875588b17/chat_template.jinja",
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+        "size": 7755
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:31.762982+00:00",
+    "context": null,
+    "architectures": [
+      "Qwen3_5ForConditionalGeneration"
+    ]
+  },
+  {
+    "id": "ggml-org/Qwen3.5-0.8B-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/ggml-org/Qwen3.5-0.8B-GGUF?blobs=true",
+    "revision": "807dfd9a6fadbf703207aac3bfb0b2b3040d077c",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 60398,
+    "selected_files": [
+      {
+        "filename": "Qwen3.5-0.8B-BF16.gguf",
+        "size": 1557662496,
+        "sha256": "9a7bed4041b7975e0f71fa34670d1e9025213bc92905ac0db75d36c4fa3fa623",
+        "blob_id": "bd0b70ad131026e7f5ca655a2d8a6979881b7d77",
+        "url": "https://huggingface.co/ggml-org/Qwen3.5-0.8B-GGUF/resolve/807dfd9a6fadbf703207aac3bfb0b2b3040d077c/Qwen3.5-0.8B-BF16.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q4_0.gguf",
+        "size": 563036064,
+        "sha256": "57d1997790d1744fba5b40a7317df71ea5e2acee28c47e78f0cce39c0703f8cf",
+        "blob_id": "e3e0cfb13e10d60c659276f7529764100fcce590",
+        "url": "https://huggingface.co/ggml-org/Qwen3.5-0.8B-GGUF/resolve/807dfd9a6fadbf703207aac3bfb0b2b3040d077c/Qwen3.5-0.8B-Q4_0.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q8_0.gguf",
+        "size": 833592096,
+        "sha256": "37ae482d336108d23516fa35e8e0c4126688d81018b87178a18d752a1357814f",
+        "blob_id": "591cd6f7b2e78a568ffda3f30c279e97446af9c6",
+        "url": "https://huggingface.co/ggml-org/Qwen3.5-0.8B-GGUF/resolve/807dfd9a6fadbf703207aac3bfb0b2b3040d077c/Qwen3.5-0.8B-Q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/ggml-org__Qwen3.5-0.8B-GGUF/README.md",
+        "source": "https://huggingface.co/ggml-org/Qwen3.5-0.8B-GGUF/raw/807dfd9a6fadbf703207aac3bfb0b2b3040d077c/README.md",
+        "sha256": "f9e53b6a3ff7accd8486b9d9eacde851af9688e1f8158c32c80525f7b4158a56",
+        "size": 440
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:31.347707+00:00"
+  },
+  {
+    "id": "unsloth/Qwen3.5-0.8B-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/unsloth/Qwen3.5-0.8B-GGUF?blobs=true",
+    "revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 267879,
+    "selected_files": [
+      {
+        "filename": "Qwen3.5-0.8B-BF16.gguf",
+        "size": 1516744736,
+        "sha256": "cedf89af31c9041b601fa58303285bc46d99c51baee1b13f5e919626ca526ee5",
+        "blob_id": "5d0b9c1c8e945efd4f1d520ece45daa935bb08ec",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-BF16.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-IQ4_NL.gguf",
+        "size": 506859776,
+        "sha256": "de9f7f28a4155c1678cbdae54c61ae63aa6326f7fffd2cdacfb765cfeab21670",
+        "blob_id": "8c151d34c6772098bc2b25316b86eb343bd16e97",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-IQ4_NL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-IQ4_XS.gguf",
+        "size": 492605696,
+        "sha256": "619917ae92f61eb6515a7070e944a0a7c2b198a2cf6536386f475485188a36ff",
+        "blob_id": "0d590e5978662a960e9834656ffc22ee325c1133",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-IQ4_XS.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q3_K_M.gguf",
+        "size": 470167808,
+        "sha256": "c49ad509cd0a3f8584c4eff50d84202336bf9475b8a724c89f4061687c1fb510",
+        "blob_id": "ad9be379dde73b842d3f411b0bda9c139bee9b2d",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q3_K_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q3_K_S.gguf",
+        "size": 440750336,
+        "sha256": "4649ee78ff7cbad4e9fe4c0bab3b73a7c70096b51e36ef299469b08989a93c39",
+        "blob_id": "fb294e60ba0fceed876ce5aedcb9b032696fbd52",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q3_K_S.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q4_0.gguf",
+        "size": 507154688,
+        "sha256": "444406ddd926550c724ec18d5120a9d40ded44908a063b0e66e9a7e5464c652c",
+        "blob_id": "65bc154afa7914df6de9ef536a14add7b258e428",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_0.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q4_1.gguf",
+        "size": 535171328,
+        "sha256": "e5926ccfef0c54aebf5d8bda01b2fb6c12ceff4f02a490bc108c5fabf60b334e",
+        "blob_id": "3d37cfd7aa323c3d2e0e1131bf7ebb4978bd940f",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_1.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
+        "size": 532517120,
+        "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+        "blob_id": "e18ef50218fda5a4e098093a4a4cedba10329693",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q4_K_S.gguf",
+        "size": 508104960,
+        "sha256": "5f7ccfa6e9df0d9ebbaff9ee095b18202bec1e0ac313ca688d2c57c9c80a6bc9",
+        "blob_id": "6c748bc13464a633ab41842f0ce22666aade73b6",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_S.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q5_K_M.gguf",
+        "size": 590057728,
+        "sha256": "c3ef5827b322c4be08a3a26ce424460d8b37daf593356c2cc1f4e40a7ab0581b",
+        "blob_id": "dcb4c282aea6c8c95a30013043b669cec0f376eb",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q5_K_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q5_K_S.gguf",
+        "size": 568889600,
+        "sha256": "a201a5899049a7f7845f910ad803574787b4474c3daffc0d33e8688f9114880f",
+        "blob_id": "43930bcdf877ddb6750a5a56b3597033c3873035",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q5_K_S.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q6_K.gguf",
+        "size": 639029504,
+        "sha256": "8408c5c222111cec253682b49eece2a02ed641ded68490001ec4ee160e71098e",
+        "blob_id": "059ea9bf578ce8f482a14adb71bfb6823200a1ed",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q6_K.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-Q8_0.gguf",
+        "size": 811843840,
+        "sha256": "0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c",
+        "blob_id": "d6a76f24990cc8dc8d5211af50adcff0a12a88ba",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q8_0.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-IQ2_M.gguf",
+        "size": 371933440,
+        "sha256": "e31519c0ffb8e5bec09f34d7783731c39f9eaee13c0ec5a0f14b191761bb5134",
+        "blob_id": "75255fa52b24123ad382624cddb47f4e207e80d7",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-IQ2_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-IQ2_XXS.gguf",
+        "size": 338227456,
+        "sha256": "a369165c8ec45a92d55cbad98b5377e2c32ca8dfc824c899d9d05b33b6b53e54",
+        "blob_id": "adf50b009e2a87148e7f69b89ef9a6faa4004892",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-IQ2_XXS.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-IQ3_XXS.gguf",
+        "size": 398237952,
+        "sha256": "3dc1f2217751ca270d41f6fc3084160c386465fe09bf4596576dccd7a4565b8a",
+        "blob_id": "d426911674a6c11b15212bb23109c1f47c8bd4c6",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-IQ3_XXS.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-Q2_K_XL.gguf",
+        "size": 417718528,
+        "sha256": "8d992fef3b0bd269eb4ef2ed492b2b02f9027a055d6a764b700f4092593c9909",
+        "blob_id": "ac2371c32db571257e5d464d05df9304b1529503",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-Q2_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-Q3_K_XL.gguf",
+        "size": 492216576,
+        "sha256": "30a1353e67c9795e375dac8a19d25429ace0ec2b6ca55436406ee02d2603a218",
+        "blob_id": "96bfe455c90debc85b974d7ea050c8acaccfd0fe",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-Q3_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-Q4_K_XL.gguf",
+        "size": 558772480,
+        "sha256": "3177ebd67afe4438374da19e690bc1b98756f7e0fea9240e1be404336156a7b5",
+        "blob_id": "73e47db161d545b7f8d8f44551f797951206d86a",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-Q4_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-Q5_K_XL.gguf",
+        "size": 606585088,
+        "sha256": "299824f81e5a1d84bf49db6b603b1c002a4e910c6e9f242a504ddc51e758ee0e",
+        "blob_id": "430c17611dd6e9f89239a30a430d9b07eb151ba4",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-Q5_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-Q6_K_XL.gguf",
+        "size": 771092736,
+        "sha256": "8f0cb1e8e058e45c7d9676fcd4da2f08eb62ff537da747a6ffc7157c1f6a5684",
+        "blob_id": "6ef06d7e9c76baac9dc31cd9b5fb2012b015ba9c",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-Q6_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-0.8B-UD-Q8_K_XL.gguf",
+        "size": 1186443520,
+        "sha256": "167183aecc0735359970e977c21a88c7d69112be06aa5d2df27c0d2a23662805",
+        "blob_id": "5eee820ce1f5cde09d661de354c31f055d81f7da",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-UD-Q8_K_XL.gguf"
+      },
+      {
+        "filename": "mmproj-BF16.gguf",
+        "size": 207346528,
+        "sha256": "d312c4d02fd46eea7a16e4f3bbb58840e6222209322ca1e33ca03247ad8935d6",
+        "blob_id": "7e8a6b30872ae83cde4af0a57126dbc25a8104a7",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/mmproj-BF16.gguf"
+      },
+      {
+        "filename": "mmproj-F16.gguf",
+        "size": 204987232,
+        "sha256": "56e4c6cfe73b0c82e3e82bc518d7591997e61d81f723fc41a586f4fa69ea2453",
+        "blob_id": "5e51ff97d73710d2ff5525de37e7532e34b7c288",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/mmproj-F16.gguf"
+      },
+      {
+        "filename": "mmproj-F32.gguf",
+        "size": 402381664,
+        "sha256": "2b167b9d9a96bf18c31ece6de70aedca4034d936bd9aba21bd485b9a6dc78da5",
+        "blob_id": "ad79fb508c5b801b798e7c36189ccda5e8ab2f1b",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/mmproj-F32.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/unsloth__Qwen3.5-0.8B-GGUF/README.md",
+        "source": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/raw/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/README.md",
+        "sha256": "962978aa8e3c564c5aca3f8fc3b9a21b4d42a2a045475df38e8a570285047ea5",
+        "size": 62950
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:31.502221+00:00"
+  },
+  {
+    "id": "Qwen/Qwen3.5-2B",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B?blobs=true",
+    "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "qwen3_5",
+    "downloads": 3466671,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen3.5-2B/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/15852e8c16360a2fea060d615a32b45270f8a8fc/README.md",
+        "sha256": "c0e83a849c776e6fa843d011f023132d942a0f0140d903205bf1c363adad2275",
+        "size": 62814
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-2B/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/15852e8c16360a2fea060d615a32b45270f8a8fc/LICENSE",
+        "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+        "size": 11544
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-2B/config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/15852e8c16360a2fea060d615a32b45270f8a8fc/config.json",
+        "sha256": "ed1c1723241f23f7f4e23430759cbd7dcfb4103cbdfe052bfe7626b57c2615b4",
+        "size": 2908
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-2B/tokenizer_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/15852e8c16360a2fea060d615a32b45270f8a8fc/tokenizer_config.json",
+        "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c",
+        "size": 16709
+      },
+      {
+        "path": "evidence/Qwen__Qwen3.5-2B/chat_template.jinja",
+        "source": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/15852e8c16360a2fea060d615a32b45270f8a8fc/chat_template.jinja",
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+        "size": 7755
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:33.642475+00:00",
+    "context": null,
+    "architectures": [
+      "Qwen3_5ForConditionalGeneration"
+    ]
+  },
+  {
+    "id": "unsloth/Qwen3.5-2B-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/unsloth/Qwen3.5-2B-GGUF?blobs=true",
+    "revision": "f6d5376be1edb4d416d56da11e5397a961aca8ae",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 422854,
+    "selected_files": [
+      {
+        "filename": "Qwen3.5-2B-BF16.gguf",
+        "size": 3775709216,
+        "sha256": "dc11be2ca4519954a3e4b013ef59497b5522209987d67891851113eda89619f1",
+        "blob_id": "a9052ff3141c2a5d319b661c41e4946c408f6997",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-BF16.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-IQ4_NL.gguf",
+        "size": 1213300992,
+        "sha256": "e430d87ebc5abbb269c2e2461f1a49b9c5dc79847c13c786dc3615d0b116c4ba",
+        "blob_id": "308ab71e7250b0b28706baa24daea2dacdaa7de2",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-IQ4_NL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-IQ4_XS.gguf",
+        "size": 1172996352,
+        "sha256": "3639f34b5ca22aa1c51f3616566eae8c355111554f6924ad97ee2652ed11c1cd",
+        "blob_id": "fe98b1ed8ae269904452b178aada543df9682391",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-IQ4_XS.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q3_K_M.gguf",
+        "size": 1107149056,
+        "sha256": "8b049f98461020b7e15797e13413fc63b9b500ffa883c74618b618ecbc2bfccf",
+        "blob_id": "5aceef72ad92098b3a8d2fc29f2a95a7974c4bde",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q3_K_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q3_K_S.gguf",
+        "size": 1030947072,
+        "sha256": "21026bce70a757887bce861047c26966109206ebe2adeb7b662de9a179952d28",
+        "blob_id": "332a5eaac59550950d29ff4dd58624f6ac2ce51a",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q3_K_S.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q4_0.gguf",
+        "size": 1214873856,
+        "sha256": "cd70221bebaee0503e0f6717e174250cd7825aa88438b3aabec9ad55731d9bb1",
+        "blob_id": "70420b8356f1c0ae442b2c55c7e717cce2090ea5",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_0.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q4_1.gguf",
+        "size": 1293517056,
+        "sha256": "93a49bfdb0619305584b81608a2d8c931fdcfc0bd4b0d75f25ac2d8988199278",
+        "blob_id": "ba39cf14b20b84c32d8e0485d02c1d1fe3cb14cf",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_1.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q4_K_M.gguf",
+        "size": 1280835840,
+        "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "blob_id": "2dd42a93d110e1a333c7464693e3c38b979a940e",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_K_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q4_K_S.gguf",
+        "size": 1217757440,
+        "sha256": "56eee7b85a2023ba393c5f9a5a5e372e3645e7925a13adb4d13723fc5bc14124",
+        "blob_id": "e669187e2b14a686ed62eb6ce3e8a9da39c8ad5b",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_K_S.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q5_K_M.gguf",
+        "size": 1435238656,
+        "sha256": "1885b3a9195f8cc09da9a7a7a75afdc1e8d5cbf9fc4a499c3961dddea37098ac",
+        "blob_id": "a3fada179bafcdad75ceeb4e08f3b2b9acfe50c7",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q5_K_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q5_K_S.gguf",
+        "size": 1384546560,
+        "sha256": "5503c57f038bd201e0583d64d50d4aebba2f628004834cb4d32abb141eb1bfda",
+        "blob_id": "dd95ed5e4f69297f79cf87b8b19aa102b6065701",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q5_K_S.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q6_K.gguf",
+        "size": 1574961408,
+        "sha256": "fc90339420b4298887aafb307a4291c55440b730133bbffe6ba9630503dcb548",
+        "blob_id": "0a9bb4c65cbe48505704ac7f2d06f1ec6f08b44b",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q6_K.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-Q8_0.gguf",
+        "size": 2012012800,
+        "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+        "blob_id": "e9b5735a49b5bab7e33f98d13fba439d85dff6bd",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q8_0.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-IQ2_M.gguf",
+        "size": 859857152,
+        "sha256": "7df5673b6c1a8efb3b5f5988a506d991ab936b3e00ad29f94e0f75cfbf8599da",
+        "blob_id": "ca9848c7cf793033f95c6b3e8d3814177a8ecddd",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-IQ2_M.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-IQ2_XXS.gguf",
+        "size": 768270592,
+        "sha256": "43aedbd2b03a3c2cc39f49ccf74fcd3c394ed0b2a1ede8a30ee652ee9cfc27ef",
+        "blob_id": "2a0251f1bb6f5fe6e64eee68957f209c999a082e",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-IQ2_XXS.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-IQ3_XXS.gguf",
+        "size": 931823872,
+        "sha256": "36347f47f9eab7d433c7c37be1f87ac2253378c3d530da3cb25fb5f71f8f1a58",
+        "blob_id": "5f8073353df36c68c9b2ebe52a4de3fd064d3ff1",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-IQ3_XXS.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-Q2_K_XL.gguf",
+        "size": 966533376,
+        "sha256": "dbcf28421dece9c86884f9da5a2291c8214be7920623f1fcb663ed8f58b38ccb",
+        "blob_id": "d9eef9c08b0b355bebb03755fd6d97d87c2173de",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-Q2_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-Q3_K_XL.gguf",
+        "size": 1159274752,
+        "sha256": "d34e1271b7ca784d739b2b7e804bac391d7b6471e695d88e8c79eae0df032263",
+        "blob_id": "5fcaa4da95c67c1047a3acf655e0d3cce0677236",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-Q3_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-Q4_K_XL.gguf",
+        "size": 1339752704,
+        "sha256": "0af96165ea615bea39a04118d63f0b6d35908aea850ee4a51aa6151d851b8b35",
+        "blob_id": "d7499601142920a9c54616762be8de4426a64215",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-Q4_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-Q5_K_XL.gguf",
+        "size": 1466687744,
+        "sha256": "67bff9774bc55e44af2eee3c448dc054478b45c0607858fc6df5b336b55f36f4",
+        "blob_id": "41b154b37bae1b41e9dace0d2393dcecdb9ae275",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-Q5_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-Q6_K_XL.gguf",
+        "size": 1864483072,
+        "sha256": "2f956e57c27b3f257916825d9d3bc174269f3df9c6fcf87a64da666c0e7a518a",
+        "blob_id": "e4ba64360226608493e1a13c05b11b5d06044e63",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-Q6_K_XL.gguf"
+      },
+      {
+        "filename": "Qwen3.5-2B-UD-Q8_K_XL.gguf",
+        "size": 2834940160,
+        "sha256": "a53988df91157d78acaf3c95e22db179d13f6236061bdb86576494dc99b1bc3b",
+        "blob_id": "f2c725d061363924944f2dbd678b170753531d5f",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-UD-Q8_K_XL.gguf"
+      },
+      {
+        "filename": "mmproj-BF16.gguf",
+        "size": 671372992,
+        "sha256": "f17196c0d8fc756bc65be60075bd4a359917eee8a438505639511727c585d3c2",
+        "blob_id": "4930d4a798b18080d9cf8153f8651634bb6744ab",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/mmproj-BF16.gguf"
+      },
+      {
+        "filename": "mmproj-F16.gguf",
+        "size": 668227264,
+        "sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+        "blob_id": "5c87505c54bca9ebdb1e4db0c45b8a09b019c464",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/mmproj-F16.gguf"
+      },
+      {
+        "filename": "mmproj-F32.gguf",
+        "size": 1325684416,
+        "sha256": "d23b0e7bd6fe4416151838434f6a33a1d5f116a82b35565a11579e37dc80ad78",
+        "blob_id": "39556a509dad6d5222003d536906af8b4cdb4b86",
+        "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/mmproj-F32.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/unsloth__Qwen3.5-2B-GGUF/README.md",
+        "source": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/raw/f6d5376be1edb4d416d56da11e5397a961aca8ae/README.md",
+        "sha256": "d6507c9243588d5526ceb08840ebd759b0d05aeb96c8aeb42e59f4727df0143a",
+        "size": 64059
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:33.051266+00:00"
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-135M-Instruct?blobs=true",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "llama",
+    "downloads": 839526,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-135M-Instruct/README.md",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/raw/12fd25f77366fa6b3b4b768ec3050bf629380bac/README.md",
+        "sha256": "4f97533ad95b1b2fea15fbc075c01b94578ebdd7c8138888fa43fa3abd530dc4",
+        "size": 6772
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-135M-Instruct/config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/raw/12fd25f77366fa6b3b4b768ec3050bf629380bac/config.json",
+        "sha256": "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a",
+        "size": 861
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-135M-Instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/raw/12fd25f77366fa6b3b4b768ec3050bf629380bac/tokenizer_config.json",
+        "sha256": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+        "size": 3764
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-135M-Instruct/generation_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/raw/12fd25f77366fa6b3b4b768ec3050bf629380bac/generation_config.json",
+        "sha256": "87b916edaaab66b3899b9d0dd0752727dff6666686da0504d89ae0a6e055a013",
+        "size": 132
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:34.282593+00:00",
+    "context": 8192,
+    "architectures": [
+      "LlamaForCausalLM"
+    ]
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM2-360M-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-360M-Instruct?blobs=true",
+    "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "llama",
+    "downloads": 199297,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-360M-Instruct/README.md",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/raw/a10cc1512eabd3dde888204e902eca88bddb4951/README.md",
+        "sha256": "6b88794416ac9da8f254ebb0bec228967a2bdd0badf9a2853863928b25facd95",
+        "size": 7304
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-360M-Instruct/config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/raw/a10cc1512eabd3dde888204e902eca88bddb4951/config.json",
+        "sha256": "224f72354f10d617a359cc82ad15a3c96e866b9b2ffadb81997eeea9e88e22ee",
+        "size": 846
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-360M-Instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/raw/a10cc1512eabd3dde888204e902eca88bddb4951/tokenizer_config.json",
+        "sha256": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+        "size": 3764
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-360M-Instruct/generation_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/raw/a10cc1512eabd3dde888204e902eca88bddb4951/generation_config.json",
+        "sha256": "87b916edaaab66b3899b9d0dd0752727dff6666686da0504d89ae0a6e055a013",
+        "size": 132
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:33.487927+00:00",
+    "context": 8192,
+    "architectures": [
+      "LlamaForCausalLM"
+    ]
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-1.7B-Instruct?blobs=true",
+    "revision": "31b70e2e869a7173562077fd711b654946d38674",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "llama",
+    "downloads": 292513,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-1.7B-Instruct/README.md",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct/raw/31b70e2e869a7173562077fd711b654946d38674/README.md",
+        "sha256": "b00c0570dbc43674a0028d088fc72f40d83eea90f47cd987706ca2f95ed114c0",
+        "size": 14928
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-1.7B-Instruct/config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct/raw/31b70e2e869a7173562077fd711b654946d38674/config.json",
+        "sha256": "994f50b16abb4ae00880baefe03c10260b5bd608d2bf586f7056ca05a534feea",
+        "size": 908
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-1.7B-Instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct/raw/31b70e2e869a7173562077fd711b654946d38674/tokenizer_config.json",
+        "sha256": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df",
+        "size": 3764
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-1.7B-Instruct/generation_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct/raw/31b70e2e869a7173562077fd711b654946d38674/generation_config.json",
+        "sha256": "87b916edaaab66b3899b9d0dd0752727dff6666686da0504d89ae0a6e055a013",
+        "size": 132
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:34.442686+00:00",
+    "context": 8192,
+    "architectures": [
+      "LlamaForCausalLM"
+    ]
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM3-3B",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM3-3B?blobs=true",
+    "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "smollm3",
+    "downloads": 645764,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM3-3B/README.md",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/raw/a07cc9a04f16550a088caea529712d1d335b0ac1/README.md",
+        "sha256": "24f16f90b883af3618425a589783a944356a7fc2e3cfa69b579c9ff06963e178",
+        "size": 17452
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM3-3B/config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/raw/a07cc9a04f16550a088caea529712d1d335b0ac1/config.json",
+        "sha256": "c72b1031274ff4626e434d0019e88e95a767460135db9ee492eb80652b786af1",
+        "size": 1915
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM3-3B/tokenizer_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/raw/a07cc9a04f16550a088caea529712d1d335b0ac1/tokenizer_config.json",
+        "sha256": "59a64b39f05ee0acf7479bbccf99a44d9e481c1a4a494eb03838ae3c35eb29be",
+        "size": 50387
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM3-3B/chat_template.jinja",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/raw/a07cc9a04f16550a088caea529712d1d335b0ac1/chat_template.jinja",
+        "sha256": "3e0e275a527f249670056e0078e474eadbdd007c134b4fdfae5a7b3089702814",
+        "size": 5598
+      },
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM3-3B/generation_config.json",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/raw/a07cc9a04f16550a088caea529712d1d335b0ac1/generation_config.json",
+        "sha256": "3458d62b3f9654f4bbe285223b0f4e5a1e67cae61c92bb6aeaadf04468bf9e01",
+        "size": 182
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:34.256197+00:00",
+    "context": 65536,
+    "architectures": [
+      "SmolLM3ForCausalLM"
+    ]
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM2-135M-Instruct-GGUF",
+    "error": "HTTP Error 401: Unauthorized",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-135M-Instruct-GGUF?blobs=true"
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-360M-Instruct-GGUF?blobs=true",
+    "revision": "593b5a2e04c8f3e4ee880263f93e0bd2901ad47f",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 19487,
+    "selected_files": [
+      {
+        "filename": "smollm2-360m-instruct-q8_0.gguf",
+        "size": 386404992,
+        "sha256": "48ab3034d0dd401fbc721eb1df3217902fee7dab9078992d66431f09b7750201",
+        "blob_id": "d6fa545f014b70945b12235c0cfbd4a9df694b22",
+        "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/resolve/593b5a2e04c8f3e4ee880263f93e0bd2901ad47f/smollm2-360m-instruct-q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-360M-Instruct-GGUF/README.md",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/raw/593b5a2e04c8f3e4ee880263f93e0bd2901ad47f/README.md",
+        "sha256": "5d65a9f761fb64443b565d247593aa3d4ec0f06633a0e16c0231625cdba6a7cd",
+        "size": 1847
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:34.598599+00:00"
+  },
+  {
+    "id": "HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF?blobs=true",
+    "revision": "2d4a76a30b4af41ecd395c35725ac11688d4cfe4",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 13399,
+    "selected_files": [
+      {
+        "filename": "smollm2-1.7b-instruct-q4_k_m.gguf",
+        "size": 1055609536,
+        "sha256": "decd2598bc2c8ed08c19adc3c8fdd461ee19ed5708679d1c54ef54a5a30d4f33",
+        "blob_id": "aabb5a0820f6d3591cf42ba1732c43de785c9f82",
+        "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF/resolve/2d4a76a30b4af41ecd395c35725ac11688d4cfe4/smollm2-1.7b-instruct-q4_k_m.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/HuggingFaceTB__SmolLM2-1.7B-Instruct-GGUF/README.md",
+        "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF/raw/2d4a76a30b4af41ecd395c35725ac11688d4cfe4/README.md",
+        "sha256": "503a83769e1a2c235a905521d4ff1b027ded434cbdc936e4f3546287614707b0",
+        "size": 1894
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:34.690354+00:00"
+  },
+  {
+    "id": "google/gemma-3-270m-it",
+    "metadata_url": "https://huggingface.co/api/models/google/gemma-3-270m-it?blobs=true",
+    "revision": "ac82b4e820549b854eebf28ce6dedaf9fdfa17b3",
+    "gated": "manual",
+    "license": "gemma",
+    "architecture": null,
+    "downloads": 77111,
+    "selected_files": [],
+    "source_files": [
+      {
+        "name": "README.md",
+        "source": "https://huggingface.co/google/gemma-3-270m-it/raw/ac82b4e820549b854eebf28ce6dedaf9fdfa17b3/README.md",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "config.json",
+        "source": "https://huggingface.co/google/gemma-3-270m-it/raw/ac82b4e820549b854eebf28ce6dedaf9fdfa17b3/config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "tokenizer_config.json",
+        "source": "https://huggingface.co/google/gemma-3-270m-it/raw/ac82b4e820549b854eebf28ce6dedaf9fdfa17b3/tokenizer_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "chat_template.jinja",
+        "source": "https://huggingface.co/google/gemma-3-270m-it/raw/ac82b4e820549b854eebf28ce6dedaf9fdfa17b3/chat_template.jinja",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "generation_config.json",
+        "source": "https://huggingface.co/google/gemma-3-270m-it/raw/ac82b4e820549b854eebf28ce6dedaf9fdfa17b3/generation_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:35.620659+00:00"
+  },
+  {
+    "id": "google/gemma-3-1b-it",
+    "metadata_url": "https://huggingface.co/api/models/google/gemma-3-1b-it?blobs=true",
+    "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+    "gated": "manual",
+    "license": "gemma",
+    "architecture": null,
+    "downloads": 651069,
+    "selected_files": [],
+    "source_files": [
+      {
+        "name": "README.md",
+        "source": "https://huggingface.co/google/gemma-3-1b-it/raw/dcc83ea841ab6100d6b47a070329e1ba4cf78752/README.md",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "config.json",
+        "source": "https://huggingface.co/google/gemma-3-1b-it/raw/dcc83ea841ab6100d6b47a070329e1ba4cf78752/config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "tokenizer_config.json",
+        "source": "https://huggingface.co/google/gemma-3-1b-it/raw/dcc83ea841ab6100d6b47a070329e1ba4cf78752/tokenizer_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "generation_config.json",
+        "source": "https://huggingface.co/google/gemma-3-1b-it/raw/dcc83ea841ab6100d6b47a070329e1ba4cf78752/generation_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:36.041394+00:00"
+  },
+  {
+    "id": "google/gemma-3-270m-it-qat-q4_0-gguf",
+    "error": "HTTP Error 401: Unauthorized",
+    "metadata_url": "https://huggingface.co/api/models/google/gemma-3-270m-it-qat-q4_0-gguf?blobs=true"
+  },
+  {
+    "id": "google/gemma-3-1b-it-qat-q4_0-gguf",
+    "metadata_url": "https://huggingface.co/api/models/google/gemma-3-1b-it-qat-q4_0-gguf?blobs=true",
+    "revision": "d1be121d36172a4b0b964657e2ee859d61138593",
+    "gated": "manual",
+    "license": "gemma",
+    "architecture": null,
+    "downloads": 1052,
+    "selected_files": [
+      {
+        "filename": "gemma-3-1b-it-q4_0.gguf",
+        "size": 1003541152,
+        "sha256": "95e5b8d891cd6a794f66c2a6fb59a41e9562b4660560b854274eceffb628b22a",
+        "blob_id": "05de82e7229a1a2cb0bd9326bc04d73cd411da03",
+        "url": "https://huggingface.co/google/gemma-3-1b-it-qat-q4_0-gguf/resolve/d1be121d36172a4b0b964657e2ee859d61138593/gemma-3-1b-it-q4_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "name": "README.md",
+        "source": "https://huggingface.co/google/gemma-3-1b-it-qat-q4_0-gguf/raw/d1be121d36172a4b0b964657e2ee859d61138593/README.md",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:36.053927+00:00"
+  },
+  {
+    "id": "unsloth/gemma-3-270m-it-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/unsloth/gemma-3-270m-it-GGUF?blobs=true",
+    "revision": "c90975dbd40c0c7b275fefaae758c3415c906238",
+    "gated": false,
+    "license": "gemma",
+    "architecture": null,
+    "downloads": 91902,
+    "selected_files": [
+      {
+        "filename": "gemma-3-270m-it-F16.gguf",
+        "size": 542835488,
+        "sha256": "140cb395a3a3dcdb3de66e44c60d7265286c9d49f951c1899ec0d8c1f16b2feb",
+        "blob_id": "b24e7367c30b90261fe099d3b4eee8c0821232b5",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-F16.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-IQ4_NL.gguf",
+        "size": 241964064,
+        "sha256": "cf9eb591180d2a8c8f950f3c31da02f9c441aaa9b4400b820a39d6bba2b994b5",
+        "blob_id": "c7716f12d24f363eb39cd10d92d76da44a651280",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-IQ4_NL.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-IQ4_XS.gguf",
+        "size": 240858144,
+        "sha256": "65eb71797c24990014612b9e9eaf6cdc79e30a7d422d82f8df18290963615b7a",
+        "blob_id": "53d338bae9cfef7b6513027a5d2c6d642f7d683e",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-IQ4_XS.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q2_K.gguf",
+        "size": 237079584,
+        "sha256": "068e49b136fc2acc5f90e29452be854ab68cc6b0bc76c725eb5858cf27bc1984",
+        "blob_id": "3cc1a51caaffc75ba7424891f95ace72c8e1e090",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q2_K.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q2_K_L.gguf",
+        "size": 237079584,
+        "sha256": "068e49b136fc2acc5f90e29452be854ab68cc6b0bc76c725eb5858cf27bc1984",
+        "blob_id": "3cc1a51caaffc75ba7424891f95ace72c8e1e090",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q2_K_L.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q3_K_M.gguf",
+        "size": 241964064,
+        "sha256": "14b1dcacf25a16af1ee57e9203c016c392cc6fcbee1444ab083c7df77f50abf8",
+        "blob_id": "646b6c3b31e031c85f4d55250ca722053d1745e8",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q3_K_M.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q3_K_S.gguf",
+        "size": 236710944,
+        "sha256": "7e584320490e39647a4d18fe5bf56349175d2a72106fa714bbf2dd2fea17f2ca",
+        "blob_id": "830e420fe8c4d2a5f3956e83146282dbe71e8230",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q3_K_S.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q4_0.gguf",
+        "size": 241574944,
+        "sha256": "e479ea2962bdcdc7e6321b91148b9ac2f516f649e0921412561d4936aadef158",
+        "blob_id": "1dfc331f4039f336e17a485753c72a5d0621443b",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q4_0.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q4_1.gguf",
+        "size": 247677984,
+        "sha256": "bcb89e49851a86649fcd738caebcbe277fe1026e4e274ade27af9ce582d2d79b",
+        "blob_id": "3b611233281b5223a95fc735e3ad8cb7f893a8e6",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q4_1.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q4_K_M.gguf",
+        "size": 253115424,
+        "sha256": "b1baabd6b729e4041822220d3e648e00d99cac5df86b10dffb77bcccf0688e39",
+        "blob_id": "6d964619856319fb1a3068c69945457cefcf9290",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q4_K_M.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q4_K_S.gguf",
+        "size": 249889824,
+        "sha256": "6da200f95dc8171a994ea7e3143c6476ac78c08c38e1de8c1d99eab8f02cbefd",
+        "blob_id": "3a618e4225407afe4841f12a8ff3a0bbee26e43c",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q4_K_S.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q5_K_M.gguf",
+        "size": 260027424,
+        "sha256": "0d29b1a23a4cb1f14fda28c9e63563fa4bbefb6f34db4f7e873bb72edd932b00",
+        "blob_id": "537e8a7e62395d09f403888fed8b32ae7ef5b5b6",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q5_K_M.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q5_K_S.gguf",
+        "size": 257999904,
+        "sha256": "f5677fd416ed2449fa3a3f897f44832b2f10ffbdcfc882b18fe688e1e9cc3a64",
+        "blob_id": "a68f30731343df18d23577e8fb9022fc5238ca1c",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q5_K_S.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q6_K.gguf",
+        "size": 282975264,
+        "sha256": "9826846190dea7bdd334fb834d5a1d3b8bf95b14a9833fe792e0abbc49b4927f",
+        "blob_id": "f4516d263edcf4a3b9f133d0fe7806a75efa5e71",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q6_K.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-Q8_0.gguf",
+        "size": 291546144,
+        "sha256": "d156a5159f2f79c1b1d53c7c1cc20f1ff28ab8d00f17a292620aad13399b9698",
+        "blob_id": "62b8e731c3ca674ec531ccd46fa4452068c95b46",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q8_0.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-IQ2_M.gguf",
+        "size": 182787104,
+        "sha256": "08b4c8b88efb38ea0b59aa0dd4c8259ada515fd66448136df737a273b7da2d47",
+        "blob_id": "7f4e38ae4d7c2753e232788153eedf9f73298bd5",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-IQ2_M.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-IQ2_XXS.gguf",
+        "size": 180104224,
+        "sha256": "8da08e4459fbeafd30851c831cbd48e1a8d931c469594d4178492ea2c0a9f655",
+        "blob_id": "06d5e208929ea807f2cd10cc6c23895adf73bd3a",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-IQ2_XXS.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-IQ3_XXS.gguf",
+        "size": 184517664,
+        "sha256": "a406b0dbc761a841c522146168b4bd0589bcb739c444f45356105715d438d126",
+        "blob_id": "a75ac0ace0689d76577c813e96b0bfa274f1e2f9",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-IQ3_XXS.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-Q2_K_XL.gguf",
+        "size": 237745184,
+        "sha256": "ea6bf04551728f7289100987dbc75799797f042dd80ba113fad6f3c02b903d73",
+        "blob_id": "9c634c9a9e9c45986720bff8df4603303a74e629",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-Q2_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-Q3_K_XL.gguf",
+        "size": 242619424,
+        "sha256": "04ad2e315350d89847cf37d1669666abcee93805f8191820d3c635e0027b52d1",
+        "blob_id": "000777c8b9c0afcbeda1dc8b7db4e3faa7c87fe5",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-Q3_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-Q4_K_XL.gguf",
+        "size": 253934624,
+        "sha256": "e5420636e0cbfee24051ff22e9719380a3a93207a472edb18dd0c89a95f6ef80",
+        "blob_id": "230001055045930a2681f32a8c30e6ad6551c898",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-Q4_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-Q5_K_XL.gguf",
+        "size": 260027424,
+        "sha256": "f871ebed9cfab0312d4a3335e9c7183a508a580035ebaead5214fb4f6798cc02",
+        "blob_id": "daa27bb94d7672f855dde8e3136c5f382b058141",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-Q5_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-Q6_K_XL.gguf",
+        "size": 286149664,
+        "sha256": "ffaab08a1180bcc9b0f75dc7f9422a9a81ebef0c8534ddc2eed658fbc089f638",
+        "blob_id": "4177e58a7bb54d39c62fea53e79fc5f7ce0e2922",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-Q6_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-270m-it-UD-Q8_K_XL.gguf",
+        "size": 471104544,
+        "sha256": "0c19ebe95a4835428f928fc839c1a56e9ba3fda615c35b4bef702c03cd9edd35",
+        "blob_id": "82e0a012103ca4d852a586551973b552c3636b58",
+        "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-UD-Q8_K_XL.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/unsloth__gemma-3-270m-it-GGUF/README.md",
+        "source": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/raw/c90975dbd40c0c7b275fefaae758c3415c906238/README.md",
+        "sha256": "ba1837a8087f9298adf7835437f9eb3cfc8bd270e5ee904b5f42cf6f819341a3",
+        "size": 37648
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:36.270026+00:00"
+  },
+  {
+    "id": "unsloth/gemma-3-1b-it-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/unsloth/gemma-3-1b-it-GGUF?blobs=true",
+    "revision": "f0b45be0aac41bd6a100a4b5734cad5f67255bfb",
+    "gated": false,
+    "license": "gemma",
+    "architecture": "gemma3_text",
+    "downloads": 54323,
+    "selected_files": [
+      {
+        "filename": "gemma-3-1b-it-BF16.gguf",
+        "size": 2006573344,
+        "sha256": "e6bb6b4ac3fbfbcc6babf3f18ec1d93b7aa34e2f2e9325c6029b8f216da64e22",
+        "blob_id": "59186b3483ef12383fe1d01fe646b4326111acea",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-BF16.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-IQ4_NL.gguf",
+        "size": 721863200,
+        "sha256": "bc17938f7b47643a91aedc37d1204a7155946a95fd3dcb9d90108467214b96b9",
+        "blob_id": "041e745e8eb42a8cf00e40544fb92af9e3e6febc",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-IQ4_NL.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-IQ4_XS.gguf",
+        "size": 714435104,
+        "sha256": "9f80c5a5ed08f28a34f1befd41446e8ff6bcc41b746c8d0c4507c3f706437e6a",
+        "blob_id": "46cd375456da835e5bd76486f8af7992caa7f11e",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-IQ4_XS.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q2_K.gguf",
+        "size": 689814560,
+        "sha256": "a947b704218e9aac8d40642e58691d86b5f4a908156cb73c023fba95fd444475",
+        "blob_id": "7a152fbaa92dc75fb5d42694ceabfe147e1f827e",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q2_K.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q2_K_L.gguf",
+        "size": 689814560,
+        "sha256": "a947b704218e9aac8d40642e58691d86b5f4a908156cb73c023fba95fd444475",
+        "blob_id": "7a152fbaa92dc75fb5d42694ceabfe147e1f827e",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q2_K_L.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q3_K_M.gguf",
+        "size": 722416160,
+        "sha256": "8e7b279535cdf39e322d6cdf1b10941a80807a96b851fb8aa22176425e8f9755",
+        "blob_id": "96f8c5b5c1eaa89bdee8d073cb6e2d76ee6b36ec",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q3_K_M.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q3_K_S.gguf",
+        "size": 688856096,
+        "sha256": "0ffb15257ccee33bee17e732fb3db55a332801d187e87164488888022fe1634c",
+        "blob_id": "90a437091938883f30330805463a960d1b94d6bc",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q3_K_S.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q4_0.gguf",
+        "size": 721918496,
+        "sha256": "27ee88e03be02e9ba73def9a819d570d8ad73716e50769e87f374ae394b0276e",
+        "blob_id": "c274439f741eb076d538947493f3b856cc6c532d",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q4_0.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q4_1.gguf",
+        "size": 764035616,
+        "sha256": "862469d1a7e2edeeddb863bf3add7f2d358b518abf93eefa133f4299dde9e293",
+        "blob_id": "1e15cf2f0098cd2c1499b62809d22007a790dc3d",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q4_1.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q4_K_M.gguf",
+        "size": 806058272,
+        "sha256": "8270790f3ab69fdfe860b7b64008d9a19986d8df7e407bb018184caa08798ebd",
+        "blob_id": "ff9788ca686a27155547de254c2351d9a91e24e5",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q4_K_M.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q4_K_S.gguf",
+        "size": 780993056,
+        "sha256": "f1536b0b60e53ffd98c945a3295f51154db3ffdd95329d86971c83c86c56899f",
+        "blob_id": "1c6e1790bd375932a905931e3de76bddb7f9b314",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q4_K_S.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q5_K_M.gguf",
+        "size": 851345696,
+        "sha256": "0da75a587ce0be8ea0281d5c6453822c3c347ce524b6cc14b129fb137caa8a6a",
+        "blob_id": "0119e194ce85471b10ce7b6ac8e6768dbac6c7af",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q5_K_M.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q5_K_S.gguf",
+        "size": 836399648,
+        "sha256": "2bbe336646b8e3c33abd76dc1d814ca1c4ee948f4216df03a55da7c00688cb33",
+        "blob_id": "1347b7a3ffa8d825131c7dec385e8d22dc6f25e6",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q5_K_S.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q6_K.gguf",
+        "size": 1011738656,
+        "sha256": "078d867f4c0d46ba6249987a8ab80ebff766415e10899522a359a48cefd035f7",
+        "blob_id": "bee2a6db519e7a906caaad1da7a7899a1be879f0",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q6_K.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-Q8_0.gguf",
+        "size": 1069306400,
+        "sha256": "616dfb049ad14288d971d96f5ca4953fdebbf1e3cd407ad159f3bfd47090201d",
+        "blob_id": "e47e970e0c3607abb880a2f991008e321fcfb573",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q8_0.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-IQ1_M.gguf",
+        "size": 559813664,
+        "sha256": "3e8a014325d3a0e4f286455f2e189d802c6a9ffcfdcf2659276619874e2b2573",
+        "blob_id": "55f28bec8a6ef8b5307e3adcf4642bb54f01017d",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-IQ1_M.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-IQ1_S.gguf",
+        "size": 557014304,
+        "sha256": "a0b4a33ed15ce95d96919378cf35b396149c6611e16cd84353486cb50ca32a6f",
+        "blob_id": "637e777c2dc05ff4e0dc4a658270607866c1f7ee",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-IQ1_S.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-IQ2_M.gguf",
+        "size": 578024480,
+        "sha256": "623c66e0b4c649f0cd0426bc87bc2cada23055ab330ec1c0d2e0c718b811f036",
+        "blob_id": "06c7a01b0b3ace2d42dd33700fae27f93113a14f",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-IQ2_M.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-IQ2_XXS.gguf",
+        "size": 564479264,
+        "sha256": "656235bbaf90bd26a0022b9e721a65fbd19c024c44a7c7a5b15d426c7178b927",
+        "blob_id": "ddfaf9dd0cabb4c7a37a1186b1cf6ed92d2c33f9",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-IQ2_XXS.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-IQ3_XXS.gguf",
+        "size": 591648032,
+        "sha256": "63507241df3c4912dbcb52719886ff1cfdb0fa5f02d7d3e5223ecd7ad74ef1f2",
+        "blob_id": "d6cf6e4abfb52d5b3fcaebb996444ed85da1c424",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-IQ3_XXS.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-Q2_K_XL.gguf",
+        "size": 693858080,
+        "sha256": "4f9c1a3716a87e5cc8e1aa9adac485d24b6a245f64ff7069d3404562df2f78e0",
+        "blob_id": "3b890c6aa044bbe96ad0923b602e38ed3ceea356",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-Q2_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-Q3_K_XL.gguf",
+        "size": 726839840,
+        "sha256": "6253632dc172c289147beab04d5b621ebd912ff97424b51cbc9f3261942ff398",
+        "blob_id": "878bc68dc44caeb1fea6674c169de3badf08c825",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-Q3_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-Q4_K_XL.gguf",
+        "size": 807035168,
+        "sha256": "3174c6f22786abe1d6fc78cb9fdc3b22ab3b91daa826d2212c52255786a96c6b",
+        "blob_id": "15139e4e805f6178363356ca4680d3912a4636c8",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-Q4_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-Q5_K_XL.gguf",
+        "size": 874293536,
+        "sha256": "bf6ebc12a0dfb72dbb897a954b871e6598009e1363fd7ae3d62e7b00a2b1d8d7",
+        "blob_id": "936de248d481ccbba5dc9943c0592ce79bf56721",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-Q5_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-Q6_K_XL.gguf",
+        "size": 1031023136,
+        "sha256": "e1d943f396055c0f5b8667e1c42011d02d4ccce6ef35d4bfc6276a12459037dd",
+        "blob_id": "2b144d81fa695be8e92434b24f7425ac4810af9e",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-Q6_K_XL.gguf"
+      },
+      {
+        "filename": "gemma-3-1b-it-UD-Q8_K_XL.gguf",
+        "size": 1478496800,
+        "sha256": "79b2a99f7a80f469f8644050734e4605db55b7865caaf5ccf4f7c1cf997a49dd",
+        "blob_id": "59ae569cdfa58c9733486fd7a968499f29d12baf",
+        "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-UD-Q8_K_XL.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/unsloth__gemma-3-1b-it-GGUF/README.md",
+        "source": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/raw/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/README.md",
+        "sha256": "19728af6a118b2f56203a1b02feeb4c255544051f874701c9117733aef701bf0",
+        "size": 24985
+      },
+      {
+        "path": "evidence/unsloth__gemma-3-1b-it-GGUF/config.json",
+        "source": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/raw/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/config.json",
+        "sha256": "8fd63723d60140de1e6ab64f406810e38a74bf730703ab50eec246c3ee8d6508",
+        "size": 907
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:36.871131+00:00",
+    "context": 32768,
+    "architectures": [
+      "Gemma3ForCausalLM"
+    ]
+  },
+  {
+    "id": "ibm-granite/granite-4.0-350m",
+    "metadata_url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-350m?blobs=true",
+    "revision": "bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "granitemoehybrid",
+    "downloads": 17494,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/ibm-granite__granite-4.0-350m/README.md",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-350m/raw/bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2/README.md",
+        "sha256": "e8269d1f030879d2e452dafef025c6f31d66243c101fabf2d588df75e29fddb2",
+        "size": 33014
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-350m/config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-350m/raw/bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2/config.json",
+        "sha256": "089690e22b9eafadcdd385afa5b6f3ea2446674ff5398c71df23be059d7c795d",
+        "size": 1764
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-350m/tokenizer_config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-350m/raw/bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2/tokenizer_config.json",
+        "sha256": "a5ec5daab12ba090a90f3dd169c8f9c275557013a87b9c1258dc7cb497a35c86",
+        "size": 17659
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-350m/chat_template.jinja",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-350m/raw/bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2/chat_template.jinja",
+        "sha256": "9524df67b77a7b25a2dfee898f75b316a157eb9d855b51e32aeac79d7c8a83ce",
+        "size": 6418
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-350m/generation_config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-350m/raw/bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2/generation_config.json",
+        "sha256": "7c04cb9d2ba771f7528fba5a7104999cdaf7566d02b5fbd58472829f62716177",
+        "size": 147
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:37.713925+00:00",
+    "context": 32768,
+    "architectures": [
+      "GraniteMoeHybridForCausalLM"
+    ]
+  },
+  {
+    "id": "ibm-granite/granite-4.0-h-350m",
+    "metadata_url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-h-350m?blobs=true",
+    "revision": "3b17b717b8f2f5d305b0a92c1491e239aeda19c8",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "granitemoehybrid",
+    "downloads": 3800,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/ibm-granite__granite-4.0-h-350m/README.md",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-h-350m/raw/3b17b717b8f2f5d305b0a92c1491e239aeda19c8/README.md",
+        "sha256": "df1afd6b94ea2cb8e9948c5c78646500499516186f73eb5217add80305011b5f",
+        "size": 33196
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-h-350m/config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-h-350m/raw/3b17b717b8f2f5d305b0a92c1491e239aeda19c8/config.json",
+        "sha256": "c11be93f2e5f83096042b19c3df3b0d982819b63c5378e0b6a82c4fdbe017fac",
+        "size": 1715
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-h-350m/tokenizer_config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-h-350m/raw/3b17b717b8f2f5d305b0a92c1491e239aeda19c8/tokenizer_config.json",
+        "sha256": "a5ec5daab12ba090a90f3dd169c8f9c275557013a87b9c1258dc7cb497a35c86",
+        "size": 17659
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-h-350m/chat_template.jinja",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-h-350m/raw/3b17b717b8f2f5d305b0a92c1491e239aeda19c8/chat_template.jinja",
+        "sha256": "9524df67b77a7b25a2dfee898f75b316a157eb9d855b51e32aeac79d7c8a83ce",
+        "size": 6418
+      },
+      {
+        "path": "evidence/ibm-granite__granite-4.0-h-350m/generation_config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-h-350m/raw/3b17b717b8f2f5d305b0a92c1491e239aeda19c8/generation_config.json",
+        "sha256": "7c04cb9d2ba771f7528fba5a7104999cdaf7566d02b5fbd58472829f62716177",
+        "size": 147
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:38.338916+00:00",
+    "context": 32768,
+    "architectures": [
+      "GraniteMoeHybridForCausalLM"
+    ]
+  },
+  {
+    "id": "ibm-granite/granite-4.0-350m-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-350m-GGUF?blobs=true",
+    "revision": "b8208a86a58427e1739265318028eb5895b74bf2",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 4030,
+    "selected_files": [
+      {
+        "filename": "granite-4.0-350m-Q2_K.gguf",
+        "size": 180645280,
+        "sha256": "7d5a88bb3933e961a719799e7912688c5f500773985bddef72ccc358f8d54630",
+        "blob_id": "5bfafaeafd909a2e90b2f04c51bffd041392e888",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q2_K.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q3_K_L.gguf",
+        "size": 219925920,
+        "sha256": "1f00d58f4f75723d42ddf46fdb19b1f7b5bc339f679a48b5985b631e25b57183",
+        "blob_id": "865d6bb34a1fbf5a32310872aa7d15fc8c9f6514",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q3_K_L.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q3_K_M.gguf",
+        "size": 208326048,
+        "sha256": "7dbc8ba725b328c500ac819b2dc84b0f1cffe02b9bc096716082cbcef6f0589b",
+        "blob_id": "991f1d9c338e8cc76a2ff45e2b15c26e4796b9ec",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q3_K_M.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q3_K_S.gguf",
+        "size": 195325344,
+        "sha256": "904ac3cd214794748435a851a48666dc3cae8e50dda9d1c51674c311f1b7c801",
+        "blob_id": "c08246c8a5493f52d6f88fe335d81941b7e5b70e",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q3_K_S.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q4_0.gguf",
+        "size": 228470176,
+        "sha256": "a9db4c0ab23bb3c676f5fea5521d7a9301c577834a1cabf3430ab826fb68195a",
+        "blob_id": "5229d8aaedad16accb069fa219cfe9bd7af4a379",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q4_0.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q4_1.gguf",
+        "size": 244067744,
+        "sha256": "11cc8dc13761418256b17aec69894ca489148dd13e7435bb6ac24ec502337692",
+        "blob_id": "f75f70fdc7f512d92fad3b5318c6fd9f71a94d77",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q4_1.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q4_K_M.gguf",
+        "size": 236985760,
+        "sha256": "771c588a49607f274a2bba3185733607ebe6f74b996ab90e2d6bee0d98bcec52",
+        "blob_id": "70f092bd480866797f00a2a60de10a61aa4d1ae2",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q4_K_M.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q4_K_S.gguf",
+        "size": 229387680,
+        "sha256": "efb4323f3586628336ad50a852dffe341dbc0d285ec609619c0ed031ae2dedd4",
+        "blob_id": "9db7de4d9975e807cb7af0598f53318d3ac6be08",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q4_K_S.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q5_0.gguf",
+        "size": 259665312,
+        "sha256": "ea75cbd46ca86d359e3c5a402ef23d332b9b3e5b5007124c64716aab5655713f",
+        "blob_id": "437f4b3d8c39814a0531a4c4889b5b6276f8a42c",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q5_0.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q5_1.gguf",
+        "size": 275262880,
+        "sha256": "52149a9dadc3760e627762eaa288992afde1fb941dc123636cb327b4e1148d42",
+        "blob_id": "7c3889503932c96264a49ea88e2d52661e82fb91",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q5_1.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q5_K_M.gguf",
+        "size": 264052128,
+        "sha256": "4beb551386f90e782c38f5d20e5bb6096e393eb83d6654503868b5b5f967aa2d",
+        "blob_id": "fc0d44c1ff1bb6dfd8d5b2bdb900e9ad6269f1a6",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q5_K_M.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q5_K_S.gguf",
+        "size": 259665312,
+        "sha256": "3efa121d1021b6b92ddee400530ed3a58dd4fb0e3647c3996df40488333ef7b0",
+        "blob_id": "31f6f2c922a700db2464ed5f586d1ced541e628a",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q5_K_S.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q6_K.gguf",
+        "size": 292810144,
+        "sha256": "c6ece437ba9f0cfbd7a3311b3ff667f96d2931e7668eb874896672af9b893781",
+        "blob_id": "5d01166c6855f8c5cb1c487d5d2df0274ef72a3c",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q6_K.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-Q8_0.gguf",
+        "size": 378138016,
+        "sha256": "9595dafb4ed15aa02512c8ea26188744192a6f09530eae0a2747bd3ada96cd36",
+        "blob_id": "cc6c2ff1c77f1130e4f9b0cc06575182642b77b1",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q8_0.gguf"
+      },
+      {
+        "filename": "granite-4.0-350m-bf16.gguf",
+        "size": 708439456,
+        "sha256": "431e956cac90a7e4d36a9b37bb086c413491c598bb51f90ada8e0c75d0219645",
+        "blob_id": "56e830ed3aba27c0d4375b1dc222b7e50b45d6e7",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-bf16.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/ibm-granite__granite-4.0-350m-GGUF/README.md",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/raw/b8208a86a58427e1739265318028eb5895b74bf2/README.md",
+        "sha256": "370c8a99727cde02115c91c99dc3d2b1efdf0c6bf90920abd72c13e74d0170f3",
+        "size": 426
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:38.257296+00:00"
+  },
+  {
+    "id": "ibm-granite/granite-4.0-h-350m-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-h-350m-GGUF?blobs=true",
+    "revision": "a864f823cce6e6048b5752e2816fe7a23987d790",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 4537,
+    "selected_files": [
+      {
+        "filename": "granite-4.0-h-350m-Q2_K.gguf",
+        "size": 159883936,
+        "sha256": "af33267715e43998a3734ef3f49637472dfe3ed3ad8024530b4fa4e9dab878aa",
+        "blob_id": "16fb0ad3a4f764624843019e18dd7fbdab44fbdf",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q2_K.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q3_K_L.gguf",
+        "size": 194941984,
+        "sha256": "39e86aaf3d0bfcac554976a1a682b4e0c382357d1c0666358c6066f282e424b3",
+        "blob_id": "836cdf9909450cea8bae538dbbe9ec82fac46379",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q3_K_L.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q3_K_M.gguf",
+        "size": 188699680,
+        "sha256": "9014e2708160642d1e9e3afee13000e14902ae81f51bd20763c177adecc86455",
+        "blob_id": "a8915ac43aed95547ee8eb7aa7eecdb5c567b53a",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q3_K_M.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q3_K_S.gguf",
+        "size": 181154848,
+        "sha256": "a19eab86597a91144c85f73f5af1148e192d10dfd85070dc0284d8986566eed3",
+        "blob_id": "fae214f5ed72a5958ebc264beb8afcdd7062edab",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q3_K_S.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q4_0.gguf",
+        "size": 216073120,
+        "sha256": "7adb3d5765ad12b83b1c08a90746d8925af718545b4a36287e8dac8f83b72ab6",
+        "blob_id": "bbf7b3d0bf0c36884bc55b7efac34e44af23e99b",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_0.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q4_1.gguf",
+        "size": 232505248,
+        "sha256": "74f48ffef489413f97bc68846964364292eda9bd3b7323657669fdf28d235a69",
+        "blob_id": "cd1d9883cb29944e261c9c945ce46a859f159797",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_1.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q4_K_M.gguf",
+        "size": 222662560,
+        "sha256": "0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb",
+        "blob_id": "f49c4bb0e598ac8fddc357b4f6a3e092136068ec",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_K_M.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q4_K_S.gguf",
+        "size": 216957856,
+        "sha256": "0b7c991535c44f0648d65432ca97ec359e7bf1117cd5c3f27357b65151bc58c0",
+        "blob_id": "df9a1069a12566d71b080c021f049ba544ae5f4f",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_K_S.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q5_0.gguf",
+        "size": 248937376,
+        "sha256": "4bdf06090b4cb9596528480741a8bcc97af1c3d97913122b7b0ac736c118a9de",
+        "blob_id": "f8e3532d104aa2279d8d570597c1fdda32443962",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q5_0.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q5_1.gguf",
+        "size": 265369504,
+        "sha256": "e12a353f0f254eb79261e40e87d2030092a7dad3c74873adce5b66fa4c1edcbb",
+        "blob_id": "f15bcdf4b6979587c742ffccf8ebb23a574456de",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q5_1.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q5_K_M.gguf",
+        "size": 252331936,
+        "sha256": "3daabf26b0b9e14bd95dfd0eb8b1b3e463530c5c349b3ccdbe7b45a895d936d4",
+        "blob_id": "6d66d4cc643d573b59ae7aeff9b269eb1f363442",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q5_K_M.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q5_K_S.gguf",
+        "size": 248937376,
+        "sha256": "934169e5f550648fd8e27667f44d0b8c567b7ded84c7a71915f53173b666a8b0",
+        "blob_id": "d0e73cf15761a48294098ad9ea71e01ff13a5d5e",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q5_K_S.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q6_K.gguf",
+        "size": 283855648,
+        "sha256": "dc6509305c03b143f419f9eae7cc6bbeffa67c9e82b5a5ed661ba2aa517d3860",
+        "blob_id": "8873d3266929b4760937d62b5a62b91f6be4f684",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q6_K.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-Q8_0.gguf",
+        "size": 366195616,
+        "sha256": "c7d9873640dc303b6773dcc44e72e5bdf533e1c95ca8421e6191fbff5c94c942",
+        "blob_id": "72338fc9b6995132d0f40302c794fb12bd23a86d",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q8_0.gguf"
+      },
+      {
+        "filename": "granite-4.0-h-350m-bf16.gguf",
+        "size": 684931200,
+        "sha256": "2f7bf038df12c415ccfc450e0f55dd48208142ed3ec61ecbd229282fc753ddd1",
+        "blob_id": "3311d003522042fccbf4dc29cce2be9c031e8980",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-bf16.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/ibm-granite__granite-4.0-h-350m-GGUF/README.md",
+        "source": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/raw/a864f823cce6e6048b5752e2816fe7a23987d790/README.md",
+        "sha256": "75d68af87cd83b86e5d6f3a53e78ae06af20323db8cfdddc248d3f9ea34de0c5",
+        "size": 432
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:38.345655+00:00"
+  },
+  {
+    "id": "ibm-granite/granite-3.3-2b-instruct",
+    "metadata_url": "https://huggingface.co/api/models/ibm-granite/granite-3.3-2b-instruct?blobs=true",
+    "revision": "707f574c62054322f6b5b04b6d075f0a8f05e0f0",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "granite",
+    "downloads": 336666,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/ibm-granite__granite-3.3-2b-instruct/README.md",
+        "source": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct/raw/707f574c62054322f6b5b04b6d075f0a8f05e0f0/README.md",
+        "sha256": "dd7a9d401b703f4d6136b70b575a8070b88d173f61804dad48fccc7949afe610",
+        "size": 37026
+      },
+      {
+        "path": "evidence/ibm-granite__granite-3.3-2b-instruct/config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct/raw/707f574c62054322f6b5b04b6d075f0a8f05e0f0/config.json",
+        "sha256": "9202d328d8368958aab7dad89a8e6aa35c250b3a2eedd2d8850ee0bcceca65f6",
+        "size": 787
+      },
+      {
+        "path": "evidence/ibm-granite__granite-3.3-2b-instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct/raw/707f574c62054322f6b5b04b6d075f0a8f05e0f0/tokenizer_config.json",
+        "sha256": "f65a6a5a911424c85f157c40cfbdf06e025814c755480ba2e998d7fba1178664",
+        "size": 9930
+      },
+      {
+        "path": "evidence/ibm-granite__granite-3.3-2b-instruct/generation_config.json",
+        "source": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct/raw/707f574c62054322f6b5b04b6d075f0a8f05e0f0/generation_config.json",
+        "sha256": "9c95e80167f08fbeb1feba239e0749507c25d18ffab43ffa10887821eed21c38",
+        "size": 132
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:38.418020+00:00",
+    "context": 131072,
+    "architectures": [
+      "GraniteForCausalLM"
+    ]
+  },
+  {
+    "id": "ibm-granite/granite-3.3-2b-instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/ibm-granite/granite-3.3-2b-instruct-GGUF?blobs=true",
+    "revision": "7cdf86ccd1f1bb3491c9b7017b033f2e51367397",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 5855,
+    "selected_files": [
+      {
+        "filename": "granite-3.3-2b-instruct-Q2_K.gguf",
+        "size": 978253088,
+        "sha256": "8be25be65b4a2955781fd93df51f4752e6f6fe5c035bea5573b97538736dfedd",
+        "blob_id": "0c9ba4817e9702ef7dae93e07d2f1ce6ab7622b7",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q2_K.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q3_K_L.gguf",
+        "size": 1357378848,
+        "sha256": "e21f3cfe8c3ee1ef7b2d5e62057e299f28fbc49e8bb719038d27fa25508a7b1d",
+        "blob_id": "83cae21e5e40ed844d3ef830205cbe4e488c4600",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q3_K_L.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q3_K_M.gguf",
+        "size": 1251734816,
+        "sha256": "a8708c802dde0922c1b6ab94eb4aac8e67d0c525c9ddc664e2c2d91202da9e50",
+        "blob_id": "4791622621f7c2384cc072e982642b9fad68d74a",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q3_K_M.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q3_K_S.gguf",
+        "size": 1130296608,
+        "sha256": "ca71c0faaea5647c6f34bb55d8ae9516e94828e0065cdbbf4680348be2bbbfd3",
+        "blob_id": "ee50f2a48434c3d8eaa561eb7a4cc54d2fdd8b6e",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q3_K_S.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q4_0.gguf",
+        "size": 1453389088,
+        "sha256": "d5da3f5bb5a6ae442f830bdde0df4fcccb7e8bd395dc9ee5d28e704db4065592",
+        "blob_id": "08af5e19b521d40764540ee82676aedb8a2b60e0",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q4_0.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q4_1.gguf",
+        "size": 1605432608,
+        "sha256": "0d999d28737c8dabaaa9c4e67e19820e03140de1629cd33fbc3a4c272ce4589e",
+        "blob_id": "1bb88a21759b3b26d14d162b48ff1df3f7b28364",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q4_1.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q4_K_M.gguf",
+        "size": 1545303328,
+        "sha256": "ac71e9e32c0bea919b409c5918f69ca74339854b0319c5065e4e9fb6d95c4852",
+        "blob_id": "deca9fb6b8f32488fd5529d63b094c07a3f29beb",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q4_K_M.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q4_K_S.gguf",
+        "size": 1464399136,
+        "sha256": "99f7327dd6b434064ddfc7f05f2e83a003201fd78b80b69c8b62b0717786ec60",
+        "blob_id": "aa78247c61a0b6dcf649df7e3bf0e26e8633cb3b",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q4_K_S.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q5_0.gguf",
+        "size": 1757476128,
+        "sha256": "4681d622e263a919dc146dd7b438d43ff310036544d1c7fe8de6c8183dbccff4",
+        "blob_id": "3dfd0e6c96fc32b642adad13c87400b94d5688a6",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q5_0.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q5_1.gguf",
+        "size": 1909519648,
+        "sha256": "4fff76c13322c053eccd00c1e5e968f991ca42aa021633590ef84282ff120ff9",
+        "blob_id": "d3985424068e9dbedf5003d29e4f9382f2b89b2d",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q5_1.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q5_K_M.gguf",
+        "size": 1804825888,
+        "sha256": "ab6a8112af16362677e5b2b359a68621878e1f8ea7a22c59ba6e82fd4dd414e3",
+        "blob_id": "fca793702c4e0aa137c80c88e301eed66ca0727d",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q5_K_M.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q5_K_S.gguf",
+        "size": 1757476128,
+        "sha256": "68321f4d78a1d15bdef42b6923df43494d8c84ece80bb79ac16eeb77d3b8b43e",
+        "blob_id": "dbe474fd55a9ba98ea49e4f1609c8b69a001356d",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q5_K_S.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q6_K.gguf",
+        "size": 2080568608,
+        "sha256": "a59ba995c354617ff51bb69ee095d9614e57c7f6c137536154f71c4fddb506cb",
+        "blob_id": "901030566f63a8048200092233f5fc63169d0307",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q6_K.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-Q8_0.gguf",
+        "size": 2694120096,
+        "sha256": "39068a5bcb15f10487a49426d617b1b0f38a624d7dbdefe5ff6f26de82d97039",
+        "blob_id": "d43e29b47f84db9f5db97be535c281c775477e5b",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q8_0.gguf"
+      },
+      {
+        "filename": "granite-3.3-2b-instruct-f16.gguf",
+        "size": 5069158176,
+        "sha256": "79b52937a0c2f5a984ac6d3794ddf02ceb62cf53bc982c26cac97929513c0a9e",
+        "blob_id": "23fc4c0c9bc804a000f237602b6ba669d76264f0",
+        "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-f16.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/ibm-granite__granite-3.3-2b-instruct-GGUF/README.md",
+        "source": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/raw/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/README.md",
+        "sha256": "2d066c2b00f3dedbd6765139c9d8556eae58a031df1d05fbfbe625eba81a99a3",
+        "size": 460
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:38.683235+00:00"
+  },
+  {
+    "id": "meta-llama/Llama-3.2-1B-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/meta-llama/Llama-3.2-1B-Instruct?blobs=true",
+    "revision": "9213176726f574b556790deb65791e0c5aa438b6",
+    "gated": "manual",
+    "license": "llama3.2",
+    "architecture": null,
+    "downloads": 2405633,
+    "selected_files": [],
+    "source_files": [
+      {
+        "name": "README.md",
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/raw/9213176726f574b556790deb65791e0c5aa438b6/README.md",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "LICENSE.txt",
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/raw/9213176726f574b556790deb65791e0c5aa438b6/LICENSE.txt",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "USE_POLICY.md",
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/raw/9213176726f574b556790deb65791e0c5aa438b6/USE_POLICY.md",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "config.json",
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/raw/9213176726f574b556790deb65791e0c5aa438b6/config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "tokenizer_config.json",
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/raw/9213176726f574b556790deb65791e0c5aa438b6/tokenizer_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "name": "generation_config.json",
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/raw/9213176726f574b556790deb65791e0c5aa438b6/generation_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:39.027953+00:00"
+  },
+  {
+    "id": "hugging-quants/Llama-3.2-1B-Instruct-Q4_K_M-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/hugging-quants/Llama-3.2-1B-Instruct-Q4_K_M-GGUF?blobs=true",
+    "revision": "7d1f70022fcab2038000074bd0342e03e1d8b755",
+    "gated": false,
+    "license": null,
+    "architecture": null,
+    "downloads": 38483,
+    "selected_files": [
+      {
+        "filename": "llama-3.2-1b-instruct-q4_k_m.gguf",
+        "size": 807690656,
+        "sha256": "1d0e9419ec4e12aef73ccf4ffd122703e94c48344a96bc7c5f0f2772c2152ce3",
+        "blob_id": "ac33882322169f8c97513ba633f1357c7c8e72be",
+        "url": "https://huggingface.co/hugging-quants/Llama-3.2-1B-Instruct-Q4_K_M-GGUF/resolve/7d1f70022fcab2038000074bd0342e03e1d8b755/llama-3.2-1b-instruct-q4_k_m.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/hugging-quants__Llama-3.2-1B-Instruct-Q4_K_M-GGUF/README.md",
+        "source": "https://huggingface.co/hugging-quants/Llama-3.2-1B-Instruct-Q4_K_M-GGUF/raw/7d1f70022fcab2038000074bd0342e03e1d8b755/README.md",
+        "sha256": "effbe35cd57dc2e2236abf19559b6ae0cc68c1bcc496c2a430b7f7f0f3a2c547",
+        "size": 17238
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:39.468584+00:00"
+  },
+  {
+    "id": "unsloth/Llama-3.2-1B-Instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/unsloth/Llama-3.2-1B-Instruct-GGUF?blobs=true",
+    "revision": "b69aef112e9f895e6f98d7ae0949f72ff09aa401",
+    "gated": false,
+    "license": "llama3.2",
+    "architecture": "llama",
+    "downloads": 44844,
+    "selected_files": [
+      {
+        "filename": "Llama-3.2-1B-Instruct-BF16.gguf",
+        "size": 2479595264,
+        "sha256": "f5d05e90d179fa27c01a049be1574a0201bdc09ba0b345eb85e1dbf3b87610f3",
+        "blob_id": "e1aba9d525cfe4c6dec3b4d3cd9e535ac79a9113",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-BF16.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-F16.gguf",
+        "size": 2479595168,
+        "sha256": "7e2a46fe01895b16776ed927aac8f56c5661a06d47c8a6f87ec297c805fbe3c2",
+        "blob_id": "be8d4412a0eda04120292114010fe491760305e5",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-F16.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-IQ4_NL.gguf",
+        "size": 773025824,
+        "sha256": "705bb011a5f2c46612ee609fe402bbb026f59fff2cf6018252089433196753f4",
+        "blob_id": "06eeb4f89e5cb92290dbd6930d7a79e74f9f21b2",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-IQ4_NL.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-IQ4_XS.gguf",
+        "size": 743141408,
+        "sha256": "3cceb8104fdf3e82e063f0f0ca20d90e4b0b933318657741c91c0fffb539297c",
+        "blob_id": "ddf6b06d5aba300daa1eabf465a0eb2d2f336053",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-IQ4_XS.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q2_K.gguf",
+        "size": 580874272,
+        "sha256": "8b7091a92bc10d70392a91ebe06cd43e1f5048ae0162e88f8fbe8445447ceae8",
+        "blob_id": "94a18ad67039c1c0dbc00ebdba4563c30e0ab996",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q2_K.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q2_K_L.gguf",
+        "size": 580874272,
+        "sha256": "8b7091a92bc10d70392a91ebe06cd43e1f5048ae0162e88f8fbe8445447ceae8",
+        "blob_id": "94a18ad67039c1c0dbc00ebdba4563c30e0ab996",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q2_K_L.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q3_K_M.gguf",
+        "size": 690843680,
+        "sha256": "38b98a4abebe441bbb52c6364a79abe026593516df25424e0ef2410d38db715e",
+        "blob_id": "4198c69a10576bd5d1400c0b70e3fec848ca1b30",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q3_K_M.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q3_K_S.gguf",
+        "size": 641691680,
+        "sha256": "7fe2f725782ce9e742ecb8fc8ba9a3e1621736297d98bcdb2145e30ad88c0a4f",
+        "blob_id": "ba2c7f39b2f54a37dd3218ff77b70cacb55d9a3d",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q3_K_S.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q4_0.gguf",
+        "size": 773025824,
+        "sha256": "66bfbb2d48bdb77cd56bd03ef820deff3c4a74b1a09de3b917ae13e72c1a70c2",
+        "blob_id": "579707257ea751618a586d1d22b22a69e7a28859",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q4_0.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q4_1.gguf",
+        "size": 831746080,
+        "sha256": "a8bfc798acebfbadf78fb90f21ab5e6464f652dca08f32e188ef03c8b96003e9",
+        "blob_id": "0a58b1783dadf241e9101658daba5e67c1ef1318",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q4_1.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+        "size": 807694368,
+        "sha256": "3f5a22426976ab26cfe84dba63c1d08391717abb1af893e10f1b2968d862dcc1",
+        "blob_id": "57bccf3bb6a9b5b897d11cdad9bc86e135d24e19",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q4_K_S.gguf",
+        "size": 775647264,
+        "sha256": "bedf466e28a9a54769a24457bc5ee8526421c9d2653ae52b4bfd56a059fbccf0",
+        "blob_id": "4c27eb3328284d7d622f0d258690118c6b77054f",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q4_K_S.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q5_K_M.gguf",
+        "size": 911503392,
+        "sha256": "69dce91345442121eb3195370337eefa02cf076c7d84bd39adc0ce9552ccdfef",
+        "blob_id": "862435a365f06dda1b75cd48d949fe718cc76040",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q5_K_M.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q5_K_S.gguf",
+        "size": 892563488,
+        "sha256": "6d4cd7cb5bc691a9d8b178eb077fa31cde1df1fa7182d09cf2fd10feeeeaa8cd",
+        "blob_id": "86dc2ca8f8237f2fe8968aff6db8217447913b75",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q5_K_S.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q6_K.gguf",
+        "size": 1021800480,
+        "sha256": "663ac8413e6d64a1412840c76bd1300ac19293454ae6802ff3c9b5543f93b531",
+        "blob_id": "7f62a3fe2ec270b2fa2f18ce8cda94166f6ddfa0",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q6_K.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-Q8_0.gguf",
+        "size": 1321082528,
+        "sha256": "3f87a880027e7b9ea8e0da9e4009584336f352af444a0e6e5c20721ac4c7ffd1",
+        "blob_id": "8447b8461be98bb9572842fcaa205be84fa887ec",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q8_0.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-IQ1_M.gguf",
+        "size": 439181344,
+        "sha256": "2296d5ce14318b1c7359e17ab8b86cd0ae93593dc4d98be9d267a60881e1a30c",
+        "blob_id": "3c723841dba57a4869f02a57a99c9e02da04f0e7",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-IQ1_M.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-IQ1_S.gguf",
+        "size": 421617696,
+        "sha256": "60f05b86eb901189dabd946cff4206656395316fcf85aa111d35545e21b0bc65",
+        "blob_id": "e80529ddbef381e21b9bfd18307d56250b479af7",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-IQ1_S.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-IQ2_M.gguf",
+        "size": 536322080,
+        "sha256": "8b79dd1b66164fe8c3e77e2b56b474f7983482a33eede977c68eb6d3e79a14ac",
+        "blob_id": "15c79668dc47e6a964e42041bed4f80990227cbc",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-IQ2_M.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-IQ2_XXS.gguf",
+        "size": 464330784,
+        "sha256": "81cec721583c76fa3b0972a173a28777c76bdcbfa2df66656a95e6198456f660",
+        "blob_id": "2b021e418e0f6ba361638fdf00f8dc3d3e7f5db7",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-IQ2_XXS.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-IQ3_XXS.gguf",
+        "size": 575381536,
+        "sha256": "f39f7695f7e9d8d6b4f6a7278f606e9177ef86ddb10c59d2538e3a7ddc332cb6",
+        "blob_id": "2a354b9b11fd7f7b9af71a704b2ab6ebc891c655",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-IQ3_XXS.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-Q2_K_XL.gguf",
+        "size": 605532192,
+        "sha256": "ca9b2e5eb5edf80886f1b543231cd122e638d0d524e0654e12d0732d6c78b7bc",
+        "blob_id": "720ca5ecf95e49541c978c92201e37bd76b4125a",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-Q2_K_XL.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-Q3_K_XL.gguf",
+        "size": 723996704,
+        "sha256": "ced2ef04c4219bd88bb852398f06ab9d5e60d356a0ec6260ae0f368e06da95b8",
+        "blob_id": "0492327c04788f1326136d029ad173a5fbd5b8e1",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-Q3_K_XL.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-Q4_K_XL.gguf",
+        "size": 834203680,
+        "sha256": "bb1e301352132cc8e804ccde1c024f78c060d2da64e260e2123e057cb0540094",
+        "blob_id": "5e2ddc1c10d5c4d318c6577492a1f9ee7badbe8c",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-Q4_K_XL.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-Q5_K_XL.gguf",
+        "size": 920031264,
+        "sha256": "183e5fe9a9afaaebe889832f9679473c0ae9120915e5f6e30b297475e55067ee",
+        "blob_id": "35f7ae32997d7cb7e09d25e91dc82f1fd12a2565",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-Q5_K_XL.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-Q6_K_XL.gguf",
+        "size": 1191059488,
+        "sha256": "c4b735094c603d9f76f533c6721da2c65d942c6275163948ee622b9c6eec6482",
+        "blob_id": "e00de2ee91438af3378ad8ad2eaa9752e2e6508a",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-Q6_K_XL.gguf"
+      },
+      {
+        "filename": "Llama-3.2-1B-Instruct-UD-Q8_K_XL.gguf",
+        "size": 1843568672,
+        "sha256": "5c890975f8a8a88277e74a875623cb2c410b020b546c4df1ad984732787a1129",
+        "blob_id": "774b217e7b4e4cd15cdaab5f662d28ed947023fd",
+        "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-UD-Q8_K_XL.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/unsloth__Llama-3.2-1B-Instruct-GGUF/README.md",
+        "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/raw/b69aef112e9f895e6f98d7ae0949f72ff09aa401/README.md",
+        "sha256": "0735a2a005c6ab7788f40951a29a807e439061d30ff4abe8e582ee469c00d8bb",
+        "size": 5824
+      },
+      {
+        "path": "evidence/unsloth__Llama-3.2-1B-Instruct-GGUF/config.json",
+        "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/raw/b69aef112e9f895e6f98d7ae0949f72ff09aa401/config.json",
+        "sha256": "dfb67fd8afe73a1c75245824ef9d64a6ba8983025447e3bf76aa1ea57ee46152",
+        "size": 894
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:39.780149+00:00",
+    "context": 131072,
+    "architectures": [
+      "LlamaForCausalLM"
+    ]
+  },
+  {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-0.5B-Instruct?blobs=true",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "qwen2",
+    "downloads": 5162870,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/7ae557604adf67be50417f59c2c2f167def9a775/README.md",
+        "sha256": "b19c806a904db6dc878a0462e70b551f6b7ac78dfbb88c2eb966ca2b9109ae15",
+        "size": 4917
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/7ae557604adf67be50417f59c2c2f167def9a775/LICENSE",
+        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+        "size": 11343
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct/config.json",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/7ae557604adf67be50417f59c2c2f167def9a775/config.json",
+        "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+        "size": 659
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer_config.json",
+        "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+        "size": 7305
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct/generation_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/7ae557604adf67be50417f59c2c2f167def9a775/generation_config.json",
+        "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+        "size": 242
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:40.076431+00:00",
+    "context": 32768,
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ]
+  },
+  {
+    "id": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-0.5B-Instruct-GGUF?blobs=true",
+    "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 385994,
+    "selected_files": [
+      {
+        "filename": "qwen2.5-0.5b-instruct-fp16.gguf",
+        "size": 1266425696,
+        "sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+        "blob_id": "8a56296b52e3eaf9dbd1784787e6c9d577b15b30",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-fp16.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q2_k.gguf",
+        "size": 415182688,
+        "sha256": "9ee36184e616dfc76df4f5dd66f908dbde6979524ae36e6cefb67f532f798cb8",
+        "blob_id": "659a8466c1c05ebe6773277318042ac10e070bd8",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q2_k.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q3_k_m.gguf",
+        "size": 432041824,
+        "sha256": "590d2479d401db206fe12a4562294d2de6211e06338a6e34fbad64b32f1469d0",
+        "blob_id": "86d324250f86d5970164ee81f5b21eca5947584a",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q3_k_m.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q4_0.gguf",
+        "size": 428730208,
+        "sha256": "7671c0c304e6ce5a7fc577bcb12aba01e2c155cc2efd29b2213c95b18edaf6ed",
+        "blob_id": "6bd2155556a4e511149a6bf6e9840d80fc971b12",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q4_0.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+        "size": 491400032,
+        "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+        "blob_id": "a0ee18ee2bcb22c2b6c95360b292c2c40a2d7a03",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q4_k_m.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q5_0.gguf",
+        "size": 490475360,
+        "sha256": "925946ab27801fea3eead42933f857b6449c6d299f062e374cee2ac48426f2a5",
+        "blob_id": "3d43e78643fb44341da3b8a9e7a1bad84becc712",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q5_0.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q5_k_m.gguf",
+        "size": 522186592,
+        "sha256": "041474553fcabfc2a2d67903f9d2c2e50bd92528e670da4f33b5d0ce6e59fd55",
+        "blob_id": "bf4ba3918d1e5f62ca89a457ff87b81ecc8999c8",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q5_k_m.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q6_k.gguf",
+        "size": 650379104,
+        "sha256": "2f82233630c349ccf6b8daccf48f9a7865713d9f08a2eadfa456cebe9b97c7f5",
+        "blob_id": "78c7a511f5ac566eb075673682d677db7fccc614",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q6_k.gguf"
+      },
+      {
+        "filename": "qwen2.5-0.5b-instruct-q8_0.gguf",
+        "size": 675710816,
+        "sha256": "ca59ca7f13d0e15a8cfa77bd17e65d24f6844b554a7b6c12e07a5f89ff76844e",
+        "blob_id": "92271af457052afc8f1499dd480502e0bcbf87a0",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct-GGUF/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/raw/9217f5db79a29953eb74d5343926648285ec7e67/README.md",
+        "sha256": "fa1fede7f775a20f111cc098c00900092020572ce78976970a5b0ad9ca211999",
+        "size": 4856
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct-GGUF/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/raw/9217f5db79a29953eb74d5343926648285ec7e67/LICENSE",
+        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+        "size": 11343
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:40.147454+00:00"
+  },
+  {
+    "id": "Qwen/Qwen2.5-1.5B-Instruct",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-1.5B-Instruct?blobs=true",
+    "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "qwen2",
+    "downloads": 4473405,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/README.md",
+        "sha256": "2e1bcd8bd964728a820be709fa0f7b9dd54817a94fd2254c535df70c5e67fada",
+        "size": 4917
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/LICENSE",
+        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+        "size": 11343
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct/config.json",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/config.json",
+        "sha256": "98d2ff8cc47488d08a2b0b3acf4eb99ef210779b42bd48605f6b8e36acdbf670",
+        "size": 660
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/tokenizer_config.json",
+        "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+        "size": 7305
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct/generation_config.json",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/generation_config.json",
+        "sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+        "size": 242
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:40.300532+00:00",
+    "context": 32768,
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ]
+  },
+  {
+    "id": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-1.5B-Instruct-GGUF?blobs=true",
+    "revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": null,
+    "downloads": 412901,
+    "selected_files": [
+      {
+        "filename": "qwen2.5-1.5b-instruct-fp16.gguf",
+        "size": 3560416288,
+        "sha256": "fc89e330deb3fd8fa560f1c0f35a1e2b8da96d59e13445559ed190307a6f5649",
+        "blob_id": "2a9aabd5d17735626fe6e06c0246fc203b156126",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-fp16.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q2_k.gguf",
+        "size": 752880160,
+        "sha256": "5ede348e91ce1e7a330926ec5b202c27b864d065149dc463257fde1f98865b3a",
+        "blob_id": "6345b860d5094c112823aa609b67c04845c6d57c",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q2_k.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q3_k_m.gguf",
+        "size": 924455968,
+        "sha256": "58cb5c05ecef48e82961f1a2be6544145ea26136f69dddda4bbbd092f0e4b993",
+        "blob_id": "bf190d40d0d2ac70debfae3184a82b3240d49811",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q3_k_m.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q4_0.gguf",
+        "size": 1066227232,
+        "sha256": "dcd819ff094852c38faba6873d8ff0c9d51eadb2844539e52042ae5d647bbfdb",
+        "blob_id": "7505f23e961ef0d164cc649311ae54b45a7075fa",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q4_0.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+        "size": 1117320736,
+        "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+        "blob_id": "eca68f83004d8b86fa1742ee507ddee8f4b2abce",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q4_k_m.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q5_0.gguf",
+        "size": 1259173408,
+        "sha256": "a579334a7b19838b19f7855252b6bc08b012b46e338cf1494a88e77509cfe4d9",
+        "blob_id": "19d4ab424cc090afd4143d206a459c4e2905685c",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q5_0.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q5_k_m.gguf",
+        "size": 1285494304,
+        "sha256": "b46661073c18e5b56a41fa320975f866a00def1ff08feef4718e013258896f8c",
+        "blob_id": "ce8db3aca75c96d6b45be7a4a2dbe668e533a878",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q5_k_m.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q6_k.gguf",
+        "size": 1464178720,
+        "sha256": "e16d94f3b1eb243f6f6be9eee51090ef5dfd741324394fd5b6e0e425c33df5c7",
+        "blob_id": "929ff7a543e3dc6b484565246fad1eb6f877131c",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q6_k.gguf"
+      },
+      {
+        "filename": "qwen2.5-1.5b-instruct-q8_0.gguf",
+        "size": 1894532128,
+        "sha256": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8",
+        "blob_id": "1ec6832f8c80d58e2efa88832420ec7856e8e7c6",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q8_0.gguf"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct-GGUF/README.md",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/raw/91cad51170dc346986eccefdc2dd33a9da36ead9/README.md",
+        "sha256": "57c72d4010fb11a98fc8e62dc8ef112b23a7a7525b71e571ca978d35cb3b2eec",
+        "size": 4856
+      },
+      {
+        "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct-GGUF/LICENSE",
+        "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/raw/91cad51170dc346986eccefdc2dd33a9da36ead9/LICENSE",
+        "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+        "size": 11343
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:40.889454+00:00"
+  },
+  {
+    "id": "microsoft/Phi-4-mini-instruct",
+    "metadata_url": "https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct?blobs=true",
+    "revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+    "gated": false,
+    "license": "mit",
+    "architecture": "phi3",
+    "downloads": 351916,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/microsoft__Phi-4-mini-instruct/README.md",
+        "source": "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/cfbefacb99257ffa30c83adab238a50856ac3083/README.md",
+        "sha256": "c4f34916182a3ee87d95d00c92847cfa687ab21dc338a577275f0c34cf0e1dfd",
+        "size": 29246
+      },
+      {
+        "path": "evidence/microsoft__Phi-4-mini-instruct/LICENSE",
+        "source": "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE",
+        "sha256": "fa8235e5b48faca34e3ca98cf4f694ef08bd216d28b58071a1f85b1d50cb814d",
+        "size": 1084
+      },
+      {
+        "path": "evidence/microsoft__Phi-4-mini-instruct/config.json",
+        "source": "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/cfbefacb99257ffa30c83adab238a50856ac3083/config.json",
+        "sha256": "ac65d86061d3d0d704ee2511fd0eb8713ef19eb6eedba17c3080a4165d5b933b",
+        "size": 2504
+      },
+      {
+        "path": "evidence/microsoft__Phi-4-mini-instruct/tokenizer_config.json",
+        "source": "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/cfbefacb99257ffa30c83adab238a50856ac3083/tokenizer_config.json",
+        "sha256": "9c9b6bc0c94d95f69f826c41069a3e8b387ac3ced89601d201886e99240ac9db",
+        "size": 2932
+      },
+      {
+        "path": "evidence/microsoft__Phi-4-mini-instruct/generation_config.json",
+        "source": "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/cfbefacb99257ffa30c83adab238a50856ac3083/generation_config.json",
+        "sha256": "3e3f48753753f92d2b958679151861d4fd7bf26e4dfc41fd47056116c4914dcd",
+        "size": 168
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:41.342291+00:00",
+    "context": 131072,
+    "architectures": [
+      "Phi3ForCausalLM"
+    ]
+  },
+  {
+    "id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "metadata_url": "https://huggingface.co/api/models/TinyLlama/TinyLlama-1.1B-Chat-v1.0?blobs=true",
+    "revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+    "gated": false,
+    "license": "apache-2.0",
+    "architecture": "llama",
+    "downloads": 939311,
+    "selected_files": [],
+    "source_files": [
+      {
+        "path": "evidence/TinyLlama__TinyLlama-1.1B-Chat-v1.0/README.md",
+        "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/raw/fe8a4ea1ffedaf415f4da2f062534de366a451e6/README.md",
+        "sha256": "6f620f661ce3f8425b49301b64a642aa7451ce9fbd3b8115e899de59147121c8",
+        "size": 3196
+      },
+      {
+        "path": "evidence/TinyLlama__TinyLlama-1.1B-Chat-v1.0/config.json",
+        "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/raw/fe8a4ea1ffedaf415f4da2f062534de366a451e6/config.json",
+        "sha256": "486bedda3a6988332e60d9638a09ca4b260d34ebcf1b19e22cf3b140b63d8fe9",
+        "size": 608
+      },
+      {
+        "path": "evidence/TinyLlama__TinyLlama-1.1B-Chat-v1.0/tokenizer_config.json",
+        "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/raw/fe8a4ea1ffedaf415f4da2f062534de366a451e6/tokenizer_config.json",
+        "sha256": "7b41ba7d0eb91e77914ca3dafde559ea3e19878769b7e68409e89bed5222e77a",
+        "size": 1289
+      },
+      {
+        "path": "evidence/TinyLlama__TinyLlama-1.1B-Chat-v1.0/generation_config.json",
+        "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/raw/fe8a4ea1ffedaf415f4da2f062534de366a451e6/generation_config.json",
+        "sha256": "18046d04f5bd8b4998095ecabdd17a1bf0053d9acdccead4a05be4a3575f3c5c",
+        "size": 124
+      }
+    ],
+    "retrieved_utc": "2026-10-30T20:34:41.845895+00:00",
+    "context": 2048,
+    "architectures": [
+      "LlamaForCausalLM"
+    ]
+  },
+  {
+    "id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0-GGUF",
+    "error": "HTTP Error 401: Unauthorized",
+    "metadata_url": "https://huggingface.co/api/models/TinyLlama/TinyLlama-1.1B-Chat-v1.0-GGUF?blobs=true"
+  }
+]

@@ -1,0 +1,1797 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-30T20:58:46.322176+00:00",
+  "status": "research_inventory_no_new_inference_or_shipping_selection",
+  "counting_warning": "Sections overlap. Quantizations, conversions, aliases, genericbases and fine-tunes are deliberately distinguishable; do not sum record counts as independentmodels.",
+  "sections": {
+    "s1_variants": {
+      "catalog": "s1/candidates.json",
+      "records": 11,
+      "counting_unit": "same-family artifact variants; not independent trained models"
+    },
+    "s1_formats": {
+      "catalog": "s1/candidates.json",
+      "records": 6,
+      "counting_unit": "conversion/runtime format leads"
+    },
+    "specialists": {
+      "catalog": "specialists/candidates.json",
+      "records": 84,
+      "counting_unit": "repository records including aliases/conversions"
+    },
+    "compact_general": {
+      "catalog": "compact/candidates.json",
+      "records": 36,
+      "counting_unit": "model-size variants across14familygroups"
+    },
+    "editing_models": {
+      "catalog": "editing/candidates.json",
+      "records": 50,
+      "counting_unit": "model identifiers including unresolved records"
+    },
+    "editing_architectures": {
+      "catalog": "editing/candidates.json",
+      "records": 11,
+      "counting_unit": "architectures/components; may require training"
+    },
+    "products": {
+      "catalog": "products/products.json",
+      "records": 20,
+      "counting_unit": "product/integration paths, not model checkpoints"
+    }
+  },
+  "records": [
+    {
+      "id": "s1-mini-official-q4-k-m",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/0",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-official-f16",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/1",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-q4-k-m",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/2",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-q6-k",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/3",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-iq2-m",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/4",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-iq3-m",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/5",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-iq4-xs",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/6",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-q5-k-m",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/7",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-imatrix-q8-0",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/8",
+      "kind": "superwhisper-s1-mini",
+      "revision": null
+    },
+    {
+      "id": "s1-asr-cleanup-v1-q4-k-m",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/9",
+      "kind": "s1-asr-cleanup-v1",
+      "revision": null
+    },
+    {
+      "id": "s1-asr-cleanup-v1-q8-0",
+      "workstream": "s1_variants",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/candidates/10",
+      "kind": "s1-asr-cleanup-v1",
+      "revision": null
+    },
+    {
+      "id": "s1-mini-elbruno-onnx-int4",
+      "workstream": "s1_formats",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/format_alternatives/0",
+      "kind": "alternative_runtime_format_of_same_S1_family",
+      "revision": "4231669ff51c8fb53315beadfe2311975d06169d"
+    },
+    {
+      "id": "onnx-community-s1-mini-ONNX",
+      "workstream": "s1_formats",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/format_alternatives/1",
+      "kind": "alternative_ONNX_format_not_GenAI_dropin",
+      "revision": null
+    },
+    {
+      "id": "mlx-community-S1-mini-MLX-4bit",
+      "workstream": "s1_formats",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/format_alternatives/2",
+      "kind": "MLX_reference_not_current_Windows_provider_format",
+      "revision": null
+    },
+    {
+      "id": "mlboydaisuke-S1-mini-CoreAI",
+      "workstream": "s1_formats",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/format_alternatives/3",
+      "kind": "Apple_CoreAI_reference",
+      "revision": null
+    },
+    {
+      "id": "mlboydaisuke-S1-mini-LiteRT",
+      "workstream": "s1_formats",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/format_alternatives/4",
+      "kind": "LiteRT_runtime_research",
+      "revision": null
+    },
+    {
+      "id": "HyperLinked-s1-mini-litertlm",
+      "workstream": "s1_formats",
+      "catalog": "s1/candidates.json",
+      "json_pointer": "/format_alternatives/5",
+      "kind": "LiteRT_Android_app_reference",
+      "revision": null
+    },
+    {
+      "id": "Quobi/Quill",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/0",
+      "kind": "task-specific-generative-editor",
+      "revision": "4cc2cc3c8e7ea9ee69126becd55be23a3a949899"
+    },
+    {
+      "id": "SpeakoFlow/speakoflow-mini",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/1",
+      "kind": "task-specific-generative-editor",
+      "revision": "835431771f72820251fe6c6b4b07f12b000e2647"
+    },
+    {
+      "id": "ReFyneLabs/simplewords-dictation-cleanup",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/2",
+      "kind": "task-specific-generative-editor",
+      "revision": "7e149f226766aaf93827a108004a51f6e6dfa572"
+    },
+    {
+      "id": "ReFyneLabs/simplewords-dictation-cleanup-v2",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/3",
+      "kind": "task-specific-generative-editor",
+      "revision": "1b0388753b6aa3baa471c45195d29122a52aef9b"
+    },
+    {
+      "id": "ReFyneLabs/simplewords-dictation-cleanup-v3",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/4",
+      "kind": "task-specific-generative-editor",
+      "revision": "7947b1eceef757de8784ea1d664648cdd22bd8e8"
+    },
+    {
+      "id": "dhanr4j/bitvoice-dictation",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/5",
+      "kind": "task-specific-generative-editor",
+      "revision": "572820f65a5a7effdd13a515baec3d3cd0112468"
+    },
+    {
+      "id": "Glimpse-Dictation/Glimpse-C1-2B",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/6",
+      "kind": "task-specific-generative-editor",
+      "revision": "d424cc981fa7817f2d677533bd5fa01f625fa195"
+    },
+    {
+      "id": "hpal007/utter-dictation-cleanup-GGUF",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/7",
+      "kind": "task-specific-generative-editor",
+      "revision": "68bbbf5589c85cbb18818c3a0609cfc90eb63dd5"
+    },
+    {
+      "id": "adikuma/mumble-cleanup",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/8",
+      "kind": "task-specific-generative-editor",
+      "revision": "499e8d060dccf9a8c24383f0cf7e7889dbcc6aa3"
+    },
+    {
+      "id": "NicolaiMTLassen/transcrib-cleanup-0.6b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/9",
+      "kind": "task-specific-generative-editor",
+      "revision": "881a17920f1a97e3adc155978188ad80c97bb0fb"
+    },
+    {
+      "id": "tsilahi/looma-dictation-slm",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/10",
+      "kind": "delegated-editing-or-small-post-ASR-specialist",
+      "revision": "e1598108b1c4d7020d183c5b34752dd62cfdc847"
+    },
+    {
+      "id": "raj7676/ivy-dictation",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/11",
+      "kind": "ASR-only-not-text-editor",
+      "revision": "d17c589e91505ed6bbc8ca7a32809ba6abddd2f4"
+    },
+    {
+      "id": "VoiceScribe/qwen3-5-0.8b-dictation-corrector-lora-adapter",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/12",
+      "kind": "task-specific-generative-editor",
+      "revision": "754d90dc5045eb16ff3d95f6e735909daeb4d7c6"
+    },
+    {
+      "id": "meetboswell/boswell-dictation-cleanup",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/13",
+      "kind": "task-specific-generative-editor",
+      "revision": "fe1a10cc9f7d3432ebde5976976997116962455f"
+    },
+    {
+      "id": "randomath/aide-smart-dictation",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/14",
+      "kind": "task-specific-generative-editor",
+      "revision": "78b6e416c7d988ab89bee65b2861f738278acb1e"
+    },
+    {
+      "id": "vikramlingam/SmolLM2-360M-Post-ASR-Engine",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/15",
+      "kind": "delegated-editing-or-small-post-ASR-specialist",
+      "revision": "970914e731d64710407e1cf70e3a8886269b5ae2"
+    },
+    {
+      "id": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/16",
+      "kind": "delegated-editing-or-small-post-ASR-specialist",
+      "revision": "c926e4c06cfc458892d37a16ef032a0a98bd77b2"
+    },
+    {
+      "id": "getonit/transcription-cleanup-llama3.2-1b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/17",
+      "kind": "task-specific-generative-editor",
+      "revision": "4649c24c6159215ceab3ef852c35b59d72076e13"
+    },
+    {
+      "id": "ldenoue/LaMini-Flan-T5-77M-ASR-Corrector",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/18",
+      "kind": "delegated-editing-or-small-post-ASR-specialist",
+      "revision": "e90e0e19263499c537798d230110a46b8d12d816"
+    },
+    {
+      "id": "dayyanj/dj-ai-asr-grammar-corrector-small",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/19",
+      "kind": "delegated-editing-or-small-post-ASR-specialist",
+      "revision": "12ad57f99d065c352eaf678db7ccff030d90d2e9"
+    },
+    {
+      "id": "dayyanj/dj-ai-asr-grammar-corrector-base",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/20",
+      "kind": "delegated-editing-or-small-post-ASR-specialist",
+      "revision": "3c5b20ef80a4b9e8a31fe103ab1f23232ceec274"
+    },
+    {
+      "id": "altic-dev/Fluid-1-Mini-2B-MLX-6bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/21",
+      "kind": "task-specific-generative-editor",
+      "revision": "f5391c4707fdd1255120b27b3ecdca114cd1a925"
+    },
+    {
+      "id": "altic-dev/Fluid-1-Pico-0.8B-MLX-6bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/22",
+      "kind": "task-specific-generative-editor",
+      "revision": "d738c390cf4ceef94498f4f2b3e66fa159c16ccd"
+    },
+    {
+      "id": "altic-dev/Fluid-1-Quad-4B-MLX-6bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/23",
+      "kind": "task-specific-generative-editor",
+      "revision": "62f5f5732ae839b7311871513ff0643700cb34c8"
+    },
+    {
+      "id": "altic-dev/Fluid-1-Pico-0.8B-CoreML",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/24",
+      "kind": "task-specific-generative-editor",
+      "revision": "443ec86d532ce862d876ac9a29197a9e080c4b77"
+    },
+    {
+      "id": "rohitag13/openwispr-cleanup-qwen3-0.6b-GGUF",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/25",
+      "kind": "task-specific-generative-editor",
+      "revision": "42c2c2e8beb080a530787108bd26f8e465ac53f1"
+    },
+    {
+      "id": "Kayetic/super-cleanup-qwen3.5-2b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/26",
+      "kind": "task-specific-generative-editor",
+      "revision": "5d5f45f3d5769ecffee8c6781079fee228f3fbe7"
+    },
+    {
+      "id": "Orbalapp/orb-1-mini",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/27",
+      "kind": "task-specific-generative-editor",
+      "revision": "d4f4fb7f2a188a9958ecf9f64411905f2cfec0f8"
+    },
+    {
+      "id": "PromethicLabs/Emberon-1.2B",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/28",
+      "kind": "task-specific-generative-editor",
+      "revision": "0f9e7058cfbc4aa4a2b1c58c381d815f04cf7bfa"
+    },
+    {
+      "id": "younghan-meta/LFM2.5-350M-ExecuWhisper-Formatter",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/29",
+      "kind": "task-specific-generative-editor",
+      "revision": "67cd7fab569f205d8b0fd5cebae76f6500389a2d"
+    },
+    {
+      "id": "solaarphunk/turbospeak-correction-model",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/30",
+      "kind": "task-specific-generative-editor",
+      "revision": "4b4b33368b7ba22f7cfec902924459aa1f2e8c99"
+    },
+    {
+      "id": "MagicNoThief/handy-editor-lfm2.5-350m",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/31",
+      "kind": "task-specific-generative-editor",
+      "revision": "f1f01e16ab10143f51ffb0fb180ac715dcef964e"
+    },
+    {
+      "id": "Aayush9029/petal-w1",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/32",
+      "kind": "task-specific-generative-editor",
+      "revision": "41c459b1bc70f339ddaa4471f505f04c3404cc83"
+    },
+    {
+      "id": "Aayush9029/petal-w1-4bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/33",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "59bd8c02109c22827b7b187218ba35812540be3b"
+    },
+    {
+      "id": "Muesli-HQ/qwen35-0.8b-muesli-cleanup-v12-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/34",
+      "kind": "task-specific-generative-editor",
+      "revision": "0e6b7446a64b170881bfe1af4b3ba892d18ecf3a"
+    },
+    {
+      "id": "Muesli-HQ/qwen35-2b-muesli-cleanup-v12-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/35",
+      "kind": "task-specific-generative-editor",
+      "revision": "e35af097be4f17d3673515fb321ce19aa300faf6"
+    },
+    {
+      "id": "Muesli-HQ/lfm25-1.2b-muesli-cleanup-v12-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/36",
+      "kind": "task-specific-generative-editor",
+      "revision": "9f8b4e257d0f091da9396e06aa893538a823509e"
+    },
+    {
+      "id": "Muesli-HQ/gemma4-e2b-muesli-cleanup-v12-mlx-4bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/37",
+      "kind": "task-specific-generative-editor",
+      "revision": "29d40bae87983afbc330f39bf6d2b47f38c2215c"
+    },
+    {
+      "id": "DRTR-J/amnis-light-cleanup-en-v1",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/38",
+      "kind": "task-specific-generative-editor",
+      "revision": "1ff305219d976b305c8c00570ec4df184969a852"
+    },
+    {
+      "id": "juanquivilla/sotto-cleanup-lfm25-350m",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/39",
+      "kind": "task-specific-generative-editor",
+      "revision": "6df6f019170b8b55333c047b901886a51750a965"
+    },
+    {
+      "id": "juanquivilla/sotto-cleanup-lfm25-1.2b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/40",
+      "kind": "task-specific-generative-editor",
+      "revision": "c7da50f05286395c18a8cbcaec542f03ca671be6"
+    },
+    {
+      "id": "mandododo/polyglot-cleanup-qwen3-1.7b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/41",
+      "kind": "task-specific-generative-editor",
+      "revision": "5f418bcb0c5f0759ad89beff3847b0f66e844387"
+    },
+    {
+      "id": "spokenly/cleanup-1",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/42",
+      "kind": "task-specific-generative-editor",
+      "revision": "a83ba762e3c4ab6a3a20814ec68050f381d92cf8"
+    },
+    {
+      "id": "spokenly/cleanup-1-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/43",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "79936c95e5c0ea9162ae7a435e64cb3127020e36"
+    },
+    {
+      "id": "scribekey/scribekey-cleanup-fast",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/44",
+      "kind": "task-specific-generative-editor",
+      "revision": "c484dad2d815bff83d376e46b25a11dbc820992a"
+    },
+    {
+      "id": "scribekey/scribekey-cleanup-fast-GGUF",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/45",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "735362ed519c41be30352d8b8ef902a661d017f8"
+    },
+    {
+      "id": "scribekey/sotto-cleanup-350m-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/46",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "7c66975328fc550bb901cecd3efa62b4120659b9"
+    },
+    {
+      "id": "xav-ie/scribe-cleanup",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/47",
+      "kind": "task-specific-generative-editor",
+      "revision": "6214a0c83a0e9a33f4c4d0bf3a07c1b7a104d244"
+    },
+    {
+      "id": "xav-ie/scribe-cleanup-GGUF",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/48",
+      "kind": "task-specific-generative-editor",
+      "revision": "09bbcfdf4f54a5a0438be98b531b2bedb6f11061"
+    },
+    {
+      "id": "amitashwini/mumble-cleanup-2stage",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/49",
+      "kind": "task-specific-generative-editor",
+      "revision": "e7ce94746f0e2d2d172d0ece000725c81ae3dc9b"
+    },
+    {
+      "id": "amitashwini/mumble-cleanup-v2",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/50",
+      "kind": "task-specific-generative-editor",
+      "revision": "1389f9274b2811cfa6a36f05ccb9fd372b8039e8"
+    },
+    {
+      "id": "amitashwini/lfm25-350m-cleanup",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/51",
+      "kind": "task-specific-generative-editor",
+      "revision": "5860eda65839ba5ea6c88f7749c554eebb85d542"
+    },
+    {
+      "id": "alandotcom/kol-cleanup-360m-coreml",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/52",
+      "kind": "task-specific-generative-editor",
+      "revision": "cfdc5540802e1a2671184d523e0766d08f075b49"
+    },
+    {
+      "id": "abhiyan10/bol-cleanup-350m-4bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/53",
+      "kind": "task-specific-generative-editor",
+      "revision": "b8f64cdc6978c29bbd186c5bab51dd0803eaf9ce"
+    },
+    {
+      "id": "sitelift/chirp-cleanup-v2",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/54",
+      "kind": "task-specific-generative-editor",
+      "revision": "3c5314b66ab3bc2db0721fbb11827079e30ab529"
+    },
+    {
+      "id": "heyvedu/vedu-scribe-0.8b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/55",
+      "kind": "task-specific-generative-editor",
+      "revision": "7dced5841c58d7d6e0118c4c123f222b35057871"
+    },
+    {
+      "id": "tigerisaac/meeko-1-preview",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/56",
+      "kind": "task-specific-generative-editor",
+      "revision": "ad3b4bfa90c1146e8354e8ba7228161c577053b7"
+    },
+    {
+      "id": "TalkMate/Qwen3.5-0.8B-parakeet-52k-FullFT-MLX-5bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/57",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "7172443a15db2641e22cfd45c9e0ac425ad87808"
+    },
+    {
+      "id": "rdsm/LFM2.5-350M-Base-parakeet-150k-FullFT",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/58",
+      "kind": "task-specific-generative-editor",
+      "revision": "ffc6e1a9828dbee87f2da742f70a5721988278a9"
+    },
+    {
+      "id": "rdsm/SmolLM2-360M-parakeet-150k-FullFT-MLX-8bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/59",
+      "kind": "task-specific-generative-editor",
+      "revision": "6de003d4fa9e8b93d5b715df5dbe33de5e0d1bdb"
+    },
+    {
+      "id": "rdsm/Qwen3.5-0.8B-parakeet-52k-FullFT",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/60",
+      "kind": "task-specific-generative-editor",
+      "revision": "d1b8e0c7371779e7da322332ccea4a019b4c3910"
+    },
+    {
+      "id": "scribekey/sotto-scribekey-350m-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/61",
+      "kind": "task-specific-generative-editor",
+      "revision": "017ef3dadb38dd866832c9303b6427982e528426"
+    },
+    {
+      "id": "trevornk/mumble-cleanup-2stage-GGUF",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/62",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "8df53d19ed2578c42b5909b9970a288c841d47ee"
+    },
+    {
+      "id": "baddu/sotto-cleanup-lfm25-350m-GGUF",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/63",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "ebb9fccb0694cd24b3b387e7fdd2ea1f55c31607"
+    },
+    {
+      "id": "BuilderHelm/Kanso-Koi-1.0",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/64",
+      "kind": "task-specific-generative-editor",
+      "revision": "e62fa0fe7c20bcf32d04e64b16d0d447e5e0dae6"
+    },
+    {
+      "id": "BuilderHelm/Kanso-Satori-1.0",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/65",
+      "kind": "conversion-or-quantization-of-existing-editor",
+      "revision": "07a3ad5452b6393264310af5a99f7238a9a8d734"
+    },
+    {
+      "id": "category271/whispernow-lfm2.5-1.2b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/66",
+      "kind": "task-specific-generative-editor",
+      "revision": "dadf980b3dbece9c67dc8e7d46f65b59c9e092ad"
+    },
+    {
+      "id": "category271/whispernow-lfm2.5-2.6b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/67",
+      "kind": "task-specific-generative-editor",
+      "revision": "65c7f66a99b4554197d42bde0a524182e715a3d0"
+    },
+    {
+      "id": "PromethicLabs/Emberon-2",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/68",
+      "kind": "task-specific-generative-editor",
+      "revision": "d9b5cf07c0cb5d44711011e9d41c072c709d3af2"
+    },
+    {
+      "id": "e2chndr/evoo-ai-v1",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/69",
+      "kind": "task-specific-generative-editor",
+      "revision": "34280ab0276ea5a486d5d0722d08c78cc4c729cd"
+    },
+    {
+      "id": "ductai199x/utter",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/70",
+      "kind": "task-specific-generative-editor",
+      "revision": "5c5b6e0e9d3d1eeca81e5f19908d640b1dbb2212"
+    },
+    {
+      "id": "polonuim210/ochre-refine-0.8b",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/71",
+      "kind": "task-specific-generative-editor",
+      "revision": "acf55f0ad833913dcbcf5bed8e6ddd5bc2fe710a"
+    },
+    {
+      "id": "SahasBelbase/justtalk-qwen3-1.7b-gguf",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/72",
+      "kind": "task-specific-generative-editor",
+      "revision": "1adf8b7339ee9ec4643baf49f209a047c9548369"
+    },
+    {
+      "id": "rhymeas/Mavery-Lehrling-0.8B-MLX-4bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/73",
+      "kind": "task-specific-generative-editor",
+      "revision": "a858ecd9491915fbfe6422b592b3fc43dd04aa8f"
+    },
+    {
+      "id": "Radiumcoders/localflow-clean",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/74",
+      "kind": "task-specific-generative-editor",
+      "revision": "4db187970c570ab861e64a61b8dadca4a285d559"
+    },
+    {
+      "id": "Abdullahu5mani/flowscribe-qwen2.5-0.5b-v2",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/75",
+      "kind": "task-specific-generative-editor",
+      "revision": "2f0b4de179366e0fc4ac914d41d2bd03dce6e849"
+    },
+    {
+      "id": "enconvo/tidy-1-mlx",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/76",
+      "kind": "task-specific-generative-editor",
+      "revision": "bbed44a696a08b00162dc711b88f76541beff86c"
+    },
+    {
+      "id": "vasanth009/macwispr-polish-qwen35-08b-v3-4bit",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/77",
+      "kind": "task-specific-generative-editor",
+      "revision": "3dd033163d981b1c62d2e125a1521b63005f8558"
+    },
+    {
+      "id": "vasanth009/LC-lfm2.5-350m",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/78",
+      "kind": "task-specific-generative-editor",
+      "revision": "76b33c3326afc7276ac24559bcb887e393f731c0"
+    },
+    {
+      "id": "bonusobjective/murmur-clean-350m",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/79",
+      "kind": "task-specific-generative-editor",
+      "revision": "bad305e9d2373f706e048e250b75f7fb471692fb"
+    },
+    {
+      "id": "auswm85/flowbee-cut",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/80",
+      "kind": "task-specific-generative-editor",
+      "revision": "f182013b14e88901a51859d3bcf4cb09f344d440"
+    },
+    {
+      "id": "manasdutta04/kudu-writer-tiny",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/81",
+      "kind": "task-specific-generative-editor",
+      "revision": "0a45ae280eb00f7cdb57647885a8eaef3acaecd1"
+    },
+    {
+      "id": "Aye10032/Qwen3-ASR-Refiner-0.6B",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/82",
+      "kind": "task-specific-generative-editor",
+      "revision": "3b4a6024ed676f7acb1aa078754b312c3a116b8e"
+    },
+    {
+      "id": "beingpax/VoiceInk-Refine-Mini",
+      "workstream": "specialists",
+      "catalog": "specialists/candidates.json",
+      "json_pointer": "/83",
+      "kind": "task-specific-generative-editor",
+      "revision": "d11278e382915031e4ab6abaf9ebf6c7611948c6"
+    },
+    {
+      "id": "LFM2.5 230M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/0",
+      "kind": "generic-causal-control",
+      "revision": "40cb2ad3b3044d5a41eee083a6103c8b523afa45"
+    },
+    {
+      "id": "LFM2.5 350M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/1",
+      "kind": "generic-causal-control",
+      "revision": "9e6c6ccf47cd318696e137d381a7ded8fe4df09f"
+    },
+    {
+      "id": "Granite4.0 H350M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/2",
+      "kind": "generic-causal-control",
+      "revision": "3b17b717b8f2f5d305b0a92c1491e239aeda19c8"
+    },
+    {
+      "id": "Granite4.0 350M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/3",
+      "kind": "generic-causal-control",
+      "revision": "bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2"
+    },
+    {
+      "id": "SmolLM2 135M Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/4",
+      "kind": "generic-causal-control",
+      "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac"
+    },
+    {
+      "id": "SmolLM2 360M Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/5",
+      "kind": "generic-causal-control",
+      "revision": "a10cc1512eabd3dde888204e902eca88bddb4951"
+    },
+    {
+      "id": "ERNIE4.5 0.3B PT",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/6",
+      "kind": "generic-causal-control",
+      "revision": "b565cf6caebdb7a1eadf00100857b1ed5e044f12"
+    },
+    {
+      "id": "Qwen3 0.6B",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/7",
+      "kind": "generic-causal-control",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+    },
+    {
+      "id": "Qwen3.5 0.8B",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/8",
+      "kind": "generic-causal-control",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17"
+    },
+    {
+      "id": "Gemma3 270M IT",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/9",
+      "kind": "generic-causal-control",
+      "revision": "ac82b4e820549b854eebf28ce6dedaf9fdfa17b3"
+    },
+    {
+      "id": "LFM2.5 1.2B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/10",
+      "kind": "generic-causal-control",
+      "revision": "0f604ada3f766f9f257460c4c9f0b5d6f69d431b"
+    },
+    {
+      "id": "Qwen2.5 0.5B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/11",
+      "kind": "generic-causal-control",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    {
+      "id": "LFM2 350M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/12",
+      "kind": "generic-causal-control",
+      "revision": "f37d3f5c8c5484bc01dad379a595cf4c68c4e70e"
+    },
+    {
+      "id": "LFM2 700M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/13",
+      "kind": "generic-causal-control",
+      "revision": "86f49fc9a3800c3a325b7320bde179c318062583"
+    },
+    {
+      "id": "Gemma3 1B IT",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/14",
+      "kind": "generic-causal-control",
+      "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752"
+    },
+    {
+      "id": "Llama3.2 1B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/15",
+      "kind": "generic-causal-control",
+      "revision": "9213176726f574b556790deb65791e0c5aa438b6"
+    },
+    {
+      "id": "Qwen3.5 2B",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/16",
+      "kind": "generic-causal-control",
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc"
+    },
+    {
+      "id": "SmolLM2 1.7B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/17",
+      "kind": "generic-causal-control",
+      "revision": "31b70e2e869a7173562077fd711b654946d38674"
+    },
+    {
+      "id": "Qwen2.5 1.5B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/18",
+      "kind": "generic-causal-control",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
+    },
+    {
+      "id": "Qwen3 1.7B",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/19",
+      "kind": "generic-causal-control",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+    },
+    {
+      "id": "Granite3.3 2B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/20",
+      "kind": "generic-causal-control",
+      "revision": "707f574c62054322f6b5b04b6d075f0a8f05e0f0"
+    },
+    {
+      "id": "TinyLlama1.1B Chat",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/21",
+      "kind": "generic-causal-control",
+      "revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6"
+    },
+    {
+      "id": "Hunyuan0.5B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/22",
+      "kind": "generic-causal-control",
+      "revision": "2359fb220c010e9d6d62c62d466f0eda179c2cf3"
+    },
+    {
+      "id": "Hunyuan1.8B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/23",
+      "kind": "generic-causal-control",
+      "revision": "de940610ab5d45b4fedbd37e08444d0dc502837c"
+    },
+    {
+      "id": "Falcon3 1B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/24",
+      "kind": "generic-causal-control",
+      "revision": "28ba2251970a01dd1edc7ba7dad2eb71216ccfdf"
+    },
+    {
+      "id": "RWKV7 World0.1B HF",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/25",
+      "kind": "generic-causal-control",
+      "revision": "d81965cb4e1a9f96696b4f70b84212b8f2e43216"
+    },
+    {
+      "id": "RWKV7 World0.4B HF",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/26",
+      "kind": "generic-causal-control",
+      "revision": "e94655a9fad2c8da9f25aba575d8f0fdedc05931"
+    },
+    {
+      "id": "RWKV7 G1k1.5B",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/27",
+      "kind": "generic-causal-control",
+      "revision": "4923bf404162999e336cb32289d8a9f93ad83de3"
+    },
+    {
+      "id": "OpenELM270M Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/28",
+      "kind": "generic-causal-control",
+      "revision": "63dfa9dcea6b8679035a75102f8a7b647da69ef6"
+    },
+    {
+      "id": "OpenELM450M Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/29",
+      "kind": "generic-causal-control",
+      "revision": "d81e0fec8c7361a215272c9505bb44d1622a491b"
+    },
+    {
+      "id": "OpenELM1.1B Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/30",
+      "kind": "generic-causal-control",
+      "revision": "effd796da2a77361d7360e45e54c7cc14bc5df2a"
+    },
+    {
+      "id": "MobileLLM125M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/31",
+      "kind": "generic-causal-control",
+      "revision": "f6820a829b347aaa6674a705c82be3db47b1f9ee"
+    },
+    {
+      "id": "MobileLLM350M",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/32",
+      "kind": "generic-causal-control",
+      "revision": "fdb431e7ed8af3c2f32f7705e9d8523575e55cab"
+    },
+    {
+      "id": "SmolLM3 3B",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/33",
+      "kind": "generic-causal-control",
+      "revision": "a07cc9a04f16550a088caea529712d1d335b0ac1"
+    },
+    {
+      "id": "Phi4 mini Instruct",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/34",
+      "kind": "generic-causal-control",
+      "revision": "cfbefacb99257ffa30c83adab238a50856ac3083"
+    },
+    {
+      "id": "Gemma4 E2B IT",
+      "workstream": "compact_general",
+      "catalog": "compact/candidates.json",
+      "json_pointer": "/model_variants/35",
+      "kind": "generic-causal-control",
+      "revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7"
+    },
+    {
+      "id": "daltonoscar0/mend-flan-t5-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/0",
+      "kind": "seq2seq-specialist",
+      "revision": "230a456089ac0c03d331546a56a5ac2ed9f26271"
+    },
+    {
+      "id": "daltonoscar0/hem-flan-t5-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/1",
+      "kind": "seq2seq-specialist",
+      "revision": "f04b92a6a8f093b45e2aeb9e4f63a1aeefe2fb2b"
+    },
+    {
+      "id": "tsilahi/looma-dictation-slm",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/2",
+      "kind": "seq2seq-specialist",
+      "revision": "e1598108b1c4d7020d183c5b34752dd62cfdc847"
+    },
+    {
+      "id": "sam-castro/mow-disfluency-classifier",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/3",
+      "kind": "nonautoregressive-disfluency-tagger",
+      "revision": "e1f59b45e03988dd55b8ff307c602f0d4567bf8c"
+    },
+    {
+      "id": "arielcerdap/modernbert-base-multiclass-disfluency-v2",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/4",
+      "kind": "nonautoregressive-disfluency-tagger",
+      "revision": "bb56bf6b789b94faa126c953499fa138137d602c"
+    },
+    {
+      "id": "JasonIr/typurr-edit-tagger",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/5",
+      "kind": "nonautoregressive-edit-tagger",
+      "revision": "558c5ef0dc789fd5b1042151bedbc7a3a0b5fa0c"
+    },
+    {
+      "id": "vikramlingam/meg-v1-tagger-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/6",
+      "kind": "nonautoregressive-edit-tagger",
+      "revision": "cbf6f6a9b05efe85b4af5cae0e941db8c250d83e"
+    },
+    {
+      "id": "Unbabel/gec-t5_small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/7",
+      "kind": "seq2seq-gec",
+      "revision": "c958d53bfbce19c87342b69fc6bcaba7303d076f"
+    },
+    {
+      "id": "TeXlyre/t5-small-grammar-correction",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/8",
+      "kind": "unknown",
+      "revision": null
+    },
+    {
+      "id": "vennify/t5-base-grammar-correction",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/9",
+      "kind": "seq2seq-gec",
+      "revision": "9e4a09d21dca1072a69302df9261289d03c3ed78"
+    },
+    {
+      "id": "pszemraj/grammar-synthesis-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/10",
+      "kind": "seq2seq-gec",
+      "revision": "87b056e0099386da1355a3b80e51e59e9faf1219"
+    },
+    {
+      "id": "pszemraj/flan-t5-large-grammar-synthesis",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/11",
+      "kind": "seq2seq-gec",
+      "revision": "924f44b5b7403d0727880a72f45714f0a70379a0"
+    },
+    {
+      "id": "grammarly/coedit-large",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/12",
+      "kind": "seq2seq-editor",
+      "revision": "5637bcdf9d8d4419f97c8cfea36f7d35c79232b6"
+    },
+    {
+      "id": "grammarly/coedit-xl",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/13",
+      "kind": "seq2seq-editor",
+      "revision": "be7d1aeebbaa0e5c6b97dcf110dd4ba22096d3cf"
+    },
+    {
+      "id": "google/flan-t5-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/14",
+      "kind": "seq2seq-base",
+      "revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    },
+    {
+      "id": "google/byt5-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/15",
+      "kind": "byte-seq2seq-base",
+      "revision": "68377bdc18a2ffec8a0533fef03b1c513a4dd49d"
+    },
+    {
+      "id": "JohnGorri/gramercy-ml-gec-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/16",
+      "kind": "seq2seq-gec",
+      "revision": "c4058721944bc6abe9a24b0d42ea33726e37f6f3"
+    },
+    {
+      "id": "EnderAir/proximity",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/17",
+      "kind": "seq2seq-gec",
+      "revision": "91b0200215359d64c6e7120af04669aed4754294"
+    },
+    {
+      "id": "r1char9/rmac-morpheus",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/18",
+      "kind": "unknown",
+      "revision": null
+    },
+    {
+      "id": "grammarly/gector",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/19",
+      "kind": "unknown",
+      "revision": null
+    },
+    {
+      "id": "dayyanj/dj-ai-asr-grammar-corrector-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/20",
+      "kind": "seq2seq-asr-corrector",
+      "revision": "12ad57f99d065c352eaf678db7ccff030d90d2e9"
+    },
+    {
+      "id": "dayyanj/dj-ai-asr-grammar-corrector-base",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/21",
+      "kind": "seq2seq-asr-corrector",
+      "revision": "3c5b20ef80a4b9e8a31fe103ab1f23232ceec274"
+    },
+    {
+      "id": "ldenoue/LaMini-Flan-T5-77M-ASR-Corrector",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/22",
+      "kind": "seq2seq-asr-corrector",
+      "revision": "e90e0e19263499c537798d230110a46b8d12d816"
+    },
+    {
+      "id": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/23",
+      "kind": "causal-specialist",
+      "revision": "c926e4c06cfc458892d37a16ef032a0a98bd77b2"
+    },
+    {
+      "id": "vikramlingam/SmolLM2-360M-Post-ASR-Engine",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/24",
+      "kind": "causal-specialist",
+      "revision": "970914e731d64710407e1cf70e3a8886269b5ae2"
+    },
+    {
+      "id": "deepquillapp/gector-grammar",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/25",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "2232e0ef109dd12e11e2c74b565b7318e36379e4"
+    },
+    {
+      "id": "kotoshu/grammar-en",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/26",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "3189cc62fdbaff6e5007a16ec52e72d687127232"
+    },
+    {
+      "id": "Meyssa/gector-base-2020",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/27",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "ff9abe8a0dd5a1972bb3e56b1acda6c3e4588204"
+    },
+    {
+      "id": "Zaid-Hossain/gector-roberta-onnx",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/28",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "090bbffce6ebae66186313105b70242e3ee9252a"
+    },
+    {
+      "id": "letheviet/gector-roberta-base-5k-onnx",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/29",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "b631ea729bf21a748ee19d9240f04d14e8f2c36d"
+    },
+    {
+      "id": "LiquidAI/LFM2.5-Encoder-350M-Spellchecker",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/30",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "4e2f724c10985e9ec90f34189c22be5d5f2e41e0"
+    },
+    {
+      "id": "TonyRaju/pszemraj-grammar-synthesis-small-onnx-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/31",
+      "kind": "seq2seq-gec",
+      "revision": "dabfdad096972dd4daf20b2cb0b102c0c61ed6d4"
+    },
+    {
+      "id": "TeXlyre/grammar-t5-small-onnx",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/32",
+      "kind": "seq2seq-gec",
+      "revision": "af3c4643569d421e8ac2b815e112c2150e56bf46"
+    },
+    {
+      "id": "visheratin/t5-efficient-tiny-grammar-correction",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/33",
+      "kind": "seq2seq-gec",
+      "revision": "a98f126664317cf2e68d33234c7072fdd6b289f3"
+    },
+    {
+      "id": "visheratin/t5-efficient-mini-grammar-correction",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/34",
+      "kind": "seq2seq-gec",
+      "revision": "034fd4276852e7da609156fea0ff448459e602df"
+    },
+    {
+      "id": "gotutiyan/gector-roberta-base-5k",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/35",
+      "kind": "nonautoregressive-gec-tagger",
+      "revision": "adaac6fb919431fb5a038b1e449055ae638613a4"
+    },
+    {
+      "id": "MBZUAI/LaMini-Flan-T5-77M",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/36",
+      "kind": "seq2seq-instruction",
+      "revision": "c5b12d50a2616b9670a57189be20055d1357b474"
+    },
+    {
+      "id": "google/mt5-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/37",
+      "kind": "multilingual-seq2seq-base",
+      "revision": "73fb5dbe4756edadc8fbe8c769b0a109493acf7a"
+    },
+    {
+      "id": "dayyanj/dj-ai-asr-grammar-corrector-small-streaming",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/38",
+      "kind": "seq2seq-asr-corrector",
+      "revision": "ee393b83c25bd96239f96e61c999001922641f73"
+    },
+    {
+      "id": "jbochi/coedit-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/39",
+      "kind": "seq2seq-editor",
+      "revision": "6ce9822b4ff6e4af86b70f979c890e9e41f04366"
+    },
+    {
+      "id": "huytd189/grammar-t5-small",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/40",
+      "kind": "seq2seq-gec",
+      "revision": "d4e328da538192bef945b7defff74f018d6522ab"
+    },
+    {
+      "id": "TonyRaju/gec-t5-small-coedit-onnx-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/41",
+      "kind": "seq2seq-gec",
+      "revision": "1b76cab579f033f1da0e6c98557beeab5d33dd5b"
+    },
+    {
+      "id": "TonyRaju/visheratin-t5-efficient-tiny-grammar-correction-onnx-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/42",
+      "kind": "unknown",
+      "revision": null
+    },
+    {
+      "id": "prithivida/grammar_error_correcter_v1",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/43",
+      "kind": "seq2seq-gec",
+      "revision": "28f92ee33c2512814c22268b056a725364dae143"
+    },
+    {
+      "id": "willwade/t5-small-spoken-typo",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/44",
+      "kind": "seq2seq-gec",
+      "revision": "4171352b5cf218c3ff42879e2ad0263ad8a84d37"
+    },
+    {
+      "id": "mushrafi88/T5-asr-corrector",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/45",
+      "kind": "seq2seq-asr-corrector",
+      "revision": "275d47a551a7607deb3328ce3f402feb2df74491"
+    },
+    {
+      "id": "TonyRaju/visheratin-t5-tiny-grammar-correction-onnx-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/46",
+      "kind": "seq2seq-gec",
+      "revision": "2bb9c5856786533a62c1725dd23568a7de2c0e17"
+    },
+    {
+      "id": "TonyRaju/visheratin-t5-mini-grammar-correction-onnx-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/47",
+      "kind": "seq2seq-gec",
+      "revision": "d66fc3a79198beab31feb7c86998c8c6ee56ed95"
+    },
+    {
+      "id": "TonyRaju/prithivida-grammar-correcter-onnx-int8",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/48",
+      "kind": "seq2seq-gec",
+      "revision": "ced0803a6060fcd0416588c8d41c1f5b83e598cf"
+    },
+    {
+      "id": "jbochi/coedit-base",
+      "workstream": "editing_models",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/models/49",
+      "kind": "seq2seq-editor",
+      "revision": "bef93f1b9bae24f9383580764820d5de1adafcdc"
+    },
+    {
+      "id": "grammarly/gector",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/0",
+      "kind": "edit-tagging",
+      "revision": null
+    },
+    {
+      "id": "google-research/lasertagger",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/1",
+      "kind": "edit-tagging",
+      "revision": null
+    },
+    {
+      "id": "google-research/google-research/felix",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/2",
+      "kind": "tagging-pointing-insertion",
+      "revision": null
+    },
+    {
+      "id": "Seq2Edits",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/3",
+      "kind": "span-editgeneration",
+      "revision": null
+    },
+    {
+      "id": "EdiT5",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/4",
+      "kind": "semi-autoregressiveediting",
+      "revision": null
+    },
+    {
+      "id": "microsoft/NeuralSpeech/FastCorrect",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/5",
+      "kind": "nonautoregressive-ASR-correction",
+      "revision": null
+    },
+    {
+      "id": "microsoft/NeuralSpeech/FastCorrect2",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/6",
+      "kind": "N-best-ASR-correction",
+      "revision": null
+    },
+    {
+      "id": "Edge-Punct-Casing / sherpa English online punctuation",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/7",
+      "kind": "CNN-BiLSTMpunctuationcasing",
+      "revision": null
+    },
+    {
+      "id": "NVIDIA/NeMo-text-processing WFST",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/8",
+      "kind": "finite-stateITN",
+      "revision": null
+    },
+    {
+      "id": "NVIDIAThutmoseEnglishITN",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/9",
+      "kind": "single-passITNtagger",
+      "revision": null
+    },
+    {
+      "id": "LanguageTool",
+      "workstream": "editing_architectures",
+      "catalog": "editing/candidates.json",
+      "json_pointer": "/architectures/10",
+      "kind": "rule-basedgrammarchecker",
+      "revision": null
+    },
+    {
+      "id": "superwhisper",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/0",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "dikt",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/1",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "spokenly",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/2",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "whisperstream",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/3",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "voiceink",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/4",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "quobi",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/5",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "muesli",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/6",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "handy",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/7",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "openwhispr",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/8",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "macwhisper",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/9",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "voicetypr",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/10",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "typewhisper",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/11",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "fluidvoice",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/12",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "whisperlocal",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/13",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "scribe",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/14",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "winpepper",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/15",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "whispering",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/16",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "pomvox",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/17",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "windows-fluid-access",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/18",
+      "kind": null,
+      "revision": null
+    },
+    {
+      "id": "windows-fluid-voice-typing",
+      "workstream": "products",
+      "catalog": "products/products.json",
+      "json_pointer": "/products/19",
+      "kind": null,
+      "revision": null
+    }
+  ],
+  "additional_followups": [
+    {
+      "id": "Kudu trained contract",
+      "report": "s1/kudu-followup.md",
+      "contract": "s1/kudu-contract.json",
+      "source_index": "s1/kudu-source-index.json"
+    }
+  ]
+}

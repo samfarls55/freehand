@@ -1,5 +1,14 @@
 # Freehand transcript cleanup handoff
 
+## Subsequent research checkpoint — October 30, 2026
+
+Production selection is reopened after the expanded
+[S1-mini and small-model audit](TRANSCRIPT-CLEANUP-SMALL-MODELS.md). Use its
+pinned candidates, trained contracts and controlled test plan for the next POCs.
+The 9B results below remain a quality reference, and its source acquisition pin
+is unchanged. No new model inference or application behavior change was made
+during this research.
+
 ## Continuation on October 30, 2026
 
 Recovered branch `codex/transcript-cleanup` at `6266be5`, preserving the existing

@@ -1,0 +1,1612 @@
+{
+  "schema_version": 1,
+  "retrieved_utc": "2026-10-30T20:44:33.764263+00:00",
+  "scope": "Compact generic causal text model alternatives only; specialists are separate. Research is finite and source-based, not a model benchmark. ArtifactSHA256 values are publisherLFSmetadata unless explicitlystatedotherwise.",
+  "repository_endpoints_requested": 72,
+  "resolved_repository_endpoints": 69,
+  "screened_candidate_variants": 36,
+  "model_variants": [
+    {
+      "name": "LFM2.5 230M",
+      "base_model": "LiquidAI/LFM2.5-230M",
+      "category": "generic-causal-control",
+      "priority": "generic-first-screen",
+      "why": "Small current non-thinking generic control; official artifacts and positive edge-speed evidence, but transcript fidelity untested.",
+      "base_revision": "40cb2ad3b3044d5a41eee083a6103c8b523afa45",
+      "base_card_url": "https://huggingface.co/LiquidAI/LFM2.5-230M/blob/40cb2ad3b3044d5a41eee083a6103c8b523afa45/README.md",
+      "base_gated": false,
+      "publisher_license_label": "other",
+      "license_assessment": "LFM Open License v1.0: copyright and redistribution grants with a commercial-use annual-revenue limitation. The license defines the threshold as $10,000,000 or more, while its grant uses not-exceeding/exceeds language. Preserve the exact text and clarify the boundary if relevant. This is not ordinary Apache 2.0.",
+      "license_sources": [
+        {
+          "path": "evidence/LiquidAI__LFM2.5-230M/LICENSE",
+          "source": "https://huggingface.co/LiquidAI/LFM2.5-230M/raw/40cb2ad3b3044d5a41eee083a6103c8b523afa45/LICENSE",
+          "sha256": "30adf9d6478191fb87f2424f63ba0728598335aaf99cd2848ef17e8e545fe94b",
+          "size": 10574
+        }
+      ],
+      "architecture_from_config": "lfm2",
+      "declared_context_from_config": 128000,
+      "hf_safetensors_element_count": 229693184,
+      "deployment_repo": "LiquidAI/LFM2.5-230M-GGUF",
+      "deployment_revision": "03502067c64ce32ac4fe87b0cec0310a1a13d3e9",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "LFM2.5-230M-Q4_0.gguf",
+          "size": 149080928,
+          "sha256": "430fbec5b1b355e9bb12cd0638c9f2a8f21fedd6eafb4103e42c7e88887daa73",
+          "blob_id": "ecdf26ccafa7226e76a44cf63db194b654a796d2",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q4_0.gguf"
+        },
+        {
+          "filename": "LFM2.5-230M-Q4_K_M.gguf",
+          "size": 153406304,
+          "sha256": "7bbd90384d3deffe4c646ec9643b212802d32d4ce417c90a1ec9282100650062",
+          "blob_id": "9ad2387757e304a1ecce2d68a850ca2edca4c3de",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q4_K_M.gguf"
+        },
+        {
+          "filename": "LFM2.5-230M-Q8_0.gguf",
+          "size": 246598496,
+          "sha256": "855be85429300602eda72958547614703541b7d6dd965a8f8f6052b85a7aa935",
+          "blob_id": "d85b80d116e1e76ea5153585d3d3ab80457f7ea9",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-Q8_0.gguf"
+        },
+        {
+          "filename": "LFM2.5-230M-QAD-Q4_0.gguf",
+          "size": 149081056,
+          "sha256": "e75f83268de11b2a1bcfab5f3b5c5c0c97569ddbbc0990aad88437e45b8ba292",
+          "blob_id": "583b900e58d17b849cebeffd2845a661b24541fe",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-230M-GGUF/resolve/03502067c64ce32ac4fe87b0cec0310a1a13d3e9/LFM2.5-230M-QAD-Q4_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/LiquidAI__LFM2.5-230M",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "LFM2.5 350M",
+      "base_model": "LiquidAI/LFM2.5-350M",
+      "category": "generic-causal-control",
+      "priority": "generic-first-screen",
+      "why": "Independent family with current instruction tuning; stronger generic publisher scores than230M, still no cleanup-specific validation.",
+      "base_revision": "9e6c6ccf47cd318696e137d381a7ded8fe4df09f",
+      "base_card_url": "https://huggingface.co/LiquidAI/LFM2.5-350M/blob/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/README.md",
+      "base_gated": false,
+      "publisher_license_label": "other",
+      "license_assessment": "LFM Open License v1.0: copyright and redistribution grants with a commercial-use annual-revenue limitation. The license defines the threshold as $10,000,000 or more, while its grant uses not-exceeding/exceeds language. Preserve the exact text and clarify the boundary if relevant. This is not ordinary Apache 2.0.",
+      "license_sources": [
+        {
+          "path": "evidence/LiquidAI__LFM2.5-350M/LICENSE",
+          "source": "https://huggingface.co/LiquidAI/LFM2.5-350M/raw/9e6c6ccf47cd318696e137d381a7ded8fe4df09f/LICENSE",
+          "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+          "size": 10574
+        }
+      ],
+      "architecture_from_config": "lfm2",
+      "declared_context_from_config": 128000,
+      "hf_safetensors_element_count": 354483968,
+      "deployment_repo": "LiquidAI/LFM2.5-350M-GGUF",
+      "deployment_revision": "657e078c94084481950a2d555a941481f715536b",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "LFM2.5-350M-Q4_0.gguf",
+          "size": 219309792,
+          "sha256": "85e32858daafad55b7bcd6b97a1343ee0661188e8036f9862d14d6b563142f50",
+          "blob_id": "ac0fa5b48712836834f86d94462f4a756fc2603a",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q4_0.gguf"
+        },
+        {
+          "filename": "LFM2.5-350M-Q4_K_M.gguf",
+          "size": 229312224,
+          "sha256": "7e6f72643caafc9a68256686638c4d7916f2cec76d1df478d4c3ddcd95a6aed4",
+          "blob_id": "bdbc79b3f36ce3828f89fd15557da48bce324128",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q4_K_M.gguf"
+        },
+        {
+          "filename": "LFM2.5-350M-Q8_0.gguf",
+          "size": 379217632,
+          "sha256": "be036a757295e550098b85e13f6af2735d0fa73b41e1156a40c7d8e8e32a5766",
+          "blob_id": "03b4e3159538185977f75bc7806c3a1076e64b5a",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-Q8_0.gguf"
+        },
+        {
+          "filename": "LFM2.5-350M-QAD-Q4_0.gguf",
+          "size": 219312832,
+          "sha256": "3d10b6ab8fc91a919534b9558e266255aca0bbc7f6d015963599aa9e74e05b1d",
+          "blob_id": "2acf9261ca12dac80f61386de9bb379f73ebe76e",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-350M-GGUF/resolve/657e078c94084481950a2d555a941481f715536b/LFM2.5-350M-QAD-Q4_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/LiquidAI__LFM2.5-350M",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Granite4.0 H350M",
+      "base_model": "ibm-granite/granite-4.0-h-350m",
+      "category": "generic-causal-control",
+      "priority": "generic-first-screen",
+      "why": "Apache2 hybrid alternative with official small GGUFs; bounded recurrent-state hypothesis requires actual RAM/quality measurement.",
+      "base_revision": "3b17b717b8f2f5d305b0a92c1491e239aeda19c8",
+      "base_card_url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m/blob/3b17b717b8f2f5d305b0a92c1491e239aeda19c8/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "granitemoehybrid",
+      "declared_context_from_config": 32768,
+      "hf_safetensors_element_count": 340332224,
+      "deployment_repo": "ibm-granite/granite-4.0-h-350m-GGUF",
+      "deployment_revision": "a864f823cce6e6048b5752e2816fe7a23987d790",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "granite-4.0-h-350m-Q4_0.gguf",
+          "size": 216073120,
+          "sha256": "7adb3d5765ad12b83b1c08a90746d8925af718545b4a36287e8dac8f83b72ab6",
+          "blob_id": "bbf7b3d0bf0c36884bc55b7efac34e44af23e99b",
+          "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_0.gguf"
+        },
+        {
+          "filename": "granite-4.0-h-350m-Q4_K_M.gguf",
+          "size": 222662560,
+          "sha256": "0a8d6a7373602fadfba274a640ba784b86cc6847f1c67f1b0a90fa2ec266b7fb",
+          "blob_id": "f49c4bb0e598ac8fddc357b4f6a3e092136068ec",
+          "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q4_K_M.gguf"
+        },
+        {
+          "filename": "granite-4.0-h-350m-Q8_0.gguf",
+          "size": 366195616,
+          "sha256": "c7d9873640dc303b6773dcc44e72e5bdf533e1c95ca8421e6191fbff5c94c942",
+          "blob_id": "72338fc9b6995132d0f40302c794fb12bd23a86d",
+          "url": "https://huggingface.co/ibm-granite/granite-4.0-h-350m-GGUF/resolve/a864f823cce6e6048b5752e2816fe7a23987d790/granite-4.0-h-350m-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/ibm-granite__granite-4.0-h-350m",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Granite4.0 350M",
+      "base_model": "ibm-granite/granite-4.0-350m",
+      "category": "generic-causal-control",
+      "priority": "generic-first-screen",
+      "why": "Apache2 dense-transformer counterpart for architecture/control comparison.",
+      "base_revision": "bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2",
+      "base_card_url": "https://huggingface.co/ibm-granite/granite-4.0-350m/blob/bd8a1497065c0d6ba1ef19af6b0d2b14bacf71c2/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "granitemoehybrid",
+      "declared_context_from_config": 32768,
+      "hf_safetensors_element_count": 352379904,
+      "deployment_repo": "ibm-granite/granite-4.0-350m-GGUF",
+      "deployment_revision": "b8208a86a58427e1739265318028eb5895b74bf2",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "granite-4.0-350m-Q4_0.gguf",
+          "size": 228470176,
+          "sha256": "a9db4c0ab23bb3c676f5fea5521d7a9301c577834a1cabf3430ab826fb68195a",
+          "blob_id": "5229d8aaedad16accb069fa219cfe9bd7af4a379",
+          "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q4_0.gguf"
+        },
+        {
+          "filename": "granite-4.0-350m-Q4_K_M.gguf",
+          "size": 236985760,
+          "sha256": "771c588a49607f274a2bba3185733607ebe6f74b996ab90e2d6bee0d98bcec52",
+          "blob_id": "70f092bd480866797f00a2a60de10a61aa4d1ae2",
+          "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q4_K_M.gguf"
+        },
+        {
+          "filename": "granite-4.0-350m-Q8_0.gguf",
+          "size": 378138016,
+          "sha256": "9595dafb4ed15aa02512c8ea26188744192a6f09530eae0a2747bd3ada96cd36",
+          "blob_id": "cc6c2ff1c77f1130e4f9b0cc06575182642b77b1",
+          "url": "https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF/resolve/b8208a86a58427e1739265318028eb5895b74bf2/granite-4.0-350m-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/ibm-granite__granite-4.0-350m",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "SmolLM2 135M Instruct",
+      "base_model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "category": "generic-causal-control",
+      "priority": "budget-floor-control",
+      "why": "Genuinely tiny Apache2 instruction model; useful RAM/latency floor and perhaps narrow cleanup, not established spoken-correction quality.",
+      "base_revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+      "base_card_url": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/blob/12fd25f77366fa6b3b4b768ec3050bf629380bac/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "llama",
+      "declared_context_from_config": 8192,
+      "hf_safetensors_element_count": 134515008,
+      "deployment_repo": "unsloth/SmolLM2-135M-Instruct-GGUF",
+      "deployment_revision": "9e6855bc4be717fca1ef21360a1db4b29d5c559a",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "SmolLM2-135M-Instruct-Q4_K_M.gguf",
+          "size": 105454144,
+          "sha256": "ed5fa30c487b282ec156c29062f1222e5c20875a944ac98289dbd242e947f747",
+          "blob_id": "0ad25404e736010b7582faffcc76f9dead2fe388",
+          "url": "https://huggingface.co/unsloth/SmolLM2-135M-Instruct-GGUF/resolve/9e6855bc4be717fca1ef21360a1db4b29d5c559a/SmolLM2-135M-Instruct-Q4_K_M.gguf"
+        },
+        {
+          "filename": "SmolLM2-135M-Instruct-Q8_0.gguf",
+          "size": 144811072,
+          "sha256": "c4a3dd037301b6ecea31d6da37f5cd793ead920dd5ddfe6d589294628d6ce66a",
+          "blob_id": "94e901ac973c6117e9498fa3c8af6f2bd59da7eb",
+          "url": "https://huggingface.co/unsloth/SmolLM2-135M-Instruct-GGUF/resolve/9e6855bc4be717fca1ef21360a1db4b29d5c559a/SmolLM2-135M-Instruct-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/HuggingFaceTB__SmolLM2-135M-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "SmolLM2 360M Instruct",
+      "base_model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+      "category": "generic-causal-control",
+      "priority": "generic-second-screen",
+      "why": "Official Q8 artifact plus upstream ONNX; generic rewriting lead, no cleanup fidelity result.",
+      "base_revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
+      "base_card_url": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct/blob/a10cc1512eabd3dde888204e902eca88bddb4951/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "llama",
+      "declared_context_from_config": 8192,
+      "hf_safetensors_element_count": 361821120,
+      "deployment_repo": "HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
+      "deployment_revision": "593b5a2e04c8f3e4ee880263f93e0bd2901ad47f",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "smollm2-360m-instruct-q8_0.gguf",
+          "size": 386404992,
+          "sha256": "48ab3034d0dd401fbc721eb1df3217902fee7dab9078992d66431f09b7750201",
+          "blob_id": "d6fa545f014b70945b12235c0cfbd4a9df694b22",
+          "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-360M-Instruct-GGUF/resolve/593b5a2e04c8f3e4ee880263f93e0bd2901ad47f/smollm2-360m-instruct-q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/HuggingFaceTB__SmolLM2-360M-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "ERNIE4.5 0.3B PT",
+      "base_model": "baidu/ERNIE-4.5-0.3B-PT",
+      "category": "generic-causal-control",
+      "priority": "generic-second-screen",
+      "why": "0.36B Apache2 post-trained model; PT meansPyTorch notpretraining. Provides another causal family.",
+      "base_revision": "b565cf6caebdb7a1eadf00100857b1ed5e044f12",
+      "base_card_url": "https://huggingface.co/baidu/ERNIE-4.5-0.3B-PT/blob/b565cf6caebdb7a1eadf00100857b1ed5e044f12/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/baidu__ERNIE-4.5-0.3B-PT/LICENSE",
+          "source": "https://huggingface.co/baidu/ERNIE-4.5-0.3B-PT/raw/b565cf6caebdb7a1eadf00100857b1ed5e044f12/LICENSE",
+          "sha256": "5d7deeaff0d6f92ef5c74658a46e4750ccbcd0602efcdfd24cd7ec6ae7c822f9",
+          "size": 11366
+        }
+      ],
+      "architecture_from_config": "ernie4_5",
+      "declared_context_from_config": 131072,
+      "hf_safetensors_element_count": 360748032,
+      "deployment_repo": "unsloth/ERNIE-4.5-0.3B-PT-GGUF",
+      "deployment_revision": "32b9743ef4cb56af53d71a6ab4b822d191ccb4fc",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "ERNIE-4.5-0.3B-PT-Q4_0.gguf",
+          "size": 232738272,
+          "sha256": "95acb8aaac992e3637bced4722ab4d4072b5381b6cd92eabf003d7c5f059a145",
+          "blob_id": "54dd033b5c344fd236129dd1a3cee82d59e21416",
+          "url": "https://huggingface.co/unsloth/ERNIE-4.5-0.3B-PT-GGUF/resolve/32b9743ef4cb56af53d71a6ab4b822d191ccb4fc/ERNIE-4.5-0.3B-PT-Q4_0.gguf"
+        },
+        {
+          "filename": "ERNIE-4.5-0.3B-PT-Q4_K_M.gguf",
+          "size": 240645600,
+          "sha256": "9842768d0fa26c6565611161c2d6135e79275a3726141478719cfa191cc670dd",
+          "blob_id": "a2d4cd968d135e636fecace410e4dffbdc3cd481",
+          "url": "https://huggingface.co/unsloth/ERNIE-4.5-0.3B-PT-GGUF/resolve/32b9743ef4cb56af53d71a6ab4b822d191ccb4fc/ERNIE-4.5-0.3B-PT-Q4_K_M.gguf"
+        },
+        {
+          "filename": "ERNIE-4.5-0.3B-PT-Q8_0.gguf",
+          "size": 385789408,
+          "sha256": "ca1655e92ce4f0d6d7df5a003dbbf95aaf8767d8afcc1f5b33f9ac8e9571673c",
+          "blob_id": "715f29fd41f61a4c91a7d77eb21da8f109307f79",
+          "url": "https://huggingface.co/unsloth/ERNIE-4.5-0.3B-PT-GGUF/resolve/32b9743ef4cb56af53d71a6ab4b822d191ccb4fc/ERNIE-4.5-0.3B-PT-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/baidu__ERNIE-4.5-0.3B-PT",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Qwen3 0.6B",
+      "base_model": "Qwen/Qwen3-0.6B",
+      "category": "generic-causal-control",
+      "priority": "base-control-for-specialists",
+      "why": "Useful control for S1-mini task training; prior Freehand RAM probe was not exhaustive and had only3cases. Disable thinking explicitly.",
+      "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "base_card_url": "https://huggingface.co/Qwen/Qwen3-0.6B/blob/c1899de289a04d12100db370d81485cdf75e47ca/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/Qwen__Qwen3-0.6B/LICENSE",
+          "source": "https://huggingface.co/Qwen/Qwen3-0.6B/raw/c1899de289a04d12100db370d81485cdf75e47ca/LICENSE",
+          "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "size": 11343
+        }
+      ],
+      "architecture_from_config": "qwen3",
+      "declared_context_from_config": 40960,
+      "hf_safetensors_element_count": 751632384,
+      "deployment_repo": "unsloth/Qwen3-0.6B-GGUF",
+      "deployment_revision": "50968a4468ef4233ed78cd7c3de230dd1d61a56b",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "Qwen3-0.6B-Q4_0.gguf",
+          "size": 382156480,
+          "sha256": "33bcc57074ec7b6eada5a90651ee546ec0c2b271002c22baf9f1b2dd1e8f75cb",
+          "blob_id": "8cf1e2776da5a0fe7d116ce565aad420397b419f",
+          "url": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/50968a4468ef4233ed78cd7c3de230dd1d61a56b/Qwen3-0.6B-Q4_0.gguf"
+        },
+        {
+          "filename": "Qwen3-0.6B-Q4_K_M.gguf",
+          "size": 396705472,
+          "sha256": "ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a",
+          "blob_id": "a09d43d97b8250d5de215fbebce5499cdbc1a448",
+          "url": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/50968a4468ef4233ed78cd7c3de230dd1d61a56b/Qwen3-0.6B-Q4_K_M.gguf"
+        },
+        {
+          "filename": "Qwen3-0.6B-Q8_0.gguf",
+          "size": 639447744,
+          "sha256": "e150ed544dfe6016930c026a93913a5e3184181ebfe6ab2223ae01dd0491784c",
+          "blob_id": "f8f078643b71179df66f671b3f576db3925db1ea",
+          "url": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/50968a4468ef4233ed78cd7c3de230dd1d61a56b/Qwen3-0.6B-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/Qwen__Qwen3-0.6B",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Qwen3.5 0.8B",
+      "base_model": "Qwen/Qwen3.5-0.8B",
+      "category": "generic-causal-control",
+      "priority": "generic-second-screen",
+      "why": "Same family as Quill but truly small size; non-thinking default and text-only setup. No Freehand quality run.",
+      "base_revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "base_card_url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/blob/2fc06364715b967f1860aea9cf38778875588b17/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/Qwen__Qwen3.5-0.8B/LICENSE",
+          "source": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/2fc06364715b967f1860aea9cf38778875588b17/LICENSE",
+          "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+          "size": 11544
+        }
+      ],
+      "architecture_from_config": "qwen3_5",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 873438784,
+      "deployment_repo": "unsloth/Qwen3.5-0.8B-GGUF",
+      "deployment_revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "Qwen3.5-0.8B-Q4_0.gguf",
+          "size": 507154688,
+          "sha256": "444406ddd926550c724ec18d5120a9d40ded44908a063b0e66e9a7e5464c652c",
+          "blob_id": "65bc154afa7914df6de9ef536a14add7b258e428",
+          "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_0.gguf"
+        },
+        {
+          "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
+          "size": 532517120,
+          "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+          "blob_id": "e18ef50218fda5a4e098093a4a4cedba10329693",
+          "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf"
+        },
+        {
+          "filename": "Qwen3.5-0.8B-Q8_0.gguf",
+          "size": 811843840,
+          "sha256": "0ad885ffd4bb022fc4f0d33a3308fa108ef8613159d3b3a67e23abca056b7a6c",
+          "blob_id": "d6a76f24990cc8dc8d5211af50adcff0a12a88ba",
+          "url": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/Qwen__Qwen3.5-0.8B",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Gemma3 270M IT",
+      "base_model": "google/gemma-3-270m-it",
+      "category": "generic-causal-control",
+      "priority": "conditional-generic-control",
+      "why": "Small byte budget but customGemma license/gated upstream; third-party access does not waive terms.",
+      "base_revision": "ac82b4e820549b854eebf28ce6dedaf9fdfa17b3",
+      "base_card_url": "https://huggingface.co/google/gemma-3-270m-it/blob/ac82b4e820549b854eebf28ce6dedaf9fdfa17b3/README.md",
+      "base_gated": "manual",
+      "publisher_license_label": "gemma",
+      "license_assessment": "Custom Gemma model terms and acceptable-use/redistribution conditions; the upstream is gated. Downloading an ungated quantization mirror does not remove those terms.",
+      "license_sources": [],
+      "architecture_from_config": null,
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 268098176,
+      "deployment_repo": "unsloth/gemma-3-270m-it-GGUF",
+      "deployment_revision": "c90975dbd40c0c7b275fefaae758c3415c906238",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "gemma-3-270m-it-Q4_0.gguf",
+          "size": 241574944,
+          "sha256": "e479ea2962bdcdc7e6321b91148b9ac2f516f649e0921412561d4936aadef158",
+          "blob_id": "1dfc331f4039f336e17a485753c72a5d0621443b",
+          "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q4_0.gguf"
+        },
+        {
+          "filename": "gemma-3-270m-it-Q4_K_M.gguf",
+          "size": 253115424,
+          "sha256": "b1baabd6b729e4041822220d3e648e00d99cac5df86b10dffb77bcccf0688e39",
+          "blob_id": "6d964619856319fb1a3068c69945457cefcf9290",
+          "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q4_K_M.gguf"
+        },
+        {
+          "filename": "gemma-3-270m-it-Q8_0.gguf",
+          "size": 291546144,
+          "sha256": "d156a5159f2f79c1b1d53c7c1cc20f1ff28ab8d00f17a292620aad13399b9698",
+          "blob_id": "62b8e731c3ca674ec531ccd46fa4452068c95b46",
+          "url": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF/resolve/c90975dbd40c0c7b275fefaae758c3415c906238/gemma-3-270m-it-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/google__gemma-3-270m-it",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "LFM2.5 1.2B Instruct",
+      "base_model": "LiquidAI/LFM2.5-1.2B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "larger-quality-control",
+      "why": "Larger bracket if230/350M fail; Q4 weights already exceed650MB total budget onCPU.",
+      "base_revision": "0f604ada3f766f9f257460c4c9f0b5d6f69d431b",
+      "base_card_url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/blob/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/README.md",
+      "base_gated": false,
+      "publisher_license_label": "other",
+      "license_assessment": "LFM Open License v1.0: copyright and redistribution grants with a commercial-use annual-revenue limitation. The license defines the threshold as $10,000,000 or more, while its grant uses not-exceeding/exceeds language. Preserve the exact text and clarify the boundary if relevant. This is not ordinary Apache 2.0.",
+      "license_sources": [
+        {
+          "path": "evidence/LiquidAI__LFM2.5-1.2B-Instruct/LICENSE",
+          "source": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct/raw/0f604ada3f766f9f257460c4c9f0b5d6f69d431b/LICENSE",
+          "sha256": "61d7e939a05911c765b7e98ffaa1ab5ca6c0174a65350766c25cb10197d19fc8",
+          "size": 10644
+        }
+      ],
+      "architecture_from_config": "lfm2",
+      "declared_context_from_config": 128000,
+      "hf_safetensors_element_count": 1170340608,
+      "deployment_repo": "LiquidAI/LFM2.5-1.2B-Instruct-GGUF",
+      "deployment_revision": "8ed288026e23958ad9dfa92d53ed773a8eee7125",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "LFM2.5-1.2B-Instruct-Q4_0.gguf",
+          "size": 695751488,
+          "sha256": "2ea801949d760cdf1a2cc04a54262c22c3c0c54f0769d57760c9adeb0e59233f",
+          "blob_id": "1eaa36ea1f0bfbe6cd053480a8977cc60e510849",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q4_0.gguf"
+        },
+        {
+          "filename": "LFM2.5-1.2B-Instruct-Q4_K_M.gguf",
+          "size": 730895168,
+          "sha256": "b1b3de114215d9507409a662a501a631095a479a419584e8a2ded6304b19b4f5",
+          "blob_id": "98e92dac403a4753fe75d30990cdea453d38273e",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q4_K_M.gguf"
+        },
+        {
+          "filename": "LFM2.5-1.2B-Instruct-Q8_0.gguf",
+          "size": 1246253888,
+          "sha256": "f6b981dcb86917fa463f78a362320bd5e2dc45445df147287eedb85e5a30d26a",
+          "blob_id": "f35eb989e16aeb44729ca2904e7e9f1a98bf26c4",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-Q8_0.gguf"
+        },
+        {
+          "filename": "LFM2.5-1.2B-Instruct-QAD-Q4_0.gguf",
+          "size": 695755488,
+          "sha256": "bb741ebb106d543e9de114b843a3d3d73d51c74b5801e69da2abde821a0cb3e1",
+          "blob_id": "a4df0d757cfe8eb5f4d3500c8b88a8390981296d",
+          "url": "https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct-GGUF/resolve/8ed288026e23958ad9dfa92d53ed773a8eee7125/LFM2.5-1.2B-Instruct-QAD-Q4_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/LiquidAI__LFM2.5-1.2B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Qwen2.5 0.5B Instruct",
+      "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "older-generic-control",
+      "why": "Stable Apache2 instruction family, official quantization; can test cheaply as historical size/behavior control.",
+      "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "base_card_url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/blob/7ae557604adf67be50417f59c2c2f167def9a775/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/Qwen__Qwen2.5-0.5B-Instruct/LICENSE",
+          "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/raw/7ae557604adf67be50417f59c2c2f167def9a775/LICENSE",
+          "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "size": 11343
+        }
+      ],
+      "architecture_from_config": "qwen2",
+      "declared_context_from_config": 32768,
+      "hf_safetensors_element_count": 494032768,
+      "deployment_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "deployment_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "qwen2.5-0.5b-instruct-q4_0.gguf",
+          "size": 428730208,
+          "sha256": "7671c0c304e6ce5a7fc577bcb12aba01e2c155cc2efd29b2213c95b18edaf6ed",
+          "blob_id": "6bd2155556a4e511149a6bf6e9840d80fc971b12",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q4_0.gguf"
+        },
+        {
+          "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+          "size": 491400032,
+          "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+          "blob_id": "a0ee18ee2bcb22c2b6c95360b292c2c40a2d7a03",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q4_k_m.gguf"
+        },
+        {
+          "filename": "qwen2.5-0.5b-instruct-q8_0.gguf",
+          "size": 675710816,
+          "sha256": "ca59ca7f13d0e15a8cfa77bd17e65d24f6844b554a7b6c12e07a5f89ff76844e",
+          "blob_id": "92271af457052afc8f1499dd480502e0bcbf87a0",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/qwen2.5-0.5b-instruct-q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/Qwen__Qwen2.5-0.5B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "LFM2 350M",
+      "base_model": "LiquidAI/LFM2-350M",
+      "category": "generic-causal-control",
+      "priority": "superseded-control",
+      "why": "Older same-size checkpoint; reserve for attributingLFM2.5 improvements rather than duplicate first pass.",
+      "base_revision": "f37d3f5c8c5484bc01dad379a595cf4c68c4e70e",
+      "base_card_url": "https://huggingface.co/LiquidAI/LFM2-350M/blob/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/README.md",
+      "base_gated": false,
+      "publisher_license_label": "other",
+      "license_assessment": "LFM Open License v1.0: copyright and redistribution grants with a commercial-use annual-revenue limitation. The license defines the threshold as $10,000,000 or more, while its grant uses not-exceeding/exceeds language. Preserve the exact text and clarify the boundary if relevant. This is not ordinary Apache 2.0.",
+      "license_sources": [
+        {
+          "path": "evidence/LiquidAI__LFM2-350M/LICENSE",
+          "source": "https://huggingface.co/LiquidAI/LFM2-350M/raw/f37d3f5c8c5484bc01dad379a595cf4c68c4e70e/LICENSE",
+          "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+          "size": 10596
+        }
+      ],
+      "architecture_from_config": "lfm2",
+      "declared_context_from_config": 128000,
+      "hf_safetensors_element_count": 354483968,
+      "deployment_repo": "LiquidAI/LFM2-350M-GGUF",
+      "deployment_revision": "8fdc9d526b7ed346b19257551b05816c7912ecc2",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "LFM2-350M-Q4_0.gguf",
+          "size": 219306944,
+          "sha256": "8e3ebc1c608dc8683adf8c3b3e6a40e2f4eab22aa33b908bff2ac03a1c16d796",
+          "blob_id": "b15c966671b1e83394431fb640e61b81d973fe7d",
+          "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q4_0.gguf"
+        },
+        {
+          "filename": "LFM2-350M-Q4_K_M.gguf",
+          "size": 229309376,
+          "sha256": "a4d000c7064bd3b2e42c6845836286a899a4e79cf1791da1a6797b58d575957d",
+          "blob_id": "677e871821f6f7ef47c768929f7eb2fc3abd8c3c",
+          "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q4_K_M.gguf"
+        },
+        {
+          "filename": "LFM2-350M-Q8_0.gguf",
+          "size": 379214784,
+          "sha256": "b7bfeab6495a1ae3ae78811c1297df9f301b35261ff9580d42fb30dc4dc9034b",
+          "blob_id": "ee70d584ac038ec8be21edd3925603f112c9907e",
+          "url": "https://huggingface.co/LiquidAI/LFM2-350M-GGUF/resolve/8fdc9d526b7ed346b19257551b05816c7912ecc2/LFM2-350M-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/LiquidAI__LFM2-350M",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "LFM2 700M",
+      "base_model": "LiquidAI/LFM2-700M",
+      "category": "generic-causal-control",
+      "priority": "superseded-control",
+      "why": "Intermediate older checkpoint; lower priority than current230/350M and1.2B bracket.",
+      "base_revision": "86f49fc9a3800c3a325b7320bde179c318062583",
+      "base_card_url": "https://huggingface.co/LiquidAI/LFM2-700M/blob/86f49fc9a3800c3a325b7320bde179c318062583/README.md",
+      "base_gated": false,
+      "publisher_license_label": "other",
+      "license_assessment": "LFM Open License v1.0: copyright and redistribution grants with a commercial-use annual-revenue limitation. The license defines the threshold as $10,000,000 or more, while its grant uses not-exceeding/exceeds language. Preserve the exact text and clarify the boundary if relevant. This is not ordinary Apache 2.0.",
+      "license_sources": [
+        {
+          "path": "evidence/LiquidAI__LFM2-700M/LICENSE",
+          "source": "https://huggingface.co/LiquidAI/LFM2-700M/raw/86f49fc9a3800c3a325b7320bde179c318062583/LICENSE",
+          "sha256": "5188f2b355da20647257a3156db5834c794e5fb5e6d8dc4d4cdbb3180e75b85b",
+          "size": 10596
+        }
+      ],
+      "architecture_from_config": "lfm2",
+      "declared_context_from_config": 128000,
+      "hf_safetensors_element_count": 742489344,
+      "deployment_repo": "LiquidAI/LFM2-700M-GGUF",
+      "deployment_revision": "fd39e80d7a5ac61494ffff577e61bbbfddbd0d02",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "LFM2-700M-Q4_0.gguf",
+          "size": 446321600,
+          "sha256": "bf9c70678aff2a6ee2152b6fef4b2993892eae6449d056cf77cc1e34072424b3",
+          "blob_id": "90c8b088ad13c3c97a5e55e3daaed34952af04b2",
+          "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q4_0.gguf"
+        },
+        {
+          "filename": "LFM2-700M-Q4_K_M.gguf",
+          "size": 468624320,
+          "sha256": "684e8406dc13321452b3f6aeca432776e2a6a7e1ad6c23f7887b8fe3efbe2efa",
+          "blob_id": "30c2fe0c96aa2e7cde60ca3e0e30cbda488b8f41",
+          "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q4_K_M.gguf"
+        },
+        {
+          "filename": "LFM2-700M-Q8_0.gguf",
+          "size": 791565248,
+          "sha256": "0967d902ed270d07cb374a1972bb5da4338d2a303b565cf4eb7948b958e751ab",
+          "blob_id": "e751492913b2085f9f114372e26641dd2a3d7655",
+          "url": "https://huggingface.co/LiquidAI/LFM2-700M-GGUF/resolve/fd39e80d7a5ac61494ffff577e61bbbfddbd0d02/LFM2-700M-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/LiquidAI__LFM2-700M",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Gemma3 1B IT",
+      "base_model": "google/gemma-3-1b-it",
+      "category": "generic-causal-control",
+      "priority": "larger-conditional-control",
+      "why": "Q4 GGUF~806MB, customGemma license; low priority under650MBwholeapp constraint.",
+      "base_revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+      "base_card_url": "https://huggingface.co/google/gemma-3-1b-it/blob/dcc83ea841ab6100d6b47a070329e1ba4cf78752/README.md",
+      "base_gated": "manual",
+      "publisher_license_label": "gemma",
+      "license_assessment": "Custom Gemma model terms and acceptable-use/redistribution conditions; the upstream is gated. Downloading an ungated quantization mirror does not remove those terms.",
+      "license_sources": [],
+      "architecture_from_config": null,
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 999885952,
+      "deployment_repo": "unsloth/gemma-3-1b-it-GGUF",
+      "deployment_revision": "f0b45be0aac41bd6a100a4b5734cad5f67255bfb",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "gemma-3-1b-it-Q4_0.gguf",
+          "size": 721918496,
+          "sha256": "27ee88e03be02e9ba73def9a819d570d8ad73716e50769e87f374ae394b0276e",
+          "blob_id": "c274439f741eb076d538947493f3b856cc6c532d",
+          "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q4_0.gguf"
+        },
+        {
+          "filename": "gemma-3-1b-it-Q4_K_M.gguf",
+          "size": 806058272,
+          "sha256": "8270790f3ab69fdfe860b7b64008d9a19986d8df7e407bb018184caa08798ebd",
+          "blob_id": "ff9788ca686a27155547de254c2351d9a91e24e5",
+          "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q4_K_M.gguf"
+        },
+        {
+          "filename": "gemma-3-1b-it-Q8_0.gguf",
+          "size": 1069306400,
+          "sha256": "616dfb049ad14288d971d96f5ca4953fdebbf1e3cd407ad159f3bfd47090201d",
+          "blob_id": "e47e970e0c3607abb880a2f991008e321fcfb573",
+          "url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF/resolve/f0b45be0aac41bd6a100a4b5734cad5f67255bfb/gemma-3-1b-it-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/google__gemma-3-1b-it",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Llama3.2 1B Instruct",
+      "base_model": "meta-llama/Llama-3.2-1B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "larger-conditional-control",
+      "why": "~808MB Q4 and gatedcustomLlama terms; generic English baseline only.",
+      "base_revision": "9213176726f574b556790deb65791e0c5aa438b6",
+      "base_card_url": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/blob/9213176726f574b556790deb65791e0c5aa438b6/README.md",
+      "base_gated": "manual",
+      "publisher_license_label": "llama3.2",
+      "license_assessment": "Llama 3.2 Community License and acceptable-use policy, with upstream gating and attribution/redistribution/large-scale eligibility terms. Mirror access does not waive those conditions.",
+      "license_sources": [],
+      "architecture_from_config": null,
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 1235814400,
+      "deployment_repo": "unsloth/Llama-3.2-1B-Instruct-GGUF",
+      "deployment_revision": "b69aef112e9f895e6f98d7ae0949f72ff09aa401",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "Llama-3.2-1B-Instruct-Q4_0.gguf",
+          "size": 773025824,
+          "sha256": "66bfbb2d48bdb77cd56bd03ef820deff3c4a74b1a09de3b917ae13e72c1a70c2",
+          "blob_id": "579707257ea751618a586d1d22b22a69e7a28859",
+          "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q4_0.gguf"
+        },
+        {
+          "filename": "Llama-3.2-1B-Instruct-Q4_K_M.gguf",
+          "size": 807694368,
+          "sha256": "3f5a22426976ab26cfe84dba63c1d08391717abb1af893e10f1b2968d862dcc1",
+          "blob_id": "57bccf3bb6a9b5b897d11cdad9bc86e135d24e19",
+          "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+        },
+        {
+          "filename": "Llama-3.2-1B-Instruct-Q8_0.gguf",
+          "size": 1321082528,
+          "sha256": "3f87a880027e7b9ea8e0da9e4009584336f352af444a0e6e5c20721ac4c7ffd1",
+          "blob_id": "8447b8461be98bb9572842fcaa205be84fa887ec",
+          "url": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct-GGUF/resolve/b69aef112e9f895e6f98d7ae0949f72ff09aa401/Llama-3.2-1B-Instruct-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/meta-llama__Llama-3.2-1B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Qwen3.5 2B",
+      "base_model": "Qwen/Qwen3.5-2B",
+      "category": "generic-causal-control",
+      "priority": "larger-quality-control",
+      "why": "~1.28GBQ4 independent size bracket; relevant to VoiceInkRefine base, not CPU650MBcandidate.",
+      "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "base_card_url": "https://huggingface.co/Qwen/Qwen3.5-2B/blob/15852e8c16360a2fea060d615a32b45270f8a8fc/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/Qwen__Qwen3.5-2B/LICENSE",
+          "source": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/15852e8c16360a2fea060d615a32b45270f8a8fc/LICENSE",
+          "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+          "size": 11544
+        }
+      ],
+      "architecture_from_config": "qwen3_5",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 2274069824,
+      "deployment_repo": "unsloth/Qwen3.5-2B-GGUF",
+      "deployment_revision": "f6d5376be1edb4d416d56da11e5397a961aca8ae",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "Qwen3.5-2B-Q4_0.gguf",
+          "size": 1214873856,
+          "sha256": "cd70221bebaee0503e0f6717e174250cd7825aa88438b3aabec9ad55731d9bb1",
+          "blob_id": "70420b8356f1c0ae442b2c55c7e717cce2090ea5",
+          "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_0.gguf"
+        },
+        {
+          "filename": "Qwen3.5-2B-Q4_K_M.gguf",
+          "size": 1280835840,
+          "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+          "blob_id": "2dd42a93d110e1a333c7464693e3c38b979a940e",
+          "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_K_M.gguf"
+        },
+        {
+          "filename": "Qwen3.5-2B-Q8_0.gguf",
+          "size": 2012012800,
+          "sha256": "1b04acba824817554f4ce23639bc8495ff70453b8fcb047900c731521021f2c1",
+          "blob_id": "e9b5735a49b5bab7e33f98d13fba439d85dff6bd",
+          "url": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/Qwen__Qwen3.5-2B",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "SmolLM2 1.7B Instruct",
+      "base_model": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "larger-quality-control",
+      "why": "~1.06GBQ4 official artifact; stronger generic rewrite control than tinySmol models, still no dictation proof.",
+      "base_revision": "31b70e2e869a7173562077fd711b654946d38674",
+      "base_card_url": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct/blob/31b70e2e869a7173562077fd711b654946d38674/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "llama",
+      "declared_context_from_config": 8192,
+      "hf_safetensors_element_count": 1711376384,
+      "deployment_repo": "HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF",
+      "deployment_revision": "2d4a76a30b4af41ecd395c35725ac11688d4cfe4",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "smollm2-1.7b-instruct-q4_k_m.gguf",
+          "size": 1055609536,
+          "sha256": "decd2598bc2c8ed08c19adc3c8fdd461ee19ed5708679d1c54ef54a5a30d4f33",
+          "blob_id": "aabb5a0820f6d3591cf42ba1732c43de785c9f82",
+          "url": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF/resolve/2d4a76a30b4af41ecd395c35725ac11688d4cfe4/smollm2-1.7b-instruct-q4_k_m.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/HuggingFaceTB__SmolLM2-1.7B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Qwen2.5 1.5B Instruct",
+      "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "larger-quality-control",
+      "why": "~1.12GBQ4, older family, duplicate-cost lower priority.",
+      "base_revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "base_card_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/Qwen__Qwen2.5-1.5B-Instruct/LICENSE",
+          "source": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/raw/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/LICENSE",
+          "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "size": 11343
+        }
+      ],
+      "architecture_from_config": "qwen2",
+      "declared_context_from_config": 32768,
+      "hf_safetensors_element_count": 1543714304,
+      "deployment_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+      "deployment_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "qwen2.5-1.5b-instruct-q4_0.gguf",
+          "size": 1066227232,
+          "sha256": "dcd819ff094852c38faba6873d8ff0c9d51eadb2844539e52042ae5d647bbfdb",
+          "blob_id": "7505f23e961ef0d164cc649311ae54b45a7075fa",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q4_0.gguf"
+        },
+        {
+          "filename": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+          "size": 1117320736,
+          "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+          "blob_id": "eca68f83004d8b86fa1742ee507ddee8f4b2abce",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q4_k_m.gguf"
+        },
+        {
+          "filename": "qwen2.5-1.5b-instruct-q8_0.gguf",
+          "size": 1894532128,
+          "sha256": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8",
+          "blob_id": "1ec6832f8c80d58e2efa88832420ec7856e8e7c6",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/91cad51170dc346986eccefdc2dd33a9da36ead9/qwen2.5-1.5b-instruct-q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/Qwen__Qwen2.5-1.5B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Qwen3 1.7B",
+      "base_model": "Qwen/Qwen3-1.7B",
+      "category": "generic-causal-control",
+      "priority": "larger-quality-control",
+      "why": "OfficialQ8~1.83GB; disable thinking. No lower-quant artifact independently pinned in this tranche.",
+      "base_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "base_card_url": "https://huggingface.co/Qwen/Qwen3-1.7B/blob/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/Qwen__Qwen3-1.7B/LICENSE",
+          "source": "https://huggingface.co/Qwen/Qwen3-1.7B/raw/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/LICENSE",
+          "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+          "size": 11343
+        }
+      ],
+      "architecture_from_config": "qwen3",
+      "declared_context_from_config": 40960,
+      "hf_safetensors_element_count": 2031739904,
+      "deployment_repo": "Qwen/Qwen3-1.7B-GGUF",
+      "deployment_revision": "90862c4b9d2787eaed51d12237eafdfe7c5f6077",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "Qwen3-1.7B-Q8_0.gguf",
+          "size": 1834426016,
+          "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+          "blob_id": "53cddf830ca488f735739d5e0b43591544e9ad82",
+          "url": "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/90862c4b9d2787eaed51d12237eafdfe7c5f6077/Qwen3-1.7B-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/Qwen__Qwen3-1.7B",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Granite3.3 2B Instruct",
+      "base_model": "ibm-granite/granite-3.3-2b-instruct",
+      "category": "generic-causal-control",
+      "priority": "larger-quality-control",
+      "why": "Apache2, officialQ4~1.55GB, lower priority than current350Mnano.",
+      "base_revision": "707f574c62054322f6b5b04b6d075f0a8f05e0f0",
+      "base_card_url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct/blob/707f574c62054322f6b5b04b6d075f0a8f05e0f0/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "granite",
+      "declared_context_from_config": 131072,
+      "hf_safetensors_element_count": 2533539840,
+      "deployment_repo": "ibm-granite/granite-3.3-2b-instruct-GGUF",
+      "deployment_revision": "7cdf86ccd1f1bb3491c9b7017b033f2e51367397",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "granite-3.3-2b-instruct-Q4_0.gguf",
+          "size": 1453389088,
+          "sha256": "d5da3f5bb5a6ae442f830bdde0df4fcccb7e8bd395dc9ee5d28e704db4065592",
+          "blob_id": "08af5e19b521d40764540ee82676aedb8a2b60e0",
+          "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q4_0.gguf"
+        },
+        {
+          "filename": "granite-3.3-2b-instruct-Q4_K_M.gguf",
+          "size": 1545303328,
+          "sha256": "ac71e9e32c0bea919b409c5918f69ca74339854b0319c5065e4e9fb6d95c4852",
+          "blob_id": "deca9fb6b8f32488fd5529d63b094c07a3f29beb",
+          "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q4_K_M.gguf"
+        },
+        {
+          "filename": "granite-3.3-2b-instruct-Q8_0.gguf",
+          "size": 2694120096,
+          "sha256": "39068a5bcb15f10487a49426d617b1b0f38a624d7dbdefe5ff6f26de82d97039",
+          "blob_id": "d43e29b47f84db9f5db97be535c281c775477e5b",
+          "url": "https://huggingface.co/ibm-granite/granite-3.3-2b-instruct-GGUF/resolve/7cdf86ccd1f1bb3491c9b7017b033f2e51367397/granite-3.3-2b-instruct-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/ibm-granite__granite-3.3-2b-instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "TinyLlama1.1B Chat",
+      "base_model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "category": "generic-causal-control",
+      "priority": "older-generic-control",
+      "why": "Apache2 butQ4~669MBbefore runtime; old chat checkpoint not specialized cleanup.",
+      "base_revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+      "base_card_url": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/blob/fe8a4ea1ffedaf415f4da2f062534de366a451e6/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "llama",
+      "declared_context_from_config": 2048,
+      "hf_safetensors_element_count": 1100048384,
+      "deployment_repo": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
+      "deployment_revision": "52e7645ba7c309695bec7ac98f4f005b139cf465",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "tinyllama-1.1b-chat-v1.0.Q4_0.gguf",
+          "size": 637699456,
+          "sha256": "da3087fb14aede55fde6eb81a0e55e886810e43509ec82ecdc7aa5d62a03b556",
+          "blob_id": "fee5bc6db3d3a837183f00d506cc171ecc0388dc",
+          "url": "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/52e7645ba7c309695bec7ac98f4f005b139cf465/tinyllama-1.1b-chat-v1.0.Q4_0.gguf"
+        },
+        {
+          "filename": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+          "size": 668788096,
+          "sha256": "9fecc3b3cd76bba89d504f29b616eedf7da85b96540e490ca5824d3f7d2776a0",
+          "blob_id": "e373839887c5ea4ce53051edb9f7a6dcd62a844a",
+          "url": "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/52e7645ba7c309695bec7ac98f4f005b139cf465/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
+        },
+        {
+          "filename": "tinyllama-1.1b-chat-v1.0.Q8_0.gguf",
+          "size": 1170781568,
+          "sha256": "a4c9bb1dbaa372f6381a035fa5c02ef087aaa1ff1f843a56a22328114f03fc59",
+          "blob_id": "da0fc9dca55442146b03183c50f7c7ef3dfd4fa9",
+          "url": "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/52e7645ba7c309695bec7ac98f4f005b139cf465/tinyllama-1.1b-chat-v1.0.Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/TinyLlama__TinyLlama-1.1B-Chat-v1.0",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Hunyuan0.5B Instruct",
+      "base_model": "tencent/Hunyuan-0.5B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "restricted-distribution-control",
+      "why": "Real compact instruct model but customregional/branding/license restrictions complicate globally distributedFreehand.",
+      "base_revision": "2359fb220c010e9d6d62c62d466f0eda179c2cf3",
+      "base_card_url": "https://huggingface.co/tencent/Hunyuan-0.5B-Instruct/blob/2359fb220c010e9d6d62c62d466f0eda179c2cf3/README.md",
+      "base_gated": false,
+      "publisher_license_label": null,
+      "license_assessment": "Tencent Hunyuan Community License, including territorial exclusions for the EU, UK and South Korea, plus redistribution/attribution/naming conditions. Two license filenames have different model-family headings and require exact handling.",
+      "license_sources": [
+        {
+          "path": "evidence/tencent__Hunyuan-0.5B-Instruct/LICENSE",
+          "source": "https://huggingface.co/tencent/Hunyuan-0.5B-Instruct/raw/2359fb220c010e9d6d62c62d466f0eda179c2cf3/LICENSE",
+          "sha256": "a82a277ebb5d9d0246751b0b042b141a22930a637c2685fec72fb08db445be47",
+          "size": 15525
+        },
+        {
+          "path": "evidence/tencent__Hunyuan-0.5B-Instruct/LICENSE.txt",
+          "source": "https://huggingface.co/tencent/Hunyuan-0.5B-Instruct/raw/2359fb220c010e9d6d62c62d466f0eda179c2cf3/LICENSE.txt",
+          "sha256": "0d666200251ceb38448241425d0d7d5d9ccf2f330d5385b8104a2ba98ad748e8",
+          "size": 15519
+        }
+      ],
+      "architecture_from_config": "hunyuan_v1_dense",
+      "declared_context_from_config": 262144,
+      "hf_safetensors_element_count": 539010048,
+      "deployment_repo": "bartowski/tencent_Hunyuan-0.5B-Instruct-GGUF",
+      "deployment_revision": "13f644b4c489c577f186b77f268e5e598a3ad4c7",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "tencent_Hunyuan-0.5B-Instruct-Q4_0.gguf",
+          "size": 341060448,
+          "sha256": "c60e1323d67f82c6d65e79454dc4ecd0f5891da38d7becd3146648ac01550234",
+          "blob_id": "89d1756e87f20e78927b850743dbde5e4e5a989d",
+          "url": "https://huggingface.co/bartowski/tencent_Hunyuan-0.5B-Instruct-GGUF/resolve/13f644b4c489c577f186b77f268e5e598a3ad4c7/tencent_Hunyuan-0.5B-Instruct-Q4_0.gguf"
+        },
+        {
+          "filename": "tencent_Hunyuan-0.5B-Instruct-Q4_K_M.gguf",
+          "size": 354970464,
+          "sha256": "0820d20c5fb0e4d5e1b9ec660aae6996676280486c9dae17475708efe60b3f2d",
+          "blob_id": "d8cf672095d8e504a5a305e2c4856060bb78bbb0",
+          "url": "https://huggingface.co/bartowski/tencent_Hunyuan-0.5B-Instruct-GGUF/resolve/13f644b4c489c577f186b77f268e5e598a3ad4c7/tencent_Hunyuan-0.5B-Instruct-Q4_K_M.gguf"
+        },
+        {
+          "filename": "tencent_Hunyuan-0.5B-Instruct-Q8_0.gguf",
+          "size": 577953216,
+          "sha256": "802e93eb14c3d01b926ff3944a775a1968ff7c039c2ab734dad9ba1b40d0cb9a",
+          "blob_id": "ebc614e5bd4a0a3393664bc90b5a2c3605e51d6e",
+          "url": "https://huggingface.co/bartowski/tencent_Hunyuan-0.5B-Instruct-GGUF/resolve/13f644b4c489c577f186b77f268e5e598a3ad4c7/tencent_Hunyuan-0.5B-Instruct-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/tencent__Hunyuan-0.5B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Hunyuan1.8B Instruct",
+      "base_model": "tencent/Hunyuan-1.8B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "restricted-distribution-control",
+      "why": "Larger customlicensed instruction family; no deploymentartifact pinned here because lowerpriority.",
+      "base_revision": "de940610ab5d45b4fedbd37e08444d0dc502837c",
+      "base_card_url": "https://huggingface.co/tencent/Hunyuan-1.8B-Instruct/blob/de940610ab5d45b4fedbd37e08444d0dc502837c/README.md",
+      "base_gated": false,
+      "publisher_license_label": null,
+      "license_assessment": "Tencent Hunyuan Community License, including territorial exclusions for the EU, UK and South Korea, plus redistribution/attribution/naming conditions. Two license filenames have different model-family headings and require exact handling.",
+      "license_sources": [
+        {
+          "path": "evidence/tencent__Hunyuan-1.8B-Instruct/LICENSE",
+          "source": "https://huggingface.co/tencent/Hunyuan-1.8B-Instruct/raw/de940610ab5d45b4fedbd37e08444d0dc502837c/LICENSE",
+          "sha256": "a01de40400259e000371b84bd112e3a42fbeb33d042bf56dec7cd827c688a63f",
+          "size": 15525
+        },
+        {
+          "path": "evidence/tencent__Hunyuan-1.8B-Instruct/LICENSE.txt",
+          "source": "https://huggingface.co/tencent/Hunyuan-1.8B-Instruct/raw/de940610ab5d45b4fedbd37e08444d0dc502837c/LICENSE.txt",
+          "sha256": "0d666200251ceb38448241425d0d7d5d9ccf2f330d5385b8104a2ba98ad748e8",
+          "size": 15519
+        }
+      ],
+      "architecture_from_config": "hunyuan_v1_dense",
+      "declared_context_from_config": 262144,
+      "hf_safetensors_element_count": 1791080448,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/tencent__Hunyuan-1.8B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Falcon3 1B Instruct",
+      "base_model": "tiiuae/Falcon3-1B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "lower-priority-custom-license",
+      "why": "OfficialQ4~1.06GB and customFalcon2.0 terms, not strong firstpassfit.",
+      "base_revision": "28ba2251970a01dd1edc7ba7dad2eb71216ccfdf",
+      "base_card_url": "https://huggingface.co/tiiuae/Falcon3-1B-Instruct/blob/28ba2251970a01dd1edc7ba7dad2eb71216ccfdf/README.md",
+      "base_gated": false,
+      "publisher_license_label": "other",
+      "license_assessment": "Custom publisher terms require version-specific review. The card identifies Falcon LLM License 2.0, but the linked live terms page does not clearly identify that version in extracted text; full terms remain unresolved for this candidate.",
+      "license_sources": [],
+      "architecture_from_config": "llama",
+      "declared_context_from_config": 8192,
+      "hf_safetensors_element_count": 1669408768,
+      "deployment_repo": "tiiuae/Falcon3-1B-Instruct-GGUF",
+      "deployment_revision": "fc404df7cfbd32eaefbcbeb2079aba684e894d39",
+      "deployment_publisher": "official",
+      "artifacts": [
+        {
+          "filename": "Falcon3-1B-Instruct-q4_0.gguf",
+          "size": 1013250176,
+          "sha256": "3b46b6e6e7c98208328c41522b9508a475aa667769b8ce0014eebe45a94a1899",
+          "blob_id": "be9998428bf17c83ceda6d2707ac23e1c738a795",
+          "url": "https://huggingface.co/tiiuae/Falcon3-1B-Instruct-GGUF/resolve/fc404df7cfbd32eaefbcbeb2079aba684e894d39/Falcon3-1B-Instruct-q4_0.gguf"
+        },
+        {
+          "filename": "Falcon3-1B-Instruct-q4_k_m.gguf",
+          "size": 1057044608,
+          "sha256": "54a4d303f5fb238db640433a61a600e308bfbb40cca2d7b451092e247df46616",
+          "blob_id": "139bd1dfd4ee5fb154955de1f9a9a09f5470ba6e",
+          "url": "https://huggingface.co/tiiuae/Falcon3-1B-Instruct-GGUF/resolve/fc404df7cfbd32eaefbcbeb2079aba684e894d39/Falcon3-1B-Instruct-q4_k_m.gguf"
+        },
+        {
+          "filename": "Falcon3-1B-Instruct-q8_0.gguf",
+          "size": 1778710656,
+          "sha256": "dda44709157103fc272ea3c44ae0deb7fbec5b2d82b313362680dec08e66f57a",
+          "blob_id": "a943f1d33cbc85387ee271bad7875365955562a3",
+          "url": "https://huggingface.co/tiiuae/Falcon3-1B-Instruct-GGUF/resolve/fc404df7cfbd32eaefbcbeb2079aba684e894d39/Falcon3-1B-Instruct-q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/tiiuae__Falcon3-1B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "RWKV7 World0.1B HF",
+      "base_model": "RWKV/RWKV7-Goose-World2.8-0.1B-HF",
+      "category": "generic-causal-control",
+      "priority": "architecture-research-control",
+      "why": "Officialcard counts191M, not100M; constant-state family and third-partyQ4~133MB. Cleanup training/quality unknown.",
+      "base_revision": "d81965cb4e1a9f96696b4f70b84212b8f2e43216",
+      "base_card_url": "https://huggingface.co/RWKV/RWKV7-Goose-World2.8-0.1B-HF/blob/d81965cb4e1a9f96696b4f70b84212b8f2e43216/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "rwkv7",
+      "declared_context_from_config": 2048,
+      "hf_safetensors_element_count": 191034624,
+      "deployment_repo": "mradermacher/RWKV7-Goose-World2.8-0.1B-HF-GGUF",
+      "deployment_revision": "03e6098d69aa0bc541e263163b468aff15705bb4",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "RWKV7-Goose-World2.8-0.1B-HF.Q4_K_M.gguf",
+          "size": 132550272,
+          "sha256": "9701b44edae218b8028b6d6131e209f5d76688cd11c670da27d1e0752f8f4a32",
+          "blob_id": "08e523dd174bcc9dab9fa578a70aa8c70a6ad0dd",
+          "url": "https://huggingface.co/mradermacher/RWKV7-Goose-World2.8-0.1B-HF-GGUF/resolve/03e6098d69aa0bc541e263163b468aff15705bb4/RWKV7-Goose-World2.8-0.1B-HF.Q4_K_M.gguf"
+        },
+        {
+          "filename": "RWKV7-Goose-World2.8-0.1B-HF.Q8_0.gguf",
+          "size": 212373120,
+          "sha256": "910b96e366b6b32dfde744dada268ca2c579b5f11160ac28e3de487ebc58c044",
+          "blob_id": "e952606b76ee132b6c3eec04cd57befcd252fed8",
+          "url": "https://huggingface.co/mradermacher/RWKV7-Goose-World2.8-0.1B-HF-GGUF/resolve/03e6098d69aa0bc541e263163b468aff15705bb4/RWKV7-Goose-World2.8-0.1B-HF.Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/RWKV__RWKV7-Goose-World2.8-0.1B-HF",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "RWKV7 World0.4B HF",
+      "base_model": "RWKV/RWKV7-Goose-World2.9-0.4B-HF",
+      "category": "generic-causal-control",
+      "priority": "architecture-research-control",
+      "why": "Small recurrentalternative, no selectedGGUF pinned in this tranche and no cleanup evaluation.",
+      "base_revision": "e94655a9fad2c8da9f25aba575d8f0fdedc05931",
+      "base_card_url": "https://huggingface.co/RWKV/RWKV7-Goose-World2.9-0.4B-HF/blob/e94655a9fad2c8da9f25aba575d8f0fdedc05931/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "rwkv7",
+      "declared_context_from_config": 2048,
+      "hf_safetensors_element_count": 450767872,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/RWKV__RWKV7-Goose-World2.9-0.4B-HF",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "RWKV7 G1k1.5B",
+      "base_model": "RWKV/RWKV7-G1k-1.5B-20260930",
+      "category": "generic-causal-control",
+      "priority": "architecture-research-control",
+      "why": "Current officialcard calls thisbase despitechattemplate; would need posttraining/evaluation, notreadycleanup.",
+      "base_revision": "4923bf404162999e336cb32289d8a9f93ad83de3",
+      "base_card_url": "https://huggingface.co/RWKV/RWKV7-G1k-1.5B-20260930/blob/4923bf404162999e336cb32289d8a9f93ad83de3/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [
+        {
+          "path": "evidence/RWKV__RWKV7-G1k-1.5B-20260930/LICENSE",
+          "source": "https://huggingface.co/RWKV/RWKV7-G1k-1.5B-20260930/raw/4923bf404162999e336cb32289d8a9f93ad83de3/LICENSE",
+          "sha256": "475641f33cfd755f19245d2eb6a6d8fb7fdca60835cfa369b7e3774460409cc4",
+          "size": 11357
+        },
+        {
+          "path": "evidence/RWKV__RWKV7-G1k-1.5B-20260930/NOTICE",
+          "source": "https://huggingface.co/RWKV/RWKV7-G1k-1.5B-20260930/raw/4923bf404162999e336cb32289d8a9f93ad83de3/NOTICE",
+          "sha256": "b5c27b46b6a83fde1c14010880b6538c833517593869863a7e3c4dc387eed840",
+          "size": 254
+        }
+      ],
+      "architecture_from_config": "rwkv7",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 1527668736,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/RWKV__RWKV7-G1k-1.5B-20260930",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "OpenELM270M Instruct",
+      "base_model": "apple/OpenELM-270M-Instruct",
+      "category": "generic-causal-control",
+      "priority": "exclude-product-license",
+      "why": "AppleAMLR explicitly excludes productdevelopment andcommercialuse. Research-onlyterms are not ordinaryMIT/Apache.",
+      "base_revision": "63dfa9dcea6b8679035a75102f8a7b647da69ef6",
+      "base_card_url": "https://huggingface.co/apple/OpenELM-270M-Instruct/blob/63dfa9dcea6b8679035a75102f8a7b647da69ef6/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apple-amlr",
+      "license_assessment": "Apple Machine Learning Research Model License. Restricted to research purposes and expressly excludes product development and commercial products/services; exclude from the Freehand product pipeline without separate rights.",
+      "license_sources": [
+        {
+          "path": "evidence/apple__OpenELM-270M-Instruct/LICENSE",
+          "source": "https://huggingface.co/apple/OpenELM-270M-Instruct/raw/63dfa9dcea6b8679035a75102f8a7b647da69ef6/LICENSE",
+          "sha256": "d8f5d9dfbdb60dc81b8f1720421699e7811070f0b46f6668f90253d5ac8c0b20",
+          "size": 5820
+        }
+      ],
+      "architecture_from_config": "openelm",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 271527168,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/apple__OpenELM-270M-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "OpenELM450M Instruct",
+      "base_model": "apple/OpenELM-450M-Instruct",
+      "category": "generic-causal-control",
+      "priority": "exclude-product-license",
+      "why": "SameAMLR productdevelopment restriction; no need invest in deploymentartifact.",
+      "base_revision": "d81e0fec8c7361a215272c9505bb44d1622a491b",
+      "base_card_url": "https://huggingface.co/apple/OpenELM-450M-Instruct/blob/d81e0fec8c7361a215272c9505bb44d1622a491b/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apple-amlr",
+      "license_assessment": "Apple Machine Learning Research Model License. Restricted to research purposes and expressly excludes product development and commercial products/services; exclude from the Freehand product pipeline without separate rights.",
+      "license_sources": [
+        {
+          "path": "evidence/apple__OpenELM-450M-Instruct/LICENSE",
+          "source": "https://huggingface.co/apple/OpenELM-450M-Instruct/raw/d81e0fec8c7361a215272c9505bb44d1622a491b/LICENSE",
+          "sha256": "d8f5d9dfbdb60dc81b8f1720421699e7811070f0b46f6668f90253d5ac8c0b20",
+          "size": 5820
+        }
+      ],
+      "architecture_from_config": "openelm",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 457179136,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/apple__OpenELM-450M-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "OpenELM1.1B Instruct",
+      "base_model": "apple/OpenELM-1_1B-Instruct",
+      "category": "generic-causal-control",
+      "priority": "exclude-product-license",
+      "why": "SameAMLR restriction pluslargerweightclass.",
+      "base_revision": "effd796da2a77361d7360e45e54c7cc14bc5df2a",
+      "base_card_url": "https://huggingface.co/apple/OpenELM-1_1B-Instruct/blob/effd796da2a77361d7360e45e54c7cc14bc5df2a/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apple-amlr",
+      "license_assessment": "Apple Machine Learning Research Model License. Restricted to research purposes and expressly excludes product development and commercial products/services; exclude from the Freehand product pipeline without separate rights.",
+      "license_sources": [
+        {
+          "path": "evidence/apple__OpenELM-1_1B-Instruct/LICENSE",
+          "source": "https://huggingface.co/apple/OpenELM-1_1B-Instruct/raw/effd796da2a77361d7360e45e54c7cc14bc5df2a/LICENSE",
+          "sha256": "d8f5d9dfbdb60dc81b8f1720421699e7811070f0b46f6668f90253d5ac8c0b20",
+          "size": 5820
+        }
+      ],
+      "architecture_from_config": "openelm",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 1079891456,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/apple__OpenELM-1_1B-Instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "MobileLLM125M",
+      "base_model": "facebook/MobileLLM-125M",
+      "category": "generic-causal-control",
+      "priority": "exclude-product-license",
+      "why": "Manuallygated FAIRNoncommercialResearch; no authorized productdeployment and notselectedcleanupcheckpoint.",
+      "base_revision": "f6820a829b347aaa6674a705c82be3db47b1f9ee",
+      "base_card_url": "https://huggingface.co/facebook/MobileLLM-125M/blob/f6820a829b347aaa6674a705c82be3db47b1f9ee/README.md",
+      "base_gated": "manual",
+      "publisher_license_label": "other",
+      "license_assessment": "FAIR Noncommercial Research License, captured in the public Hugging Face gated metadata. Weights are manually gated. No commercial-product clearance was established.",
+      "license_sources": [
+        {
+          "path": "evidence/facebook__MobileLLM-125M/gated-license-prompt.txt",
+          "source": "https://huggingface.co/api/models/facebook/MobileLLM-125M",
+          "kind": "public gated metadata prompt snapshot",
+          "sha256": "e77a16f3c80b0b07e6c8a9b7235079d93f2087b1f873900796318ce5e7e7b467",
+          "size": 11586
+        }
+      ],
+      "architecture_from_config": null,
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": null,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/facebook__MobileLLM-125M",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "MobileLLM350M",
+      "base_model": "facebook/MobileLLM-350M",
+      "category": "generic-causal-control",
+      "priority": "exclude-product-license",
+      "why": "SameFAIR noncommercialresearchterms; compactname alone notproductioncandidate.",
+      "base_revision": "fdb431e7ed8af3c2f32f7705e9d8523575e55cab",
+      "base_card_url": "https://huggingface.co/facebook/MobileLLM-350M/blob/fdb431e7ed8af3c2f32f7705e9d8523575e55cab/README.md",
+      "base_gated": "manual",
+      "publisher_license_label": "other",
+      "license_assessment": "FAIR Noncommercial Research License, captured in the public Hugging Face gated metadata. Weights are manually gated. No commercial-product clearance was established.",
+      "license_sources": [
+        {
+          "path": "evidence/facebook__MobileLLM-350M/gated-license-prompt.txt",
+          "source": "https://huggingface.co/api/models/facebook/MobileLLM-350M",
+          "kind": "public gated metadata prompt snapshot",
+          "sha256": "e77a16f3c80b0b07e6c8a9b7235079d93f2087b1f873900796318ce5e7e7b467",
+          "size": 11586
+        }
+      ],
+      "architecture_from_config": null,
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": null,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/facebook__MobileLLM-350M",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "SmolLM3 3B",
+      "base_model": "HuggingFaceTB/SmolLM3-3B",
+      "category": "generic-causal-control",
+      "priority": "exclude-size-for-first-pass",
+      "why": "LatestSmolLMgenerationverifiedhere is3B, not135M/360Mreplacement; broaderqualitycontrolonly.",
+      "base_revision": "a07cc9a04f16550a088caea529712d1d335b0ac1",
+      "base_card_url": "https://huggingface.co/HuggingFaceTB/SmolLM3-3B/blob/a07cc9a04f16550a088caea529712d1d335b0ac1/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "smollm3",
+      "declared_context_from_config": 65536,
+      "hf_safetensors_element_count": 3075098624,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/HuggingFaceTB__SmolLM3-3B",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Phi4 mini Instruct",
+      "base_model": "microsoft/Phi-4-mini-instruct",
+      "category": "generic-causal-control",
+      "priority": "exclude-size-for-first-pass",
+      "why": "MIT but3.8B model despitemini name; outsidecompactfirstpass.",
+      "base_revision": "cfbefacb99257ffa30c83adab238a50856ac3083",
+      "base_card_url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/README.md",
+      "base_gated": false,
+      "publisher_license_label": "mit",
+      "license_assessment": "Custom publisher terms require version-specific review. The card identifies Falcon LLM License 2.0, but the linked live terms page does not clearly identify that version in extracted text; full terms remain unresolved for this candidate.",
+      "license_sources": [
+        {
+          "path": "evidence/microsoft__Phi-4-mini-instruct/LICENSE",
+          "source": "https://huggingface.co/microsoft/Phi-4-mini-instruct/raw/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE",
+          "sha256": "fa8235e5b48faca34e3ca98cf4f694ef08bd216d28b58071a1f85b1d50cb814d",
+          "size": 1084
+        }
+      ],
+      "architecture_from_config": "phi3",
+      "declared_context_from_config": 131072,
+      "hf_safetensors_element_count": 3836021760,
+      "deployment_repo": null,
+      "deployment_revision": null,
+      "deployment_publisher": null,
+      "artifacts": [],
+      "evidence_directory": "evidence/microsoft__Phi-4-mini-instruct",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    },
+    {
+      "name": "Gemma4 E2B IT",
+      "base_model": "google/gemma-4-E2B-it",
+      "category": "generic-causal-control",
+      "priority": "exclude-size-for-first-pass",
+      "why": "Apache2 but2.3Beffective/5.1Bincludingembeddings; realQ4~3.11GB. Effective parametercount is notweightRAM.",
+      "base_revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+      "base_card_url": "https://huggingface.co/google/gemma-4-E2B-it/blob/3e22461f65e89153144f8adb70e3b8c2cc9845a7/README.md",
+      "base_gated": false,
+      "publisher_license_label": "apache-2.0",
+      "license_assessment": "Publisher declares Apache 2.0. Retain its license text, model card and any applicable notices. Standalone license-file availability is separately recorded.",
+      "license_sources": [],
+      "architecture_from_config": "gemma4",
+      "declared_context_from_config": null,
+      "hf_safetensors_element_count": 5123178051,
+      "deployment_repo": "unsloth/gemma-4-E2B-it-GGUF",
+      "deployment_revision": "0314792d7f1f7e229411f620751375812bb9faf2",
+      "deployment_publisher": "third-party",
+      "artifacts": [
+        {
+          "filename": "gemma-4-E2B-it-Q4_0.gguf",
+          "size": 3041378400,
+          "sha256": "31d3a3c630d4e71a7416498c42660dd3805066948acaec76a47e1ffac7010132",
+          "blob_id": "9e6c22d2ef78f6414e4653c444859775895b5761",
+          "url": "https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/resolve/0314792d7f1f7e229411f620751375812bb9faf2/gemma-4-E2B-it-Q4_0.gguf"
+        },
+        {
+          "filename": "gemma-4-E2B-it-Q4_K_M.gguf",
+          "size": 3106738272,
+          "sha256": "740185b21d22ceb83a11c3aa62ad5842ef32c70f6096d756bbee85a1e4ec34b8",
+          "blob_id": "f85af28d6ef5829b4b833b787760f2af64110c84",
+          "url": "https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/resolve/0314792d7f1f7e229411f620751375812bb9faf2/gemma-4-E2B-it-Q4_K_M.gguf"
+        },
+        {
+          "filename": "gemma-4-E2B-it-Q8_0.gguf",
+          "size": 5048352864,
+          "sha256": "605d3c2647d7c58c1e4b5375ccb5702acf94c2611b4c8d4877812f8fdd32d053",
+          "blob_id": "567c1ce969ab8d5a45bdaa522fa94739d771d219",
+          "url": "https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/resolve/0314792d7f1f7e229411f620751375812bb9faf2/gemma-4-E2B-it-Q8_0.gguf"
+        }
+      ],
+      "evidence_directory": "evidence/google__gemma-4-E2B-it",
+      "inference_tested_this_research": false,
+      "full_weights_downloaded_this_research": false,
+      "complete_file_sha_verified_this_research": false
+    }
+  ],
+  "unresolved_repository_endpoints": [
+    {
+      "id": "HuggingFaceTB/SmolLM2-135M-Instruct-GGUF",
+      "error": "HTTP Error 401: Unauthorized",
+      "metadata_url": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-135M-Instruct-GGUF?blobs=true"
+    },
+    {
+      "id": "google/gemma-3-270m-it-qat-q4_0-gguf",
+      "error": "HTTP Error 401: Unauthorized",
+      "metadata_url": "https://huggingface.co/api/models/google/gemma-3-270m-it-qat-q4_0-gguf?blobs=true"
+    },
+    {
+      "id": "TinyLlama/TinyLlama-1.1B-Chat-v1.0-GGUF",
+      "error": "HTTP Error 401: Unauthorized",
+      "metadata_url": "https://huggingface.co/api/models/TinyLlama/TinyLlama-1.1B-Chat-v1.0-GGUF?blobs=true"
+    }
+  ],
+  "family_groups": [
+    "LFM",
+    "Granite",
+    "SmolLM",
+    "ERNIE",
+    "Qwen",
+    "Gemma",
+    "Llama",
+    "TinyLlama",
+    "Hunyuan",
+    "Falcon",
+    "RWKV",
+    "OpenELM",
+    "MobileLLM",
+    "Phi"
+  ],
+  "family_group_count": 14
+}

@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-30T20:47:25.767879+00:00",
+  "status": "research_plan_only_no_new_model_inference",
+  "scope": "Initial controlled POCs; no app/package/runtime settings changed. Candidate artifact pins/licenses come from the merged research inventory.",
+  "targets": {
+    "total_system_ram_bytes": 650000000,
+    "key_release_to_complete_text_receipt_ms": 700,
+    "readiness": "Explicitly distinguish initial startup, already-ready warm, first use after idle, and forced-fresh recovery.",
+    "memory_policy": "Simultaneous desktop+all owned ASR/cleanup working sets plus shared GPU memory; dedicated VRAM and private commit separately; do not subtract presumed overlaps."
+  },
+  "runtime_reference": {
+    "name": "llama.cpp",
+    "tag": "b12015",
+    "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+    "linux_help_executable_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+    "note": "Current Freehand manifests are CPU-only. Windows GPU POCs require different complete verified runtime artifacts and positive worker telemetry."
+  },
+  "cpu_start_profile": {
+    "common_args": [
+      "--parallel",
+      "1",
+      "--threads",
+      "4",
+      "--threads-batch",
+      "4",
+      "--cache-ram",
+      "0",
+      "--ctx-checkpoints",
+      "0",
+      "--no-cache-idle-slots",
+      "--batch-size",
+      "128",
+      "--ubatch-size",
+      "128",
+      "--no-context-shift",
+      "--no-webui",
+      "--no-slots",
+      "--no-mmproj",
+      "--offline"
+    ],
+    "context_tiers": [
+      {
+        "context_tokens": 1024,
+        "max_output_tokens": 384,
+        "max_complete_prompt_tokens": 640
+      },
+      {
+        "context_tokens": 2048,
+        "max_output_tokens": 768,
+        "max_complete_prompt_tokens": 1280
+      }
+    ],
+    "kv_types": {
+      "K": "f16",
+      "V": "f16"
+    },
+    "gpu_layers": 0,
+    "batch_note": "128/128 is a proposed measurement point, not a proven optimal value.",
+    "sampling": {
+      "greedy": true,
+      "seed": 0,
+      "thinking": false
+    },
+    "request_cache_prompt": false,
+    "prompt_policy": "Specialists use exact prescribed system/control/template. No generic JSON envelope unless their trained contract permits it. General controls use a frozen minimal editing policy.",
+    "output_policy": "Allow enough room for complete utterance, validate EOS/stop vs length, never truncate or silently chunk to manufacture a fast score.",
+    "literal_policy": "Run native-contract diagnostics and separate actual Core dictionary integration. Existing opaque IDs are a condition to validate, not presumed supported by a new model."
+  },
+  "initial_pocs": [
+    {
+      "id": "P1",
+      "candidate": "superwhisper/s1-mini-GGUF official Q4_K_M",
+      "backend": "CPU",
+      "purpose": "Exact trained contract, compact context, independent cost/quality baseline."
+    },
+    {
+      "id": "P2",
+      "candidate": "same exact artifact as P1",
+      "backend": "CPU",
+      "purpose": "Individual one-factor subtrials q8_0 KV; no-repack; context1024vs2048; batch256/128; threads2vs4. Never change all at once and attribute savings to one factor.",
+      "after": "P1 quality and complete-output correctness"
+    },
+    {
+      "id": "P3",
+      "candidate": "same artifact/prompt as P1",
+      "backend": "Windows Vulkan discrete GPU",
+      "purpose": "Full layer/KV offload attempt, real backend/device/telemetry, ASR plus cleanup together.",
+      "requirements": [
+        "verified GPU runtime archive and complete inventory",
+        "actual discrete-device selection",
+        "no silent CPU fallback claim",
+        "RAM/sharedGPU/privatecommit/dedicatedVRAM capture"
+      ]
+    },
+    {
+      "id": "P4",
+      "candidate": "elbruno/s1-mini-onnx INT4 at4231669ff51c8fb53315beadfe2311975d06169d",
+      "backend": "isolated CPU ORT GenAI worker",
+      "purpose": "Ready alternative quantized implementation, not engine-only equivalence experiment.",
+      "requirements": [
+        "no main-app ONNX dependency change beside sherpa runtime",
+        "explicit prepared ModelPath and no automatic acquisition",
+        "cap generation/context/state allocation",
+        "validate known integration guards and complete-output contract",
+        "retain original S1 NOTICE plus derivative license evidence"
+      ]
+    },
+    {
+      "id": "P5",
+      "candidate": "IBM Granite4.0 H-350M Q4_K_M from verified inventory",
+      "backend": "CPU",
+      "purpose": "Permissive small generic hybrid-state control; state allocation measured per architecture."
+    },
+    {
+      "id": "P6",
+      "candidate": "IBM Granite4.0 350M dense Q4_K_M from verified inventory",
+      "backend": "CPU",
+      "purpose": "Paired dense architecture control; avoid assigning hybrid KV formula to dense or vice versa."
+    },
+    {
+      "id": "P7",
+      "candidate": "LiquidAI LFM2.5 230M Q4_K_M, or strongest verified permissive tiny specialist",
+      "backend": "CPU",
+      "purpose": "Very small packed-weight feasibility candidate, quality unproved.",
+      "requirements": [
+        "resolve conditional/revenue-gated license for intended use before redistribution",
+        "verify exact published artifact and supported chat contract"
+      ]
+    },
+    {
+      "id": "P8",
+      "candidate": "best faithful measured candidate from P1-P7",
+      "backend": "same selected baseline backend",
+      "purpose": "Compare no-extra-model ngram-simple or ngram-mod target-verified speculation.",
+      "requirements": [
+        "count extra memory (ngram-mod roughly16MB pool)",
+        "compare exact greedy returns and semantic review",
+        "record acceptance lengths and cost rather than assume speedup",
+        "never use synthetic-acceptance flags"
+      ]
+    }
+  ],
+  "measurements": [
+    "immutable model/runtime/quant/tokenizer/template/adapter/source hashes",
+    "input and output token counts and full raw model returns",
+    "provider-restored candidates, final Core results, fallback reasons and accepted coverage separately",
+    "semantic fidelity and complete/partial/missed cleanup on already-normalized baseline",
+    "hash time, load/readiness, template/tokenization, prefill/decode and complete delivery where observable",
+    "simultaneous all-owned-process RSS/working set, private resident/commit, shared and dedicated GPU gauges",
+    "context/checkpoint/cache/model/compute allocations where source/runtime exposes them",
+    "cold start, ready warm, idle reuse, unique-prompt retention growth, teardown/cancellation/worker recovery",
+    "CPU/GPU device, power/performance state, OS/driver/backend versions, ASR contention, thermal conditions"
+  ],
+  "go_no_go": [
+    "No accepted meaning-changing edit on protected cases; report uncertainty and finite-test limits.",
+    "Do not count code-restored bytes, fallback or merely answering a question as cleanup success.",
+    "Full normalized dictionary semantics, literal bytes/order, one delivery maximum, complete-response validation and original recovery preserved.",
+    "No final production selection from isolated model/RSS or first-token results; joint actual Windows app must pass its declared cost policy.",
+    "Missing/invalid GPU telemetry invalidates GPU proof.",
+    "License ambiguity, unsupported backend/input contract, repeated incomplete returns or high bypass rate blocks claimed completion."
+  ],
+  "holdout_policy": "Previously inspected90case corpus and30heldout are now development/regression/validation. Freeze selected candidate+all settings before a fresh untouched holdout. A revision after observing its failures needs fresh finalholdout; do not relabel reused cases independent.",
+  "not_established": [
+    "Any small candidate meets all quality and SLA requirements.",
+    "Any specific cache/repack setting caused the earlier9.7GiB peak.",
+    "Any Windows GPU or NPU inference performance from this Linux research.",
+    "Any new bound on user microphone accuracy or physical delivery."
+  ]
+}
