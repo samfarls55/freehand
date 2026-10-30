@@ -168,14 +168,19 @@ internal static class EngineeringChecks
                     report.PreparedWorkerId = preparedWorker;
                     foreach (var seconds in new[] { 1, 3, 8, 10 })
                     {
-                        // Keep the actual prepared model, but allow GPU clocks to
-                        // settle before every first-after-idle recording.
+                        // Exclude the preceding recording's in-flight preparation
+                        // drain before checking for work during the measured idle.
+                        await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);
+                        var idlePreparationCount = speech.PreparationCount;
                         var idleAt = Stopwatch.GetTimestamp();
                         await Task.Delay(TimeSpan.FromSeconds(15)).ConfigureAwait(false);
                         report.ReadyIdleMilliseconds.Add(Stopwatch.GetElapsedTime(idleAt).TotalMilliseconds);
+                        report.ReadyIdlePreparationCounts.Add(speech.PreparationCount - idlePreparationCount);
                         if (!speech.IsReady || speech.WorkerId != report.PreparedWorkerId)
                             throw new IOException("The prepared desktop worker did not stay resident while idle");
-                        PrepareTrial(); capture.Prepare(realtime: true, seconds: seconds); key.Press();
+                        PrepareTrial(); capture.Prepare(realtime: true, seconds: seconds);
+                        var preparationCount = speech.PreparationCount;
+                        key.Press();
                         await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(seconds + 15)).ConfigureAwait(false);
                         var released = Stopwatch.GetTimestamp(); key.Release();
                         await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
@@ -186,6 +191,7 @@ internal static class EngineeringChecks
                             throw new IOException("Prepared dictation replaced the resident worker");
                         report.ReadyRecordingSeconds.Add(seconds);
                         report.ReadyWorkerIds.Add(preparedWorker);
+                        report.ReadyPreparationCounts.Add(speech.PreparationCount - preparationCount);
                         report.ReadyInferenceMilliseconds.Add(speech.LastInferenceTime.TotalMilliseconds);
                         report.ReadyReleaseToTranscriptMilliseconds.Add(result.TranscriptTime.TotalMilliseconds);
                         if (probe is not null)
@@ -475,6 +481,8 @@ internal sealed class BenchmarkReport
     public List<int> ReadyRecordingSeconds { get; } = [];
     public List<int> ReadyWorkerIds { get; } = [];
     public List<double> ReadyIdleMilliseconds { get; } = [];
+    public List<long> ReadyIdlePreparationCounts { get; } = [];
+    public List<long> ReadyPreparationCounts { get; } = [];
     public List<double> ReadyInferenceMilliseconds { get; } = [];
     public List<double> ReadyReleaseToTranscriptMilliseconds { get; } = [];
     public List<double> ReadyReleaseToFullInputMilliseconds { get; } = [];

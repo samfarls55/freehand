@@ -126,7 +126,7 @@ internal sealed class DesktopDeliveryReport
     public double MemorySamplingStartedMillisecondsAfterLaunch { get; set; }
     public bool InitializationCompletedBeforeMemorySampling { get; set; }
     public bool StartupWorkerResetForColdDiagnostic { get; set; }
-    public string Scope { get; } = "Actual Avalonia composition and all its tracked native workers. Resident acceptance measures prepared-worker recordings after 15 seconds idle, plus 50 warm recordings; model initialization is measured separately before hotkey readiness. Forced-fresh and ready-only modes are separate diagnostics. Public audio reaches an owned Windows EDIT control through real SendInput; timestamps measure received characters, not compositor paint. No physical microphone/hotkey test or fresh-worker 700 ms claim. Memory sampling begins on benchmark entry after UI construction, before awaiting readiness; any earlier startup allocation may precede sampling. RAM sums simultaneous desktop and all live owned worker working sets plus shared GPU bytes, conservatively permitting double counting. Dedicated VRAM and private commit remain separate. GPU acceptance requires --require-gpu-telemetry.";
+    public string Scope { get; } = "Actual Avalonia composition and all its tracked native workers. Resident acceptance measures prepared-worker recordings after 15 seconds idle, plus 50 warm recordings; model initialization is measured separately before hotkey readiness. Each idle interval begins after a separate one-second drain allowance and records the change in successful native preparation count, which must be zero. Capture starts without awaiting preparation; each prepared-worker trial records successful preparations from just before key press through return to idle, which must be positive. These counts describe native requests, not measured GPU clocks. Forced-fresh and ready-only modes are separate diagnostics. Public audio reaches an owned Windows EDIT control through real SendInput; timestamps measure received characters, not compositor paint. No physical microphone/hotkey test or fresh-worker 700 ms claim. Memory sampling begins on benchmark entry after UI construction, before awaiting readiness; any earlier startup allocation may precede sampling. RAM sums simultaneous desktop and all live owned worker working sets plus shared GPU bytes, conservatively permitting double counting. Dedicated VRAM and private commit remain separate. GPU acceptance requires --require-gpu-telemetry.";
     public string Comparison { get; } = "Provisional limits only. Wispr Flow was not benchmarked.";
     public long MemoryLimitBytes { get; } = 650_000_000;
     public double LatencyLimitMilliseconds { get; } = 700;
@@ -172,6 +172,10 @@ internal sealed class DesktopDeliveryReport
                 Failures.Add("The actual prepared desktop worker was not preserved.");
             if (replay.ReadyIdleMilliseconds.Count != 4 || replay.ReadyIdleMilliseconds.Any(value => value < 14950))
                 Failures.Add("Prepared-worker trials did not follow the required 15-second idle intervals.");
+            if (replay.ReadyIdlePreparationCounts.Count != 4 || replay.ReadyIdlePreparationCounts.Any(value => value != 0))
+                Failures.Add("Prepared-worker idle intervals did not confirm zero successful native preparations.");
+            if (replay.ReadyPreparationCounts.Count != 4 || replay.ReadyPreparationCounts.Any(value => value <= 0))
+                Failures.Add("A prepared-worker recording did not confirm a successful native preparation request.");
             if (replay.ReadyReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
                 Failures.Add("A prepared-worker delivery exceeded the provisional 700 ms limit.");
             if (replay.ColdRecordingSeconds.Count != 0)

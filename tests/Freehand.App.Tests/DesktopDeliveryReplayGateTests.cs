@@ -26,6 +26,8 @@ public sealed class DesktopDeliveryReplayGateTests
     [InlineData("worker-replaced")]
     [InlineData("worker-unloaded")]
     [InlineData("idle-too-short")]
+    [InlineData("recording-not-prepared")]
+    [InlineData("idle-preparation")]
     [InlineData("missing-ready-receipt")]
     [InlineData("warm-latency")]
     [InlineData("missing-warm-receipt")]
@@ -43,6 +45,8 @@ public sealed class DesktopDeliveryReplayGateTests
             case "worker-replaced": replay.ReadyWorkerIds[2]++; break;
             case "worker-unloaded": replay.PreparedWorkerPreserved = false; break;
             case "idle-too-short": replay.ReadyIdleMilliseconds[2] = 14000; break;
+            case "recording-not-prepared": replay.ReadyPreparationCounts[0] = 0; break;
+            case "idle-preparation": replay.ReadyIdlePreparationCounts[2] = 1; break;
             case "missing-ready-receipt": replay.ReadyReleaseToFullInputMilliseconds.RemoveAt(2); break;
             case "warm-latency": replay.ReleaseToFullInputMilliseconds[^1] = 700.1; break;
             case "missing-warm-receipt": replay.ReleaseToFullInputMilliseconds.RemoveAt(49); break;
@@ -109,6 +113,8 @@ public sealed class DesktopDeliveryReplayGateTests
         replay.ReadyRecordingSeconds.AddRange([1, 3, 8, 10]);
         replay.ReadyWorkerIds.AddRange([123, 123, 123, 123]);
         replay.ReadyIdleMilliseconds.AddRange([15000, 15000, 15000, 15000]);
+        replay.ReadyIdlePreparationCounts.AddRange([0, 0, 0, 0]);
+        replay.ReadyPreparationCounts.AddRange([1, 2, 4, 5]);
         replay.ReadyReleaseToFullInputMilliseconds.AddRange([250, 350, 600, 450]);
         replay.ReleaseToFullInputMilliseconds.AddRange(Enumerable.Repeat(450d, 50));
         return replay;
