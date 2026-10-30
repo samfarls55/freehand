@@ -39,7 +39,7 @@ foreach ($asset in $modelManifest.Files) {
     }
 }
 if (-not $RuntimeSource) {
-    $RuntimeSource = Join-Path $projectRoot 'artifacts/native-cache/transcribe-0.4.1-freehand-read1'
+    $RuntimeSource = Join-Path $projectRoot 'artifacts/native-cache/transcribe-0.4.1-freehand-read2'
     & (Join-Path $projectRoot 'tools/Freehand.Native/prepare.ps1') -OutputDirectory $RuntimeSource
 } else {
     & (Join-Path $projectRoot 'tools/Freehand.Native/prepare.ps1') -OutputDirectory $RuntimeSource -VerifyOnly
