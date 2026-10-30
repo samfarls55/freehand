@@ -32,7 +32,8 @@ implementation to a local chat unless the user asks again.
   **`codex/transcript-cleanup`** in `samfarls55/freehand`. Fetch that branch to
   recover the code in a different environment. Its starting base was
   `93e555ca57b502dd3b53a44dc6d44ddaaf50a16d`, merge of PR #10.
-- No normal installation update, PR, GitHub release or publication occurred.
+- This checkpoint branch was published for transfer only. No normal installation
+  update, PR, merge to main or GitHub Release occurred.
 - The app gracefully continues ordinary dictation when cleanup assets are absent.
   This is not evidence that the requested fully functional selected-model feature
   is finished.
