@@ -14,6 +14,7 @@ internal static class DesktopDeliveryBenchmark
         var report = new DesktopDeliveryReport
         {
             RequireGpuTelemetry = Environment.GetCommandLineArgs().Contains("--require-gpu-telemetry", StringComparer.Ordinal),
+            ColdOnly = Environment.GetCommandLineArgs().Contains("--cold-only", StringComparer.Ordinal),
         };
         if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY")))
         {
@@ -35,12 +36,12 @@ internal static class DesktopDeliveryBenchmark
             try
             {
                 report.Replay = await EngineeringChecks.RunDeliveryReplayAsync(session => Volatile.Write(ref observedSession, session),
-                    composition.DeliveryHotkey, realtimeWarmCapture: true).ConfigureAwait(false);
+                    composition.DeliveryHotkey, realtimeWarmCapture: true, coldOnly: report.ColdOnly).ConfigureAwait(false);
                 if (report.Replay.Failures.Count != 0 || report.Replay.OrphanWorkers != 0)
                     report.Failures.Add("The native worker and delivery replay failed.");
-                else if (report.Replay.ReleaseToFullInputMilliseconds.Count != 50)
+                else if (!report.ColdOnly && report.Replay.ReleaseToFullInputMilliseconds.Count != 50)
                     report.Failures.Add("Complete text receipt was not confirmed for every warm trial.");
-                else if (report.Replay.ReleaseToFullInputMilliseconds.Any(value => value > report.LatencyLimitMilliseconds))
+                else if (!report.ColdOnly && report.Replay.ReleaseToFullInputMilliseconds.Any(value => value > report.LatencyLimitMilliseconds))
                     report.Failures.Add("A warm delivery exceeded the provisional 700 ms limit.");
                 if (report.Replay.ColdReleaseToFullInputMilliseconds.Count != 3)
                     report.Failures.Add("Complete text receipt was not confirmed for every cold dictation.");
@@ -101,6 +102,7 @@ internal static class DesktopDeliveryBenchmark
 
 internal sealed class DesktopDeliveryReport
 {
+    public bool ColdOnly { get; set; }
     public string Scope { get; } = "Constructed Avalonia desktop plus native speech worker, including worker startup and teardown; public audio replay into an owned Windows EDIT control. Input timestamps measure received characters, not compositor paint. No physical microphone or hotkey test. RAM uses simultaneous summed working sets plus shared GPU bytes, conservatively allowing double counting. Dedicated VRAM and private commit are separate diagnostics; WDDM GPU backing-store commit is not physical host RAM. GPU acceptance requires --require-gpu-telemetry.";
     public string Comparison { get; } = "Provisional limits only. Wispr Flow was not benchmarked.";
     public long MemoryLimitBytes { get; } = 650_000_000;

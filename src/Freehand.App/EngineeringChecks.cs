@@ -122,7 +122,7 @@ internal static class EngineeringChecks
         return report.Failures.Count == 0 && report.OrphanWorkers == 0 ? 0 : 1;
     }
     internal static async Task<BenchmarkReport> RunDeliveryReplayAsync(Action<SpeechWorkerClient>? observeSession = null,
-        ITextDeliveryHotkeySource? deliveryHotkey = null, bool realtimeWarmCapture = false)
+        ITextDeliveryHotkeySource? deliveryHotkey = null, bool realtimeWarmCapture = false, bool coldOnly = false)
     {
         var report = new BenchmarkReport { RealtimeWarmCapture = realtimeWarmCapture };
         BenchmarkWorkerLauncher? trackedLauncher = null;
@@ -177,6 +177,7 @@ internal static class EngineeringChecks
                         report.ColdReleaseToFullInputMilliseconds.Add(Stopwatch.GetElapsedTime(released, probe.LastInputTimestamp).TotalMilliseconds);
                     }
                 }
+                if (coldOnly) return report;
                 var warmStarted = completed;
                 // Warm dictations should keep the worker for the full sequence.
                 speech.SetIdleTimeout(TimeSpan.FromMinutes(5));
