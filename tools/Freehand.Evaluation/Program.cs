@@ -91,10 +91,10 @@ internal static partial class Program
         using var models = new ModelResolver(modelDirectory, cacheDirectory: Path.Combine(outputDirectory, "verification"));
         await using var speech = new SpeechWorkerClient(new ExecutableLauncher(executable, Path.Combine(outputDirectory, "worker-profile")), models,
             new WorkerOptions { PrepareWhileActive = ModelResolver.UsesAcceleratedModel });
+        speech.SetIdleTimeout(Timeout.InfiniteTimeSpan);
         using var totalMonitorStop = new CancellationTokenSource();
         var totalPeak = new MemoryPeak();
         var totalMonitor = MonitorAsync(speech, totalPeak, totalMonitorStop.Token);
-        await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
         var started = Stopwatch.GetTimestamp();
         if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Model verification failed.");
         var initialLoadMilliseconds = Stopwatch.GetElapsedTime(started).TotalMilliseconds;
