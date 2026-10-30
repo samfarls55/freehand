@@ -125,6 +125,7 @@ internal static class EngineeringChecks
         ITextDeliveryHotkeySource? deliveryHotkey = null)
     {
         var report = new BenchmarkReport();
+        BenchmarkWorkerLauncher? trackedLauncher = null;
         try
         {
             var audio = ReadFixture();
@@ -141,7 +142,8 @@ internal static class EngineeringChecks
             }
             if (probe is null) report.DeliveryLimitation = "Foreground test field unavailable";
             PrepareTrial();
-            var launcher = PlatformFactory.CreateWorkerLauncher() ?? throw new InvalidOperationException("Worker launcher unavailable");
+            var launcher = trackedLauncher = new BenchmarkWorkerLauncher(PlatformFactory.CreateWorkerLauncher()
+                ?? throw new InvalidOperationException("Worker launcher unavailable"));
             var injector = PlatformFactory.CreateTextInjector() ?? throw new InvalidOperationException("Injector unavailable");
             var speech = new SpeechWorkerClient(launcher, models, new WorkerOptions { IdleTimeout = TimeSpan.FromMilliseconds(100) });
             observeSession?.Invoke(speech);
@@ -261,12 +263,17 @@ internal static class EngineeringChecks
             }
             GC.Collect(); GC.WaitForPendingFinalizers(); GC.Collect();
             var after = Memory(speech); report.AfterUnloadPrivateBytes = after.Private; report.AfterUnloadWorkingSet = after.Working;
-            report.OrphanWorkers = Process.GetProcessesByName("Freehand.App").Count(p =>
-            {
-                using (p) { try { return p.Id != Environment.ProcessId && p.MainModule?.FileName == Environment.ProcessPath; } catch (System.ComponentModel.Win32Exception) { return false; } }
-            });
         }
         catch (Exception e) { report.Failures.Add(e.GetType().Name + ": " + e.Message); }
+        finally
+        {
+            if (trackedLauncher is not null)
+            {
+                report.OwnedWorkers.AddRange(trackedLauncher.Snapshot());
+                report.OrphanWorkers = report.OwnedWorkers.Count(worker => !worker.HasExited);
+                trackedLauncher.Dispose();
+            }
+        }
         return report;
     }
     private static (long Private, long Working) Memory(SpeechWorkerClient client)
@@ -354,6 +361,32 @@ internal static class EngineeringChecks
         public ValueTask DisposeAsync() => ValueTask.CompletedTask;
     }
 }
+// Retain handles to the benchmark's exact processes until teardown has been
+// checked. Other sessions can use the same executable, and PIDs can be reused.
+internal sealed class BenchmarkWorkerLauncher(IWorkerLauncher inner) : IWorkerLauncher, IDisposable
+{
+    private readonly List<(Process Process, int Id, DateTime StartedUtc)> _workers = [];
+
+    public IWorkerProcess Launch(string pipeName, string secret)
+    {
+        var worker = inner.Launch(pipeName, secret);
+        var process = Process.GetProcessById(worker.Id);
+        _ = process.Handle;
+        _workers.Add((process, worker.Id, process.StartTime.ToUniversalTime()));
+        return worker;
+    }
+
+    internal IReadOnlyList<BenchmarkWorkerIdentity> Snapshot() => _workers.Select(worker =>
+        new BenchmarkWorkerIdentity(worker.Id, worker.StartedUtc, worker.Process.HasExited)).ToArray();
+
+    public void Dispose()
+    {
+        foreach (var worker in _workers) worker.Process.Dispose();
+    }
+}
+
+internal sealed record BenchmarkWorkerIdentity(int ProcessId, DateTime StartTimeUtc, bool HasExited);
+
 internal sealed class BenchmarkReport
 {
     public string ModelName { get; init; } = ModelResolver.DisplayName;
@@ -382,6 +415,7 @@ internal sealed class BenchmarkReport
     public bool WorkerCrashRecoveryPassed { get; set; }
     public bool TimeoutRetentionPassed { get; set; }
     public int OrphanWorkers { get; set; }
+    public List<BenchmarkWorkerIdentity> OwnedWorkers { get; } = [];
     public List<string> Failures { get; } = [];
 }
 internal sealed class DesktopBenchmarkReport
