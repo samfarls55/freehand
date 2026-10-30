@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Freehand.Abstractions;
@@ -15,40 +16,54 @@ internal static class DesktopDeliveryBenchmark
         {
             RequireGpuTelemetry = Environment.GetCommandLineArgs().Contains("--require-gpu-telemetry", StringComparer.Ordinal),
             ColdOnly = Environment.GetCommandLineArgs().Contains("--cold-only", StringComparer.Ordinal),
+            ReadyOnly = Environment.GetCommandLineArgs().Contains("--ready-only", StringComparer.Ordinal),
         };
+        report.ResidentPolicy = ModelResolver.UsesAcceleratedModel && !report.ColdOnly;
         if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY")))
         {
             report.Failures.Add("Desktop delivery measurement requires an isolated data directory.");
         }
-        else if (composition.Engine?.TryPrepareForUpdate() != true)
+        else if (report.ColdOnly && report.ReadyOnly)
         {
-            report.Failures.Add("Could not disarm the physical hotkey for fixture replay.");
+            report.Failures.Add("Choose either forced-fresh or prepared-worker diagnostics.");
+        }
+        else if (report.ReadyOnly && !report.ResidentPolicy)
+        {
+            report.Failures.Add("Prepared-worker diagnostics require the accelerated resident profile.");
         }
         else
         {
-            // The normal engine stays idle, with its hotkey disarmed. The benchmark
-            // exercises the same engine and worker through its scripted capture source.
             using var monitorStop = new CancellationTokenSource();
-            SpeechWorkerClient? observedSession = null;
+            var workers = composition.BenchmarkWorkers ?? throw new IOException("The actual desktop worker tracker is unavailable.");
             var memory = PlatformFactory.CreateProcessMemoryReader() ?? throw new IOException("Process memory counters unavailable.");
             using var gpuMemory = PlatformFactory.CreateGpuMemoryReader();
-            var monitor = SampleMemoryAsync(memory, gpuMemory, () => Volatile.Read(ref observedSession), report, monitorStop.Token);
+            report.InitializationCompletedBeforeMemorySampling = composition.ReadinessTask.IsCompleted;
+            report.MemorySamplingStartedMillisecondsAfterLaunch = Stopwatch.GetElapsedTime(Program.LaunchedAt).TotalMilliseconds;
+            var monitor = SampleMemoryAsync(memory, gpuMemory, workers, report, monitorStop.Token);
             try
             {
-                report.Replay = await EngineeringChecks.RunDeliveryReplayAsync(session => Volatile.Write(ref observedSession, session),
-                    composition.DeliveryHotkey, realtimeWarmCapture: true, coldOnly: report.ColdOnly).ConfigureAwait(false);
-                if (report.Replay.Failures.Count != 0 || report.Replay.OrphanWorkers != 0)
-                    report.Failures.Add("The native worker and delivery replay failed.");
-                else if (!report.ColdOnly && report.Replay.ReleaseToFullInputMilliseconds.Count != 50)
-                    report.Failures.Add("Complete text receipt was not confirmed for every warm trial.");
-                else if (!report.ColdOnly && report.Replay.ReleaseToFullInputMilliseconds.Any(value => value > report.LatencyLimitMilliseconds))
-                    report.Failures.Add("A warm delivery exceeded the provisional 700 ms limit.");
-                if (report.Replay.ColdReleaseToFullInputMilliseconds.Count != 3)
-                    report.Failures.Add("Complete text receipt was not confirmed for every cold dictation.");
-                else if (report.Replay.ColdReleaseToFullInputMilliseconds.Any(value => value > report.LatencyLimitMilliseconds))
-                    report.Failures.Add("A cold delivery exceeded the provisional 700 ms limit.");
+                await composition.ReadinessTask.ConfigureAwait(false);
+                var speech = composition.Speech ?? throw new IOException("The actual desktop speech session is unavailable.");
+                if (report.ResidentPolicy && !composition.IsDictationReady)
+                    throw new IOException(composition.PreparationError ?? "The desktop did not reach dictation readiness.");
+                report.StartupReadinessMilliseconds = composition.ReadinessTime.TotalMilliseconds;
+                report.StartupLoadMilliseconds = ModelResolver.UsesAcceleratedModel ? speech.LastLoadTime.TotalMilliseconds : null;
+                if (composition.Engine?.TryPrepareForUpdate() != true)
+                    throw new IOException("Could not disarm the physical hotkey for fixture replay.");
+                if (report.ColdOnly)
+                {
+                    // Preserve the forced-fresh diagnostic. The actual startup
+                    // worker must be gone before another session captures audio.
+                    await speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
+                    await speech.DisposeAsync().ConfigureAwait(false);
+                    report.StartupWorkerResetForColdDiagnostic = true;
+                }
+                var context = new BenchmarkReplayContext(speech, workers, report.ResidentPolicy, report.StartupLoadMilliseconds);
+                report.Replay = await EngineeringChecks.RunDeliveryReplayAsync(deliveryHotkey: composition.DeliveryHotkey,
+                    realtimeWarmCapture: true, coldOnly: report.ColdOnly, readyOnly: report.ReadyOnly, context: context).ConfigureAwait(false);
+                report.ValidateReplayGate(report.Replay);
             }
-            catch (Exception error) when (error is IOException or JsonException)
+            catch (Exception error) when (error is IOException or JsonException or InvalidOperationException or OperationCanceledException)
             {
                 report.Failures.Add(error.GetType().Name + ": " + error.Message);
             }
@@ -65,7 +80,7 @@ internal static class DesktopDeliveryBenchmark
     }
 
     private static async Task SampleMemoryAsync(IProcessMemoryReader reader, IGpuMemoryReader? gpuReader,
-        Func<SpeechWorkerClient?> session, DesktopDeliveryReport report, CancellationToken token)
+        BenchmarkWorkerLauncher workers, DesktopDeliveryReport report, CancellationToken token)
     {
         try
         {
@@ -78,12 +93,12 @@ internal static class DesktopDeliveryBenchmark
                     return;
                 }
                 var processes = new List<(int Id, string Role, ProcessMemory Memory)> { (Environment.ProcessId, "desktop", host) };
-                // Read counters for the actual worker directly. Walking loaded modules
-                // at every sample adds substantial observer CPU and allocation overhead.
-                if (session()?.WorkerId is { } workerId)
+                // Include every live process launched by this actual composition,
+                // including startup, reset, recovery and diagnostic transitions.
+                foreach (var workerId in workers.LiveWorkerIds())
                 {
                     if (reader.TryRead(workerId, out var worker)) processes.Add((workerId, "worker", worker));
-                    else if (session()?.WorkerId == workerId)
+                    else if (workers.LiveWorkerIds().Contains(workerId))
                     {
                         report.Failures.Add("Could not sample native worker memory.");
                         return;
@@ -102,8 +117,16 @@ internal static class DesktopDeliveryBenchmark
 
 internal sealed class DesktopDeliveryReport
 {
+    private static readonly int[] PreparedRecordingSeconds = [1, 3, 8, 10];
     public bool ColdOnly { get; set; }
-    public string Scope { get; } = "Constructed Avalonia desktop plus native speech worker, including worker startup and teardown; public audio replay into an owned Windows EDIT control. Input timestamps measure received characters, not compositor paint. No physical microphone or hotkey test. RAM uses simultaneous summed working sets plus shared GPU bytes, conservatively allowing double counting. Dedicated VRAM and private commit are separate diagnostics; WDDM GPU backing-store commit is not physical host RAM. GPU acceptance requires --require-gpu-telemetry.";
+    public bool ReadyOnly { get; set; }
+    public bool ResidentPolicy { get; set; }
+    public double? StartupLoadMilliseconds { get; set; }
+    public double? StartupReadinessMilliseconds { get; set; }
+    public double MemorySamplingStartedMillisecondsAfterLaunch { get; set; }
+    public bool InitializationCompletedBeforeMemorySampling { get; set; }
+    public bool StartupWorkerResetForColdDiagnostic { get; set; }
+    public string Scope { get; } = "Actual Avalonia composition and all its tracked native workers. Resident acceptance measures prepared-worker recordings after 15 seconds idle, plus 50 warm recordings; model initialization is measured separately before hotkey readiness. Forced-fresh and ready-only modes are separate diagnostics. Public audio reaches an owned Windows EDIT control through real SendInput; timestamps measure received characters, not compositor paint. No physical microphone/hotkey test or fresh-worker 700 ms claim. Memory sampling begins on benchmark entry after UI construction, before awaiting readiness; any earlier startup allocation may precede sampling. RAM sums simultaneous desktop and all live owned worker working sets plus shared GPU bytes, conservatively permitting double counting. Dedicated VRAM and private commit remain separate. GPU acceptance requires --require-gpu-telemetry.";
     public string Comparison { get; } = "Provisional limits only. Wispr Flow was not benchmarked.";
     public long MemoryLimitBytes { get; } = 650_000_000;
     public double LatencyLimitMilliseconds { get; } = 700;
@@ -125,6 +148,43 @@ internal sealed class DesktopDeliveryReport
     public List<string> Failures { get; } = [];
     private long _peakConservativeRam;
     private long _peakGpuDedicated, _peakGpuShared, _peakGpuCommitted;
+
+    internal void ValidateReplayGate(BenchmarkReport replay)
+    {
+        if (replay.Failures.Count != 0 || replay.OrphanWorkers != 0)
+            Failures.Add("The native worker and delivery replay failed.");
+        if (!ColdOnly && !ReadyOnly)
+        {
+            if (replay.ReleaseToFullInputMilliseconds.Count != 50)
+                Failures.Add("Complete text receipt was not confirmed for every warm trial.");
+            if (replay.ReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
+                Failures.Add("A warm delivery exceeded the provisional 700 ms limit.");
+            if (!replay.WorkerCrashRecoveryPassed || !replay.TimeoutRetentionPassed || replay.UnloadCycles != 20)
+                Failures.Add("The complete recovery, retained-audio and unload controls did not pass.");
+        }
+        if (ResidentPolicy)
+        {
+            if (!replay.ResidentPolicy || !replay.ReadyRecordingSeconds.SequenceEqual(PreparedRecordingSeconds)
+                || replay.ReadyReleaseToFullInputMilliseconds.Count != 4)
+                Failures.Add("Complete text receipt was not confirmed for every prepared-worker trial.");
+            if (!replay.PreparedWorkerPreserved || replay.ReadyWorkerIds.Count != 4
+                || replay.ReadyWorkerIds.Any(id => id != replay.PreparedWorkerId))
+                Failures.Add("The actual prepared desktop worker was not preserved.");
+            if (replay.ReadyIdleMilliseconds.Count != 4 || replay.ReadyIdleMilliseconds.Any(value => value < 14950))
+                Failures.Add("Prepared-worker trials did not follow the required 15-second idle intervals.");
+            if (replay.ReadyReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
+                Failures.Add("A prepared-worker delivery exceeded the provisional 700 ms limit.");
+            if (replay.ColdRecordingSeconds.Count != 0)
+                Failures.Add("Prepared-worker results were mislabeled as forced-fresh recordings.");
+        }
+        else
+        {
+            if (replay.ColdReleaseToFullInputMilliseconds.Count != 3)
+                Failures.Add("Complete text receipt was not confirmed for every forced-fresh dictation.");
+            if (replay.ColdReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
+                Failures.Add("A forced-fresh delivery exceeded the provisional 700 ms limit.");
+        }
+    }
 
     internal void RecordMemorySample(IReadOnlyList<DesktopProcessMemorySample> processes, string? gpuError)
     {
