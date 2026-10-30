@@ -10,6 +10,7 @@ namespace Freehand.Speech;
 // The pinned transcribe.cpp v0.4.1 ABI. One worker owns one sequential session.
 internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
 {
+    private static readonly float[] PreparationSamples = new float[AudioChunk.SampleRate];
     private SessionHandle? _session;
     private ParakeetHotwords? _hotwords;
     private SpeechPresenceDetector? _speechPresence;
@@ -56,6 +57,13 @@ internal sealed class GgmlTranscriber(string modelDirectory) : ITranscriber
         // The result stays inside initialization; every user request resets state.
         _ = RunNative(_session, new float[AudioChunk.SampleRate], [], cancellationToken);
         return ValueTask.FromResult(true);
+    }
+
+    internal ValueTask PrepareAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        _ = RunNative(_session ?? throw new InvalidOperationException("GPU model not ready"), PreparationSamples, [], cancellationToken);
+        return ValueTask.CompletedTask;
     }
 
     public bool SupportsBiasPhrase(string phrase) => _hotwords?.Supports(phrase) == true;

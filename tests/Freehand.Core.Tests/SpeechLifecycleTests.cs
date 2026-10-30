@@ -131,6 +131,127 @@ public sealed class SpeechLifecycleTests
     }
 
     [Fact]
+    public async Task Preparation_is_opt_in_and_does_not_start_before_a_worker_is_ready()
+    {
+        var time = new ManualTimeProvider();
+        var launcher = new PipeWorkerLauncher();
+        await using var client = new SpeechWorkerClient(launcher, new VerifiedAssets(), time: time);
+        await client.LoadAsync(CancellationToken.None);
+        await client.BeginWorkAsync(CancellationToken.None);
+        time.Advance(TimeSpan.FromDays(2));
+        launcher.Preparations.ShouldBe(0);
+        client.PreparationCount.ShouldBe(0);
+        client.FinishWork();
+
+        var unloadedLauncher = new PipeWorkerLauncher();
+        var unloadedTime = new ManualTimeProvider();
+        await using var unloaded = PreparationClient(unloadedLauncher, unloadedTime);
+        await unloaded.BeginWorkAsync(CancellationToken.None);
+        unloadedTime.ActiveTimers.ShouldBe(0);
+        unloadedLauncher.Launches.ShouldBe(0);
+        unloaded.FinishWork();
+    }
+
+    [Fact]
+    public async Task Begin_work_returns_without_waiting_and_finish_drains_preparation_before_real_transcription()
+    {
+        var time = new ManualTimeProvider();
+        var launcher = new PipeWorkerLauncher { HoldPreparation = true };
+        await using var client = PreparationClient(launcher, time);
+        await client.LoadAsync(CancellationToken.None);
+        var workerId = client.WorkerId;
+        var acceptance = client.BeginWorkAsync(CancellationToken.None);
+        acceptance.IsCompletedSuccessfully.ShouldBeTrue();
+        await acceptance;
+        await launcher.PreparationReceived.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        client.LastInferenceTime.ShouldBe(TimeSpan.Zero);
+        client.FinishWork();
+        var transcript = client.TranscribeAsync(new float[320], [], CancellationToken.None).AsTask();
+        transcript.IsCompleted.ShouldBeFalse();
+        launcher.AllowPreparation.TrySetResult();
+        (await transcript.WaitAsync(TimeSpan.FromSeconds(2))).ShouldBe("Speech.");
+        client.WorkerId.ShouldBe(workerId);
+        client.IsReady.ShouldBeTrue();
+        client.PreparationCount.ShouldBe(1);
+        time.Advance(TimeSpan.FromDays(2));
+        launcher.Preparations.ShouldBe(1);
+        launcher.Launches.ShouldBe(1);
+    }
+
+    [Fact]
+    public async Task Preparation_repeats_only_during_work_and_never_updates_real_inference_timing()
+    {
+        var time = new ManualTimeProvider();
+        var launcher = new PipeWorkerLauncher();
+        await using var client = PreparationClient(launcher, time);
+        await client.LoadAsync(CancellationToken.None);
+        await client.BeginWorkAsync(CancellationToken.None);
+        await LifecycleTests.WaitUntilAsync(() => client.PreparationCount == 1 && time.ActiveTimers == 1);
+        time.Advance(TimeSpan.FromMilliseconds(499));
+        client.PreparationCount.ShouldBe(1);
+        time.Advance(TimeSpan.FromMilliseconds(1));
+        await LifecycleTests.WaitUntilAsync(() => client.PreparationCount == 2 && time.ActiveTimers == 1);
+        client.LastInferenceTime.ShouldBe(TimeSpan.Zero);
+        client.FinishWork();
+        time.ActiveTimers.ShouldBe(0);
+        time.Advance(TimeSpan.FromDays(2));
+        launcher.Preparations.ShouldBe(2);
+        client.IsReady.ShouldBeTrue();
+    }
+
+    [Fact]
+    public async Task A_new_recording_during_preparation_drain_starts_one_replacement_loop()
+    {
+        var time = new ManualTimeProvider();
+        var launcher = new PipeWorkerLauncher { HoldPreparation = true };
+        await using var client = PreparationClient(launcher, time);
+        await client.LoadAsync(CancellationToken.None);
+        await client.BeginWorkAsync(CancellationToken.None);
+        await launcher.PreparationReceived.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        client.FinishWork();
+        await client.BeginWorkAsync(CancellationToken.None);
+        launcher.AllowPreparation.TrySetResult();
+        await LifecycleTests.WaitUntilAsync(() => client.PreparationCount == 2 && time.ActiveTimers == 1);
+        launcher.Preparations.ShouldBe(2);
+        launcher.Launches.ShouldBe(1);
+        client.FinishWork();
+    }
+
+    [Fact]
+    public async Task Disposal_waits_for_inflight_preparation_then_stops_its_worker()
+    {
+        var launcher = new PipeWorkerLauncher { HoldPreparation = true };
+        await using var client = PreparationClient(launcher, new ManualTimeProvider());
+        await client.LoadAsync(CancellationToken.None);
+        await client.BeginWorkAsync(CancellationToken.None);
+        await launcher.PreparationReceived.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        var disposal = client.DisposeAsync().AsTask();
+        disposal.IsCompleted.ShouldBeFalse();
+        launcher.AllowPreparation.TrySetResult();
+        await disposal.WaitAsync(TimeSpan.FromSeconds(2));
+        launcher.LiveWorkers.ShouldBe(0);
+        client.WorkerId.ShouldBeNull();
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task A_hung_or_invalid_preparation_reply_stops_the_worker_without_publishing_text(bool hangs)
+    {
+        var launcher = new PipeWorkerLauncher { HangPreparation = hangs, PreparationReplyKind = hangs ? "prepared" : "text" };
+        await using var client = PreparationClient(launcher, new ManualTimeProvider(), TimeSpan.FromMilliseconds(30));
+        await client.LoadAsync(CancellationToken.None);
+        await client.BeginWorkAsync(CancellationToken.None);
+        await launcher.PreparationReceived.Task.WaitAsync(TimeSpan.FromSeconds(2));
+        await LifecycleTests.WaitUntilAsync(() => client.State == ModelState.Failed);
+        launcher.LiveWorkers.ShouldBe(0);
+        client.WorkerId.ShouldBeNull();
+        client.PreparationCount.ShouldBe(0);
+        client.LastInferenceTime.ShouldBe(TimeSpan.Zero);
+        client.FinishWork();
+    }
+
+    [Fact]
     public async Task Work_accepted_during_shutdown_starts_a_replacement_after_the_old_worker_exits()
     {
         var launcher = new PipeWorkerLauncher { HoldShutdown = true };
@@ -198,6 +319,12 @@ public sealed class SpeechLifecycleTests
             IdleTimeout = TimeSpan.FromMilliseconds(20), StartupTimeout = TimeSpan.FromSeconds(2),
             InferenceTimeout = inference ?? TimeSpan.FromMilliseconds(30), ShutdownTimeout = shutdown ?? TimeSpan.FromMilliseconds(30),
         });
+    private static SpeechWorkerClient PreparationClient(PipeWorkerLauncher launcher, TimeProvider time, TimeSpan? shutdown = null) =>
+        new(launcher, new VerifiedAssets(), new WorkerOptions
+        {
+            PrepareWhileActive = true, IdleTimeout = Timeout.InfiniteTimeSpan, StartupTimeout = TimeSpan.FromSeconds(2),
+            ShutdownTimeout = shutdown ?? TimeSpan.FromSeconds(5), InferenceTimeout = TimeSpan.FromSeconds(5),
+        }, time);
     private sealed class VerifiedAssets : IModelAssets
     {
         public string ResolvedDirectory => Path.GetTempPath();
@@ -256,6 +383,10 @@ public sealed class SpeechLifecycleTests
         internal bool HoldShutdown { get; init; }
         internal bool StaleTranscript { get; init; }
         internal bool HangInference { get; set; }
+        internal bool HoldPreparation { get; init; }
+        internal bool HangPreparation { get; init; }
+        internal string PreparationReplyKind { get; init; } = "prepared";
+        internal int Preparations;
         internal int Launches { get; private set; }
         internal int LiveWorkers;
         internal int PeakWorkers;
@@ -263,6 +394,8 @@ public sealed class SpeechLifecycleTests
         internal TaskCompletionSource ShutdownReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal TaskCompletionSource InferenceReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal TaskCompletionSource AllowShutdown { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal TaskCompletionSource PreparationReceived { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal TaskCompletionSource AllowPreparation { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         public IWorkerProcess Launch(string pipeName, string secret)
         {
             Launches++;
@@ -293,6 +426,14 @@ public sealed class SpeechLifecycleTests
                             var requestId = message.GetProperty("RequestId").GetGuid();
                             var kind = message.GetProperty("Kind").GetString();
                             if (kind == "load") await WriteAsync(pipe, requestId, "ready", null, 0, _stop.Token);
+                            else if (kind == "prepare")
+                            {
+                                Interlocked.Increment(ref owner.Preparations);
+                                owner.PreparationReceived.TrySetResult();
+                                if (owner.HangPreparation) await Task.Delay(Timeout.Infinite, _stop.Token);
+                                if (owner.HoldPreparation) await owner.AllowPreparation.Task.WaitAsync(_stop.Token);
+                                await WriteAsync(pipe, requestId, owner.PreparationReplyKind, null, 0, _stop.Token);
+                            }
                             else if (kind == "transcribe")
                             {
                                 owner.LastBiasPhrases = message.TryGetProperty("BiasPhrases", out var phrases) && phrases.ValueKind == JsonValueKind.Array

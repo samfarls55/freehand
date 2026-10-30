@@ -6,6 +6,31 @@ namespace Freehand.CoreTests;
 
 public sealed class WorkerAudioTests
 {
+    [Theory]
+    [InlineData("prepare")]
+    [InlineData("prepared")]
+    public async Task Preparation_messages_have_request_identity_and_no_audio_text_or_hints(string kind)
+    {
+        var valid = new WorkerMessage(WorkerProtocol.Version, Guid.NewGuid(), kind);
+        using var pipe = new MemoryStream();
+        await WorkerProtocol.WriteAsync(pipe, valid, CancellationToken.None);
+        pipe.Position = 0;
+        (await WorkerProtocol.ReadAsync(pipe, CancellationToken.None)).ShouldBe(valid);
+        var invalid = new[]
+        {
+            valid with { RequestId = Guid.Empty }, valid with { Value = "discarded text" },
+            valid with { SampleCount = 1 }, valid with { ProcessId = 123 }, valid with { BiasPhrases = [] },
+        };
+        foreach (var message in invalid)
+        {
+            pipe.SetLength(0);
+            pipe.Position = 0;
+            await WorkerProtocol.WriteAsync(pipe, message, CancellationToken.None);
+            pipe.Position = 0;
+            await Should.ThrowAsync<InvalidDataException>(() => WorkerProtocol.ReadAsync(pipe, CancellationToken.None));
+        }
+    }
+
     [Fact]
     public async Task Segmented_pipe_transfer_preserves_samples_and_returns_owned_memory()
     {

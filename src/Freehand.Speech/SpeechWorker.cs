@@ -48,6 +48,11 @@ public static class SpeechWorker
                             var text = await transcriber.TranscribeAsync(samples, message.BiasPhrases ?? [], CancellationToken.None).ConfigureAwait(false);
                             await ReplyAsync("text", text).ConfigureAwait(false);
                             break;
+                        case "prepare":
+                            if (transcriber is not GgmlTranscriber gpu) throw new InvalidDataException("GPU model not ready");
+                            await gpu.PrepareAsync(CancellationToken.None).ConfigureAwait(false);
+                            await ReplyAsync("prepared").ConfigureAwait(false);
+                            break;
                         case "shutdown":
                             if (transcriber is not null) { await transcriber.DisposeAsync().ConfigureAwait(false); transcriber = null; }
                             await ReplyAsync("stopped").ConfigureAwait(false);
