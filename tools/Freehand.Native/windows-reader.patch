@@ -1,0 +1,112 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,7 +32,7 @@
+ # Best-effort: source tarballs and non-git trees fall back to "unknown". This is
+ # a configure-time snapshot (same posture as ggml's GGML_COMMIT); reconfigure to
+ # refresh it.
+-set(TRANSCRIBE_BUILD_COMMIT "unknown")
++set(TRANSCRIBE_BUILD_COMMIT "4d7c1cc-freehand-read1")
+ find_package(Git QUIET)
+ if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+     execute_process(
+@@ -448,7 +448,21 @@
+ endif()
+ 
+ # ggml's CMake declares its own warning flags; let it.
+-add_subdirectory(ggml)
++if(TRANSCRIBE_PREBUILT_GGML_DIR)
++    add_library(ggml-base SHARED IMPORTED GLOBAL)
++    set_target_properties(ggml-base PROPERTIES
++        IMPORTED_IMPLIB "${TRANSCRIBE_PREBUILT_IMPLIB_DIR}/ggml-base.lib"
++        IMPORTED_LOCATION "${TRANSCRIBE_PREBUILT_GGML_DIR}/ggml-base.dll"
++        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/ggml/include"
++        INTERFACE_COMPILE_DEFINITIONS "GGML_SHARED;GGML_BACKEND_DL")
++    add_library(ggml SHARED IMPORTED GLOBAL)
++    set_target_properties(ggml PROPERTIES
++        IMPORTED_IMPLIB "${TRANSCRIBE_PREBUILT_IMPLIB_DIR}/ggml.lib"
++        IMPORTED_LOCATION "${TRANSCRIBE_PREBUILT_GGML_DIR}/ggml.dll"
++        INTERFACE_LINK_LIBRARIES ggml-base)
++else()
++    add_subdirectory(ggml)
++endif()
+ 
+ # -----------------------------------------------------------------------------
+ # Subdirs
+--- a/src/transcribe-load-common.cpp
++++ b/src/transcribe-load-common.cpp
+@@ -26,6 +26,7 @@
+ #include <cstring>
+ #include <fstream>
+ #include <ios>
++#include <memory>
+ #include <stdexcept>
+ #include <vector>
+ 
+@@ -714,15 +715,28 @@
+                                      ggml_context *        ctx_meta,
+                                      const char *          error_tag,
+                                      const WeightStorage * skip) {
+-    // std::ifstream rather than going through gguf's loader a third
+-    // time: ifstream::seekg takes a streamoff (signed 64-bit on every
+-    // platform we target), so multi-GB tensor offsets work without
+-    // #ifdef'ing fseeko vs _fseeki64.
++    // Read tensor data directly, retaining signed 64-bit file offsets for
++    // multi-GB models. The bounded staging and tensor writes are shared.
++#if defined(_WIN32)
++    // MSVC basic_filebuf reading is substantially slower than the underlying
++    // binary CRT reader for this bounded tensor schedule. Keep the same UTF-8
++    // path conversion, offsets and 16 MiB staging; only the Windows file API changes.
++    std::unique_ptr<FILE, decltype(&std::fclose)> fin(_wfopen(path_from_utf8(path).c_str(), L"rb"), &std::fclose);
++#else
+     std::ifstream fin(path_from_utf8(path), std::ios::binary);
++#endif
+     if (!fin) {
+         log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: failed to reopen %s for tensor data", error_tag, path.c_str());
+         return TRANSCRIBE_ERR_GGUF;
+     }
++
++    const auto read_bytes = [&](void * destination, size_t bytes) {
++#if defined(_WIN32)
++        return std::fread(destination, 1, bytes, fin.get()) == bytes;
++#else
++        return static_cast<bool>(fin.read(static_cast<char *>(destination), static_cast<std::streamsize>(bytes)));
++#endif
++    };
+ 
+     // Uploads go through a bounded staging buffer: ggml_backend_tensor_set
+     // stages each call whole, and for device memory the host cannot map,
+@@ -748,8 +762,13 @@
+ 
+         const std::streamoff abs_offset =
+             static_cast<std::streamoff>(data_offset) + static_cast<std::streamoff>(toffset);
++#if defined(_WIN32)
++        const bool seek_succeeded = _fseeki64(fin.get(), static_cast<long long>(abs_offset), SEEK_SET) == 0;
++#else
+         fin.seekg(abs_offset);
+-        if (!fin) {
++        const bool seek_succeeded = static_cast<bool>(fin);
++#endif
++        if (!seek_succeeded) {
+             log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: seek failed for tensor \"%s\"", error_tag, t->name);
+             return TRANSCRIBE_ERR_GGUF;
+         }
+@@ -760,8 +779,7 @@
+         // that accepts partial writes: every default one does (ggml's CPU
+         // repack buffers would not, and assert).
+         if (t->buffer != nullptr && ggml_backend_buffer_is_host(t->buffer)) {
+-            fin.read(static_cast<char *>(t->data), static_cast<std::streamsize>(nbytes));
+-            if (!fin) {
++            if (!read_bytes(t->data, nbytes)) {
+                 log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: short read for tensor \"%s\" (%zu bytes)", error_tag, t->name,
+                         nbytes);
+                 return TRANSCRIBE_ERR_GGUF;
+@@ -775,8 +793,7 @@
+         }
+         for (size_t done = 0; done < nbytes;) {
+             const size_t n = std::min(nbytes - done, staging.size());
+-            fin.read(reinterpret_cast<char *>(staging.data()), static_cast<std::streamsize>(n));
+-            if (!fin) {
++            if (!read_bytes(staging.data(), n)) {
+                 log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: short read for tensor \"%s\" (%zu bytes)", error_tag, t->name,
+                         nbytes);
+                 return TRANSCRIBE_ERR_GGUF;

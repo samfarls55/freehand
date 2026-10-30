@@ -1,24 +1,40 @@
-# Official native runtime
+# Windows weight reader runtime
 
-The accuracy preview uses the unmodified transcribe.cpp 0.4.1 CPU/Vulkan release.
-[The runtime manifest](../../packaging/accuracy-runtime-manifest.json) pins its
-archive, all 13 DLLs and license. GGML selects the supported CPU backend during
-registration, including the generic x64 fallback.
+The accuracy preview builds transcribe.cpp 0.4.1 with one Windows weight-loading
+change. It uses the binary CRT reader for the same tensor offsets, byte counts
+and bounded 16 MiB staging buffer. Recognition and decoding code are unchanged.
+The small CMake seam links against the official GGML DLLs instead of rebuilding
+them. There are no hint, upload or diagnostic patches.
 
-Use PowerShell 7 and Windows tar:
+[source-manifest.json](source-manifest.json) pins the upstream source archive and
+the combined reader/CMake patch. The [runtime manifest](../../packaging/accuracy-runtime-manifest.json)
+pins the official archive, 12 GGML DLLs and all four license files. Its
+`transcribe.dll` entry identifies the selected evaluated build. A fresh local
+source build may have a different PE hash because of toolchain and build paths.
+`native-build.json` records the exact resulting DLL and copied payload hashes.
+
+Fresh preparation needs PowerShell 7, Windows tar, Git, CMake, Ninja and Visual
+Studio x64 C++ Build Tools:
 
 ```powershell
 pwsh -File tools/Freehand.Native/prepare.ps1 `
-  -OutputDirectory artifacts/native-cache/transcribe-0.4.1-cpu-vulkan
+  -OutputDirectory artifacts/native-cache/transcribe-0.4.1-freehand-read1
 ```
 
-`-RuntimeArchive` accepts an existing download after verifying its checksum.
-Complete caches are rehashed on reuse. An incomplete cache is extracted again
-from the verified archive. A checksum mismatch fails before the runtime is used.
+`-CMake` and `-Ninja` accept explicit executable paths. `-SourceArchive` and
+`-RuntimeArchive` accept existing downloads, which are still checksum-verified.
+The helper uses fresh attempt directories and builds only `transcribe.dll` with
+two jobs. It preserves failed attempts for diagnosis.
+Extraction omits one upstream editor-instruction symlink that Windows tar
+cannot create; it is unrelated to the native build inputs.
 
-Stock and custom 7232 controls produced identical Qwen 0.6 Q6 transcripts for
-all 120 existing development clips and identical results in 23 dictionary,
-silence, short-speech and quiet-speech cases. Silero accepted all 120 speech
-clips in both runtimes with identical probability bits and control decisions.
-These controls support replacing the custom build; desktop acceptance and
-the separate test set remain part of the app's evaluation.
+Reuse verifies the source/archive/patch pins and every recorded output before
+resolving compiler tools. The official GGML and license hashes must still match
+the checked-in pins. Stock `transcribe.dll` is rejected as the reader variant.
+Use `-VerifyOnly` to validate an existing cache without building or downloading.
+
+`scripts/dev-accuracy.ps1` requires this record for both its default cache and
+an explicit `-RuntimeSource`. It copies the record into the preview and records
+the exact packaged DLL hashes and build-record hash in `accuracy-build.json`.
+Model accuracy and whole-app performance still require the measured published
+executable; a successful source build alone does not establish either gate.

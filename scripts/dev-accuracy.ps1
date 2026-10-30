@@ -39,24 +39,18 @@ foreach ($asset in $modelManifest.Files) {
     }
 }
 if (-not $RuntimeSource) {
-    $RuntimeSource = Join-Path $projectRoot 'artifacts/native-cache/transcribe-0.4.1-cpu-vulkan'
+    $RuntimeSource = Join-Path $projectRoot 'artifacts/native-cache/transcribe-0.4.1-freehand-read1'
     & (Join-Path $projectRoot 'tools/Freehand.Native/prepare.ps1') -OutputDirectory $RuntimeSource
+} else {
+    & (Join-Path $projectRoot 'tools/Freehand.Native/prepare.ps1') -OutputDirectory $RuntimeSource -VerifyOnly
 }
 $runtimeDirectory = (Resolve-Path -LiteralPath $RuntimeSource).Path
-foreach ($asset in $runtimeManifest.Files) {
-    $sourceFile = Join-Path $runtimeDirectory $asset.Name
-    if ((Get-Item -LiteralPath $sourceFile).Length -ne $asset.Size -or
-        (Get-FileHash -LiteralPath $sourceFile -Algorithm SHA256).Hash -ine $asset.Sha256) {
-        throw "Accuracy runtime checksum failed: $($asset.Name)"
-    }
-}
-foreach ($notice in $runtimeManifest.Licenses) {
-    $sourceFile = Join-Path $runtimeDirectory ('licenses/' + $notice.Name)
-    if ((Get-Item -LiteralPath $sourceFile).Length -ne $notice.Size -or
-        (Get-FileHash -LiteralPath $sourceFile -Algorithm SHA256).Hash -ine $notice.Sha256) {
-        throw "Accuracy runtime license checksum failed: $($notice.Name)"
-    }
-}
+# The SDK can reuse composite component images after switching publish modes.
+# Regenerate them so every image matches this noncomposite publish.
+$appIntermediate = [IO.Path]::GetFullPath((Join-Path $projectRoot 'src/Freehand.App/obj')) + [IO.Path]::DirectorySeparatorChar
+$readyToRunCache = [IO.Path]::GetFullPath((Join-Path $appIntermediate 'Release/net10.0/win-x64/R2R'))
+if (-not $readyToRunCache.StartsWith($appIntermediate, [StringComparison]::OrdinalIgnoreCase)) { throw 'R2R cache must remain inside the app intermediate directory.' }
+if (Test-Path -LiteralPath $readyToRunCache) { Remove-Item -LiteralPath $readyToRunCache -Recurse -Force }
 $build = (git -C $projectRoot rev-parse --short HEAD).Trim()
 if (git -C $projectRoot status --porcelain) { $build += '-dirty' }
 $version = Get-FreehandVersion
@@ -74,8 +68,9 @@ foreach ($previousNative in Get-ChildItem -LiteralPath $publishDirectory -Filter
 foreach ($asset in $runtimeManifest.Files) {
     Copy-Item -LiteralPath (Join-Path $runtimeDirectory $asset.Name) -Destination $publishDirectory -Force
 }
-$oldBuildRecord = Join-Path $publishDirectory 'native-build.json'
-if (Test-Path -LiteralPath $oldBuildRecord) { Remove-Item -LiteralPath $oldBuildRecord }
+Copy-Item -LiteralPath (Join-Path $runtimeDirectory 'native-build.json') -Destination $publishDirectory -Force
+$oldComposite = Join-Path $publishDirectory 'Freehand.App.r2r.dll'
+if (Test-Path -LiteralPath $oldComposite) { Remove-Item -LiteralPath $oldComposite }
 $licenses = Join-Path $publishDirectory 'licenses'
 New-Item -ItemType Directory -Force -Path $licenses | Out-Null
 $nativeNotices = Join-Path $licenses 'transcribe'
@@ -152,7 +147,8 @@ $check = [Diagnostics.Process]::Start($selftest)
 $check.WaitForExit()
 if ($check.ExitCode -ne 0) { throw "Accuracy preview self-test failed: $($check.ExitCode)" }
 $check.Dispose()
-$identity = [ordered]@{ Build=$build; Model=$modelManifest.Version; Runtime=$runtimeManifest.Version; Files=@(
+$identity = [ordered]@{ Build=$build; Model=$modelManifest.Version; Runtime=$runtimeManifest.Version
+    NativeBuildSha256=(Get-FileHash -LiteralPath (Join-Path $publishDirectory 'native-build.json')).Hash.ToLowerInvariant(); Files=@(
     foreach ($name in @('Freehand.App.exe') + @($runtimeManifest.Files.Name)) {
         $file = Get-Item -LiteralPath (Join-Path $publishDirectory $name)
         [ordered]@{ Name=$name; Size=$file.Length; Sha256=(Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
