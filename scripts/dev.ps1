@@ -2,6 +2,7 @@
 param(
     [string]$Dotnet,
     [string]$ModelSource,
+    [string]$CleanupSource,
     [switch]$BuildOnly
 )
 . (Join-Path $PSScriptRoot 'common.ps1')
@@ -16,6 +17,11 @@ New-Item -ItemType Directory -Force -Path $dataDirectory | Out-Null
 $settingsPath = Join-Path $dataDirectory 'settings.json'
 $settings = if (Test-Path -LiteralPath $settingsPath) { Get-Content -LiteralPath $settingsPath -Raw | ConvertFrom-Json -AsHashtable } else { @{} }
 $settings.ModelDirectory = $model
+$cleanupInput = if ($CleanupSource) { $CleanupSource } else { Join-Path $projectRoot 'artifacts/cleanup-assets' }
+if ($CleanupSource -or (-not $settings.CleanupDirectory -and (Test-Path -LiteralPath (Join-Path $cleanupInput 'cleanup-manifest.json') -PathType Leaf))) {
+    $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupInput
+    $settings.CleanupDirectory = $cleanupBundle.Directory
+}
 $settings.StartAtLogin = $false
 $settings | ConvertTo-Json | Set-Content -LiteralPath $settingsPath
 Push-Location -LiteralPath $projectRoot

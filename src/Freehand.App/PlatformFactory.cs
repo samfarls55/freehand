@@ -82,6 +82,7 @@ internal static class PlatformFactory
         Create<ITextInjector>("SendInputTextInjector", []);
 
     public static IWorkerLauncher? CreateWorkerLauncher() => Create<IWorkerLauncher>("WindowsWorkerLauncher", []);
+    public static ICleanupWorkerLauncher? CreateCleanupWorkerLauncher() => Create<ICleanupWorkerLauncher>("WindowsCleanupWorkerLauncher", []);
     public static IDesktopIntegration? CreateDesktopIntegration() => Create<IDesktopIntegration>("WindowsDesktopIntegration", []);
     public static IUpdateInstaller? CreateUpdateInstaller() => Create<IUpdateInstaller>("WindowsUpdateInstaller", []);
     public static ITextDeliveryProbe? CreateDeliveryProbe() => Create<ITextDeliveryProbe>("WindowsDeliveryProbe", []);

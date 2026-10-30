@@ -26,7 +26,12 @@ internal static partial class EnglishTextNormalizer
     [GeneratedRegex(@"(?<![\p{L}\p{N}_])\d[\d,._]*(?:(?:[ \t]+|['’])[.,]?\d[\d,._]*)+(?:[ \t]+(?:" + Unit + @"))?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant, 100)]
     private static partial Regex NumericFragments();
 
-    internal static string Normalize(string text, IReadOnlyList<CorrectionRange> protectedRanges, IReadOnlyList<DictionaryEntry>? entries = null)
+    internal static string Normalize(string text, IReadOnlyList<CorrectionRange> protectedRanges, IReadOnlyList<DictionaryEntry>? entries = null) =>
+        NormalizeWithProtectedRanges(text, protectedRanges, entries).Text;
+
+    /// <summary>Keeps literal correction offsets aligned when preceding numbers change length.</summary>
+    internal static (string Text, IReadOnlyList<CorrectionRange> ProtectedRanges) NormalizeWithProtectedRanges(
+        string text, IReadOnlyList<CorrectionRange> protectedRanges, IReadOnlyList<DictionaryEntry>? entries = null)
     {
         // Ranges track the final literal characters even after correction cascades.
         var spans = protectedRanges.ToList();
@@ -46,10 +51,19 @@ internal static partial class EnglishTextNormalizer
                     spans.Add(new CorrectionRange(token.Index, token.Length));
             foreach (Match fragment in NumericFragments().Matches(text))
                 spans.Add(new CorrectionRange(fragment.Index, fragment.Length));
-            return Numbers().Replace(text, match => spans.Any(span => match.Index < span.Start + span.Length && match.Index + match.Length > span.Start)
-                ? match.Value : Format(match));
+            var changes = new List<(int End, int Difference)>();
+            var normalized = Numbers().Replace(text, match =>
+            {
+                var replacement = spans.Any(span => match.Index < span.Start + span.Length && match.Index + match.Length > span.Start)
+                    ? match.Value : Format(match);
+                if (replacement.Length != match.Length) changes.Add((match.Index + match.Length, replacement.Length - match.Length));
+                return replacement;
+            });
+            var aligned = protectedRanges.Select(span => new CorrectionRange(
+                span.Start + changes.Where(change => change.End <= span.Start).Sum(change => change.Difference), span.Length)).ToArray();
+            return (normalized, aligned);
         }
-        catch (RegexMatchTimeoutException) { return text; }
+        catch (RegexMatchTimeoutException) { return (text, protectedRanges); }
     }
 
     private static string Format(Match match)

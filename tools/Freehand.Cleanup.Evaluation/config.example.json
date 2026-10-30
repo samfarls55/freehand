@@ -1,0 +1,45 @@
+{
+  "runtime_path": "/absolute/path/to/pinned/llama-server",
+  "runtime_sha256": "REPLACE_WITH_VERIFIED_RUNTIME_SHA256",
+  "server_args": [
+    "--ctx-size", "8192", "--parallel", "1", "--threads", "4", "--n-gpu-layers", "0",
+    "--fit", "off", "--no-context-shift", "--no-webui", "--no-slots", "--no-mmproj", "--offline", "--log-disable"
+  ],
+  "candidates": [
+    {
+      "id": "quill-4b",
+      "model_path": "/absolute/path/to/pinned-quill.gguf",
+      "model_sha256": "REPLACE_WITH_VERIFIED_MODEL_SHA256",
+      "style": "quill_chatml",
+      "source": "REPLACE_WITH_PUBLISHER_AND_ARTIFACT_URL",
+      "revision": "REPLACE_WITH_IMMUTABLE_ARTIFACT_REVISION"
+    },
+    {
+      "id": "qwen35-9b",
+      "model_path": "/absolute/path/to/pinned-qwen35-9b.gguf",
+      "model_sha256": "REPLACE_WITH_VERIFIED_MODEL_SHA256",
+      "style": "chat",
+      "chat_template_kwargs": {"enable_thinking": false},
+      "source": "REPLACE_WITH_PUBLISHER_AND_ARTIFACT_URL",
+      "revision": "REPLACE_WITH_IMMUTABLE_ARTIFACT_REVISION"
+    },
+    {
+      "id": "ministral3-8b",
+      "model_path": "/absolute/path/to/pinned-ministral3-8b.gguf",
+      "model_sha256": "REPLACE_WITH_VERIFIED_MODEL_SHA256",
+      "style": "chat",
+      "chat_template_kwargs": {"enable_thinking": false},
+      "source": "REPLACE_WITH_PUBLISHER_AND_ARTIFACT_URL",
+      "revision": "REPLACE_WITH_IMMUTABLE_ARTIFACT_REVISION"
+    },
+    {
+      "id": "gemma4-e4b",
+      "model_path": "/absolute/path/to/pinned-gemma4-e4b.gguf",
+      "model_sha256": "REPLACE_WITH_VERIFIED_MODEL_SHA256",
+      "style": "chat",
+      "chat_template_kwargs": {"enable_thinking": false},
+      "source": "REPLACE_WITH_PUBLISHER_AND_ARTIFACT_URL",
+      "revision": "REPLACE_WITH_IMMUTABLE_ARTIFACT_REVISION"
+    }
+  ]
+}

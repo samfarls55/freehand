@@ -1,0 +1,31 @@
+{
+  "SchemaVersion": 1,
+  "Runtime": "llama.cpp",
+  "Tag": "b12015",
+  "SourceCommit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+  "Source": "https://github.com/ggml-org/llama.cpp/releases/tag/b12015",
+  "Artifacts": [
+    {
+      "Platform": "win-x64-cpu",
+      "Source": "https://github.com/ggml-org/llama.cpp/releases/download/b12015/llama-b12015-bin-win-cpu-x64.zip",
+      "ArchiveSha256": "f3a0097934526c7c937fbe33b8352ee305aa6605cceef1744427a84686edbc48",
+      "ArchiveSize": 24574585,
+      "Executable": "llama-server.exe",
+      "ExecutableSha256": "023d596a40166386ed6e68d4a7f3c62555cf29d5288292fc1fcf940f7c523056"
+    },
+    {
+      "Platform": "linux-x64-cpu",
+      "Source": "https://github.com/ggml-org/llama.cpp/releases/download/b12015/llama-b12015-bin-ubuntu-x64.tar.gz",
+      "ArchiveSha256": "25458e07a9eca87791b2c856bf7d1c457dcfda038d6bf2fa2bbb07f11c988ee6",
+      "ArchiveSize": 22881053,
+      "Executable": "llama-server",
+      "ExecutableSha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+    }
+  ],
+  "Notes": [
+    "Both downloaded archives matched their GitHub release SHA-256 digests.",
+    "The executable is a small launcher; retain and verify the runtime libraries from the same archive.",
+    "The prepared cleanup bundle records SHA-256 hashes for every included file.",
+    "The Windows runtime requires the Microsoft Visual C++ runtime; native startup must be verified on Windows."
+  ]
+}

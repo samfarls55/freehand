@@ -1,11 +1,17 @@
 #Requires -Version 7.0
 param(
     [string]$Dotnet,
-    [string]$ModelSource
+    [string]$ModelSource,
+    [string]$CleanupSource
 )
 . (Join-Path $PSScriptRoot 'common.ps1')
 $Dotnet = Resolve-FreehandDotnet $Dotnet
 Set-Location -LiteralPath $projectRoot
+$cleanupBundle = $null
+$cleanupInput = if ($CleanupSource) { $CleanupSource } else { Join-Path $projectRoot 'artifacts/cleanup-assets' }
+if ($CleanupSource -or (Test-Path -LiteralPath (Join-Path $cleanupInput 'cleanup-manifest.json') -PathType Leaf)) {
+    $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupInput
+}
 $build = (git rev-parse --short HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source commit.' }
 $changes = git status --porcelain
@@ -62,6 +68,16 @@ $modelTarget = Join-Path $publish ('models/' + $manifest.DirectoryName)
 New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
 foreach ($asset in $manifest.Files) { Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $modelTarget }
 Copy-Item -LiteralPath packaging/model-manifest.json -Destination (Join-Path $modelTarget 'manifest.json') -Force
+if ($cleanupBundle) {
+    $cleanupTarget = Join-Path $publish 'models/cleanup'
+    foreach ($asset in $cleanupBundle.Files) {
+        $destination = Join-Path $cleanupTarget $asset.path
+        New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
+        Copy-Item -LiteralPath (Join-Path $cleanupBundle.Directory $asset.path) -Destination $destination
+    }
+    Copy-Item -LiteralPath $cleanupBundle.ManifestPath -Destination (Join-Path $cleanupTarget 'cleanup-manifest.json')
+    $null = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupTarget
+}
 New-Item -ItemType Directory -Force -Path (Join-Path $publish 'fixtures') | Out-Null
 $fixtureCache = Join-Path $projectRoot 'artifacts/model-cache/jfk.wav'
 if (-not (Test-Path -LiteralPath $fixtureCache)) {

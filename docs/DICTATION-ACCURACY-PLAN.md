@@ -1,5 +1,10 @@
 # Dictation accuracy within the Wispr Flow budget
 
+**October 30 cleanup update:** Sam now prioritizes output quality and accepts a
+slower, higher-memory first cleanup prototype, followed by optimization. The
+cleanup selection gates below are historical for that first pass. See the
+[quality-first model research](TRANSCRIPT-CLEANUP-RESEARCH.md#quality-first-direction--october-30-2026).
+
 Implementation measurements and remaining limits are recorded in
 [the accuracy validation](ACCURACY-VALIDATION.md).
 

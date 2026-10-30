@@ -3,6 +3,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Freehand.Abstractions;
@@ -22,6 +23,7 @@ public sealed class SettingsView : UserControl
     private readonly HotkeyEditor _key;
     private readonly ToggleSwitch _inject = Switch("Insert text into the focused app");
     private readonly ToggleSwitch _history = Switch("Keep transcript history");
+    private readonly ToggleSwitch _cleanup = Switch("Clean up dictated text");
     private readonly ToggleSwitch _login = Switch("Start at Windows login");
     private readonly ToggleSwitch _updates = Switch("Check for updates automatically");
     private readonly NumericUpDown _idle = new() { Minimum = 1, Maximum = 60, Increment = 1, Width = 100 };
@@ -29,6 +31,9 @@ public sealed class SettingsView : UserControl
     private readonly TextBlock _error = Panels.Text("", Tokens.Fonts.Label);
     private readonly TextBlock _modelStatus = Panels.Text("");
     private readonly TextBlock _modelPath = Panels.Text("", Tokens.Fonts.Label, muted: true);
+    private readonly TextBlock _cleanupName = Panels.Text("");
+    private readonly TextBlock _cleanupStatus = Panels.Text("");
+    private readonly TextBlock _cleanupPath = Panels.Text("", Tokens.Fonts.Label, muted: true);
     private readonly DispatcherTimer _modelTimer = new() { Interval = TimeSpan.FromSeconds(1) };
     private bool _syncing;
 
@@ -44,10 +49,11 @@ public sealed class SettingsView : UserControl
         _warning.Foreground = Tokens.Brushes.Attention; _error.Foreground = Tokens.Brushes.Attention;
         _inject.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { InjectText = _inject.IsChecked == true }); };
         _history.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { KeepHistory = _history.IsChecked == true }); };
+        _cleanup.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { CleanupEnabled = _cleanup.IsChecked == true }); };
         _login.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { StartAtLogin = _login.IsChecked == true }); };
         _updates.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { CheckForUpdates = _updates.IsChecked == true }); };
         _idle.ValueChanged += (_, _) => { if (!_syncing && _idle.Value is { } value) Save(_settings.Data with { IdleModelMinutes = (int)value }); };
-        _modelTimer.Tick += (_, _) => UpdateModelStatus();
+        _modelTimer.Tick += (_, _) => { UpdateModelStatus(); UpdateCleanupStatus(); };
         Content = new DockPanel { Children =
         {
             Panels.Docked(Panels.Heading("Settings"), Dock.Top),
@@ -60,6 +66,7 @@ public sealed class SettingsView : UserControl
                         SettingRow("Push-to-talk key", _key), _warning,
                         SettingRow("Insert text into the focused app", _inject),
                         SettingRow("Keep transcript history", _history),
+                        SettingRow("Clean up dictated text", _cleanup),
                     } }),
                     Group("System", new StackPanel { Children =
                     {
@@ -69,6 +76,7 @@ public sealed class SettingsView : UserControl
                             : SettingRow("Release model after idle minutes", _idle),
                     } }),
                     Group("Speech model", BuildModelSection()),
+                    Group("Cleanup model", BuildCleanupSection()),
                     Group("Updates", new StackPanel { Spacing = Tokens.Space.Base, Children =
                     {
                         SettingRow("Check for updates automatically", _updates), new UpdateView(_composition?.Updates),
@@ -101,12 +109,14 @@ public sealed class SettingsView : UserControl
         {
             _key.Synchronize(_settings.Data.DictationKeys);
             _inject.IsChecked = _settings.Data.InjectText; _history.IsChecked = _settings.Data.KeepHistory;
+            _cleanup.IsChecked = _settings.Data.CleanupEnabled;
             _login.IsChecked = _settings.Data.StartAtLogin; _idle.Value = _settings.Data.IdleModelMinutes;
             _updates.IsChecked = _settings.Data.CheckForUpdates;
             _warning.Text = _settings.Data.DictationKeys.Contains(0xA5) ? "Right Alt is AltGr on many European layouts. This can interfere with typing @, €, \\ and |." : "";
             _warning.IsVisible = !string.IsNullOrEmpty(_warning.Text);
             _error.Text = _settings.LastError; _error.IsVisible = !string.IsNullOrEmpty(_error.Text);
             UpdateModelStatus();
+            UpdateCleanupStatus();
         }
         finally { _syncing = false; }
     }
@@ -159,6 +169,58 @@ public sealed class SettingsView : UserControl
         } : "Model needs verification or repair";
         _modelStatus.Foreground = found || preparing ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
         _modelPath.Text = located + (found || preparing ? "" : "\n" + (_composition?.Models.Error ?? "Run the installer again to verify and repair the bundled model."));
+    }
+    private StackPanel BuildCleanupSection()
+    {
+        var choose = Panels.Button("Choose model folder", quiet: true);
+        choose.Click += async (_, _) =>
+        {
+            var provider = TopLevel.GetTopLevel(this)?.StorageProvider;
+            if (provider?.CanPickFolder != true) return;
+            try
+            {
+                var folders = await provider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+                {
+                    Title = "Select a prepared cleanup model folder", AllowMultiple = false,
+                }).ConfigureAwait(true);
+                if (folders.Count > 0 && folders[0].TryGetLocalPath() is { } path)
+                    Save(_settings.Data with { CleanupDirectory = path });
+            }
+            catch (Exception error) when (error is IOException or UnauthorizedAccessException or InvalidOperationException)
+            {
+                _cleanupStatus.Text = "Cleanup folder could not be opened";
+                _cleanupStatus.Foreground = Tokens.Brushes.Attention;
+            }
+        };
+        var bundled = Panels.Button("Use bundled cleanup", quiet: true);
+        bundled.Click += (_, _) =>
+        {
+            Save(_settings.Data with { CleanupDirectory = null });
+            _composition?.ReloadCleanupModel();
+        };
+        var reload = Panels.Button("Reload cleanup model", quiet: true);
+        reload.Click += (_, _) => _composition?.ReloadCleanupModel();
+        choose.IsEnabled = _composition is not null;
+        reload.IsEnabled = _composition is not null;
+        return new StackPanel { Spacing = Tokens.Space.Base, Children =
+        {
+            _cleanupName, _cleanupStatus, _cleanupPath,
+            new WrapPanel { ItemSpacing = Tokens.Space.Snug, LineSpacing = Tokens.Space.Snug, Children = { choose, bundled, reload } },
+        } };
+    }
+    private void UpdateCleanupStatus()
+    {
+        var selected = _settings.Data.CleanupDirectory ?? ConfiguredTranscriptPostProcessor.DefaultDirectory;
+        var cleanup = _composition?.Cleanup;
+        _cleanupName.Text = cleanup?.ModelId ?? "Local transcript cleanup";
+        _cleanupPath.Text = selected;
+        _cleanupStatus.Text = cleanup?.Status(_settings.Data.CleanupEnabled)
+            ?? (!_settings.Data.CleanupEnabled ? "Off"
+                : File.Exists(Path.Combine(selected, "cleanup-manifest.json")) ? "Installed · verifies and loads when you dictate"
+                : "No cleanup model installed");
+        var attention = _settings.Data.CleanupEnabled && (cleanup?.NeedsAttention
+            ?? !File.Exists(Path.Combine(selected, "cleanup-manifest.json")));
+        _cleanupStatus.Foreground = attention ? Tokens.Brushes.Attention : Tokens.Brushes.Muted;
     }
     private static ToggleSwitch Switch(string label)
     {

@@ -18,6 +18,15 @@ public sealed record TranscriptRecord
     public double ProcessingSeconds { get; init; }
     /// <summary>Corrected text.</summary>
     public string Text { get; init; } = string.Empty;
+    /// <summary>Text before optional cleanup, stored only under the history preference.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? OriginalText { get; init; }
+    /// <summary>Optional cleanup outcome for this saved dictation.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TranscriptCleanupOutcome? CleanupOutcome { get; init; }
+    /// <summary>Elapsed optional cleanup time.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? CleanupSeconds { get; init; }
     /// <summary>Literal corrections applied.</summary>
     public IReadOnlyList<AppliedCorrection>? Corrections { get; init; }
 }

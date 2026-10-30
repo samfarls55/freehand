@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Channels;
 using Freehand.Abstractions;
 using Freehand.Dictionary;
@@ -16,6 +17,8 @@ public enum DictationState
     Preparing,
     /// <summary>Decoding segments.</summary>
     Transcribing,
+    /// <summary>Conservatively editing the complete transcript.</summary>
+    Cleaning,
     /// <summary>Restarting a failed worker.</summary>
     Recovering,
     /// <summary>Holding one failed recording.</summary>
@@ -49,6 +52,22 @@ public enum DictationOutcome
 }
 /// <summary>Feedback contains a user action, never native exception details.</summary>
 public sealed record DictationFeedback(DictationOutcome Outcome, string Message, Guid JobId);
+/// <summary>Whether optional cleanup supplied the delivered transcript.</summary>
+public enum TranscriptCleanupOutcome
+{
+    /// <summary>No cleanup was requested for this recording.</summary>
+    Disabled,
+    /// <summary>Complete validated cleanup changed the transcript.</summary>
+    Applied,
+    /// <summary>Complete cleanup kept the transcript unchanged.</summary>
+    Unchanged,
+    /// <summary>The cleanup deadline expired; the original was retained.</summary>
+    TimedOut,
+    /// <summary>The processor failed or was still finishing an earlier job.</summary>
+    Failed,
+    /// <summary>The processor output failed structural or literal validation.</summary>
+    Rejected,
+}
 /// <summary>One dictation, timed from release through delivery.</summary>
 public sealed record DictationResult(DateTimeOffset At, TimeSpan AudioDuration, TimeSpan ProcessingTime,
     string Text, IReadOnlyList<AppliedCorrection> Corrections)
@@ -61,6 +80,12 @@ public sealed record DictationResult(DateTimeOffset At, TimeSpan AudioDuration, 
     public TimeSpan? FirstInsertionTime { get; init; }
     /// <summary>Release through corrected transcript readiness, before delivery.</summary>
     public TimeSpan TranscriptTime { get; init; }
+    /// <summary>Dictionary-corrected, normalized text before optional cleanup.</summary>
+    public string? OriginalText { get; init; }
+    /// <summary>The optional cleanup outcome.</summary>
+    public TranscriptCleanupOutcome CleanupOutcome { get; init; }
+    /// <summary>Complete cleanup time, including failure and fallback.</summary>
+    public TimeSpan CleanupTime { get; init; }
 }
 /// <summary>Named capture limits.</summary>
 public sealed record DictationOptions
@@ -83,6 +108,10 @@ public sealed class DictationEngine : IAsyncDisposable
     private readonly Func<bool> _injectEnabled;
     private readonly DiagnosticLog? _log;
     private readonly DictationOptions _options;
+    private readonly ITranscriptPostProcessor? _transcriptPostProcessor;
+    private readonly TimeSpan _cleanupTimeout;
+    private readonly Func<bool> _cleanupEnabled;
+    private Task<string>? _cleanupPending;
     private readonly object _sync = new();
     private readonly CancellationTokenSource _lifetime = new();
     private CancellationTokenSource? _recording;
@@ -96,7 +125,7 @@ public sealed class DictationEngine : IAsyncDisposable
     private Guid _job;
     private DictationState _state;
     private sealed record FailedJob(Guid Id, IReadOnlyList<ReadOnlyMemory<float>> Audio, int SampleCount,
-        ForegroundTarget Target, IReadOnlyList<DictionaryEntry> Entries);
+        ForegroundTarget Target, IReadOnlyList<DictionaryEntry> Entries, bool CleanupEnabled);
     /// <summary>Current dictation state.</summary>
     public DictationState State { get { lock (_sync) return _state; } }
     /// <summary>Input level.</summary>
@@ -115,12 +144,18 @@ public sealed class DictationEngine : IAsyncDisposable
     public DictationEngine(IAudioCapture capture, IHotkeySource hotkey, ITranscriber transcriber,
         ITextInjector injector, Func<IReadOnlyList<DictionaryEntry>> dictionary, IClock? clock = null,
         Func<bool>? injectEnabled = null, IForegroundWindow? foreground = null,
-        DiagnosticLog? log = null, DictationOptions? options = null)
+        DiagnosticLog? log = null, DictationOptions? options = null,
+        ITranscriptPostProcessor? transcriptPostProcessor = null, TimeSpan? cleanupTimeout = null,
+        Func<bool>? cleanupEnabled = null)
     {
         _capture = capture; _hotkey = hotkey; _speech = transcriber; _injector = injector;
         _dictionary = dictionary; _clock = clock ?? SystemClock.Instance;
         _injectEnabled = injectEnabled ?? (() => true); _foreground = foreground; _log = log;
         _options = options ?? new DictationOptions();
+        _transcriptPostProcessor = transcriptPostProcessor;
+        _cleanupTimeout = cleanupTimeout ?? TimeSpan.FromMinutes(2);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(_cleanupTimeout, TimeSpan.Zero, nameof(cleanupTimeout));
+        _cleanupEnabled = cleanupEnabled ?? (() => true);
         ArgumentOutOfRangeException.ThrowIfLessThan(_options.MaxSegmentSeconds, 1, nameof(options));
         ArgumentOutOfRangeException.ThrowIfGreaterThan(_options.MaxSegmentSeconds, AudioSegmenter.MaxSegmentSeconds, nameof(options));
         Subscribe(_hotkey);
@@ -172,7 +207,8 @@ public sealed class DictationEngine : IAsyncDisposable
             var released = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             _recording = recording; _released = released; SetState(DictationState.Recording);
             var job = _job;
-            _operation = Task.Run(() => RecordAsync(job, target, recording, released));
+            var cleanupEnabled = _transcriptPostProcessor is not null && _cleanupEnabled();
+            _operation = Task.Run(() => RecordAsync(job, target, recording, released, cleanupEnabled));
         }
     }
     private void EndRecording()
@@ -184,7 +220,7 @@ public sealed class DictationEngine : IAsyncDisposable
             _recording!.Cancel(); _released!.TrySetResult();
         }
     }
-    private async Task RecordAsync(Guid job, ForegroundTarget target, CancellationTokenSource recording, TaskCompletionSource released)
+    private async Task RecordAsync(Guid job, ForegroundTarget target, CancellationTokenSource recording, TaskCompletionSource released, bool cleanupEnabled)
     {
         // The recording limit also bounds the queued and retained audio. The reader is
         // sequential because one native recognizer owns the speech worker.
@@ -230,7 +266,7 @@ public sealed class DictationEngine : IAsyncDisposable
             if (audio.IsSilent) { Report(DictationOutcome.EmptySpeech, "No audio was heard. Check your microphone and Windows microphone access."); return; }
             audio.Complete();
             segments.Writer.TryComplete();
-            await ProcessAsync(new FailedJob(job, audio.Segments, audio.Count, target, _dictionary().ToArray()), transcript).ConfigureAwait(false);
+            await ProcessAsync(new FailedJob(job, audio.Segments, audio.Count, target, _dictionary().ToArray(), cleanupEnabled), transcript).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { Report(DictationOutcome.Cancelled, "Dictation cancelled."); }
         catch (Exception e) { _log?.Write(job, "capture-" + e.GetType().Name); Report(DictationOutcome.CaptureFailure, "The microphone stopped. Reconnect it or open Windows microphone settings, then try again."); }
@@ -242,8 +278,13 @@ public sealed class DictationEngine : IAsyncDisposable
             if (transcript is not null) { try { await transcript.ConfigureAwait(false); } catch (Exception e) { _log?.Write(job, "decode-" + e.GetType().Name); } }
             try { await load.ConfigureAwait(false); } catch (Exception e) { _log?.Write(job, "load-" + e.GetType().Name); }
             if (_speech is ISpeechSession session) session.FinishWork();
-            recording.Dispose(); Level = 0;
-            lock (_sync) { _recording = null; _released = null; if (!_disposed) SetState(_failed is null ? DictationState.Idle : DictationState.AwaitingRetry); }
+            // Clear the shared owner under the same lock used by Quit before
+            // disposing it, so shutdown cannot cancel an already-disposed source.
+            lock (_sync)
+            {
+                _recording = null; _released = null; recording.Dispose(); Level = 0;
+                if (!_disposed) SetState(_failed is null ? DictationState.Idle : DictationState.AwaitingRetry);
+            }
         }
     }
     private async Task<string> DecodeRecordingAsync(ChannelReader<ReadOnlyMemory<float>> segments,
@@ -302,7 +343,17 @@ public sealed class DictationEngine : IAsyncDisposable
         _lifetime.Token.ThrowIfCancellationRequested();
         if (string.IsNullOrWhiteSpace(raw)) { _failed = null; Report(DictationOutcome.EmptySpeech, "No speech was recognized."); return; }
         var (corrected, applied, protectedRanges) = new DictionaryCorrector(job.Entries).ApplyWithProtectedRanges(raw);
-        corrected = EnglishTextNormalizer.Normalize(corrected, protectedRanges, job.Entries);
+        (corrected, protectedRanges) = EnglishTextNormalizer.NormalizeWithProtectedRanges(corrected, protectedRanges, job.Entries);
+        var original = job.CleanupEnabled ? corrected : null;
+        var cleanupOutcome = TranscriptCleanupOutcome.Disabled;
+        var cleanupTime = TimeSpan.Zero;
+        if (job.CleanupEnabled)
+        {
+            var cleanupAt = Stopwatch.GetTimestamp();
+            (corrected, cleanupOutcome) = await CleanupAsync(job.Id, corrected, protectedRanges).ConfigureAwait(false);
+            cleanupTime = Stopwatch.GetElapsedTime(cleanupAt);
+        }
+        _lifetime.Token.ThrowIfCancellationRequested();
         var transcriptTime = Stopwatch.GetElapsedTime(_releasedAt);
         _log?.Write(job.Id, "transcript-ready", transcriptTime);
         var delivery = DeliveryOutcome.Disabled;
@@ -343,7 +394,8 @@ public sealed class DictationEngine : IAsyncDisposable
         }
         _failed = null;
         var result = new DictationResult(_clock.Now, TimeSpan.FromSeconds((double)job.SampleCount / AudioChunk.SampleRate), Stopwatch.GetElapsedTime(_releasedAt), corrected, applied)
-            { JobId = job.Id, Delivery = delivery, FirstInsertionTime = firstInsertion, TranscriptTime = transcriptTime };
+            { JobId = job.Id, Delivery = delivery, FirstInsertionTime = firstInsertion, TranscriptTime = transcriptTime,
+                OriginalText = original, CleanupOutcome = cleanupOutcome, CleanupTime = cleanupTime };
         LastResult = result;
         if (!hotkeyRestored) Report(DictationOutcome.CaptureFailure, "The dictation key could not start. Choose Retry in Freehand.");
         else Report(delivery is DeliveryOutcome.Delivered or DeliveryOutcome.Disabled ? DictationOutcome.Success : DictationOutcome.DeliveryFailure,
@@ -352,6 +404,106 @@ public sealed class DictationEngine : IAsyncDisposable
                 _ => "Delivery may be incomplete. Check the target and copy the text. It will not be sent again automatically." });
         _log?.Write(job.Id, "finished-" + delivery, result.ProcessingTime);
         Completed?.Invoke(this, result);
+    }
+    private async Task<(string Text, TranscriptCleanupOutcome Outcome)> CleanupAsync(
+        Guid job, string original, IReadOnlyList<CorrectionRange> protectedRanges)
+    {
+        if (string.IsNullOrWhiteSpace(original)) return (original, TranscriptCleanupOutcome.Unchanged);
+        // A timed-out provider may ignore cancellation. Never overlap it with another job.
+        if (_cleanupPending is { IsCompleted: false }) return (original, TranscriptCleanupOutcome.Failed);
+        SetState(DictationState.Cleaning);
+        var (input, literals, markerPrefix) = ProtectLiterals(original, protectedRanges);
+        using var stop = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
+        try
+        {
+            var processor = _transcriptPostProcessor!;
+            var token = stop.Token;
+            var operation = Task.Run(async () => await processor.ProcessAsync(input, token).ConfigureAwait(false));
+            _cleanupPending = operation;
+            _ = ObserveCleanupAsync(operation);
+            var output = await operation.WaitAsync(_cleanupTimeout, _lifetime.Token).ConfigureAwait(false);
+            _lifetime.Token.ThrowIfCancellationRequested();
+            if (!TryRestoreLiterals(output, literals, markerPrefix, out var restored) || !IsUsableCleanup(original, restored))
+            {
+                _log?.Write(job, "cleanup-rejected");
+                return (original, TranscriptCleanupOutcome.Rejected);
+            }
+            return (restored, restored == original ? TranscriptCleanupOutcome.Unchanged : TranscriptCleanupOutcome.Applied);
+        }
+        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { stop.Cancel(); throw; }
+        catch (TimeoutException)
+        {
+            stop.Cancel(); _log?.Write(job, "cleanup-timeout");
+            return (original, TranscriptCleanupOutcome.TimedOut);
+        }
+        catch (Exception e)
+        {
+            stop.Cancel(); _log?.Write(job, "cleanup-" + e.GetType().Name);
+            return (original, TranscriptCleanupOutcome.Failed);
+        }
+    }
+    private static async Task ObserveCleanupAsync(Task<string> operation)
+    {
+        // Observe late failures without allowing their text to reach a completed job.
+        try { await operation.ConfigureAwait(false); }
+        catch (Exception) { }
+    }
+    private sealed record ProtectedLiteral(string Open, string Close, string Text);
+    private static (string Text, IReadOnlyList<ProtectedLiteral> Literals, string Prefix) ProtectLiterals(
+        string text, IReadOnlyList<CorrectionRange> ranges)
+    {
+        var prefix = "[[FREEHAND_LITERAL_" + Guid.NewGuid().ToString("N") + "_";
+        var output = new StringBuilder(text.Length);
+        var literals = new List<ProtectedLiteral>();
+        var sourceAt = 0;
+        foreach (var range in ranges)
+        {
+            var literal = new ProtectedLiteral(prefix + literals.Count + "_START]]", prefix + literals.Count + "_END]]",
+                text.Substring(range.Start, range.Length));
+            output.Append(text, sourceAt, range.Start - sourceAt);
+            output.Append(literal.Open).Append(literal.Text).Append(literal.Close);
+            sourceAt = range.Start + range.Length; literals.Add(literal);
+        }
+        output.Append(text, sourceAt, text.Length - sourceAt);
+        return (output.ToString(), literals, prefix);
+    }
+    private static bool TryRestoreLiterals(string output, IReadOnlyList<ProtectedLiteral> literals, string prefix, out string restored)
+    {
+        restored = string.Empty;
+        if (string.IsNullOrWhiteSpace(output)) return false;
+        var result = new StringBuilder(output.Length);
+        var sourceAt = 0;
+        foreach (var literal in literals)
+        {
+            var start = output.IndexOf(literal.Open, sourceAt, StringComparison.Ordinal);
+            if (start < 0 || output.IndexOf(literal.Open, StringComparison.Ordinal) != start
+                || output.IndexOf(literal.Open, start + literal.Open.Length, StringComparison.Ordinal) >= 0) return false;
+            var contentAt = start + literal.Open.Length;
+            var end = output.IndexOf(literal.Close, contentAt, StringComparison.Ordinal);
+            if (end < 0 || output.IndexOf(literal.Close, StringComparison.Ordinal) != end
+                || output.IndexOf(literal.Close, end + literal.Close.Length, StringComparison.Ordinal) >= 0
+                || !output.AsSpan(contentAt, end - contentAt).SequenceEqual(literal.Text)) return false;
+            result.Append(output, sourceAt, start - sourceAt).Append(literal.Text);
+            sourceAt = end + literal.Close.Length;
+        }
+        result.Append(output, sourceAt, output.Length - sourceAt);
+        restored = result.ToString();
+        return !restored.Contains(prefix, StringComparison.Ordinal);
+    }
+    private static bool IsUsableCleanup(string original, string output)
+    {
+        if (string.IsNullOrWhiteSpace(output) || output.Length > Math.Max(16_384L, (long)original.Length * 4 + 1024)
+            || output.Any(character => char.IsControl(character) && character is not ('\r' or '\n' or '\t'))) return false;
+        // Structural screening complements the provider's complete-output contract. It
+        // cannot establish semantic equivalence, or replace fidelity evaluation.
+        string[] framing = ["<think>", "</think>", "<|im_start|>", "<|im_end|>", "<|assistant|>", "<|endoftext|>"];
+        if (framing.Any(marker => output.Contains(marker, StringComparison.OrdinalIgnoreCase)
+            && !original.Contains(marker, StringComparison.OrdinalIgnoreCase))) return false;
+        string[] prefaces = ["Here is the cleaned", "Here's the cleaned", "Cleaned transcript:", "Corrected transcript:", "Cleaned text:", "Rewritten transcript:"];
+        var trimmed = output.TrimStart();
+        return !prefaces.Any(preface => trimmed.StartsWith(preface, StringComparison.OrdinalIgnoreCase)
+            && !original.TrimStart().StartsWith(preface, StringComparison.OrdinalIgnoreCase))
+            && (!trimmed.StartsWith("```", StringComparison.Ordinal) || original.TrimStart().StartsWith("```", StringComparison.Ordinal));
     }
     /// <summary>Retries the retained recording with its original job ID.</summary>
     public void Retry()
@@ -404,6 +556,7 @@ public sealed class DictationEngine : IAsyncDisposable
         Task pending;
         lock (_sync) { if (_disposed) return; _disposed = true; Unsubscribe(_hotkey); _hotkey.Dispose(); _lifetime.Cancel(); _recording?.Cancel(); _released?.TrySetResult(); SetState(DictationState.Stopping); pending = _operation; }
         await pending.ConfigureAwait(false); _failed = null;
-        await _capture.DisposeAsync().ConfigureAwait(false); await _speech.DisposeAsync().ConfigureAwait(false); _lifetime.Dispose();
+        try { if (_transcriptPostProcessor is not null) await _transcriptPostProcessor.DisposeAsync().ConfigureAwait(false); }
+        finally { await _capture.DisposeAsync().ConfigureAwait(false); await _speech.DisposeAsync().ConfigureAwait(false); _lifetime.Dispose(); }
     }
 }

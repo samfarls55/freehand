@@ -20,7 +20,7 @@ try {
         $env:FREEHAND_VERIFIED_INSTALLER = Join-Path $repositoryRoot 'artifacts/installer-runtime/Freehand.Installer.exe'
     }
     $config = New-PesterConfiguration
-    $testPaths = @((Join-Path $PSScriptRoot 'Deployment.Tests.ps1'))
+    $testPaths = @((Join-Path $PSScriptRoot 'Deployment.Tests.ps1'), (Join-Path $PSScriptRoot 'Cleanup.Tests.ps1'))
     if ($PackageIntegration) { $testPaths += Join-Path $PSScriptRoot 'UpdateIntegration.Tests.ps1' }
     $config.Run.Path = $testPaths
     $config.Run.PassThru = $true

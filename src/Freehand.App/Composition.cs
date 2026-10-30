@@ -2,6 +2,7 @@ using Freehand.Abstractions;
 using Freehand.Core;
 using Freehand.Speech;
 using Freehand.Core.Updates;
+using Freehand.Cleanup;
 using System.Text.Json;
 
 namespace Freehand.App;
@@ -14,6 +15,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private SettingsData _applied;
     private bool _pendingPreferences;
     private bool _refreshPending;
+    private bool _cleanupRefreshPending;
     private bool _disposed;
     private Task _preferencesTask = Task.CompletedTask;
     private readonly Task _verification;
@@ -35,6 +37,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     internal bool IsPreparingSpeech => _preparingSpeech;
     internal bool IsDictationReady => !ModelResolver.UsesAcceleratedModel || _residentPrepared && Speech?.IsReady == true;
     internal string? PreparationError => _preparationError;
+    internal ConfiguredTranscriptPostProcessor Cleanup { get; }
     /// <summary>Saved preferences.</summary>
     public AppSettings Settings { get; }
     /// <summary>Literal correction dictionary.</summary>
@@ -66,6 +69,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         Transcripts = new TranscriptStore(TranscriptStore.DefaultPath);
         Models = new ModelResolver(_applied.ModelDirectory, cacheDirectory: Path.Combine(AppDataPaths.DirectoryPath, "verification"));
         Logs = new DiagnosticLog(Path.Combine(Path.GetDirectoryName(AppSettings.DefaultPath)!, "logs"));
+        Cleanup = new ConfiguredTranscriptPostProcessor(_applied.CleanupDirectory, PlatformFactory.CreateCleanupWorkerLauncher());
+        Cleanup.Changed += OnCleanupChanged;
         var version = typeof(Composition).Assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
             .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().Single().InformationalVersion;
         Logs.Write(Guid.Empty, "app-" + version + "-model-" + ModelResolver.Version);
@@ -84,7 +89,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             Speech.SetIdleTimeout(ModelResolver.UsesAcceleratedModel ? Timeout.InfiniteTimeSpan : TimeSpan.FromMinutes(_applied.IdleModelMinutes));
             Engine = new DictationEngine(capture, hotkey, Speech, injector, () => Dictionary.Entries,
                 injectEnabled: () => _applied.InjectText, foreground: desktop, log: Logs,
-                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds });
+                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds },
+                transcriptPostProcessor: Cleanup, cleanupEnabled: () => _applied.CleanupEnabled && Cleanup.IsAvailable);
             Engine.Completed += OnCompleted;
             Engine.Changed += OnEngineChanged;
             Speech.Changed += (_, _) => { Logs.Write(Guid.Empty, "model-" + Speech.State); Changed?.Invoke(this, EventArgs.Empty); };
@@ -121,7 +127,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         }
         finally
         {
-            if (_pendingPreferences || _refreshPending) QueuePreferences();
+            if (_pendingPreferences || _refreshPending || _cleanupRefreshPending) QueuePreferences();
             Changed?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -231,12 +237,21 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
             Id = result.JobId, At = result.At, AudioSeconds = result.AudioDuration.TotalSeconds,
             ProcessingSeconds = result.ProcessingTime.TotalSeconds, Text = result.Text,
             Corrections = result.Corrections.Count > 0 ? result.Corrections : null,
+            OriginalText = result.OriginalText,
+            CleanupOutcome = result.CleanupOutcome == TranscriptCleanupOutcome.Disabled ? null : result.CleanupOutcome,
+            CleanupSeconds = result.CleanupOutcome == TranscriptCleanupOutcome.Disabled ? null : result.CleanupTime.TotalSeconds,
         });
     }
     private void OnEngineChanged(object? sender, EventArgs e)
     {
         Changed?.Invoke(this, EventArgs.Empty);
-        if (CanApplyPreferences && (_pendingPreferences || _refreshPending)) QueuePreferences();
+        if (CanApplyPreferences && (_pendingPreferences || _refreshPending || _cleanupRefreshPending)) QueuePreferences();
+    }
+    private void OnCleanupChanged(object? sender, EventArgs e) => Changed?.Invoke(this, EventArgs.Empty);
+    internal void ReloadCleanupModel()
+    {
+        _cleanupRefreshPending = true;
+        if (CanApplyPreferences) QueuePreferences();
     }
     private bool CanApplyPreferences => Engine?.State is DictationState.Idle or DictationState.AwaitingRetry;
     private void OnSettingsChanged(object? sender, EventArgs e) { _pendingPreferences = true; if (CanApplyPreferences) QueuePreferences(); }
@@ -292,6 +307,11 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
                 await Models.VerifyAsync(_lifetime.Token).ConfigureAwait(false);
             }
             Speech!.SetIdleTimeout(ModelResolver.UsesAcceleratedModel ? Timeout.InfiniteTimeSpan : TimeSpan.FromMinutes(requested.IdleModelMinutes));
+            if (requested.CleanupDirectory != _applied.CleanupDirectory || requested.CleanupEnabled != _applied.CleanupEnabled || _cleanupRefreshPending)
+            {
+                await Cleanup.ConfigureAsync(requested.CleanupDirectory, requested.CleanupEnabled, _cleanupRefreshPending).ConfigureAwait(false);
+                _cleanupRefreshPending = false;
+            }
             Desktop?.SetLoginStartup(requested.StartAtLogin);
             _applied = requested; _pendingPreferences = false;
             if (_refreshPending)
@@ -319,6 +339,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         lock (_preferencesSync) { if (_disposed) return; _disposed = true; preferences = _preferencesTask; }
         _lifetime.Cancel();
         Settings.Changed -= OnSettingsChanged;
+        Cleanup.Changed -= OnCleanupChanged;
         if (Updates is not null) { Updates.Changed -= OnUpdatesChanged; await Updates.DisposeAsync().ConfigureAwait(false); }
         _updateHttp.Dispose();
         if (Desktop is not null) Desktop.ReadinessInvalidated -= OnReadinessInvalidated;
@@ -326,9 +347,128 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         await _readinessTask.ConfigureAwait(false);
         await _verification.ConfigureAwait(false);
         if (Engine is not null) { Engine.Changed -= OnEngineChanged; await Task.Run(async () => await Engine.DisposeAsync().ConfigureAwait(false), CancellationToken.None).ConfigureAwait(false); }
+        else await Cleanup.DisposeAsync().ConfigureAwait(false);
         BenchmarkWorkers?.Dispose();
         Models.Dispose(); _preferencesGate.Dispose();
         await Logs.DisposeAsync().ConfigureAwait(false);
         _lifetime.Dispose();
+    }
+}
+
+/// <summary>Defers model loading to accepted work and changes selections only while dictation is idle.</summary>
+internal sealed class ConfiguredTranscriptPostProcessor : ITranscriptPostProcessor
+{
+    private readonly object _sync = new();
+    private readonly ICleanupWorkerLauncher? _launcher;
+    private readonly Func<LlamaCleanupOptions, ICleanupWorkerLauncher, ITranscriptPostProcessor> _factory;
+    private ITranscriptPostProcessor? _processor;
+    private LlamaCleanupOptions? _options;
+    private string? _selection;
+    private string? _error;
+    private bool _processing;
+    private bool _completed;
+    private bool _disposed;
+
+    internal static string DefaultDirectory => Path.Combine(AppContext.BaseDirectory, "models", "cleanup");
+    internal string DirectoryPath { get; private set; } = DefaultDirectory;
+    internal string? ModelId { get { lock (_sync) return _options?.ModelId; } }
+    internal bool IsAvailable { get { lock (_sync) return !_disposed && _options is not null && _launcher is not null; } }
+    internal bool NeedsAttention { get { lock (_sync) return _error is not null || _options is null || _launcher is null; } }
+    internal event EventHandler? Changed;
+
+    internal ConfiguredTranscriptPostProcessor(string? directory, ICleanupWorkerLauncher? launcher,
+        Func<LlamaCleanupOptions, ICleanupWorkerLauncher, ITranscriptPostProcessor>? factory = null)
+    {
+        _launcher = launcher;
+        _factory = factory ?? ((options, workerLauncher) => new LlamaTranscriptPostProcessor(options, workerLauncher));
+        SelectDirectory(directory);
+    }
+
+    internal string Status(bool enabled)
+    {
+        lock (_sync)
+        {
+            if (!enabled) return "Off";
+            if (_processing) return "Cleaning up";
+            if (_error is not null) return _error;
+            if (_options is null) return "No cleanup model installed";
+            if (_launcher is null) return "Cleanup worker unavailable";
+            return _completed ? "Installed · ready" : "Installed · verifies and loads when you dictate";
+        }
+    }
+
+    private void SelectDirectory(string? directory)
+    {
+        _selection = directory;
+        _options = null; _error = null; _completed = false;
+        try
+        {
+            DirectoryPath = Path.GetFullPath(string.IsNullOrWhiteSpace(directory) ? DefaultDirectory : directory);
+            var manifestPath = Path.Combine(DirectoryPath, "cleanup-manifest.json");
+            if (!File.Exists(manifestPath)) { _error = "No cleanup model installed"; return; }
+            _options = LlamaCleanupOptions.LoadManifest(manifestPath);
+        }
+        catch (Exception error) when (error is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException or InvalidOperationException or NotSupportedException)
+        {
+            _error = "Cleanup model needs installation or repair";
+        }
+    }
+
+    internal async ValueTask ConfigureAsync(string? directory, bool enabled, bool reload = false)
+    {
+        ITranscriptPostProcessor? previous = null;
+        lock (_sync)
+        {
+            if (_disposed) return;
+            var changed = !string.Equals(_selection, directory, StringComparison.Ordinal);
+            if (changed || reload || !enabled) { previous = _processor; _processor = null; _processing = false; }
+            if (changed || reload) SelectDirectory(directory);
+        }
+        if (previous is not null) await previous.DisposeAsync().ConfigureAwait(false);
+        Changed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public async ValueTask<string> ProcessAsync(string text, CancellationToken cancellationToken)
+    {
+        ITranscriptPostProcessor processor;
+        lock (_sync)
+        {
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            if (_options is null || _launcher is null) throw new InvalidOperationException("Cleanup model is unavailable.");
+            processor = _processor ??= _factory(_options, _launcher);
+            _processing = true;
+        }
+        Changed?.Invoke(this, EventArgs.Empty);
+        try
+        {
+            var result = await processor.ProcessAsync(text, cancellationToken).ConfigureAwait(false);
+            lock (_sync)
+                if (ReferenceEquals(_processor, processor)) { _error = null; _completed = true; }
+            return result;
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested) { throw; }
+        catch (Exception)
+        {
+            lock (_sync)
+                if (ReferenceEquals(_processor, processor)) _error = "Last cleanup failed · original text kept";
+            throw;
+        }
+        finally
+        {
+            lock (_sync)
+                if (ReferenceEquals(_processor, processor)) _processing = false;
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        ITranscriptPostProcessor? previous;
+        lock (_sync)
+        {
+            if (_disposed) return;
+            _disposed = true; previous = _processor; _processor = null; _processing = false;
+        }
+        if (previous is not null) await previous.DisposeAsync().ConfigureAwait(false);
     }
 }

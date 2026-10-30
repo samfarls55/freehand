@@ -1,5 +1,189 @@
 # Transcript cleanup research
 
+## Quality-first direction — October 30, 2026
+
+Sam now prioritizes the highest-quality final text and accepts a slower, larger
+first cleanup prototype. Establish a quality reference, then hill climb RAM and
+latency while retaining that quality. This supersedes the earlier cleanup
+selection caps and tiny-model-first recommendation below. Record resource use
+from the start; do not reject an otherwise promising initial cleanup candidate
+solely for missing the old Wispr comparison gates.
+
+This update is model research and an experiment proposal, not a model benchmark.
+General web search failed during this session, but current primary GitHub sources
+were accessible. Model cards, runtime code and published training notes establish
+candidates, not their output quality on Freehand. No new weights were downloaded,
+inference requests made, or application behavior changed.
+
+### Recommended model comparison
+
+Start with **Quill 4B versus Qwen3.5-9B**: a dictation specialist against a larger
+general instruction model. Add **Ministral 3 8B Instruct** as an independent family
+comparison. Use the unfine-tuned **Qwen3.5-4B** as a control where useful, and keep
+**Gemma 4 E4B IT** as a further challenger. This is an evaluation order based on
+task fit and available artifacts, not an established quality ranking.
+
+| Candidate | Evidence and reason to evaluate | Initial configuration / unresolved question |
+|---|---|---|
+| Quill 4B | Publisher supplies a Qwen3.5 fine-tune specifically for post-ASR fillers, repeats, false starts, spoken corrections and formatting. Its card lists `quill-4b-Q4_K_M.gguf`, about 2.6 GB. | Start with the published GGUF and its prescribed prompt. Verify artifact revision/hash and whether higher-precision weights are available. Publisher file size is not runtime RAM. |
+| Qwen3.5-9B | A larger general model provides a useful local quality reference beyond the earlier 0.6B probe. The official Qwen release history confirms this checkpoint family. | Initially test Q6 or Q8 where available and feasible. Inspect the exact chat template and reasoning controls. Its capacity does not establish better dictation fidelity. |
+| Qwen3.5-4B | Same base family as Quill, useful for understanding the benefit of task training and the larger 9B model. | Match precision when attributing differences to fine-tuning; otherwise label the quantization difference explicitly. |
+| Ministral 3 8B Instruct | Maintained Transformers docs describe instruction post-training and system-prompt adherence; integration tests name `mistralai/Ministral-3-8B-Instruct-2512-BF16`. | Evaluate a compatible GGUF with the correct template. Current llama.cpp includes a Ministral3 converter. No reviewed result establishes dictation cleanup fidelity. |
+| Gemma 4 E4B IT | Google's current repository exposes the instruction-tuned E4B checkpoint; maintained Transformers docs describe system-role and thinking controls. | E4B is not a four-billion-weight memory assumption: a llama.cpp text-model table lists 7.52B parameters. Check the actual weight license, artifact and memory footprint. |
+
+Primary sources:
+[Quill publisher model card](https://github.com/Quobi-AI/Quobi/blob/main/voice-type/training/quill_modelcard.md),
+[Quill V4 training notes](https://github.com/Quobi-AI/Quobi/blob/main/voice-type/training/V4_TRAINING_NOTES.md),
+[published Quill weights linked by the card](https://huggingface.co/quobi/quill),
+[official Qwen release history, pinned](https://github.com/QwenLM/Qwen3.8/blob/2ea10dc725823bf7c3e21ce8557cbe15245132ae/README.md),
+[Ministral3 integration documentation](https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/ministral3.md),
+[exact Ministral checkpoint in integration tests](https://github.com/huggingface/transformers/blob/main/tests/models/auto/test_tokenization_auto.py),
+[Google Gemma repository](https://github.com/google-deepmind/gemma),
+[Gemma checkpoint definitions](https://github.com/google-deepmind/gemma/blob/main/gemma/gm/ckpts/_paths.py),
+[Gemma4 integration documentation](https://github.com/huggingface/transformers/blob/main/docs/source/en/model_doc/gemma4.md),
+[Gemma E4B text-model size example](https://github.com/ggml-org/llama.cpp/blob/master/docs/build-riscv64-spacemit.md).
+
+Quill is the most directly relevant specialist found in accessible primary
+sources. Its V4 notes explicitly teach correction collapse to the 2B/4B tiers,
+while acknowledging that 0.8B cannot reliably select the span to delete. However,
+its own model-card example removes "I think" from a statement about a meeting.
+That can erase uncertainty. Treat its fidelity claims and expected evaluation
+percentages as publisher claims, not Freehand results. Use the prescribed prompt
+format as the first configuration; its empty-think prefix and template warning
+must be checked against the pinned runtime rather than generalized to all models.
+The card identifies Apache-2.0 model weights; Quobi application code has separate
+terms. Verify the selected weight artifact's terms independently before packaging.
+
+The former Qwen3.5 repository now redirects to Qwen3.8. The official release
+history records Qwen3.8-27B and a much larger MoE, but no small Qwen3.8 replacement
+for the 4B/9B checkpoints was verified. **Qwen3.8-27B** is a possible larger
+quality reference on suitable compute. Do not assume that the newest family
+automatically provides a practical small laptop model or superior cleanup.
+
+An optional strong hosted reference can help reveal remaining local quality
+gaps. Current official SDK sources list `gpt-6-astra`, `gpt-6.1-sol`, and
+`claude-opus-5-5`; that verifies identifiers, not cleanup superiority. Select one
+configured provider for a comparison, send only explicitly selected transcript
+text, and keep human-approved targets as the reference. No hosted inference was
+performed for this research.
+[OpenAI model identifiers](https://github.com/openai/openai-python/blob/main/src/openai/types/shared/chat_model.py),
+[Anthropic model identifiers](https://github.com/anthropics/anthropic-sdk-python/blob/main/src/anthropic/types/model.py).
+
+### Secondary candidates and previous probes
+
+**Superwhisper s1-mini** is a relevant compact specialist lead. A third-party
+.NET integration identifies a task-specific Qwen3-0.6B model, links the official
+model and GGUF repositories, and includes real-model regression tests. Its
+upstream card was not directly accessible in this session, so verify behavior,
+prompt and license there before selecting it. The integration describes an
+additional naming clause; do not simplify that to ordinary Apache-2.0. Vendor
+token-accuracy figures do not establish meaning preservation. It is a useful
+compact comparison or later efficiency candidate, not a demonstrated quality
+winner. [Integration source](https://github.com/elbruno/ElBruno.S1Mini),
+[normalization behavior notes](https://github.com/elbruno/ElBruno.S1Mini/blob/main/docs/transcript-normalization.md),
+[upstream model](https://huggingface.co/superwhisper/s1-mini),
+[upstream GGUF](https://huggingface.co/superwhisper/s1-mini-GGUF).
+
+**CoEdIT** provides published 770M/3B/11B instruction-trained text editors.
+It is a ready research baseline, but its writing-editing tasks do not demonstrate
+full spoken-correction behavior. **GECToR, FELIX and LaserTagger** support bounded
+editing architectures; reviewed sources do not supply a validated Freehand
+dictation checkpoint. Custom training is a later option after establishing a
+strong quality reference. [CoEdIT](https://github.com/vipulraheja/coedit),
+[GECToR](https://github.com/grammarly/gector),
+[FELIX](https://github.com/google-research/google-research/tree/master/felix),
+[LaserTagger](https://github.com/google-research/lasertagger).
+
+The [October 29 probes](ACCURACY-VALIDATION.md#cleanup-models-rejected) remain
+useful historical evidence. Qwen3-0.6B was rejected for the previous resource
+gate; the summary does not establish a quality failure. TeXlyre and Unbabel T5
+probes produced meaning/path corruption, which remains relevant under a
+quality-first objective. These were small probes, not model-wide ratings. Their
+ignored source reports are absent from this checkout, so exact prompts and
+outputs cannot be independently reexamined here.
+
+### Hardware and runtime implications
+
+The recorded Windows machine has an Intel Core Ultra 7 155H, about 15.4 GiB
+system RAM and an RTX 4060 Laptop GPU. Tracked sources do not establish its VRAM
+capacity. The current successful development recognizer is **Qwen3-ASR 1.7B**,
+an audio model distinct from every text cleanup model above. Its measured
+dedicated VRAM peak was about 1.72 billion bytes. Measure both workers together;
+neither ASR-only measurements nor weight file sizes predict joint memory use.
+[Hardware notes](PERFORMANCE.md), [GPU accounting](GPU-MEMORY-ACCOUNTING.md),
+[current accuracy development profile](ACCURACY-HILLCLIMB.md).
+
+For scale only, parameter-count arithmetic gives 4.0 GB for 4B at eight bits,
+6.75 GB for 9B at six bits, and 13.5 GB for 27B at four bits. These are nominal
+packed weights, not downloadable artifact sizes or measured RAM/VRAM. Mixed
+precision, quantization metadata, cache/state, runtime buffers, Windows and the
+ASR worker all matter. Larger references may need partial GPU offload or a larger
+machine. High quality does not require forcing every reference onto this laptop.
+
+Use a pinned app-owned text-inference worker, initially through llama.cpp. Its
+current source documents Windows, CUDA/Vulkan and hybrid CPU/GPU execution, and
+includes Qwen3.5 and Ministral3 support. The existing ASR worker is not a general
+text-model runner. Verify the exact model, template and backend together before
+integrating; do not infer compatibility from the shared GGUF extension.
+[Runtime](https://github.com/ggml-org/llama.cpp),
+[Windows build](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md),
+[Qwen3.5 implementation](https://github.com/ggml-org/llama.cpp/blob/master/src/models/qwen35.cpp),
+[Ministral3 conversion](https://github.com/ggml-org/llama.cpp/blob/master/conversion/mistral3.py).
+
+### Establish quality, then optimize
+
+1. Begin with representative full-utterance transcripts, including already-good
+   text. A useful initial split is about 100 development examples and 50 locked
+   holdout examples, separated by recording and phrase pattern. Keep private
+   audio/transcripts outside tracked files. Pair each with a human-approved
+   cleaned target and explicit meaning assertions.
+2. Score final chosen facts, uncertainty, negation, names, quantities, intentional
+   repetition and technical literals before judging readability. Also measure
+   unnecessary edits, useful cleanup coverage and blind human preference. Verbatim
+   WER and exact string equality cannot judge cleanup alone: correct Backtrack
+   intentionally deletes spoken alternatives, and several faithful outputs may
+   be acceptable.
+3. Include delayed corrections, abandoned starts, semantic uses of "like" and
+   "actually," unfinished thoughts, questions that should remain questions,
+   quoted instructions, paths/URLs, long paragraphs and explicit numeric/name
+   corrections. Blanket name/digit-count checks must allow legitimate correction
+   spans. A model should preserve "I think" when it expresses uncertainty.
+4. For general instruction models, compare a minimal-edit policy with an
+   example-guided policy. For specialists, preserve their prescribed input
+   contract and vary only documented controls. Freeze prompt, artifact, precision
+   and runtime before holdout evaluation. For general models, reasoning is an
+   experimental variable if supported; bounded extra reasoning may be worth its
+   cost when it improves fidelity. Never deliver reasoning or explanations as
+   transcript text.
+5. Preserve complete utterance context and allocate enough input/output budget
+   for it. Do not truncate, silently summarize or split away a late correction
+   to manufacture a performance result. Keep one final insertion, raw recovery,
+   focus checks, cancellation and rejection of incomplete/late responses.
+6. Carry dictionary provenance through number normalization before cleanup;
+   existing character offsets can shift. Preserve surviving dictionary literals
+   exactly and never apply corrections twice. If strict literal protection forces
+   bypass for a superseded clause, report that limitation and cleanup coverage.
+7. Record complete-output latency, cold loading, total host memory, private commit,
+   dedicated/shared GPU memory and worker residency from the first run. These are
+   optimization measurements rather than the initial quality rejection gates.
+8. After choosing a quality reference, vary precision, model size, GPU offload,
+   context allocation and lifecycle one factor at a time. Run the fixed
+   development/regression suite for each change, then freeze the selected
+   candidate before final locked-holdout evaluation. If an earlier holdout informs
+   selection or tuning, treat it as validation and reserve fresh final examples.
+   Fine-tuning/distillation can use actual raw transcripts and human-approved
+   edits; teacher output alone must not become unquestioned gold.
+
+The next implementation milestone is this reproducible comparison, followed by
+one selected provider in the existing final-delivery path. This research does
+not select a shipping default, change the installed app, or publish anything.
+
+## Historical October 26 snapshot and October 29 constraints
+
+The following records earlier reasoning. Its model priorities, initial cleanup
+resource gates and claim that no cleanup probes had run are historical. Use the
+quality-first direction above and the later validation notes for current decisions.
+
 The [October 29 accuracy plan](DICTATION-ACCURACY-PLAN.md) supersedes this
 snapshot's candidate priority and performance gates. Sam now requires the entire
 app's RAM and delivery latency to match or beat Wispr Flow. The earlier allowances
@@ -27,7 +211,7 @@ quality candidate; Qwen3-0.6B is the smaller comparison. Retain the current outp
 when cleanup fails its quality, memory or latency limits. If neither model passes,
 full local rewriting is not justified by the evidence gathered here.
 
-## What Wispr Flow documents
+### What Wispr Flow documents
 
 Wispr's Smart Formatting removes fillers and adjusts grammar, punctuation and
 capitalization. Its docs explicitly say formatting does not fix misheard words.
@@ -44,7 +228,7 @@ That last sentence is a proposed Freehand design, not a Wispr behavior.
 [Wispr privacy](https://wisprflow.ai/privacy),
 [Wispr security overview](https://docs.wisprflow.ai/articles/3467817258-security-and-compliance-faq).
 
-## Local candidates
+### Local candidates
 
 The sizes below describe a model file, excluding runtime binaries, caches and
 temporary allocations. They are not estimates of process RAM. Qwen's listed
@@ -92,7 +276,7 @@ names, dates, negations or unfinished thoughts. Keep the 1.5B model as a quality
 comparison, not the default. A 4B model is a poor starting assumption when RAM and
 processing time are both important.
 
-## Runtime and memory proposal
+### Runtime and memory proposal
 
 Use a hidden app-owned worker around a pinned llama.cpp build. Its CPU backend
 supports Windows, and it provides a C API as well as a local server. A worker with
@@ -124,7 +308,7 @@ adds setup and memory outside Freehand's control, so it is a less suitable shipp
 default. [Ollama Windows](https://docs.ollama.com/windows),
 [Ollama chat API](https://docs.ollama.com/api/chat).
 
-## Hosted comparison
+### Hosted comparison
 
 For the hosted comparison, evaluate `gpt-6-luna` with reasoning explicitly set to
 `none`. Official OpenAI documentation lists it for focused, high-volume tasks at
@@ -164,7 +348,7 @@ still retained. Cloud cleanup would require an explicit provider setting and a
 clear account of which text is sent. Local failure should never silently select
 a cloud provider. [Groq data policy](https://console.groq.com/docs/your-data).
 
-## Evaluation before shipping
+### Evaluation before shipping
 
 Use fixed raw ASR transcripts and human-approved cleaned targets. Include short
 commands, long paragraphs, intentional repetition, hesitation, self-correction,
@@ -179,7 +363,7 @@ discrete GPU requirement, while the normal speech worker is present. Use measure
 limits to choose a default. No source reviewed establishes these figures for
 Freehand or Sam's machine.
 
-## Fit with Freehand
+### Fit with Freehand
 
 The current engine joins all recognized segments, applies dictionary corrections
 and attempts insertion once in `DictationEngine.ProcessAsync`. Segments may decode
@@ -241,7 +425,7 @@ Do not retry speech recognition or send text a second time. Keep ordinary shutdo
 busy handling and focus checks active during cleanup. Snapshot cleanup settings
 when accepting a dictation, and dispatch UI changes through Avalonia's UI thread.
 
-## Suggested performance gates
+### Suggested performance gates
 
 These are initial engineering targets to test, not measured capabilities or limits
 Sam has approved. Use 25-75 word dictations for the primary latency comparison.
@@ -285,7 +469,7 @@ timeout against the current five-minute speech session. Stop cleanup workers whe
 idle; do not unload and reload Parakeet for each utterance to improve an isolated
 cleanup memory number. Keep a no-cleanup baseline for every comparison.
 
-## Delivery recommendation
+### Delivery recommendation
 
 The next implementation should be a local, reproducible evaluation tool before a
 new app setting or bundled model. Compare current output, the 7.1 MB punctuation

@@ -32,6 +32,12 @@ public sealed record SettingsData
     /// <summary>Whether to keep a transcript history.</summary>
     public bool KeepHistory { get; init; } = true;
 
+    /// <summary>Whether to run the installed local cleanup model before delivering text.</summary>
+    public bool CleanupEnabled { get; init; } = true;
+
+    /// <summary>Cleanup assets folder, or null to use the bundled cleanup model.</summary>
+    public string? CleanupDirectory { get; init; }
+
     /// <summary>Minutes after accepted work completes before the worker exits.</summary>
     public int IdleModelMinutes { get; init; } = 5;
     /// <summary>Login startup is enabled for new installations.</summary>
@@ -116,6 +122,8 @@ public sealed class AppSettings
                     ? data.PushToTalkKeys.Distinct().Order().ToArray() : null,
                 InjectText = Has(nameof(SettingsData.InjectText)) ? data.InjectText : defaults.InjectText,
                 KeepHistory = Has(nameof(SettingsData.KeepHistory)) ? data.KeepHistory : defaults.KeepHistory,
+                CleanupEnabled = Has(nameof(SettingsData.CleanupEnabled)) ? data.CleanupEnabled : defaults.CleanupEnabled,
+                CleanupDirectory = string.IsNullOrWhiteSpace(data.CleanupDirectory) ? null : data.CleanupDirectory,
                 IdleModelMinutes = Has(nameof(SettingsData.IdleModelMinutes)) ? Math.Clamp(data.IdleModelMinutes, 1, 60) : defaults.IdleModelMinutes,
                 StartAtLogin = Has(nameof(SettingsData.StartAtLogin)) ? data.StartAtLogin : defaults.StartAtLogin,
                 CheckForUpdates = Has(nameof(SettingsData.CheckForUpdates)) ? data.CheckForUpdates : defaults.CheckForUpdates,

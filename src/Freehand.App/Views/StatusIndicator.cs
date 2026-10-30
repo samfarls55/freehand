@@ -87,7 +87,7 @@ internal sealed class StatusIndicator : Window
     }
 
     private bool IsProcessing => _state is DictationState.Preparing or DictationState.Transcribing
-        or DictationState.Recovering or DictationState.Delivering;
+        or DictationState.Cleaning or DictationState.Recovering or DictationState.Delivering;
 
     internal void Update(bool mainHidden, DictationState state, float level = 0, DictationFeedback? feedback = null)
     {
@@ -120,6 +120,7 @@ internal sealed class StatusIndicator : Window
         {
             DictationState.Recording => "Recording",
             DictationState.Recovering => "Recovering",
+            DictationState.Cleaning => "Cleaning up",
             DictationState.AwaitingRetry => "Retry or discard in Freehand",
             DictationState.Delivering => "Inserting",
             DictationState.Idle when feedback?.Outcome == DictationOutcome.EmptySpeech => "No audio. Check microphone",

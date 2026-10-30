@@ -220,12 +220,13 @@ public sealed class MainWindow : Window
         IsRecording = state == DictationState.Recording;
         if (IsRecording && _startedAt is null) _startedAt = DateTimeOffset.Now;
         else if (!IsRecording) _startedAt = null;
-        var processing = state is DictationState.Preparing or DictationState.Transcribing or DictationState.Recovering or DictationState.Delivering or DictationState.Stopping;
+        var processing = state is DictationState.Preparing or DictationState.Transcribing or DictationState.Cleaning or DictationState.Recovering or DictationState.Delivering or DictationState.Stopping;
         _recordLamp.IsLit = IsRecording;
         _recordLabel.Text = state switch
         {
             DictationState.Recording => "Stop recording", DictationState.Preparing => "Preparing",
             DictationState.Transcribing => "Transcribing", DictationState.Recovering => "Recovering",
+            DictationState.Cleaning => "Cleaning up",
             DictationState.Delivering => "Inserting", DictationState.Stopping => "Finishing", _ => "Record",
         };
         _recordLabel.Foreground = IsRecording ? Tokens.Brushes.Record : Tokens.Brushes.Ink;
