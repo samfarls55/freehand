@@ -134,7 +134,10 @@ public partial class App : Application
         if (_composition is null || _main is null || _indicator is null || _quitting) return;
         _main.SyncStatus();
         var state = _composition.Engine?.State ?? DictationState.Idle;
-        var text = state == DictationState.Idle ? "Freehand ready" : "Freehand " + state.ToString().ToLowerInvariant();
+        var text = _composition.IsPreparingSpeech ? "Freehand preparing speech"
+            : _composition.PreparationError is not null ? "Freehand needs attention"
+            : state == DictationState.Idle && !_composition.IsDictationReady ? "Freehand speech unavailable"
+            : state == DictationState.Idle ? "Freehand ready" : "Freehand " + state.ToString().ToLowerInvariant();
         var icons = TrayIcon.GetIcons(this);
         if (icons is not null) foreach (var icon in icons) icon.ToolTipText = text;
         _indicator.Update(!_main.IsVisible || _main.WindowState == WindowState.Minimized,
