@@ -112,7 +112,12 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'packaging/accuracy-model-manifes
 $fixtureDirectory = Join-Path $publishDirectory 'fixtures'
 New-Item -ItemType Directory -Force -Path $fixtureDirectory | Out-Null
 $fixture = Join-Path $fixtureDirectory 'jfk.wav'
-Copy-Item -LiteralPath (Join-Path $projectRoot 'artifacts/model-cache/jfk.wav') -Destination $fixture -Force
+$fixtureCache = Join-Path $projectRoot 'artifacts/model-cache/jfk.wav'
+if (-not (Test-Path -LiteralPath $fixtureCache)) {
+    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $fixtureCache) | Out-Null
+    Invoke-WebRequest 'https://raw.githubusercontent.com/ggml-org/whisper.cpp/b0a11594aec50892a02cd8d129eee2dfe93a8bb8/samples/jfk.wav' -OutFile $fixtureCache
+}
+Copy-Item -LiteralPath $fixtureCache -Destination $fixture -Force
 if ((Get-FileHash -LiteralPath $fixture -Algorithm SHA256).Hash -ine '59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e') { throw 'Fixture checksum failed.' }
 $settingsPath = Join-Path $dataDirectory 'settings.json'
 $settings = if (Test-Path -LiteralPath $settingsPath) { Get-Content -LiteralPath $settingsPath -Raw | ConvertFrom-Json -AsHashtable } else { @{} }

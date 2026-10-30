@@ -184,7 +184,7 @@ public sealed class MainWindow : Window
             _feedback.IsVisible = true;
             _status.Text = _composition.PreparationError ?? (_composition.IsPreparingSpeech ? "Preparing speech model" : "Speech is unavailable. Choose Retry.");
             _status.Foreground = _composition.PreparationError is null ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
-            _latest.IsVisible = false; _copy.IsVisible = false; _discard.IsVisible = false;
+            _discard.IsVisible = false;
             _retry.IsVisible = !_composition.IsPreparingSpeech;
         }
     }
