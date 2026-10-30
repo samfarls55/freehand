@@ -1,6 +1,6 @@
 # Accuracy hill climb
 
-Development status, October 29, 2026. The target is below 5% word error rate with the complete app below the provisional 650 MB system-RAM and 700 ms release-to-complete-text limits. Parakeet v2 passed the desktop performance gates but missed the accuracy target on its frozen holdout. Direct Wispr Flow parity still needs matched measurements on this machine. See the [accuracy plan](DICTATION-ACCURACY-PLAN.md).
+Development status, October 29, 2026. The target is below 5% word error rate with the complete app below the provisional 650 MB system-RAM and 700 ms release-to-complete-text limits. Qwen 0.6 Q6 preserves the Q8 validation score and passes warm delivery and RAM checks, but cold delivery still fails. Parakeet v2 passed the desktop performance gates but missed the accuracy target on its frozen holdout. Direct Wispr Flow parity still needs matched measurements on this machine. See the [accuracy plan](DICTATION-ACCURACY-PLAN.md).
 
 Sam clarified that equivalent formats count as correct. The frozen metric, `freehand-content-preserving-en-v1`, uses pinned Whisper English normalization while preserving bracketed spoken content, fillers, numeric signs, currency, and percentages. Changed numbers, missing negation, wrong words, omissions, and additions remain errors. Literal scores are retained separately. The [scorer](../tools/Freehand.Evaluation/score_reports.py) passes 44 checks, including strict failure at exactly 5%.
 
@@ -70,3 +70,15 @@ The latest Qwen0.6 Q8 selection result is203/4687=4.3311% across224 development/
 Qwen0.6 Q4 is smaller and starts faster but has less accuracy margin:221/4687=4.7152% across224, including127/2461=5.1605% on the original120. Its guarded native API readiness was1048ms versus Q8's1740ms. Its native ten-second fixture warm p95 was175ms. No complete Q4 desktop acceptance run has been performed. A ready Q6 model may offer an intermediate tradeoff; it has not been downloaded or tested.
 
 The next resume checks are staged worker/model/first-inference timing, the apparent orphan count, and a performance-preserving candidate choice. The official CPU/Vulkan release may replace the custom native fork because the guarded upload optimization is disabled on this hybrid laptop and Qwen does not use the custom Parakeet hint adapter. That simplification still needs parity controls. Freeze the eventual complete candidate before using the untouched300-prompt TEST set. Do not call the current candidate ready or independently below5% yet.
+
+## Resumed measurements
+
+Qwen 0.6 Q6 scores 201/4,687 normalized words (4.2885%) across the 224 development and validation clips, versus Q8's 203 errors. Literal Q6 WER is 231/4,654 (4.9635%). These remain selection results. The 300-prompt test set is still untouched.
+
+The official transcribe.cpp 0.4.1 CPU/Vulkan bundle replaces the custom native build. Q6 transcripts match byte-for-byte on all 120 original clips; all 23 dictionary, silence, short-speech and quiet-speech controls match. Silero's 120 speech probability sequences and ten controls also match. The preparer verifies the pinned release archive, all 13 DLLs, and all four native license files. Fresh extraction, cache reuse, binary corruption and nested-license corruption checks pass. No native compiler or patch is needed.
+
+The complete Q6 desktop report, `work/desktop-qwen06-q6-stock-v1.json`, records 416,317,440 bytes conservative RAM. All 50 warm deliveries pass, with a 593.1 ms maximum. Cold 1/3/10-second deliveries are 1,132.3/457.7/758.9 ms, so the cold gate still fails. All 26 owned workers exited; recovery, deadline retention and 20 unload cycles pass. The orphan check now retains the benchmark's exact worker handles and identities rather than counting unrelated same-path processes. Its regression and all 68 App tests pass.
+
+An isolated noncomposite ReadyToRun publish passes self-test and preserves all measured transcripts. Three alternating worker pairs reduce median load from 1,916.9 to 1,810.4 ms. This is useful startup margin but does not establish a cold-delivery pass. The preview publisher now enables that option. Native versus managed load-phase timing remains under investigation; there is no evidence that the desktop telemetry sampler causes the gap.
+
+The normal installation and public release remain unchanged. The new candidate must pass the production-Core replay and complete desktop gates before its model, settings and metric are frozen for the independent test.

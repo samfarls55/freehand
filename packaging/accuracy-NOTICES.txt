@@ -1,10 +1,10 @@
 Freehand isolated GPU accuracy preview
 
-Qwen3-ASR 0.6B Q8_0, quantized GGUF conversion by handy-computer.
+Qwen3-ASR 0.6B Q6_K, quantized GGUF conversion by handy-computer.
 Original model: https://huggingface.co/Qwen/Qwen3-ASR-0.6B
 GGUF repository revision: 7e7c69a577fa2725dfedbe34b5e999336e30a19b
 https://huggingface.co/handy-computer/Qwen3-ASR-0.6B-gguf
-Model SHA256: f081b2d5e23bd669d92cc331d722a8a0681943b8e6f34b48996fd5c319b5acd8
+Model SHA256: 3b051f108f03c0c91bbe1a3b2c1ee15e3ed51e4caec2a48751b01f2a21441cc3
 Apache 2.0. The publisher LICENSE and NOTICE are included in licenses/.
 The GGUF's matching tokenizer encodes recognition hints.
 
@@ -14,10 +14,10 @@ GGUF revision: a9b2d61c20ae4ddf3644edb34969e8185a485448
 Model SHA256: 0d871a800c420fdd5d1b17a3aea4296d1c39608f0ff4a9295eb76457eb1c88e6
 MIT. The license is included in licenses/.
 
-transcribe.cpp 0.4.1 with the Freehand native patch.
+transcribe.cpp 0.4.1, official CPU/Vulkan release.
 Base revision: 4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b
 https://github.com/handy-computer/transcribe.cpp
-MIT. Exact source and patch hashes are in tools/Freehand.Native/source-manifest.json.
+MIT. The archive and payload hashes are in packaging/accuracy-runtime-manifest.json.
 Native licenses, including ggml, miniz, and Silero, are in licenses/transcribe/.
 CPU and Vulkan modules are used. CUDA dependencies are not used.
 

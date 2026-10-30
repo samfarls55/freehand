@@ -39,38 +39,30 @@ foreach ($asset in $modelManifest.Files) {
     }
 }
 if (-not $RuntimeSource) {
-    $RuntimeSource = Join-Path $projectRoot 'artifacts/native-cache/transcribe-freehand'
+    $RuntimeSource = Join-Path $projectRoot 'artifacts/native-cache/transcribe-0.4.1-cpu-vulkan'
     & (Join-Path $projectRoot 'tools/Freehand.Native/prepare.ps1') -OutputDirectory $RuntimeSource
 }
 $runtimeDirectory = (Resolve-Path -LiteralPath $RuntimeSource).Path
-$builtRuntime = $null
-$buildRecord = Join-Path $runtimeDirectory 'native-build.json'
-if (Test-Path -LiteralPath $buildRecord) {
-    $builtRuntime = Get-Content -LiteralPath $buildRecord -Raw | ConvertFrom-Json
-    $nativeSpec = Get-Content -LiteralPath (Join-Path $projectRoot 'tools/Freehand.Native/source-manifest.json') -Raw | ConvertFrom-Json
-    if ($builtRuntime.SourceRevision -ne $nativeSpec.SourceRevision -or $builtRuntime.PatchSha256 -ine $nativeSpec.PatchSha256 -or
-        $builtRuntime.SourceArchiveSha256 -ine $nativeSpec.SourceArchiveSha256 -or $builtRuntime.RuntimeArchiveSha256 -ine $nativeSpec.RuntimeArchiveSha256) {
-        throw 'Native build record does not match the pinned source and patch.'
-    }
-}
 foreach ($asset in $runtimeManifest.Files) {
     $sourceFile = Join-Path $runtimeDirectory $asset.Name
-    $expected = $asset
-    if ($asset.Name -eq 'transcribe.dll' -and $builtRuntime) {
-        $nativeDlls = @($builtRuntime.Files | Where-Object Name -eq 'transcribe.dll')
-        if ($nativeDlls.Count -ne 1) { throw 'Native build record must identify one transcribe.dll.' }
-        $expected = $nativeDlls[0]
-    }
-    if ((Get-Item -LiteralPath $sourceFile).Length -ne $expected.Size -or
-        (Get-FileHash -LiteralPath $sourceFile -Algorithm SHA256).Hash -ine $expected.Sha256) {
+    if ((Get-Item -LiteralPath $sourceFile).Length -ne $asset.Size -or
+        (Get-FileHash -LiteralPath $sourceFile -Algorithm SHA256).Hash -ine $asset.Sha256) {
         throw "Accuracy runtime checksum failed: $($asset.Name)"
+    }
+}
+foreach ($notice in $runtimeManifest.Licenses) {
+    $sourceFile = Join-Path $runtimeDirectory ('licenses/' + $notice.Name)
+    if ((Get-Item -LiteralPath $sourceFile).Length -ne $notice.Size -or
+        (Get-FileHash -LiteralPath $sourceFile -Algorithm SHA256).Hash -ine $notice.Sha256) {
+        throw "Accuracy runtime license checksum failed: $($notice.Name)"
     }
 }
 $build = (git -C $projectRoot rev-parse --short HEAD).Trim()
 if (git -C $projectRoot status --porcelain) { $build += '-dirty' }
 $version = Get-FreehandVersion
 & $dotnetPath publish (Join-Path $projectRoot 'src/Freehand.App/Freehand.App.csproj') -c Release -r win-x64 --self-contained true `
-    -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false "-p:InformationalVersion=$version-accuracy+$build" --output $publishDirectory
+    -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=false -p:PublishReadyToRun=true -p:PublishReadyToRunComposite=false `
+    "-p:InformationalVersion=$version-accuracy+$build" --output $publishDirectory
 if ($LASTEXITCODE -ne 0) { throw 'Accuracy preview publish failed.' }
 Copy-Item -LiteralPath (Join-Path $projectRoot 'src/Freehand.Speech/Assets/parakeet-110m.bpe.vocab'),
     (Join-Path $projectRoot 'src/Freehand.Speech/speech-cpu.config') -Destination $publishDirectory -Force
@@ -82,13 +74,16 @@ foreach ($previousNative in Get-ChildItem -LiteralPath $publishDirectory -Filter
 foreach ($asset in $runtimeManifest.Files) {
     Copy-Item -LiteralPath (Join-Path $runtimeDirectory $asset.Name) -Destination $publishDirectory -Force
 }
-if ($builtRuntime) { Copy-Item -LiteralPath $buildRecord -Destination $publishDirectory -Force }
+$oldBuildRecord = Join-Path $publishDirectory 'native-build.json'
+if (Test-Path -LiteralPath $oldBuildRecord) { Remove-Item -LiteralPath $oldBuildRecord }
 $licenses = Join-Path $publishDirectory 'licenses'
 New-Item -ItemType Directory -Force -Path $licenses | Out-Null
 $nativeNotices = Join-Path $licenses 'transcribe'
 New-Item -ItemType Directory -Force -Path $nativeNotices | Out-Null
-foreach ($notice in Get-ChildItem -LiteralPath (Join-Path $runtimeDirectory 'licenses') -File) {
-    Copy-Item -LiteralPath $notice.FullName -Destination $nativeNotices -Force
+foreach ($notice in $runtimeManifest.Licenses) {
+    $noticeTarget = Join-Path $nativeNotices $notice.Name
+    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $noticeTarget) | Out-Null
+    Copy-Item -LiteralPath (Join-Path $runtimeDirectory ('licenses/' + $notice.Name)) -Destination $noticeTarget -Force
 }
 foreach ($notice in Get-ChildItem -LiteralPath (Join-Path $projectRoot 'packaging/accuracy-licenses') -File) {
     Copy-Item -LiteralPath $notice.FullName -Destination $licenses -Force
@@ -108,7 +103,15 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'packaging/accuracy-NOTICES.txt')
 $modelTarget = Join-Path $publishDirectory ('models/' + $modelManifest.DirectoryName)
 New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
 foreach ($asset in $modelManifest.Files) {
-    Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $modelTarget -Force
+    $destination = Join-Path $modelTarget $asset.Name
+    Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $destination -Force
+    if ((Get-Item -LiteralPath $destination).Length -ne $asset.Size -or
+        (Get-FileHash -LiteralPath $destination -Algorithm SHA256).Hash -ine $asset.Sha256) {
+        throw "Published model checksum failed: $($asset.Name)"
+    }
+}
+foreach ($previousModel in Get-ChildItem -LiteralPath $modelTarget -File -Filter '*.gguf') {
+    if ($previousModel.Name -notin $modelManifest.Files.Name) { Remove-Item -LiteralPath $previousModel.FullName }
 }
 Copy-Item -LiteralPath (Join-Path $projectRoot 'packaging/accuracy-model-manifest.json') -Destination (Join-Path $modelTarget 'manifest.json') -Force
 $fixtureDirectory = Join-Path $publishDirectory 'fixtures'
