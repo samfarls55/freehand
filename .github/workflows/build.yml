@@ -95,6 +95,13 @@ jobs:
           $lifecycleCommand = '"{0}" --lifecycle-selftest' -f $performanceApp
           dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $lifecycleCommand -f xml -o artifacts/coverage/dotnet-lifecycle.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered desktop lifecycle failed.' }
+          # Missing GPU assets exercise unavailable/retry UI without GPU hardware.
+          $env:FREEHAND_DATA_DIRECTORY = Join-Path $PWD 'artifacts/coverage-gpu-unavailable'
+          $env:FREEHAND_MODEL_PROFILE = 'accuracy-vulkan'
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $lifecycleCommand -f xml -o artifacts/coverage/dotnet-gpu-unavailable.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Covered unavailable-model lifecycle failed.' }
+          Remove-Item Env:FREEHAND_MODEL_PROFILE
+          Remove-Item Env:FREEHAND_DATA_DIRECTORY
           & $scanner end "/d:sonar.token=$env:SONAR_TOKEN"
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube upload failed.' }
       - name: Upload coverage reports

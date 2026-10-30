@@ -88,6 +88,8 @@ public partial class App : Application
     {
         try
         {
+            await _composition!.ReadinessTask.ConfigureAwait(true);
+            await _composition.RefreshReadinessAsync().ConfigureAwait(true);
             for (var cycle = 0; cycle < 5; cycle++)
             {
                 OnTrayShow(null, EventArgs.Empty);
