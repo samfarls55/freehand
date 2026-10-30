@@ -79,7 +79,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         {
             if (Environment.GetCommandLineArgs().Contains("--desktop-delivery-benchmark", StringComparer.Ordinal))
                 launcher = BenchmarkWorkers = new BenchmarkWorkerLauncher(launcher);
-            Speech = new SpeechWorkerClient(launcher, Models);
+            Speech = new SpeechWorkerClient(launcher, Models, new WorkerOptions { PrepareWhileActive = ModelResolver.UsesAcceleratedModel });
             Speech.SetIdleTimeout(ModelResolver.UsesAcceleratedModel ? Timeout.InfiniteTimeSpan : TimeSpan.FromMinutes(_applied.IdleModelMinutes));
             Engine = new DictationEngine(capture, hotkey, Speech, injector, () => Dictionary.Entries,
                 injectEnabled: () => _applied.InjectText, foreground: desktop, log: Logs,

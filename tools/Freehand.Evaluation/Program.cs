@@ -89,7 +89,8 @@ internal static partial class Program
         var trials = new List<Trial>();
         var failures = new List<string>();
         using var models = new ModelResolver(modelDirectory, cacheDirectory: Path.Combine(outputDirectory, "verification"));
-        await using var speech = new SpeechWorkerClient(new ExecutableLauncher(executable, Path.Combine(outputDirectory, "worker-profile")), models);
+        await using var speech = new SpeechWorkerClient(new ExecutableLauncher(executable, Path.Combine(outputDirectory, "worker-profile")), models,
+            new WorkerOptions { PrepareWhileActive = ModelResolver.UsesAcceleratedModel });
         using var totalMonitorStop = new CancellationTokenSource();
         var totalPeak = new MemoryPeak();
         var totalMonitor = MonitorAsync(speech, totalPeak, totalMonitorStop.Token);
