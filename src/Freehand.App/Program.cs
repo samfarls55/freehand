@@ -18,6 +18,12 @@ public static class Program
     public static int Main(string[] args)
     {
         PlatformFactory.InstallResolver();
+        if (args.Contains("--desktop-delivery-benchmark", StringComparer.Ordinal)
+            && string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FREEHAND_DATA_DIRECTORY")))
+        {
+            Console.Error.WriteLine("Desktop delivery measurement requires an isolated data directory.");
+            return 1;
+        }
         if (args.Length == 2 && args[0] == "--performance-check")
             return PerformanceChecks.RunAsync(args[1]).GetAwaiter().GetResult();
         if (args.Contains("--desktop-selftest", StringComparer.Ordinal))
@@ -60,6 +66,8 @@ public static class Program
     public static AppBuilder BuildAvaloniaApp() =>
         AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            // The Compact interface avoids a persistent Windows GPU context.
+            .With(new Win32PlatformOptions { RenderingMode = [Win32RenderingMode.Software] })
             .WithInterFont()
             .LogToTrace();
 }

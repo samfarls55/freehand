@@ -1,5 +1,12 @@
 # Transcript cleanup research
 
+The [October 29 accuracy plan](DICTATION-ACCURACY-PLAN.md) supersedes this
+snapshot's candidate priority and performance gates. Sam now requires the entire
+app's RAM and delivery latency to match or beat Wispr Flow. The earlier allowances
+of 750 MiB added memory and one to two seconds added delay must not be used as
+acceptance criteria. Current upstream and model evidence is recorded
+[separately](DICTATION-MODEL-EVIDENCE.md).
+
 This is the research snapshot before the dictionary and number-formatting work.
 The implementation now connects per-recording hotwords and adds deterministic
 English number/currency formatting. See [the speech configuration](PARAKEET-WINDOWS.md).

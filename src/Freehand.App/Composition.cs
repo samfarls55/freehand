@@ -17,11 +17,24 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private bool _disposed;
     private Task _preferencesTask = Task.CompletedTask;
     private readonly Task _verification;
+    private readonly CancellationTokenSource _lifetime = new();
+    private Task _readinessTask = Task.CompletedTask;
+    private bool _preparingSpeech = ModelResolver.UsesAcceleratedModel;
+    private bool _residentPrepared;
+    private string? _preparationError;
     private readonly HttpClient _updateHttp = new() { Timeout = TimeSpan.FromMinutes(15) };
     private bool _installingUpdate;
     /// <summary>Update checks are available only in the normal installed copy.</summary>
     public UpdateService? Updates { get; }
     private IHotkeySource? _hotkey;
+    internal ITextDeliveryHotkeySource? DeliveryHotkey => _hotkey as ITextDeliveryHotkeySource;
+    internal Task ReadinessTask => _readinessTask;
+    internal Task PreferencesTask => _preferencesTask;
+    internal TimeSpan ReadinessTime { get; private set; }
+    internal BenchmarkWorkerLauncher? BenchmarkWorkers { get; }
+    internal bool IsPreparingSpeech => _preparingSpeech;
+    internal bool IsDictationReady => !ModelResolver.UsesAcceleratedModel || _residentPrepared && Speech?.IsReady == true;
+    internal string? PreparationError => _preparationError;
     /// <summary>Saved preferences.</summary>
     public AppSettings Settings { get; }
     /// <summary>Literal correction dictionary.</summary>
@@ -65,10 +78,13 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         var launcher = PlatformFactory.CreateWorkerLauncher();
         if (capture is not null && hotkey is not null && injector is not null && launcher is not null)
         {
-            Speech = new SpeechWorkerClient(launcher, Models);
-            Speech.SetIdleTimeout(TimeSpan.FromMinutes(_applied.IdleModelMinutes));
+            if (Environment.GetCommandLineArgs().Contains("--desktop-delivery-benchmark", StringComparer.Ordinal))
+                launcher = BenchmarkWorkers = new BenchmarkWorkerLauncher(launcher);
+            Speech = new SpeechWorkerClient(launcher, Models, new WorkerOptions { PrepareWhileActive = ModelResolver.UsesAcceleratedModel });
+            Speech.SetIdleTimeout(ModelResolver.UsesAcceleratedModel ? Timeout.InfiniteTimeSpan : TimeSpan.FromMinutes(_applied.IdleModelMinutes));
             Engine = new DictationEngine(capture, hotkey, Speech, injector, () => Dictionary.Entries,
-                injectEnabled: () => _applied.InjectText, foreground: desktop, log: Logs);
+                injectEnabled: () => _applied.InjectText, foreground: desktop, log: Logs,
+                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds });
             Engine.Completed += OnCompleted;
             Engine.Changed += OnEngineChanged;
             Speech.Changed += (_, _) => { Logs.Write(Guid.Empty, "model-" + Speech.State); Changed?.Invoke(this, EventArgs.Empty); };
@@ -84,13 +100,15 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         if (desktop is not null) desktop.ReadinessInvalidated += OnReadinessInvalidated;
         _verification = VerifyModelAsync();
     }
-    /// <summary>Builds composition without loading the model.</summary>
+    /// <summary>Builds composition; Start prepares the resident GPU model before arming dictation.</summary>
     public static Composition Create(IDesktopIntegration? desktop = null) => new(desktop);
 
     /// <inheritdoc />
     public async Task<IReadOnlyList<int>?> RecordAsync(IProgress<IReadOnlyList<int>> progress, CancellationToken cancellationToken)
     {
         if (Engine is null) return null;
+        await _readinessTask.WaitAsync(cancellationToken).ConfigureAwait(false);
+        if (ModelResolver.UsesAcceleratedModel && !IsDictationReady) return null;
         IReadOnlyList<int>? keys = null;
         try
         {
@@ -114,8 +132,8 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     /// <summary>Arms application services, independently of any window.</summary>
     public void Start()
     {
-        var ready = Engine?.Start() ?? false;
-        Logs.Write(Guid.Empty, ready ? "hotkey-ready" : "hotkey-failed", System.Diagnostics.Stopwatch.GetElapsedTime(Program.LaunchedAt));
+        if (ModelResolver.UsesAcceleratedModel) _readinessTask = PrepareResidentReadinessAsync(verifyModel: false);
+        else ArmDictation();
         try { Desktop?.SetLoginStartup(_applied.StartAtLogin); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Security.SecurityException)
         { Engine?.ReportStorageProblem("Windows login startup could not be updated. Check your Windows startup settings."); }
@@ -123,6 +141,53 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         if (Dictionary.LastError is not null) Engine?.ReportStorageProblem(Dictionary.LastError);
         if (Transcripts.LastError is not null) Engine?.ReportStorageProblem(Transcripts.LastError);
         Updates?.Start();
+    }
+    private bool ArmDictation()
+    {
+        lock (_preferencesSync)
+        {
+            if (_disposed) return false;
+            var ready = Engine?.Start() ?? false;
+            ReadinessTime = System.Diagnostics.Stopwatch.GetElapsedTime(Program.LaunchedAt);
+            Logs.Write(Guid.Empty, ready ? "hotkey-ready" : "hotkey-failed", ReadinessTime);
+            return ready;
+        }
+    }
+    internal async Task RefreshReadinessAsync()
+    {
+        if (!ModelResolver.UsesAcceleratedModel) { Engine?.RefreshReadiness(); return; }
+        if (!_readinessTask.IsCompleted || _disposed || _preparingSpeech) return;
+        _readinessTask = PrepareResidentReadinessAsync(verifyModel: true);
+        await _readinessTask.ConfigureAwait(false);
+    }
+    private async Task PrepareResidentReadinessAsync(bool verifyModel)
+    {
+        _preparingSpeech = true; _residentPrepared = false; _preparationError = null;
+        _hotkey?.StopListening();
+        Changed?.Invoke(this, EventArgs.Empty);
+        try
+        {
+            if (verifyModel) await Models.VerifyAsync(_lifetime.Token).ConfigureAwait(false);
+            else await _verification.ConfigureAwait(false);
+            if (!Models.IsVerified || Speech is null)
+            {
+                _preparationError = Models.Error ?? "Speech is unavailable. Open Settings to repair it.";
+                return;
+            }
+            _residentPrepared = await ResidentSpeechPreparation.PrepareAsync(Speech, ArmDictation, _lifetime.Token).ConfigureAwait(false);
+            if (!_residentPrepared && !_disposed) _preparationError = "Speech could not start. Choose Retry.";
+        }
+        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { }
+        catch (Exception error)
+        {
+            Logs.Write(Guid.Empty, "resident-start-" + error.GetType().Name);
+            _preparationError = "Speech could not start. Choose Retry.";
+        }
+        finally
+        {
+            _preparingSpeech = false;
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
     private UpdateService? CreateUpdates()
     {
@@ -152,10 +217,11 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         finally { _installingUpdate = false; if (!_disposed) Engine?.ResumeAfterUpdateFailure(); }
     }
     /// <summary>Installer shutdown refuses unresolved audio and prevents new capture.</summary>
-    public bool TryPrepareForUpdate() => !_disposed && (Engine?.TryPrepareForUpdate() ?? true);
+    public bool TryPrepareForUpdate() => !_disposed && _readinessTask.IsCompleted && (Engine?.TryPrepareForUpdate() ?? true);
     private async Task VerifyModelAsync()
     {
-        await Models.VerifyAsync(CancellationToken.None).ConfigureAwait(false);
+        try { await Models.VerifyAsync(_lifetime.Token).ConfigureAwait(false); }
+        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { }
         Changed?.Invoke(this, EventArgs.Empty);
     }
     private void OnCompleted(object? sender, DictationResult result)
@@ -178,25 +244,30 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     private void QueuePreferences()
     {
         lock (_preferencesSync)
-            if (!_disposed) _preferencesTask = _preferencesTask.ContinueWith(_ => ApplyPreferencesAsync(), TaskScheduler.Default).Unwrap();
+            if (!_disposed) _preferencesTask = _preferencesTask.ContinueWith(_ => ApplyPreferencesAsync(), CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.Default).Unwrap();
     }
     private async Task ApplyPreferencesAsync()
     {
-        await _preferencesGate.WaitAsync().ConfigureAwait(false);
+        await _readinessTask.ConfigureAwait(false);
+        await _preferencesGate.WaitAsync(CancellationToken.None).ConfigureAwait(false);
         try
         {
             if (_disposed || !CanApplyPreferences) return;
             await Engine!.ApplyConfigurationAsync(async () =>
             {
             var requested = Settings.Data;
+            var modelChanged = requested.ModelDirectory != _applied.ModelDirectory;
+            var refreshReadiness = _refreshPending;
             if (Engine.State == DictationState.AwaitingRetry)
             {
                 // Repair the model selection without discarding audio or changing the job's other preferences.
-                if (requested.ModelDirectory != _applied.ModelDirectory)
+                if (modelChanged)
                 {
+                    if (ModelResolver.UsesAcceleratedModel) { _residentPrepared = false; _preparingSpeech = true; _hotkey?.StopListening(); }
                     await Speech!.ResetAsync(CancellationToken.None).ConfigureAwait(false);
                     Models.Select(requested.ModelDirectory);
-                    await Models.VerifyAsync(CancellationToken.None).ConfigureAwait(false);
+                    await Models.VerifyAsync(_lifetime.Token).ConfigureAwait(false);
+                    if (ModelResolver.UsesAcceleratedModel) await PrepareResidentReadinessAsync(verifyModel: false).ConfigureAwait(false);
                     _applied = _applied with { ModelDirectory = requested.ModelDirectory };
                     Changed?.Invoke(this, EventArgs.Empty);
                 }
@@ -207,29 +278,37 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
                 var replacement = PlatformFactory.CreateHotkeySource(requested.DictationKeys);
                 if (replacement is null || !Engine.ReplaceHotkey(replacement))
                 {
+                    if (ModelResolver.UsesAcceleratedModel && !IsDictationReady) _hotkey?.StopListening();
                     Settings.TryUpdate(requested with { PushToTalkKey = _applied.PushToTalkKey, PushToTalkKeys = _applied.PushToTalkKeys });
                     return;
                 }
                 _hotkey = replacement;
             }
-            if (requested.ModelDirectory != _applied.ModelDirectory)
+            if (modelChanged)
             {
+                if (ModelResolver.UsesAcceleratedModel) { _residentPrepared = false; _preparingSpeech = true; _hotkey?.StopListening(); }
                 await Speech!.ResetAsync(CancellationToken.None).ConfigureAwait(false);
                 Models.Select(requested.ModelDirectory);
-                await Models.VerifyAsync(CancellationToken.None).ConfigureAwait(false);
+                await Models.VerifyAsync(_lifetime.Token).ConfigureAwait(false);
             }
-            Speech!.SetIdleTimeout(TimeSpan.FromMinutes(requested.IdleModelMinutes));
+            Speech!.SetIdleTimeout(ModelResolver.UsesAcceleratedModel ? Timeout.InfiniteTimeSpan : TimeSpan.FromMinutes(requested.IdleModelMinutes));
             Desktop?.SetLoginStartup(requested.StartAtLogin);
             _applied = requested; _pendingPreferences = false;
             if (_refreshPending)
             {
                 _refreshPending = false;
-                Engine.RefreshReadiness();
-                if (Speech.State is ModelState.Failed or ModelState.Unloaded) await Speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
+                if (!ModelResolver.UsesAcceleratedModel)
+                {
+                    Engine.RefreshReadiness();
+                    if (Speech.State is ModelState.Failed or ModelState.Unloaded) await Speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
+                }
             }
+            if (ModelResolver.UsesAcceleratedModel && (modelChanged || refreshReadiness || !IsDictationReady))
+                await PrepareResidentReadinessAsync(verifyModel: !modelChanged).ConfigureAwait(false);
             Changed?.Invoke(this, EventArgs.Empty);
             }).ConfigureAwait(false);
         }
+        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { }
         catch (Exception e) { Logs.Write(Guid.Empty, "preferences-" + e.GetType().Name); Engine?.ReportStorageProblem("A preference could not be applied. Open Settings and try again."); }
         finally { _preferencesGate.Release(); Changed?.Invoke(this, EventArgs.Empty); }
     }
@@ -237,15 +316,19 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     public async ValueTask DisposeAsync()
     {
         Task preferences;
-        lock (_preferencesSync) { _disposed = true; preferences = _preferencesTask; }
+        lock (_preferencesSync) { if (_disposed) return; _disposed = true; preferences = _preferencesTask; }
+        _lifetime.Cancel();
         Settings.Changed -= OnSettingsChanged;
         if (Updates is not null) { Updates.Changed -= OnUpdatesChanged; await Updates.DisposeAsync().ConfigureAwait(false); }
         _updateHttp.Dispose();
         if (Desktop is not null) Desktop.ReadinessInvalidated -= OnReadinessInvalidated;
         await preferences.ConfigureAwait(false);
+        await _readinessTask.ConfigureAwait(false);
         await _verification.ConfigureAwait(false);
-        if (Engine is not null) { Engine.Changed -= OnEngineChanged; await Task.Run(async () => await Engine.DisposeAsync().ConfigureAwait(false)).ConfigureAwait(false); }
+        if (Engine is not null) { Engine.Changed -= OnEngineChanged; await Task.Run(async () => await Engine.DisposeAsync().ConfigureAwait(false), CancellationToken.None).ConfigureAwait(false); }
+        BenchmarkWorkers?.Dispose();
         Models.Dispose(); _preferencesGate.Dispose();
         await Logs.DisposeAsync().ConfigureAwait(false);
+        _lifetime.Dispose();
     }
 }

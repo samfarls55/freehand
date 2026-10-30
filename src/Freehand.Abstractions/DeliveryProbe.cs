@@ -9,4 +9,6 @@ public interface ITextDeliveryProbe : IDisposable
     string ReadText();
     /// <summary>Monotonic timestamp of the first character received by the field.</summary>
     long FirstInputTimestamp { get; }
+    /// <summary>Monotonic timestamp of the most recent character received by the field.</summary>
+    long LastInputTimestamp { get; }
 }

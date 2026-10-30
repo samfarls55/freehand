@@ -29,7 +29,8 @@ internal static class PerformanceChecks
                 var key = new ScriptedKey();
                 var capture = new ReplayCapture(fixture);
                 var injector = new CountingInjector();
-                await using (var engine = new DictationEngine(capture, key, observed, injector, () => []))
+                await using (var engine = new DictationEngine(capture, key, observed, injector, () => [],
+                    options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds }))
                 {
                     foreach (var seconds in new[] { 10, 30, 60, 10 })
                     {

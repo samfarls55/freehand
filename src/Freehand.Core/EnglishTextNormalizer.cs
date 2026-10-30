@@ -10,8 +10,8 @@ internal static partial class EnglishTextNormalizer
     private const string NumberWord = "zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|and|point|first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth|thirteenth|fourteenth|fifteenth|sixteenth|seventeenth|eighteenth|nineteenth|twentieth|thirtieth|fortieth|fiftieth|sixtieth|seventieth|eightieth|ninetieth|hundredth|thousandth|millionth";
     private const string Unit = @"dollars?|cents?|percent|per\s+cent";
     private const string Digits = @"-?\d+(?:,\d{3})*(?:\.\d+)?";
-    // Capture mixed forms as one phrase so unsupported amounts remain intact.
-    private const string Number = @"(?:minus\s+)?(?!(?:and|point)\b)(?:" + NumberWord + "|" + Digits + @")(?:[ -]+(?:" + NumberWord + "|" + Digits + @"))*";
+    // Capture mixed forms and comma-separated phrases so unsupported amounts remain intact.
+    private const string Number = @"(?:minus\s+)?(?!(?:and|point)\b)(?:" + NumberWord + "|" + Digits + @")(?:(?:[ -]+|(?<commaSeparated>,[ \t]*))(?:" + NumberWord + "|" + Digits + @"))*";
     private const string AmountTail = Number + @"|[.,][ \t]*\d+";
     private static readonly string[] Small = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
     private static readonly string[] Tens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
@@ -56,9 +56,9 @@ internal static partial class EnglishTextNormalizer
     {
         var number = match.Groups["number"].Value;
         var unit = string.Concat(match.Groups["unit"].Value.Where(c => !char.IsWhiteSpace(c))).ToLowerInvariant();
-        // An amount such as "five dollars fifty" needs a richer grammar. Keep
-        // the complete phrase rather than formatting just part of it.
-        if (match.Groups["tail"].Success) return match.Value;
+        // Paused numbers and amounts such as "five dollars fifty" are ambiguous.
+        // Keep the complete phrase rather than formatting just part of it.
+        if (match.Groups["commaSeparated"].Success || match.Groups["tail"].Success) return match.Value;
         var negative = number.StartsWith("minus ", StringComparison.OrdinalIgnoreCase) || number.StartsWith('-');
         var unsigned = number.StartsWith("minus ", StringComparison.OrdinalIgnoreCase) ? number[6..] : number.TrimStart('-');
         decimal amount;

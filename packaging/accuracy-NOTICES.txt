@@ -1,0 +1,37 @@
+Freehand isolated GPU accuracy preview
+
+Qwen3-ASR 1.7B Q4_K_M, quantized GGUF conversion by handy-computer.
+Original model: https://huggingface.co/Qwen/Qwen3-ASR-1.7B
+GGUF repository revision: 0e0a596e3959c3f3f2ab7d443a5b6f0f4a4bba6f
+https://huggingface.co/handy-computer/Qwen3-ASR-1.7B-gguf
+Model SHA256: b7afe3674f653fa84f712ed2440353c6e7cf7f93697fef76b05a26538b24844e
+Apache 2.0. The publisher LICENSE and NOTICE are included in licenses/.
+The GGUF's matching tokenizer encodes recognition hints.
+
+Silero VAD v6.2, CPU speech-presence detection, GGUF conversion by handy-computer.
+Source: https://github.com/snakers4/silero-vad
+GGUF revision: a9b2d61c20ae4ddf3644edb34969e8185a485448
+Model SHA256: 0d871a800c420fdd5d1b17a3aea4296d1c39608f0ff4a9295eb76457eb1c88e6
+MIT. The license is included in licenses/.
+
+transcribe.cpp 0.4.1 with bounded Windows weight-file reads and Qwen tensor
+catalog reuse from already validated GGUF metadata. Recognition math is unchanged.
+Base revision: 4d7c1ccefd39e5a9ea36cca5f8fefc6dcc14b99b
+https://github.com/handy-computer/transcribe.cpp
+MIT. Exact source and patch inputs are in tools/Freehand.Native/source-manifest.json.
+The local native-build.json records the compiled DLL and unchanged official GGML hashes.
+Native licenses, including ggml, miniz, and Silero, are in licenses/transcribe/.
+CPU and Vulkan modules are used. CUDA dependencies are not used.
+
+The unchanged 110M vocabulary retains the existing hint-character eligibility
+checks; its token IDs are not passed to the GPU model. It was extracted from
+NVIDIA's .nemo revision 431a349f3051ab85c22b9b7a2741b5fe77065665, under CC BY 4.0.
+It is used only as a validated character set for the GPU path.
+
+.NET, Avalonia, NAudio, SkiaSharp, sherpa-onnx and ONNX Runtime licenses are
+included in licenses/. The normal CPU model remains the public build default.
+No model, transcript, or recording is uploaded by the GPU recognition path.
+
+Engineering fixture: John F. Kennedy's 1961 inaugural address, a U.S. government
+work, copied from whisper.cpp revision b0a11594aec50892a02cd8d129eee2dfe93a8bb8.
+SHA256: 59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e

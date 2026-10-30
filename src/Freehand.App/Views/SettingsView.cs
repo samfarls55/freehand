@@ -18,6 +18,7 @@ public sealed class SettingsView : UserControl
 {
     private readonly AppSettings _settings;
     private readonly Composition? _composition;
+    private readonly bool _keepModelResident;
     private readonly HotkeyEditor _key;
     private readonly ToggleSwitch _inject = Switch("Insert text into the focused app");
     private readonly ToggleSwitch _history = Switch("Keep transcript history");
@@ -34,9 +35,10 @@ public sealed class SettingsView : UserControl
     /// <summary>Builds settings using the existing persistence and preference coordinator.</summary>
     public SettingsView(AppSettings settings, Composition? composition = null) : this(settings, composition, composition) { }
 
-    internal SettingsView(AppSettings settings, Composition? composition, IHotkeyRecorder? recorder)
+    internal SettingsView(AppSettings settings, Composition? composition, IHotkeyRecorder? recorder, bool? keepModelResident = null)
     {
         _settings = settings; _composition = composition;
+        _keepModelResident = keepModelResident ?? ModelResolver.UsesAcceleratedModel;
         _key = new HotkeyEditor(recorder, keys => Save(_settings.Data with { PushToTalkKey = keys[0], PushToTalkKeys = keys.ToArray() }));
         AutomationProperties.SetName(_idle, "Release model after idle minutes");
         _warning.Foreground = Tokens.Brushes.Attention; _error.Foreground = Tokens.Brushes.Attention;
@@ -62,7 +64,9 @@ public sealed class SettingsView : UserControl
                     Group("System", new StackPanel { Children =
                     {
                         SettingRow("Start at Windows login", _login),
-                        SettingRow("Release model after idle minutes", _idle),
+                        _keepModelResident
+                            ? SettingRow("Model residency", Panels.Text("While Freehand is open"))
+                            : SettingRow("Release model after idle minutes", _idle),
                     } }),
                     Group("Speech model", BuildModelSection()),
                     Group("Updates", new StackPanel { Spacing = Tokens.Space.Base, Children =
@@ -128,7 +132,7 @@ public sealed class SettingsView : UserControl
         repair.IsEnabled = _composition is not null; logs.IsEnabled = _composition is not null;
         return new StackPanel { Spacing = Tokens.Space.Base, Children =
         {
-            Panels.Text("Parakeet TDT 110M", Tokens.Fonts.Section), _modelStatus,
+            Panels.Text(ModelResolver.DisplayName, Tokens.Fonts.Section), _modelStatus,
             new Expander { Header = "Model details", HorizontalAlignment = HorizontalAlignment.Stretch,
                 Content = new StackPanel { Spacing = Tokens.Space.Base, Children =
                 {
@@ -140,19 +144,21 @@ public sealed class SettingsView : UserControl
     }
     private void UpdateModelStatus()
     {
+        _key.IsEnabled = _composition is null || _composition.IsDictationReady;
         var located = _composition?.Models.ResolvedDirectory ?? _settings.Data.ModelDirectory ?? Path.Combine(AppContext.BaseDirectory, "models", ModelResolver.DirectoryName);
         var found = _composition?.Models.IsVerified ?? ParakeetTranscriber.IsComplete(located);
         var state = _composition?.Speech?.State ?? Freehand.Abstractions.ModelState.Unloaded;
-        _modelStatus.Text = found ? state switch
+        var preparing = _composition?.IsPreparingSpeech == true;
+        _modelStatus.Text = preparing ? "Preparing speech model" : found ? state switch
         {
-            Freehand.Abstractions.ModelState.Unloaded => "Installed · loads when you dictate",
+            Freehand.Abstractions.ModelState.Unloaded => _keepModelResident ? "Installed · preparing" : "Installed · loads when you dictate",
             Freehand.Abstractions.ModelState.Ready => "Installed · loaded",
             Freehand.Abstractions.ModelState.Starting or Freehand.Abstractions.ModelState.Loading => "Installed · preparing",
             Freehand.Abstractions.ModelState.Stopping => "Installed · releasing memory",
             _ => "Installed · last load failed",
         } : "Model needs verification or repair";
-        _modelStatus.Foreground = found ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
-        _modelPath.Text = located + (found ? "" : "\n" + (_composition?.Models.Error ?? "Run the installer again to verify and repair the bundled model."));
+        _modelStatus.Foreground = found || preparing ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
+        _modelPath.Text = located + (found || preparing ? "" : "\n" + (_composition?.Models.Error ?? "Run the installer again to verify and repair the bundled model."));
     }
     private static ToggleSwitch Switch(string label)
     {

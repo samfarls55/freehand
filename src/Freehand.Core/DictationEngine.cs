@@ -67,6 +67,8 @@ public sealed record DictationOptions
 {
     /// <summary>Initial ten-minute limit.</summary>
     public TimeSpan RecordingLimit { get; init; } = TimeSpan.FromMinutes(10);
+    /// <summary>Maximum progressive segment duration, from one to fifteen seconds.</summary>
+    public int MaxSegmentSeconds { get; init; } = AudioSegmenter.MaxSegmentSeconds;
 }
 /// <summary>Owns capture, one retained recording, correction and delivery.</summary>
 public sealed class DictationEngine : IAsyncDisposable
@@ -118,7 +120,10 @@ public sealed class DictationEngine : IAsyncDisposable
         _capture = capture; _hotkey = hotkey; _speech = transcriber; _injector = injector;
         _dictionary = dictionary; _clock = clock ?? SystemClock.Instance;
         _injectEnabled = injectEnabled ?? (() => true); _foreground = foreground; _log = log;
-        _options = options ?? new DictationOptions(); Subscribe(_hotkey);
+        _options = options ?? new DictationOptions();
+        ArgumentOutOfRangeException.ThrowIfLessThan(_options.MaxSegmentSeconds, 1, nameof(options));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(_options.MaxSegmentSeconds, AudioSegmenter.MaxSegmentSeconds, nameof(options));
+        Subscribe(_hotkey);
     }
     /// <summary>Arms the hotkey and reports startup failure.</summary>
     public bool Start()
@@ -187,7 +192,7 @@ public sealed class DictationEngine : IAsyncDisposable
         {
             SingleReader = true, SingleWriter = true,
         });
-        var audio = new RecordingBuffer(segment => segments.Writer.TryWrite(segment));
+        var audio = new RecordingBuffer(_options.MaxSegmentSeconds, segment => segments.Writer.TryWrite(segment));
         using var decodeStop = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
         var pressAt = Stopwatch.GetTimestamp();
         var load = Task.Run(async () =>
@@ -301,6 +306,7 @@ public sealed class DictationEngine : IAsyncDisposable
         var transcriptTime = Stopwatch.GetElapsedTime(_releasedAt);
         _log?.Write(job.Id, "transcript-ready", transcriptTime);
         var delivery = DeliveryOutcome.Disabled;
+        var hotkeyRestored = true;
         TimeSpan? firstInsertion = null;
         SetState(DictationState.Delivering);
         if (_injectEnabled())
@@ -316,9 +322,20 @@ public sealed class DictationEngine : IAsyncDisposable
                     // and any literal whitespace supplied by dictionary corrections intact.
                     var insertionText = corrected.Length > 0 && !char.IsWhiteSpace(corrected[^1])
                         ? corrected + " " : corrected;
-                    delivery = _injector is ITargetedTextInjector targeted
-                        ? await targeted.InjectAsync(insertionText, job.Target, _lifetime.Token).ConfigureAwait(false)
-                        : await _injector.InjectAsync(insertionText, _lifetime.Token).ConfigureAwait(false) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
+                    var paused = _hotkey is ITextDeliveryHotkeySource deliveryKey
+                        && await deliveryKey.TryPauseForDeliveryAsync(_lifetime.Token).ConfigureAwait(false);
+                    try
+                    {
+                        delivery = _injector is ITargetedTextInjector targeted
+                            ? await targeted.InjectAsync(insertionText, job.Target, _lifetime.Token).ConfigureAwait(false)
+                            : await _injector.InjectAsync(insertionText, _lifetime.Token).ConfigureAwait(false) ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain;
+                    }
+                    finally
+                    {
+                        // Quit disposes the hook while cancelling an in-flight insertion.
+                        // Never rearm it after that ownership has ended.
+                        if (paused) lock (_sync) if (!_disposed) hotkeyRestored = _hotkey.Start();
+                    }
                 }
                 catch (OperationCanceledException) { delivery = DeliveryOutcome.Cancelled; }
                 catch (Exception e) { _log?.Write(job.Id, "delivery-" + e.GetType().Name); delivery = DeliveryOutcome.PartialOrUncertain; }
@@ -328,7 +345,8 @@ public sealed class DictationEngine : IAsyncDisposable
         var result = new DictationResult(_clock.Now, TimeSpan.FromSeconds((double)job.SampleCount / AudioChunk.SampleRate), Stopwatch.GetElapsedTime(_releasedAt), corrected, applied)
             { JobId = job.Id, Delivery = delivery, FirstInsertionTime = firstInsertion, TranscriptTime = transcriptTime };
         LastResult = result;
-        Report(delivery is DeliveryOutcome.Delivered or DeliveryOutcome.Disabled ? DictationOutcome.Success : DictationOutcome.DeliveryFailure,
+        if (!hotkeyRestored) Report(DictationOutcome.CaptureFailure, "The dictation key could not start. Choose Retry in Freehand.");
+        else Report(delivery is DeliveryOutcome.Delivered or DeliveryOutcome.Disabled ? DictationOutcome.Success : DictationOutcome.DeliveryFailure,
             delivery switch { DeliveryOutcome.Delivered => "Transcript sent.", DeliveryOutcome.Disabled => "Transcript ready to copy.",
                 DeliveryOutcome.TargetChanged => "Focus changed. Copy the transcript to your original application.",
                 _ => "Delivery may be incomplete. Check the target and copy the text. It will not be sent again automatically." });

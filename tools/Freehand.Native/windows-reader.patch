@@ -1,0 +1,212 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,7 +32,7 @@
+ # Best-effort: source tarballs and non-git trees fall back to "unknown". This is
+ # a configure-time snapshot (same posture as ggml's GGML_COMMIT); reconfigure to
+ # refresh it.
+-set(TRANSCRIBE_BUILD_COMMIT "unknown")
++set(TRANSCRIBE_BUILD_COMMIT "4d7c1cc-freehand-read2")
+ find_package(Git QUIET)
+ if(GIT_FOUND AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+     execute_process(
+@@ -448,7 +448,21 @@
+ endif()
+ 
+ # ggml's CMake declares its own warning flags; let it.
+-add_subdirectory(ggml)
++if(TRANSCRIBE_PREBUILT_GGML_DIR)
++    add_library(ggml-base SHARED IMPORTED GLOBAL)
++    set_target_properties(ggml-base PROPERTIES
++        IMPORTED_IMPLIB "${TRANSCRIBE_PREBUILT_IMPLIB_DIR}/ggml-base.lib"
++        IMPORTED_LOCATION "${TRANSCRIBE_PREBUILT_GGML_DIR}/ggml-base.dll"
++        INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/ggml/include"
++        INTERFACE_COMPILE_DEFINITIONS "GGML_SHARED;GGML_BACKEND_DL")
++    add_library(ggml SHARED IMPORTED GLOBAL)
++    set_target_properties(ggml PROPERTIES
++        IMPORTED_IMPLIB "${TRANSCRIBE_PREBUILT_IMPLIB_DIR}/ggml.lib"
++        IMPORTED_LOCATION "${TRANSCRIBE_PREBUILT_GGML_DIR}/ggml.dll"
++        INTERFACE_LINK_LIBRARIES ggml-base)
++else()
++    add_subdirectory(ggml)
++endif()
+ 
+ # -----------------------------------------------------------------------------
+ # Subdirs
+--- a/src/transcribe-load-common.cpp
++++ b/src/transcribe-load-common.cpp
+@@ -26,6 +26,7 @@
+ #include <cstring>
+ #include <fstream>
+ #include <ios>
++#include <memory>
+ #include <stdexcept>
+ #include <vector>
+ 
+@@ -714,15 +715,28 @@
+                                      ggml_context *        ctx_meta,
+                                      const char *          error_tag,
+                                      const WeightStorage * skip) {
+-    // std::ifstream rather than going through gguf's loader a third
+-    // time: ifstream::seekg takes a streamoff (signed 64-bit on every
+-    // platform we target), so multi-GB tensor offsets work without
+-    // #ifdef'ing fseeko vs _fseeki64.
++    // Read tensor data directly, retaining signed 64-bit file offsets for
++    // multi-GB models. The bounded staging and tensor writes are shared.
++#if defined(_WIN32)
++    // MSVC basic_filebuf reading is substantially slower than the underlying
++    // binary CRT reader for this bounded tensor schedule. Keep the same UTF-8
++    // path conversion, offsets and 16 MiB staging; only the Windows file API changes.
++    std::unique_ptr<FILE, decltype(&std::fclose)> fin(_wfopen(path_from_utf8(path).c_str(), L"rb"), &std::fclose);
++#else
+     std::ifstream fin(path_from_utf8(path), std::ios::binary);
++#endif
+     if (!fin) {
+         log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: failed to reopen %s for tensor data", error_tag, path.c_str());
+         return TRANSCRIBE_ERR_GGUF;
+     }
++
++    const auto read_bytes = [&](void * destination, size_t bytes) {
++#if defined(_WIN32)
++        return std::fread(destination, 1, bytes, fin.get()) == bytes;
++#else
++        return static_cast<bool>(fin.read(static_cast<char *>(destination), static_cast<std::streamsize>(bytes)));
++#endif
++    };
+ 
+     // Uploads go through a bounded staging buffer: ggml_backend_tensor_set
+     // stages each call whole, and for device memory the host cannot map,
+@@ -748,8 +762,13 @@
+ 
+         const std::streamoff abs_offset =
+             static_cast<std::streamoff>(data_offset) + static_cast<std::streamoff>(toffset);
++#if defined(_WIN32)
++        const bool seek_succeeded = _fseeki64(fin.get(), static_cast<long long>(abs_offset), SEEK_SET) == 0;
++#else
+         fin.seekg(abs_offset);
+-        if (!fin) {
++        const bool seek_succeeded = static_cast<bool>(fin);
++#endif
++        if (!seek_succeeded) {
+             log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: seek failed for tensor \"%s\"", error_tag, t->name);
+             return TRANSCRIBE_ERR_GGUF;
+         }
+@@ -760,8 +779,7 @@
+         // that accepts partial writes: every default one does (ggml's CPU
+         // repack buffers would not, and assert).
+         if (t->buffer != nullptr && ggml_backend_buffer_is_host(t->buffer)) {
+-            fin.read(static_cast<char *>(t->data), static_cast<std::streamsize>(nbytes));
+-            if (!fin) {
++            if (!read_bytes(t->data, nbytes)) {
+                 log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: short read for tensor \"%s\" (%zu bytes)", error_tag, t->name,
+                         nbytes);
+                 return TRANSCRIBE_ERR_GGUF;
+@@ -775,8 +793,7 @@
+         }
+         for (size_t done = 0; done < nbytes;) {
+             const size_t n = std::min(nbytes - done, staging.size());
+-            fin.read(reinterpret_cast<char *>(staging.data()), static_cast<std::streamsize>(n));
+-            if (!fin) {
++            if (!read_bytes(staging.data(), n)) {
+                 log_msg(TRANSCRIBE_LOG_LEVEL_ERROR, "%s: short read for tensor \"%s\" (%zu bytes)", error_tag, t->name,
+                         nbytes);
+                 return TRANSCRIBE_ERR_GGUF;
+--- a/src/arch/qwen3_asr/model.cpp
++++ b/src/arch/qwen3_asr/model.cpp
+@@ -7,6 +7,7 @@
+ #include "ggml.h"
+ #include "gguf.h"
+ #include "qwen3_asr.h"
++#include "tensor_catalog.h"
+ #include "transcribe-arch.h"
+ #include "transcribe-backend.h"
+ #include "transcribe-batch-util.h"
+@@ -218,19 +219,15 @@
+         m->mel.emplace(cfg);
+     }
+ 
+-    // Reopen with no_alloc to build the tensor catalog.
+-    gguf_init_params init_params{};
+-    init_params.no_alloc = true;
+-    init_params.ctx      = &m->ctx_meta;
+-
+-    gguf_context * gguf_data = gguf_init_from_file(loader.path().c_str(), init_params);
+-    if (gguf_data == nullptr) {
+-        return TRANSCRIBE_ERR_GGUF;
++    // Loader already validated these tensor descriptors. Reuse that metadata
++    // instead of reopening and reparsing the same GGUF to make an empty catalog.
++    const gguf_context * gguf_data = loader.gguf();
++    if (const transcribe_status st = create_tensor_catalog(gguf_data, &m->ctx_meta); st != TRANSCRIBE_OK) {
++        return st;
+     }
+ 
+     if (const transcribe_status st = build_qwen3_asr_weights(m->ctx_meta, m->hparams, m->weights);
+         st != TRANSCRIBE_OK) {
+-        gguf_free(gguf_data);
+         return st;
+     }
+ 
+@@ -239,7 +236,6 @@
+     if (const transcribe_status st = transcribe::load_common::init_backends(
+             backend_req, (params != nullptr) ? params->device : nullptr, "qwen3_asr", m->plan);
+         st != TRANSCRIBE_OK) {
+-        gguf_free(gguf_data);
+         return st;
+     }
+     m->backend         = ggml_backend_name(m->plan.primary);
+@@ -248,10 +244,8 @@
+     if (const transcribe_status st = transcribe::load_common::load_weights(
+             loader.path(), gguf_data, m->ctx_meta, m->plan, params, "qwen3_asr", m->weight_storage);
+         st != TRANSCRIBE_OK) {
+-        gguf_free(gguf_data);
+         return st;
+     }
+-    gguf_free(gguf_data);
+ 
+     // Pack gate+up into a separate session + backend buffer so the FFN
+     // can run a single mul_mat instead of two. ctx_meta is sized
+--- /dev/null
++++ b/src/arch/qwen3_asr/tensor_catalog.h
+@@ -0,0 +1,43 @@
++#pragma once
++
++#include "ggml.h"
++#include "gguf.h"
++#include "transcribe.h"
++
++#include <cstdint>
++#include <limits>
++
++namespace transcribe::qwen3_asr {
++
++// Metadata was validated by Loader::open. Recreate the same empty tensor
++// catalog that gguf_init_from_file(no_alloc=true, ctx!=nullptr) constructs,
++// without reopening and reparsing the metadata. The caller owns a successful
++// context; partial allocation stays local on failure.
++inline transcribe_status create_tensor_catalog(const gguf_context * metadata, ggml_context ** output) {
++    *output = nullptr;
++    const auto count = static_cast<size_t>(gguf_get_n_tensors(metadata));
++    const size_t overhead = ggml_tensor_overhead();
++    if (count != 0 && count > std::numeric_limits<size_t>::max() / overhead) {
++        return TRANSCRIBE_ERR_OOM;
++    }
++    ggml_init_params params{};
++    params.mem_size = count * overhead;
++    params.no_alloc = true;
++    ggml_context * catalog = ggml_init(params);
++    if (catalog == nullptr) {
++        return TRANSCRIBE_ERR_OOM;
++    }
++    for (size_t index = 0; index < count; ++index) {
++        ggml_tensor * tensor = ggml_new_tensor(catalog, gguf_get_tensor_type(metadata, index),
++                                              GGML_MAX_DIMS, gguf_get_tensor_ne(metadata, index));
++        if (tensor == nullptr) {
++            ggml_free(catalog);
++            return TRANSCRIBE_ERR_OOM;
++        }
++        ggml_set_name(tensor, gguf_get_tensor_name(metadata, index));
++    }
++    *output = catalog;
++    return TRANSCRIBE_OK;
++}
++
++} // namespace transcribe::qwen3_asr

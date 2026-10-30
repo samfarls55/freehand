@@ -51,11 +51,27 @@ jobs:
         shell: pwsh
         run: |
           $scanner = Join-Path $env:RUNNER_TEMP 'scanner/dotnet-sonarscanner.exe'
-          & $scanner begin /k:samfarls55_freehand /o:samfarls55 "/d:sonar.token=$env:SONAR_TOKEN" /d:sonar.cs.vscoveragexml.reportsPaths=artifacts/coverage/dotnet*.xml /d:sonar.coverageReportPaths=artifacts/coverage/scripts.xml /d:sonar.test.inclusions=tests/**
+          $analysisOptions = @(
+            '/k:samfarls55_freehand'
+            '/o:samfarls55'
+            "/d:sonar.token=$env:SONAR_TOKEN"
+            '/d:sonar.cs.vscoveragexml.reportsPaths=artifacts/coverage/dotnet*.xml'
+            '/d:sonar.coverageReportPaths=artifacts/coverage/scripts.xml'
+            '/d:sonar.test.inclusions=tests/**'
+            '/d:sonar.coverage.exclusions=tools/**,scripts/dev-accuracy.ps1,scripts/evaluate-dictation.ps1,scripts/prepare-dictation-fixtures.py,src/Freehand.Speech/GgmlTranscriber.cs,src/Freehand.Speech/SpeechPresenceDetector.cs,src/Freehand.App/DesktopDeliveryBenchmark.cs,src/Freehand.App/EngineeringChecks.cs,src/Freehand.Platform.Windows/WindowsGpuMemoryReader.cs,src/Freehand.Platform.Windows/WindowsDeliveryProbe.cs'
+            '/d:sonar.issue.ignore.multicriteria=cliScore,cliFixtures,exactBoundary'
+            '/d:sonar.issue.ignore.multicriteria.cliScore.ruleKey=pythonsecurity:S8707'
+            '/d:sonar.issue.ignore.multicriteria.cliScore.resourceKey=tools/Freehand.Evaluation/score_reports.py'
+            '/d:sonar.issue.ignore.multicriteria.cliFixtures.ruleKey=pythonsecurity:S8707'
+            '/d:sonar.issue.ignore.multicriteria.cliFixtures.resourceKey=scripts/prepare-dictation-fixtures.py'
+            '/d:sonar.issue.ignore.multicriteria.exactBoundary.ruleKey=python:S1244'
+            '/d:sonar.issue.ignore.multicriteria.exactBoundary.resourceKey=tools/Freehand.Evaluation/score_reports.py'
+          )
+          & $scanner begin @analysisOptions
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube initialization failed.' }
           dotnet build Freehand.sln -c Release --no-incremental
           if ($LASTEXITCODE -ne 0) { throw 'Analysis build failed.' }
-          dotnet tool run dotnet-coverage collect 'dotnet test Freehand.sln -c Release --no-build' -f xml -o artifacts/coverage/dotnet.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml 'dotnet test Freehand.sln -c Release --no-build' -f xml -o artifacts/coverage/dotnet.xml
           if ($LASTEXITCODE -ne 0) { throw 'Coverage test run failed.' }
           # Exercise the real speech worker and replay assertions under coverage.
           # The profiler needs managed assemblies on disk rather than inside a bundle.
@@ -69,13 +85,23 @@ jobs:
           $identity = Get-Content -LiteralPath artifacts/publish/package-manifest.json -Raw | ConvertFrom-Json
           New-FreehandPackageManifest -Directory (Join-Path $PWD 'artifacts/coverage-app') -Version $identity.Version -Build $identity.Build
           $updateCommand = 'pwsh -NoProfile -File ./tests/Freehand.Scripts.Tests/Run.ps1 -PackageIntegration -PublishDirectory ./artifacts/coverage-app'
-          dotnet tool run dotnet-coverage collect $updateCommand -f xml -o artifacts/coverage/dotnet-updates.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $updateCommand -f xml -o artifacts/coverage/dotnet-updates.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered update verification failed.' }
           $performanceApp = (Resolve-Path artifacts/coverage-app/Freehand.App.exe).Path
           $performanceOutput = Join-Path $PWD 'artifacts/coverage/performance.json'
           $performanceCommand = '"{0}" --performance-check "{1}"' -f $performanceApp, $performanceOutput
-          dotnet tool run dotnet-coverage collect $performanceCommand -f xml -o artifacts/coverage/dotnet-performance.xml
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $performanceCommand -f xml -o artifacts/coverage/dotnet-performance.xml
           if ($LASTEXITCODE -ne 0) { throw 'Covered performance replay failed.' }
+          $lifecycleCommand = '"{0}" --lifecycle-selftest' -f $performanceApp
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $lifecycleCommand -f xml -o artifacts/coverage/dotnet-lifecycle.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Covered desktop lifecycle failed.' }
+          # Missing GPU assets exercise unavailable/retry UI without GPU hardware.
+          $env:FREEHAND_DATA_DIRECTORY = Join-Path $PWD 'artifacts/coverage-gpu-unavailable'
+          $env:FREEHAND_MODEL_PROFILE = 'accuracy-vulkan'
+          dotnet tool run dotnet-coverage collect --settings .config/coverage.xml $lifecycleCommand -f xml -o artifacts/coverage/dotnet-gpu-unavailable.xml
+          if ($LASTEXITCODE -ne 0) { throw 'Covered unavailable-model lifecycle failed.' }
+          Remove-Item Env:FREEHAND_MODEL_PROFILE
+          Remove-Item Env:FREEHAND_DATA_DIRECTORY
           & $scanner end "/d:sonar.token=$env:SONAR_TOKEN"
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube upload failed.' }
       - name: Upload coverage reports

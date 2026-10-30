@@ -24,6 +24,9 @@ public sealed class SpeechWorkerClient : ISpeechSession
     private IWorkerProcess? _process;
     private CancellationTokenSource? _idle;
     private Task _idleTask = Task.CompletedTask;
+    private CancellationTokenSource? _preparation;
+    private Task _preparationTask = Task.CompletedTask;
+    private long _preparationCount;
     private TimeSpan _idleTimeout;
     private long _generation;
     private int _active;
@@ -37,6 +40,10 @@ public sealed class SpeechWorkerClient : ISpeechSession
     public int? WorkerId { get { var process = _process; return process?.HasExited == false ? process.Id : null; } }
     /// <summary>Most recent connection and loading duration.</summary>
     public TimeSpan LastLoadTime { get; private set; }
+    /// <summary>Most recent successful transcription request duration, including IPC.</summary>
+    public TimeSpan LastInferenceTime { get; private set; }
+    /// <summary>Successful background preparations for local engineering measurements.</summary>
+    public long PreparationCount => Interlocked.Read(ref _preparationCount);
     /// <inheritdoc />
     public event EventHandler? Changed;
     /// <summary>Creates an unloaded session. No child starts here.</summary>
@@ -49,24 +56,29 @@ public sealed class SpeechWorkerClient : ISpeechSession
     public ValueTask BeginWorkAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        lock (_idleSync) { ObjectDisposedException.ThrowIf(_disposed, this); CancelIdle(); _active++; }
+        lock (_idleSync) { ObjectDisposedException.ThrowIf(_disposed, this); CancelIdle(); _active++; StartPreparation(); }
         return ValueTask.CompletedTask;
     }
     /// <inheritdoc />
     public void FinishWork()
     {
-        lock (_idleSync) { if (_active > 0) _active--; if (!_disposed && _active == 0) ScheduleIdle(); }
+        lock (_idleSync)
+        {
+            if (_active > 0) _active--;
+            if (!_disposed && _active == 0) { _preparation?.Cancel(); ScheduleIdle(); }
+        }
     }
     /// <inheritdoc />
     public void SetIdleTimeout(TimeSpan timeout)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero);
+        if (timeout != Timeout.InfiniteTimeSpan) ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(timeout, TimeSpan.Zero);
         lock (_idleSync) { _idleTimeout = timeout; if (!_disposed && _active == 0) ScheduleIdle(); }
     }
     private void CancelIdle() { _generation++; _idle?.Cancel(); }
     private void ScheduleIdle()
     {
         CancelIdle();
+        if (_idleTimeout == Timeout.InfiniteTimeSpan) return;
         var source = new CancellationTokenSource(); _idle = source;
         var generation = _generation;
         _idleTask = IdleAsync(source, generation);
@@ -87,6 +99,60 @@ public sealed class SpeechWorkerClient : ISpeechSession
         catch (OperationCanceledException) when (source.IsCancellationRequested) { }
         catch (Exception) { SetState(ModelState.Failed); }
         finally { lock (_idleSync) { if (ReferenceEquals(_idle, source)) _idle = null; } source.Dispose(); }
+    }
+    private void StartPreparation()
+    {
+        if (!_options.PrepareWhileActive || _preparation is not null || !IsReady) return;
+        var source = new CancellationTokenSource();
+        _preparation = source;
+        _preparationTask = Task.Run(() => PrepareWhileActiveAsync(source), CancellationToken.None);
+    }
+    private async Task PrepareWhileActiveAsync(CancellationTokenSource source)
+    {
+        try
+        {
+            while (true)
+            {
+                await _gate.WaitAsync(source.Token).ConfigureAwait(false);
+                try
+                {
+                    // FinishWork cancels waits between requests, never an in-flight pipe
+                    // read. Bound that read separately so Quit cannot wait a full segment.
+                    using var deadline = new CancellationTokenSource(_options.ShutdownTimeout);
+                    try
+                    {
+                        Task<WorkerMessage> request;
+                        lock (_idleSync)
+                        {
+                            if (_disposed || _active == 0 || source.IsCancellationRequested || !IsReady) return;
+                            request = RequestAsync("prepare", null, 0, default, deadline.Token);
+                        }
+                        var response = await request.ConfigureAwait(false);
+                        if (response.Kind != "prepared") throw new InvalidDataException("Unexpected preparation reply");
+                        Interlocked.Increment(ref _preparationCount);
+                    }
+                    catch (Exception)
+                    {
+                        await StopWorkerAsync().ConfigureAwait(false);
+                        SetState(ModelState.Failed);
+                        return;
+                    }
+                }
+                finally { _gate.Release(); }
+                await Task.Delay(TimeSpan.FromMilliseconds(500), _time, source.Token).ConfigureAwait(false);
+            }
+        }
+        catch (OperationCanceledException) when (source.IsCancellationRequested) { }
+        finally
+        {
+            lock (_idleSync)
+            {
+                _preparation = null;
+                // A new recording may arrive while the previous request drains.
+                if (!_disposed && _active > 0 && source.IsCancellationRequested) StartPreparation();
+            }
+            source.Dispose();
+        }
     }
     /// <inheritdoc />
     public async ValueTask<bool> LoadAsync(CancellationToken cancellationToken)
@@ -144,8 +210,10 @@ public sealed class SpeechWorkerClient : ISpeechSession
             {
                 var phrases = biasPhrases.Where(SupportsBiasPhrase)
                     .Take(WorkerProtocol.MaxBiasPhrases).ToArray();
+                var started = Stopwatch.GetTimestamp();
                 var response = await RequestAsync("transcribe", null, samples.Length, samples, deadline.Token, phrases).ConfigureAwait(false);
                 if (response.Kind != "text") throw new InvalidDataException("Unexpected transcription reply");
+                LastInferenceTime = Stopwatch.GetElapsedTime(started);
                 return response.Value ?? string.Empty;
             }
             catch (OperationCanceledException)
@@ -208,8 +276,13 @@ public sealed class SpeechWorkerClient : ISpeechSession
     /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {
-        Task idle;
-        lock (_idleSync) { if (_disposed) return; _disposed = true; CancelIdle(); idle = _idleTask; }
+        Task idle, preparation;
+        lock (_idleSync)
+        {
+            if (_disposed) return;
+            _disposed = true; CancelIdle(); _preparation?.Cancel(); idle = _idleTask; preparation = _preparationTask;
+        }
+        await preparation.ConfigureAwait(false);
         await idle.ConfigureAwait(false);
         await _gate.WaitAsync().ConfigureAwait(false);
         try { await StopWorkerAsync().ConfigureAwait(false); }

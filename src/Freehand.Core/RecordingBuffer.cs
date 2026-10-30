@@ -3,13 +3,13 @@ using Freehand.Abstractions;
 namespace Freehand.Core;
 
 /// <summary>Retains one recording as owned segments, ready for decoding as capture continues.</summary>
-internal sealed class RecordingBuffer(Action<ReadOnlyMemory<float>> segmentReady)
+internal sealed class RecordingBuffer(int maxSegmentSeconds, Action<ReadOnlyMemory<float>> segmentReady)
 {
     private readonly List<ReadOnlyMemory<float>> _pending = [];
     private readonly List<ReadOnlyMemory<float>> _segments = [];
     private int _pendingSamples;
     private double _energy;
-    private const int SegmentSamples = AudioSegmenter.MaxSegmentSeconds * AudioChunk.SampleRate;
+    private readonly int _segmentSamples = maxSegmentSeconds * AudioChunk.SampleRate;
 
     internal int Count { get; private set; }
     internal bool IsSilent => Count == 0 || Math.Sqrt(_energy / Count) < 0.00001;
@@ -23,11 +23,11 @@ internal sealed class RecordingBuffer(Action<ReadOnlyMemory<float>> segmentReady
         Count += samples.Length;
         _pendingSamples += samples.Length;
         foreach (var sample in samples.Span) _energy += (double)sample * sample;
-        while (_pendingSamples > SegmentSamples)
+        while (_pendingSamples > _segmentSamples)
         {
-            var window = CopyPending(SegmentSamples);
+            var window = CopyPending(_segmentSamples);
             var cut = AudioSegmenter.FindQuietestPoint(window,
-                SegmentSamples - AudioSegmenter.SilenceSearchSeconds * AudioChunk.SampleRate, SegmentSamples);
+                _segmentSamples - AudioSegmenter.SilenceSearchSeconds * AudioChunk.SampleRate, _segmentSamples);
             Emit(window.AsMemory(0, cut));
             Consume(cut);
         }

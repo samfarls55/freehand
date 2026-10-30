@@ -30,7 +30,7 @@ namespace Freehand.Platform.Windows;
 /// chord member was released first. Shortcut recording uses the same masking.
 /// </para>
 /// </remarks>
-public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
+public sealed class PushToTalkHook : ITextDeliveryHotkeySource, IHotkeyRecorder
 {
     private const int WH_KEYBOARD_LL = 13;
     private const int HC_ACTION = 0;
@@ -40,6 +40,7 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
     private const int WM_SYSKEYDOWN = 0x0104;
     private const int WM_SYSKEYUP = 0x0105;
     private const uint WM_QUIT = 0x0012;
+    private const uint WM_PAUSE_FOR_DELIVERY = 0x8001;
 
     private const uint LLKHF_EXTENDED = 0x01;
 
@@ -124,6 +125,8 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
     private readonly HotkeyState _keys;
     private readonly Action _maskModifierMenu;
     private Recording? _recording;
+    private DeliveryPause? _deliveryPause;
+    private int _pauseGeneration;
     private long _generation;
     private bool _disposed;
     private readonly Channel<Notification> _events = Channel.CreateUnbounded<Notification>(
@@ -150,11 +153,16 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
         internal TaskCompletionSource<IReadOnlyList<int>?> Result { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
+    private sealed record DeliveryPause(int Generation, CancellationToken CancellationToken)
+    {
+        internal TaskCompletionSource<bool> Result { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    }
+
     private readonly record struct Notification(long Generation, KeyUpdate Update, Recording? Recording);
 
     private async Task DispatchAsync()
     {
-        await foreach (var notification in _events.Reader.ReadAllAsync().ConfigureAwait(false))
+        await foreach (var notification in _events.Reader.ReadAllAsync(CancellationToken.None).ConfigureAwait(false))
         {
             if (notification.Generation != Interlocked.Read(ref _generation)) continue;
             try
@@ -229,18 +237,20 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
             ready.Set();
             if (!installed) return;
 
-            // Required. The system delivers hook callbacks by *sending a message* to this
-            // thread, so without a pump the hook is installed but never invoked.
-            while (GetMessage(out var message, IntPtr.Zero, 0, 0) > 0)
+            try
             {
-                // No TranslateMessage/DispatchMessage: this thread owns no windows, and the
-                // only message it cares about is the WM_QUIT that ends the loop.
+                // Keyboard callbacks and the pause eligibility check run on this thread.
+                // No TranslateMessage/DispatchMessage: the thread owns no windows.
+                while (GetMessage(out var message, IntPtr.Zero, 0, 0) > 0)
+                    if (message.Message == WM_PAUSE_FOR_DELIVERY) PauseForDelivery(message.WParam.ToInt32());
             }
-
-            if (_hook != IntPtr.Zero)
+            finally
             {
-                UnhookWindowsHookEx(_hook);
-                _hook = IntPtr.Zero;
+                lock (_sync)
+                {
+                    if (_hook != IntPtr.Zero) { UnhookWindowsHookEx(_hook); _hook = IntPtr.Zero; }
+                    _deliveryPause?.Result.TrySetResult(false); _deliveryPause = null;
+                }
             }
         })
         {
@@ -252,16 +262,66 @@ public sealed class PushToTalkHook : IHotkeySource, IHotkeyRecorder
 
         _thread.SetApartmentState(ApartmentState.STA);
         _thread.Start();
-        ready.Wait(TimeSpan.FromSeconds(3));
+        ready.Wait(TimeSpan.FromSeconds(3), CancellationToken.None);
 
         return installed;
+    }
+
+    /// <inheritdoc />
+    public async ValueTask<bool> TryPauseForDeliveryAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        DeliveryPause request;
+        lock (_sync)
+        {
+            if (_disposed || _thread is null || _hook == IntPtr.Zero || _deliveryPause is not null) return false;
+            request = new DeliveryPause(unchecked(++_pauseGeneration), cancellationToken);
+            _deliveryPause = request;
+            if (!PostThreadMessage(_threadId, WM_PAUSE_FOR_DELIVERY, new IntPtr(request.Generation), IntPtr.Zero))
+            {
+                _deliveryPause = null;
+                return false;
+            }
+        }
+        using var registration = cancellationToken.Register(() =>
+        {
+            lock (_sync)
+            {
+                if (_deliveryPause != request) return;
+                _deliveryPause = null; request.Result.TrySetCanceled(cancellationToken);
+            }
+        });
+        return await request.Result.Task.ConfigureAwait(false);
+    }
+
+    private void PauseForDelivery(int generation)
+    {
+        lock (_sync)
+        {
+            if (_deliveryPause is not { } request || request.Generation != generation) return;
+            _deliveryPause = null;
+            if (request.CancellationToken.IsCancellationRequested)
+            {
+                request.Result.TrySetCanceled(request.CancellationToken);
+                return;
+            }
+            // Once unhooking begins, cancellation must not hide a successful pause.
+            // The caller receives true and restores listening in its delivery finally.
+            var paused = _keys.CanPauseForDelivery && UnhookWindowsHookEx(_hook);
+            if (paused) _hook = IntPtr.Zero;
+            request.Result.TrySetResult(paused);
+        }
     }
 
     /// <inheritdoc />
     public void StopListening()
     {
         Interlocked.Increment(ref _generation);
-        lock (_sync) { _keys.Reset(); _recording?.Result.TrySetCanceled(); }
+        lock (_sync)
+        {
+            _keys.Reset(); _recording?.Result.TrySetCanceled(CancellationToken.None);
+            _deliveryPause?.Result.TrySetResult(false); _deliveryPause = null;
+        }
         if (_thread is null) return;
 
         if (_threadId != 0) PostThreadMessage(_threadId, WM_QUIT, IntPtr.Zero, IntPtr.Zero);

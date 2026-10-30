@@ -59,6 +59,17 @@ public partial class App : Application
             var benchmark = Array.IndexOf(desktop.Args ?? [], "--desktop-benchmark");
             if (benchmark >= 0 && desktop.Args is { } args && benchmark + 1 < args.Length)
                 _ = CheckDesktopBenchmarkAsync(desktop, Path.GetFullPath(args[benchmark + 1]));
+            var deliveryBenchmark = Array.IndexOf(desktop.Args ?? [], "--desktop-delivery-benchmark");
+            if (deliveryBenchmark >= 0 && desktop.Args is { } deliveryArgs && deliveryBenchmark + 1 < deliveryArgs.Length)
+            {
+                var output = Path.GetFullPath(deliveryArgs[deliveryBenchmark + 1]);
+                _main.Opened += StartDeliveryBenchmark;
+                void StartDeliveryBenchmark(object? sender, EventArgs eventArgs)
+                {
+                    _main.Opened -= StartDeliveryBenchmark;
+                    Dispatcher.UIThread.Post(() => _ = CheckDesktopDeliveryBenchmarkAsync(desktop, output));
+                }
+            }
         }
         base.OnFrameworkInitializationCompleted();
     }
@@ -68,10 +79,32 @@ public partial class App : Application
         var result = await Task.Run(() => EngineeringChecks.MeasureDesktopAsync(_composition!, output)).ConfigureAwait(false);
         Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Close(); desktop.Shutdown(result); });
     }
+    private async Task CheckDesktopDeliveryBenchmarkAsync(IClassicDesktopStyleApplicationLifetime desktop, string output)
+    {
+        var result = await Task.Run(() => DesktopDeliveryBenchmark.RunAsync(_composition!, output)).ConfigureAwait(false);
+        Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Close(); desktop.Shutdown(result); });
+    }
     private async Task CheckWindowLifecycleAsync(IClassicDesktopStyleApplicationLifetime desktop)
     {
         try
         {
+            await _composition!.ReadinessTask.ConfigureAwait(true);
+            await _composition.RefreshReadinessAsync().ConfigureAwait(true);
+            var preferences = _composition.Settings.Data;
+            try
+            {
+                _composition.Settings.Update(preferences with
+                {
+                    ModelDirectory = Path.Combine(AppDataPaths.DirectoryPath, "lifecycle-missing-model"),
+                    IdleModelMinutes = preferences.IdleModelMinutes == 1 ? 2 : 1,
+                });
+                await _composition.PreferencesTask.ConfigureAwait(true);
+            }
+            finally
+            {
+                _composition.Settings.Update(preferences);
+                await _composition.PreferencesTask.ConfigureAwait(true);
+            }
             for (var cycle = 0; cycle < 5; cycle++)
             {
                 OnTrayShow(null, EventArgs.Empty);
@@ -118,7 +151,10 @@ public partial class App : Application
         if (_composition is null || _main is null || _indicator is null || _quitting) return;
         _main.SyncStatus();
         var state = _composition.Engine?.State ?? DictationState.Idle;
-        var text = state == DictationState.Idle ? "Freehand ready" : "Freehand " + state.ToString().ToLowerInvariant();
+        var text = _composition.IsPreparingSpeech ? "Freehand preparing speech"
+            : _composition.PreparationError is not null ? "Freehand needs attention"
+            : state == DictationState.Idle && !_composition.IsDictationReady ? "Freehand speech unavailable"
+            : state == DictationState.Idle ? "Freehand ready" : "Freehand " + state.ToString().ToLowerInvariant();
         var icons = TrayIcon.GetIcons(this);
         if (icons is not null) foreach (var icon in icons) icon.ToolTipText = text;
         _indicator.Update(!_main.IsVisible || _main.WindowState == WindowState.Minimized,

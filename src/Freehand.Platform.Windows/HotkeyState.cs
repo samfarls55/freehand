@@ -12,6 +12,8 @@ internal sealed class HotkeyState(IReadOnlyList<int> keys)
     private bool _completed;
     private int[] _candidate = [];
 
+    internal bool CanPauseForDelivery => _held.Count == 0 && _menuKeysToMask.Count == 0 && !_capturing;
+
     internal void BeginCapture()
     {
         _capturing = true; _waitingForRelease = _held.Count > 0;

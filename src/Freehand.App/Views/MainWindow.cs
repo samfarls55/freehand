@@ -59,10 +59,10 @@ public sealed class MainWindow : Window
         };
         _record.CornerRadius = new CornerRadius(Tokens.Radius.Status);
         _record.Click += (_, _) => ToggleRecording();
-        _retry.Click += (_, _) =>
+        _retry.Click += async (_, _) =>
         {
             if (_composition?.Engine?.State == DictationState.AwaitingRetry) _composition.Engine.Retry();
-            else _composition?.Engine?.RefreshReadiness();
+            else if (_composition is not null) await _composition.RefreshReadinessAsync().ConfigureAwait(true);
         };
         _discard.Click += (_, _) => _composition?.Engine?.Discard();
         _copy.Click += async (_, _) =>
@@ -177,6 +177,16 @@ public sealed class MainWindow : Window
         var engine = _composition?.Engine;
         if (engine is null) return;
         ApplyFeedback(engine.State, engine.Level, engine.LastResult, engine.Feedback);
+        if (engine.State == DictationState.Idle && _composition?.IsDictationReady == false)
+        {
+            _record.IsEnabled = false;
+            _recordLabel.Text = _composition.IsPreparingSpeech ? "Preparing" : "Unavailable";
+            _feedback.IsVisible = true;
+            _status.Text = _composition.PreparationError ?? (_composition.IsPreparingSpeech ? "Preparing speech model" : "Speech is unavailable. Choose Retry.");
+            _status.Foreground = _composition.PreparationError is null ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
+            _discard.IsVisible = false;
+            _retry.IsVisible = !_composition.IsPreparingSpeech;
+        }
     }
 
     internal void ApplyFeedback(DictationState state, float level, DictationResult? lastResult, DictationFeedback? feedback)
@@ -229,6 +239,7 @@ public sealed class MainWindow : Window
     /// <summary>Routes the button through the same engine used by the global hotkey.</summary>
     public void ToggleRecording()
     {
+        if (_composition?.Engine?.State == DictationState.Idle && !_composition.IsDictationReady) return;
         if (_composition?.Engine is { } engine) { engine.TogglePushToTalk(); SyncFromEngine(); }
         else SyncRecording(IsRecording ? DictationState.Idle : DictationState.Recording, 0);
     }

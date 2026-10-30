@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO.Pipes;
+using Freehand.Abstractions;
 
 namespace Freehand.Speech;
 
@@ -20,7 +21,7 @@ public static class SpeechWorker
         await WorkerProtocol.WriteAsync(pipe, hello, startup.Token).ConfigureAwait(false);
         var ack = await WorkerProtocol.ReadAsync(pipe, startup.Token).ConfigureAwait(false);
         if (ack.Kind != "ack") return 2;
-        ParakeetTranscriber? transcriber = null;
+        ITranscriber? transcriber = null;
         try
         {
             while (pipe.IsConnected)
@@ -35,7 +36,8 @@ public static class SpeechWorker
                             if (transcriber is not null) throw new InvalidDataException("Model already loaded");
                             using var resolver = new ModelResolver(message.Value);
                             if (!await resolver.VerifyAsync(CancellationToken.None).ConfigureAwait(false)) throw new InvalidDataException("Model verification failed");
-                            transcriber = new ParakeetTranscriber(resolver.ResolvedDirectory);
+                            transcriber = ModelResolver.UsesAcceleratedModel
+                                ? new GgmlTranscriber(resolver.ResolvedDirectory) : new ParakeetTranscriber(resolver.ResolvedDirectory);
                             if (!await transcriber.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new InvalidDataException("Model load failed");
                             await ReplyAsync("ready").ConfigureAwait(false);
                             break;
@@ -45,6 +47,11 @@ public static class SpeechWorker
                             var samples = await WorkerProtocol.ReadAudioAsync(pipe, message.SampleCount, CancellationToken.None).ConfigureAwait(false);
                             var text = await transcriber.TranscribeAsync(samples, message.BiasPhrases ?? [], CancellationToken.None).ConfigureAwait(false);
                             await ReplyAsync("text", text).ConfigureAwait(false);
+                            break;
+                        case "prepare":
+                            if (transcriber is not GgmlTranscriber gpu) throw new InvalidDataException("GPU model not ready");
+                            await gpu.PrepareAsync(CancellationToken.None).ConfigureAwait(false);
+                            await ReplyAsync("prepared").ConfigureAwait(false);
                             break;
                         case "shutdown":
                             if (transcriber is not null) { await transcriber.DisposeAsync().ConfigureAwait(false); transcriber = null; }

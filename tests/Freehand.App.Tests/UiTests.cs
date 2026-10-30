@@ -94,6 +94,21 @@ public sealed class MainWindowTests
     }
 
     [AvaloniaFact]
+    public void Resident_model_settings_show_the_actual_policy_without_an_ineffective_idle_control()
+    {
+        using var data = new UiData();
+        var view = new SettingsView(data.Settings, null, null, keepModelResident: true);
+        var window = new Window { Content = view }; window.Show();
+        try
+        {
+            view.GetVisualDescendants().OfType<NumericUpDown>().ShouldBeEmpty();
+            view.GetVisualDescendants().OfType<TextBlock>().Any(t => t.Text == "While Freehand is open").ShouldBeTrue();
+            data.Settings.Data.IdleModelMinutes.ShouldBe(5);
+        }
+        finally { window.Close(); }
+    }
+
+    [AvaloniaFact]
     public void Settings_model_details_follow_the_bundled_resolver_and_custom_selection()
     {
         using var data = new UiData();

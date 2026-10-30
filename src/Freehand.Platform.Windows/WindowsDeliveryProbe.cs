@@ -13,9 +13,11 @@ public sealed class WindowsDeliveryProbe : ITextDeliveryProbe
     private readonly WindowProcedure _procedure;
     private nint _window, _edit, _original;
     private uint _threadId;
-    private long _first;
+    private long _first, _last;
     /// <inheritdoc />
     public long FirstInputTimestamp => Interlocked.Read(ref _first);
+    /// <inheritdoc />
+    public long LastInputTimestamp => Interlocked.Read(ref _last);
     /// <summary>Creates a visible engineering test field on its own message thread.</summary>
     public WindowsDeliveryProbe()
     {
@@ -39,6 +41,7 @@ public sealed class WindowsDeliveryProbe : ITextDeliveryProbe
                 {
                     SendMessage(_edit, 0x000C, 0, "");
                     Interlocked.Exchange(ref _first, 0);
+                    Interlocked.Exchange(ref _last, 0);
                     ShowWindow(_window, 5); SetForegroundWindow(_window); SetFocus(_edit); _trial.Set();
                 }
                 else { TranslateMessage(ref message); DispatchMessage(ref message); }
@@ -49,7 +52,12 @@ public sealed class WindowsDeliveryProbe : ITextDeliveryProbe
     private nint EditCallback(nint window, uint message, nuint wParam, nint lParam)
     {
         var result = CallWindowProc(_original, window, message, wParam, lParam);
-        if (message == 0x0102) Interlocked.CompareExchange(ref _first, Stopwatch.GetTimestamp(), 0);
+        if (message == 0x0102)
+        {
+            var received = Stopwatch.GetTimestamp();
+            Interlocked.CompareExchange(ref _first, received, 0);
+            Interlocked.Exchange(ref _last, received);
+        }
         return result;
     }
     /// <inheritdoc />

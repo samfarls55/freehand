@@ -18,6 +18,8 @@ public sealed record WorkerOptions
     public TimeSpan ShutdownTimeout { get; init; } = TimeSpan.FromSeconds(5);
     /// <summary>Default model idle interval.</summary>
     public TimeSpan IdleTimeout { get; init; } = TimeSpan.FromMinutes(5);
+    /// <summary>Prepares a ready GPU worker during accepted work, stopping between requests when work finishes.</summary>
+    public bool PrepareWhileActive { get; init; }
 }
 internal sealed record WorkerMessage(int Version, Guid RequestId, string Kind, string? Value = null, int SampleCount = 0, int ProcessId = 0,
     string[]? BiasPhrases = null);
@@ -43,6 +45,9 @@ internal static class WorkerProtocol
         var body = new byte[size]; await stream.ReadExactlyAsync(body, token).ConfigureAwait(false);
         var message = JsonSerializer.Deserialize(body, WorkerJsonContext.Default.WorkerMessage) ?? throw new InvalidDataException("Empty message");
         if (message.Version != Version) throw new InvalidDataException("Unsupported protocol version");
+        if ((message.Kind is "prepare" or "prepared") && (message.RequestId == Guid.Empty || message.Value is not null ||
+            message.SampleCount != 0 || message.ProcessId != 0 || message.BiasPhrases is not null))
+            throw new InvalidDataException("Invalid preparation message");
         return message;
     }
     internal static async Task WriteAudioAsync(Stream stream, ReadOnlyMemory<float> samples, CancellationToken token)
