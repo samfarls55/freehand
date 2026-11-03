@@ -108,23 +108,24 @@ public partial class App : Application
             }
             using (var feedback = new StatusIndicatorHost(_composition.Desktop))
             {
-                feedback.Update(true, DictationState.Idle);
+                feedback.Update(true, DictationState.Idle, Guid.Empty);
                 if (feedback.Window is not null) throw new InvalidOperationException("Idle startup created a feedback window");
                 StatusIndicator? previous = null;
                 for (var cycle = 0; cycle < 3; cycle++)
                 {
-                    feedback.Update(true, DictationState.Recording, 0.06f);
+                    var jobId = Guid.NewGuid();
+                    feedback.Update(true, DictationState.Recording, jobId, 0.06f);
                     await Task.Delay(100).ConfigureAwait(true);
                     var window = feedback.Window ?? throw new InvalidOperationException("Feedback window missing");
                     if (ReferenceEquals(previous, window) || !window.IsVisible || window.TryGetPlatformHandle()?.Handle is not { } handle || handle == IntPtr.Zero
                         || !window.Screens.All.Any(screen => screen.WorkingArea.Contains(window.Position)))
                         throw new InvalidOperationException("Fresh native feedback window unavailable or off screen");
-                    feedback.Update(true, DictationState.AwaitingRetry);
-                    feedback.Update(false, DictationState.AwaitingRetry);
-                    feedback.Update(true, DictationState.Transcribing);
+                    feedback.Update(true, DictationState.AwaitingRetry, jobId);
+                    feedback.Update(false, DictationState.AwaitingRetry, jobId);
+                    feedback.Update(true, DictationState.Transcribing, jobId);
                     if (!ReferenceEquals(window, feedback.Window) || !window.IsVisible)
                         throw new InvalidOperationException("Retry lost its feedback window");
-                    feedback.Update(true, DictationState.Idle);
+                    feedback.Update(true, DictationState.Idle, jobId);
                     if (feedback.Window is not null) throw new InvalidOperationException("Idle retained a native feedback window");
                     previous = window;
                 }
@@ -175,7 +176,8 @@ public partial class App : Application
     {
         if (_composition is null || _main is null || _indicator is null || _quitting) return;
         _main.SyncStatus();
-        var state = _composition.Engine?.State ?? DictationState.Idle;
+        var engine = _composition.Engine;
+        var state = engine?.State ?? DictationState.Idle;
         var text = _composition.IsPreparingSpeech ? "Freehand preparing speech"
             : _composition.PreparationError is not null ? "Freehand needs attention"
             : state == DictationState.Idle && !_composition.IsDictationReady ? "Freehand speech unavailable"
@@ -183,7 +185,7 @@ public partial class App : Application
         var icons = TrayIcon.GetIcons(this);
         if (icons is not null) foreach (var icon in icons) icon.ToolTipText = text;
         _indicator.Update(!_main.IsVisible || _main.WindowState == WindowState.Minimized,
-            state, _composition.Engine?.Level ?? 0, _composition.Engine?.Feedback);
+            state, engine?.CurrentJobId ?? Guid.Empty, engine?.Level ?? 0, engine?.Feedback);
         if (_composition.Updates is { } updates)
         {
             if (updates.Snapshot is { Phase: UpdatePhase.Available, Package: { } package }
