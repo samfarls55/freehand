@@ -192,6 +192,14 @@ RESUME_CONFIG_KEYS = ("base_model_sha256", "rank", "alpha", "target_modules", "s
     "warmup_steps", "effective_warmup_steps", "schedule_total_optimizer_steps")
 
 
+def _fsync_directory(path):
+    descriptor = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
 def _atomic_json(path, value):
     temporary = path.with_name(path.name + ".partial")
     with temporary.open("w", encoding="utf-8") as stream:
@@ -200,6 +208,7 @@ def _atomic_json(path, value):
         stream.flush()
         os.fsync(stream.fileno())
     os.replace(temporary, path)
+    _fsync_directory(path.parent)
 
 
 def save_resume_checkpoint(model, optimizer, torch, output, config, event):
@@ -243,6 +252,7 @@ def save_resume_checkpoint(model, optimizer, torch, output, config, event):
              "effective_warmup_steps": config.get("effective_warmup_steps")}
     _atomic_json(pending / "resume-state.json", state)
     os.replace(pending, final)
+    _fsync_directory(parent)
     _atomic_json(output / "latest-checkpoint.json", {"directory": str(final.resolve()), "global_step": step,
                  "resume_state_sha256": sha(final / "resume-state.json")})
     # Convenient aliases are hardlinks; the directory/manifest remains the commit boundary.
@@ -255,6 +265,8 @@ def save_resume_checkpoint(model, optimizer, torch, output, config, event):
         snapshot.mkdir(parents=True)
         for name in ["adapter.safetensors", "adapter-config.json", "training-source.py", "resume-state.json"]:
             os.link(final / name, snapshot / name)
+        _fsync_directory(snapshot)
+        _fsync_directory(snapshot.parent)
     # Keep two complete recovery generations; immutable adapter snapshots retain their inodes.
     generations = sorted(path for path in parent.glob("step-*") if path.is_dir() and not path.name.endswith(".partial"))
     for old in generations[:-2]:
