@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "selection": "IQ4_XS/default16/b64ub32 plus ASR intra-op spinning disabled and dynamic .NET PGO disabled",
+  "model_sha256": "de03a46194457357482dcc3620f463fa3ab5e2e92180788b5bf91b36d9c671c8",
+  "quality_freeze": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/final-selected-IQ4_XS-lookup16-freeze.json",
+  "speech_config": {
+    "path": "/workspace/freehand/src/Freehand.Speech/speech-cpu.config",
+    "bytes": 198,
+    "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+  },
+  "app_runtime_property": {
+    "path": "src/Freehand.App/Freehand.App.csproj",
+    "TieredPGO": false,
+    "TieredCompilation": "enabled/default"
+  },
+  "equivalent_tested_environment": {
+    "DOTNET_TieredPGO": "0",
+    "DOTNET_TieredCompilation": "absent"
+  },
+  "resource_evidence": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-IQ4_XS-no-pgo/complete-delivery-analysis.json",
+  "measured_linux_n10": {
+    "counting_complete_p50_ms": 621.1004,
+    "counting_complete_p95_max_ms": 734.7871,
+    "peak_simultaneous_rss_bytes": 690319360,
+    "all_first_trials_retained": true,
+    "all_full_text_one_delivery_no_fallback": true
+  },
+  "limits": {
+    "host_memory_bytes": 747500000,
+    "counting_complete_ms": 805
+  },
+  "windows_execution_tested": false,
+  "whole_app_sla_qualified": false,
+  "independent500_quality": "pending_one_time_run"
+}

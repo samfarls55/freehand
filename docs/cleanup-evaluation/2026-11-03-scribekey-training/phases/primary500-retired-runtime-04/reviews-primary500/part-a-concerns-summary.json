@@ -1,0 +1,120 @@
+{
+  "reviewer": "Codex assistant /root/final_review_a",
+  "source_results_sha256": "27f1b9457711f76fc45937ab63af090de50b796bc385651b625979c786da0786",
+  "positions": "[0,167)",
+  "coverage_count": 167,
+  "unique_case_ids": 167,
+  "jointly_faithful_and_clean": 165,
+  "semantic_faithful": 166,
+  "clean_usable": 166,
+  "critical_error": 1,
+  "cleanup_status_counts": {
+    "Applied": 86,
+    "Unchanged": 81
+  },
+  "delivery_outcome_counts": {
+    "Delivered": 167
+  },
+  "dictation_outcome_counts": {
+    "Success": 167
+  },
+  "failures": [
+    {
+      "position": 7,
+      "case_id": "blind-a-008",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Unchanged output preserves the glasses location but leaves the accidental fragment on the kitchen, on the kitchen counter uncleaned."
+    },
+    {
+      "position": 12,
+      "case_id": "blind-a-013",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "Removes repeated the but changes while they repair to while they repaired, converting the ongoing pavement-repair context into a past repair and changing chronology."
+    }
+  ],
+  "uncertainties": [
+    {
+      "position": 12,
+      "case_id": "blind-a-013",
+      "issue": "Fidelity failure is clear: ongoing repair becomes past repair. Initial critical_error=true treats this chronology change as a factual alteration; cross-review should assess critical severity without changing the fidelity failure."
+    }
+  ],
+  "non_reference_outputs_for_cross_review": [
+    {
+      "position": 7,
+      "case_id": "blind-a-008",
+      "output": "I left my glasses on the kitchen, on the kitchen counter.",
+      "normalized_targets": [
+        "I left my glasses on the kitchen counter."
+      ],
+      "reason": "Unchanged output preserves the glasses location but leaves the accidental fragment on the kitchen, on the kitchen counter uncleaned."
+    },
+    {
+      "position": 12,
+      "case_id": "blind-a-013",
+      "output": "The bus stop moved across the road while they repaired the pavement.",
+      "normalized_targets": [
+        "The bus stop moved across the road while they repair the pavement."
+      ],
+      "reason": "Removes repeated the but changes while they repair to while they repaired, converting the ongoing pavement-repair context into a past repair and changing chronology."
+    },
+    {
+      "position": 38,
+      "case_id": "blind-a-039",
+      "output": "I can send a rough estimate now with a firm quote after the inspection.",
+      "normalized_targets": [
+        "I can send a rough estimate now, with a firm quote after the inspection."
+      ],
+      "reason": "Removes um; omission of the optional comma remains grammatical and preserves rough estimate now versus firm quote after inspection."
+    },
+    {
+      "position": 78,
+      "case_id": "blind-a-079",
+      "output": "I would call it a warning, rather than a formal rejection.",
+      "normalized_targets": [
+        "I would call it a warning rather than a formal rejection."
+      ],
+      "reason": "Removes um; the optional comma before rather than is acceptable and preserves the tentative warning-versus-formal-rejection distinction."
+    },
+    {
+      "position": 157,
+      "case_id": "blind-a-158",
+      "output": "The label should say Keep  Upright, followed by the date.",
+      "normalized_targets": [
+        "The label should say Keep  Upright followed by the date."
+      ],
+      "reason": "Removes uh and preserves label text followed by date. Optional comma is acceptable; protected Keep  Upright retains its intentional double space exactly once."
+    },
+    {
+      "position": 163,
+      "case_id": "blind-a-164",
+      "output": "The file is called Willow.vNext, rather than the older title.",
+      "normalized_targets": [
+        "The file is called Willow.vNext rather than the older title."
+      ],
+      "reason": "Removes um; optional comma before rather than is acceptable and retains older-title contrast with protected Willow.vNext intact once."
+    }
+  ],
+  "literal_origin_formatting": [
+    {
+      "position": 157,
+      "case_id": "blind-a-158",
+      "issue": "Protected Keep  Upright intentionally has two internal spaces; preserved and passes."
+    },
+    {
+      "position": 160,
+      "case_id": "blind-a-161",
+      "issue": "Protected Thanks, everyone! retains punctuation in surrounding request; no cleanup edit needed, passes."
+    },
+    {
+      "position": 165,
+      "case_id": "blind-a-166",
+      "issue": "Protected internal only has leading/trailing spaces; surrounding delivery double spaces are unavoidable literal-origin formatting and pass."
+    }
+  ],
+  "scope": "All 167 assigned cases personally inspected. Case decisions are semantic judgments, not generated from exact-match comparison. String comparison above only identifies the complete set requiring root non-reference cross-review after decisions. All cases remain in denominator. No model/build runs or source/corpus/rubric mutations performed."
+}

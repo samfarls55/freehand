@@ -1,0 +1,24 @@
+{
+  "only_key": "SessionConfig.session.intra_op.allow_spinning=0",
+  "variant_config": {
+    "path": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/IQ4-intra-no-spin-worker/speech-cpu.config",
+    "bytes": 198,
+    "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+  },
+  "baseline_config": {
+    "path": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/release/speech-cpu.config",
+    "bytes": 150,
+    "sha256": "c4636ae4b87ddc53c1ea297241b5ddfe1a34650f4880fb3232bb8607c15f3ca9"
+  },
+  "different_inodes": true,
+  "production_config_unchanged": true,
+  "primary_support": {
+    "sherpa_commit": "8abb7c8f87eae85b2e75f9a4115236c978980add",
+    "sherpa_source_url": "https://github.com/k2-fsa/sherpa-onnx/blob/8abb7c8f87eae85b2e75f9a4115236c978980add/sherpa-onnx/csrc/session.cc#L275",
+    "ort_native_version": "1.28.2",
+    "ort_key_source_url": "https://github.com/microsoft/onnxruntime/blob/v1.28.2/include/onnxruntime/core/session/onnxruntime_session_options_config_keys.h#L174",
+    "ort_key": "session.intra_op.allow_spinning",
+    "disabled_value": "0",
+    "cached_ort_header_sha256": "f3a80fcec7fa9e38de3191fc48714231892bc9c5dc8a06adecebf946a1937a29"
+  }
+}

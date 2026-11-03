@@ -1,0 +1,364 @@
+{
+  "plan_sha256": "cb8d4a9ee0d54ae042ca06c44f958ad67b5fefe914e08c7ce3806649e43b1f7e",
+  "scope": "Linuxpartialpipelinememoryplanningexperiment. Onlyeffectiveoptionchangedfromsuccessfulno-intra-spinprofileisEnableMemPattern=0. Nofullapp/Windows/GPU/physical/SendInputorindependentqualitycertification.",
+  "mode": "Ready/warm: initializationandcleanupsyntheticwarmupseparate. Eval-onlyonehourcleanupidleoverride,notproductionpolicy.",
+  "statistics": "BaselineN5/candidateN10 public10sJFK repeatedresourceobservations,notindependentquality. Nearest-rankp95=max; nostabletailclaim. Fallback/shorteningarenotcleanupsuccess.",
+  "results": [
+    {
+      "id": "development-IQ4_XS-no-mem-pattern-10s-r10",
+      "candidate": "ScribeKey-Fast-Freehand-v4-01-IQ4_XS-development",
+      "returncode": 0,
+      "elapsed_seconds": 109.722,
+      "report": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-IQ4_XS-no-mem-pattern/development-IQ4_XS-no-mem-pattern-10s-r10.json",
+      "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-IQ4_XS-no-mem-pattern/development-IQ4_XS-no-mem-pattern-10s-r10.log",
+      "report_sha256": "69ae1f10ca4aa137d31732cf2d1a2d9ae83e81fc004454bf8a25ec9f6b0bf1fa",
+      "n": 10,
+      "p50_ms": 688.9252,
+      "p95_ms": 855.0994,
+      "max_ms": 855.0994,
+      "all_release_within805ms": false,
+      "peak_memory": {
+        "PeakSummedWorkingSetBytes": 755838976,
+        "PeakHostWorkingSetBytes": 96788480,
+        "PeakSpeechWorkingSetBytes": 403628032,
+        "PeakCleanupWorkingSetBytes": 280100864,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 72278016,
+          "SpeechWorkingSetBytes": 403628032,
+          "CleanupWorkingSetBytes": 279932928
+        }
+      },
+      "partial_pipeline_ram_within747500000bytes": false,
+      "failures": [],
+      "cleanup_outcomes": [
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged"
+      ],
+      "provider_failures": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "delivery_calls": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "raw_final_equal": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "all_candidate_stages_equal": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_final_texts": [
+        "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country."
+      ],
+      "initial_asr_load_ms": 1523.1058,
+      "initial_cleanup_warmup_ms": 716.2451,
+      "cleanup_idle_override_seconds": 3600,
+      "observer": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup",
+      "trial_ramp": [
+        {
+          "repeat": 0,
+          "release_ms": 855.0994,
+          "cleanup_ms": 448.4156,
+          "release_minus_cleanup_wall_ms": 406.68379999999996,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 635019264,
+            "PeakHostWorkingSetBytes": 67653632,
+            "PeakSpeechWorkingSetBytes": 310325248,
+            "PeakCleanupWorkingSetBytes": 279842816,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 53030912,
+              "SpeechWorkingSetBytes": 310325248,
+              "CleanupWorkingSetBytes": 271663104
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 40,
+          "cleanup_cpu_during_cleanup_ms": 1560,
+          "host_cpu_during_cleanup_ms": 153.625,
+          "host_allocated_bytes": 1874992,
+          "host_managed_heap_bytes_after": 4626888,
+          "host_gc_committed_bytes_at_last_collection": 0,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 1,
+          "release_ms": 757.6071,
+          "cleanup_ms": 405.7258,
+          "release_minus_cleanup_wall_ms": 351.88129999999995,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 673959936,
+            "PeakHostWorkingSetBytes": 72609792,
+            "PeakSpeechWorkingSetBytes": 336228352,
+            "PeakCleanupWorkingSetBytes": 279920640,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 57876480,
+              "SpeechWorkingSetBytes": 336228352,
+              "CleanupWorkingSetBytes": 279855104
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 70.0001,
+          "cleanup_cpu_during_cleanup_ms": 1420,
+          "host_cpu_during_cleanup_ms": 125.838,
+          "host_allocated_bytes": 1744568,
+          "host_managed_heap_bytes_after": 7012848,
+          "host_gc_committed_bytes_at_last_collection": 0,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 2,
+          "release_ms": 762.6273,
+          "cleanup_ms": 370.2472,
+          "release_minus_cleanup_wall_ms": 392.38009999999997,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 755838976,
+            "PeakHostWorkingSetBytes": 93528064,
+            "PeakSpeechWorkingSetBytes": 403628032,
+            "PeakCleanupWorkingSetBytes": 279998464,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 72278016,
+              "SpeechWorkingSetBytes": 403628032,
+              "CleanupWorkingSetBytes": 279932928
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1330,
+          "host_cpu_during_cleanup_ms": 235.584,
+          "host_allocated_bytes": 1746712,
+          "host_managed_heap_bytes_after": 3857216,
+          "host_gc_committed_bytes_at_last_collection": 5439488,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 3,
+          "release_ms": 708.2917,
+          "cleanup_ms": 361.4755,
+          "release_minus_cleanup_wall_ms": 346.8162,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 750292992,
+            "PeakHostWorkingSetBytes": 96784384,
+            "PeakSpeechWorkingSetBytes": 395038720,
+            "PeakCleanupWorkingSetBytes": 280047616,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 75243520,
+              "SpeechWorkingSetBytes": 395038720,
+              "CleanupWorkingSetBytes": 280010752
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1380,
+          "host_cpu_during_cleanup_ms": 62.461,
+          "host_allocated_bytes": 1825032,
+          "host_managed_heap_bytes_after": 6340616,
+          "host_gc_committed_bytes_at_last_collection": 5439488,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 4,
+          "release_ms": 691.4217,
+          "cleanup_ms": 375.9954,
+          "release_minus_cleanup_wall_ms": 315.42629999999997,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 684310528,
+            "PeakHostWorkingSetBytes": 77070336,
+            "PeakSpeechWorkingSetBytes": 327360512,
+            "PeakCleanupWorkingSetBytes": 280068096,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 76890112,
+              "SpeechWorkingSetBytes": 327360512,
+              "CleanupWorkingSetBytes": 280059904
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1379.9999,
+          "host_cpu_during_cleanup_ms": 123.542,
+          "host_allocated_bytes": 1750296,
+          "host_managed_heap_bytes_after": 3608368,
+          "host_gc_committed_bytes_at_last_collection": 9293824,
+          "host_gc_gen0": 1,
+          "host_gc_gen1": 1,
+          "host_gc_gen2": 1
+        },
+        {
+          "repeat": 5,
+          "release_ms": 624.2811,
+          "cleanup_ms": 316.2342,
+          "release_minus_cleanup_wall_ms": 308.04690000000005,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 723619840,
+            "PeakHostWorkingSetBytes": 77627392,
+            "PeakSpeechWorkingSetBytes": 366362624,
+            "PeakCleanupWorkingSetBytes": 280080384,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 77185024,
+              "SpeechWorkingSetBytes": 366362624,
+              "CleanupWorkingSetBytes": 280072192
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1229.9999,
+          "host_cpu_during_cleanup_ms": 47.593,
+          "host_allocated_bytes": 1750936,
+          "host_managed_heap_bytes_after": 6001248,
+          "host_gc_committed_bytes_at_last_collection": 9293824,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 6,
+          "release_ms": 648.2743,
+          "cleanup_ms": 330.6822,
+          "release_minus_cleanup_wall_ms": 317.5921,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 748388352,
+            "PeakHostWorkingSetBytes": 78344192,
+            "PeakSpeechWorkingSetBytes": 390008832,
+            "PeakCleanupWorkingSetBytes": 280088576,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 78299136,
+              "SpeechWorkingSetBytes": 390008832,
+              "CleanupWorkingSetBytes": 280080384
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1290,
+          "host_cpu_during_cleanup_ms": 24.686,
+          "host_allocated_bytes": 1730576,
+          "host_managed_heap_bytes_after": 8373840,
+          "host_gc_committed_bytes_at_last_collection": 9293824,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 7,
+          "release_ms": 683.6081,
+          "cleanup_ms": 365.2791,
+          "release_minus_cleanup_wall_ms": 318.329,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 746217472,
+            "PeakHostWorkingSetBytes": 85041152,
+            "PeakSpeechWorkingSetBytes": 386605056,
+            "PeakCleanupWorkingSetBytes": 280096768,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 79523840,
+              "SpeechWorkingSetBytes": 386605056,
+              "CleanupWorkingSetBytes": 280088576
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1400,
+          "host_cpu_during_cleanup_ms": 91.087,
+          "host_allocated_bytes": 1753744,
+          "host_managed_heap_bytes_after": 3918144,
+          "host_gc_committed_bytes_at_last_collection": 10575872,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 8,
+          "release_ms": 688.9252,
+          "cleanup_ms": 349.0358,
+          "release_minus_cleanup_wall_ms": 339.8894,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 720760832,
+            "PeakHostWorkingSetBytes": 86736896,
+            "PeakSpeechWorkingSetBytes": 355061760,
+            "PeakCleanupWorkingSetBytes": 280100864,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 85602304,
+              "SpeechWorkingSetBytes": 355061760,
+              "CleanupWorkingSetBytes": 280096768
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 10,
+          "cleanup_cpu_during_cleanup_ms": 1350,
+          "host_cpu_during_cleanup_ms": 42.553,
+          "host_allocated_bytes": 1843080,
+          "host_managed_heap_bytes_after": 6403240,
+          "host_gc_committed_bytes_at_last_collection": 10575872,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        },
+        {
+          "repeat": 9,
+          "release_ms": 651.8542,
+          "cleanup_ms": 322.3964,
+          "release_minus_cleanup_wall_ms": 329.45779999999996,
+          "memory": {
+            "PeakSummedWorkingSetBytes": 718954496,
+            "PeakHostWorkingSetBytes": 90451968,
+            "PeakSpeechWorkingSetBytes": 348585984,
+            "PeakCleanupWorkingSetBytes": 280100864,
+            "AtSummedWorkingSetPeak": {
+              "HostWorkingSetBytes": 90267648,
+              "SpeechWorkingSetBytes": 348585984,
+              "CleanupWorkingSetBytes": 280100864
+            }
+          },
+          "speech_cpu_during_cleanup_ms": 0,
+          "cleanup_cpu_during_cleanup_ms": 1240,
+          "host_cpu_during_cleanup_ms": 41.941,
+          "host_allocated_bytes": 1735032,
+          "host_managed_heap_bytes_after": 8780312,
+          "host_gc_committed_bytes_at_last_collection": 10575872,
+          "host_gc_gen0": 0,
+          "host_gc_gen1": 0,
+          "host_gc_gen2": 0
+        }
+      ]
+    }
+  ]
+}

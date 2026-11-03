@@ -1,0 +1,79 @@
+{
+  "status": "DEVELOPMENT_CONTENTION_EXPERIMENT",
+  "verified_utc": "2026-11-03T21:17:23.345894+00:00",
+  "metrics": {
+    "TranscriptMilliseconds": {
+      "p50_ms": 618.6321,
+      "p95_ms": 702.4174,
+      "max_ms": 702.4174,
+      "over805_count": 0
+    },
+    "CountingInjectorCompleteMilliseconds": {
+      "p50_ms": 618.6434,
+      "p95_ms": 702.6308,
+      "max_ms": 702.6308,
+      "over805_count": 0
+    }
+  },
+  "latency_gate_field": "CountingInjectorCompleteMilliseconds",
+  "latency_cap_ms": 805,
+  "ram_cap_bytes": 747500000,
+  "peak_simultaneous_memory": {
+    "PeakSummedWorkingSetBytes": 755433472,
+    "PeakHostWorkingSetBytes": 107233280,
+    "PeakSpeechWorkingSetBytes": 379891712,
+    "PeakCleanupWorkingSetBytes": 279994368,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 95547392,
+      "SpeechWorkingSetBytes": 379891712,
+      "CleanupWorkingSetBytes": 279994368
+    }
+  },
+  "ram_gate_pass": false,
+  "asr_cpu_during_cleanup": {
+    "default": {
+      "values_ms": [
+        50,
+        360,
+        220,
+        180,
+        240,
+        200,
+        279.9999,
+        210,
+        240,
+        140
+      ],
+      "min_ms": 50,
+      "median_ms": 215.0,
+      "max_ms": 360,
+      "mean_ms": 211.99999
+    },
+    "intra_no_spin": {
+      "values_ms": [
+        50,
+        70,
+        0,
+        0,
+        10,
+        0,
+        0,
+        0,
+        0,
+        9.9999
+      ],
+      "min_ms": 0,
+      "median_ms": 0.0,
+      "max_ms": 70,
+      "mean_ms": 13.99999
+    }
+  },
+  "all_ten_full_text_once_no_fallback": true,
+  "same_raw_and_final_text_as_default": true,
+  "frozen_worker_model_manifests_unchanged": true,
+  "production_asr_config_unchanged": true,
+  "variant_config_sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9",
+  "report_sha256": "580ac8a9a2a76cb5629ccc465c1118d6e5853b8a760736950dc0994e702224b8",
+  "first_trial_included": true,
+  "quality_or_fullapp_or_windows_qualified": false
+}

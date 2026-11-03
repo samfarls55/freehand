@@ -1,0 +1,147 @@
+{
+  "reviewer": "Codex assistant /root/final_review_a; independent case-specific semantic cross-review of assistant-authored synthetic cases",
+  "source_results_sha256": "27f1b9457711f76fc45937ab63af090de50b796bc385651b625979c786da0786",
+  "review_scope": "Personally reread original input, normalized input, actual cleanup input, delivered output, returned candidate, normalized reference alternatives and outcomes for each of these 14 requested cases. Judgments use frozen PROTOCOL and per-case rubric, with 99% gate superseding only the old aggregate threshold. References are diagnostics, not semantic oracles. No original judgment or source result is modified.",
+  "cases": [
+    {
+      "position": 370,
+      "case_id": "blind-c-021",
+      "output_sha256": "073de7d98e23763bdd88053fc70ddac146a2a559f5e260a009641eb432cdf4a5",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "The exact quoted refund sentence and the statement that it is the full sentence are preserved, but the output joins the imperative and the following independent clause with a comma after the already terminated quotation: opening.\", that is. This is a comma splice with clashing terminal punctuation, rather than a harmless choice of quotation style; use separate sentences or another grammatical separator.",
+      "critical_severity_reason": "Punctuation damage affects usability only; the refund restriction and speech acts survive, so no serious factual or action error is present."
+    },
+    {
+      "position": 457,
+      "case_id": "blind-c-108",
+      "output_sha256": "e918e1e11407bdc3ef2dcc4f7738b1840979c1bba359802184e9115f05a8f9a6",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "The corrected request is to publish the draft agenda after chair approval. The output retains waiting, confidentiality, unchanged remainder and the no-approval reminder condition, but deletes both publish and draft agenda from the main action. Context mentions agenda and circulation, yet it does not actually state the requested post-approval publication. Recovering that missing main instruction requires inference.",
+      "critical_severity_reason": "Critical because the principal requested action, publishing the draft agenda after approval, disappears. This is a central actor/action omission, beyond loss of a secondary explanatory detail; it does not reactivate the canceled publish-today timing."
+    },
+    {
+      "position": 438,
+      "case_id": "blind-c-089",
+      "output_sha256": "2fd19d0416d5fc7d0015401364a63cb5d1b17f5471cebc10fcc156e1ef414870",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The output requests renewal of the storage add-on and explicitly says the main service is being switched. Together these sentences retain the narrowed scope and exclude reactivating the original whole-subscription request. The word only is not indispensable when its scope remains explicit through the requested object and main-service contrast.",
+      "critical_severity_reason": "No canceled subscription renewal is activated and no action, entity or polarity changes."
+    },
+    {
+      "position": 491,
+      "case_id": "blind-c-142",
+      "output_sha256": "2509aac0d5d8a6b8f8c4ea86c7fe79dc1611aebab05a32f3ec3fa28553386ce4",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The plain-text numbered sequence retains checking the address first, then sealing the envelope and attaching the label in their spoken order. It adds no tasks, commentary, quantities or conditions. Rendering the existing ordered instructions as a compact numbered list remains readable and semantically equivalent despite being more restructuring than necessary.",
+      "critical_severity_reason": "All actions and their order remain; no factual or action error is introduced."
+    },
+    {
+      "position": 272,
+      "case_id": "blind-b-073",
+      "output_sha256": "591e7da518183bfcc1af55cc9ad7b0ed157477da3982a98adc638ae119f1d7c5",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Correctly substitutes Mateo as signer and preserves signing on Leena's behalf, but omits the unretracted factual explanation that Leena is away. That explanation is substantive dictated content, not part of the canceled instruction to ask Leena to sign.",
+      "critical_severity_reason": "Noncritical fidelity failure: the final actor, signing action and represented person remain correct; a secondary availability explanation is omitted without inventing a contradictory fact or reactivating the canceled signer."
+    },
+    {
+      "position": 286,
+      "case_id": "blind-b-087",
+      "output_sha256": "e83f6101ebc3f0b309a20df7bd1af1907ef87f7187c0dcb26b7e816e1741d18c",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Correctly preserves continuing straight to the roundabout and removes the canceled left turn, but drops the unretracted fact that the chapel road is blocked. Removing the correction cue does not authorize deleting this explanatory road condition.",
+      "critical_severity_reason": "Noncritical fidelity failure: the active direction remains correct and no canceled turn is reactivated. The output loses a secondary route explanation, rather than directing the recipient into the blocked road or asserting that it is open."
+    },
+    {
+      "position": 12,
+      "case_id": "blind-a-013",
+      "output_sha256": "840fb6ea1dfc50117bd9775d116ce2ea8b22fc832ddc87bea3387c0a82d58cc6",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The accidental repeated the is removed, but repair changes to repaired. The original explicitly places pavement repairs in the present; the output places them in the past narrative and no longer explicitly conveys that current context. This is an unauthorized chronology change, even though the sentence is fluent.",
+      "critical_severity_reason": "On severity cross-review, noncritical: bus-stop movement, across-road location, repair activity and their temporal overlap remain. Past repaired does not by itself assert that repairs are now complete, so a serious factual reversal is not established. This revises my initial critical flag only; the fidelity failure remains and my original judgment is retained unchanged."
+    },
+    {
+      "position": 357,
+      "case_id": "blind-c-008",
+      "output_sha256": "1f54080a52309aac437fb719e7e4820adbb904e5537666054ec4616c60e2eb49",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "The quoted wording survives, but comma and the relation outside the quotation are reduced to including the outside quotation. This deletes the explicit requested comma-position detail and leaves an incoherent grammatical continuation, so both fidelity and direct usability fail.",
+      "critical_severity_reason": "Noncritical because the damage concerns the secondary typography specification and its wording; no serious factual, actor, polarity, quantity or canceled-action change is established."
+    },
+    {
+      "position": 215,
+      "case_id": "blind-b-016",
+      "output_sha256": "c72d1410f108fdd1382082615d7046da11b07f3db646bc9397252f66f3129304",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The unchanged text preserves both negative scopes: refund is not forbidden and is not guaranteed. You know is a grammatical conversational aside rather than an unmistakable hesitation sound; retaining it preserves voice under the conservative minimal-edit policy. The informal comma-linked delivery remains understandable plain text.",
+      "critical_severity_reason": "Neither negation is changed and no serious content error occurs."
+    },
+    {
+      "position": 218,
+      "case_id": "blind-b-019",
+      "output_sha256": "44220b1abac9221249dfaa2834b580440cd497f39a46fae22f565ec093abe991",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The unchanged opening Well conveys a conversational stance introducing caution. It is not an unmistakable hesitation sound that the frozen policy requires deleting. The prohibition on promising same-day delivery and the still-closed-bridge condition are clean and intact.",
+      "critical_severity_reason": "Polarity, timing and conditional scope remain unchanged."
+    },
+    {
+      "position": 250,
+      "case_id": "blind-b-051",
+      "output_sha256": "febde80c95c45429eb15b94f7cae6e1aaafcc018cbd54d0b5af9c2f543b0b439",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The unchanged text retains probably, Thursday, the assumption about replacement bearings arriving tomorrow and the conversational you know aside. That aside can mark shared understanding; its deletion is optional under minimal voice-preserving edits, rather than required removal of an unmistakable hesitation.",
+      "critical_severity_reason": "Uncertainty, deadline and dependency are all preserved."
+    },
+    {
+      "position": 258,
+      "case_id": "blind-b-059",
+      "output_sha256": "3cf3483439300ebf4899ecaec725faeea5cf60fddfbfe5e567d62d766bc358cc",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The unchanged You know introduces a conversational suggestion; it is not clearly an accidental false start or hesitation sound. The possible cheaper valley route and the condition that it has not washed out remain grammatical and directly usable.",
+      "critical_severity_reason": "The route uncertainty and washout condition remain intact."
+    },
+    {
+      "position": 312,
+      "case_id": "blind-b-113",
+      "output_sha256": "9792aa629f5baa1f7b1f74cfd06cc5f3db114cc685dc48fdc4f14044c58168ab",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The unchanged text preserves reported label content, both emphatic occurrences of only and the rejection of a delicate wash. You know functions as a conversational aside inside the emphasis; the fixed policy does not compel removing this voice marker when no unmistakable hesitation or accidental repeat is present.",
+      "critical_severity_reason": "The laundry restriction and deliberate repeated emphasis are preserved without polarity changes."
+    },
+    {
+      "position": 321,
+      "case_id": "blind-b-122",
+      "output_sha256": "d9b93440419f8cd2b1bd603a44a0b78b542a48cd3ce5fe0fb19f715f6797aa23",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The unchanged text preserves both deliberate twice occurrences, the serial-number mismatch and still/don't scope. The punctuated you know aside is acceptable conversational voice, not an unmistakable hesitation sound; already usable text can therefore remain unchanged.",
+      "critical_severity_reason": "Check count, emphasis and mismatch negation remain intact."
+    }
+  ]
+}

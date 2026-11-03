@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "cases": "one consumed public JFK input per successful profile",
+  "model_sha256": "de03a46194457357482dcc3620f463fa3ab5e2e92180788b5bf91b36d9c671c8",
+  "profiles": [
+    {
+      "batch": 64,
+      "micro_batch": 32,
+      "kernel_memory_bytes": {
+        "VmHWM": 280084480,
+        "VmRSS": 280084480
+      },
+      "complete_wall_ms": 350.9637490060413,
+      "output_sha256": "e4e644650803b9dca2d1caaf17fbfa3b5cd835a792b8d53d888c6996f7eb1c5d",
+      "output_retokenized_ids_sha256": "eb16d1c93eb8f31553e55859b6bc784e2d2fce29136a6e0d6224c9b0e027ea7e"
+    },
+    {
+      "batch": 64,
+      "micro_batch": 16,
+      "kernel_memory_bytes": {
+        "VmHWM": 278941696,
+        "VmRSS": 278941696
+      },
+      "complete_wall_ms": 310.0335429990082,
+      "output_sha256": "e4e644650803b9dca2d1caaf17fbfa3b5cd835a792b8d53d888c6996f7eb1c5d",
+      "output_retokenized_ids_sha256": "eb16d1c93eb8f31553e55859b6bc784e2d2fce29136a6e0d6224c9b0e027ea7e"
+    }
+  ],
+  "micro16_hwm_saved_bytes": 1142784,
+  "exact_output_and_token_identity": true,
+  "u32_startup_buffers": [
+    "0.00.102.789 I load_tensors:   CPU_Mapped model buffer size =   199.72 MiB",
+    "0.00.104.527 I llama_context: n_batch               = 64",
+    "0.00.104.527 I llama_context: n_ubatch              = 32",
+    "0.00.104.564 I llama_context:        CPU  output buffer size =     0.25 MiB",
+    "0.00.107.942 I llama_kv_cache:        CPU KV buffer size =    12.00 MiB",
+    "0.00.108.004 I llama_memory_recurrent:        CPU RS buffer size =     0.08 MiB",
+    "0.00.110.464 I sched_reserve:        CPU compute buffer size =     4.94 MiB",
+    "0.00.163.230 I slot   load_model: id  0 | task -1 | new slot, n_ctx = 1024",
+    "0.00.169.927 D ~llama_context:        CPU compute buffer size is   4.9387 MiB, matches expectation of   4.9387 MiB"
+  ],
+  "buffer_log_limitation": "Higher verbosity5 exposed startup allocations, then the unused custom chat-template logger parser exited. Both actual request checks succeed at defaultverbosity3; failed diagnostic run retained.",
+  "logical_batch_source_evidence": "Pinned llama-context.cpp output_reserve uses max(actual outputs,n_seq_max) for logits. n_batch mainly sizes the output-ID vector in this ordinary completion path; no evidence for8MB savings from64->32 with unchanged actual output count.",
+  "extra_batch32_native_run": false,
+  "no_evaluator_or_CSharp_source_change": true,
+  "scope": "Native-only single-request audit, not a stable latency or application-memory acceptance measurement."
+}

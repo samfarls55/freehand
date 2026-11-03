@@ -4,7 +4,12 @@ The user authorized targeted training with ScribeKey as the base and subsequentl
 raised acceptance to **99%**. The current gate requires **495 of 500 complete
 outputs to preserve meaning and be directly usable cleaned text**. The full-app
 resource limits remain 747,500,000 host-memory bytes and 805 ms from ready release
-to complete delivery. **No new trained model is qualified yet.**
+to complete delivery. **No new trained model is qualified yet.** The first
+independent 500-case test scored **471/500 (94.2%)** jointly faithful and clean,
+below the required 495. Its complete result is preserved and the set is now
+retired as development material. Further training and a new independent test are
+in progress. The selected Linux runtime configuration passes the measured
+partial-pipeline resource limits; Windows qualification remains unavailable.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -39,7 +44,8 @@ population sample or blinded human validation.
 
 An independently authored 500-case test was frozen before model inference at
 SHA-256 `def0ae07b9e9fa922d2b11a90f0e981de12be499d5fdadaddcff3f0f6ef8a643`.
-Its contents remain unseen by the training controller and trainer. Mechanical
+Its contents remained unseen by the training controller and trainer until the
+candidate was frozen and its final evaluation began. Mechanical
 hash-only audits process it without exposing text and found no exact normalized
 input/target overlap with the approved training data. Brief case fragments were
 incidentally exposed to two other agents through
@@ -108,7 +114,7 @@ adapter; that attempt is retained as interrupted. The restarted run saves more
 frequent durable checkpoints. Optimizer, learning-rate, RNG and batch-position
 recovery have separate correctness tests.
 
-All 32 training/evaluation tool tests pass in the isolated environment, including
+All 35 training/evaluation tool tests pass in the isolated environment, including
 99% boundary checks, complete-denominator checks, literal restoration, merge
 precision and exact optimizer/RNG/batch-position recovery. New candidate freezes
 archive the exact critical source bytes before inference; the earlier runs retain
@@ -177,7 +183,7 @@ spaces and the general-model route. New prompt exports declare `trim-v1`;
 historical unflagged replays retain their original behavior, and raw responses
 remain separate. This is code-level presentation behavior, not learned semantic
 improvement. The strict build, 264 cleanup tests, 63 Python replay tests and all
-32 training-tool tests pass. The V3 scores above predate this normalization.
+32 training-tool tests passed at that checkpoint; the current training/evaluation suite passes all35. The V3 scores above predate this normalization.
 
 Exports can merge to F16 before quantization to preserve smaller updates.
 Reduced precision must pass its own quality checks. Candidate selection and source/artifact
@@ -194,6 +200,85 @@ lookup24 experiment was slower and exceeded both limits; the default lookup16
 remains selected. Neither a one-trial ASR prepacking experiment nor this runtime
 change demonstrated an improvement. Small repeated cohorts on a clean copied
 transcript do not establish stable tails or representative cleanup latency.
+
+The leading IQ4 model's default-profile replay used 701,325,312 bytes but took
+727.85 ms p50 and 922.90 ms p95/max. Instrumentation showed the speech worker
+continuing to consume CPU during cleanup after returning its transcript. The
+documented `SessionConfig.session.intra_op.allow_spinning=0` option reduced this
+overlap and improved complete-delivery latency. The exact spinning-disabled
+configuration and App dynamic-PGO setting have now been adopted in local source
+commit `b55c73d` after the final comparison below.
+
+| IQ4 Linux development configuration, N10 | Complete p50 | Complete p95/max | Simultaneous RSS |
+|---|---:|---:|---:|
+| Original speech configuration | 727.85 ms | 922.90 ms | 701,325,312 B |
+| Speech intra-op spinning disabled | 618.64 ms | **702.63 ms** | 755,433,472 B |
+| Also disable memory-pattern planning | 688.94 ms | 855.37 ms | 755,838,976 B |
+| Spinning disabled; .NET tiered compilation disabled | 575.59 ms | 897.04 ms | **695,844,864 B** |
+| Spinning disabled; dynamic PGO disabled, tiered compilation retained | **621.10 ms** | **734.79 ms** | **690,319,360 B** |
+
+All first trials remain included and every output was complete, unchanged text
+delivered once without fallback. The final row passes both measured limits.
+Disabling memory patterns did not help. Disabling tiered compilation
+recorded lower peak memory, but its first trial exceeded the latency cap; the
+other nine took 549–639 ms. Component memory varies between runs, including the
+native speech worker, so the entire memory difference is not established as a
+managed-code saving. The narrower profile-guided-optimization control retained
+quick tiered compilation and passed both limits. Its tested environment was
+`DOTNET_TieredPGO=0`, with no tiered-compilation override. The App project now
+declares `TieredPGO=false`; a fresh Windows publish confirms the property in its
+generated runtime configuration and preserves the tested 198-byte speech
+configuration exactly.
+No forced collection or accounting adjustment was used.
+
+A separate native startup/request comparison reduced micro-batch size from 32
+to 16. Exact output/token IDs matched, but worker high-water memory fell only
+1,142,784 bytes, insufficient to close the observed gap. Source inspection found
+no basis for a large logits-buffer saving from reducing the logical batch alone.
+The selected cleanup semantic configuration remains lookup16/batch64/micro32;
+the first independent 500-case result is described below.
+
+## First independent 500-case result and continuation
+
+The pre-frozen V4 IQ4_XS candidate completed all 500 cases through actual Core.
+Every case delivered once; two rejected provider outputs fell back to original
+text and remain failures in the full denominator. Model, native runtime, DLL,
+source and input-inventory hashes verified before and after execution. Three
+named assistant reviewers personally read all 500 outputs; the controller
+cross-reviewed all 56 non-reference/failure pairs, with an independent second
+review of 14 ambiguous or severity cases. Initial reviews and the severity
+adjudication overlay remain separate. The overlay changed no joint pass/fail
+decision.
+
+| Full frozen test | Result |
+|---|---:|
+| Successful model candidates | 498/500 |
+| Faithful, with successful candidate | 487/500 |
+| Faithful and directly usable | **471/500 — 94.2%** |
+| Critical meaning errors after adjudication | 7 |
+| Required joint successes | **495/500** |
+
+This fails the user gate. The development score of 544/546 did not generalize
+to this broader test. Failures include unresolved corrections across varied
+wording, omitted unretracted explanations or independent requests, altered
+chronology/destinations, partial-phrase repetition and two protected-quote
+corrections rejected by validation. Valid alternate punctuation, preserved
+discourse voice and equivalent wording were accepted after semantic review.
+
+The consumed corpus and lock remain unchanged. An exact copy is explicitly
+retired as validation; any subsequent training-informed model must face a newly
+authored independent set. New work adds correction/voice contrasts and protected
+literal/scope examples with earlier training replay. Separate authors prepare
+another 500 cases without reading training, development or earlier test content.
+The threshold, complete denominator and meaning of success remain unchanged.
+The earlier rubric requested a paired baseline on this final set; only the
+pre-frozen selected derivative ran here, so no paired 500-case improvement claim
+is made. Paired baseline evidence remains confined to development sets.
+
+A fresh isolated Windows App, Probe and platform-layer publish succeeds, and all
+eight default/frozen DLLs remain unchanged. Its 433,677,045-byte preview archive
+passes full member/CRC verification. This is a reproducible development artifact
+for the failed V4 candidate, not a qualified default or Windows execution result.
 
 The user currently has no Windows test machine. Linux work can measure the real
 speech/Core/cleanup path and prepare verified custom Freehand bundles, but cannot

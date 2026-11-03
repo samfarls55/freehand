@@ -1,0 +1,20 @@
+0.00.014.757 I srv  llama_server: initializing ...
+0.00.014.783 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.014.875 I srv  init_listene: The UI is disabled
+0.00.014.887 I srv  init_listene: Use --ui/--no-ui (or deprecated --webui/--no-webui) to enable/disable
+0.00.016.385 I srv    load_model: loading model '/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/selected-model/ScribeKey-Freehand-V4-IQ4_XS.gguf'
+0.00.136.194 I cmn          init: llama threadpool init, n_threads = 4
+0.00.265.354 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 1024, kv_unified = 'false'
+0.00.266.609 W srv          init: --cache-idle-slots requires --cache-ram, disabling
+0.00.268.382 I srv  server_run_i: model loaded
+0.00.268.394 I srv  server_on_li: listening on http://127.0.0.1:41725
+0.00.345.654 I slot get_availabl: id  0 | task -1 | selected slot by LRU, n_tokens = 0, t_last = -1
+0.00.345.818 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.00.666.421 I slot print_timing: id  0 | task 0 | prompt eval time =     165.39 ms /    53 tokens (    3.12 ms per token,   320.45 tokens per second)
+0.00.666.433 I slot print_timing: id  0 | task 0 |        eval time =     155.17 ms /    26 tokens (    6.21 ms per token,   161.12 tokens per second)
+0.00.666.434 I slot print_timing: id  0 | task 0 |       total time =     320.56 ms /    79 tokens
+0.00.666.441 I slot print_timing: id  0 | task 0 |    graphs reused =          7
+0.00.666.441 I slot print_timing: id  0 | task 0 |   graph reallocs =          0    /     0        (same size) / (changed size)
+0.00.666.450 I slot print_timing: id  0 | task 0 | draft acceptance = 1.00000 (   16 accepted /    16 generated), mean len = 17.00
+0.00.666.566 I slot      release: id  0 | task 0 | stop processing: n_tokens = 78, truncated = 0
+0.00.687.492 I srv    operator(): operator(): cleaning up before exit...

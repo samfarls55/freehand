@@ -1,5 +1,11 @@
 # Freehand transcript cleanup handoff
 
+The subsequent ScribeKey training work is tracked in the
+[current training checkpoint](TRANSCRIPT-CLEANUP-SCRIBEKEY-TRAINING.md).
+The user raised its acceptance threshold to **99%: at least 495 of 500 unseen
+outputs jointly faithful and clean**. The earlier implementation and measurements
+below remain historical evidence; they do not establish the new accuracy gate.
+
 ## Implementation and qualification checkpoint — November 3, 2026
 
 The user now requires whole-app host RAM and ready release-to-complete delivery

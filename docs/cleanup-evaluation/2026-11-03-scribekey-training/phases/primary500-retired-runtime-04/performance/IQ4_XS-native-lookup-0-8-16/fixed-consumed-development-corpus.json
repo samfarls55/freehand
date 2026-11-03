@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "asr-10s",
+      "split": "development",
+      "category": "public_asr_performance_replay",
+      "input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "targets": [
+        "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country."
+      ],
+      "checks": {},
+      "references_are_normalized": true,
+      "notes": "Public JFK-derived recognized text. Long repetitions are stress fixtures, not independent cleanup quality gold. Compare retained words/output/completeness, no shortening speed credit."
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-d68e779c5c20540c",
+      "input": "Um, please do not substitute a different material without asking. Uh, our volunteers will distribute the maps at the main entrance.",
+      "targets": [
+        "Please do not substitute a different material without asking. Our volunteers will distribute the maps at the main entrance."
+      ],
+      "split": "development",
+      "category": "multi_sentence_fillers",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribe-harddev-051",
+      "split": "development",
+      "category": "correction_scope",
+      "input": "Email the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.",
+      "targets": [
+        "Email the handover note to Pilar, and leave the caretaker copied in."
+      ],
+      "needs_cleanup": true,
+      "references_are_normalized": false,
+      "checks": {},
+      "rubric_notes": "Replace only the recipient and retain the unaffected copied-in instruction."
+    }
+  ]
+}

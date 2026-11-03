@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "candidate_freeze": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/final-selected-IQ4_XS-lookup16-freeze.json",
+    "bytes": 9147,
+    "sha256": "5db6ebb97e1dd2ca0bab6e2f501b294fa622460a79f5d2c850d9a18b58312a15"
+  },
+  "model": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/selected-model/ScribeKey-Freehand-V4-IQ4_XS.gguf",
+    "bytes": 211804448,
+    "sha256": "de03a46194457357482dcc3620f463fa3ab5e2e92180788b5bf91b36d9c671c8"
+  },
+  "profile": {
+    "promptStyle": "ScribeKeyFast",
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 32,
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "repack": false,
+    "gpuLayers": 0,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3
+  },
+  "source_snapshot": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/final-selected-IQ4_XS-lookup16-freeze.source-snapshot.tar.gz",
+    "bytes": 122256,
+    "sha256": "9e1ac8ddf16bbe449121617ff4d2a9cc4a07fd57721901ee86393282da72aaeb",
+    "source_file_count": 37,
+    "exact_archived_bytes_verified": true,
+    "capture_stage": "new_candidate_freeze_before_inference",
+    "historical_scope": "This snapshot covers this new freeze only; earlier hash-only freezes were not retroactively snapshotted."
+  },
+  "git_head": "f4084bdb555affd5f85987d966be90a988327844",
+  "frozen_model_runtime_Dll_source_archive_revalidated": true,
+  "windows_cpu_bundle": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/selected-windows-IQ4_XS-cpu-valid1",
+  "windows_cpu_manifest": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/selected-windows-IQ4_XS-cpu-valid1/cleanup-manifest.json",
+    "sha256": "33b1964bdbc63ff1b26e26697c91f38242cf59b72c64808096b6ac65a46cabbd",
+    "bytes": 7856
+  },
+  "primary_target": {
+    "semantic_metric": "faithful_and_clean_usable",
+    "minimum_joint_accuracy": 0.99,
+    "case_count": 500,
+    "required_pass_count": 495
+  },
+  "primary500_read_or_run": false,
+  "resource_configuration": "ASR/private managed-runtime resource settings recorded separately; full resource acceptance remains pending root selection.",
+  "windows_executed": false,
+  "gpu_executed": false,
+  "whole_app_SLA_qualified": false
+}

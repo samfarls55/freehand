@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/IQ4_XS-native-lookup-0-8-16/fixed-consumed-development-corpus.json",
+  "corpus_sha256": "53FE8C34D5E044047F05DD0D6AF3E4355132DB709A461E6F8D42604041F05BBA",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "specialist_output_normalization": "trim-v1",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "AD479BEC39E0CD5CD62AB7055B72885A1B96252A8BE3ABB31BFA33C8E76DBD76",
+    "Freehand.Core.dll": "A4F46C6EF3519464CCD36B89546275626BA529F908B13584AB3D18C6472C9236",
+    "Freehand.Cleanup.dll": "87D2171175E1A88A07CE1A5623089D6BD4BC3EF7C8AD720D4C992F1554970EB0",
+    "Freehand.Dictionary.dll": "C948C62A1A001221920EE0FD07DDA266CF94BA3191BEBDEED1DA9698A8BED9D3",
+    "Freehand.Testing.dll": "BDE45BB19DC4BE966F1EADF5199321263226A257D230E18EA39BA1AEF405FAB5",
+    "Freehand.Abstractions.dll": "E600A623D8EA9798294963EDA89DFE6946DA6BD1F9DDE96981A9397068813BCD"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "asr-10s",
+        "split": "development",
+        "category": "public_asr_performance_replay",
+        "input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+        "targets": [
+          "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country."
+        ],
+        "checks": {},
+        "references_are_normalized": true,
+        "notes": "Public JFK-derived recognized text. Long repetitions are stress fixtures, not independent cleanup quality gold. Compare retained words/output/completeness, no shortening speed credit."
+      },
+      "normalized_input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "normalized_targets": [
+        "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e4e644650803b9dca2d1caaf17fbfa3b5cd835a792b8d53d888c6996f7eb1c5d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAnd so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-d68e779c5c20540c",
+        "input": "Um, please do not substitute a different material without asking. Uh, our volunteers will distribute the maps at the main entrance.",
+        "targets": [
+          "Please do not substitute a different material without asking. Our volunteers will distribute the maps at the main entrance."
+        ],
+        "split": "development",
+        "category": "multi_sentence_fillers",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Um, please do not substitute a different material without asking. Uh, our volunteers will distribute the maps at the main entrance.",
+      "normalized_targets": [
+        "Please do not substitute a different material without asking. Our volunteers will distribute the maps at the main entrance."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e1ded32806767cc10a0f22e6b04477d32cdfc73e57f0efb9cf81ae6f0b347f8f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUm, please do not substitute a different material without asking. Uh, our volunteers will distribute the maps at the main entrance.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-harddev-051",
+        "split": "development",
+        "category": "correction_scope",
+        "input": "Email the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.",
+        "targets": [
+          "Email the handover note to Pilar, and leave the caretaker copied in."
+        ],
+        "needs_cleanup": true,
+        "references_are_normalized": false,
+        "checks": {},
+        "rubric_notes": "Replace only the recipient and retain the unaffected copied-in instruction."
+      },
+      "normalized_input": "Email the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.",
+      "normalized_targets": [
+        "Email the handover note to Pilar, and leave the caretaker copied in."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ca51ba537c448da08c1ab700130c5bb40f6ec897475620baa927aa4ad8af3961",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nEmail the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

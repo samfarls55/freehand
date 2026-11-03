@@ -1,0 +1,77 @@
+{
+  "status": "DEVELOPMENT_MEMORY_PLANNING_EXPERIMENT",
+  "verified_utc": "2026-11-03T21:22:55.246341+00:00",
+  "metrics": {
+    "TranscriptMilliseconds": {
+      "p50_ms": 688.9252,
+      "p95_ms": 855.0994,
+      "max_ms": 855.0994,
+      "over805_count": 1
+    },
+    "CountingInjectorCompleteMilliseconds": {
+      "p50_ms": 688.941,
+      "p95_ms": 855.3701,
+      "max_ms": 855.3701,
+      "over805_count": 1
+    }
+  },
+  "latency_gate_field": "CountingInjectorCompleteMilliseconds",
+  "latency_cap_ms": 805,
+  "ram_cap_bytes": 747500000,
+  "peak_simultaneous_memory": {
+    "PeakSummedWorkingSetBytes": 755838976,
+    "PeakHostWorkingSetBytes": 96788480,
+    "PeakSpeechWorkingSetBytes": 403628032,
+    "PeakCleanupWorkingSetBytes": 280100864,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 72278016,
+      "SpeechWorkingSetBytes": 403628032,
+      "CleanupWorkingSetBytes": 279932928
+    }
+  },
+  "ram_gate_pass": false,
+  "asr_cpu_during_cleanup": {
+    "prior_no_intra_spin": {
+      "values_ms": [
+        50,
+        70,
+        0,
+        0,
+        10,
+        0,
+        0,
+        0,
+        0,
+        9.9999
+      ],
+      "median_ms": 0.0,
+      "mean_ms": 13.99999,
+      "max_ms": 70
+    },
+    "memory_pattern_off": {
+      "values_ms": [
+        40,
+        70.0001,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10,
+        0
+      ],
+      "median_ms": 0.0,
+      "mean_ms": 12.00001,
+      "max_ms": 70.0001
+    }
+  },
+  "all_ten_full_text_once_no_fallback": true,
+  "raw_final_equal_prior": true,
+  "frozen_worker_model_manifests_unchanged": true,
+  "production_asr_config_unchanged": true,
+  "variant_config_sha256": "4ff27b825961b8ce1a6c2a7733c578f9de2b24b6e875ae9a069c26a9c0162253",
+  "report_sha256": "69ae1f10ca4aa137d31732cf2d1a2d9ae83e81fc004454bf8a25ec9f6b0bf1fa",
+  "first_trial_included": true,
+  "quality_or_fullapp_or_windows_qualified": false
+}
