@@ -1,0 +1,207 @@
+load_backend: loaded RPC backend from /workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-rpc.so
+load_backend: loaded CPU backend from /workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-haswell.so
+version: 0.8.0-dev (build 12015, commit a34de8618)
+built with GNU 11.4.0 for Linux x86_64
+llama_quantize: quantizing '/tmp/freehand-scribekey-export-oj4v73ad/merged-F16.gguf' to '/tmp/freehand-scribekey-v4-01-export/ScribeKey-Freehand-trained-Q4_K_M.gguf' as Q4_K_M using 4 threads
+llama_model_loader: loaded meta data with 45 key-value pairs and 148 tensors from /tmp/freehand-scribekey-export-oj4v73ad/merged-F16.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = lfm2
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Derived from ScribeKey Fast by Scribe...
+llama_model_loader: - kv   3:                         general.size_label str              = 354M
+llama_model_loader: - kv   4:                            general.license str              = other
+llama_model_loader: - kv   5:                       general.license.name str              = scribekey-fast-model-terms-v1.0-with-...
+llama_model_loader: - kv   6:                       general.license.link str              = https://huggingface.co/scribekey/scri...
+llama_model_loader: - kv   7:                   general.base_model.count u32              = 2
+llama_model_loader: - kv   8:                  general.base_model.0.name str              = Sotto Cleanup Lfm25 350m
+llama_model_loader: - kv   9:          general.base_model.0.organization str              = Juanquivilla
+llama_model_loader: - kv  10:              general.base_model.0.repo_url str              = https://huggingface.co/juanquivilla/s...
+llama_model_loader: - kv  11:                  general.base_model.1.name str              = LFM2.5 350M Base
+llama_model_loader: - kv  12:          general.base_model.1.organization str              = LiquidAI
+llama_model_loader: - kv  13:              general.base_model.1.repo_url str              = https://huggingface.co/LiquidAI/LFM2....
+llama_model_loader: - kv  14:                      general.dataset.count u32              = 1
+llama_model_loader: - kv  15:                     general.dataset.0.name str              = Sotto Transcript Cleanup
+llama_model_loader: - kv  16:             general.dataset.0.organization str              = Juanquivilla
+llama_model_loader: - kv  17:                 general.dataset.0.repo_url str              = https://huggingface.co/juanquivilla/s...
+llama_model_loader: - kv  18:                               general.tags arr[str,7]       = ["transcript-cleanup", "text-normaliz...
+llama_model_loader: - kv  19:                          general.languages arr[str,1]       = ["en"]
+llama_model_loader: - kv  20:                           lfm2.block_count u32              = 16
+llama_model_loader: - kv  21:                        lfm2.context_length u32              = 128000
+llama_model_loader: - kv  22:                      lfm2.embedding_length u32              = 1024
+llama_model_loader: - kv  23:                   lfm2.feed_forward_length u32              = 4608
+llama_model_loader: - kv  24:                  lfm2.attention.head_count u32              = 16
+llama_model_loader: - kv  25:               lfm2.attention.head_count_kv arr[i32,16]      = [0, 0, 8, 0, 0, 8, 0, 0, 8, 0, 8, 0, ...
+llama_model_loader: - kv  26:                        lfm2.rope.freq_base f32              = 1000000.000000
+llama_model_loader: - kv  27:      lfm2.attention.layer_norm_rms_epsilon f32              = 0.000010
+llama_model_loader: - kv  28:                          general.file_type u32              = 1
+llama_model_loader: - kv  29:                            lfm2.vocab_size u32              = 65536
+llama_model_loader: - kv  30:                     lfm2.shortconv.l_cache u32              = 3
+llama_model_loader: - kv  31:               general.quantization_version u32              = 2
+llama_model_loader: - kv  32:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  33:                         tokenizer.ggml.pre str              = lfm2
+llama_model_loader: - kv  34:                      tokenizer.ggml.tokens arr[str,65536]   = ["<|pad|>", "<|startoftext|>", "<|end...
+llama_model_loader: - kv  35:                  tokenizer.ggml.token_type arr[i32,65536]   = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, ...
+llama_model_loader: - kv  36:                      tokenizer.ggml.merges arr[str,63683]   = ["Ċ Ċ", "Ċ ĊĊ", "ĊĊ Ċ", "Ċ �...
+llama_model_loader: - kv  37:                tokenizer.ggml.bos_token_id u32              = 1
+llama_model_loader: - kv  38:                tokenizer.ggml.eos_token_id u32              = 7
+llama_model_loader: - kv  39:            tokenizer.ggml.padding_token_id u32              = 0
+llama_model_loader: - kv  40:               tokenizer.ggml.add_bos_token bool             = true
+llama_model_loader: - kv  41:               tokenizer.ggml.add_eos_token bool             = false
+llama_model_loader: - kv  42:               tokenizer.ggml.add_sep_token bool             = false
+llama_model_loader: - kv  43:                    tokenizer.chat_template str              = {%- if messages | length != 1 or mess...
+llama_model_loader: - kv  44:                tokenizer.ggml.clean_spaces bool             = false
+llama_model_loader: - type  f32:   55 tensors
+llama_model_loader: - type  f16:   93 tensors
+[   1/ 148] token_embd.weight                    - [  1024,  65536,      1,      1], type =    f16, converting to q6_K .. size =   128.00 MiB ->    52.50 MiB
+[   2/ 148] token_embd_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[   3/ 148] blk.0.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[   4/ 148] blk.0.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[   5/ 148] blk.0.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[   6/ 148] blk.0.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[   7/ 148] blk.0.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[   8/ 148] blk.0.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[   9/ 148] blk.0.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  10/ 148] blk.0.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  11/ 148] blk.1.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  12/ 148] blk.1.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[  13/ 148] blk.1.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  14/ 148] blk.1.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  15/ 148] blk.1.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  16/ 148] blk.1.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[  17/ 148] blk.1.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  18/ 148] blk.1.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  19/ 148] blk.2.attn_k.weight                  - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  20/ 148] blk.2.attn_k_norm.weight             - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  21/ 148] blk.2.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  22/ 148] blk.2.attn_output.weight             - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  23/ 148] blk.2.attn_q.weight                  - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  24/ 148] blk.2.attn_q_norm.weight             - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  25/ 148] blk.2.attn_v.weight                  - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  26/ 148] blk.2.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  27/ 148] blk.2.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  28/ 148] blk.2.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  29/ 148] blk.2.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  30/ 148] blk.3.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  31/ 148] blk.3.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  32/ 148] blk.3.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  33/ 148] blk.3.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  34/ 148] blk.3.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  35/ 148] blk.3.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[  36/ 148] blk.3.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  37/ 148] blk.3.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  38/ 148] blk.4.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  39/ 148] blk.4.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[  40/ 148] blk.4.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  41/ 148] blk.4.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  42/ 148] blk.4.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  43/ 148] blk.4.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[  44/ 148] blk.4.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  45/ 148] blk.4.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  46/ 148] blk.5.attn_k.weight                  - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  47/ 148] blk.5.attn_k_norm.weight             - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  48/ 148] blk.5.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  49/ 148] blk.5.attn_output.weight             - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  50/ 148] blk.5.attn_q.weight                  - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  51/ 148] blk.5.attn_q_norm.weight             - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  52/ 148] blk.5.attn_v.weight                  - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  53/ 148] blk.5.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  54/ 148] blk.5.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  55/ 148] blk.5.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  56/ 148] blk.5.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  57/ 148] blk.6.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  58/ 148] blk.6.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  59/ 148] blk.6.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  60/ 148] blk.6.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  61/ 148] blk.6.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  62/ 148] blk.6.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[  63/ 148] blk.6.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  64/ 148] blk.6.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  65/ 148] blk.7.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  66/ 148] blk.7.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[  67/ 148] blk.7.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  68/ 148] blk.7.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  69/ 148] blk.7.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  70/ 148] blk.7.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[  71/ 148] blk.7.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  72/ 148] blk.7.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  73/ 148] blk.8.attn_k.weight                  - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  74/ 148] blk.8.attn_k_norm.weight             - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  75/ 148] blk.8.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  76/ 148] blk.8.attn_output.weight             - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  77/ 148] blk.8.attn_q.weight                  - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  78/ 148] blk.8.attn_q_norm.weight             - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  79/ 148] blk.8.attn_v.weight                  - [  1024,    512,      1,      1], type =    f16, converting to q6_K .. size =     1.00 MiB ->     0.41 MiB
+[  80/ 148] blk.8.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  81/ 148] blk.8.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  82/ 148] blk.8.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  83/ 148] blk.8.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  84/ 148] blk.9.attn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  85/ 148] blk.9.ffn_down.weight                - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  86/ 148] blk.9.ffn_gate.weight                - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  87/ 148] blk.9.ffn_norm.weight                - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  88/ 148] blk.9.ffn_up.weight                  - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[  89/ 148] blk.9.shortconv.conv.weight          - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[  90/ 148] blk.9.shortconv.in_proj.weight       - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[  91/ 148] blk.9.shortconv.out_proj.weight      - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  92/ 148] blk.10.attn_k.weight                 - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  93/ 148] blk.10.attn_k_norm.weight            - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  94/ 148] blk.10.attn_norm.weight              - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[  95/ 148] blk.10.attn_output.weight            - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  96/ 148] blk.10.attn_q.weight                 - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[  97/ 148] blk.10.attn_q_norm.weight            - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[  98/ 148] blk.10.attn_v.weight                 - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[  99/ 148] blk.10.ffn_down.weight               - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[ 100/ 148] blk.10.ffn_gate.weight               - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 101/ 148] blk.10.ffn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 102/ 148] blk.10.ffn_up.weight                 - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 103/ 148] blk.11.attn_norm.weight              - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 104/ 148] blk.11.ffn_down.weight               - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 105/ 148] blk.11.ffn_gate.weight               - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 106/ 148] blk.11.ffn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 107/ 148] blk.11.ffn_up.weight                 - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 108/ 148] blk.11.shortconv.conv.weight         - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[ 109/ 148] blk.11.shortconv.in_proj.weight      - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[ 110/ 148] blk.11.shortconv.out_proj.weight     - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[ 111/ 148] blk.12.attn_k.weight                 - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[ 112/ 148] blk.12.attn_k_norm.weight            - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[ 113/ 148] blk.12.attn_norm.weight              - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 114/ 148] blk.12.attn_output.weight            - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[ 115/ 148] blk.12.attn_q.weight                 - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[ 116/ 148] blk.12.attn_q_norm.weight            - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[ 117/ 148] blk.12.attn_v.weight                 - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[ 118/ 148] blk.12.ffn_down.weight               - [  4608,   1024,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 119/ 148] blk.12.ffn_gate.weight               - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 120/ 148] blk.12.ffn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 121/ 148] blk.12.ffn_up.weight                 - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 122/ 148] blk.13.attn_norm.weight              - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 123/ 148] blk.13.ffn_down.weight               - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[ 124/ 148] blk.13.ffn_gate.weight               - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 125/ 148] blk.13.ffn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 126/ 148] blk.13.ffn_up.weight                 - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 127/ 148] blk.13.shortconv.conv.weight         - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[ 128/ 148] blk.13.shortconv.in_proj.weight      - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[ 129/ 148] blk.13.shortconv.out_proj.weight     - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[ 130/ 148] blk.14.attn_k.weight                 - [  1024,    512,      1,      1], type =    f16, converting to q4_K .. size =     1.00 MiB ->     0.28 MiB
+[ 131/ 148] blk.14.attn_k_norm.weight            - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[ 132/ 148] blk.14.attn_norm.weight              - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 133/ 148] blk.14.attn_output.weight            - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[ 134/ 148] blk.14.attn_q.weight                 - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+[ 135/ 148] blk.14.attn_q_norm.weight            - [    64,      1,      1,      1], type =    f32, size =    0.000 MiB
+[ 136/ 148] blk.14.attn_v.weight                 - [  1024,    512,      1,      1], type =    f16, converting to q6_K .. size =     1.00 MiB ->     0.41 MiB
+[ 137/ 148] blk.14.ffn_down.weight               - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[ 138/ 148] blk.14.ffn_gate.weight               - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 139/ 148] blk.14.ffn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 140/ 148] blk.14.ffn_up.weight                 - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 141/ 148] blk.15.attn_norm.weight              - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 142/ 148] blk.15.ffn_down.weight               - [  4608,   1024,      1,      1], type =    f16, converting to q6_K .. size =     9.00 MiB ->     3.69 MiB
+[ 143/ 148] blk.15.ffn_gate.weight               - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 144/ 148] blk.15.ffn_norm.weight               - [  1024,      1,      1,      1], type =    f32, size =    0.004 MiB
+[ 145/ 148] blk.15.ffn_up.weight                 - [  1024,   4608,      1,      1], type =    f16, converting to q4_K .. size =     9.00 MiB ->     2.53 MiB
+[ 146/ 148] blk.15.shortconv.conv.weight         - [     3,   1024,      1,      1], type =    f32, size =    0.012 MiB
+[ 147/ 148] blk.15.shortconv.in_proj.weight      - [  1024,   3072,      1,      1], type =    f16, converting to q4_K .. size =     6.00 MiB ->     1.69 MiB
+[ 148/ 148] blk.15.shortconv.out_proj.weight     - [  1024,   1024,      1,      1], type =    f16, converting to q4_K .. size =     2.00 MiB ->     0.56 MiB
+llama_model_quantize_impl: model size  =   676.25 MiB (16.00 BPW)
+llama_model_quantize_impl: quant size  =   216.41 MiB (5.12 BPW)
+
+llama_quantize: quantize time =  6894.23 ms
+llama_quantize:    total time =  6894.23 ms
