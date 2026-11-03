@@ -397,6 +397,7 @@ def train(args):
         resumed = load_resume_checkpoint(model, optimizer, torch, args.resume_checkpoint, config,
                                           allow_legacy_rng=args.allow_deterministic_legacy_resume)
         config.update(resume_checkpoint=str(args.resume_checkpoint.resolve()),
+                      resume_optimizer=True,
                       resume_checkpoint_state_sha256=resumed["resume_state_sha256"],
                       resume_global_step=resumed["global_step"],
                       resume_global_microbatch=resumed["global_microbatch"],
