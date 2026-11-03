@@ -11,11 +11,12 @@ using Freehand.Core.Updates;
 namespace Freehand.App;
 
 /// <summary>Desktop lifecycle, tray and asynchronous shutdown.</summary>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001", Justification = "Avalonia owns the application lifetime; Quit and benchmark shutdown dispose the feedback host on the UI thread.")]
 public partial class App : Application
 {
     private Composition? _composition;
     private MainWindow? _main;
-    private StatusIndicator? _indicator;
+    private StatusIndicatorHost? _indicator;
     private bool _quitting;
     private Task _quitTask = Task.CompletedTask;
     private int _feedbackPending;
@@ -34,7 +35,7 @@ public partial class App : Application
         {
             _composition = Composition.Create(Program.Desktop);
             _main = new MainWindow(_composition);
-            _indicator = new StatusIndicator(_composition.Desktop);
+            _indicator = new StatusIndicatorHost(_composition.Desktop, ShowMain);
             if (desktop.Args?.Contains("--tray", StringComparer.Ordinal) != true) desktop.MainWindow = _main;
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             desktop.ShutdownRequested += (_, e) => { if (!_quitting) { e.Cancel = true; RequestQuit(); } };
@@ -77,12 +78,12 @@ public partial class App : Application
     private async Task CheckDesktopBenchmarkAsync(IClassicDesktopStyleApplicationLifetime desktop, string output)
     {
         var result = await Task.Run(() => EngineeringChecks.MeasureDesktopAsync(_composition!, output)).ConfigureAwait(false);
-        Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Close(); desktop.Shutdown(result); });
+        Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Dispose(); desktop.Shutdown(result); });
     }
     private async Task CheckDesktopDeliveryBenchmarkAsync(IClassicDesktopStyleApplicationLifetime desktop, string output)
     {
         var result = await Task.Run(() => DesktopDeliveryBenchmark.RunAsync(_composition!, output)).ConfigureAwait(false);
-        Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Close(); desktop.Shutdown(result); });
+        Dispatcher.UIThread.Post(async () => { await _composition!.DisposeAsync().ConfigureAwait(true); _main!.AllowClose = true; _main.Close(); _indicator?.Dispose(); desktop.Shutdown(result); });
     }
     private async Task CheckWindowLifecycleAsync(IClassicDesktopStyleApplicationLifetime desktop)
     {
@@ -105,6 +106,31 @@ public partial class App : Application
                 _composition.Settings.Update(preferences);
                 await _composition.PreferencesTask.ConfigureAwait(true);
             }
+            using (var feedback = new StatusIndicatorHost(_composition.Desktop))
+            {
+                feedback.Update(true, DictationState.Idle, Guid.Empty);
+                if (feedback.Window is not null) throw new InvalidOperationException("Idle startup created a feedback window");
+                StatusIndicator? previous = null;
+                for (var cycle = 0; cycle < 3; cycle++)
+                {
+                    var jobId = Guid.NewGuid();
+                    feedback.Update(true, DictationState.Recording, jobId, 0.06f);
+                    await Task.Delay(100).ConfigureAwait(true);
+                    var window = feedback.Window ?? throw new InvalidOperationException("Feedback window missing");
+                    if (ReferenceEquals(previous, window) || !window.IsVisible || window.TryGetPlatformHandle()?.Handle is not { } handle || handle == IntPtr.Zero
+                        || !window.Screens.All.Any(screen => screen.WorkingArea.Contains(window.Position)))
+                        throw new InvalidOperationException("Fresh native feedback window unavailable or off screen");
+                    feedback.Update(true, DictationState.AwaitingRetry, jobId);
+                    feedback.Update(false, DictationState.AwaitingRetry, jobId);
+                    feedback.Update(true, DictationState.Transcribing, jobId);
+                    if (!ReferenceEquals(window, feedback.Window) || !window.IsVisible)
+                        throw new InvalidOperationException("Retry lost its feedback window");
+                    feedback.Update(true, DictationState.Idle, jobId);
+                    if (feedback.Window is not null) throw new InvalidOperationException("Idle retained a native feedback window");
+                    previous = window;
+                }
+            }
+            Console.WriteLine("  [ok] lazy feedback startup, three fresh native recording windows, retry and idle cleanup");
             for (var cycle = 0; cycle < 5; cycle++)
             {
                 OnTrayShow(null, EventArgs.Empty);
@@ -150,7 +176,8 @@ public partial class App : Application
     {
         if (_composition is null || _main is null || _indicator is null || _quitting) return;
         _main.SyncStatus();
-        var state = _composition.Engine?.State ?? DictationState.Idle;
+        var engine = _composition.Engine;
+        var state = engine?.State ?? DictationState.Idle;
         var text = _composition.IsPreparingSpeech ? "Freehand preparing speech"
             : _composition.PreparationError is not null ? "Freehand needs attention"
             : state == DictationState.Idle && !_composition.IsDictationReady ? "Freehand speech unavailable"
@@ -158,7 +185,7 @@ public partial class App : Application
         var icons = TrayIcon.GetIcons(this);
         if (icons is not null) foreach (var icon in icons) icon.ToolTipText = text;
         _indicator.Update(!_main.IsVisible || _main.WindowState == WindowState.Minimized,
-            state, _composition.Engine?.Level ?? 0, _composition.Engine?.Feedback);
+            state, engine?.CurrentJobId ?? Guid.Empty, engine?.Level ?? 0, engine?.Feedback);
         if (_composition.Updates is { } updates)
         {
             if (updates.Snapshot is { Phase: UpdatePhase.Available, Package: { } package }
@@ -192,7 +219,7 @@ public partial class App : Application
         _updateWindow?.Close();
         try
         {
-            _indicator?.Close();
+            _indicator?.Dispose();
             if (_composition is not null) await _composition.DisposeAsync().ConfigureAwait(true);
         }
         catch (Exception e) { _composition?.Logs.Write(Guid.Empty, "shutdown-" + e.GetType().Name); }

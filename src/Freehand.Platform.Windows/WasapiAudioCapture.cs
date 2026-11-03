@@ -186,9 +186,18 @@ public sealed class WasapiAudioCapture : IAudioCapture
 
     private void Publish(float[] samples)
     {
+        NormalizeSamples(samples);
         DetectBlockedMicrophone(samples);
         if (_channel?.Writer.TryWrite(samples) == false)
             _channel.Writer.TryComplete(new IOException("Audio capture could not keep up. Please retry."));
+    }
+
+    internal static void NormalizeSamples(Span<float> samples)
+    {
+        // Device gain and resampling can overshoot full scale. Enforce the owned
+        // capture boundary before the worker validates its incoming PCM.
+        foreach (ref var sample in samples)
+            sample = float.IsFinite(sample) ? Math.Clamp(sample, -1f, 1f) : 0f;
     }
 
     private void DetectBlockedMicrophone(float[] samples)

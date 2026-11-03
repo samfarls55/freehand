@@ -7,6 +7,32 @@ namespace Freehand.Windows.Tests;
 
 public sealed class AudioResamplerTests
 {
+    [Fact]
+    public void Capture_keeps_full_scale_resampling_within_the_worker_audio_contract()
+    {
+        var converter = new AudioResampler(WaveFormat.CreateIeeeFloatWaveFormat(48000, 1));
+        var input = Enumerable.Range(0, 4800).Select(i => i % 96 < 48 ? 0.99f : -0.99f).ToArray();
+        var bytes = MemoryMarshal.AsBytes(input.AsSpan()).ToArray();
+        var output = converter.Convert(bytes, bytes.Length).SelectMany(chunk => chunk).ToArray();
+        Assert.NotEmpty(output);
+        WasapiAudioCapture.NormalizeSamples(output);
+        Assert.All(output, sample => Assert.InRange(sample, -1f, 1f));
+    }
+
+    [Theory]
+    [InlineData(1.2f, 1f)]
+    [InlineData(-1.2f, -1f)]
+    [InlineData(float.NaN, 0f)]
+    [InlineData(float.PositiveInfinity, 0f)]
+    [InlineData(float.NegativeInfinity, 0f)]
+    [InlineData(0.25f, 0.25f)]
+    public void Capture_produces_finite_bounded_audio(float input, float expected)
+    {
+        var samples = new[] { input };
+        WasapiAudioCapture.NormalizeSamples(samples);
+        Assert.Equal(expected, samples[0]);
+    }
+
     [Theory]
     [InlineData(48000, 1, 32)]
     [InlineData(48000, 2, 32)]

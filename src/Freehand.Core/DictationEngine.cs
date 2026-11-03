@@ -99,6 +99,8 @@ public sealed class DictationEngine : IAsyncDisposable
         ForegroundTarget Target, IReadOnlyList<DictionaryEntry> Entries);
     /// <summary>Current dictation state.</summary>
     public DictationState State { get { lock (_sync) return _state; } }
+    /// <summary>Identity of the accepted recording, preserved through retries.</summary>
+    public Guid CurrentJobId { get { lock (_sync) return _job; } }
     /// <summary>Input level.</summary>
     public float Level { get; private set; }
     /// <summary>Text retained even when persistent history is disabled.</summary>
