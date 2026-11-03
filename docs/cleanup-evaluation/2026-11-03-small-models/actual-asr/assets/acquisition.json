@@ -1,0 +1,62 @@
+{
+  "records": [
+    {
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet_tdt_transducer_110m-en-36000-int8.tar.bz2",
+      "path": "parakeet-110m.tar.bz2",
+      "bytes": 108035095,
+      "sha256": "f628312e9fdf8686374cb01a69425c41732529d540860311f16f37cbc32cfe9b",
+      "expected_sha256": "f628312e9fdf8686374cb01a69425c41732529d540860311f16f37cbc32cfe9b"
+    },
+    {
+      "path": "parakeet-110m/encoder.int8.onnx",
+      "bytes": 131113202,
+      "sha256": "0f35509ddeb9b39002fb077d979a9fe74f06eb0bc4dd5c34f512f82e5111d657",
+      "verification": "Pinned production manifest expected full-file SHA256/size"
+    },
+    {
+      "path": "parakeet-110m/decoder.int8.onnx",
+      "bytes": 3955863,
+      "sha256": "f7c331c5504c2e593c76ed22b728e3f554af6c4a383dde862e719ced08b1da19",
+      "verification": "Pinned production manifest expected full-file SHA256/size"
+    },
+    {
+      "path": "parakeet-110m/joiner.int8.onnx",
+      "bytes": 1411403,
+      "sha256": "bf7dff69e9f2cdbe9943d70da358f38b361c115ba0105bae7e908e0d6ec782f6",
+      "verification": "Pinned production manifest expected full-file SHA256/size"
+    },
+    {
+      "path": "parakeet-110m/tokens.txt",
+      "bytes": 9953,
+      "sha256": "450e56bd2f036fe5b6aa821865838cc5aa9d8b0106134ce9a9ba0664abe6cd10",
+      "verification": "Pinned production manifest expected full-file SHA256/size"
+    },
+    {
+      "url": "https://api.nuget.org/v3-flatcontainer/org.k2fsa.sherpa.onnx.runtime.linux-x64/2.0.0/org.k2fsa.sherpa.onnx.runtime.linux-x64.2.0.0.nupkg",
+      "path": "sherpa-linux-x64-2.0.0.nupkg",
+      "bytes": 10668748,
+      "sha256": "8039f3ae3978a550169945dd06a79a3efe43ec98442bf27e7c6a81f809756de5",
+      "expected_sha256": null
+    },
+    {
+      "path": "native/libonnxruntime.so",
+      "bytes": 27026609,
+      "sha256": "4b3607aebd1784b26b6f9b20e4bd974c7ab8287043e4d095cb7d2cb40b5e566e",
+      "verification": "Research-only exact2.0.0 NuGet extraction; independently recorded full-file SHA256, no production dependency modification"
+    },
+    {
+      "path": "native/libsherpa-onnx-c-api.so",
+      "bytes": 4838808,
+      "sha256": "e4ab80c332da6fdf634cc18cb6f4039b35d3fc47c8bd5fb21b74f16240a6e848",
+      "verification": "Research-only exact2.0.0 NuGet extraction; independently recorded full-file SHA256, no production dependency modification"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ggml-org/whisper.cpp/b0a11594aec50892a02cd8d129eee2dfe93a8bb8/samples/jfk.wav",
+      "path": "jfk.wav",
+      "bytes": 352078,
+      "sha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e",
+      "expected_sha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e"
+    }
+  ],
+  "scope": "Research-only Linux native2.0.0 alongside unchanged production code/model pins. No Windows equivalence claim."
+}

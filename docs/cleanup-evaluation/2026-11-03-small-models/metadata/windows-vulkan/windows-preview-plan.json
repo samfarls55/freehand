@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "status": "unqualified_windows_preview_preparation",
+  "runtime_version": "llama.cpp b12015",
+  "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+  "profiles": [
+    {
+      "candidate": "emberon",
+      "mode": "gpu",
+      "runtime_backend": "win-x64-vulkan",
+      "execution_label": "NVIDIA Vulkan GPU preview",
+      "bundle": "bundles/emberon-lookup0",
+      "manifest_template": "profiles/emberon-gpu.template.json",
+      "manifest_template_sha256": "f9a594967364de2c26a5896fcb6f5b2a55735e2376062499e6bf7f7b840091dd",
+      "template_placement": "Copy to cleanup-manifest.json at root of a fresh isolated bundle copy. Not directly selectable from profiles directory.",
+      "gpuLayers": 999,
+      "promptLookupTokens": 0,
+      "env_set": {
+        "LLAMA_ARG_DEVICE": "<exact discovered unique NVIDIA VulkanN>"
+      },
+      "env_remove": [
+        "GGML_VK_VISIBLE_DEVICES",
+        "LLAMA_ARG_MAIN_GPU",
+        "LLAMA_ARG_SPLIT_MODE",
+        "LLAMA_ARG_TENSOR_SPLIT",
+        "LLAMA_ARG_OVERRIDE_TENSOR"
+      ],
+      "native_windows_run": false
+    },
+    {
+      "candidate": "emberon",
+      "mode": "cpu",
+      "runtime_backend": "win-x64-vulkan",
+      "execution_label": "Vulkan runtime, CPU execution control",
+      "bundle": "bundles/emberon-lookup0",
+      "manifest_template": "profiles/emberon-cpu.template.json",
+      "manifest_template_sha256": "7b0cdd7a9da81d2e43fe27ea111684ff547cc0b10721e0710794fe5502d3f5fb",
+      "template_placement": "Copy to cleanup-manifest.json at root of a fresh isolated bundle copy. Not directly selectable from profiles directory.",
+      "gpuLayers": 0,
+      "promptLookupTokens": 0,
+      "env_set": {
+        "LLAMA_ARG_DEVICE": "none"
+      },
+      "env_remove": [
+        "GGML_VK_VISIBLE_DEVICES",
+        "LLAMA_ARG_MAIN_GPU",
+        "LLAMA_ARG_SPLIT_MODE",
+        "LLAMA_ARG_TENSOR_SPLIT",
+        "LLAMA_ARG_OVERRIDE_TENSOR"
+      ],
+      "native_windows_run": false
+    },
+    {
+      "candidate": "scribekey-q4",
+      "mode": "gpu",
+      "runtime_backend": "win-x64-vulkan",
+      "execution_label": "NVIDIA Vulkan GPU preview",
+      "bundle": "bundles/scribekey-q4-lookup0",
+      "manifest_template": "profiles/scribekey-q4-gpu.template.json",
+      "manifest_template_sha256": "55e8ce892a30dfba9fa959297818989f6082e42ee5fc986a3b3d19ac0c0688ac",
+      "template_placement": "Copy to cleanup-manifest.json at root of a fresh isolated bundle copy. Not directly selectable from profiles directory.",
+      "gpuLayers": 999,
+      "promptLookupTokens": 0,
+      "env_set": {
+        "LLAMA_ARG_DEVICE": "<exact discovered unique NVIDIA VulkanN>"
+      },
+      "env_remove": [
+        "GGML_VK_VISIBLE_DEVICES",
+        "LLAMA_ARG_MAIN_GPU",
+        "LLAMA_ARG_SPLIT_MODE",
+        "LLAMA_ARG_TENSOR_SPLIT",
+        "LLAMA_ARG_OVERRIDE_TENSOR"
+      ],
+      "native_windows_run": false
+    },
+    {
+      "candidate": "scribekey-q4",
+      "mode": "cpu",
+      "runtime_backend": "win-x64-vulkan",
+      "execution_label": "Vulkan runtime, CPU execution control",
+      "bundle": "bundles/scribekey-q4-lookup0",
+      "manifest_template": "profiles/scribekey-q4-cpu.template.json",
+      "manifest_template_sha256": "cd0be36ff1fb319021a7bff8103d9463c3a510240f92fcc77fa7fb9b3601b7ed",
+      "template_placement": "Copy to cleanup-manifest.json at root of a fresh isolated bundle copy. Not directly selectable from profiles directory.",
+      "gpuLayers": 0,
+      "promptLookupTokens": 0,
+      "env_set": {
+        "LLAMA_ARG_DEVICE": "none"
+      },
+      "env_remove": [
+        "GGML_VK_VISIBLE_DEVICES",
+        "LLAMA_ARG_MAIN_GPU",
+        "LLAMA_ARG_SPLIT_MODE",
+        "LLAMA_ARG_TENSOR_SPLIT",
+        "LLAMA_ARG_OVERRIDE_TENSOR"
+      ],
+      "native_windows_run": false
+    }
+  ],
+  "device_discovery": "Verified runtime --list-devices; exact VulkanN label and unique NVIDIA description only. Abort on none/ambiguous/error; do not translate to physical ordinal filter.",
+  "isolation": "Use a new preview directory and application data/settings profile. Never replace normal cleanup assets/profile. Original prepared bundles remain immutable.",
+  "model_storage": "Source GGUF hardlinks avoid duplicate source model bytes in Linux workspace. Portable archives must include regular model bytes and complete relative-path inventories.",
+  "gpu_execution_validation": "Need native selected-backend/offload proof and per-worker Windows dedicated/shared GPU memory/compute telemetry. Linux hash checks do not execute Windows code.",
+  "settings_acquisition": "Emberon weights have an immutable upstream URL; locally derived Scribe Q4 has no hosted URL. Its original BF16/Q8 source URL cannot substitute for these Q4 bytes.",
+  "whole_app_sla_limits": {
+    "host_memory_bytes": 747500000,
+    "release_to_complete_text_milliseconds": 805
+  },
+  "windows_startup_tested": false,
+  "gpu_inference_tested": false,
+  "sla_proven": false
+}

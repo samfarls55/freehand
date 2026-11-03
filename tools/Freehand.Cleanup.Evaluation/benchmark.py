@@ -454,7 +454,7 @@ def read_completion(candidate: dict, response: dict) -> tuple[str, dict]:
                     "finish_reason": choice.get("finish_reason"), "returned_model": response.get("model")}
     if not isinstance(output, str) or not output.strip():
         raise ValueError("Empty or non-text completion")
-    if "<think>" in output.lower() or "</think>" in output.lower() or any(control in output for control in ("<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>")):
+    if "<think>" in output.lower() or "</think>" in output.lower() or any(control in output for control in ("<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>", "<|startoftext|>")):
         raise ValueError("Cleanup returned model control output")
     return output, metadata
 

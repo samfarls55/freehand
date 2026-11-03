@@ -59,7 +59,7 @@ public sealed class CleanupAssetInstaller
         return new(plan.ModelId, plan.Model.Size, plan.TotalBytes);
     }
 
-    /// <summary>Installs the Windows CPU model/runtime selected by the packaged acquisition manifests.</summary>
+    /// <summary>Installs the pinned Windows CPU or Vulkan model/runtime selected by the packaged acquisition manifests.</summary>
     public async Task<CleanupAssetInstallation> InstallAsync(string modelManifestPath, string runtimeManifestPath,
         IProgress<CleanupAssetProgress>? progress = null, CancellationToken cancellationToken = default)
     {
@@ -272,7 +272,7 @@ public sealed class CleanupAssetInstaller
         {
             writer.WriteStartObject();
             writer.WriteNumber("schemaVersion", 1);
-            writer.WriteString("platform", "win-x64-cpu");
+            writer.WriteString("platform", plan.RuntimePlatform);
             writer.WriteString("runtimePath", "runtime/llama-server.exe");
             writer.WriteString("runtimeSha256", plan.ExecutableSha256);
             writer.WriteString("modelPath", "model.gguf");
@@ -284,6 +284,10 @@ public sealed class CleanupAssetInstaller
             writer.WriteString("runtimeSourceUrl", plan.Archive.Source.AbsoluteUri);
             writer.WriteString("runtimeRevision", plan.RuntimeRevision);
             foreach (var setting in plan.Inference) writer.WriteNumber(char.ToLowerInvariant(setting.Key[0]) + setting.Key[1..], setting.Value);
+            writer.WriteBoolean("maskSpecialistLiterals", plan.MaskSpecialistLiterals);
+            writer.WriteBoolean("repack", plan.Repack);
+            writer.WriteString("cacheTypeK", plan.CacheTypeK);
+            writer.WriteString("cacheTypeV", plan.CacheTypeV);
             writer.WriteStartArray("files");
             foreach (var file in files)
             {
@@ -302,10 +306,19 @@ public sealed class CleanupAssetInstaller
             RejectLink(directory);
             foreach (var child in Directory.EnumerateDirectories(directory, "*", SearchOption.AllDirectories)) RejectLink(child);
             var options = LlamaCleanupOptions.LoadManifest(Path.Combine(directory, "cleanup-manifest.json"));
+            using var manifest = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(directory, "cleanup-manifest.json"), token).ConfigureAwait(false));
+            var platform = manifest.RootElement.TryGetProperty("platform", out var configuredPlatform)
+                ? configuredPlatform.ValueKind == JsonValueKind.String ? configuredPlatform.GetString() : null : "win-x64-cpu";
+            if (platform != plan.RuntimePlatform) return false;
             if (options.ModelId != plan.ModelId || options.ModelSha256 != plan.Model.Sha256 || options.RuntimeSha256 != plan.ExecutableSha256
                 || options.PromptStyle.ToString() != plan.PromptStyle
                 || options.Threads != plan.Inference["Threads"] || options.ContextSize != plan.Inference["ContextSize"]
                 || options.MaxOutputTokens != plan.Inference["MaxOutputTokens"] || options.GpuLayers != plan.Inference["GpuLayers"]
+                || options.BatchSize != plan.Inference["BatchSize"] || options.MicroBatchSize != plan.Inference["MicroBatchSize"]
+                || options.PromptCacheMiB != plan.Inference["PromptCacheMiB"] || options.ContextCheckpoints != plan.Inference["ContextCheckpoints"]
+                || options.PromptLookupTokens != plan.Inference["PromptLookupTokens"] || options.PromptLookupMatchTokens != plan.Inference["PromptLookupMatchTokens"]
+                || options.MaskSpecialistLiterals != plan.MaskSpecialistLiterals || options.Repack != plan.Repack
+                || options.CacheTypeK != plan.CacheTypeK || options.CacheTypeV != plan.CacheTypeV
                 || options.StartupTimeout != TimeSpan.FromSeconds(plan.Inference["StartupTimeoutSeconds"])
                 || options.IdleTimeout != TimeSpan.FromSeconds(plan.Inference["IdleTimeoutSeconds"])
                 || !options.ModelPath.Equals(Path.Combine(directory, "model.gguf"), StringComparison.OrdinalIgnoreCase)
@@ -350,9 +363,10 @@ public sealed class CleanupAssetInstaller
     }
 
     private sealed record Artifact(Uri Source, string Sha256, long Size, string? Name = null);
-    private sealed record Plan(string ModelId, string PromptStyle, string ModelRevision, string RuntimeRevision,
+    private sealed record Plan(string ModelId, string PromptStyle, string ModelRevision, string RuntimeRevision, string RuntimePlatform,
         Artifact Model, Artifact ModelLicense, Artifact RuntimeLicense, Artifact Archive, Artifact[] Notices,
-        string ExecutableSha256, IReadOnlyDictionary<string, int> Inference)
+        string ExecutableSha256, IReadOnlyDictionary<string, int> Inference,
+        bool MaskSpecialistLiterals, bool Repack, string CacheTypeK, string CacheTypeV)
     {
         internal long TotalBytes => checked(Model.Size + ModelLicense.Size + RuntimeLicense.Size + Archive.Size + Notices.Sum(notice => notice.Size));
     }
@@ -377,8 +391,11 @@ public sealed class CleanupAssetInstaller
         if (weights.Source.Host.Equals("huggingface.co", StringComparison.OrdinalIgnoreCase)
             && !weights.Source.AbsolutePath.Contains("/resolve/" + revision + "/", StringComparison.Ordinal))
             throw new InvalidDataException("Hugging Face cleanup downloads must resolve the pinned revision.");
+        var runtimePlatform = selected.TryGetProperty("RuntimePlatform", out _) ? Text(selected, "RuntimePlatform") : "win-x64-cpu";
+        if (runtimePlatform is not ("win-x64-cpu" or "win-x64-vulkan"))
+            throw new InvalidDataException("Cleanup setup requires a supported pinned Windows runtime platform.");
         var artifacts = native.GetProperty("Artifacts").EnumerateArray()
-            .Where(value => Text(value, "Platform") == "win-x64-cpu").ToArray();
+            .Where(value => Text(value, "Platform") == runtimePlatform).ToArray();
         if (artifacts.Length != 1 || Text(artifacts[0], "Executable") != "llama-server.exe")
             throw new InvalidDataException("The Windows cleanup runtime must be pinned exactly once.");
         var executableHash = Text(artifacts[0], "ExecutableSha256");
@@ -403,9 +420,19 @@ public sealed class CleanupAssetInstaller
             ["Threads"] = Limit(inference, "Threads", 1, 256), ["ContextSize"] = Limit(inference, "ContextSize", 256, 1048576),
             ["MaxOutputTokens"] = Limit(inference, "MaxOutputTokens", 1, 1048575), ["GpuLayers"] = Limit(inference, "GpuLayers", 0, 1000),
             ["StartupTimeoutSeconds"] = Limit(inference, "StartupTimeoutSeconds", 1, 1800), ["IdleTimeoutSeconds"] = Limit(inference, "IdleTimeoutSeconds", 0, 86400),
+            ["BatchSize"] = OptionalLimit(inference, "BatchSize", 1, 8192, 128),
+            ["MicroBatchSize"] = OptionalLimit(inference, "MicroBatchSize", 1, 8192, 128),
+            ["PromptCacheMiB"] = OptionalLimit(inference, "PromptCacheMiB", 0, 8192, 0),
+            ["ContextCheckpoints"] = OptionalLimit(inference, "ContextCheckpoints", 0, 32, 0),
+            ["PromptLookupTokens"] = OptionalLimit(inference, "PromptLookupTokens", 0, 64, 0),
+            ["PromptLookupMatchTokens"] = OptionalLimit(inference, "PromptLookupMatchTokens", 1, 12, 3),
         };
         if (settings["MaxOutputTokens"] >= settings["ContextSize"]) throw new InvalidDataException("Cleanup output must fit inside its context budget.");
-        return new(id, style, revision, runtimeRevision, weights, license, runtimeLicense, archive, notices, executableHash, settings);
+        if (settings["MicroBatchSize"] > settings["BatchSize"]) throw new InvalidDataException("Cleanup micro-batch must not exceed its logical batch.");
+        if (settings["PromptLookupTokens"] >= settings["BatchSize"]) throw new InvalidDataException("Cleanup prompt lookup plus its sampled token must fit the logical batch.");
+        return new(id, style, revision, runtimeRevision, runtimePlatform, weights, license, runtimeLicense, archive, notices, executableHash, settings,
+            OptionalBoolean(inference, "MaskSpecialistLiterals", false), OptionalBoolean(inference, "Repack", true),
+            CacheType(inference, "CacheTypeK"), CacheType(inference, "CacheTypeV"));
     }
 
     private static Artifact ReadArtifact(JsonElement value, string hashName = "Sha256", string sizeName = "Size")
@@ -423,11 +450,27 @@ public sealed class CleanupAssetInstaller
         && property.ValueKind == JsonValueKind.String && !string.IsNullOrWhiteSpace(property.GetString())
             ? property.GetString()! : throw new InvalidDataException("A required cleanup manifest string is missing.");
     private static long Number(JsonElement value, string name) => value.TryGetProperty(name, out var property)
-        && property.TryGetInt64(out var result) ? result : throw new InvalidDataException("A required cleanup manifest integer is missing.");
+        && property.ValueKind == JsonValueKind.Number && property.TryGetInt64(out var result)
+            ? result : throw new InvalidDataException("A required cleanup manifest integer is missing.");
     private static bool IsHex(string value, int length) => value.Length == length && value.All(char.IsAsciiHexDigit);
     private static int Limit(JsonElement value, string name, int minimum, int maximum)
     {
         var number = Number(value, name);
         return number >= minimum && number <= maximum ? (int)number : throw new InvalidDataException("A cleanup inference limit is invalid.");
+    }
+    private static int OptionalLimit(JsonElement value, string name, int minimum, int maximum, int fallback) =>
+        value.TryGetProperty(name, out _) ? Limit(value, name, minimum, maximum) : fallback;
+    private static bool OptionalBoolean(JsonElement value, string name, bool fallback)
+    {
+        if (!value.TryGetProperty(name, out var property)) return fallback;
+        if (property.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
+            throw new InvalidDataException("A cleanup inference boolean is invalid.");
+        return property.GetBoolean();
+    }
+    private static string CacheType(JsonElement value, string name)
+    {
+        if (!value.TryGetProperty(name, out _)) return "f16";
+        var type = Text(value, name);
+        return type is "f16" or "q8_0" or "q4_0" ? type : throw new InvalidDataException("A cleanup cache type is invalid.");
     }
 }

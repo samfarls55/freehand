@@ -23,6 +23,8 @@ internal static class Program
         try
         {
             if (args is ["--selftest"]) return await SelfTestAsync().ConfigureAwait(false);
+            if (args.Length > 0 && args[0] == "--export-prompts")
+                return await ExportPromptsAsync(args[1..]).ConfigureAwait(false);
             var options = ParseArguments(args);
             using var cancelled = new CancellationTokenSource();
             void Cancel(object? sender, ConsoleCancelEventArgs eventArgs) { eventArgs.Cancel = true; cancelled.Cancel(); }
@@ -36,6 +38,71 @@ internal static class Program
             Console.Error.WriteLine("Usage: Freehand.Cleanup.Probe --input corpus.json --output results.json [--manifest cleanup-manifest.json] [--split development|heldout|all] [--cleanup-timeout-seconds 120]");
             return 2;
         }
+    }
+
+    private static async Task<int> ExportPromptsAsync(string[] args)
+    {
+        string? input = null, output = null, styleText = null;
+        var split = "all";
+        var maskSpecialistLiterals = false;
+        for (var index = 0; index < args.Length; index++)
+        {
+            if (index + 1 >= args.Length) throw new ArgumentException("Each export option needs a value.");
+            var option = args[index];
+            var value = args[++index];
+            switch (option)
+            {
+                case "--input": input = Path.GetFullPath(value); break;
+                case "--output": output = Path.GetFullPath(value); break;
+                case "--prompt-style": styleText = value; break;
+                case "--split": split = value; break;
+                case "--mask-specialist-literals":
+                    if (!bool.TryParse(value, out maskSpecialistLiterals))
+                        throw new ArgumentException("--mask-specialist-literals must be true or false.");
+                    break;
+                default: throw new ArgumentException("Unknown prompt export option: " + option);
+            }
+        }
+        if (input is null || output is null || styleText is null)
+            throw new ArgumentException("Prompt export requires --input, --output and --prompt-style.");
+        if (input == output || File.Exists(output)) throw new ArgumentException("Prompt export requires a new output file.");
+        if (split is not ("all" or "development" or "heldout")) throw new ArgumentException("Unsupported split.");
+        if (!Enum.TryParse<CleanupPromptStyle>(styleText, true, out var style) || !Enum.IsDefined(style))
+            throw new ArgumentException("Unsupported prompt style.");
+        var bytes = await File.ReadAllBytesAsync(input).ConfigureAwait(false);
+        using var document = JsonDocument.Parse(bytes);
+        var parsed = ReadCases(document.RootElement, split).ToDictionary(fixture => fixture.Id, StringComparer.Ordinal);
+        var exported = new List<ExportedPromptCase>();
+        foreach (var fixture in document.RootElement.GetProperty("cases").EnumerateArray())
+        {
+            if (split != "all" && (OptionalString(fixture, "split") ?? "development") != split) continue;
+            var source = parsed[RequiredString(fixture, "id")];
+            var baseline = await RunCaseAsync(source, null, TimeSpan.FromSeconds(5), CancellationToken.None).ConfigureAwait(false);
+            if (baseline.Error is not null || baseline.NormalizedInput is null)
+                throw new InvalidDataException("Prompt export normalization failed for case: " + source.Id);
+            var text = baseline.NormalizedInput;
+            var references = await NormalizeReferencesAsync(source, CancellationToken.None).ConfigureAwait(false);
+            var general = CleanupPrompt.IsGeneral(style);
+            var maskLiterals = general || maskSpecialistLiterals;
+            var maskProtocol = general ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none";
+            var modelText = general ? LiteralProtectionMask.Create(text).MaskedText
+                : maskSpecialistLiterals ? SpecialistLiteralMask.Create(text).MaskedText : text;
+            var completion = general ? null : CleanupPrompt.BuildCompletion(style, modelText);
+            ExportedChatMessage[]? messages = general
+                ? [new("system", CleanupPrompt.Text), new("user", CleanupPrompt.WrapTranscript(modelText))]
+                : null;
+            exported.Add(new(fixture.Clone(), text, references.Targets, references.Checks, maskLiterals, maskProtocol,
+                Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(modelText))).ToLowerInvariant(), completion, messages));
+        }
+        var report = new PromptExport(1, input, Convert.ToHexString(SHA256.HashData(bytes)), style.ToString(),
+            CleanupPrompt.IsGeneral(style) || maskSpecialistLiterals,
+            CleanupPrompt.IsGeneral(style) ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none",
+            "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+            await ManagedHashesAsync(CancellationToken.None).ConfigureAwait(false), exported);
+        Directory.CreateDirectory(Path.GetDirectoryName(output)!);
+        await File.WriteAllTextAsync(output, JsonSerializer.Serialize(report, ProbeJsonContext.Default.PromptExport)).ConfigureAwait(false);
+        Console.WriteLine("Exported " + exported.Count.ToString(CultureInfo.InvariantCulture) + " production prompts: " + output);
+        return 0;
     }
 
     private static Arguments ParseArguments(string[] args)
@@ -406,7 +473,14 @@ internal sealed record ProbeCaseResult(string Id, string Split, string Input, st
 internal sealed record FixtureChecks(IReadOnlyList<string> Include, IReadOnlyList<string> Exclude,
     IReadOnlyList<string> Literals, IReadOnlyList<IReadOnlyList<string>> AnyOf, IReadOnlyList<IReadOnlyList<string>> Ordered);
 internal sealed record ProbeReport(int SchemaVersion, ProbeMetadata Metadata, bool Incomplete, IReadOnlyList<ProbeCaseResult> Cases);
+internal sealed record ExportedChatMessage(string Role, string Content);
+internal sealed record ExportedPromptCase(JsonElement Fixture, string NormalizedInput, IReadOnlyList<string> NormalizedTargets,
+    FixtureChecks? NormalizedChecks, bool MaskLiterals, string LiteralMaskProtocol, string ModelInputSha256,
+    CleanupCompletionPrompt? Completion, ExportedChatMessage[]? Messages);
+internal sealed record PromptExport(int SchemaVersion, string CorpusPath, string CorpusSha256, string PromptStyle,
+    bool MaskLiterals, string LiteralMaskProtocol, string InputNote, IReadOnlyDictionary<string, string> ManagedAssemblySha256, IReadOnlyList<ExportedPromptCase> Cases);
 
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower, WriteIndented = true)]
 [JsonSerializable(typeof(ProbeReport))]
+[JsonSerializable(typeof(PromptExport))]
 internal sealed partial class ProbeJsonContext : JsonSerializerContext;

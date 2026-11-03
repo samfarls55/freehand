@@ -1,5 +1,48 @@
 # Freehand transcript cleanup handoff
 
+## Implementation and qualification checkpoint — November 3, 2026
+
+The user now requires whole-app host RAM and ready release-to-complete delivery
+within **15%** of the documented SLAs: **747,500,000 bytes / 805 ms**. This
+supersedes the archived quality-first resource exception below. Read the
+[small-model implementation and evaluation](TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md)
+and its [complete baseline evidence](cleanup-evaluation/2026-11-03-small-models/baseline-results.md).
+
+All 13 shortlisted artifacts and a locally derived ScribeKey Q4 were actually
+run. The implementation supports their prescribed contracts, exact native token
+prompts, bounded runtime settings, verified compact literal/quote restoration,
+optional bounded prompt lookup and pinned Windows Vulkan provisioning. Strict
+source builds, 585 affected .NET tests, 112 script tests and 57 Python tests pass.
+A published Linux startup smoke check passes.
+
+**No model qualified as a production default.** The fresh frozen 40-case trial
+exposed accepted meaning changes in both CPU finalists; subsequent S1-mini and
+Spokenly comparisons used already-exposed validation data and also failed.
+Repeated real-ASR CPU runs missed either 805 ms or the RAM cap even before UI
+and Windows delivery. The existing Qwen9B acquisition pin is a preserved quality
+reference, not a new default recommendation. Small-model experiments use explicit
+verified custom bundles. Do not promote a failed candidate silently.
+
+The user explicitly has **no Windows access now**. Windows/GPU execution, target
+whole-app SLAs and physical microphone/key delivery remain unverified. An
+isolated Windows preview with Emberon/Scribe Q4 CPU and NVIDIA Vulkan profiles
+and a full desktop qualification command is prepared under
+`work/cleanup-small-models-2026-11-03/windows-preview`. A separate portable
+source/evidence handoff and preview ZIP are retained in that work directory;
+they are workspace artifacts, not files in Git. No normal installed update,
+push, PR, merge or release was performed.
+
+The filenames are `cleanup-small-models-handoff.tar.gz` and
+`cleanup-windows-preview.zip`, each with a `.sha256` sidecar. The source handoff
+records its exact base/source commits and includes a verified complete patch;
+the Windows ZIP includes its own full inventory and isolated run instructions.
+
+Model and adapter behavior was frozen before the new test. Further quality
+changes require a genuinely new frozen corpus; the consumed 40 cases are now
+regression/validation material. The protected superseded-name correction
+(`integration-09`) remains a failed-cleanup/original-text fallback, not successful
+Backtrack coverage.
+
 ## Subsequent research checkpoint — October 30, 2026
 
 Production selection is reopened after the expanded

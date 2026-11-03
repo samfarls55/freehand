@@ -1,0 +1,3772 @@
+{
+  "schema_version": 1,
+  "generator": "collect_public_evidence.py-v1",
+  "scope": "Public synthetic text and public JFK-derived research replay; no Windows whole-app SLA pass or final model selection inferred.",
+  "source_root_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03",
+  "source_paths_role": "Historical provenance only; copied files and hashes are the portable evidence.",
+  "snapshot_policy": "Differing already copied source bytes are never overwritten. Use a distinct revision/stage path after explicit review.",
+  "completed_native_runs": [
+    {
+      "stage": "final-development",
+      "condition": "emberon-lookup",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "final-development/emberon-lookup/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v3",
+      "error": null
+    },
+    {
+      "stage": "final-development",
+      "condition": "emberon-none",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "final-development/emberon-none/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v3",
+      "error": null
+    },
+    {
+      "stage": "final-development",
+      "condition": "scribe-q4-lookup",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "final-development/scribe-q4-lookup/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v3",
+      "error": null
+    },
+    {
+      "stage": "final-development",
+      "condition": "scribe-q4-none",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "final-development/scribe-q4-none/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v3",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "emberon/no-repack-no-mmap-b64u32",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/emberon/no-repack-no-mmap-b64u32/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "emberon/repack-mmap-b128",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/emberon/repack-mmap-b128/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "emberon/repack-no-mmap-b128",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/emberon/repack-no-mmap-b128/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "emberon/repack-no-mmap-b64u32",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/emberon/repack-no-mmap-b64u32/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "scribe-q4/no-repack-no-mmap-b64u32",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/scribe-q4/no-repack-no-mmap-b64u32/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "scribe-q4/repack-mmap-b128",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/scribe-q4/repack-mmap-b128/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "scribe-q4/repack-no-mmap-b128",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/scribe-q4/repack-no-mmap-b128/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "loadmode-native",
+      "condition": "scribe-q4/repack-no-mmap-b64u32",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "loadmode-native/scribe-q4/repack-no-mmap-b64u32/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "masked-development",
+      "condition": "emberon",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-development/emberon/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "masked-development",
+      "condition": "handy",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-development/handy/report.json",
+      "candidate_id": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "masked-development",
+      "condition": "s1",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-development/s1/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "masked-development",
+      "condition": "scribe",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-development/scribe/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "masked-v2-development",
+      "condition": "emberon",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-v2-development/emberon/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "masked-v2-development",
+      "condition": "scribe-q4",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-v2-development/scribe-q4/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "masked-v2-development",
+      "condition": "scribe-q8",
+      "state": "completed",
+      "output_rows": 60,
+      "not_run_count": 0,
+      "report": "masked-v2-development/scribe-q8/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "emberon/no-repack-no-mmap-b64u32",
+      "state": "terminal_failure",
+      "output_rows": 0,
+      "not_run_count": 5,
+      "report": "diagnostics/mmap-initial-invalid-cli/emberon/no-repack-no-mmap-b64u32/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": "RuntimeError: Server exited during startup (1); see /workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/no-repack-no-mmap-b64u32/server.log"
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "emberon/repack-mmap-b128",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "mmap-native/emberon/repack-mmap-b128/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "emberon/repack-no-mmap-b128",
+      "state": "terminal_failure",
+      "output_rows": 0,
+      "not_run_count": 5,
+      "report": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b128/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": "RuntimeError: Server exited during startup (1); see /workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b128/server.log"
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "emberon/repack-no-mmap-b64u32",
+      "state": "terminal_failure",
+      "output_rows": 0,
+      "not_run_count": 5,
+      "report": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b64u32/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": "RuntimeError: Server exited during startup (1); see /workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b64u32/server.log"
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "scribe-q4/no-repack-no-mmap-b64u32",
+      "state": "terminal_failure",
+      "output_rows": 0,
+      "not_run_count": 5,
+      "report": "diagnostics/mmap-initial-invalid-cli/scribe-q4/no-repack-no-mmap-b64u32/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": "RuntimeError: Server exited during startup (1); see /workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/no-repack-no-mmap-b64u32/server.log"
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "scribe-q4/repack-mmap-b128",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "mmap-native/scribe-q4/repack-mmap-b128/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "scribe-q4/repack-no-mmap-b128",
+      "state": "terminal_failure",
+      "output_rows": 0,
+      "not_run_count": 5,
+      "report": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b128/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": "RuntimeError: Server exited during startup (1); see /workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b128/server.log"
+    },
+    {
+      "stage": "mmap-native",
+      "condition": "scribe-q4/repack-no-mmap-b64u32",
+      "state": "terminal_failure",
+      "output_rows": 0,
+      "not_run_count": 5,
+      "report": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b64u32/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": "RuntimeError: Server exited during startup (1); see /workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b64u32/server.log"
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p00-baseline",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p00-baseline/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p01-context1024",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p01-context1024/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p02-no-repack",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p02-no-repack/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p03-batch64",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p03-batch64/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p04-ubatch32",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p04-ubatch32/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p05-threads2",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p05-threads2/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "emberon/p06-threads1",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/emberon/p06-threads1/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p00-baseline",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p00-baseline/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p01-context1024",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p01-context1024/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p02-no-repack",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p02-no-repack/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p03-batch64",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p03-batch64/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p04-ubatch32",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p04-ubatch32/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p05-threads2",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p05-threads2/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "s1/p06-threads1",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/s1/p06-threads1/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p00-baseline",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p00-baseline/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p01-context1024",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p01-context1024/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p02-no-repack",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p02-no-repack/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p03-batch64",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p03-batch64/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p04-ubatch32",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p04-ubatch32/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p05-threads2",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p05-threads2/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "resource-native",
+      "condition": "scribe/p06-threads1",
+      "state": "completed",
+      "output_rows": 15,
+      "not_run_count": 0,
+      "report": "resource-native/scribe/p06-threads1/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "bitvoice",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/bitvoice/report.json",
+      "candidate_id": "dhanr4j/bitvoice-dictation:gguf/smollm2-360m-ft.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "emberon",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/emberon/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "granite350",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/granite350/report.json",
+      "candidate_id": "Granite4.0 H350M",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "handy",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/handy/report.json",
+      "candidate_id": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "handy-user",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/handy-user/report.json",
+      "candidate_id": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "kudu",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/kudu/report.json",
+      "candidate_id": "manasdutta04/kudu-writer-tiny:kudu-writer-tiny-v1-iq4_xs.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "lfm230",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/lfm230/report.json",
+      "candidate_id": "LFM2.5 230M",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "localflow",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/localflow/report.json",
+      "candidate_id": "Radiumcoders/localflow-clean:localflow-clean-q4_k_m.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "s1",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/s1/report.json",
+      "candidate_id": "s1-mini-official-q4",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "scribe",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/scribe/report.json",
+      "candidate_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "smol-post-asr",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/smol-post-asr/report.json",
+      "candidate_id": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "smol135",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/smol135/report.json",
+      "candidate_id": "SmolLM2 135M Instruct",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "sotto",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/sotto/report.json",
+      "candidate_id": "scribekey/sotto-cleanup-350m-gguf:sotto-cleanup-350m-Q4_K_M.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "screen",
+      "condition": "spokenly",
+      "state": "completed",
+      "output_rows": 24,
+      "not_run_count": 0,
+      "report": "screen/spokenly/report.json",
+      "candidate_id": "spokenly/cleanup-1-gguf:cleanup-1-q8_0.gguf",
+      "literal_mask_protocol": null,
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "emberon/ngram-map-k",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/emberon/ngram-map-k/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "emberon/ngram-mod",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/emberon/ngram-mod/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "emberon/ngram-simple",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/emberon/ngram-simple/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "emberon/none",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/emberon/none/report.json",
+      "candidate_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "scribe-q4/ngram-map-k",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/scribe-q4/ngram-map-k/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "scribe-q4/ngram-mod",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/scribe-q4/ngram-mod/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "scribe-q4/ngram-simple",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/scribe-q4/ngram-simple/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    },
+    {
+      "stage": "speculation-native",
+      "condition": "scribe-q4/none",
+      "state": "completed",
+      "output_rows": 5,
+      "not_run_count": 0,
+      "report": "speculation-native/scribe-q4/none/report.json",
+      "candidate_id": "ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M",
+      "literal_mask_protocol": "specialist-compact-v2",
+      "error": null
+    }
+  ],
+  "pending_sources": [],
+  "files": [
+    {
+      "path": "actual-asr-text-prompts/Emberon2.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/actual-asr-text-prompts/Emberon2.json",
+      "bytes": 10497,
+      "sha256": "e53426859b173f4dee94532eb8c604eba37cfd0996b62ca077d759d0d9973f0b",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr-text-prompts/ScribeKeyFast.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/actual-asr-text-prompts/ScribeKeyFast.json",
+      "bytes": 10193,
+      "sha256": "9b6c0968483fef1e8134afcc4b6bcca623c30413e8e02b89eaf00dd02f34d8e6",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/assets/acquisition.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/acquisition.json",
+      "bytes": 2891,
+      "sha256": "6a182c5896d80cf7926054a6b39fde49161d8c81308d554438dba4da7244d8b9",
+      "stage": "actual_asr_provenance",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/assets/emberon-compact-frozen.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/emberon-compact-frozen.json",
+      "bytes": 819,
+      "sha256": "85bac99a46296365e6f1bdd211df28812708c6e7a95e761063e392ebb6db0dd8",
+      "stage": "actual_asr_provenance",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/assets/replay-10s-manifest.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+      "bytes": 474,
+      "sha256": "81297543939948a3c29b85855558e0f71ef0ae0d34a878e8c23df30f5e535d92",
+      "stage": "actual_asr_provenance",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/assets/replay-30s-60s-manifest.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-30s-60s-manifest.json",
+      "bytes": 650,
+      "sha256": "2df189ed059d3e0cd5396e753b46c25db356622ebbcf59f972b99d05e39d68b6",
+      "stage": "actual_asr_provenance",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/assets/replay-manifest.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-manifest.json",
+      "bytes": 826,
+      "sha256": "eb2aaac61558a13a7ebc4fdc36701590c1e30e1f1590f5498d4888c00b473cff",
+      "stage": "actual_asr_provenance",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/a-baseline.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/a-baseline.json",
+      "bytes": 4810,
+      "sha256": "e04944383a34514e1dae9f872b69bd64ab72a7bdbde9170a9d670ed7162870b5",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/analysis.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/analysis.json",
+      "bytes": 2176,
+      "sha256": "d4688874889d86464c7c5505ffc4b56e406a05de15972bb26ed8581ecbc2cdc1",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/b-force-stop.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/b-force-stop.json",
+      "bytes": 4804,
+      "sha256": "f2696daab3a6cc4696a2ade6ed3ab305f17d996325c006c0c18beedc8662ee80",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/c-no-spinning.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/c-no-spinning.json",
+      "bytes": 4812,
+      "sha256": "5f6311e6004ef3d5b5b185766dd180390e52405e0b36667c73414254cfb76ff7",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/configs/baseline.config",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/baseline/speech-cpu.config",
+      "bytes": 150,
+      "sha256": "c4636ae4b87ddc53c1ea297241b5ddfe1a34650f4880fb3232bb8607c15f3ca9",
+      "stage": "asr_observer_controls",
+      "qualification": "Linux research override; production speech configuration unchanged.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/configs/force-stop.config",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/force-stop/speech-cpu.config",
+      "bytes": 256,
+      "sha256": "bf2cf94d598c29073e5bbffb4e9139ab23ecd349432aeb15cb3d79f039a43820",
+      "stage": "asr_observer_controls",
+      "qualification": "Linux research override; production speech configuration unchanged.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/configs/no-spinning.config",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/no-spinning/speech-cpu.config",
+      "bytes": 304,
+      "sha256": "4328d7942943e41ea49df24283df1f4a598e069a937c300df6dfb19c3d40f58a",
+      "stage": "asr_observer_controls",
+      "qualification": "Linux research override; production speech configuration unchanged.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/d-baseline-repeat.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/d-baseline-repeat.json",
+      "bytes": 4800,
+      "sha256": "1c8c3be4c7ed1c50e7796ae8f710bdec814091fca4cffa720571f9cfca15cbfd",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/plan.json",
+      "bytes": 17279,
+      "sha256": "984b8b338e7c880d65504e1c0d9715dea878195933f19d6b7abb9498d6d09909",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/source-evidence.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/source-evidence.json",
+      "bytes": 1448,
+      "sha256": "4cc59b316079376eb9b04c8059644460de5575e65c9affe7af1c64875c0379fe",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/observer-controls/summary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/summary.json",
+      "bytes": 7238,
+      "sha256": "7da2eeb23c6c4f42e9e579702d5b1be16acbf24bf1869ab1338629ed5907e888",
+      "stage": "asr_observer_controls",
+      "qualification": "Raw replay memory windows may differ; analysis.json uses the maximum observed simultaneous snapshot, not a sum of independently peaked components.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/config-variants.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/config-variants.json",
+      "bytes": 1031,
+      "sha256": "a401f6b9d130ffc49020a15df07474954ba64ec3a4b6bfe3043f36f74b3e8623",
+      "stage": "asr_runtime_source_audit",
+      "qualification": "Authored source audit and factual primary-source indexes; no runtime replacement shipped.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/configs/baseline.config",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/configs/baseline.config",
+      "bytes": 150,
+      "sha256": "c4636ae4b87ddc53c1ea297241b5ddfe1a34650f4880fb3232bb8607c15f3ca9",
+      "stage": "asr_runtime_source_audit",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/configs/force-stop.config",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/configs/force-stop.config",
+      "bytes": 256,
+      "sha256": "bf2cf94d598c29073e5bbffb4e9139ab23ecd349432aeb15cb3d79f039a43820",
+      "stage": "asr_runtime_source_audit",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/configs/no-spinning.config",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/configs/no-spinning.config",
+      "bytes": 304,
+      "sha256": "4328d7942943e41ea49df24283df1f4a598e069a937c300df6dfb19c3d40f58a",
+      "stage": "asr_runtime_source_audit",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/ort-source-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/ort-source-index.json",
+      "bytes": 364,
+      "sha256": "6e038e4bbc3952785c3320d78380c00007fb43f6617be0f26d72ef22fe91db3d",
+      "stage": "asr_runtime_source_audit",
+      "qualification": "Authored source audit and factual primary-source indexes; no runtime replacement shipped.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/preliminary-walltime-decomposition.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/preliminary-walltime-decomposition.json",
+      "bytes": 6005,
+      "sha256": "f48d53735bf6432b04dd41b97e15c3511052b9f83e3c470aada240fb35582fc2",
+      "stage": "asr_runtime_source_audit",
+      "qualification": "Authored source audit and factual primary-source indexes; no runtime replacement shipped.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/report.md",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/report.md",
+      "bytes": 2902,
+      "sha256": "8bfcc58c321283bc70958f871c5925b1e2c1931cd3ec6882206a613e6a3b2d83",
+      "stage": "asr_runtime_source_audit",
+      "qualification": "Authored source audit and factual primary-source indexes; no runtime replacement shipped.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/runtime-research/source-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/sherpa-cpu-research/source-index.json",
+      "bytes": 3000,
+      "sha256": "5764e181ed52dc939f4739f20a08c7b93a444c0bbc049acec7b1553a7a0a0e5b",
+      "stage": "asr_runtime_source_audit",
+      "qualification": "Authored source audit and factual primary-source indexes; no runtime replacement shipped.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-baseline-10s-portable.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-portable.json",
+      "bytes": 3073,
+      "sha256": "5a80364aa0548d4c58d37eb89273f6aac43f330863189bbf274bc791db81e0e7",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-baseline-10s-r5.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-r5.json",
+      "bytes": 7711,
+      "sha256": "ccb3e96e5419d3c04b931bd8cde4a38e0af4e813520897a4ae73babdb117f0b3",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-baseline-30s-60s.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-30s-60s.json",
+      "bytes": 5669,
+      "sha256": "7b531df14d94624aec5013f4f7f9d1420c36069064b4d2f8e19fbf81633beb6a",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-batch-summary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-batch-summary.json",
+      "bytes": 4940,
+      "sha256": "7f59ec118fd7ca6760aa58f18287282d742492e837367a4518719e137aaa9370",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-emberon-compact-10s-r10.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-10s-r10.json",
+      "bytes": 18052,
+      "sha256": "2434c415798d43d91afa7bb4d632d6865a8ee3c3baa94729d9dfffb10f5d26e2",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-emberon-compact-30s-60s.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-30s-60s.json",
+      "bytes": 8013,
+      "sha256": "029a5d2faf3fa34cf16a28664f2d5b42efa2103ffff62b6bf33995c870f42f66",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "actual-asr/whole-pipeline-plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-plan.json",
+      "bytes": 6431,
+      "sha256": "23dcadf51fb9d79c01818c9f82c4ecc3b3089f503d49785ad4e18c96366f9d78",
+      "stage": "actual_asr_replay",
+      "qualification": "Linux public JFK-derived actual-ASR/Core replay; desktop UI and physical insertion excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/conversion-dependency-wheels.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/curated-metadata/conversion-dependency-wheels.json",
+      "bytes": 8575,
+      "sha256": "855af3d75f1724a1b19f26f35ec3a631479c9327d49a7857bd309931ac07f6dd",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "conversion/conversion-metadata-audit-files-sha256.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-metadata-audit-files-sha256.json",
+      "bytes": 971,
+      "sha256": "00ba303ea41b0cccc78b48e2f6b3e71281086b53d65f5101c4dc27b6340be07b",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/conversion-metadata-audit.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-metadata-audit.json",
+      "bytes": 31635,
+      "sha256": "4f7d959d79810d278dd275b926f9fb05ca3248bd8064acc28a5da5922b0abf6e",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/conversion-package-plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-package-plan.json",
+      "bytes": 7251,
+      "sha256": "4f19b9dbe8a7abf8a1249b7bae11f427988c44889f62c6f190ae5e8caf44b98c",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/conversion-report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-report.json",
+      "bytes": 12953,
+      "sha256": "079fd6170c2519a9dad1aa2c3fa9cca8ccc0fc33838115b9f619df67ade25d0f",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/conversion-requirements.lock",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-requirements.lock",
+      "bytes": 480,
+      "sha256": "8720382f005924017c81e601d1d098dd2467b2116390dd688983f7690928cc72",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/converter-compatible-tokenizer_config.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/converter-compatible-input/tokenizer_config.json",
+      "bytes": 590,
+      "sha256": "28b75964f587e03f69d47db814ab6adba4dda53bf24ece5d7be3f71e5c50d2a8",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Only wrapper class and empty extra-special-token container normalized; original token vocabulary unchanged.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/converter-source-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/converter-source-index.json",
+      "bytes": 45149,
+      "sha256": "2461c411cd538e9dabd01c7ac453cc1ae73c92deb0b27b85a91ddedee0b7e49b",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/f16-header-inspection.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/f16-header-inspection.json",
+      "bytes": 41715,
+      "sha256": "85d332ab213d920f6b61331391f116842aeea295b43c0a87bdcc9b22a3a9e45f",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/native-metadata-source-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/source-index.json",
+      "bytes": 3090,
+      "sha256": "75c9a5609d51a387fbe51b4e52ee237e659611dfefe573d69d983100e93bd9cf",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "conversion/original-model-metadata/config.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/config.json",
+      "bytes": 1072,
+      "sha256": "13ab9863955d2016c32417ff97b1a9840951d2481b6d3095f7ae98d10611a7d2",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "conversion/original-model-metadata/tokenizer_config.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/tokenizer_config.json",
+      "bytes": 584,
+      "sha256": "f64a21219f1af8db7a30ea1347f460eeb57a7c25ed72554e313f8e3e9d4a3881",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "conversion/publisher_q8_control-header-inspection.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/publisher_q8_control-header-inspection.json",
+      "bytes": 43319,
+      "sha256": "20cbf86e83c6c98f72222d23dc0b0a0f940cf7d2bca537d0d4542f22523e4417",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/q4_k_m-header-inspection.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/q4_k_m-header-inspection.json",
+      "bytes": 41884,
+      "sha256": "b010082ed1203447ef7e3ee2fba9e4d8740ec3eedaf398668ec57025f0f245c2",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/source-file-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/source-file-index.json",
+      "bytes": 12148,
+      "sha256": "b26b155384440eab33b973cb0a1af00a6c7bda429aeb1e6e28c6a82399c950ec",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "conversion/source-options.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/source-options.json",
+      "bytes": 2306,
+      "sha256": "b19f102147253adc3d239401d6f7068d6f5faf4db2749d89f1b405f1dd844f52",
+      "stage": "local_scribe_precision_conversion",
+      "qualification": "Locally derived Q4 from original BF16 via F16; not a publisher-produced/hosted Q4 artifact.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/no-repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/no-repack-no-mmap-b64u32/report.json",
+      "bytes": 6419,
+      "sha256": "86ee6f31ac6abb263124fcaa06abc058250f225bd40c66ee41f747a9ac7cb4a2",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/no-repack-no-mmap-b64u32/server.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/no-repack-no-mmap-b64u32/server.log",
+      "bytes": 35,
+      "sha256": "7308964a7951aadbf24c7bccda7ffff73cedb8b82e7d685966bb4a2fef9b1f4d",
+      "stage": "mmap-native",
+      "qualification": "Native startup/CLI diagnostic only; no inference ran.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b128/outputs.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b128/report.json",
+      "bytes": 6413,
+      "sha256": "676137aec2d6c9241abccbb644608d9ba93c9ca9fc21366de58539e4527a5a04",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b128/server.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b128/server.log",
+      "bytes": 35,
+      "sha256": "7308964a7951aadbf24c7bccda7ffff73cedb8b82e7d685966bb4a2fef9b1f4d",
+      "stage": "mmap-native",
+      "qualification": "Native startup/CLI diagnostic only; no inference ran.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b64u32/report.json",
+      "bytes": 6413,
+      "sha256": "d602bdffe1de40ed139a231d544af47130c170fce173ce55005efa702e873e2d",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/emberon/repack-no-mmap-b64u32/server.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-no-mmap-b64u32/server.log",
+      "bytes": 35,
+      "sha256": "7308964a7951aadbf24c7bccda7ffff73cedb8b82e7d685966bb4a2fef9b1f4d",
+      "stage": "mmap-native",
+      "qualification": "Native startup/CLI diagnostic only; no inference ran.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/no-repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/no-repack-no-mmap-b64u32/report.json",
+      "bytes": 7016,
+      "sha256": "c4314a5a21264fcb757a70a60865add69424e0c553fd3d193a39e5e7c00fdf86",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/no-repack-no-mmap-b64u32/server.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/no-repack-no-mmap-b64u32/server.log",
+      "bytes": 35,
+      "sha256": "7308964a7951aadbf24c7bccda7ffff73cedb8b82e7d685966bb4a2fef9b1f4d",
+      "stage": "mmap-native",
+      "qualification": "Native startup/CLI diagnostic only; no inference ran.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b128/outputs.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b128/report.json",
+      "bytes": 7010,
+      "sha256": "f64c437ab7b838113a55f2e19e3027cdf91e8214fd4c0e17afb18d59b1f28aba",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b128/server.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b128/server.log",
+      "bytes": 35,
+      "sha256": "7308964a7951aadbf24c7bccda7ffff73cedb8b82e7d685966bb4a2fef9b1f4d",
+      "stage": "mmap-native",
+      "qualification": "Native startup/CLI diagnostic only; no inference ran.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b64u32/report.json",
+      "bytes": 7010,
+      "sha256": "03f4aa4d026eef00e809eccfecbcae0087fea88b236ac16604d73e478974cb9b",
+      "stage": "mmap-native",
+      "qualification": "Terminal failed attempt; not a completed performance/quality measurement.",
+      "revision_of": null
+    },
+    {
+      "path": "diagnostics/mmap-initial-invalid-cli/scribe-q4/repack-no-mmap-b64u32/server.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-no-mmap-b64u32/server.log",
+      "bytes": 35,
+      "sha256": "7308964a7951aadbf24c7bccda7ffff73cedb8b82e7d685966bb4a2fef9b1f4d",
+      "stage": "mmap-native",
+      "qualification": "Native startup/CLI diagnostic only; no inference ran.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/baseline-10s-r5.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/baseline-10s-r5.json",
+      "bytes": 11125,
+      "sha256": "5db0413f3a09c3949b7555ebc9774f3658666f1731736957670c7a326d98476b",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/emberon-10s-r10.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/emberon-10s-r10.json",
+      "bytes": 26163,
+      "sha256": "cf8df1f1dfee17ebbf4f86f678628f2786e2786d8fb29a3975f2668b4b9fe312",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/emberon-frozen-manifest.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/emberon-frozen-manifest.json",
+      "bytes": 879,
+      "sha256": "fcdc737a10bbeabc2b3ff552d2c899e68bc32a364f5cb1a4d9be5586be8271c7",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/plan.json",
+      "bytes": 33611,
+      "sha256": "f5296c3434c0c4e95e9b02ad05c9faf1e98412c16c9dbd0fa6d5079bd018116b",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/post-run-verification.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/post-run-verification.json",
+      "bytes": 3363,
+      "sha256": "305a3e8e2a6b94a21e248d52a63eca5f48f5960166a5e7ae07eb5c0ad0c5ea83",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/scribe-q4-10s-r10.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/scribe-q4-10s-r10.json",
+      "bytes": 26160,
+      "sha256": "5c9ce0e16ef48550dca99708cf26d0515b6cd551c95808fe76da7ca09d2d0b6c",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/scribe-q4-frozen-manifest.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/scribe-q4-frozen-manifest.json",
+      "bytes": 910,
+      "sha256": "2c727d22a15e9468b16debe91a1f1eec8049bb4f97dcdaf33900feb031990fc4",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-closed-loop/summary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-closed-loop/summary.json",
+      "bytes": 32572,
+      "sha256": "d2c549f5be518b74a9b7d052ae9f352b48b7dec77d41d5c45f7b2b71b4faef06",
+      "stage": "final_closed_loop",
+      "qualification": "Terminal 25-trial frozen Linux actual-ASR/Core batch; raw GC/CPU/memory attribution and source hashes retained; no Windows/UI/SLA qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "final-development/emberon-lookup/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/emberon-lookup/outputs.jsonl",
+      "bytes": 247826,
+      "sha256": "a513c55aa3eff46e50c183b65d2aee5c451139558569c2856a7e83bdbdd301c5",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/emberon-lookup/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/emberon-lookup/report.json",
+      "bytes": 15970,
+      "sha256": "bff04e4e69c038b39a2193ba0c1e9d7c4fd988f2c0c4e231935157329ed92c1e",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/emberon-none/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/emberon-none/outputs.jsonl",
+      "bytes": 246981,
+      "sha256": "17c9da82496087921aed7a1cf77b4dbb1c374d85ede2ee58cb2764d4c0b9b269",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/emberon-none/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/emberon-none/report.json",
+      "bytes": 15712,
+      "sha256": "875be8c8df16af430c796efef502f91f88b9ae0836354ab3c3dc80b081a34b77",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/scribe-q4-lookup/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/scribe-q4-lookup/outputs.jsonl",
+      "bytes": 245109,
+      "sha256": "2b0bf3e4165f9886e0c025445fcb2874bc29152d6fa282f492b9ded428d50db0",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/scribe-q4-lookup/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/scribe-q4-lookup/report.json",
+      "bytes": 16594,
+      "sha256": "46927de0212892bd8ee3228a04f0def535e3d2fc7503c36828d2b4d287370b88",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/scribe-q4-none/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/scribe-q4-none/outputs.jsonl",
+      "bytes": 244269,
+      "sha256": "a67dceac2e2b209e133eb7eb130138ff872a7cdac8b76cb494defda6b7f56cc9",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "final-development/scribe-q4-none/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-development/scribe-q4-none/report.json",
+      "bytes": 16336,
+      "sha256": "8169c5dd9d7fdc255783ac6248c7688c6c69c1f8eb4e4eba51968c1e1d36d94a",
+      "stage": "final-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "fixtures/frozen-holdout.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/frozen-holdout.json",
+      "bytes": 36367,
+      "sha256": "3529e74da64616e5b08f2c9c189706f03c68e6247c924eb8b9137743c4881e5d",
+      "stage": "consumed_frozen_holdout",
+      "qualification": "Exact synthetic corpus bytes match the pre-existing SHA commitment; archived after initial frozen Core qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "fixtures/frozen-holdout.sha256",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/frozen-holdout.sha256",
+      "bytes": 86,
+      "sha256": "1cc0f0631b83f63369dc39510bd8c0e748e4528c063f7d7f7c915f788ba18c79",
+      "stage": "consumed_frozen_holdout",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "frozen-core/emberon-dictionary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/frozen-core/emberon-dictionary.json",
+      "bytes": 16058,
+      "sha256": "ddab3b1706809744cf8e2a90ad8431cb1b8c6706be06c2371dcacaadaf621326",
+      "stage": "frozen-core",
+      "qualification": "Frozen initial held-out/dictionary Core qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "frozen-core/emberon-heldout.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/frozen-core/emberon-heldout.json",
+      "bytes": 63122,
+      "sha256": "a74af3b54e32479191d6bdf70ef8b6a4145c31e033bc601df0361a9ecaba7c23",
+      "stage": "frozen-core",
+      "qualification": "Frozen initial held-out/dictionary Core qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "frozen-core/scribe-q4-dictionary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/frozen-core/scribe-q4-dictionary.json",
+      "bytes": 16088,
+      "sha256": "52c32f884798c87c20c50b056e20ebd7f257c72f3a8ea55d3598653ed909fefc",
+      "stage": "frozen-core",
+      "qualification": "Frozen initial held-out/dictionary Core qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "frozen-core/scribe-q4-heldout.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/frozen-core/scribe-q4-heldout.json",
+      "bytes": 63221,
+      "sha256": "0c984bb0c19c879df4cd9742a429912876b1f2d9ce1c5f25ac694855a6eb12c9",
+      "stage": "frozen-core",
+      "qualification": "Frozen initial held-out/dictionary Core qualification.",
+      "revision_of": null
+    },
+    {
+      "path": "gpu-candidate-validation/s1-dictionary10.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/gpu-candidate-validation/s1-dictionary10.json",
+      "bytes": 15946,
+      "sha256": "5c48aafe7429797536089d7858adb3b26a6284c76d1d11b419fa6d43a3e2e146",
+      "stage": "gpu-candidate-validation",
+      "qualification": "Later candidate quality validation on an already consumed corpus; not a new blind holdout or GPU execution.",
+      "revision_of": null
+    },
+    {
+      "path": "gpu-candidate-validation/s1-validation40.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/gpu-candidate-validation/s1-validation40.json",
+      "bytes": 63194,
+      "sha256": "d21daef0c41725c835bb5961fa26deb87326722bb0572afc18267eb1c16ff995",
+      "stage": "gpu-candidate-validation",
+      "qualification": "Later candidate quality validation on an already consumed corpus; not a new blind holdout or GPU execution.",
+      "revision_of": null
+    },
+    {
+      "path": "gpu-candidate-validation/spokenly-dictionary10.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/gpu-candidate-validation/spokenly-dictionary10.json",
+      "bytes": 16078,
+      "sha256": "4469cf8ff2e8b8b1d19e744200b602e651505acc31142aeaca17e4128ebf4e4d",
+      "stage": "gpu-candidate-validation",
+      "qualification": "Later candidate quality validation on an already consumed corpus; not a new blind holdout or GPU execution.",
+      "revision_of": null
+    },
+    {
+      "path": "gpu-candidate-validation/spokenly-validation40.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/gpu-candidate-validation/spokenly-validation40.json",
+      "bytes": 63329,
+      "sha256": "9230a3a6a6f91747d6d2a90142490a8b55ea3a4b3c69fe9e0ddd405aafeb2229",
+      "stage": "gpu-candidate-validation",
+      "qualification": "Later candidate quality validation on an already consumed corpus; not a new blind holdout or GPU execution.",
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 21344,
+      "sha256": "5ec6ce94aa185c058c1cd0e57ddaac6fbd526deede65b1f2ca2baba876f603fe",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/no-repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/no-repack-no-mmap-b64u32/report.json",
+      "bytes": 8089,
+      "sha256": "45b187f52eacec6db106edf5e14795483582a5231818279b96b27378ea39fd85",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/repack-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/repack-mmap-b128/outputs.jsonl",
+      "bytes": 21372,
+      "sha256": "e9600e8cfb618ee5495b80c64087f46cbbd7054e84091e6327ab8a6c9070d971",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/repack-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/repack-mmap-b128/report.json",
+      "bytes": 8017,
+      "sha256": "e28278c61b51dcf454e36b3387dd795a55e1862086c68c5b314486d3ed60d465",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/repack-no-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/repack-no-mmap-b128/outputs.jsonl",
+      "bytes": 21375,
+      "sha256": "8e39d0d5d014273a06f20264325de8ebfa7426696ab1791609874000303b605c",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/repack-no-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/repack-no-mmap-b128/report.json",
+      "bytes": 8088,
+      "sha256": "973b4b05f61efc3f5248cc4f1ae83628ddc3cfe7c7df188ae315bb7edc252a29",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 21331,
+      "sha256": "83a595d4b71b6eb9cf6c90224ead65aa80692a0a2ef534e10f1cf3d454fbff5c",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/emberon/repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/emberon/repack-no-mmap-b64u32/report.json",
+      "bytes": 8080,
+      "sha256": "6b99df8a4a41c865a29129cfd413392104d6c1170d0a90507331ee2153be5476",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/no-repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 21134,
+      "sha256": "c280c81a2b7c81d7157b4818a986d749a727888fde853b2a03a64c5adfc98e88",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/no-repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/no-repack-no-mmap-b64u32/report.json",
+      "bytes": 8712,
+      "sha256": "868019200444fdc2bd02a2a2d82cac2bb03aa4fc0bbc8736d869ff1ff8dd6549",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/repack-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/repack-mmap-b128/outputs.jsonl",
+      "bytes": 21093,
+      "sha256": "9b61fbf4d624e1faf380c56101f9ce72a11cf33973f20c963e0dcb291aa02da3",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/repack-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/repack-mmap-b128/report.json",
+      "bytes": 8641,
+      "sha256": "65f9edb020e15b7b9826b39a4be719695b0fce93bf9bae88a4386c9a703e2733",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/repack-no-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/repack-no-mmap-b128/outputs.jsonl",
+      "bytes": 21100,
+      "sha256": "c6a536fd77a73650e0b4d07861921989fb971eaabf1a0c25930daa869d861c16",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/repack-no-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/repack-no-mmap-b128/report.json",
+      "bytes": 8708,
+      "sha256": "abac68c00c7faa6f66d5a4a0cc44dddc0c0f1f6b4d948ae2caede4b15934fad1",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/repack-no-mmap-b64u32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/repack-no-mmap-b64u32/outputs.jsonl",
+      "bytes": 21127,
+      "sha256": "13e4c39ad99100abc14c5fbeca1bac69042f7bcad5ac8557af91eca97c64838f",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "loadmode-native/scribe-q4/repack-no-mmap-b64u32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/loadmode-native/scribe-q4/repack-no-mmap-b64u32/report.json",
+      "bytes": 8703,
+      "sha256": "fc3b4f0fe9851191f0fbea658ad0a9f74b0a58e02cd550669e60ed3f50a7bab3",
+      "stage": "loadmode-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/emberon/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/emberon/outputs.jsonl",
+      "bytes": 238300,
+      "sha256": "1f4d8711fa0c1d4439bd4aac5668e3e3d092e4a65c9b4d81d62a79c547aaedc5",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/emberon/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/emberon/report.json",
+      "bytes": 15660,
+      "sha256": "d3c6979514c071d561be6368af3e85dfba8f3d96ef8b10799790dd6d0afc5e59",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/handy/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/handy/outputs.jsonl",
+      "bytes": 236620,
+      "sha256": "00ccc09961abec73f025922f47519155166c730b3517e965ed36015b5e799dfc",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/handy/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/handy/report.json",
+      "bytes": 14252,
+      "sha256": "233cb887b3571e6685d038c7752b16e53f598a55067074712e7d598fd3afce92",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/s1/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/s1/outputs.jsonl",
+      "bytes": 254704,
+      "sha256": "a0ca31bd8a9b88cfb0a4c12e1e083797dd92ab80e682eb0c410472bf525ffeb1",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/s1/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/s1/report.json",
+      "bytes": 15585,
+      "sha256": "258b26a9aaf4c37ca77bcaaa8773c23d394909b5ba1874a032fd6b7a0e959c0a",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/scribe/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/scribe/outputs.jsonl",
+      "bytes": 237926,
+      "sha256": "59e0f96eff54a66b454f427e810f618f2468e987e310360a36796d029f890d0e",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-development/scribe/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-development/scribe/report.json",
+      "bytes": 16861,
+      "sha256": "e63280ad0800cf61d80b2fb387beded650d4f634907d34174f7b7abdbc7f2bfd",
+      "stage": "masked-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-development/emberon/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-development/emberon/outputs.jsonl",
+      "bytes": 246955,
+      "sha256": "ed44336ce86f172e27395538afb7c00fe9706705502723caee4bb539d75bd978",
+      "stage": "masked-v2-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-development/emberon/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-development/emberon/report.json",
+      "bytes": 15711,
+      "sha256": "22cac008aa0ad560d4019d013b8b973db8d7e68d3a6837c3b91982230a8a501a",
+      "stage": "masked-v2-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-development/scribe-q4/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-development/scribe-q4/outputs.jsonl",
+      "bytes": 244382,
+      "sha256": "d1a4c6eb740bb194882d8175787e8d790b1e944a7ab2d9b7968eb15c8766cf3b",
+      "stage": "masked-v2-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-development/scribe-q4/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-development/scribe-q4/report.json",
+      "bytes": 16336,
+      "sha256": "809578994cc67563ff62dfe6a0c58a595476e862290927a5e3c18aeaeb62c85e",
+      "stage": "masked-v2-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-development/scribe-q8/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-development/scribe-q8/outputs.jsonl",
+      "bytes": 246647,
+      "sha256": "d8bcdbf1a94f57aba864fc96abc7e09be33a57c332d5ea3f3ffb8664b278a436",
+      "stage": "masked-v2-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-development/scribe-q8/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-development/scribe-q8/report.json",
+      "bytes": 16913,
+      "sha256": "eca12d3824de568ce0d01d70d1a755375d05657b775ab10b8e3fb043e0f64c29",
+      "stage": "masked-v2-development",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-prompts/Emberon2.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-prompts/Emberon2.json",
+      "bytes": 118528,
+      "sha256": "0cd053de662bc0bf94a6dd94cbca58072ed355138da4be7bf7b4f630cb3e070d",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "masked-v2-prompts/ScribeKeyFast.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v2-prompts/ScribeKeyFast.json",
+      "bytes": 112353,
+      "sha256": "c64f60b5bc7c8939f219e0d78167410bc5724338fc141f9580df19ef56f2c0c2",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "masked-v3-prompts/Emberon2.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v3-prompts/Emberon2.json",
+      "bytes": 118528,
+      "sha256": "de4cd9e1b828f55ab77e84c58447ccfa56dc62fd6995ac91dc93598d582f6ec7",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "masked-v3-prompts/ScribeKeyFast.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/masked-v3-prompts/ScribeKeyFast.json",
+      "bytes": 112353,
+      "sha256": "71b457a825f576404c4c82f1b7780ef9e6997466e9717524987633b3b7c26607",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/acquisition-files-sha256.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/acquisition-files-sha256.json",
+      "bytes": 747,
+      "sha256": "1fb4d8ebeef565bd556dc18e70627e9077f31a8265b7d3bc0e1cd4f58d7cb593",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/actual-asr-text-performance-fixtures.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/actual-asr-text-performance-fixtures.json",
+      "bytes": 3508,
+      "sha256": "32cf0b18355d901e5fa797ae2337d2dec9542f50518677c041fc92c493eb311d",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/asset-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/asset-index.json",
+      "bytes": 30149,
+      "sha256": "6cda2db3dbc10571a6b10adc62a08e2c66bb3613789ec2cc598fc2231eeb6013",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/final-candidate-freeze.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/final-candidate-freeze.json",
+      "bytes": 3791,
+      "sha256": "eb78b80f46953d7504a04ba97690f2fea1e7fa49d5cc7c5fa77108f5ac90eea1",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/gpu-candidate-validation-freeze.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/gpu-candidate-validation-freeze.json",
+      "bytes": 1351,
+      "sha256": "abc28649ea0d12738ff26e890492a88e6cdcd3501819754c7f0e930c1f6947ac",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/holdout-freeze.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/holdout-freeze.json",
+      "bytes": 2870,
+      "sha256": "e4bf8b8208e276bb06982017c8a2139d9aae09bb86c12b274ebfda18fd29556b",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/initial-source-freeze.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/initial-source-freeze.json",
+      "bytes": 8640,
+      "sha256": "c344dcbd8a66f734d9ca439cfb5277df86886dc88ee7f05e805b2228575d9aed",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/manifests/emberon-compact.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/emberon-compact.json",
+      "bytes": 819,
+      "sha256": "85bac99a46296365e6f1bdd211df28812708c6e7a95e761063e392ebb6db0dd8",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/manifests/s1-compact.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/s1-compact.json",
+      "bytes": 791,
+      "sha256": "5639178a5e4af91a142b4deb198ce2841551547441d4825a28e156b9797de2fd",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/manifests/scribe-compact.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/scribe-compact.json",
+      "bytes": 894,
+      "sha256": "ed265717c1f3cc158e55208e8707d92bb79afc6634f2f78e936599f14ed1a407",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/manifests/scribe-local-q4-compact.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/scribe-local-q4-compact.json",
+      "bytes": 850,
+      "sha256": "04a82c69a46babb324babe78714ee1f9e39cd2c2f8ad085d2b381700b3a06657",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/normalized-reference-development.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/normalized-reference-development.json",
+      "bytes": 39580,
+      "sha256": "a12e17477c0efb45de8875f3a6cbb77378907d4d336327030523895c70afe886",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/profile-source-freeze.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/profile-source-freeze.json",
+      "bytes": 2767,
+      "sha256": "e806a9b13162e42cad1a6f80b38ac4deb1bf20608e1b0736b25e4ee78d59a997",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/resource-probe-input.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-probe-input.json",
+      "bytes": 13614,
+      "sha256": "ce585b74abe0156a51202da9c35b83b7d1bfe811faf73e4da7981dbb5a1f3c1a",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/resource-profile-plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-profile-plan.json",
+      "bytes": 13278,
+      "sha256": "5e1a7d6fa024f20bc762f1971566faa7c277b349efce9053b539ddaced7d13d4",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/runtime-file-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+      "bytes": 9010,
+      "sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/screen-plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen-plan.json",
+      "bytes": 2779,
+      "sha256": "e4554af21d40b9703799f71b974f616f81333332e3912076a9c4397ece59997c",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/scribe-local-q4-asset-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-local-q4-asset-index.json",
+      "bytes": 34368,
+      "sha256": "1d0390ef66d75b8239cb70faf72286c4cbba98becaa49789626831c26874888d",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/source-documents.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/source-documents.json",
+      "bytes": 21108,
+      "sha256": "0dcfd1629d5eefe3fcd67af1c26eb520950e44ab6907540f5cce1c840170a15b",
+      "stage": "artifact_and_source_metadata",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/acquisition.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/acquisition.json",
+      "bytes": 37452,
+      "sha256": "0c9199c2510993eee35ce0f4c56fb7d6c52591872b290d0653605e9c11a78e02",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/device-selection-audit.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/device-selection-audit.json",
+      "bytes": 6385,
+      "sha256": "fe93874bddc5a582058e1b3029d8124000aba6a28734f236b74b4bf03129136e",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/device-selection-audit.md",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/device-selection-audit.md",
+      "bytes": 5681,
+      "sha256": "9c4b621b8fcabfae8d00e1721bbe510b68997cc9293ffe4fd08b4424c4b964f4",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/notice-input-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/notice-input-index.json",
+      "bytes": 2529,
+      "sha256": "62078e2df7fbbb18c8d0dfd64bf3f4f709483f80cc44978bce007a3dfc24b3a8",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/prepared-bundle-inventories.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/prepared-bundle-inventories.json",
+      "bytes": 15437,
+      "sha256": "89f859f5fadb6238435d25e2c4424cd9becbfded63cb9c0698157c1c8e717f35",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/prepared-bundles.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/prepared-bundles.json",
+      "bytes": 1080,
+      "sha256": "b022bc854d7b5c91b35b5513c751f9bfc6db1035a869e98d18d7a35b714c77a9",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/prepared-manifests/emberon-gpu.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/bundles/emberon-lookup0/cleanup-manifest.json",
+      "bytes": 7079,
+      "sha256": "f9a594967364de2c26a5896fcb6f5b2a55735e2376062499e6bf7f7b840091dd",
+      "stage": "windows_vulkan_preparation",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/prepared-manifests/scribekey-q4-gpu.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/bundles/scribekey-q4-lookup0/cleanup-manifest.json",
+      "bytes": 7495,
+      "sha256": "55e8ce892a30dfba9fa959297818989f6082e42ee5fc986a3b3d19ac0c0688ac",
+      "stage": "windows_vulkan_preparation",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/preview-script-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/preview-script-index.json",
+      "bytes": 1557,
+      "sha256": "97c5e11576f25a48dbbcfa69ee7f8cf63686119449954ec2b45f1e5c1fb7e3da",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/profiles/emberon-cpu.template.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/profiles/emberon-cpu.template.json",
+      "bytes": 7099,
+      "sha256": "7b0cdd7a9da81d2e43fe27ea111684ff547cc0b10721e0710794fe5502d3f5fb",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Template requires placement in a fresh isolated bundle root before selection.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/profiles/emberon-gpu.template.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/profiles/emberon-gpu.template.json",
+      "bytes": 7079,
+      "sha256": "f9a594967364de2c26a5896fcb6f5b2a55735e2376062499e6bf7f7b840091dd",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Template requires placement in a fresh isolated bundle root before selection.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/profiles/scribekey-q4-cpu.template.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/profiles/scribekey-q4-cpu.template.json",
+      "bytes": 7515,
+      "sha256": "cd0be36ff1fb319021a7bff8103d9463c3a510240f92fcc77fa7fb9b3601b7ed",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Template requires placement in a fresh isolated bundle root before selection.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/profiles/scribekey-q4-gpu.template.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/profiles/scribekey-q4-gpu.template.json",
+      "bytes": 7495,
+      "sha256": "55e8ce892a30dfba9fa959297818989f6082e42ee5fc986a3b3d19ac0c0688ac",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Template requires placement in a fresh isolated bundle root before selection.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/publisher-metadata.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/publisher-metadata.json",
+      "bytes": 815,
+      "sha256": "3e8f85c747357429cb55f620c09cf3ea594606b6a84d3f36e1a8d4ac20430b2e",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/runtime-acquisition-example.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/runtime-acquisition-example.json",
+      "bytes": 823,
+      "sha256": "63247067b3dff7e8dae9c6e00b5aebdb80566af8eb3f67236520389f1547933e",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/runtime-artifact-entry.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/runtime-artifact-entry.json",
+      "bytes": 389,
+      "sha256": "508fd15f0b17693a4e18f150142ca9d0a8b704cff4946e1cee745d7bbaad1beb",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/source-LICENSE.txt",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/source-audit/llama-LICENSE.txt",
+      "bytes": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Pinned upstream MIT runtime source license.",
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/source-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/source-audit/source-index.json",
+      "bytes": 2698,
+      "sha256": "d7fc8d648b7e2637b9a80db1469c27717e01c6acabdc037013ce4ed6db970c43",
+      "stage": "windows_vulkan_preparation",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "metadata/windows-vulkan/windows-preview-plan.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/windows-preview-plan.json",
+      "bytes": 4963,
+      "sha256": "86bcbdf7a59c7882bc3f7a299f09cdea3ccd6d9ea63347ffc65328a4989e13dd",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": null
+    },
+    {
+      "path": "mmap-native/emberon/repack-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-mmap-b128/outputs.jsonl",
+      "bytes": 21374,
+      "sha256": "8f7fe649d0c92be5b5fdb8e469bdd61cb8bd21b1084ab496484015bace775bd4",
+      "stage": "mmap-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "mmap-native/emberon/repack-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/emberon/repack-mmap-b128/report.json",
+      "bytes": 8020,
+      "sha256": "6a705728df56e8b04fae88f2e9067ddb30f8573a398930804f454924470b487a",
+      "stage": "mmap-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "mmap-native/scribe-q4/repack-mmap-b128/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-mmap-b128/outputs.jsonl",
+      "bytes": 21093,
+      "sha256": "229b807bda7248adb8379114d0ad4c594e39c3134506ba5b9760cc7dabd6480f",
+      "stage": "mmap-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "mmap-native/scribe-q4/repack-mmap-b128/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/mmap-native/scribe-q4/repack-mmap-b128/report.json",
+      "bytes": 8642,
+      "sha256": "8754071da8f9e21488b7573204d111f0218145823e82249f0b0b0ac840ff6f45",
+      "stage": "mmap-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "prompts/BitVoiceSmol.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/BitVoiceSmol.json",
+      "bytes": 125396,
+      "sha256": "74457d8e6c7ea05ea9147d9caba34cc46155a359a2deffb32d497be69ab5f678",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/Emberon2-masked.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/Emberon2-masked.json",
+      "bytes": 109627,
+      "sha256": "f05e97347a73e3ffb79f9032e75c56615a3be015ba31df30a3989359487bdb56",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/Emberon2.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/Emberon2.json",
+      "bytes": 105292,
+      "sha256": "2ebb9f6a6f8b7029c3d940d9b7fce2e6cdc136e8b5a31d53db59c713458852e8",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/GenericChat.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/GenericChat.json",
+      "bytes": 157370,
+      "sha256": "a0aa01fb9029204f40806a02eb2c17c25ce31710d1909848cd3bbe3b668c43cc",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/HandyEditor-masked.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/HandyEditor-masked.json",
+      "bytes": 107170,
+      "sha256": "0ad4187043c7dced3b1966b6f361e2152d1d6b16a3712ef9405880041c21778a",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/HandyEditor.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/HandyEditor.json",
+      "bytes": 102835,
+      "sha256": "26240ec0866361405587feefef135a7d0fb7d3431c335c5c57f6560f76a7abdb",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/HandyEditorUserOnly.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/HandyEditorUserOnly.json",
+      "bytes": 99723,
+      "sha256": "9fd8e190902d356d1ab4ff18e17e3873ac7a1113bf808445a5e669c3b3c63fe7",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/KuduTinyPolished.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/KuduTinyPolished.json",
+      "bytes": 123420,
+      "sha256": "5c187616b696e9a632923346c0e61688c4a3b073faf3e13b4626b4789b23d172",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/LocalflowClean.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/LocalflowClean.json",
+      "bytes": 110098,
+      "sha256": "6e6e9a477ba26d71525ea85532eb5cf7bc38f15c23409fb452204fd186b04edf",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/S1Mini-masked.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/S1Mini-masked.json",
+      "bytes": 127985,
+      "sha256": "bd2573b9f9b70db0e430c627f699a16ff2aec76db80301bde0816204f1155d44",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/S1Mini.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/S1Mini.json",
+      "bytes": 123650,
+      "sha256": "806b281b67bb807341b54cbc5bf78e897c9f0b1d1c67ac833e300d095c746b18",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/ScribeKeyFast-masked.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/ScribeKeyFast-masked.json",
+      "bytes": 103452,
+      "sha256": "7c2635766beb74b2881e1fe9e59338075a83c55cdc63aed05195240a498385af",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/ScribeKeyFast.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/ScribeKeyFast.json",
+      "bytes": 99117,
+      "sha256": "4932f398d83359791f37107c0812e1eb606f61675d2ebd4bd28b5fac37ada637",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/SmolPostAsr.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/SmolPostAsr.json",
+      "bytes": 114055,
+      "sha256": "b9fb0c28438c89f639bc729391c0786d64ebac353395990134eda433122a61df",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/Sotto.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/Sotto.json",
+      "bytes": 95509,
+      "sha256": "c260cb8116f48ccc17bf0c431838ac1d3d3f56aca03386e6427d2d952f8ac468",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "prompts/SpokenlyCleanup.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/prompts/SpokenlyCleanup.json",
+      "bytes": 92099,
+      "sha256": "6c2447bc4c6ccf797a3bd998cd128604ff8d1967e2beb0ba808e7753b8757f52",
+      "stage": "production_prompt_exports",
+      "qualification": "Exact exported prompts/normalization metadata; development or public ASR text only.",
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p00-baseline/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p00-baseline/outputs.jsonl",
+      "bytes": 64190,
+      "sha256": "cecbbf5d61015701622248ee1fd783b78ec9f70ca2afb66fc3173b363deec643",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p00-baseline/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p00-baseline/report.json",
+      "bytes": 8955,
+      "sha256": "825347ac8b2f628c5f7922ceca4f7220f181c6b77144908850ca4c5d6cac17f8",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p01-context1024/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p01-context1024/outputs.jsonl",
+      "bytes": 64221,
+      "sha256": "7f057e421b51573914efa180abcf63d0b25554bdf8b6f150b4aba22a8c7f0e43",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p01-context1024/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p01-context1024/report.json",
+      "bytes": 8955,
+      "sha256": "aea4fefb99a1decd13e687b62f6f92ff8a2f5574a71f191dbc3878c1c9bc6d2f",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p02-no-repack/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p02-no-repack/outputs.jsonl",
+      "bytes": 64218,
+      "sha256": "be870e447d0298e0a76e194cfb62b94a4c2a96b471c569048aacea11bafc4eac",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p02-no-repack/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p02-no-repack/report.json",
+      "bytes": 8962,
+      "sha256": "bdfac7f15db28bc15ebab59199188e5480c14e1c477ede538e282137afb66258",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p03-batch64/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p03-batch64/outputs.jsonl",
+      "bytes": 64195,
+      "sha256": "422152b7721cd099ca07dc2876e1de30b0eab57eb0565bd47598c98a5200be48",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p03-batch64/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p03-batch64/report.json",
+      "bytes": 8957,
+      "sha256": "ee187ca59161569b6bf6c1817cbc0188904eec5c1082ba5d28d17f5038f44144",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p04-ubatch32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p04-ubatch32/outputs.jsonl",
+      "bytes": 64203,
+      "sha256": "2ea9680c2f680c20db4edecdc5c494470d7b03604165968659831877ae8bbd57",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p04-ubatch32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p04-ubatch32/report.json",
+      "bytes": 8957,
+      "sha256": "7a89fe71cc65844a0f837573dcddc7b7829cac79091544f4b565045003b2663a",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p05-threads2/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p05-threads2/outputs.jsonl",
+      "bytes": 64232,
+      "sha256": "829ead5eaf395b6928a9af6f79267efdc6adbe55490b969431ce5329400ffa21",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p05-threads2/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p05-threads2/report.json",
+      "bytes": 8957,
+      "sha256": "ea20d7b333142f9b8f75dabf967d851aea3909928e897c459c4f500e953110e6",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p06-threads1/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p06-threads1/outputs.jsonl",
+      "bytes": 64222,
+      "sha256": "a92d62153dbf33e4d1c91855edc403a6ae313ef21539f8a90d3b34ca79b2e9ed",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/emberon/p06-threads1/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/emberon/p06-threads1/report.json",
+      "bytes": 8956,
+      "sha256": "be8470cd5b4163b0caed585294c9f65dd91a0596c211e3e3f4192c4b7b6935b2",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p00-baseline/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p00-baseline/outputs.jsonl",
+      "bytes": 67942,
+      "sha256": "e0e0414ecad70e736be2a97b458a9af30c0143781eff942801a7b0637aff030c",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p00-baseline/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p00-baseline/report.json",
+      "bytes": 8881,
+      "sha256": "d4ff735713392a95242d185f920d44830c752bb99cef9dd38b2558fd4f557dc1",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p01-context1024/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p01-context1024/outputs.jsonl",
+      "bytes": 67915,
+      "sha256": "b3f073a59bc97d00ae69db8b792aa3fd831acd54feb2efe54b1f351e30d8594c",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p01-context1024/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p01-context1024/report.json",
+      "bytes": 8879,
+      "sha256": "9faed2ff6da427836ef14c27a02a5445b7b4396bebd3f573f7f37320fb6d5b70",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p02-no-repack/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p02-no-repack/outputs.jsonl",
+      "bytes": 68013,
+      "sha256": "a5c70083a8a6c7266a7eaf5ea043b9fd0d12c47a1c967ecdae5f0d3d26a0bc0b",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p02-no-repack/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p02-no-repack/report.json",
+      "bytes": 8883,
+      "sha256": "ea7ed62b50ef430b4ca22f4bd0601135b7f42dc00998937aababa336a3228caa",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p03-batch64/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p03-batch64/outputs.jsonl",
+      "bytes": 67992,
+      "sha256": "95a59e80326c232187138835f8cb1e03ae81e1523b8d2c9ee0b45117007a549d",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p03-batch64/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p03-batch64/report.json",
+      "bytes": 8879,
+      "sha256": "0048861c6733f0915bcaecd1f4500dda651453edb4fcaa5644a3fa81b3f96657",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p04-ubatch32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p04-ubatch32/outputs.jsonl",
+      "bytes": 67997,
+      "sha256": "6616f3732130ee05d630ab77dc738be44b9988a4b46856a365ca4244d30a1952",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p04-ubatch32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p04-ubatch32/report.json",
+      "bytes": 8881,
+      "sha256": "a409e2e28c2cfbe1466a1de2d6b836310abcc7ad3924b1378bf9100642a407bc",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p05-threads2/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p05-threads2/outputs.jsonl",
+      "bytes": 67901,
+      "sha256": "69a1228a674976076268927ecc34c6ba9db2901ffaa4a42655e0e7684b412f1b",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p05-threads2/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p05-threads2/report.json",
+      "bytes": 8878,
+      "sha256": "2373c0529caacf344f911cf18cfa036ddd9f4f3870412c37addf788e97dbb3e1",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p06-threads1/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p06-threads1/outputs.jsonl",
+      "bytes": 68011,
+      "sha256": "0284d85ef1bbc2e23f2a0d5b2f8221ef2c574e6067d041399b79c7ba513ede51",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/s1/p06-threads1/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/s1/p06-threads1/report.json",
+      "bytes": 8879,
+      "sha256": "362a558fb7f850778eeb6e9e39bad8896de3cba30278e534e49709bc17515590",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p00-baseline/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p00-baseline/outputs.jsonl",
+      "bytes": 64121,
+      "sha256": "920bf5594ea3b5a7ca4efd76255c0fc144bf4ca159afe1ec1bbb43661437b7ce",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p00-baseline/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p00-baseline/report.json",
+      "bytes": 10158,
+      "sha256": "92887df1872f1c3dbf07999e99cc68e35d22a5612403009fe63ecaae59e932b1",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p01-context1024/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p01-context1024/outputs.jsonl",
+      "bytes": 64111,
+      "sha256": "785aa59246cc5d509ff1a276cd544f1b30c54cdb7960b7040b40ad77f5692c8d",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p01-context1024/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p01-context1024/report.json",
+      "bytes": 10157,
+      "sha256": "00c25deb21dc975a194fc65011630c5956562949620fa1152cb23b63f68e85fb",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p02-no-repack/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p02-no-repack/outputs.jsonl",
+      "bytes": 64019,
+      "sha256": "17ba311e00a437255a1fb0c9aa5d9e2bde453f62a26a2b4383c641921a373fcc",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p02-no-repack/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p02-no-repack/report.json",
+      "bytes": 10161,
+      "sha256": "14d594a6857161f87b6a320b80b021cb86e9f74380d64677b04917b66e61ee23",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p03-batch64/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p03-batch64/outputs.jsonl",
+      "bytes": 64076,
+      "sha256": "8a07aebeef8aba9c74ddf077b0822a4ce5ad57b00daa19d944ba8119d1ca2c00",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p03-batch64/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p03-batch64/report.json",
+      "bytes": 10161,
+      "sha256": "f7017042bf7fcbadf592e2babc9eaac5c30322444533313729f5b83f9cb430e3",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p04-ubatch32/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p04-ubatch32/outputs.jsonl",
+      "bytes": 64086,
+      "sha256": "628fa155199a289d99eb4c3a0629d82ffe45e12d285a01c1949b1d0bde3ea618",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p04-ubatch32/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p04-ubatch32/report.json",
+      "bytes": 10160,
+      "sha256": "93fbcb66507d277bc6bb07288aed3899c952a77d9163a861202e0358e9f29266",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p05-threads2/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p05-threads2/outputs.jsonl",
+      "bytes": 64037,
+      "sha256": "c83def34353739f6cb4ff0775963433d3f875a10e41c1fcb831a908acc485f9e",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p05-threads2/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p05-threads2/report.json",
+      "bytes": 10156,
+      "sha256": "8fc8ce50198eeb49ffaa23d184713bbd38df5badd2c1a76d631cafe0472a654e",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p06-threads1/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p06-threads1/outputs.jsonl",
+      "bytes": 64067,
+      "sha256": "a2354caf8c06d60f38b77502676e0305c40f71bdd28a157a9dad18f96af6aa50",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "resource-native/scribe/p06-threads1/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-native/scribe/p06-threads1/report.json",
+      "bytes": 10155,
+      "sha256": "e27745e4f5f2bf1b332a1411f2f0ca7da3c7489917a95c3139f3a2793a532ee1",
+      "stage": "resource-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "reviews/bitvoice-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/bitvoice-human-review.json",
+      "bytes": 22126,
+      "sha256": "517368bbf4f50e90713d11805ffa52601c73c7428c3bdcc3cf9d8e585e4ed2b2",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/cross-model-012-adjudication-overlay.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/cross-model-012-adjudication-overlay.json",
+      "bytes": 4190,
+      "sha256": "2299b994cef43f39019477aa698b6b50f09dcd6c2000a80770d9dedc06542490",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/emberon-final-dictionary-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/emberon-final-dictionary-human-review.json",
+      "bytes": 18965,
+      "sha256": "7652bffd067315b2db69401de3f8f90b0fc5a4d0d02549dbcb3f782f581bc97c",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/emberon-final-heldout-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/emberon-final-heldout-human-review.json",
+      "bytes": 78941,
+      "sha256": "cc3f184c6b3e871125d12fc5f6280dedb85803832e87378d2306f699893f389f",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/emberon-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/emberon-human-review.json",
+      "bytes": 21408,
+      "sha256": "f88886ec18794e5b92b45ee8e89dfd0054b6bc530c01767e09d0d8eed5692b47",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/emberon-masked-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/emberon-masked-development-human-review.json",
+      "bytes": 66575,
+      "sha256": "b6a404b0b8d29225f981f800648e35c66d0cb23c87e2911aab4a7d83fc2146c2",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/emberon-v2-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/emberon-v2-development-human-review.json",
+      "bytes": 69259,
+      "sha256": "b908b8e2951da78f063804e3859df56a59cfb8aa1f4928851262f417a5db6885",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/granite350-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/granite350-human-review.json",
+      "bytes": 26458,
+      "sha256": "7127b0005cab165a152b7fb2e66509524363d00325f04e4de2bf66e70717949c",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/handy-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/handy-human-review.json",
+      "bytes": 22540,
+      "sha256": "05d0e3a80d6de0289265b15b26837472a1b1877880d6df0ed196c0902f08e04e",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/handy-masked-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/handy-masked-development-human-review.json",
+      "bytes": 69606,
+      "sha256": "a3e9f7400d1a12f0496befb3c4714d97c38b8e6a6e390a4aef5e9ae7d5455f3c",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/handy-user-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/handy-user-human-review.json",
+      "bytes": 19063,
+      "sha256": "21aea4bee838ff3325c6b49e95c1fd5b7bf7db4a0a94ce0bc7060faeb23b4a1e",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/kudu-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/kudu-human-review.json",
+      "bytes": 21762,
+      "sha256": "7ea8bca65df1a0d2504e088a579669f99b43173d77397c9fbb0d2d00e80d0597",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/lfm230-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/lfm230-human-review.json",
+      "bytes": 32078,
+      "sha256": "59751d120a10f85f811b7072f3906b06ccdd59e120e851f5bed089ed0dc2b138",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/localflow-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/localflow-human-review.json",
+      "bytes": 21714,
+      "sha256": "2f144c15ff9863e3358662f4d8c5b68635e7a771f69ed06f966887ad94e6b690",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/s1-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/s1-human-review.json",
+      "bytes": 18038,
+      "sha256": "5573641ff20a5e8a4320cb08a8de1342ef25600aaed0b2f138dadf942ae6ca86",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/s1-masked-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/s1-masked-development-human-review.json",
+      "bytes": 67533,
+      "sha256": "e1e800152a1e595281d07212ea2a24edced46a368b95a67401d7917d440454e5",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/s1-postholdout-dictionary-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/s1-postholdout-dictionary-human-review.json",
+      "bytes": 19544,
+      "sha256": "9a8302c0ce3b5a33ecdc4f8650d0cc93a1c6074a896180e145efad81b537d470",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/s1-postholdout-validation-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/s1-postholdout-validation-human-review.json",
+      "bytes": 79410,
+      "sha256": "4f3b6e0f875eb2d726c556a539c94ab26e176771bfbef48e1db8081a5db67a7e",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/scribe-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/scribe-human-review.json",
+      "bytes": 18062,
+      "sha256": "bf97c8df25e27bc5f570be5adf9893007b1f8466747de3e2c7f4d55659911585",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/scribe-masked-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/scribe-masked-development-human-review.json",
+      "bytes": 67427,
+      "sha256": "469ee4b50252460f89f673767e600c456f75b6812430e902e5799ecb08efa5e4",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/scribe-q4-final-heldout-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/scribe-q4-final-heldout-human-review.json",
+      "bytes": 99073,
+      "sha256": "b861270ab7c76ae0819c93f88d45b1f84ae7602dbb3e00bebe2ab860901dc91a",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/scribe-q4-v2-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/scribe-q4-v2-development-human-review.json",
+      "bytes": 72804,
+      "sha256": "e80fb216a3f086e084a3a483028ebcfc653432bd7ffb5c0fc48e1931685ac22f",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/scribe-q8-v2-development-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/scribe-q8-v2-development-human-review.json",
+      "bytes": 75001,
+      "sha256": "967b56d3c271eb671c49b8481ed9c5418333d75db84ccb780ea503e03f6fb149",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/smol-post-asr-contract-audit.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/smol-post-asr-contract-audit.json",
+      "bytes": 2604,
+      "sha256": "e35de46a09d6b0be859202d346cfd13924b19f5bb3dd784cc73f699201a3fefa",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/smol-post-asr-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/smol-post-asr-human-review.json",
+      "bytes": 28887,
+      "sha256": "89519a562d4e7029392a7a9416e2621c5ab344280afcf6d59f52bb4dddb72b9a",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/smol135-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/smol135-human-review.json",
+      "bytes": 26376,
+      "sha256": "134e7c74ccac2e46ac7033d1464a03528e0a8c9f32e4bb6b36f64ed0c549d182",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/sotto-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/sotto-human-review.json",
+      "bytes": 18131,
+      "sha256": "dd1b3f8c50312348f8839ec27ad50b01ec4a96176ba339184818c4d202447bb0",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/spokenly-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/spokenly-human-review.json",
+      "bytes": 18073,
+      "sha256": "6af9ab10b96fc33fa7572ad91bef10fbad6983a250046bf37150d50ee8d6617d",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/spokenly-postholdout-dictionary-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/spokenly-postholdout-dictionary-human-review.json",
+      "bytes": 23860,
+      "sha256": "f2c2a02ab5d438d2277ac39441f99982fb8f41b2a3be8edf07abf69e0e7d75de",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "reviews/spokenly-postholdout-validation-human-review.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/reviews/spokenly-postholdout-validation-human-review.json",
+      "bytes": 102021,
+      "sha256": "18794392c408d566ee93b1db13acd72c961618a0d7699f2c7e8e13d054941a0e",
+      "stage": "manual_reviews",
+      "qualification": "Manual semantic judgments; automatic checks alone do not establish fidelity.",
+      "revision_of": null
+    },
+    {
+      "path": "revisions/final-closed-loop/metadata/windows-vulkan/preview-script-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/preview-script-index.json",
+      "bytes": 2112,
+      "sha256": "d1eb4903363cb95bd077e3c5929db7b4336a5f263cc3ac9cfb434cd3241e4f88",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": "metadata/windows-vulkan/preview-script-index.json"
+    },
+    {
+      "path": "revisions/final-package/metadata/windows-vulkan/preview-script-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/preview-script-index.json",
+      "bytes": 2112,
+      "sha256": "d1eb4903363cb95bd077e3c5929db7b4336a5f263cc3ac9cfb434cd3241e4f88",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": "metadata/windows-vulkan/preview-script-index.json"
+    },
+    {
+      "path": "revisions/final-validation/metadata/windows-vulkan/preview-script-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/preview-script-index.json",
+      "bytes": 2112,
+      "sha256": "d1eb4903363cb95bd077e3c5929db7b4336a5f263cc3ac9cfb434cd3241e4f88",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": "metadata/windows-vulkan/preview-script-index.json"
+    },
+    {
+      "path": "revisions/windows-device-helper-review/metadata/windows-vulkan/preview-script-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/preview-script-index.json",
+      "bytes": 2112,
+      "sha256": "d1eb4903363cb95bd077e3c5929db7b4336a5f263cc3ac9cfb434cd3241e4f88",
+      "stage": "windows_vulkan_preparation",
+      "qualification": "Hash-only preparation/static source audit on Linux; no Windows native/GPU/SLA proof.",
+      "revision_of": "metadata/windows-vulkan/preview-script-index.json"
+    },
+    {
+      "path": "runtime-source-audits/ngram-map-k-audit/README.md",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/ngram-map-k-audit/README.md",
+      "bytes": 3634,
+      "sha256": "0e0ec67f4cb16bb28569418203507dfaac449db00d8a0c50861c3b1934c9ff1d",
+      "stage": "runtime_source_audit",
+      "qualification": "Authored runtime source audit; raw upstream source files excluded.",
+      "revision_of": null
+    },
+    {
+      "path": "runtime-source-audits/ngram-map-k-audit/source-index.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/ngram-map-k-audit/source-index.json",
+      "bytes": 2174,
+      "sha256": "0a788c31ac2425baad201a6d4410cf2efd7f1156a8ce46b4d8935b952a528946",
+      "stage": "runtime_source_audit",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/bitvoice/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/bitvoice/outputs.jsonl",
+      "bytes": 104110,
+      "sha256": "ffb1944e59f34f82d959cb0aca95133d5c95b3d6bffbae07410b0315872186f5",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/bitvoice/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/bitvoice/report.json",
+      "bytes": 10225,
+      "sha256": "5d567201cd4a4b137d135b53d08a3424a67db8ed8fbbb6324e7867eaa8103e85",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/emberon/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/emberon/outputs.jsonl",
+      "bytes": 94667,
+      "sha256": "761d0bf2386a7406799a91f9e3d9e3617d473039c5660046b500dc3604851f50",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/emberon/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/emberon/report.json",
+      "bytes": 12003,
+      "sha256": "f412af2b2da1301f25fb8f452532ccdfa5ee17d18b061b3081c9ee5f11fbc908",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/granite350/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/granite350/outputs.jsonl",
+      "bytes": 65794,
+      "sha256": "d5d4c87a4ba138dd72dd20e7c2439fc548b3978c81d9e04d473f461b1dd1c3cb",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/granite350/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/granite350/report.json",
+      "bytes": 10173,
+      "sha256": "ecbe4b6c7a0c7eba27f85a25143f633bfe5625bd8ded5ba0351dba115d6a9b62",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/handy-user/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/handy-user/outputs.jsonl",
+      "bytes": 93698,
+      "sha256": "2ef1c1760c70abea342b72185490fb2b24e21300f9e25223d0a465c633a980bd",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/handy-user/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/handy-user/report.json",
+      "bytes": 10602,
+      "sha256": "ba263e8ebaf9470fe9032cfe558fd124b21a4c1f8e079faf722dee86fc04bbf8",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/handy/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/handy/outputs.jsonl",
+      "bytes": 94511,
+      "sha256": "94af1d02ce3d49dca29e783fd6f9b4cec77efa20592f8c134dca34e09550a262",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/handy/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/handy/report.json",
+      "bytes": 10592,
+      "sha256": "170a8dd119b4a8091379944b280439db4cd55c124f376cfd10a7929387a7cb98",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/kudu/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/kudu/outputs.jsonl",
+      "bytes": 103260,
+      "sha256": "93ff597fc3996610aac2b7406cee8c528ce3e0412a15f11f25f6c08e2188dbbc",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/kudu/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/kudu/report.json",
+      "bytes": 10277,
+      "sha256": "f02eda784b9e6c0598711a3834b07329f8c2c3447f2103b4420d192286c6c74c",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/lfm230/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/lfm230/outputs.jsonl",
+      "bytes": 73159,
+      "sha256": "adc70368a7ddf520f6298f8ae603d880761321ece35e1d89f46b48aba5ff57b5",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/lfm230/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/lfm230/report.json",
+      "bytes": 10259,
+      "sha256": "55fe18a4eaf0e791a9b4515d09a4c3e1a2f4ef12abf5795919ab933bf82ecf99",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/localflow/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/localflow/outputs.jsonl",
+      "bytes": 96069,
+      "sha256": "6e76685d3d52eef917f8c58db5ffdbf4e06270cf8fc78697ef6c739156d90287",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/localflow/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/localflow/report.json",
+      "bytes": 11092,
+      "sha256": "1f7d675177616108e954b8ef38ba893f0ec424bf4c41d7e1ee50469c3a2295c8",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/s1/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/s1/outputs.jsonl",
+      "bytes": 100721,
+      "sha256": "bd1caaf8081c14fd7e512c1012a2100aeb0f675511970d81cf1ea18a3ff49f1f",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/s1/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/s1/report.json",
+      "bytes": 11931,
+      "sha256": "892a3165d10deb5e8678611b6e0b6e7f75cd711e67cc6db8b08f8be8a55308e0",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/scribe/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/scribe/outputs.jsonl",
+      "bytes": 95264,
+      "sha256": "edf6a18ab22a6c84fd19715a0bc13b876595d33477a7967394239874534c92bd",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/scribe/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/scribe/report.json",
+      "bytes": 13237,
+      "sha256": "95673d6784d148c28e82366e0214e99e7ac588feff07ca1e2881f8aab094f016",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/smol-post-asr/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/smol-post-asr/outputs.jsonl",
+      "bytes": 104853,
+      "sha256": "b3ffa0b99b195786a1bc1d08297ea2006fae5a083acd41787ab05bf159f77b68",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/smol-post-asr/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/smol-post-asr/report.json",
+      "bytes": 10282,
+      "sha256": "3b36e1b38d2b76ed56b1a497402481773a34cc6236aa1d2cc350a22c9d8334d8",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/smol135/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/smol135/outputs.jsonl",
+      "bytes": 66995,
+      "sha256": "5a7d259e63a5ab9873f1ad0c721850cd49754b18dae92e211a236c7fa635d041",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/smol135/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/smol135/report.json",
+      "bytes": 10190,
+      "sha256": "229f29ccb5f4020cdbef75ee5b2e113101b5eced10599425066941af319f58e1",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/sotto/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/sotto/outputs.jsonl",
+      "bytes": 94075,
+      "sha256": "90027f016b762867b3fdcde34f5b4efb61518108b39cb8d3937f1702f9f03675",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/sotto/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/sotto/report.json",
+      "bytes": 12219,
+      "sha256": "65074700db3e27660c6747f49c58077be3a2b51f385cb5bb0a9402c246f97435",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/spokenly/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/spokenly/outputs.jsonl",
+      "bytes": 92273,
+      "sha256": "29c869d9f4b12ab4053c5f0447d1236c2b2d9c71e7bed667aae3e3c90e995855",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "screen/spokenly/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/screen/spokenly/report.json",
+      "bytes": 11825,
+      "sha256": "019778e5c834e0a080ae964c71761e3f60ce3051b16718c4b64c308e1743e30f",
+      "stage": "screen",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/ngram-map-k/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/ngram-map-k/outputs.jsonl",
+      "bytes": 21789,
+      "sha256": "8aff792fba3ca628ec5d7136dd13e3070895089aab408658edb0af32f920e04f",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/ngram-map-k/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/ngram-map-k/report.json",
+      "bytes": 8278,
+      "sha256": "3157ee5100a5cb4c1c69bbb7c8a89a64a962e95e06c79f68d46f8243ccb73a9b",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/ngram-mod/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/ngram-mod/outputs.jsonl",
+      "bytes": 21738,
+      "sha256": "a1c55f91695258db9a895cb17b82791b6c10ecc73772621f597cd632122947d4",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/ngram-mod/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/ngram-mod/report.json",
+      "bytes": 8348,
+      "sha256": "c1f72220e30636676212a11c2d957c3aa4aae8e511fd2230ce94fbe9e5c9332e",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/ngram-simple/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/ngram-simple/outputs.jsonl",
+      "bytes": 21798,
+      "sha256": "28fe027e977d1547f9c9da2a66d3914d81ed02db2f095210a0f2ea2291a7a006",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/ngram-simple/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/ngram-simple/report.json",
+      "bytes": 8287,
+      "sha256": "feb89808928791b2928b237866ef2c8394914465d020de3c897f0dfe2f97403f",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/none/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/none/outputs.jsonl",
+      "bytes": 21342,
+      "sha256": "09d848d5ac740004468a8008a78ea5f136ff849a2f5ed16d5dcd3192844e97f8",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/emberon/none/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/emberon/none/report.json",
+      "bytes": 8021,
+      "sha256": "69ce43ca1b7cf0a3fd0b15c4720a4032d4db6e1b7bf4720e9a6965a5720788c4",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/ngram-map-k/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/ngram-map-k/outputs.jsonl",
+      "bytes": 21619,
+      "sha256": "a43e2df9f8fcf4e0d11655f6252fed886f567acfba18710ea5e1280d949e0178",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/ngram-map-k/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/ngram-map-k/report.json",
+      "bytes": 8902,
+      "sha256": "9883dee9ed8186bd14acde59f52ca9aa6218bd00f4d4b575f0da66c82ed2eade",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/ngram-mod/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/ngram-mod/outputs.jsonl",
+      "bytes": 21552,
+      "sha256": "dc2e1893e0b7a4d98e9e8863056ce5008af31a28f8f5a1f28464d5e1829a8beb",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/ngram-mod/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/ngram-mod/report.json",
+      "bytes": 8971,
+      "sha256": "990ffb5dc1488ad1cbc4cce3449dcf331bf5be90f0494e9b31023678878671b1",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/ngram-simple/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/ngram-simple/outputs.jsonl",
+      "bytes": 21588,
+      "sha256": "82344d73e4a002cbb23d52957a988c5de30b6c6002017e1cf39ac39cbdd805b6",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/ngram-simple/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/ngram-simple/report.json",
+      "bytes": 8911,
+      "sha256": "d5faeda300762de6ebb209779438a0604be5d3f81794ffb9e4e50ff18297df40",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/none/outputs.jsonl",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/none/outputs.jsonl",
+      "bytes": 21110,
+      "sha256": "4ae7930b85eb90434733ff536300935793e454305f618280e4fc6e4cf5483acf",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "speculation-native/scribe-q4/none/report.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/speculation-native/scribe-q4/none/report.json",
+      "bytes": 8641,
+      "sha256": "3c732400aa6e36b28c31bfbe1d43efde4f8e36f71b6f3b3cd9d93a844e5927b5",
+      "stage": "speculation-native",
+      "qualification": null,
+      "revision_of": null
+    },
+    {
+      "path": "verification/final-Freehand.Core.Tests.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/final-Freehand.Core.Tests.log",
+      "bytes": 378,
+      "sha256": "0963c4f4d5fa09f1d29e893420cc53fc3c37b65bb6606bcd7b0f5d2f05cd02af",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/final-Freehand.Dictionary.Tests.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/final-Freehand.Dictionary.Tests.log",
+      "bytes": 398,
+      "sha256": "91471c180d793e804e86afd946c15d2cdc22d049d38e0cbf47ae6f70be4f71b4",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/final-app-tests.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/final-app-tests.log",
+      "bytes": 375,
+      "sha256": "08faa93d1ae42bd34e0337b4150f918637f6e53c59735996442052eb0e3357a4",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/final-eval-selftest.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/final-eval-selftest.log",
+      "bytes": 521,
+      "sha256": "8cd39699381c9a6503bad0dfd8cdd76531818310ed281693a4c9cb6593c37de3",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/final-probe-selftest.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/final-probe-selftest.log",
+      "bytes": 174,
+      "sha256": "6d40bb355940ad69713877a3d1d33260c5e9e9d0dc82920bfe4847669d447afc",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/final-source-build.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/final-source-build.log",
+      "bytes": 1878,
+      "sha256": "018320752ceb216c710d4b9a55d3176966c17040ac82b95d04cea6cc4354ff82",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/frozen-cleanup-tests.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/frozen-cleanup-tests.log",
+      "bytes": 389,
+      "sha256": "9ca2b0a008691518be6c6ad658a74f74746187f930e0cdd1ed1237a157a0e571",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/frozen-source-build.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/frozen-source-build.log",
+      "bytes": 2506,
+      "sha256": "4b5cbd107d2d4cd4609f9f2cbde844d694eec236146e940701a066d08f80ab0a",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/published-linux-selftest.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/published-linux-selftest.log",
+      "bytes": 566,
+      "sha256": "62d044ecacbdde0cada0966ebc696709628fde4383acf674f09c497f0ea027f8",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/source-validation-summary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/source-validation-summary.json",
+      "bytes": 2306,
+      "sha256": "699cf718b2ac1fe00b527ae0f01a3758f3fef42988008b15a0070fb06e531726",
+      "stage": "final_source_validation",
+      "qualification": "585 .NET tests across four projects,112 regular Pester tests,57 Python tests; see exact logs and scope.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/vulkan-cleanup-pester-summary.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/vulkan-cleanup-pester-summary.json",
+      "bytes": 76,
+      "sha256": "52ed4da6e89775f53027cc0c9ff99f83b49dae29b808176dfb0f32058036353c",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/vulkan-cleanup-pester.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/vulkan-cleanup-pester.log",
+      "bytes": 10240,
+      "sha256": "3a6e022eafb2b3d94fd75bada7ddf8ec3d835796345e53a37fd396dc66b09c8d",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/vulkan-python-tests.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/vulkan-python-tests.log",
+      "bytes": 10221,
+      "sha256": "a83ca8cffb61e7af06eacdb86d0c5552cbad77d78f7711fe66ea137a96f97b9d",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/windows-app-publish.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/windows-app-publish.log",
+      "bytes": 1307,
+      "sha256": "4bbe28cb4622232c545d7f3e66847d06f3e0700e601959c5ed15a3bc50b9ec5d",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/windows-platform-publish-build.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/windows-platform-publish-build.log",
+      "bytes": 589,
+      "sha256": "c5008404fb384e62d70144e09abfe8da2f251aea28d1c9dc8e506e9f3a2f06b7",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/windows-preview-launcher-final-smoke.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/windows-preview-launcher-final-smoke.log",
+      "bytes": 151,
+      "sha256": "548a2d5a8f76a12673d2dd5555a038b7fe08d67462e325538d107f92af00fba5",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "verification/windows-probe-publish.log",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/verification/windows-probe-publish.log",
+      "bytes": 1366,
+      "sha256": "6bc862d3d982d996b5739a70d85b0e31537353ce7776f8d0f917a907ce2c8ae0",
+      "stage": "final_source_validation",
+      "qualification": "Successful compiler/test/published-Linux/script-fixture evidence; Windows hardware/native execution is untested.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/README.md",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview/README.md",
+      "bytes": 7290,
+      "sha256": "dc574271cd4e75d0da0cdc386d7ebd356c443d72c26ecf226682a9bf84d85273",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Exact authored source/manifest bytes from verified ZIP staging; no executable binaries copied.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/THIRD-PARTY-NOTICES.txt",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview/THIRD-PARTY-NOTICES.txt",
+      "bytes": 1894,
+      "sha256": "7a9c944bde28f35ebde2b738485ba2e64235086dce95d6cc07a581ce0509b354",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Exact authored source/manifest bytes from verified ZIP staging; no executable binaries copied.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/preview-manifest.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview/preview-manifest.json",
+      "bytes": 76281,
+      "sha256": "caa72ba95a51436e67f4b241ea200828ca0a032d20fc5ba4d320f9a43e86c222",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Exact authored source/manifest bytes from verified ZIP staging; no executable binaries copied.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/run-preview.ps1",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview/run-preview.ps1",
+      "bytes": 21457,
+      "sha256": "0559c25dd6daf5fa67a61744b57865d9ba538b608b995bce1ee75a4fa44b29dc",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Exact authored source/manifest bytes from verified ZIP staging; no executable binaries copied.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/select-preview-device.ps1",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview/select-preview-device.ps1",
+      "bytes": 9872,
+      "sha256": "3f6719f09c47f1b9e8c7a61ff631bcc50eb637c3cb8b4580674fa16b34effcf2",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Exact authored source/manifest bytes from verified ZIP staging; no executable binaries copied.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/windows-preview-archive-verification.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview-archive-verification.json",
+      "bytes": 344,
+      "sha256": "7cca9d11a1ff17a9fb66cdc16633b862fd91ab2b007e06db7a37987448ce390b",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Cross-publish/static PE/archive verification only; no Windows/GPU execution or whole-app SLA pass.",
+      "revision_of": null
+    },
+    {
+      "path": "windows-preview/windows-preview-build-verification.json",
+      "source_path_historical": "/workspace/freehand/work/cleanup-small-models-2026-11-03/windows-preview-build-verification.json",
+      "bytes": 725,
+      "sha256": "b6d87d712912a0db9c1b498cd951e331656ffdf8881cbfa07764f773ad8fbdc2",
+      "stage": "windows_preview_static_validation",
+      "qualification": "Cross-publish/static PE/archive verification only; no Windows/GPU execution or whole-app SLA pass.",
+      "revision_of": null
+    }
+  ],
+  "excluded": [
+    "Full weights/safetensors",
+    "Native or managed binaries",
+    "Conversion venv/dependency wheels",
+    "Raw publisher pages and full pip package READMEs",
+    "Private recordings",
+    "Unqualified frozen held-out corpus text",
+    "General build logs"
+  ],
+  "copied_bytes": 11302704
+}

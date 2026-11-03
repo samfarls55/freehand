@@ -13,18 +13,21 @@ internal sealed record ChatRequest(
     [property: JsonPropertyName("chat_template_kwargs")] ChatTemplateOptions ChatTemplateKwargs)
 {
     [JsonPropertyName("stream")] public bool Stream { get; init; }
-    [JsonPropertyName("temperature")] public int Temperature { get; init; }
+    [JsonPropertyName("temperature")] public double Temperature { get; init; }
     [JsonPropertyName("seed")] public int Seed { get; init; }
     [JsonPropertyName("cache_prompt")] public bool CachePrompt { get; init; }
 }
-internal sealed record CompletionRequest([property: JsonPropertyName("prompt")] string Prompt,
+internal sealed record CompletionRequest([property: JsonPropertyName("prompt")] int[] Prompt,
     [property: JsonPropertyName("n_predict")] int MaxTokens)
 {
     [JsonPropertyName("stream")] public bool Stream { get; init; }
-    [JsonPropertyName("temperature")] public int Temperature { get; init; }
+    [JsonPropertyName("temperature")] public double Temperature { get; init; }
     [JsonPropertyName("seed")] public int Seed { get; init; }
     [JsonPropertyName("cache_prompt")] public bool CachePrompt { get; init; }
-    [JsonPropertyName("stop")] public string[] Stop { get; } = ["<|im_end|>", "<|im_start|>"];
+    [JsonPropertyName("stop")] public string[] Stop { get; init; } = ["<|im_end|>", "<|im_start|>"];
+    [JsonPropertyName("repeat_penalty")] public double RepeatPenalty { get; init; } = 1;
+    [JsonPropertyName("add_special")] public bool AddSpecial { get; init; } = true;
+    [JsonPropertyName("parse_special")] public bool ParseSpecial { get; init; } = true;
 }
 internal sealed record TokenizeRequest([property: JsonPropertyName("content")] string Content)
 {

@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-03T15:18:22.880718+00:00",
+  "base_commit": "43a949e62eb059381976f669ac8c9670ca9c6ffe",
+  "screen_ids": [
+    "dev-001",
+    "dev-002",
+    "dev-006",
+    "dev-009",
+    "dev-010",
+    "dev-013",
+    "dev-016",
+    "dev-018",
+    "dev-021",
+    "dev-023",
+    "dev-025",
+    "dev-026",
+    "dev-027",
+    "dev-029",
+    "dev-031",
+    "dev-033",
+    "dev-035",
+    "dev-039",
+    "dev-040",
+    "dev-041",
+    "dev-042",
+    "dev-044",
+    "dev-056",
+    "dev-057"
+  ],
+  "profiles": [
+    {
+      "name": "handy",
+      "candidate": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "style": "HandyEditor"
+    },
+    {
+      "name": "emberon",
+      "candidate": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "style": "Emberon2"
+    },
+    {
+      "name": "s1",
+      "candidate": "superwhisper/s1-mini-GGUF:s1-mini-q4_k_m.gguf",
+      "style": "S1Mini"
+    },
+    {
+      "name": "handy-user",
+      "candidate": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "style": "HandyEditorUserOnly"
+    },
+    {
+      "name": "bitvoice",
+      "candidate": "dhanr4j/bitvoice-dictation:gguf/smollm2-360m-ft.gguf",
+      "style": "BitVoiceSmol"
+    },
+    {
+      "name": "kudu",
+      "candidate": "manasdutta04/kudu-writer-tiny:kudu-writer-tiny-v1-iq4_xs.gguf",
+      "style": "KuduTinyPolished"
+    },
+    {
+      "name": "localflow",
+      "candidate": "Radiumcoders/localflow-clean:localflow-clean-q4_k_m.gguf",
+      "style": "LocalflowClean"
+    },
+    {
+      "name": "spokenly",
+      "candidate": "spokenly/cleanup-1-gguf:cleanup-1-q8_0.gguf",
+      "style": "SpokenlyCleanup"
+    },
+    {
+      "name": "scribe",
+      "candidate": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "style": "ScribeKeyFast"
+    },
+    {
+      "name": "sotto",
+      "candidate": "scribekey/sotto-cleanup-350m-gguf:sotto-cleanup-350m-Q4_K_M.gguf",
+      "style": "Sotto"
+    },
+    {
+      "name": "lfm230",
+      "candidate": "LFM2.5 230M",
+      "style": "GenericChat"
+    },
+    {
+      "name": "granite350",
+      "candidate": "Granite4.0 H350M",
+      "style": "GenericChat"
+    },
+    {
+      "name": "smol135",
+      "candidate": "SmolLM2 135M Instruct",
+      "style": "GenericChat"
+    },
+    {
+      "name": "smol-post-asr",
+      "candidate": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "style": "SmolPostAsr"
+    }
+  ],
+  "sla": {
+    "whole_host_memory_bytes": 747500000,
+    "ready_release_to_complete_ms": 805
+  },
+  "holdout_not_used": true,
+  "cpu_only": true,
+  "default_profile": {
+    "context": 2048,
+    "max_output": 512,
+    "threads": 4,
+    "batch": 128,
+    "micro_batch": 128,
+    "cache_ram_mib": 0,
+    "context_checkpoints": 0
+  },
+  "source_files": {
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "37318c0cf4bd983306ba9c88dbd6edcb31846f282718f3f8ed55ad29a92cf3fe",
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "093a8bff15c08753922dd4f1321df62ad487f3e6f731e1dec29664a2881c7a4b",
+    "src/Freehand.Cleanup/CleanupPrompt.cs": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6",
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": "5eb32640a023fc8d1c8d8ab379e433e14e6cf36ee48022df44d03ed131725ff5",
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a",
+    "src/Freehand.Cleanup/CleanupProtocol.cs": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "7b5252b0cfebe3930838c845158d197616640c4f0d2530fab853bdeeb46b8f92",
+    "tools/Freehand.Cleanup.Evaluation/small_models.py": "ffdd0d0b963456d27caf412caa5fff532ebeb373d332008d4802926af64723a3"
+  },
+  "runtime_files": {
+    "libggml-cpu-sandybridge.so": "3bd522c900b58aa9700d35654a4d8111d8a083cca7eb6ad31115bdbb59a5f48d",
+    "libggml-cpu-alderlake.so": "ccab67ca95af59f7a5f72b7f83b90451957eb62ae4028b4bd2f5f78dd37c4740",
+    "libllama-server-impl.so": "e9708c1c53e02db7f565d292d80dd754eaaadeb6ff159a2f6473a7518703287a",
+    "llama": "e6b491dda0ea7d85a93a1102c58b4a70b860afcab172a46ff050d5c62ed76aaf",
+    "libllama-perplexity-impl.so": "87ac1151e1e459916de71c8a8f02c7824ed42b67b8be29094ddf83558ae5d6d3",
+    "libggml-cpu-sapphirerapids.so": "7922988ba01aa5e18f7a4e95574c494646cdeb4ac444c0f6f74ca36dc95e9905",
+    "libllama-cli-impl.so": "3edb1ebbbfb38c77bb30c2bfeee3af879ff95961fa28a02742156c6927b9cc71",
+    "llama-quantize": "e13e535eb25f87161d20906251388e2021024e66fa859562eaad3a8e0aef963d",
+    "libllama.so.0.8.0": "da1e126ab98e2a8b52abc2a79589a5f9bde160e43f4c1f40469ef8927736da7b",
+    "libggml-cpu-cannonlake.so": "762dd25dfbc288faf091e81cc97461e394de76875a63c6822acfa6244e499cca",
+    "llama-mtmd-cli": "d838e90c56b3acfc4a14d9615010546eaba61394aca3e8a861cffc0971274502",
+    "llama-perplexity": "1c06240ed8594fd377d655aef2dab0865431e3e779c06638474c96b38e6d74a0",
+    "libllama-completion-impl.so": "117ad8cb0be526532f545c7c12623b49c4c38d6365188dbdcdb4989ec3fd9173",
+    "libggml-cpu-haswell.so": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5",
+    "libllama-fit-params-impl.so": "60ff3c3a7c6e98eada0a78495a6ee2f06c953e018ac3b3bee22b681ba70511fd",
+    "libggml-cpu-x64.so": "601c9bfe22723f56f9fb14aaef210ffe27caced7d8359db0dc879f5c1a31a0a8",
+    "llama-minicpmv-cli": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294",
+    "llama-gemma3-cli": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294",
+    "llama-results": "1e9a44fe50533d0b8cbf634dc77a73b1996eaa68b4246d5a52f3e83e0671cade",
+    "libggml-base.so.0.28.0": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb",
+    "llama-imatrix": "a7b79f50ffb67e44d5785eb7b5989b4d078ccb385f04e96bf41c6ed7a507d2e6",
+    "libllama-bench-impl.so": "f8cc87e84ff172c58389e7786257c87156c160bbc0970b8ac24803a46d708859",
+    "llama-qwen2vl-cli": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294",
+    "libllama-quantize-impl.so": "79d821e4e88ebc408f52a1b3d7d13f44aeb6f71bba13574e7d395608b671775a",
+    "libllama-batched-bench-impl.so": "5d46f2b7f9c63e6e23c47ee606dcbffb25a851cef9b785f9d35337a2fcf5cc8b",
+    "LICENSE": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d",
+    "llama-bench": "47d044eab1d3b4efb272d666ec8680c45961231bf69cc97efa0e7c365dab6233",
+    "llama-server": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+    "libggml-cpu-piledriver.so": "0bd26ddd7e20d727641200aafd6d7cef507812ed9593c3028840fd17da573f80",
+    "libggml-cpu-zen4.so": "8a34f2f5ab19db4556a785bcd5e6ef64a6f186a48b3f20138c25683b57986b31",
+    "libggml.so.0.28.0": "8643a58bb37af6fb153e2ea98b48efa227855725ee51c05f4ca76b9867956463",
+    "llama-tokenize": "712076edf65a35a84188df933912d9e735758fa7bdffb9796287adfadf4263a3",
+    "ggml-rpc-server": "eb3bd9306c62180098ed97c4a19bdca9eaba8dcb138ca1f2ca5d85ea548fa00a",
+    "libggml-cpu-sse42.so": "2aaa8782f772b3d3374eedef14dc02049e8f6cec0dbb72cddfa3802fa6038c2b",
+    "libggml-cpu-cooperlake.so": "57a02f46141a7e42ddc8e5217f26be6c0579bb65661fd895110116c7e060b27b",
+    "llama-llava-cli": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294",
+    "llama-completion": "7119bef261611b26f326f7c4da4dc3fdeb7bb28e2faf1ec392bda7b21215ef52",
+    "libggml-cpu-cascadelake.so": "2f98b02e9706475689a629d4e41813a2c1bf08b17f9655ab5a007e062a3c2d82",
+    "llama-fit-params": "b2ad073a0c093706e5dfdfe2c9864d199ed921e49ea0383a7d0013e2ad8a81c8",
+    "llama-connect": "0f57652dee1df5a5d69dfb11a8775f864345cfb881b2bd34c6ca6c409ce73d25",
+    "llama-mtmd-debug": "35408d2c6cafdddfe61d48cb85a4a7f411cb8ceb29119d38e34854513c815c9d",
+    "libggml-cpu-ivybridge.so": "55687beb2005976403bb54f74f458bdc75ebc861a04a282b759f1a55b239ee78",
+    "libggml-cpu-icelake.so": "15e9facf9c5731c3d744355bff4227a13bc88e9cd2d2ae44cf002afdc406e13d",
+    "llama-tts": "106ccf8da2a83deb1de31162e73ea148a2c576014f43497030b8eba9afaab85f",
+    "llama-cli": "094d4c5499543584e8d253cb1c8b9a2e4bc6d15b71b299befd54184210db5bc0",
+    "libllama-common.so.0.8.0": "d54634b12e99da239333588d01c80b7714df8dc416ebd71e19204e64ee26465f",
+    "llama-batched-bench": "3b70e62c5c5cf43c8c436622a845ad4b80c01837d6ba3a10c90e39b219bbd2ab",
+    "libggml-rpc.so": "39d3e844f1985afd722007641cd28a2161e86981835474ee406278edf6588620",
+    "llama-gguf-split": "ccdee1d8de5c04274d3802b27502f518904b93a3579a2dfa8a3d178c63389839",
+    "libggml-cpu-skylakex.so": "4f9a435bf223acc379617fb1619d25195ea3222efde4802b841970a535b0ddb8",
+    "libmtmd.so.0.8.0": "285a3848388e4da4eaedba4fb179aa9e65202ce6754ff49f6bceeda21358a75a"
+  }
+}

@@ -1,0 +1,452 @@
+{
+  "schema_version": 1,
+  "status": "headers_verified",
+  "scope": "Read-only GGUF metadata/tensor descriptors; no inference, no tensor-body reads, no build; stdlib-only low-priority parser.",
+  "header_inspection_cpu_seconds_total": 0.149175,
+  "inspections": {
+    "f16": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-F16.gguf",
+      "bytes": 711483680,
+      "gguf_version": 3,
+      "kv_count": 45,
+      "header_bytes_inspected": 2385163,
+      "header_sha256": "582f0298f53cd0ae527653291fb2f3fa7ac360a3f489fba3c8cb0883a336fd34",
+      "tensor_data_read": false,
+      "tensor_count": 148,
+      "stored_parameters": 354483968,
+      "tensor_type_counts": {
+        "F16": 93,
+        "F32": 55
+      },
+      "inspection_cpu_seconds": 0.050388
+    },
+    "q4_k_m": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M.gguf",
+      "bytes": 229310752,
+      "gguf_version": 3,
+      "kv_count": 45,
+      "header_bytes_inspected": 2385163,
+      "header_sha256": "675375cafd0e13ccca17c16201a245e74f2b7e6b3d5552d76f752b3e80d9eb11",
+      "tensor_data_read": false,
+      "tensor_count": 148,
+      "stored_parameters": 354483968,
+      "tensor_type_counts": {
+        "Q6_K": 11,
+        "F32": 55,
+        "Q4_K": 82
+      },
+      "inspection_cpu_seconds": 0.050176
+    },
+    "publisher_q8_control": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/scribekey_scribekey-cleanup-fast-GGUF/scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "bytes": 379219904,
+      "gguf_version": 3,
+      "kv_count": 27,
+      "header_bytes_inspected": 2388920,
+      "header_sha256": "49be508e675d80eede220b033c8e552377fa03e0c74a1d9417e2dd7cfa525e2c",
+      "tensor_data_read": false,
+      "tensor_count": 148,
+      "stored_parameters": 354483968,
+      "tensor_type_counts": {
+        "Q8_0": 93,
+        "F32": 55
+      },
+      "inspection_cpu_seconds": 0.048611
+    }
+  },
+  "all_tensor_names_dimensions_match": true,
+  "general_metadata_note": "Other differences are descriptive authorship/provenance/license/dataset metadata newly read from the pinned source model card, the required derivative display name, and general.file_type for Q4 versus Q8. The complete delta is retained. License badges do not waive the accompanying inherited terms.",
+  "all_architecture_metadata_matches": true,
+  "architecture_metadata": {
+    "general.architecture": {
+      "gguf_type": 8,
+      "value": "lfm2",
+      "raw_value_sha256": "8903374af45dcc6761217119019a77bbe58f5c17128c48d0dd2e2c0e36bc4023"
+    },
+    "lfm2.block_count": {
+      "gguf_type": 4,
+      "value": 16,
+      "raw_value_sha256": "097328e8c957de2428283954f6a1ee8ff7ad7def12e100a600178407f5decf24"
+    },
+    "lfm2.context_length": {
+      "gguf_type": 4,
+      "value": 128000,
+      "raw_value_sha256": "a7d933a1375c236bbd43f144ddca8e85e17bc7f4eeacbb6dcbbccc1ea5ed3eba"
+    },
+    "lfm2.embedding_length": {
+      "gguf_type": 4,
+      "value": 1024,
+      "raw_value_sha256": "6e1ae50c2c807c6630b5a02ea29761a723e422e503100fc2ee23f2d715d3a001"
+    },
+    "lfm2.feed_forward_length": {
+      "gguf_type": 4,
+      "value": 4608,
+      "raw_value_sha256": "422ef6454337f1cefb0c126be2ad6801abf55db57cb88e250f73915a3b431e08"
+    },
+    "lfm2.attention.head_count": {
+      "gguf_type": 4,
+      "value": 16,
+      "raw_value_sha256": "097328e8c957de2428283954f6a1ee8ff7ad7def12e100a600178407f5decf24"
+    },
+    "lfm2.attention.head_count_kv": {
+      "gguf_type": 9,
+      "value": {
+        "array_subtype": 5,
+        "count": 16,
+        "raw_value_sha256": "e76ed22863769166de50923e10e065a8b310a6d10bd7c266af800f866b745fce",
+        "values": [
+          0,
+          0,
+          8,
+          0,
+          0,
+          8,
+          0,
+          0,
+          8,
+          0,
+          8,
+          0,
+          8,
+          0,
+          8,
+          0
+        ]
+      },
+      "raw_value_sha256": "e76ed22863769166de50923e10e065a8b310a6d10bd7c266af800f866b745fce"
+    },
+    "lfm2.rope.freq_base": {
+      "gguf_type": 6,
+      "value": 1000000.0,
+      "raw_value_sha256": "b1d4fbb2cb52cdff543490ae00622c61b63b712a344d68e8dabfccdd419eaae8"
+    },
+    "lfm2.attention.layer_norm_rms_epsilon": {
+      "gguf_type": 6,
+      "value": 9.999999747378752e-06,
+      "raw_value_sha256": "e6540c5b3269d9a6e3646dd482c2a7fe6b58e101e80007556892bb770099a68c"
+    },
+    "lfm2.vocab_size": {
+      "gguf_type": 4,
+      "value": 65536,
+      "raw_value_sha256": "6b1e73a0094b7b812d3b9e22cffb4f8239319847522c4fa103753b6950020f93"
+    },
+    "lfm2.shortconv.l_cache": {
+      "gguf_type": 4,
+      "value": 3,
+      "raw_value_sha256": "9d9f290527a6be626a8f5985b26e19b237b44872b03631811df4416fc1713178"
+    }
+  },
+  "all_metadata_differences_q4_vs_q8": {
+    "general.base_model.0.name": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "Sotto Cleanup Lfm25 350m",
+        "raw_value_sha256": "bbdaa4312ad9f4c867607dc6cf95638fd2d1e711c3883ad53fbaa3082bf1b377"
+      },
+      "publisher_q8": null
+    },
+    "general.base_model.0.organization": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "Juanquivilla",
+        "raw_value_sha256": "908f370ac0611e16283379d603478d9236ec2a7635752e065b4395c1c5a3fee1"
+      },
+      "publisher_q8": null
+    },
+    "general.base_model.0.repo_url": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "https://huggingface.co/juanquivilla/sotto-cleanup-lfm25-350m",
+        "raw_value_sha256": "baedbe2ef6ea22b41221aad06ace6d0420da9593c98b9100f06f9631d0a3d269"
+      },
+      "publisher_q8": null
+    },
+    "general.base_model.1.name": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "LFM2.5 350M Base",
+        "raw_value_sha256": "d65b7dd3f25f9a8ff49b199f5036db8f58d184a3d4b8308e5b1a2685e3d12f07"
+      },
+      "publisher_q8": null
+    },
+    "general.base_model.1.organization": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "LiquidAI",
+        "raw_value_sha256": "283ab34cdb5f5e42a11d87732833955be24f2ac2386a351510a38e3fbdf6cba3"
+      },
+      "publisher_q8": null
+    },
+    "general.base_model.1.repo_url": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "https://huggingface.co/LiquidAI/LFM2.5-350M-Base",
+        "raw_value_sha256": "8760fe7a7e55c411378bc8b0f62bff126baedd1013c2d3a81c72da118c706007"
+      },
+      "publisher_q8": null
+    },
+    "general.base_model.count": {
+      "local_q4": {
+        "gguf_type": 4,
+        "value": 2,
+        "raw_value_sha256": "26b25d457597a7b0463f9620f666dd10aa2c4373a505967c7c8d70922a2d6ece"
+      },
+      "publisher_q8": null
+    },
+    "general.dataset.0.name": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "Sotto Transcript Cleanup",
+        "raw_value_sha256": "8848afe2abd2614fa272805efb1d2486da13a0f7848b9b68d0ccf1199875cde8"
+      },
+      "publisher_q8": null
+    },
+    "general.dataset.0.organization": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "Juanquivilla",
+        "raw_value_sha256": "908f370ac0611e16283379d603478d9236ec2a7635752e065b4395c1c5a3fee1"
+      },
+      "publisher_q8": null
+    },
+    "general.dataset.0.repo_url": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "https://huggingface.co/juanquivilla/sotto-transcript-cleanup",
+        "raw_value_sha256": "51a69872b17f32df49e2a6bee4a4420e1d9a9daa8d003d5da6acf9c14d4b58e6"
+      },
+      "publisher_q8": null
+    },
+    "general.dataset.count": {
+      "local_q4": {
+        "gguf_type": 4,
+        "value": 1,
+        "raw_value_sha256": "67abdd721024f0ff4e0b3f4c2fc13bc5bad42d0b7851d456d88d203d15aaa450"
+      },
+      "publisher_q8": null
+    },
+    "general.file_type": {
+      "local_q4": {
+        "gguf_type": 4,
+        "value": 15,
+        "raw_value_sha256": "972b8373b897c65c4f631c6bdf2443d0d817a88f224b54d8e593fdcf32488d60"
+      },
+      "publisher_q8": {
+        "gguf_type": 4,
+        "value": 7,
+        "raw_value_sha256": "e8613f5a5bc9f9feeda32a8e7c80b69dd4878e47b6a91723fb15eb84236b6a2b"
+      }
+    },
+    "general.languages": {
+      "local_q4": {
+        "gguf_type": 9,
+        "value": {
+          "array_subtype": 8,
+          "count": 1,
+          "raw_value_sha256": "22112e5fc8769832f95895b6fd6fc805526f532f483c25822278b803ac2b786e"
+        },
+        "raw_value_sha256": "22112e5fc8769832f95895b6fd6fc805526f532f483c25822278b803ac2b786e"
+      },
+      "publisher_q8": null
+    },
+    "general.license": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "other",
+        "raw_value_sha256": "34c5ad621e43527e0923ae557440248d7f5220f24f64fd89ee85b36783415f1b"
+      },
+      "publisher_q8": null
+    },
+    "general.license.link": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "https://huggingface.co/scribekey/scribekey-cleanup-fast/blob/main/ADDITIONAL_TERMS.md",
+        "raw_value_sha256": "b08daacca19c8984e2180bfe7177d5a03a9725d11aa93c275265128eaac6f641"
+      },
+      "publisher_q8": null
+    },
+    "general.license.name": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "scribekey-fast-model-terms-v1.0-with-lfm-open-license-v1.0",
+        "raw_value_sha256": "614b3441a4ae0cd77df09fbb05205405eef77d67b70a175238cadbacd2631c5a"
+      },
+      "publisher_q8": null
+    },
+    "general.name": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "Derived from ScribeKey Fast by ScribeKey (Freehand precision research)",
+        "raw_value_sha256": "4cd1f78a62108afbe4b598cca693b1e97380a2daa66c241a06d5ef555b482665"
+      },
+      "publisher_q8": {
+        "gguf_type": 8,
+        "value": "Merged",
+        "raw_value_sha256": "38293326a7afcbfa336d895ad7f0457d5f218776e7954deb255350d45695c453"
+      }
+    },
+    "general.tags": {
+      "local_q4": {
+        "gguf_type": 9,
+        "value": {
+          "array_subtype": 8,
+          "count": 7,
+          "raw_value_sha256": "847d35335742cb1fae8603c19e80df6718f2d26e5572574b50f4b258b0d7e744"
+        },
+        "raw_value_sha256": "847d35335742cb1fae8603c19e80df6718f2d26e5572574b50f4b258b0d7e744"
+      },
+      "publisher_q8": null
+    },
+    "tokenizer.chat_template": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "{%- if messages | length != 1 or messages[0]['role'] != 'user' -%}\n{{- raise_exception('ScribeKey Fast accepts one user message containing a control line and transcript; no system message or history.') -}}\n{%- endif -%}\n{{- '<|startoftext|>### Input:\\n' + messages[0]['content'] + '\\n\\n### Output:\\n' -}}\n",
+        "raw_value_sha256": "c36eb81adeeb085f9c6fd14fc745e3fd7fc3c7c8cfca99de93c5e69bfa05742c"
+      },
+      "publisher_q8": {
+        "gguf_type": 8,
+        "value": "{{- bos_token -}}\n{%- set preserve_thinking = preserve_thinking | default(keep_past_thinking | default(false)) -%}\n\n{%- macro format_arg_value(arg_value) -%}\n    {%- if arg_value is string -%}\n        {{- \"'\" + (arg_value | replace(\"\\\\\", \"\\\\\\\\\") | replace(\"'\", \"\\\\'\") | replace(\"\\n\", \"\\\\n\") | replace(\"\\r\", \"\\\\r\")) + \"'\" -}}\n    {%- elif arg_value is mapping or arg_value is iterable -%}\n        {{- arg_value | tojson -}}\n    {%- else -%}\n        {{- arg_value | string -}}\n    {%- endif -%}\n{%- endmacro -%}\n\n{%- macro parse_content(content) -%}\n    {%- if content is string -%}\n        {{- content -}}\n    {%- elif content is mapping -%}\n        {{- content | tojson -}}\n    {%- elif content is iterable -%}\n        {%- set _ns = namespace(result=\"\") -%}\n        {%- for item in content -%}\n            {%- if item is string -%}\n                {%- set _ns.result = _ns.result + item -%}\n            {%- elif item is mapping and item.get(\"type\") == \"image\" -%}\n                {%- set _ns.result = _ns.result + \"<image>\" -%}\n            {%- elif item is mapping and item.get(\"type\") == \"text\" -%}\n                {%- set _ns.result = _ns.result + ((item.get(\"text\") or \"\") | string) -%}\n            {%- else -%}\n                {%- set _ns.result = _ns.result + (item | tojson) -%}\n            {%- endif -%}\n        {%- endfor -%}\n        {{- _ns.result -}}\n    {%- endif -%}\n{%- endmacro -%}\n\n{%- macro render_tool_calls(tool_calls) -%}\n    {%- set tool_calls_ns = namespace(tool_calls=[]) -%}\n    {%- for tool_call in tool_calls -%}\n        {%- set func = tool_call[\"function\"] if \"function\" in tool_call else tool_call -%}\n        {%- set func_name = func[\"name\"] -%}\n        {%- set func_args = func.get(\"arguments\") -%}\n        {%- set args_ns = namespace(arg_strings=[]) -%}\n        {%- if func_args is mapping -%}\n            {%- for arg_name, arg_value in func_args.items() -%}\n                {%- set args_ns.arg_strings = args_ns.arg_strings + [arg_name + \"=\" + format_arg_value(arg_value)] -%}\n            {%- endfor -%}\n        {%- elif func_args is string and (func_args | trim) not in [\"\", \"{}\", \"null\"] -%}\n            {{- raise_exception(\"Tool call arguments must be a mapping, got a JSON-encoded string: parse arguments with json.loads() before applying the chat template\") -}}\n        {%- endif -%}\n        {%- set tool_calls_ns.tool_calls = tool_calls_ns.tool_calls + [func_name + \"(\" + (args_ns.arg_strings | join(\", \")) + \")\"] -%}\n    {%- endfor -%}\n    {{- \"<|tool_call_start|>[\" + (tool_calls_ns.tool_calls | join(\", \")) + \"]<|tool_call_end|>\" -}}\n{%- endmacro -%}\n\n{%- set ns = namespace(system_prompt=\"\", last_assistant_index=-1) -%}\n{%- if messages and messages[0][\"role\"] == \"system\" -%}\n    {%- if messages[0].get(\"content\") -%}\n        {%- set ns.system_prompt = parse_content(messages[0][\"content\"]) -%}\n    {%- endif -%}\n    {%- set messages = messages[1:] -%}\n{%- endif -%}\n{%- if tools -%}\n    {%- set ns.system_prompt = ns.system_prompt + (\"\\n\" if ns.system_prompt else \"\") + \"List of tools: [\" -%}\n    {%- for tool in tools -%}\n        {%- if tool is not string -%}\n            {%- set tool = tool | tojson -%}\n        {%- endif -%}\n        {%- set ns.system_prompt = ns.system_prompt + tool -%}\n        {%- if not loop.last -%}\n            {%- set ns.system_prompt = ns.system_prompt + \", \" -%}\n        {%- endif -%}\n    {%- endfor -%}\n    {%- set ns.system_prompt = ns.system_prompt + \"]\" -%}\n{%- endif -%}\n{%- if ns.system_prompt -%}\n    {{- \"<|im_start|>system\\n\" + ns.system_prompt + \"<|im_end|>\\n\" -}}\n{%- endif -%}\n{%- for message in messages -%}\n    {%- if message[\"role\"] == \"assistant\" -%}\n        {%- set ns.last_assistant_index = loop.index0 -%}\n    {%- endif -%}\n{%- endfor -%}\n{%- for message in messages -%}\n    {{- \"<|im_start|>\" + message.role + \"\\n\" -}}\n    {%- if message.role == \"assistant\" -%}\n        {%- generation -%}\n        {%- set keep_thinking = preserve_thinking or loop.index0 == ns.last_assistant_index -%}\n        {%- set thinking = message.thinking or message.reasoning or message.reasoning_content -%}\n        {%- set thinking = thinking if thinking is string else \"\" -%}\n        {%- if thinking and keep_thinking -%}\n            {{- \"<think>\" + thinking + \"</think>\" -}}\n        {%- endif -%}\n        {%- set _cfm_tag = \"CONTINUE_FINAL_MESSAGE_TAG \" -%}\n        {%- set _has_cfm = false -%}\n        {%- set content = \"\" -%}\n        {%- if message.get(\"content\") -%}\n            {%- set content = parse_content(message.content) -%}\n        {%- endif -%}\n        {%- if not keep_thinking and \"</think>\" in content -%}\n            {%- set content = content.split(\"</think>\")[-1] | trim -%}\n        {%- endif -%}\n        {%- if content.endswith(_cfm_tag) -%}\n            {%- set _has_cfm = true -%}\n            {%- set _trunc_len = (content | length) - (_cfm_tag | length) -%}\n            {%- set content = content[:_trunc_len] -%}\n        {%- endif -%}\n        {{- content -}}\n        {%- if message.tool_calls -%}\n            {{- render_tool_calls(message.tool_calls) -}}\n        {%- endif -%}\n        {%- if _has_cfm -%}\n            {{- _cfm_tag -}}\n        {%- endif -%}\n        {{- \"<|im_end|>\\n\" -}}\n        {%- endgeneration -%}\n    {%- else %}\n        {%- if message.get(\"content\") -%}\n            {{- parse_content(message[\"content\"]) -}}\n        {%- endif -%}\n        {{- \"<|im_end|>\\n\" -}}\n    {%- endif %}\n{%- endfor -%}\n{%- if add_generation_prompt -%}\n    {{- \"<|im_start|>assistant\\n\" -}}\n{%- endif -%}\n",
+        "raw_value_sha256": "75bcc25d5f86cde1dd1ac11e36c2a24019bc0a2249df775eb8505d996679fb2c"
+      }
+    },
+    "tokenizer.ggml.add_eos_token": {
+      "local_q4": {
+        "gguf_type": 7,
+        "value": false,
+        "raw_value_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      "publisher_q8": null
+    },
+    "tokenizer.ggml.clean_spaces": {
+      "local_q4": {
+        "gguf_type": 7,
+        "value": false,
+        "raw_value_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      "publisher_q8": null
+    }
+  },
+  "tokenizer_metadata_differences": {
+    "tokenizer.chat_template": {
+      "local_q4": {
+        "gguf_type": 8,
+        "value": "{%- if messages | length != 1 or messages[0]['role'] != 'user' -%}\n{{- raise_exception('ScribeKey Fast accepts one user message containing a control line and transcript; no system message or history.') -}}\n{%- endif -%}\n{{- '<|startoftext|>### Input:\\n' + messages[0]['content'] + '\\n\\n### Output:\\n' -}}\n",
+        "raw_value_sha256": "c36eb81adeeb085f9c6fd14fc745e3fd7fc3c7c8cfca99de93c5e69bfa05742c"
+      },
+      "publisher_q8": {
+        "gguf_type": 8,
+        "value": "{{- bos_token -}}\n{%- set preserve_thinking = preserve_thinking | default(keep_past_thinking | default(false)) -%}\n\n{%- macro format_arg_value(arg_value) -%}\n    {%- if arg_value is string -%}\n        {{- \"'\" + (arg_value | replace(\"\\\\\", \"\\\\\\\\\") | replace(\"'\", \"\\\\'\") | replace(\"\\n\", \"\\\\n\") | replace(\"\\r\", \"\\\\r\")) + \"'\" -}}\n    {%- elif arg_value is mapping or arg_value is iterable -%}\n        {{- arg_value | tojson -}}\n    {%- else -%}\n        {{- arg_value | string -}}\n    {%- endif -%}\n{%- endmacro -%}\n\n{%- macro parse_content(content) -%}\n    {%- if content is string -%}\n        {{- content -}}\n    {%- elif content is mapping -%}\n        {{- content | tojson -}}\n    {%- elif content is iterable -%}\n        {%- set _ns = namespace(result=\"\") -%}\n        {%- for item in content -%}\n            {%- if item is string -%}\n                {%- set _ns.result = _ns.result + item -%}\n            {%- elif item is mapping and item.get(\"type\") == \"image\" -%}\n                {%- set _ns.result = _ns.result + \"<image>\" -%}\n            {%- elif item is mapping and item.get(\"type\") == \"text\" -%}\n                {%- set _ns.result = _ns.result + ((item.get(\"text\") or \"\") | string) -%}\n            {%- else -%}\n                {%- set _ns.result = _ns.result + (item | tojson) -%}\n            {%- endif -%}\n        {%- endfor -%}\n        {{- _ns.result -}}\n    {%- endif -%}\n{%- endmacro -%}\n\n{%- macro render_tool_calls(tool_calls) -%}\n    {%- set tool_calls_ns = namespace(tool_calls=[]) -%}\n    {%- for tool_call in tool_calls -%}\n        {%- set func = tool_call[\"function\"] if \"function\" in tool_call else tool_call -%}\n        {%- set func_name = func[\"name\"] -%}\n        {%- set func_args = func.get(\"arguments\") -%}\n        {%- set args_ns = namespace(arg_strings=[]) -%}\n        {%- if func_args is mapping -%}\n            {%- for arg_name, arg_value in func_args.items() -%}\n                {%- set args_ns.arg_strings = args_ns.arg_strings + [arg_name + \"=\" + format_arg_value(arg_value)] -%}\n            {%- endfor -%}\n        {%- elif func_args is string and (func_args | trim) not in [\"\", \"{}\", \"null\"] -%}\n            {{- raise_exception(\"Tool call arguments must be a mapping, got a JSON-encoded string: parse arguments with json.loads() before applying the chat template\") -}}\n        {%- endif -%}\n        {%- set tool_calls_ns.tool_calls = tool_calls_ns.tool_calls + [func_name + \"(\" + (args_ns.arg_strings | join(\", \")) + \")\"] -%}\n    {%- endfor -%}\n    {{- \"<|tool_call_start|>[\" + (tool_calls_ns.tool_calls | join(\", \")) + \"]<|tool_call_end|>\" -}}\n{%- endmacro -%}\n\n{%- set ns = namespace(system_prompt=\"\", last_assistant_index=-1) -%}\n{%- if messages and messages[0][\"role\"] == \"system\" -%}\n    {%- if messages[0].get(\"content\") -%}\n        {%- set ns.system_prompt = parse_content(messages[0][\"content\"]) -%}\n    {%- endif -%}\n    {%- set messages = messages[1:] -%}\n{%- endif -%}\n{%- if tools -%}\n    {%- set ns.system_prompt = ns.system_prompt + (\"\\n\" if ns.system_prompt else \"\") + \"List of tools: [\" -%}\n    {%- for tool in tools -%}\n        {%- if tool is not string -%}\n            {%- set tool = tool | tojson -%}\n        {%- endif -%}\n        {%- set ns.system_prompt = ns.system_prompt + tool -%}\n        {%- if not loop.last -%}\n            {%- set ns.system_prompt = ns.system_prompt + \", \" -%}\n        {%- endif -%}\n    {%- endfor -%}\n    {%- set ns.system_prompt = ns.system_prompt + \"]\" -%}\n{%- endif -%}\n{%- if ns.system_prompt -%}\n    {{- \"<|im_start|>system\\n\" + ns.system_prompt + \"<|im_end|>\\n\" -}}\n{%- endif -%}\n{%- for message in messages -%}\n    {%- if message[\"role\"] == \"assistant\" -%}\n        {%- set ns.last_assistant_index = loop.index0 -%}\n    {%- endif -%}\n{%- endfor -%}\n{%- for message in messages -%}\n    {{- \"<|im_start|>\" + message.role + \"\\n\" -}}\n    {%- if message.role == \"assistant\" -%}\n        {%- generation -%}\n        {%- set keep_thinking = preserve_thinking or loop.index0 == ns.last_assistant_index -%}\n        {%- set thinking = message.thinking or message.reasoning or message.reasoning_content -%}\n        {%- set thinking = thinking if thinking is string else \"\" -%}\n        {%- if thinking and keep_thinking -%}\n            {{- \"<think>\" + thinking + \"</think>\" -}}\n        {%- endif -%}\n        {%- set _cfm_tag = \"CONTINUE_FINAL_MESSAGE_TAG \" -%}\n        {%- set _has_cfm = false -%}\n        {%- set content = \"\" -%}\n        {%- if message.get(\"content\") -%}\n            {%- set content = parse_content(message.content) -%}\n        {%- endif -%}\n        {%- if not keep_thinking and \"</think>\" in content -%}\n            {%- set content = content.split(\"</think>\")[-1] | trim -%}\n        {%- endif -%}\n        {%- if content.endswith(_cfm_tag) -%}\n            {%- set _has_cfm = true -%}\n            {%- set _trunc_len = (content | length) - (_cfm_tag | length) -%}\n            {%- set content = content[:_trunc_len] -%}\n        {%- endif -%}\n        {{- content -}}\n        {%- if message.tool_calls -%}\n            {{- render_tool_calls(message.tool_calls) -}}\n        {%- endif -%}\n        {%- if _has_cfm -%}\n            {{- _cfm_tag -}}\n        {%- endif -%}\n        {{- \"<|im_end|>\\n\" -}}\n        {%- endgeneration -%}\n    {%- else %}\n        {%- if message.get(\"content\") -%}\n            {{- parse_content(message[\"content\"]) -}}\n        {%- endif -%}\n        {{- \"<|im_end|>\\n\" -}}\n    {%- endif %}\n{%- endfor -%}\n{%- if add_generation_prompt -%}\n    {{- \"<|im_start|>assistant\\n\" -}}\n{%- endif -%}\n",
+        "raw_value_sha256": "75bcc25d5f86cde1dd1ac11e36c2a24019bc0a2249df775eb8505d996679fb2c"
+      }
+    },
+    "tokenizer.ggml.add_eos_token": {
+      "local_q4": {
+        "gguf_type": 7,
+        "value": false,
+        "raw_value_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      "publisher_q8": null
+    },
+    "tokenizer.ggml.clean_spaces": {
+      "local_q4": {
+        "gguf_type": 7,
+        "value": false,
+        "raw_value_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      "publisher_q8": null
+    }
+  },
+  "bos_eos_token_ids_and_token_strings_match": true,
+  "special_tokens_first_ten": {
+    "0": "<|pad|>",
+    "1": "<|startoftext|>",
+    "2": "<|endoftext|>",
+    "3": "<|fim_pre|>",
+    "4": "<|fim_mid|>",
+    "5": "<|fim_suf|>",
+    "6": "<|im_start|>",
+    "7": "<|im_end|>",
+    "8": "<|tool_list_start|>",
+    "9": "<|tool_list_end|>"
+  },
+  "no_q8_requantization": true,
+  "no_vocabulary_pruning": true,
+  "no_importance_matrix_calibration": true,
+  "precision_qualification": "The verified original BF16 safetensors were converted to F16 then Q4_K_M. Tensor names/dimensions and architecture match publisher Q8; numerical tensor values are intentionally changed by quantization and were not exhaustively compared/dequantized in this audit.",
+  "template_explanation": {
+    "publisher_card": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/scribekey_scribekey-cleanup-fast-GGUF/README.md",
+    "publisher_card_statement": "The evaluated GGUF retains an inherited LFM chat template; do not rely on its automatic chat formatting.",
+    "local_template_source": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/chat_template.jinja",
+    "reason": "Publisher Q8 retained inherited LFM chat formatting. The current pinned HF source includes the 305-character trained one-user-message task template, automatically embedded by the clean conversion. The local GGUF therefore contains the task template instead of the 5487-character inherited template.",
+    "raw_completion_qualification": "Freehand ScribeKeyFast supplies the raw BOS/task/input/output prompt to /completion with --no-jinja. That bypasses Jinja message rendering, but it does not disable native tokenizer BOS/EOS/EOG handling or add-special-token behavior. The token IDs, token strings, vocabulary, token types and merge table match; the additional local add_eos=false field must be checked against the pinned runtime default."
+  },
+  "native_default_add_eos_audit": {
+    "status": "effective_behavior_matches_pinned_runtime",
+    "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+    "source_file": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/src/llama-vocab.cpp",
+    "initial_add_eos_default": false,
+    "initial_default_line": 2131,
+    "lfm2_pre_tokenizer_branch_lines": [
+      2493,
+      2497
+    ],
+    "lfm2_clean_spaces_default": false,
+    "optional_clean_spaces_override_line": 2804,
+    "optional_add_eos_override_lines": [
+      2997,
+      2998
+    ],
+    "effective_q8_add_eos": false,
+    "effective_local_add_eos": false,
+    "effective_q8_clean_spaces": false,
+    "effective_local_clean_spaces": false,
+    "qualification": "The local explicit false flags add_eos and clean_spaces equal the official Q8 defaults under this exact b12015 runtime. No claim about another runtime version is inferred."
+  },
+  "raw_completion_BOS_handling": {
+    "provider_source": "/workspace/freehand/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+    "contract": "Specialist text is pretokenized with addSpecial=false and parse_special=true, then submitted as integer token IDs to /completion. This preserves exactly the single BOS token in the trained raw prompt and avoids b12015 automatic BOS addition to string completion prompts. Native EOS/EOG handling remains enabled.",
+    "native_completion_route_source": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/tools/server/server-context.cpp",
+    "native_completion_route_lines": [
+      5348,
+      5969
+    ]
+  },
+  "distribution": {
+    "local_preview_selectable": true,
+    "prepared_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/scribe-local-q4-compact.json",
+    "publisher_hosted_q4_exists": false,
+    "settings_download_ready": false,
+    "limitation": "This local Q4 has no publisher-hosted immutable download URL. Existing source artifact URLs resolve original safetensors/Q8, not these derived Q4 bytes. Local prepared-bundle selection can use verified local bytes; Settings acquisition requires an approved hosted immutable Q4 artifact with exact SHA/size and applicable notices, or a separately implemented reproducible local conversion flow. Nothing was published or uploaded.",
+    "native_startup_tested_in_this_audit": false,
+    "settings_download_limitation": "The local derived GGUF can be addressed by its prepared absolute-path manifest; actual managed/native runtime validation remains separately recorded. A production Settings download needs separately approved immutable hosting of these exact derived bytes and notices. Original HF source/Q8 URLs cannot substitute for a hosted Q4. No publishing/uploading occurred."
+  },
+  "all_tensor_counts_and_parameter_totals_match_verified_bf16_source": true,
+  "mixed_quantization_note": "Q4_K_M is a mixed policy: 82 Q4_K, 11 Q6_K and 55 F32 tensors here, versus publisher Q8 with 93 Q8_0 and 55 F32 tensors. No importance matrix/calibration or vocabulary pruning was used. Emberon Q4 is separately pruned/calibrated, so this compares deployable candidates rather than isolating architecture/vocabulary/precision as one scientific factor.",
+  "startup_chat_template_audit": {
+    "status": "normal_log_disabled_raw_completion_path_not_shown_to_fail",
+    "native_source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+    "legacy_recognizer_source": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/src/llama-chat.cpp",
+    "legacy_recognizer_lines": [
+      89,
+      239
+    ],
+    "legacy_recognizes_local_task_template": false,
+    "legacy_recognizes_publisher_inherited_template_as_chatml": true,
+    "server_example_formatter_source": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/tools/server/server-context.cpp",
+    "server_example_formatter_lines": [
+      1698,
+      1701
+    ],
+    "server_trace_macro_source": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/tools/server/server-common.h",
+    "server_trace_macro_line": 36,
+    "log_guard_source": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/native-metadata-sources/common/log.h",
+    "log_guard_lines": [
+      112,
+      117
+    ],
+    "interpretation": "The server contains a startup example formatter under SRV_TRC. LOG_TMPL guards argument evaluation before calling that formatter; with Freehand --log-disable the unsupported legacy template formatter is skipped. Raw token-array /completion does not call Jinja or legacy message rendering. Do not infer a required normal-startup failure from the trace statement.",
+    "limitation": "Calling legacy chat formatting with this task template, including enabling trace logging that evaluates the startup dummy multi-message example, can reject the unsupported template. An explicit known chat-template override could make that unused diagnostic route robust if needed, but none was applied in this read-only audit.",
+    "runtime_launch_or_inference_in_this_audit": false,
+    "prior_parent_message_correction": "An intermediate static warning overstated normal startup failure before auditing logging macro evaluation; the guarded argument evaluation resolves that claim."
+  }
+}

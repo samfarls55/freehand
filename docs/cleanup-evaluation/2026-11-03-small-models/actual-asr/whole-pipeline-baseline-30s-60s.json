@@ -1,0 +1,111 @@
+{
+  "At": "2026-11-03T15:53:09.6358484+00:00",
+  "Executable": "/workspace/freehand/src/Freehand.App/bin/Release/net10.0/Freehand.App",
+  "ExecutableSha256": "23E5E35A7E6F48813AE364939614B08CD42C0A4EA82CA743B787E7804EC14261",
+  "RuntimeSha256": {},
+  "Manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-30s-60s-manifest.json",
+  "ManifestSha256": "2DF189ED059D3E0CD5396E753B46C25DB356622EBBCF59F972B99D05E39D68B6",
+  "ReplayMode": "realtime audio replay",
+  "ColdLoadsBeforeRecording": false,
+  "Limitations": "Memory includes simultaneous evaluator, ASR worker and optional cleanup worker sums, excludes desktop UI. Working sets can double-count shared pages. Linux private commit is undefined and omitted. Injector counts calls and does not type. Cold ASR mode measures loading separately before recording. Cleanup uses an evaluation-only one-hour idle timeout; initial synthetic warmup is separate unless skipped. No Windows, microphone, physical hotkey, visible-delivery or whole-app SLA claim.",
+  "InitialLoadMilliseconds": 1272.7295,
+  "Memory": {
+    "PeakSummedWorkingSetBytes": 482344960
+  },
+  "Summaries": [
+    {
+      "Gain": 1,
+      "Trials": 2,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 194
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 194
+      },
+      "TranscriptP50Milliseconds": 239.5141,
+      "TranscriptP95Milliseconds": 268.7213
+    }
+  ],
+  "Trials": [
+    {
+      "Id": "jfk-30s",
+      "Repeat": 0,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 30,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 65
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 65
+      },
+      "TranscriptMilliseconds": 268.7213,
+      "CountingInjectorCompleteMilliseconds": 268.9282,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 428609536
+      },
+      "CaptureMilliseconds": 29998.5738,
+      "CaptureDriftMilliseconds": -1.4262000000016997,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1
+    },
+    {
+      "Id": "jfk-60s",
+      "Repeat": 0,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 60,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 129
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 129
+      },
+      "TranscriptMilliseconds": 239.5141,
+      "CountingInjectorCompleteMilliseconds": 239.5372,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 482344960
+      },
+      "CaptureMilliseconds": 59999.5895,
+      "CaptureDriftMilliseconds": -0.41049999999813735,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1
+    }
+  ],
+  "Failures": [],
+  "SpeechWorkerMode": "portable-linux-research-worker; APP argument is reference-only",
+  "SpeechWorkerAssembly": "/workspace/freehand/tools/Freehand.Evaluation/bin/Release/net10.0/Freehand.Evaluation.dll",
+  "SpeechWorkerAssemblySha256": "4C3F7773FD0A0139E3F3BAF8B5B95D8AA127EE68B2A8A828FAC6372353B7E267"
+}

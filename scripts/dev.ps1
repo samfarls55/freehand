@@ -20,7 +20,8 @@ $settings.ModelDirectory = $model
 $cleanupInput = if ($CleanupSource) { $CleanupSource } else { Join-Path $projectRoot 'artifacts/cleanup-assets' }
 if ($CleanupSource -or (-not $settings.CleanupDirectory -and (Test-Path -LiteralPath (Join-Path $cleanupInput 'cleanup-manifest.json') -PathType Leaf))) {
     $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupInput
-    if ((Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe') {
+    if ($cleanupBundle.Platform -notin @('win-x64-cpu', 'win-x64-vulkan') -or
+        (Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe') {
         throw 'Windows development requires a Windows cleanup bundle.'
     }
     $settings.CleanupDirectory = $cleanupBundle.Directory

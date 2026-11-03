@@ -1,5 +1,14 @@
 # Transcript cleanup evaluation — October 30, 2026
 
+## Subsequent small-model evaluation — November 3, 2026
+
+Read the [new small-model implementation and evaluation](TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md)
+for the actual 13-artifact shortlist, local ScribeKey Q4 conversion, frozen quality
+trials and repeated ASR/cleanup runs. The user now requires whole-app costs within
+15% of the documented SLAs: 747,500,000 bytes and 805 ms. No candidate qualified;
+the large-model results below remain a historical quality reference. Windows
+whole-app/GPU performance is still unverified.
+
 Subsequent [small-model research](TRANSCRIPT-CLEANUP-SMALL-MODELS.md) reopens
 production selection. References below to the selected Qwen model describe this
 historical experiment and its pinned prototype; they do not establish the best

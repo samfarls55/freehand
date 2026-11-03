@@ -8,6 +8,8 @@ The installer includes the speech model and runtime. Optional cleanup assets are
 
 [Download for Windows x64](https://github.com/samfarls55/freehand/releases/latest) · [Report a problem](https://github.com/samfarls55/freehand/issues) · [Build from source](#build-from-source)
 
+Cleanup development: [the small-model evaluation](docs/TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md) records the current experimental profiles, fidelity failures and strict performance gates. No cleanup model is yet qualified as a production default under the requested 15% SLA allowance.
+
 ## What it does
 
 - Dictates into a focused text field with a global push-to-talk key.

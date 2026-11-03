@@ -116,3 +116,94 @@ deadline termination, artifact mismatch and Linux process-tree memory reporting.
 The fake runtime used by lifecycle tests performs no model inference and its
 results must never be presented as model performance. The Windows ctypes memory
 path requires validation on Windows.
+
+## Small-model contracts
+
+`small_models.py` consumes exact prompts exported by the managed implementation,
+so specialist formats do not need a second Python implementation. Exporting
+normalizes inputs and references through the existing Core pipeline first:
+
+```sh
+dotnet run --project tools/Freehand.Cleanup.Probe -c Release -- --export-prompts --input tools/Freehand.Cleanup.Evaluation/fixtures.json --output work/s1-prompts.json --prompt-style S1Mini --split development
+python tools/Freehand.Cleanup.Evaluation/small_models.py --asset-index work/cleanup-small-models-2026-11-03/asset-index.json --candidate superwhisper/s1-mini-GGUF --prompts work/s1-prompts.json --output work/s1-native-screen --ids dev-001,dev-013
+```
+
+The acquisition index must contain independently verified complete model and
+runtime files; the runner rechecks their exact hashes and sizes. Each run owns
+one server and refuses an existing output directory. Linux runs also reject an
+already running `llama-server`. The default profile uses four CPU threads,
+2048 context tokens, a 512-token complete-output reservation, 128-token batch
+and micro-batch sizes, no host prompt cache and no context checkpoints.
+`--threads`, `--context`, `--max-output`, `--batch`, `--micro-batch`, `--cache-ram`
+and `--repeats` support explicit profiles. Additional native options can be
+supplied with repeated `--extra-server-arg`, for example
+`--extra-server-arg=--spec-type --extra-server-arg=ngram-simple`.
+
+When `runtime-file-index.json` exists beside the asset index, the runner also
+verifies every listed runtime file and symlink target and records the inventory
+hash. `--runtime-file-index PATH` requires an explicit inventory. A small server
+launcher hash alone does not freeze its dynamically loaded libraries.
+
+Specialist generation submits the integer token array returned by `/tokenize`.
+In the pinned b12015 runtime, the `/completion` string-prompt path always adds
+special tokens; an `add_special: false` JSON field does not suppress that step.
+Sending the validated array preserves each model's exact BOS contract. General
+controls use their embedded chat template, shared JSON policy and literal mask.
+Oversized prompts and incomplete responses are recorded as failures, with no
+input truncation or credit for partial output. Raw responses remain available.
+
+The native report separates server readiness, complete request time including
+budget validation, generation time, first request and later requests. Its
+`warm_summary` excludes the first request. Hash verification warms OS file pages
+before server startup; this is not a filesystem-cold loading measurement.
+Memory includes only the cleanup worker process tree. Native exports omit Core
+dictionary-protection wrappers, so dictionary behavior must additionally pass
+the integrated managed probe. Neither native timing nor worker memory alone
+establishes the whole-application SLA.
+
+Specialist literal masking is a separately labeled adapter experiment. Add
+`--mask-specialist-literals true` to prompt export, and set
+`"maskSpecialistLiterals": true` in an integrated model manifest to apply the
+same opaque-token adapter while retaining the specialist's prompt format.
+It defaults to false for specialists and is always active for general models.
+General models retain the original `literal-token-v1` dictionary mask. The
+specialist experiment uses `specialist-compact-v3`: first validate and hide Core
+dictionary blocks, then replace each resulting literal token or paired
+double-quoted span with a distinct 12-character identifier. A quote containing a
+dictionary block is protected as one span. Straight double quotes and curly
+double quotes are paired; an odd number of immediately preceding backslashes
+escapes a quote. Unbalanced quotes and apostrophes remain ordinary text.
+
+Identifiers are `FHX_` plus the first eight lowercase SHA-256 hex digits of the
+UTF-8 string `ordinal:nonce:payload`. The zero-based encounter ordinal keeps
+repeated equal phrases distinct; nonce starts at zero and increases only to
+avoid a collision within the request. Both implementations reject the reserved
+`FHX_` family in source text and require every returned identifier exactly once,
+in source order, before restoring the original spans and Core dictionary blocks.
+This reduces the shared prefix that a repetition-removing model could collapse
+and protects verbatim quoted wording without teaching fixture-specific rules.
+
+V3 adds one narrow restoration rule. If the original transcript ends, apart from
+whitespace, with a paired protected quote whose last inner character is `.`, `?`
+or `!`, a model-added single period immediately after the final opaque token is
+removed when only whitespace follows it. Protected payload bytes are unchanged.
+Original outside punctuation, inner or outside ellipses, added words, mid-sentence
+quotes and unpunctuated quotes do not trigger the rule. This avoids rendering
+`She said "Go.".` after restoring a terminal quote that already had its period.
+
+Exports and native reports record `mask_literals` and `literal_mask_protocol`.
+Each new exported case also records `model_input_sha256`; Python verifies that
+its mask matches the managed export before sending any inference request. Frozen
+initial specialist-mask exports without a protocol field retain the legacy v1
+adapter on replay. Explicit `specialist-compact-v2` exports retain the compact
+identifiers and verbatim quotes without V3's period rule; token IDs are identical
+between V2 and V3. All three stages keep their own evidence. Restored bytes are
+adapter preservation, rather than evidence that a model copied the original
+literal correctly. Quotes are protected verbatim, so cleanup inside them is
+deliberately unavailable in this experiment.
+
+Sotto and ScribeKey prescribe `###` as a completion delimiter. Literal Markdown
+or code containing that sequence can collide with the format or stop generation
+early. Their native `word` stop status confirms a configured stop, rather than
+semantic completeness. Such cases need separate literal coverage and integrated
+fallback review before either model can be selected for unrestricted dictation.

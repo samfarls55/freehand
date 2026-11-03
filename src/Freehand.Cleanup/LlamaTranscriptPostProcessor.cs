@@ -17,7 +17,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
     private static readonly string[] InputControlTokens =
     [
         "<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>", "<end_of_turn>",
-        "[INST]", "[/INST]", "[SYSTEM_PROMPT]", "[/SYSTEM_PROMPT]", "<|endoftext|>",
+        "[INST]", "[/INST]", "[SYSTEM_PROMPT]", "[/SYSTEM_PROMPT]", "<|endoftext|>", "<|startoftext|>",
     ];
     private readonly LlamaCleanupOptions _options;
     private readonly ICleanupWorkerLauncher _launcher;
@@ -56,7 +56,9 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
         ObjectDisposedException.ThrowIf(Volatile.Read(ref _disposed) != 0, this);
         if (InputControlTokens.Any(control => text.Contains(control, StringComparison.Ordinal)))
             throw new InvalidDataException("The transcript contains unsupported model control tokens.");
-        var literals = _options.PromptStyle == CleanupPromptStyle.QuillChatMl ? null : LiteralProtectionMask.Create(text);
+        var literals = CleanupPrompt.IsGeneral(_options.PromptStyle) ? LiteralProtectionMask.Create(text) : null;
+        var specialistLiterals = !CleanupPrompt.IsGeneral(_options.PromptStyle) && _options.MaskSpecialistLiterals
+            ? SpecialistLiteralMask.Create(text) : null;
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
         await _gate.WaitAsync(linked.Token).ConfigureAwait(false);
         try
@@ -65,13 +67,18 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             CancelIdle();
             await EnsureWorkerAsync(linked.Token).ConfigureAwait(false);
             string output;
-            if (_options.PromptStyle == CleanupPromptStyle.QuillChatMl)
+            if (!CleanupPrompt.IsGeneral(_options.PromptStyle))
             {
-                var prompt = "<|im_start|>system\nYou clean up dictated text.<|im_end|>\n"
-                    + "<|im_start|>user\n" + text + "<|im_end|>\n"
-                    + "<|im_start|>assistant\n<think>\n\n</think>\n\n";
-                await CheckBudgetAsync(prompt, linked.Token).ConfigureAwait(false);
-                using var response = await PostAsync("completion", new CompletionRequest(prompt, _options.MaxOutputTokens),
+                var contract = CleanupPrompt.BuildCompletion(_options.PromptStyle, specialistLiterals?.MaskedText ?? text);
+                var tokens = await CheckBudgetAsync(contract.Text, contract.AddSpecial, linked.Token).ConfigureAwait(false);
+                // b12015 always adds BOS for string completion prompts. Token IDs preserve
+                // the exact specialist contract verified above, including exactly one BOS.
+                var request = new CompletionRequest(tokens, _options.MaxOutputTokens)
+                {
+                    Stop = contract.Stop.ToArray(), Temperature = contract.Temperature,
+                    RepeatPenalty = contract.RepeatPenalty, AddSpecial = contract.AddSpecial, Seed = contract.Seed,
+                };
+                using var response = await PostAsync("completion", request,
                     CleanupJsonContext.Default.CompletionRequest, linked.Token).ConfigureAwait(false);
                 output = CompleteNative(response.RootElement);
             }
@@ -83,13 +90,14 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
                 using var template = await PostAsync("apply-template", request, CleanupJsonContext.Default.ChatRequest, linked.Token).ConfigureAwait(false);
                 if (!template.RootElement.TryGetProperty("prompt", out var formatted) || formatted.ValueKind != JsonValueKind.String)
                     throw new InvalidDataException("The cleanup runtime did not supply the model's chat template.");
-                await CheckBudgetAsync(formatted.GetString()!, linked.Token).ConfigureAwait(false);
+                await CheckBudgetAsync(formatted.GetString()!, true, linked.Token).ConfigureAwait(false);
                 using var response = await PostAsync("v1/chat/completions", request, CleanupJsonContext.Default.ChatRequest, linked.Token).ConfigureAwait(false);
                 output = CompleteChat(response.RootElement);
             }
             if (string.IsNullOrWhiteSpace(output) || ContainsControlOutput(output))
                 throw new InvalidDataException("Cleanup returned empty text or model control output.");
-            return literals is null ? output : literals.Restore(output);
+            return specialistLiterals is not null ? specialistLiterals.Restore(output)
+                : literals is null ? output : literals.Restore(output);
         }
         catch
         {
@@ -134,11 +142,24 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
                 "--ctx-size", _options.ContextSize.ToString(CultureInfo.InvariantCulture),
                 "--parallel", "1", "--threads", _options.Threads.ToString(CultureInfo.InvariantCulture),
                 "--threads-batch", _options.Threads.ToString(CultureInfo.InvariantCulture),
+                "--batch-size", _options.BatchSize.ToString(CultureInfo.InvariantCulture),
+                "--ubatch-size", _options.MicroBatchSize.ToString(CultureInfo.InvariantCulture),
+                "--cache-ram", _options.PromptCacheMiB.ToString(CultureInfo.InvariantCulture),
+                "--ctx-checkpoints", _options.ContextCheckpoints.ToString(CultureInfo.InvariantCulture),
+                "--cache-type-k", _options.CacheTypeK,
+                "--cache-type-v", _options.CacheTypeV,
                 "--n-gpu-layers", _options.GpuLayers.ToString(CultureInfo.InvariantCulture),
                 "--n-predict", _options.MaxOutputTokens.ToString(CultureInfo.InvariantCulture),
                 "--fit", "off", "--no-context-shift", "--no-webui", "--no-slots", "--no-mmproj", "--offline", "--log-disable",
             };
-            arguments.Add(_options.PromptStyle == CleanupPromptStyle.QuillChatMl ? "--no-jinja" : "--jinja");
+            arguments.Add(_options.Repack ? "--repack" : "--no-repack");
+            if (_options.PromptLookupTokens > 0)
+            {
+                arguments.AddRange(["--spec-type", "ngram-map-k", "--spec-ngram-map-k-size-n",
+                    _options.PromptLookupMatchTokens.ToString(CultureInfo.InvariantCulture), "--spec-ngram-map-k-size-m",
+                    _options.PromptLookupTokens.ToString(CultureInfo.InvariantCulture)]);
+            }
+            arguments.Add(CleanupPrompt.IsGeneral(_options.PromptStyle) ? "--jinja" : "--no-jinja");
             _process = _launcher.Launch(new CleanupWorkerStartInfo(_options.RuntimePath, arguments,
                 new Dictionary<string, string>(StringComparer.Ordinal) { ["LLAMA_API_KEY"] = _apiKey }));
             while (true)
@@ -173,13 +194,22 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             throw new InvalidDataException("The configured cleanup " + label + " does not match its manifest hash.");
     }
 
-    private async Task CheckBudgetAsync(string prompt, CancellationToken token)
+    private async Task<int[]> CheckBudgetAsync(string prompt, bool addSpecial, CancellationToken token)
     {
-        using var response = await PostAsync("tokenize", new TokenizeRequest(prompt), CleanupJsonContext.Default.TokenizeRequest, token).ConfigureAwait(false);
+        using var response = await PostAsync("tokenize", new TokenizeRequest(prompt) { AddSpecial = addSpecial }, CleanupJsonContext.Default.TokenizeRequest, token).ConfigureAwait(false);
         if (!response.RootElement.TryGetProperty("tokens", out var tokens) || tokens.ValueKind != JsonValueKind.Array)
             throw new InvalidDataException("The cleanup runtime could not verify the input token budget.");
         if (tokens.GetArrayLength() > _options.ContextSize - _options.MaxOutputTokens)
             throw new InvalidDataException("The complete transcript and output do not fit the configured cleanup context.");
+        var result = new int[tokens.GetArrayLength()];
+        var index = 0;
+        foreach (var value in tokens.EnumerateArray())
+        {
+            if (!value.TryGetInt32(out var id) || id < 0)
+                throw new InvalidDataException("The cleanup runtime returned invalid prompt tokens.");
+            result[index++] = id;
+        }
+        return result;
     }
 
     private HttpRequestMessage Request(HttpMethod method, string path)
@@ -244,7 +274,8 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
     private static bool ContainsControlOutput(string value) => value.Contains("<think>", StringComparison.OrdinalIgnoreCase)
         || value.Contains("</think>", StringComparison.OrdinalIgnoreCase)
         || value.Contains("<|im_start|>", StringComparison.Ordinal) || value.Contains("<|im_end|>", StringComparison.Ordinal)
-        || value.Contains("<|channel>", StringComparison.Ordinal) || value.Contains("<start_of_turn>", StringComparison.Ordinal);
+        || value.Contains("<|channel>", StringComparison.Ordinal) || value.Contains("<start_of_turn>", StringComparison.Ordinal)
+        || value.Contains("<|startoftext|>", StringComparison.Ordinal);
 
     private void CancelIdle()
     {

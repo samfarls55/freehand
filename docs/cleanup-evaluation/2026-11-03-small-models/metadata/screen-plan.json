@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-03T15:18:22.880718+00:00",
+  "base_commit": "43a949e62eb059381976f669ac8c9670ca9c6ffe",
+  "screen_ids": [
+    "dev-001",
+    "dev-002",
+    "dev-006",
+    "dev-009",
+    "dev-010",
+    "dev-013",
+    "dev-016",
+    "dev-018",
+    "dev-021",
+    "dev-023",
+    "dev-025",
+    "dev-026",
+    "dev-027",
+    "dev-029",
+    "dev-031",
+    "dev-033",
+    "dev-035",
+    "dev-039",
+    "dev-040",
+    "dev-041",
+    "dev-042",
+    "dev-044",
+    "dev-056",
+    "dev-057"
+  ],
+  "profiles": [
+    {
+      "name": "handy",
+      "candidate": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "style": "HandyEditor"
+    },
+    {
+      "name": "emberon",
+      "candidate": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "style": "Emberon2"
+    },
+    {
+      "name": "s1",
+      "candidate": "s1-mini-official-q4",
+      "style": "S1Mini"
+    },
+    {
+      "name": "handy-user",
+      "candidate": "MagicNoThief/handy-editor-lfm2.5-350m:handy-editor-350m-Q4_K_M.gguf",
+      "style": "HandyEditorUserOnly"
+    },
+    {
+      "name": "bitvoice",
+      "candidate": "dhanr4j/bitvoice-dictation:gguf/smollm2-360m-ft.gguf",
+      "style": "BitVoiceSmol"
+    },
+    {
+      "name": "kudu",
+      "candidate": "manasdutta04/kudu-writer-tiny:kudu-writer-tiny-v1-iq4_xs.gguf",
+      "style": "KuduTinyPolished"
+    },
+    {
+      "name": "localflow",
+      "candidate": "Radiumcoders/localflow-clean:localflow-clean-q4_k_m.gguf",
+      "style": "LocalflowClean"
+    },
+    {
+      "name": "spokenly",
+      "candidate": "spokenly/cleanup-1-gguf:cleanup-1-q8_0.gguf",
+      "style": "SpokenlyCleanup"
+    },
+    {
+      "name": "scribe",
+      "candidate": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "style": "ScribeKeyFast"
+    },
+    {
+      "name": "sotto",
+      "candidate": "scribekey/sotto-cleanup-350m-gguf:sotto-cleanup-350m-Q4_K_M.gguf",
+      "style": "Sotto"
+    },
+    {
+      "name": "lfm230",
+      "candidate": "LFM2.5 230M",
+      "style": "GenericChat"
+    },
+    {
+      "name": "granite350",
+      "candidate": "Granite4.0 H350M",
+      "style": "GenericChat"
+    },
+    {
+      "name": "smol135",
+      "candidate": "SmolLM2 135M Instruct",
+      "style": "GenericChat"
+    },
+    {
+      "name": "smol-post-asr",
+      "candidate": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+      "style": "SmolPostAsr"
+    }
+  ],
+  "sla": {
+    "whole_host_memory_bytes": 747500000,
+    "ready_release_to_complete_ms": 805
+  },
+  "holdout_not_used": true,
+  "cpu_only": true,
+  "default_profile": {
+    "context": 2048,
+    "max_output": 512,
+    "threads": 4,
+    "batch": 128,
+    "micro_batch": 128,
+    "cache_ram_mib": 0,
+    "context_checkpoints": 0
+  }
+}

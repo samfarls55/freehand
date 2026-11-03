@@ -95,6 +95,112 @@ Describe 'Pinned default cleanup acquisition' {
         Should-NotInvoke Invoke-WebRequest
     }
 
+    It 'inherits a pinned Vulkan runtime selection and uses a distinct default output directory' {
+        $acquisitionSelected.RuntimePlatform = 'win-x64-vulkan'
+        $acquisitionSelected.Inference.GpuLayers = 999
+        $vulkan = $acquisitionRuntime.Artifacts[0].Clone()
+        $vulkan.Platform = 'win-x64-vulkan'
+        $acquisitionRuntime.Artifacts += $vulkan
+        $acquisitionRuntime.Artifacts[0].ExecutableSha256 = '0' * 64
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+        $acquisitionRuntime | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.RuntimeManifestPath
+        $options = $acquisitionOptions.Clone()
+        $options.Remove('OutputDirectory')
+        $cpuManifest = Join-Path $acquisitionFixture 'artifacts/cleanup-assets/cleanup-manifest.json'
+        $cpuBefore = if (Test-Path -LiteralPath $cpuManifest) { Get-Content -LiteralPath $cpuManifest -Raw } else { $null }
+
+        $selected = & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @options -ValidateManifestOnly
+        $bundle = & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @options
+
+        $selected.Platform | Should-Be 'win-x64-vulkan'
+        $bundle.Directory | Should-Be (Join-Path $acquisitionFixture 'artifacts/cleanup-assets-vulkan')
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        $manifest.platform | Should-Be 'win-x64-vulkan'
+        $manifest.runtimePath | Should-Be 'runtime/llama-server.exe'
+        $manifest.gpuLayers | Should-Be 999
+        if ($null -ne $cpuBefore) { Get-Content -LiteralPath $cpuManifest -Raw | Should-Be $cpuBefore }
+        else { (Test-Path -LiteralPath $cpuManifest) | Should-BeFalse }
+    }
+
+    It 'rejects unsupported selected RuntimePlatform <Value> before downloading' -ForEach @(
+        @{ Value = 'linux-x64-cpu' }, @{ Value = 'win-x64-cuda' }, @{ Value = 12 }
+    ) {
+        $acquisitionSelected.RuntimePlatform = $Value
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+
+        { & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions -ValidateManifestOnly } | Should-Throw '*supported pinned Windows runtime*'
+
+        Should-NotInvoke Invoke-WebRequest
+    }
+
+    It 'does not substitute CPU when the selected Vulkan artifact is absent' {
+        $acquisitionSelected.RuntimePlatform = 'win-x64-vulkan'
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+
+        { & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions -ValidateManifestOnly } | Should-Throw '*exactly one artifact*'
+
+        Should-NotInvoke Invoke-WebRequest
+    }
+
+    It 'acquires a specialist bundle without dropping its explicit inference settings' {
+        $acquisitionSelected.PromptStyle = 'S1Mini'
+        $acquisitionSelected.Inference.BatchSize = 256
+        $acquisitionSelected.Inference.MicroBatchSize = 64
+        $acquisitionSelected.Inference.PromptCacheMiB = 16
+        $acquisitionSelected.Inference.ContextCheckpoints = 2
+        $acquisitionSelected.Inference.CacheTypeK = 'q8_0'
+        $acquisitionSelected.Inference.CacheTypeV = 'q4_0'
+        $acquisitionSelected.Inference.Repack = $false
+        $acquisitionSelected.Inference.MaskSpecialistLiterals = $true
+        $acquisitionSelected.Inference.PromptLookupTokens = 16
+        $acquisitionSelected.Inference.PromptLookupMatchTokens = 3
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+
+        $bundle = & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+
+        $manifest.promptStyle | Should-Be 'S1Mini'
+        $manifest.batchSize | Should-Be 256
+        $manifest.microBatchSize | Should-Be 64
+        $manifest.promptCacheMiB | Should-Be 16
+        $manifest.contextCheckpoints | Should-Be 2
+        $manifest.cacheTypeK | Should-Be 'q8_0'
+        $manifest.cacheTypeV | Should-Be 'q4_0'
+        $manifest.repack | Should-BeFalse
+        $manifest.maskSpecialistLiterals | Should-BeTrue
+        $manifest.promptLookupTokens | Should-Be 16
+        $manifest.promptLookupMatchTokens | Should-Be 3
+    }
+
+    It 'rejects invalid acquisition profile setting <Field> before downloading' -ForEach @(
+        @{ Field = 'BatchSize'; Value = '128' }, @{ Field = 'MicroBatchSize'; Value = 129 },
+        @{ Field = 'PromptCacheMiB'; Value = -1 }, @{ Field = 'ContextCheckpoints'; Value = 33 },
+        @{ Field = 'MaskSpecialistLiterals'; Value = 'true' }, @{ Field = 'Repack'; Value = 0 },
+        @{ Field = 'CacheTypeK'; Value = 'q2_bad' }, @{ Field = 'CacheTypeV'; Value = 8 },
+        @{ Field = 'PromptLookupTokens'; Value = 65 }, @{ Field = 'PromptLookupMatchTokens'; Value = 0 },
+        @{ Field = 'PromptLookupTokens'; Value = '16' }, @{ Field = 'PromptLookupMatchTokens'; Value = $true }
+    ) {
+        $acquisitionSelected.Inference[$Field] = $Value
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+
+        { & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions -ValidateManifestOnly } | Should-Throw
+
+        Should-NotInvoke Invoke-WebRequest
+        (Test-Path -LiteralPath $acquisitionOptions.CacheDirectory) | Should-BeFalse
+    }
+
+    It 'rejects a lookup draft that cannot fit with its sampled token before downloading' {
+        $acquisitionSelected.Inference.BatchSize = 16
+        $acquisitionSelected.Inference.MicroBatchSize = 16
+        $acquisitionSelected.Inference.PromptLookupTokens = 16
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+
+        { & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions -ValidateManifestOnly } | Should-Throw '*sampled token*'
+
+        Should-NotInvoke Invoke-WebRequest
+        (Test-Path -LiteralPath $acquisitionOptions.CacheDirectory) | Should-BeFalse
+    }
+
     It 'rejects a corrupted cached model and preserves the previously prepared bundle' {
         $bundle = & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions
         $previous = Get-Content -LiteralPath $bundle.ManifestPath -Raw

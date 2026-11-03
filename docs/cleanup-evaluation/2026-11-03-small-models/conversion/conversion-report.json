@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-11-03T15:47:21.159362+00:00",
+  "status": "complete_verified",
+  "model_display_credit": "Derived from ScribeKey Fast by ScribeKey",
+  "source_repository": "scribekey/scribekey-cleanup-fast",
+  "source_revision": "c484dad2d815bff83d376e46b25a11dbc820992a",
+  "source_precision": {
+    "header_bytes": 16520,
+    "tensor_dtype_counts": {
+      "BF16": 148
+    },
+    "stored_parameters": 354483968,
+    "metadata": {
+      "format": "pt"
+    }
+  },
+  "input_weight_file": {
+    "filename": "model.safetensors",
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/model.safetensors",
+    "immutable_url": "https://huggingface.co/scribekey/scribekey-cleanup-fast/resolve/c484dad2d815bff83d376e46b25a11dbc820992a/model.safetensors",
+    "expected_bytes": 708984464,
+    "publisher_git_blob_sha1": "a11cad04391400dce4256de316cac7591840b94d",
+    "publisher_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+    "bytes": 708984464,
+    "sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+    "verification": "complete_file_sha256_and_exact_size",
+    "seconds": 294.986
+  },
+  "conversion_source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+  "converter_source_inventory": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/converter-source-index.json",
+  "runtime_inventory": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+  "commands": [
+    {
+      "label": "convert-original-bf16-to-f16",
+      "argv": [
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/llama.cpp-source/convert_hf_to_gguf.py",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/converter-compatible-input",
+        "--outfile",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-F16.gguf",
+        "--outtype",
+        "f16",
+        "--model-name",
+        "Derived from ScribeKey Fast by ScribeKey (Freehand precision research)"
+      ],
+      "working_directory": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/convert-original-bf16-to-f16.log",
+      "started_at_utc": "2026-11-03T15:47:21.687101+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 5.494,
+      "log_sha256": "19e280a97b9e5890ac1b15240e454aa0c621e36137af0f7aae26a8e0ee297997"
+    },
+    {
+      "label": "quantize-f16-to-q4",
+      "argv": [
+        "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-quantize",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-F16.gguf",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M.gguf",
+        "Q4_K_M",
+        "4"
+      ],
+      "working_directory": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/quantize-f16-to-q4.log",
+      "started_at_utc": "2026-11-03T15:47:27.181581+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 6.7027,
+      "log_sha256": "09a96a7decfb98822eb65814a1d898e730a25c42011d35a8cca77bb7e7cbadf9"
+    }
+  ],
+  "compatibility_adjustment": {
+    "original_tokenizer_config": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/tokenizer_config.json",
+    "conversion_tokenizer_config": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/converter-compatible-input/tokenizer_config.json",
+    "change": "Only tokenizer_class TokenizersBackend -> PreTrainedTokenizerFast and empty extra_special_tokens [] -> {}, for pinned transformers4.57.6 compatibility; no special tokens added; original tokenizer.json and weights unchanged.",
+    "original_sha256": "f64a21219f1af8db7a30ea1347f460eeb57a7c25ed72554e313f8e3e9d4a3881",
+    "conversion_sha256": "28b75964f587e03f69d47db814ab6adba4dda53bf24ece5d7be3f71e5c50d2a8",
+    "failed_attempt_report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/attempt1-conversion-report.json"
+  },
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "installed_packages": {
+    "fsspec": "2026.9.0",
+    "networkx": "3.7",
+    "charset-normalizer": "3.5.2",
+    "mpmath": "1.3.0",
+    "certifi": "2026.10.23",
+    "filelock": "4.2.7",
+    "hf-xet": "1.8.0",
+    "regex": "2026.9.29",
+    "gguf": "0.19.0",
+    "tqdm": "4.70.1",
+    "PyYAML": "6.0.3",
+    "transformers": "4.57.6",
+    "setuptools": "78.1.0",
+    "sentencepiece": "0.2.2",
+    "MarkupSafe": "3.0.3",
+    "Jinja2": "3.1.6",
+    "sympy": "1.14.0",
+    "torch": "2.11.0+cpu",
+    "idna": "3.20",
+    "safetensors": "0.8.0",
+    "requests": "2.34.2",
+    "numpy": "2.2.6",
+    "typing_extensions": "4.16.0",
+    "tokenizers": "0.22.2",
+    "protobuf": "4.25.9",
+    "urllib3": "2.8.0",
+    "pip": "25.0.1",
+    "huggingface_hub": "0.36.2",
+    "packaging": "26.3"
+  },
+  "not_publisher_gguf": true,
+  "q8_requantization": false,
+  "inference_run": false,
+  "task_environment": {
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1"
+  },
+  "artifacts": {
+    "f16": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-F16.gguf",
+      "bytes": 711483680,
+      "sha256": "f11b2e31506e87e4e270a36a91fabfb7698dde68f942b64b02f6428cdc8f71dc",
+      "fields": {
+        "general.architecture": "lfm2",
+        "general.name": "Derived from ScribeKey Fast by ScribeKey (Freehand precision research)",
+        "general.file_type": 1,
+        "general.quantization_version": 2,
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "lfm2",
+        "tokenizer.ggml.bos_token_id": 1,
+        "tokenizer.ggml.eos_token_id": 7,
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": false,
+        "lfm2.context_length": 128000,
+        "lfm2.embedding_length": 1024,
+        "lfm2.block_count": 16
+      },
+      "tokenizer_fingerprints": {
+        "tokenizer.ggml.tokens": {
+          "sha256": "d644cb96b36f2bae2f6a4c66bb27bc2600d4f76bfb0aa3f94609d6538bc7822f",
+          "entries_or_characters": 65536
+        },
+        "tokenizer.ggml.token_type": {
+          "sha256": "37bca51a693fe0803371118c1b644c387e689706084a7e687888d38f56352624",
+          "entries_or_characters": 65536
+        },
+        "tokenizer.ggml.merges": {
+          "sha256": "c70042d0b5969460432a218556522dedee908735a3e4cf70f27936353c5b3f65",
+          "entries_or_characters": 63683
+        },
+        "tokenizer.chat_template": {
+          "sha256": "9126db75a17a8c9e2692d190b744e626ca8c2772efa2cd082fd6083a5d927edf",
+          "entries_or_characters": 305
+        }
+      },
+      "tensor_count": 148,
+      "tensor_type_counts": {
+        "1": 93,
+        "0": 55
+      }
+    },
+    "q4_k_m": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ScribeKey-Fast-v1.1-Freehand-derived-Q4_K_M.gguf",
+      "bytes": 229310752,
+      "sha256": "055ca243daf387431ec09cddd93294ec794332393730d2598766ca6f7413ff72",
+      "fields": {
+        "general.architecture": "lfm2",
+        "general.name": "Derived from ScribeKey Fast by ScribeKey (Freehand precision research)",
+        "general.file_type": 15,
+        "general.quantization_version": 2,
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "lfm2",
+        "tokenizer.ggml.bos_token_id": 1,
+        "tokenizer.ggml.eos_token_id": 7,
+        "tokenizer.ggml.add_bos_token": true,
+        "tokenizer.ggml.add_eos_token": false,
+        "lfm2.context_length": 128000,
+        "lfm2.embedding_length": 1024,
+        "lfm2.block_count": 16
+      },
+      "tokenizer_fingerprints": {
+        "tokenizer.ggml.tokens": {
+          "sha256": "d644cb96b36f2bae2f6a4c66bb27bc2600d4f76bfb0aa3f94609d6538bc7822f",
+          "entries_or_characters": 65536
+        },
+        "tokenizer.ggml.token_type": {
+          "sha256": "37bca51a693fe0803371118c1b644c387e689706084a7e687888d38f56352624",
+          "entries_or_characters": 65536
+        },
+        "tokenizer.ggml.merges": {
+          "sha256": "c70042d0b5969460432a218556522dedee908735a3e4cf70f27936353c5b3f65",
+          "entries_or_characters": 63683
+        },
+        "tokenizer.chat_template": {
+          "sha256": "9126db75a17a8c9e2692d190b744e626ca8c2772efa2cd082fd6083a5d927edf",
+          "entries_or_characters": 305
+        }
+      },
+      "tensor_count": 148,
+      "tensor_type_counts": {
+        "14": 11,
+        "0": 55,
+        "12": 82
+      }
+    },
+    "publisher_q8_control": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/scribekey_scribekey-cleanup-fast-GGUF/scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "bytes": 379219904,
+      "sha256": "2dfd7463ae0a8ca7dd2e4abebeed9cc77a584569b9c99dc9e68ad85f1399b55a",
+      "fields": {
+        "general.architecture": "lfm2",
+        "general.name": "Merged",
+        "general.file_type": 7,
+        "general.quantization_version": 2,
+        "tokenizer.ggml.model": "gpt2",
+        "tokenizer.ggml.pre": "lfm2",
+        "tokenizer.ggml.bos_token_id": 1,
+        "tokenizer.ggml.eos_token_id": 7,
+        "tokenizer.ggml.add_bos_token": true,
+        "lfm2.context_length": 128000,
+        "lfm2.embedding_length": 1024,
+        "lfm2.block_count": 16
+      },
+      "tokenizer_fingerprints": {
+        "tokenizer.ggml.tokens": {
+          "sha256": "d644cb96b36f2bae2f6a4c66bb27bc2600d4f76bfb0aa3f94609d6538bc7822f",
+          "entries_or_characters": 65536
+        },
+        "tokenizer.ggml.token_type": {
+          "sha256": "37bca51a693fe0803371118c1b644c387e689706084a7e687888d38f56352624",
+          "entries_or_characters": 65536
+        },
+        "tokenizer.ggml.merges": {
+          "sha256": "c70042d0b5969460432a218556522dedee908735a3e4cf70f27936353c5b3f65",
+          "entries_or_characters": 63683
+        },
+        "tokenizer.chat_template": {
+          "sha256": "543497793dbca74f27bb51fecee7f40fd0e117df41a796af679edacfe948a6dc",
+          "entries_or_characters": 5487
+        }
+      },
+      "tensor_count": 148,
+      "tensor_type_counts": {
+        "8": 93,
+        "0": 55
+      }
+    }
+  },
+  "tokenizer_metadata_matches_publisher_q8": {
+    "tokenizer.chat_template": false,
+    "tokenizer.ggml.tokens": true,
+    "tokenizer.ggml.token_type": true,
+    "tokenizer.ggml.merges": true
+  },
+  "legal_documents": [
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/LICENSE",
+      "bytes": 10574,
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+      "source": "https://huggingface.co/scribekey/scribekey-cleanup-fast/resolve/c484dad2d815bff83d376e46b25a11dbc820992a/LICENSE"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/NOTICE",
+      "bytes": 5713,
+      "sha256": "4d0d40d15ca51c17c0d9b61ed5a0f9c06ed3640a106ae20cfea4a8f36cd02b73",
+      "source": "https://huggingface.co/scribekey/scribekey-cleanup-fast/resolve/c484dad2d815bff83d376e46b25a11dbc820992a/NOTICE"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/ADDITIONAL_TERMS.md",
+      "bytes": 2015,
+      "sha256": "3778f7257e4a80126d5307179fbe9157db49e09fd091364df5dbc56628815bb1",
+      "source": "https://huggingface.co/scribekey/scribekey-cleanup-fast/resolve/c484dad2d815bff83d376e46b25a11dbc820992a/ADDITIONAL_TERMS.md"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/MODIFICATIONS.md",
+      "bytes": 2532,
+      "sha256": "1364f2c396d45a4ec000a972e1ca0599984b25990fb3e4dc2e42793ff8b73b95",
+      "source": "https://huggingface.co/scribekey/scribekey-cleanup-fast/resolve/c484dad2d815bff83d376e46b25a11dbc820992a/MODIFICATIONS.md"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/derived/FREEHAND-CONVERSION-NOTICE.txt",
+      "bytes": 1014,
+      "sha256": "fcefc076fb012746e6056c26656d0ed94771351b32a508cc1f3dbbf68c5e0de9",
+      "source": null
+    }
+  ],
+  "completed_at_utc": "2026-11-03T15:47:43.785657+00:00"
+}

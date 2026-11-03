@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "2026-11-03T15:41:47.117955+00:00",
+  "candidate": "vikramlingam/SmolLM2-135M-Post-ASR-Engine",
+  "revision": "c926e4c06cfc458892d37a16ef032a0a98bd77b2",
+  "scope": "Static audit only; no inference performed by this audit. Compare actual native server-reported prompt strings with the publisher usage format and advertised task.",
+  "sources": {
+    "work/cleanup-research-2026-10-30/editing/evidence/vikramlingam__SmolLM2-135M-Post-ASR-Engine/README.md": "cf800a6c8b9b9964791c9e211559ac6a6d1569ed6889f81c9601af7e6e9d619a",
+    "work/cleanup-research-2026-10-30/editing/evidence/vikramlingam__SmolLM2-135M-Post-ASR-Engine/tokenizer_config.json": "5dbff37e2d5899f5f69d86116f80733e11a790f703fd59855e2aef5717533ac5",
+    "work/cleanup-research-2026-10-30/editing/evidence/vikramlingam__SmolLM2-135M-Post-ASR-Engine/special_tokens_map.json": "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52",
+    "work/cleanup-small-models-2026-11-03/screen/smol-post-asr/outputs.jsonl": "b3ffa0b99b195786a1bc1d08297ea2006fae5a083acd41787ab05bf159f77b68"
+  },
+  "actual_prompts_compared": 24,
+  "actual_prompts_match_published_chatml_system_and_selected_task": true,
+  "selected_task": "<|task:clean_punctuate|>",
+  "task_is_advertised_in_card": true,
+  "registered_task_special_tokens": [],
+  "findings": [
+    "Actual system wording, role delimiters, newlines, user transcript and assistant prefix match the publisher raw ChatML example, substituting the advertised clean_punctuate task for the example format_email task. All24 native reported prompts and recorded prompt SHA256 agree.",
+    "Publisher tokenizer registers im_start/im_end and repository tokens, but does not register task prefixes as separate special token IDs. They therefore function as ordinary text delimiters under the published tokenizer; parse_special=true does not warrant removing them or inventing new tokens.",
+    "Explicit no-automatic-BOS input starts with im_start token, which is itself the published BOS ID1. Native token-ID requests avoid an accidental duplicate im_start.",
+    "Publisher supplies worked usage only for format_email and bullet_points; clean_punctuate is advertised in the task list without a corresponding successful worked output or task-specific evaluation.",
+    "No mismatch in the implemented published contract was identified. Observed email-template/hallucination failures apply to this exact published Q4 artifact and clean_punctuate condition; they do not prove all formats, precisions, retraining or hypothetical alternate prompts incapable."
+  ]
+}

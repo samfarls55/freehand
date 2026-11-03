@@ -1,5 +1,14 @@
 # Transcript cleanup research
 
+## Subsequent implementation evidence — November 3, 2026
+
+The [small-model implementation and evaluation](TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md)
+now contains actual tests of the researched shortlist, fresh frozen quality
+results and repeated real-ASR CPU measurements. The current allowance is
+747,500,000 bytes / 805 ms across the full Windows application. No candidate
+qualified; Windows/GPU execution remains unavailable. Earlier selection and
+resource-exception statements below are historical.
+
 ## Expanded small-model audit — October 30, 2026
 
 The earlier candidate search was incomplete. Use the

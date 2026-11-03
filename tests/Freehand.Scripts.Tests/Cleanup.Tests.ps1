@@ -91,6 +91,75 @@ Describe 'Cleanup asset preparation and packaging' {
         $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
     }
 
+    It 'preserves a specialist prompt and its complete bounded inference profile' {
+        $cleanupPrepare.PromptStyle = 'S1Mini'
+        $cleanupPrepare.BatchSize = 256
+        $cleanupPrepare.MicroBatchSize = 64
+        $cleanupPrepare.PromptCacheMiB = 16
+        $cleanupPrepare.ContextCheckpoints = 2
+        $cleanupPrepare.CacheTypeK = 'q8_0'
+        $cleanupPrepare.CacheTypeV = 'q4_0'
+        $cleanupPrepare.Repack = $false
+        $cleanupPrepare.MaskSpecialistLiterals = $true
+        $cleanupPrepare.PromptLookupTokens = 16
+        $cleanupPrepare.PromptLookupMatchTokens = 3
+
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+
+        $manifest.promptStyle | Should-Be 'S1Mini'
+        $manifest.batchSize | Should-Be 256
+        $manifest.microBatchSize | Should-Be 64
+        $manifest.promptCacheMiB | Should-Be 16
+        $manifest.contextCheckpoints | Should-Be 2
+        $manifest.cacheTypeK | Should-Be 'q8_0'
+        $manifest.cacheTypeV | Should-Be 'q4_0'
+        $manifest.repack | Should-BeFalse
+        $manifest.maskSpecialistLiterals | Should-BeTrue
+        $manifest.promptLookupTokens | Should-Be 16
+        $manifest.promptLookupMatchTokens | Should-Be 3
+        $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+    }
+
+    It 'validates legacy bundles without the optional resource settings' {
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        foreach ($name in @('platform', 'batchSize', 'microBatchSize', 'promptCacheMiB', 'contextCheckpoints', 'cacheTypeK', 'cacheTypeV', 'repack', 'maskSpecialistLiterals', 'promptLookupTokens', 'promptLookupMatchTokens')) {
+            $manifest.PSObject.Properties.Remove($name)
+        }
+        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $bundle.ManifestPath
+
+        $verified = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+
+        $verified.ModelId | Should-Be 'fixture-model'
+    }
+
+    It 'requires prompt lookup and its sampled token to fit the logical batch' {
+        $cleanupPrepare.BatchSize = 16
+        $cleanupPrepare.MicroBatchSize = 16
+        $cleanupPrepare.PromptLookupTokens = 16
+
+        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare } | Should-Throw '*sampled token*'
+
+        (Test-Path -LiteralPath $cleanupDestination) | Should-BeFalse
+    }
+
+    It 'rejects a prepared bundle with invalid profile setting <Field>' -ForEach @(
+        @{ Field = 'batchSize'; Value = 0 }, @{ Field = 'microBatchSize'; Value = 129 },
+        @{ Field = 'promptCacheMiB'; Value = -1 }, @{ Field = 'contextCheckpoints'; Value = 33 },
+        @{ Field = 'maskSpecialistLiterals'; Value = 'true' }, @{ Field = 'repack'; Value = 0 },
+        @{ Field = 'cacheTypeK'; Value = 'q2_bad' }, @{ Field = 'cacheTypeV'; Value = 8 },
+        @{ Field = 'promptLookupTokens'; Value = 65 }, @{ Field = 'promptLookupMatchTokens'; Value = 0 },
+        @{ Field = 'promptLookupTokens'; Value = '16' }, @{ Field = 'promptLookupMatchTokens'; Value = $true }
+    ) {
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        $manifest.$Field = $Value
+        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $bundle.ManifestPath
+
+        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory } | Should-Throw
+    }
+
     It 'can prepare the model as a hard link without a second weight-file allocation' {
         $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare -LinkModel
         Set-Content -LiteralPath $cleanupModel -Value 'changed source proves shared storage'
@@ -198,6 +267,20 @@ if ($CliArguments[0] -eq 'publish') {
             @($manifest.Files | Where-Object { $_.Path.Replace('\', '/') -eq 'models/cleanup/runtime/llama.dll' }).Count | Should-Be 1
             $verified = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory (Join-Path $publish 'models/cleanup')
             $verified.ModelId | Should-Be 'fixture-model'
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'accepts a verified Windows Vulkan cleanup bundle in a Windows installer' {
+            $cleanupPrepare.Platform = 'win-x64-vulkan'
+            $cleanupPrepare.GpuLayers = 999
+            $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+
+            & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $cleanupDestination
+
+            $manifest = Get-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/publish/models/cleanup/cleanup-manifest.json') -Raw | ConvertFrom-Json
+            $manifest.platform | Should-Be 'win-x64-vulkan'
+            $manifest.runtimePath | Should-Be 'runtime/llama-server.exe'
+            $manifest.gpuLayers | Should-Be 999
             Should-NotInvoke Invoke-WebRequest
         }
 
@@ -331,6 +414,21 @@ if ($CliArguments[0] -eq 'publish') {
             $settings.CleanupDirectory | Should-Be $cleanupDestination
             $settings.StartAtLogin | Should-BeFalse
             (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'src/Freehand.App/bin/Debug/net10.0/models/cleanup-provisioning/cleanup-model-manifest.json')) | Should-BeTrue
+            Should-NotInvoke Invoke-WebRequest
+        }
+
+        It 'accepts a verified Windows Vulkan cleanup bundle in the isolated preview' {
+            Write-CleanupMetadataFixture
+            $cleanupPrepare.Platform = 'win-x64-vulkan'
+            $cleanupPrepare.GpuLayers = 999
+            $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+
+            & (Join-Path $cleanupScripts 'dev.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech -CleanupSource $bundle.Directory -BuildOnly
+
+            $settings = Get-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/dev-data/settings.json') -Raw | ConvertFrom-Json
+            $settings.CleanupDirectory | Should-Be $bundle.Directory
+            $verified = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $settings.CleanupDirectory
+            $verified.Platform | Should-Be 'win-x64-vulkan'
             Should-NotInvoke Invoke-WebRequest
         }
     }

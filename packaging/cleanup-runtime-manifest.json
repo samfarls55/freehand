@@ -20,12 +20,21 @@
       "ArchiveSize": 22881053,
       "Executable": "llama-server",
       "ExecutableSha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+    },
+    {
+      "Platform": "win-x64-vulkan",
+      "Source": "https://github.com/ggml-org/llama.cpp/releases/download/b12015/llama-b12015-bin-win-vulkan-x64.zip",
+      "ArchiveSha256": "20129400daa3d8216a1985abf942d993ba732419053540cca1ad6487bfd8ebe6",
+      "ArchiveSize": 37515234,
+      "Executable": "llama-server.exe",
+      "ExecutableSha256": "023d596a40166386ed6e68d4a7f3c62555cf29d5288292fc1fcf940f7c523056"
     }
   ],
   "Notes": [
     "Both downloaded archives matched their GitHub release SHA-256 digests.",
     "The executable is a small launcher; retain and verify the runtime libraries from the same archive.",
     "The prepared cleanup bundle records SHA-256 hashes for every included file.",
-    "The Windows runtime requires the Microsoft Visual C++ runtime; native startup must be verified on Windows."
+    "The Windows runtime requires the Microsoft Visual C++ runtime; native startup must be verified on Windows.",
+    "The optional Windows Vulkan archive was independently size/hash verified; registration does not select it by default or establish GPU execution or performance."
   ]
 }

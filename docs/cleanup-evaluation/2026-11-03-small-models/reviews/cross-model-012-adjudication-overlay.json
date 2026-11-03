@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-03T17:24:24.187709+00:00",
+  "scope": "Authored cross-model review adjudication overlay only. Original raw Core reports and original reviewer JSON remain unchanged. No model/source/prompt/config changes or new inference.",
+  "policy": "Use one conservative voice/precision policy across identical input/provider/final-output pairs. Literally is an explicit verbatim-attestation qualifier, not an unambiguous filler; its deletion fails faithful/acceptable under this primary reporting policy. Preserve the alternative lenient interpretation as a review boundary, not a candidate-specific advantage.",
+  "case_id": "nov-hold-012",
+  "identical_pair": {
+    "normalized_input": "The label literally says, \"Like, what even is this?\"",
+    "restored_provider_candidate": "The label says \"Like, what even is this?\"",
+    "final_core_output": "The label says \"Like, what even is this?\"",
+    "core_statuses": {
+      "emberon": "Applied",
+      "scribe_q4": "Applied"
+    },
+    "exact_input_candidate_final_text_equal": true
+  },
+  "common_adjudicated_case": {
+    "faithful": false,
+    "candidate_faithful": false,
+    "final_faithful": false,
+    "useful": false,
+    "fully_cleaned": false,
+    "acceptable": false,
+    "needs_cleanup": false,
+    "severity": "major",
+    "notes": "Deletes literally outside an otherwise exact protected quote. Apply the same precision/voice judgment to both models; quote bytes retained by code do not retain this unprotected qualifier. A lenient semantic reading that direct quotation already implies verbatim wording remains documented."
+  },
+  "original_reviews": {
+    "emberon": {
+      "path": "work/cleanup-small-models-2026-11-03/reviews/emberon-final-heldout-human-review.json",
+      "sha256": "cc3f184c6b3e871125d12fc5f6280dedb85803832e87378d2306f699893f389f",
+      "original_case_count": 40,
+      "original_faithful": 37,
+      "original_acceptable": 36,
+      "original_case_012_faithful": false
+    },
+    "scribe_q4": {
+      "path": "work/cleanup-small-models-2026-11-03/reviews/scribe-q4-final-heldout-human-review.json",
+      "sha256": "b861270ab7c76ae0819c93f88d45b1f84ae7602dbb3e00bebe2ab860901dc91a",
+      "original_case_count": 40,
+      "original_faithful": 37,
+      "original_acceptable": 36,
+      "original_case_012_faithful": true
+    }
+  },
+  "reported_fresh40_summaries": {
+    "emberon": {
+      "case_count": 40,
+      "candidate_faithful": 37,
+      "final_faithful": 37,
+      "acceptable": 36,
+      "needs_cleanup": 29,
+      "useful_faithful_edits": 28,
+      "fully_cleaned_needed_cases": 28,
+      "no_edit_cases": 11,
+      "no_edit_acceptable": 8,
+      "semantic_failure_ids": [
+        "nov-hold-008",
+        "nov-hold-009",
+        "nov-hold-012"
+      ],
+      "critical_failure_ids": [
+        "nov-hold-009"
+      ],
+      "fallback_count": 0
+    },
+    "scribe_q4": {
+      "case_count": 40,
+      "candidate_faithful": 36,
+      "final_faithful": 36,
+      "acceptable": 35,
+      "needs_cleanup": 29,
+      "useful_faithful_edits": 27,
+      "fully_cleaned_needed_cases": 27,
+      "no_edit_cases": 11,
+      "no_edit_acceptable": 8,
+      "semantic_failure_ids": [
+        "nov-hold-006",
+        "nov-hold-008",
+        "nov-hold-009",
+        "nov-hold-012"
+      ],
+      "critical_failure_ids": [
+        "nov-hold-009"
+      ],
+      "fallback_count": 0
+    }
+  },
+  "alternative_uniform_lenient_policy": {
+    "emberon_faithful": 38,
+    "emberon_acceptable": 37,
+    "scribe_q4_faithful": 37,
+    "scribe_q4_acceptable": 36,
+    "interpretation": "Would count the same omission benign for both. Does not change either model's clear accepted well-water type error or the conclusion that no finalist qualified."
+  },
+  "sources": {
+    "emberon_core": {
+      "path": "work/cleanup-small-models-2026-11-03/frozen-core/emberon-heldout.json",
+      "sha256": "a74af3b54e32479191d6bdf70ef8b6a4145c31e033bc601df0361a9ecaba7c23"
+    },
+    "scribe_q4_core": {
+      "path": "work/cleanup-small-models-2026-11-03/frozen-core/scribe-q4-heldout.json",
+      "sha256": "0c984bb0c19c879df4cd9742a429912876b1f2d9ce1c5f25ac694855a6eb12c9"
+    }
+  }
+}

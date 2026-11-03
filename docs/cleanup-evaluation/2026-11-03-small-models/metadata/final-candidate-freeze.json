@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-03T16:49:36.019648+00:00",
+  "base_git_commit": "43a949e62eb059381976f669ac8c9670ca9c6ffe",
+  "source_files": {
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "2e187cdabd005fe7000024e2da40698e4698e9967efbaa2e84d94bfd655a22b4",
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "0ab959f9f28ad0ce15d94f483b512f7966446162c4b94fb7ab6bf0fc1fe425b5",
+    "src/Freehand.Cleanup/CleanupPrompt.cs": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6",
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": "34d01f1dd18e733a98b449020aec608b331f79b2911f826bb6b6394bae2c0daa",
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8",
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a",
+    "src/Freehand.Cleanup/CleanupProtocol.cs": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256",
+    "src/Freehand.Core/DictationEngine.cs": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "5488a1374ffd5491b69c50fb1b57f5fe524fc9918d18629913d2ee8c4e202343",
+    "tools/Freehand.Evaluation/Program.cs": "ad7416b0c976b055e13eb057dd2855bcc1e5c79556867bc047022fcec9012922"
+  },
+  "managed_assemblies": {
+    "Freehand.Cleanup.Probe.dll": "90ce79f6a2db635298927f8d66f3649658d7c820a12a3f876bc9928f038702fd",
+    "Freehand.Abstractions.dll": "96e45a4e9a24441bda372dd861965e1803173e3cc4dc5b1f1c1b947c107d20c3",
+    "Freehand.Cleanup.dll": "4a0ceff86c3d9c0de83978e9e3a26fda14de08aadd53a381b4260efa420149ba",
+    "Freehand.Testing.dll": "058a392c54faccb47356692686eea105223cecc401ed12ac40987f0147bf10fa",
+    "Freehand.Dictionary.dll": "f1d435e1a04949cb4483ea4c5bd9b8fb53c0b3820ba7ac9addd628584ad2ab7d",
+    "Freehand.Core.dll": "ad61cec2a832a4c013a50d98ded6df24da342a11021acc8f8e499d9b9122bbb2"
+  },
+  "holdout_sha256": "3529e74da64616e5b08f2c9c189706f03c68e6247c924eb8b9137743c4881e5d",
+  "holdout_case_count": 40,
+  "models": [
+    {
+      "candidate": "emberon",
+      "manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/emberon-final-cpu.json",
+      "manifest_sha256": "fcdc737a10bbeabc2b3ff552d2c899e68bc32a364f5cb1a4d9be5586be8271c7",
+      "model_sha256": "18fead8b8df3808ed47a84cd41a5a0617e3374d1a62dd52e3ba4bfb839810ffd",
+      "prompt_style": "Emberon2"
+    },
+    {
+      "candidate": "scribe-q4",
+      "manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/scribe-q4-final-cpu.json",
+      "manifest_sha256": "2c727d22a15e9468b16debe91a1f1eec8049bb4f97dcdaf33900feb031990fc4",
+      "model_sha256": "055ca243daf387431ec09cddd93294ec794332393730d2598766ca6f7413ff72",
+      "prompt_style": "ScribeKeyFast"
+    }
+  ],
+  "runtime_inventory_sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85",
+  "literal_protocol": "specialist-compact-v3",
+  "prompt_lookup": "ngram-map-k match3/draft16; full60 provider outputs identical with lookup disabled for both finalists",
+  "quality_review": "Manual semantic fidelity, acceptable clean text, useful and complete edits; all provider failures/fallbacks reported separately, no structural pass inferred as semantic proof.",
+  "selection_policy": "No accepted critical meaning change qualifies as an established default. Rank faithful outputs, then clean/fully resolved outputs, then measured resource costs. Whole-app Windows memory<=747500000B and ready release-to-complete<=805ms remain required; cloud partial pipeline cannot certify Windows. No prompt/quant/adapter tuning after viewing this holdout.",
+  "gpu_scope": "Not measured here; Windows GPU variants are separately unqualified hardware options."
+}

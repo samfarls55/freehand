@@ -1,5 +1,14 @@
 # Small local transcript cleanup models: research and test shortlist
 
+## Actual implementation results — November 3, 2026
+
+The [implementation and evaluation](TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md)
+now records actual inference, quality reviews, a new frozen corpus, runtime
+comparisons and real-ASR CPU measurements for this shortlist. No candidate
+qualified under the current quality and 15% whole-app resource requirements.
+The research below remains the October 30 source/provenance checkpoint; its
+statements about inference not yet performed describe that earlier date.
+
 Researched October 30, 2026, America/Chicago. This report reopens production
 model selection. The earlier Qwen3.5 9B experiment is a measured quality
 reference. It did not establish the right production model for Freehand.

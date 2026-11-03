@@ -1,0 +1,62 @@
+{
+  "scope": "Derived highest observed simultaneous snapshot across independently phased total/trial monitors; raw reports remain unchanged. FourN1controls, nottailestimates; DLLv2+newobserver, noSpeculation.",
+  "interpretation": "No observed advantage from forcedstop or disabledspinning. ProductionASRconfigunchanged. OldN10/newN1memoryfiguresarenotmatchedrepeatcounts; donotattributealldifferencetoobserver. UI/Windowsdeliveryexcluded.",
+  "rows": [
+    {
+      "id": "a-baseline",
+      "release_ms": 717.8497,
+      "cleanup_ms": 359.0366,
+      "speech_cpu_ms_during_cleanup": 49.9999,
+      "observed_partial_pipeline_peak_bytes": 609685504,
+      "at_that_observed_peak": {
+        "HostWorkingSetBytes": 52260864,
+        "SpeechWorkingSetBytes": 308715520,
+        "CleanupWorkingSetBytes": 248709120
+      },
+      "all_text_equal": true,
+      "delivery_calls": 1
+    },
+    {
+      "id": "b-force-stop",
+      "release_ms": 783.9006,
+      "cleanup_ms": 359.9889,
+      "speech_cpu_ms_during_cleanup": 40,
+      "observed_partial_pipeline_peak_bytes": 627040256,
+      "at_that_observed_peak": {
+        "HostWorkingSetBytes": 51486720,
+        "SpeechWorkingSetBytes": 326619136,
+        "CleanupWorkingSetBytes": 248934400
+      },
+      "all_text_equal": true,
+      "delivery_calls": 1
+    },
+    {
+      "id": "c-no-spinning",
+      "release_ms": 790.0132,
+      "cleanup_ms": 387.1458,
+      "speech_cpu_ms_during_cleanup": 50,
+      "observed_partial_pipeline_peak_bytes": 625238016,
+      "at_that_observed_peak": {
+        "HostWorkingSetBytes": 51560448,
+        "SpeechWorkingSetBytes": 324771840,
+        "CleanupWorkingSetBytes": 248905728
+      },
+      "all_text_equal": true,
+      "delivery_calls": 1
+    },
+    {
+      "id": "d-baseline-repeat",
+      "release_ms": 751.7946,
+      "cleanup_ms": 375.5722,
+      "speech_cpu_ms_during_cleanup": 40,
+      "observed_partial_pipeline_peak_bytes": 622870528,
+      "at_that_observed_peak": {
+        "HostWorkingSetBytes": 51380224,
+        "SpeechWorkingSetBytes": 322633728,
+        "CleanupWorkingSetBytes": 248856576
+      },
+      "all_text_equal": true,
+      "delivery_calls": 1
+    }
+  ]
+}

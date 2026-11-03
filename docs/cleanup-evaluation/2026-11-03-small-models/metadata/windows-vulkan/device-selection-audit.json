@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "status": "static_source_audited_not_windows_executed",
+  "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+  "runtime_tag": "b12015",
+  "preferred_selector": "LLAMA_ARG_DEVICE",
+  "preferred_value": "Exact validated VulkanN backend name from unique NVIDIA --list-devices entry",
+  "cpu_selector": "none",
+  "requires_new_production_option": false,
+  "provider_emits_device_option_at_audit": false,
+  "device_name_validation_regex": "^Vulkan[0-9]+$",
+  "description_vendor_match": "NVIDIA",
+  "required_unique_matches": 1,
+  "missing_or_ambiguous_behavior": "Abort preview; no automatic CPU/iGPU fallback.",
+  "env_applied_before_cli": true,
+  "explicit_cli_device_overrides_env": true,
+  "named_device_missing_throws": true,
+  "ggml_vk_visible_devices_uses_physical_ordinals": true,
+  "vulkan_names_use_logical_backend_indices": true,
+  "translate_VulkanN_to_visible_device_ordinal": false,
+  "discovery_and_app_child_env_remove": [
+    "GGML_VK_VISIBLE_DEVICES"
+  ],
+  "discovery_env_remove": [
+    "LLAMA_ARG_DEVICE"
+  ],
+  "preview_gpu_env_set": {
+    "LLAMA_ARG_DEVICE": "<validated exact VulkanN>"
+  },
+  "preview_cpu_env_set": {
+    "LLAMA_ARG_DEVICE": "none"
+  },
+  "additional_inherited_gpu_overrides_to_clear_or_reject": [
+    "LLAMA_ARG_MAIN_GPU",
+    "LLAMA_ARG_SPLIT_MODE",
+    "LLAMA_ARG_TENSOR_SPLIT",
+    "LLAMA_ARG_OVERRIDE_TENSOR"
+  ],
+  "environment_scope": "Only discovery/app processes and descendants; do not persist user/machine environment changes.",
+  "source_records": [
+    {
+      "filename": "ggml-vulkan.cpp",
+      "source": "https://raw.githubusercontent.com/ggml-org/llama.cpp/a34de8618b25dfc32ee43749db47d767a9f0a25d/ggml/src/ggml-vulkan/ggml-vulkan.cpp",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "expected_utf8_bytes": 894522,
+      "terminal_lfs": 2,
+      "bytes": 894522,
+      "sha256": "47f42dd8978358e173da55665406b35dfae4b80a5a256077b0811ddd0060389c"
+    },
+    {
+      "filename": "common-arg.cpp",
+      "source": "https://github.com/ggml-org/llama.cpp/blob/a34de8618b25dfc32ee43749db47d767a9f0a25d/common/arg.cpp",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "expected_utf8_bytes": 223926,
+      "terminal_lfs": 1,
+      "bytes": 223926,
+      "sha256": "83cd576c95940ac4f84059da3c5b34914c15a94a834a608743389f2d43f25ea2"
+    },
+    {
+      "filename": "common-arg.h",
+      "source": "https://github.com/ggml-org/llama.cpp/blob/a34de8618b25dfc32ee43749db47d767a9f0a25d/common/arg.h",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "expected_utf8_bytes": 6446,
+      "terminal_lfs": 1,
+      "bytes": 6446,
+      "sha256": "42f21df75ada0e5bba795a40edc02724f0e0be03db288b64eed6057c1dfa261b"
+    },
+    {
+      "filename": "common-common.cpp",
+      "source": "https://github.com/ggml-org/llama.cpp/blob/a34de8618b25dfc32ee43749db47d767a9f0a25d/common/common.cpp",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "expected_utf8_bytes": 85552,
+      "terminal_lfs": 1,
+      "bytes": 85552,
+      "sha256": "e121a5ab82e1baf00094d53a4c1d3a4fec2bfd8035315292132d897ff31b2ecc"
+    },
+    {
+      "filename": "src-llama-model.cpp",
+      "source": "https://github.com/ggml-org/llama.cpp/blob/a34de8618b25dfc32ee43749db47d767a9f0a25d/src/llama-model.cpp",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "expected_utf8_bytes": 190415,
+      "terminal_lfs": 1,
+      "bytes": 190415,
+      "sha256": "0428a8e43eed0a11470ac12e55fde8d6d9c76d25d31dc9ec597e4f2df13e92d2"
+    },
+    {
+      "filename": "src-llama-model-loader.cpp",
+      "source": "https://github.com/ggml-org/llama.cpp/blob/a34de8618b25dfc32ee43749db47d767a9f0a25d/src/llama-model-loader.cpp",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "expected_utf8_bytes": 82846,
+      "terminal_lfs": 1,
+      "bytes": 82846,
+      "sha256": "b856b513340e9e86ab81e2d8d110fedd07b60f508e0e4f8513690150f8efd7e1"
+    },
+    {
+      "filename": "llama-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/ggml-org/llama.cpp/a34de8618b25dfc32ee43749db47d767a9f0a25d/LICENSE",
+      "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+      "bytes": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+    }
+  ],
+  "repository_observation": {
+    "provider_path": "/workspace/freehand/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+    "provider_sha256": "2e187cdabd005fe7000024e2da40698e4698e9967efbaa2e84d94bfd655a22b4",
+    "launcher_path": "/workspace/freehand/src/Freehand.Platform.Windows/WindowsCleanupWorkerLauncher.cs",
+    "launcher_sha256": "30a5bf827c4d2c2b35710db532b5ee0cf1ce483272767727991d4260df1828c6",
+    "qualification": "Observed uncommitted source at audit time; match against final compiled source freeze before execution."
+  },
+  "line_evidence": {
+    "environment_handlers": [
+      "common/arg.cpp",
+      771,
+      794
+    ],
+    "device_option_env": [
+      "common/arg.cpp",
+      2689,
+      2695
+    ],
+    "device_lookup_rejection": [
+      "common/arg.cpp",
+      1106,
+      1125
+    ],
+    "device_listing": [
+      "common/arg.cpp",
+      1134,
+      1150
+    ],
+    "listing_action_exit": [
+      "common/arg.cpp",
+      2697,
+      2702
+    ],
+    "explicit_device_forwarding": [
+      "common/common.cpp",
+      1714,
+      1716
+    ],
+    "physical_filter": [
+      "ggml/src/ggml-vulkan/ggml-vulkan.cpp",
+      5303,
+      5321
+    ],
+    "logical_backend_name": [
+      "ggml/src/ggml-vulkan/ggml-vulkan.cpp",
+      16322,
+      16323
+    ],
+    "logical_physical_mapping": [
+      "ggml/src/ggml-vulkan/ggml-vulkan.cpp",
+      15360,
+      15363
+    ],
+    "layer_assignment": [
+      "src/llama-model.cpp",
+      1691,
+      1700
+    ],
+    "offload_info": [
+      "src/llama-model.cpp",
+      2035,
+      2043
+    ]
+  },
+  "positive_gpu_execution_evidence_required": [
+    "Selected named Vulkan backend and actual nonzero GPU buffers/offload diagnostic",
+    "Per-native-worker PID Windows dedicated/shared GPU memory and compute telemetry",
+    "Whole application host-memory and release-to-complete-text measurement under full target workflow"
+  ],
+  "gpu_layers_request_alone_is_proof": false,
+  "windows_executable_run": false,
+  "gpu_inference_run": false,
+  "sla_proven": false
+}

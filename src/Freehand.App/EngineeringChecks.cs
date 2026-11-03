@@ -130,8 +130,11 @@ internal static class EngineeringChecks
             RealtimeWarmCapture = realtimeWarmCapture,
             ResidentPolicy = context?.ResidentPolicy == true,
             StartupLoadMilliseconds = context?.StartupLoadMilliseconds,
+            IncludeCleanup = context?.Cleanup is not null,
         };
         BenchmarkWorkerLauncher? trackedLauncher = context?.Workers;
+        var cleanupContext = context?.Cleanup;
+        await using var cleanup = cleanupContext is null ? null : new BenchmarkCleanupProcessor(cleanupContext.Processor, cleanupContext);
         try
         {
             var audio = ReadFixture();
@@ -142,6 +145,7 @@ internal static class EngineeringChecks
             ITextDeliveryProbe? probe = deliveryProbe;
             void PrepareTrial()
             {
+                cleanupContext?.ValidateConfiguration();
                 if (probe is null) return;
                 try { probe.BeginTrial(); }
                 catch (InvalidOperationException e) { report.DeliveryLimitation = e.Message; probe = null; }
@@ -158,8 +162,14 @@ internal static class EngineeringChecks
             var capture = new FixtureCapture(audio);
             var key = new ScriptedKey(deliveryHotkey);
             await using (var engine = new DictationEngine(capture, key, speech, injector, () => [], foreground: desktop, injectEnabled: () => probe is not null,
-                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds }))
+                options: new DictationOptions { MaxSegmentSeconds = ModelResolver.PreferredMaxSegmentSeconds },
+                transcriptPostProcessor: cleanup, cleanupEnabled: cleanupContext?.Enabled))
             {
+                void RecordCleanup(string phase, int seconds, DictationResult result, long callsBefore)
+                {
+                    report.RecordCleanupTrial(phase, seconds, result, cleanup, callsBefore);
+                    cleanupContext?.ValidateConfiguration();
+                }
                 var completed = 0;
                 engine.Completed += (_, _) => completed++;
                 if (report.ResidentPolicy)
@@ -182,6 +192,7 @@ internal static class EngineeringChecks
                         var preparationCount = speech.PreparationCount;
                         key.Press();
                         await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(seconds + 15)).ConfigureAwait(false);
+                        var cleanupCalls = cleanup?.Calls ?? 0;
                         var released = Stopwatch.GetTimestamp(); key.Release();
                         await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
                         var result = engine.LastResult ?? throw new IOException("Prepared dictation produced no transcript");
@@ -189,6 +200,7 @@ internal static class EngineeringChecks
                             throw new IOException("Prepared dictation did not complete exactly once");
                         if (!speech.IsReady || speech.WorkerId != report.PreparedWorkerId)
                             throw new IOException("Prepared dictation replaced the resident worker");
+                        RecordCleanup("prepared", seconds, result, cleanupCalls);
                         report.ReadyRecordingSeconds.Add(seconds);
                         report.ReadyWorkerIds.Add(preparedWorker);
                         report.ReadyPreparationCounts.Add(speech.PreparationCount - preparationCount);
@@ -211,12 +223,15 @@ internal static class EngineeringChecks
                     foreach (var seconds in new[] { 1, 3, 10 })
                     {
                         await speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
+                        if (cleanupContext is not null) await cleanupContext.ResetAsync().ConfigureAwait(false);
                         PrepareTrial(); capture.Prepare(realtime: true, seconds: seconds); key.Press();
                         await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(seconds + 15)).ConfigureAwait(false);
+                        var cleanupCalls = cleanup?.Calls ?? 0;
                         var released = Stopwatch.GetTimestamp(); key.Release();
                         await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
                         var result = engine.LastResult ?? throw new IOException("Cold dictation produced no transcript");
                         if (completed != report.ColdRecordingSeconds.Count + 1) throw new IOException("Cold dictation did not complete exactly once");
+                        RecordCleanup("forced-fresh", seconds, result, cleanupCalls);
                         report.ColdRecordingSeconds.Add(seconds);
                         report.ColdDictationLoadMilliseconds.Add(speech.LastLoadTime.TotalMilliseconds);
                         report.ColdInferenceMilliseconds.Add(speech.LastInferenceTime.TotalMilliseconds);
@@ -239,15 +254,24 @@ internal static class EngineeringChecks
                     await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false);
                     speech.FinishWork();
                 }
+                if (cleanup is not null)
+                {
+                    var warmupCalls = cleanup.Calls;
+                    var warmupAt = Stopwatch.GetTimestamp();
+                    await cleanup.ProcessAsync("This is a cleanup warmup.", CancellationToken.None).ConfigureAwait(false);
+                    report.CleanupWarmups.Add(new("before-warm-series", Stopwatch.GetElapsedTime(warmupAt).TotalMilliseconds, cleanup.Calls - warmupCalls));
+                }
                 var warmWorker = speech.WorkerId;
                 for (var run = 0; run < 50; run++)
                 {
                     PrepareTrial(); capture.Prepare(realtime: realtimeWarmCapture); key.Press();
                     var trialTarget = desktop.Capture();
                     await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(realtimeWarmCapture ? 15 : 5)).ConfigureAwait(false);
+                    var cleanupCalls = cleanup?.Calls ?? 0;
                     var released = Stopwatch.GetTimestamp(); key.Release();
                     await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(30)).ConfigureAwait(false);
                     var result = engine.LastResult ?? throw new IOException("Missing transcript");
+                    RecordCleanup("warm", 10, result, cleanupCalls);
                     CheckFixtureText(result.Text);
                     var insertedText = result.Text + " ";
                     if (probe is not null)
@@ -281,18 +305,91 @@ internal static class EngineeringChecks
                     report.PreparedWorkerPreserved = speech.IsReady && speech.WorkerId == report.PreparedWorkerId;
                     if (!report.PreparedWorkerPreserved) throw new IOException("Warm dictations did not preserve the actual prepared worker");
                 }
+                if (cleanupContext is not null && cleanup is not null)
+                {
+                    // These observations are not substituted for the short ready-state gate.
+                    foreach (var seconds in new[] { 30, 60 })
+                    {
+                        var expectedCompletions = completed + 1;
+                        PrepareTrial(); capture.Prepare(realtime: true, seconds: seconds); key.Press();
+                        await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(seconds + 15)).ConfigureAwait(false);
+                        var calls = cleanup.Calls;
+                        var released = Stopwatch.GetTimestamp(); key.Release();
+                        await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(90)).ConfigureAwait(false);
+                        var result = engine.LastResult ?? throw new IOException("Long cleanup replay produced no transcript");
+                        if (completed != expectedCompletions) throw new IOException("Long replay did not complete exactly once");
+                        RecordCleanup("long", seconds, result, calls);
+                        report.LongRecordingSeconds.Add(seconds);
+                        report.LongReleaseToTranscriptMilliseconds.Add(result.TranscriptTime.TotalMilliseconds);
+                        if (probe is not null)
+                        {
+                            if (result.Delivery != DeliveryOutcome.Delivered) throw new IOException("Long delivery outcome: " + result.Delivery);
+                            await WaitAsync(() => probe.ReadText() == result.Text + " ", TimeSpan.FromSeconds(10)).ConfigureAwait(false);
+                            report.LongReleaseToFullInputMilliseconds.Add(Stopwatch.GetElapsedTime(released, probe.LastInputTimestamp).TotalMilliseconds);
+                        }
+                    }
+                    report.CleanupWorkersBeforeIdle.AddRange(cleanupContext.Workers.LiveWorkerIds());
+                    var idleAt = Stopwatch.GetTimestamp();
+                    var idleDelay = cleanupContext.IdleTimeout + TimeSpan.FromMilliseconds(250);
+                    if (idleDelay > TimeSpan.FromMinutes(2)) idleDelay = TimeSpan.FromMinutes(2);
+                    await Task.Delay(idleDelay).ConfigureAwait(false);
+                    report.CleanupIdleMilliseconds = Stopwatch.GetElapsedTime(idleAt).TotalMilliseconds;
+                    report.CleanupWorkersAfterIdle.AddRange(cleanupContext.Workers.LiveWorkerIds());
+                    report.CleanupIdleUnloadObserved = report.CleanupWorkersAfterIdle.Count == 0;
+                    var afterIdleCompletions = completed + 1;
+                    PrepareTrial(); capture.Prepare(realtime: true); key.Press();
+                    await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(15)).ConfigureAwait(false);
+                    var idleCalls = cleanup.Calls;
+                    var idleReleased = Stopwatch.GetTimestamp(); key.Release();
+                    await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(60)).ConfigureAwait(false);
+                    var afterIdle = engine.LastResult ?? throw new IOException("First-after-idle replay produced no transcript");
+                    if (completed != afterIdleCompletions) throw new IOException("First-after-idle replay did not complete exactly once");
+                    RecordCleanup("first-after-cleanup-idle", 10, afterIdle, idleCalls);
+                    report.FirstAfterCleanupIdleTranscriptMilliseconds = afterIdle.TranscriptTime.TotalMilliseconds;
+                    if (probe is not null)
+                    {
+                        if (afterIdle.Delivery != DeliveryOutcome.Delivered) throw new IOException("First-after-idle delivery outcome: " + afterIdle.Delivery);
+                        await WaitAsync(() => probe.ReadText() == afterIdle.Text + " ", TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+                        report.FirstAfterCleanupIdleFullInputMilliseconds = Stopwatch.GetElapsedTime(idleReleased, probe.LastInputTimestamp).TotalMilliseconds;
+                    }
+                    var cleanupWorker = cleanupContext.Workers.LiveWorkerIds().Single();
+                    var cleanupRecoveryCompletions = completed + 1;
+                    var cleanupWorkersBeforeRecovery = cleanupContext.Workers.Snapshot().Count;
+                    PrepareTrial(); capture.Prepare(); key.Press();
+                    await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                    using (var child = Process.GetProcessById(cleanupWorker)) { child.Kill(); await child.WaitForExitAsync().ConfigureAwait(false); }
+                    var recoveryCalls = cleanup.Calls;
+                    var cleanupRecoveryAt = Stopwatch.GetTimestamp(); key.Release();
+                    await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(60)).ConfigureAwait(false);
+                    var cleanupRecovered = engine.LastResult ?? throw new IOException("Cleanup-worker recovery produced no transcript");
+                    if (completed != cleanupRecoveryCompletions) throw new IOException("Cleanup-worker recovery did not complete exactly once");
+                    RecordCleanup("cleanup-worker-recovery", 10, cleanupRecovered, recoveryCalls);
+                    report.CleanupRecoveryMilliseconds = Stopwatch.GetElapsedTime(cleanupRecoveryAt).TotalMilliseconds;
+                    if (probe is not null)
+                    {
+                        if (cleanupRecovered.Delivery != DeliveryOutcome.Delivered) throw new IOException("Cleanup recovery delivery outcome: " + cleanupRecovered.Delivery);
+                        await WaitAsync(() => probe.ReadText() == cleanupRecovered.Text + " ", TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+                    }
+                    var replacementWorkers = cleanupContext.Workers.Snapshot().Skip(cleanupWorkersBeforeRecovery).ToArray();
+                    report.CleanupRecoveryWorkers.AddRange(replacementWorkers);
+                    report.CleanupCrashRecoveryPassed = cleanupRecovered.CleanupOutcome is TranscriptCleanupOutcome.Applied or TranscriptCleanupOutcome.Unchanged
+                        && replacementWorkers.Length == 1 && replacementWorkers[0].ProcessId != cleanupWorker;
+                }
                 // Kill a real worker after capturing audio, before releasing it.
                 PrepareTrial(); capture.Prepare(); key.Press();
                 await capture.Started.Task.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
                 using (var child = Process.GetProcessById(speech.WorkerId!.Value)) { child.Kill(); await child.WaitForExitAsync().ConfigureAwait(false); }
+                var expectedRecoveryCompletions = completed + 1;
+                var speechRecoveryCleanupCalls = cleanup?.Calls ?? 0;
                 var recovery = Stopwatch.GetTimestamp(); key.Release();
                 await WaitAsync(() => engine.State == DictationState.Idle, TimeSpan.FromSeconds(45)).ConfigureAwait(false);
                 report.RecoveryMilliseconds = Stopwatch.GetElapsedTime(recovery).TotalMilliseconds;
                 var recovered = engine.LastResult;
-                if (completed != warmStarted + 51 || recovered is null || (probe is not null && recovered.Delivery != DeliveryOutcome.Delivered))
+                if (completed != expectedRecoveryCompletions || recovered is null || (probe is not null && recovered.Delivery != DeliveryOutcome.Delivered))
                     throw new IOException("Worker recovery lost audio or repeated delivery");
                 if (probe is not null)
                     await WaitAsync(() => probe.ReadText() == recovered.Text + " ", TimeSpan.FromSeconds(2)).ConfigureAwait(false);
+                RecordCleanup("speech-worker-recovery", 10, recovered, speechRecoveryCleanupCalls);
                 report.WorkerCrashRecoveryPassed = true;
                 speech.SetIdleTimeout(TimeSpan.FromMilliseconds(100));
                 await WaitAsync(() => speech.WorkerId is null, TimeSpan.FromSeconds(7)).ConfigureAwait(false);
@@ -335,6 +432,12 @@ internal static class EngineeringChecks
         catch (Exception e) { report.Failures.Add(e.GetType().Name + ": " + e.Message); }
         finally
         {
+            if (cleanupContext is not null)
+            {
+                try { cleanupContext.ValidateConfiguration(); }
+                catch (Exception error) when (error is IOException or InvalidDataException or UnauthorizedAccessException)
+                { report.Failures.Add("Cleanup identity validation failed: " + error.Message); }
+            }
             if (context?.ResidentPolicy == true) await context.Speech.DisposeAsync().ConfigureAwait(false);
             if (trackedLauncher is not null)
             {
@@ -404,7 +507,7 @@ internal static class EngineeringChecks
         internal TaskCompletionSource Started { get; private set; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal void Prepare(bool realtime = false, int seconds = 10)
         {
-            _realtime = realtime; _samples = Math.Min(audio.Length, seconds * AudioChunk.SampleRate);
+            _realtime = realtime; _samples = seconds * AudioChunk.SampleRate;
             Started = new(TaskCreationOptions.RunContinuationsAsynchronously);
         }
         public bool IsCapturing { get; private set; }
@@ -421,7 +524,9 @@ internal static class EngineeringChecks
                     var delay = TimeSpan.FromSeconds((double)(offset + count) / AudioChunk.SampleRate) - clock.Elapsed;
                     if (delay > TimeSpan.Zero) await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
                 }
-                yield return new AudioChunk(audio.AsSpan(offset, count).ToArray());
+                var chunk = new float[count];
+                for (var sample = 0; sample < count; sample++) chunk[sample] = audio[(offset + sample) % audio.Length];
+                yield return new AudioChunk(chunk);
             }
             Started.TrySetResult();
             try { await Task.Delay(Timeout.Infinite, cancellationToken).ConfigureAwait(false); } catch (OperationCanceledException) { }
@@ -467,12 +572,43 @@ internal sealed class BenchmarkWorkerLauncher(IWorkerLauncher inner) : IWorkerLa
     }
 }
 
-internal sealed record BenchmarkWorkerIdentity(int ProcessId, DateTime StartTimeUtc, bool HasExited);
+internal sealed record BenchmarkWorkerIdentity(int ProcessId, DateTime StartTimeUtc, bool HasExited)
+{
+    public string Role { get; init; } = "speech";
+}
 internal sealed record BenchmarkReplayContext(SpeechWorkerClient Speech, BenchmarkWorkerLauncher Workers,
-    bool ResidentPolicy, double? StartupLoadMilliseconds);
+    bool ResidentPolicy, double? StartupLoadMilliseconds, BenchmarkCleanupReplayContext? Cleanup = null);
 
 internal sealed class BenchmarkReport
 {
+    public bool IncludeCleanup { get; set; }
+    public List<BenchmarkCleanupTrial> CleanupTrials { get; } = [];
+    public List<BenchmarkCleanupWarmup> CleanupWarmups { get; } = [];
+    public List<int> LongRecordingSeconds { get; } = [];
+    public List<double> LongReleaseToTranscriptMilliseconds { get; } = [];
+    public List<double> LongReleaseToFullInputMilliseconds { get; } = [];
+    public List<int> CleanupWorkersBeforeIdle { get; } = [];
+    public List<int> CleanupWorkersAfterIdle { get; } = [];
+    public double? CleanupIdleMilliseconds { get; set; }
+    public bool CleanupIdleUnloadObserved { get; set; }
+    public double? FirstAfterCleanupIdleTranscriptMilliseconds { get; set; }
+    public double? FirstAfterCleanupIdleFullInputMilliseconds { get; set; }
+    public bool CleanupCrashRecoveryPassed { get; set; }
+    public double? CleanupRecoveryMilliseconds { get; set; }
+    public List<BenchmarkWorkerIdentity> CleanupRecoveryWorkers { get; } = [];
+    public BenchmarkLatencySummary WarmCompleteInput => BenchmarkLatencySummary.From(ReleaseToFullInputMilliseconds);
+    public BenchmarkLatencySummary PreparedCompleteInput => BenchmarkLatencySummary.From(ReadyReleaseToFullInputMilliseconds);
+    public BenchmarkLatencySummary ForcedFreshCompleteInput => BenchmarkLatencySummary.From(ColdReleaseToFullInputMilliseconds);
+    public BenchmarkLatencySummary LongCompleteInput => BenchmarkLatencySummary.From(LongReleaseToFullInputMilliseconds);
+    internal void RecordCleanupTrial(string phase, int seconds, DictationResult result, BenchmarkCleanupProcessor? processor, long callsBefore)
+    {
+        if (!IncludeCleanup) return;
+        var calls = (processor?.Calls ?? 0) - callsBefore;
+        CleanupTrials.Add(new(phase, seconds, result.CleanupOutcome.ToString(), result.CleanupTime.TotalMilliseconds,
+            calls, calls == 1 ? processor?.LastInput : null, calls == 1 ? processor?.LastCandidate : null, result.Text, result.OriginalText));
+        if (calls != 1 || result.CleanupOutcome is not (TranscriptCleanupOutcome.Applied or TranscriptCleanupOutcome.Unchanged))
+            Failures.Add("Cleanup qualification requires one executed, accepted cleanup per trial: " + phase + " / " + result.CleanupOutcome);
+    }
     public bool RealtimeWarmCapture { get; set; }
     public bool ResidentPolicy { get; set; }
     public double? StartupLoadMilliseconds { get; set; }

@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/actual-asr-text-performance-fixtures.json",
+  "corpus_sha256": "32CF0B18355D901E5FA797AE2337D2DEC9542F50518677C041FC92C493EB311D",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v2",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "D8CDAA51DE08DAF9580FBDF9AD139B0F4C9151387E549E26FF453F622C047071",
+    "Freehand.Core.dll": "AD61CEC2A832A4C013A50D98DED6DF24DA342A11021ACC8F8E499D9B9122BBB2",
+    "Freehand.Cleanup.dll": "9805BB23522BCCB39CC60044B1AAC1061353516EE1A588CC34E5AA4203BEE90D",
+    "Freehand.Dictionary.dll": "F1D435E1A04949CB4483EA4C5BD9B8FB53C0B3820BA7AC9ADDD628584AD2AB7D",
+    "Freehand.Testing.dll": "058A392C54FACCB47356692686EEA105223CECC401ED12AC40987F0147BF10FA",
+    "Freehand.Abstractions.dll": "96E45A4E9A24441BDA372DD861965E1803173E3CC4DC5B1F1C1B947C107D20C3"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "asr-10s",
+        "split": "development",
+        "category": "public_asr_performance_replay",
+        "input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+        "targets": [
+          "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country."
+        ],
+        "checks": {},
+        "references_are_normalized": true,
+        "notes": "Public JFK-derived recognized text. Long repetitions are stress fixtures, not independent cleanup quality gold. Compare retained words/output/completeness, no shortening speed credit."
+      },
+      "normalized_input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "normalized_targets": [
+        "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v2",
+      "model_input_sha256": "e4e644650803b9dca2d1caaf17fbfa3b5cd835a792b8d53d888c6996f7eb1c5d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAnd so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "asr-30s",
+        "split": "development",
+        "category": "public_asr_performance_replay",
+        "input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your",
+        "targets": [
+          "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your"
+        ],
+        "checks": {},
+        "references_are_normalized": true,
+        "notes": "Public JFK-derived recognized text. Long repetitions are stress fixtures, not independent cleanup quality gold. Compare retained words/output/completeness, no shortening speed credit."
+      },
+      "normalized_input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your",
+      "normalized_targets": [
+        "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your"
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v2",
+      "model_input_sha256": "6a239de47e43eae35e30f17a2184553d7eb2b05a88781391d5ff13a678dbd2a6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAnd so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not what your country can do for you ask what you can do for your\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "asr-60s",
+        "split": "development",
+        "category": "public_asr_performance_replay",
+        "input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your",
+        "targets": [
+          "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your"
+        ],
+        "checks": {},
+        "references_are_normalized": true,
+        "notes": "Public JFK-derived recognized text. Long repetitions are stress fixtures, not independent cleanup quality gold. Compare retained words/output/completeness, no shortening speed credit."
+      },
+      "normalized_input": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your",
+      "normalized_targets": [
+        "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your"
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v2",
+      "model_input_sha256": "026b1737685004e32d1242c76ee90591ca9f8cca80e0f068008540c928bb6450",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAnd so my fellow Americans, ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans Ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans, ask not What your country can do for you, ask what you can do for your And so my fellow Americans ask not what your country can do for you ask what you can do for your And so my fellow Americans ask not what your country can do for you, ask what you can do for your country. And so my fellow Americans ask not what your country can do for you, ask what you can do for your\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

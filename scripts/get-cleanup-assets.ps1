@@ -3,7 +3,7 @@
 param(
     [string]$ManifestPath,
     [string]$RuntimeManifestPath,
-    [ValidateSet('win-x64-cpu', 'linux-x64-cpu')][string]$Platform = 'win-x64-cpu',
+    [ValidateSet('win-x64-cpu', 'win-x64-vulkan', 'linux-x64-cpu')][string]$Platform = 'win-x64-cpu',
     [string]$CacheDirectory,
     [string]$OutputDirectory,
     [switch]$Offline,
@@ -16,9 +16,6 @@ $repositoryRoot = Split-Path -Parent $PSScriptRoot
 if (-not $ManifestPath) { $ManifestPath = Join-Path $repositoryRoot 'packaging/cleanup-model-manifest.json' }
 if (-not $RuntimeManifestPath) { $RuntimeManifestPath = Join-Path $repositoryRoot 'packaging/cleanup-runtime-manifest.json' }
 if (-not $CacheDirectory) { $CacheDirectory = Join-Path $repositoryRoot 'artifacts/cleanup-downloads' }
-if (-not $OutputDirectory) {
-    $OutputDirectory = Join-Path $repositoryRoot $(if ($Platform -eq 'win-x64-cpu') { 'artifacts/cleanup-assets' } else { 'artifacts/cleanup-assets-linux' })
-}
 
 function Assert-CleanupDownload($Artifact) {
     $uri = $null
@@ -59,10 +56,23 @@ function Get-CleanupDownload($Artifact, [string]$Extension) {
 
 $selected = Get-Content -LiteralPath $ManifestPath -Raw | ConvertFrom-Json
 $runtime = Get-Content -LiteralPath $RuntimeManifestPath -Raw | ConvertFrom-Json
+if ($null -ne $selected.PSObject.Properties['RuntimePlatform']) {
+    if ($selected.RuntimePlatform -isnot [string] -or $selected.RuntimePlatform -cnotin @('win-x64-cpu', 'win-x64-vulkan')) {
+        throw 'Cleanup setup requires a supported pinned Windows runtime platform.'
+    }
+    if (-not $PSBoundParameters.ContainsKey('Platform')) { $Platform = $selected.RuntimePlatform }
+}
+$Platform = $Platform.ToLowerInvariant()
+if (-not $OutputDirectory) {
+    $folder = switch ($Platform) { 'win-x64-vulkan' { 'artifacts/cleanup-assets-vulkan' } 'linux-x64-cpu' { 'artifacts/cleanup-assets-linux' } default { 'artifacts/cleanup-assets' } }
+    $OutputDirectory = Join-Path $repositoryRoot $folder
+}
 if ($selected.SchemaVersion -ne 1 -or $runtime.SchemaVersion -ne 1 -or
     [string]::IsNullOrWhiteSpace($selected.ModelId) -or $selected.ModelId.Length -gt 256 -or
     $selected.ModelId -match '[\x00-\x1f]' -or
-    $selected.PromptStyle -notin @('QuillChatMl', 'Qwen35', 'Ministral3', 'Gemma4') -or
+    $selected.PromptStyle -notin @('QuillChatMl', 'Qwen35', 'Ministral3', 'Gemma4', 'S1Mini', 'HandyEditor', 'HandyEditorUserOnly',
+        'Emberon2', 'BitVoiceSmol', 'KuduTinyPolished', 'LocalflowClean', 'SpokenlyCleanup', 'ScribeKeyFast', 'Sotto',
+        'GenericChat', 'SmolPostAsr') -or
     $selected.Model.Revision -notmatch '\A[0-9a-fA-F]{40}\z' -or
     $runtime.SourceCommit -notmatch '\A[0-9a-fA-F]{40}\z') {
     throw 'Cleanup acquisition manifests require a selected model, prompt style and immutable source revisions.'
@@ -73,7 +83,7 @@ $native = $artifacts[0]
 $archive = [pscustomobject]@{ Source = $native.Source; Sha256 = $native.ArchiveSha256; Size = $native.ArchiveSize }
 foreach ($artifact in @($selected.Model, $selected.ModelLicense, $selected.RuntimeLicense, $archive)) { Assert-CleanupDownload $artifact }
 foreach ($artifact in @($selected.ModelNotices)) { if ($null -ne $artifact) { Assert-CleanupDownload $artifact } }
-$expectedExecutable = if ($Platform -eq 'win-x64-cpu') { 'llama-server.exe' } else { 'llama-server' }
+$expectedExecutable = if ($Platform -in @('win-x64-cpu', 'win-x64-vulkan')) { 'llama-server.exe' } else { 'llama-server' }
 if ($native.Executable -cne $expectedExecutable -or $native.ExecutableSha256 -notmatch '\A[0-9a-fA-F]{64}\z') {
     throw 'Cleanup runtime manifest does not pin the expected executable.'
 }
@@ -91,6 +101,16 @@ foreach ($notice in @($selected.ModelNotices)) {
 $limits = @{
     Threads = @(1, 256); ContextSize = @(256, 1048576); MaxOutputTokens = @(1, 1048575)
     GpuLayers = @(0, 1000); StartupTimeoutSeconds = @(1, 1800); IdleTimeoutSeconds = @(0, 86400)
+    BatchSize = @(1, 8192); MicroBatchSize = @(1, 8192); PromptCacheMiB = @(0, 8192); ContextCheckpoints = @(0, 32)
+    PromptLookupTokens = @(0, 64); PromptLookupMatchTokens = @(1, 12)
+}
+$optionalSettings = @{ BatchSize = 128; MicroBatchSize = 128; PromptCacheMiB = 0; ContextCheckpoints = 0
+    CacheTypeK = 'f16'; CacheTypeV = 'f16'; Repack = $true; MaskSpecialistLiterals = $false
+    PromptLookupTokens = 0; PromptLookupMatchTokens = 3 }
+foreach ($name in $optionalSettings.Keys) {
+    if ($null -eq $selected.Inference.PSObject.Properties[$name]) {
+        $selected.Inference | Add-Member -NotePropertyName $name -NotePropertyValue $optionalSettings[$name]
+    }
 }
 foreach ($name in $limits.Keys) {
     $value = $selected.Inference.$name
@@ -99,6 +119,16 @@ foreach ($name in $limits.Keys) {
     }
 }
 if ($selected.Inference.MaxOutputTokens -ge $selected.Inference.ContextSize) { throw 'Cleanup maximum output must be smaller than the total context.' }
+if ($selected.Inference.MicroBatchSize -gt $selected.Inference.BatchSize) { throw 'Cleanup micro-batch must not exceed the logical batch.' }
+if ($selected.Inference.PromptLookupTokens -ge $selected.Inference.BatchSize) { throw 'Cleanup prompt lookup plus its sampled token must fit the logical batch.' }
+foreach ($name in @('Repack', 'MaskSpecialistLiterals')) {
+    if ($selected.Inference.$name -isnot [bool]) { throw "Cleanup inference switch must be a boolean: $name" }
+}
+foreach ($name in @('CacheTypeK', 'CacheTypeV')) {
+    if ($selected.Inference.$name -isnot [string] -or $selected.Inference.$name -cnotin @('f16', 'q8_0', 'q4_0')) {
+        throw "Cleanup cache type is invalid: $name"
+    }
+}
 
 if ($ValidateManifestOnly) {
     return [pscustomobject]@{
@@ -113,7 +143,7 @@ New-Item -ItemType Directory -Path $CacheDirectory -Force | Out-Null
 $modelPath = Get-CleanupDownload $selected.Model '.gguf'
 $modelLicense = Get-CleanupDownload $selected.ModelLicense '.txt'
 $runtimeLicense = Get-CleanupDownload $selected.RuntimeLicense '.txt'
-$archivePath = Get-CleanupDownload $archive $(if ($Platform -eq 'win-x64-cpu') { '.zip' } else { '.tar.gz' })
+$archivePath = Get-CleanupDownload $archive $(if ($Platform -in @('win-x64-cpu', 'win-x64-vulkan')) { '.zip' } else { '.tar.gz' })
 $stage = Join-Path $CacheDirectory ('.cleanup-extract-' + [guid]::NewGuid().ToString('N'))
 try {
     New-Item -ItemType Directory -Path $stage -Force | Out-Null
@@ -127,7 +157,7 @@ try {
     }
     $extracted = Join-Path $stage 'runtime'
     New-Item -ItemType Directory -Path $extracted -Force | Out-Null
-    if ($Platform -eq 'win-x64-cpu') {
+    if ($Platform -in @('win-x64-cpu', 'win-x64-vulkan')) {
         # Authenticate the complete archive before extracting any native code.
         Expand-Archive -LiteralPath $archivePath -DestinationPath $extracted
     } else {
@@ -147,6 +177,7 @@ try {
         RuntimeSourceUrl = $native.Source; RuntimeRevision = $runtime.SourceCommit
     }
     foreach ($name in $limits.Keys) { $prepare[$name] = $selected.Inference.$name }
+    foreach ($name in @('CacheTypeK', 'CacheTypeV', 'Repack', 'MaskSpecialistLiterals')) { $prepare[$name] = $selected.Inference.$name }
     return & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') @prepare
 } finally {
     if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }

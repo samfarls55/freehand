@@ -1,5 +1,16 @@
 # Local transcript cleanup
 
+## Current qualification status — November 3, 2026
+
+Small-model contracts, bounded CPU profiles, verified literal/quote restoration
+and optional Windows Vulkan bundles are implemented. The
+[actual evaluation](TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md) found no model
+ready to become a production default: accepted meaning errors remain, and the
+747,500,000-byte / 805-ms whole-app Windows gates are unverified. The Qwen9B
+acquisition pin described below is a preserved prototype reference. Use explicit
+experimental bundles for the small-model profiles; no failed candidate has been
+promoted automatically.
+
 Freehand can run a final local edit after dictionary correction and English number
 formatting. The complete result is checked before the existing single insertion.
 Failed or incomplete cleanup keeps the original normalized transcript. Dictionary

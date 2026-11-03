@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "scope": "Authored local preview preparation/discovery helpers; not evidence of Windows native or GPU execution.",
+  "files": {
+    "select-preview-device.ps1": {
+      "bytes": 9872,
+      "sha256": "3f6719f09c47f1b9e8c7a61ff631bcc50eb637c3cb8b4580674fa16b34effcf2",
+      "historical_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/select-preview-device.ps1"
+    },
+    "prepare-windows-vulkan.ps1": {
+      "bytes": 4018,
+      "sha256": "24f674eecc49e27bc7ba7a52fe52d393aad43e5009c8cb1b15593626b73d72fb",
+      "historical_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/prepare-windows-vulkan.ps1"
+    },
+    "build_preview_metadata.py": {
+      "bytes": 5523,
+      "sha256": "6b13a996d96def33b901c9c31ee9a6ce9e076a630611b3a091f70ecf13e6b5a9",
+      "historical_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/build_preview_metadata.py"
+    },
+    "acquire_vulkan.py": {
+      "bytes": 5854,
+      "sha256": "afb6da219307a41ac0847301631e75e7035573b4edf0707f92e1c0373a878082",
+      "historical_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/vulkan-windows/acquire_vulkan.py"
+    }
+  },
+  "device_parser_checks": {
+    "mode": "Synthetic ParseOnly on Linux PowerShell7.6.9",
+    "unique_nvidia_exact_label": "pass",
+    "ambiguous_nvidia_rejected_and_failure_json_persisted": "pass",
+    "utf8_without_bom_failure_record": "pass",
+    "windows_native_executed": false,
+    "gpu_inference_executed": false,
+    "relative_evidence_directory_resolves_to_absolute_filesystem_path": "pass",
+    "malformed_non_nvidia_vulkan_row_rejected": "pass",
+    "native_stream_utf8_decoding": "explicitly set; Windows execution untested"
+  },
+  "independent_static_review_fixes": [
+    "Resolve created evidence directory to ProviderPath before .NET file I/O.",
+    "Reject malformed Vulkan-prefixed rows regardless of vendor.",
+    "Explicit UTF8 encodings for redirected native stdout/stderr.",
+    "Persist full failure discovery output using create-new UTF8 without BOM."
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "scope": "Four research-only10secondJFK conditions withnewobserver; unchangedASR4threads/model/native2.0.0; freshprocesspercondition; onecleanupsyntheticwarmup. Baseline is repeated tobracketvariation; N1notatentailestimate.",
+  "plan_sha256": "984b8b338e7c880d65504e1c0d9715dea878195933f19d6b7abb9498d6d09909",
+  "results": [
+    {
+      "id": "a-baseline",
+      "returncode": 0,
+      "elapsed_seconds": 13.113,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/a-baseline.json",
+      "report_sha256": "e04944383a34514e1dae9f872b69bd64ab72a7bdbde9170a9d670ed7162870b5",
+      "memory": {
+        "PeakSummedWorkingSetBytes": 609685504,
+        "PeakHostWorkingSetBytes": 66621440,
+        "PeakSpeechWorkingSetBytes": 308715520,
+        "PeakCleanupWorkingSetBytes": 249589760,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 52260864,
+          "SpeechWorkingSetBytes": 308715520,
+          "CleanupWorkingSetBytes": 248709120
+        }
+      },
+      "trial_memory": {
+        "PeakSummedWorkingSetBytes": 609677312,
+        "PeakHostWorkingSetBytes": 66592768,
+        "PeakSpeechWorkingSetBytes": 308715520,
+        "PeakCleanupWorkingSetBytes": 249589760,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 52252672,
+          "SpeechWorkingSetBytes": 308715520,
+          "CleanupWorkingSetBytes": 248709120
+        }
+      },
+      "release_ms": 717.8497,
+      "cleanup_ms": 359.0366,
+      "speech_cpu_during_cleanup_ms": 49.9999,
+      "cleanup_cpu_during_cleanup_ms": 1260.0001,
+      "host_cpu_during_cleanup_ms": 98.268,
+      "outcome": "Unchanged",
+      "provider_failure": null,
+      "delivery_calls": 1,
+      "all_text_equal": true,
+      "final_text": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "failures": [],
+      "observer": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup"
+    },
+    {
+      "id": "b-force-stop",
+      "returncode": 0,
+      "elapsed_seconds": 12.863,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/b-force-stop.json",
+      "report_sha256": "f2696daab3a6cc4696a2ade6ed3ab305f17d996325c006c0c18beedc8662ee80",
+      "memory": {
+        "PeakSummedWorkingSetBytes": 590397440,
+        "PeakHostWorkingSetBytes": 66371584,
+        "PeakSpeechWorkingSetBytes": 289976320,
+        "PeakCleanupWorkingSetBytes": 249815040,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 51486720,
+          "SpeechWorkingSetBytes": 289976320,
+          "CleanupWorkingSetBytes": 248934400
+        }
+      },
+      "trial_memory": {
+        "PeakSummedWorkingSetBytes": 627040256,
+        "PeakHostWorkingSetBytes": 66355200,
+        "PeakSpeechWorkingSetBytes": 326619136,
+        "PeakCleanupWorkingSetBytes": 249815040,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 51486720,
+          "SpeechWorkingSetBytes": 326619136,
+          "CleanupWorkingSetBytes": 248934400
+        }
+      },
+      "release_ms": 783.9006,
+      "cleanup_ms": 359.9889,
+      "speech_cpu_during_cleanup_ms": 40,
+      "cleanup_cpu_during_cleanup_ms": 1250,
+      "host_cpu_during_cleanup_ms": 120.656,
+      "outcome": "Unchanged",
+      "provider_failure": null,
+      "delivery_calls": 1,
+      "all_text_equal": true,
+      "final_text": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "failures": [],
+      "observer": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup"
+    },
+    {
+      "id": "c-no-spinning",
+      "returncode": 0,
+      "elapsed_seconds": 12.857,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/c-no-spinning.json",
+      "report_sha256": "5f6311e6004ef3d5b5b185766dd180390e52405e0b36667c73414254cfb76ff7",
+      "memory": {
+        "PeakSummedWorkingSetBytes": 625238016,
+        "PeakHostWorkingSetBytes": 66220032,
+        "PeakSpeechWorkingSetBytes": 324771840,
+        "PeakCleanupWorkingSetBytes": 249786368,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 51560448,
+          "SpeechWorkingSetBytes": 324771840,
+          "CleanupWorkingSetBytes": 248905728
+        }
+      },
+      "trial_memory": {
+        "PeakSummedWorkingSetBytes": 625238016,
+        "PeakHostWorkingSetBytes": 66187264,
+        "PeakSpeechWorkingSetBytes": 324771840,
+        "PeakCleanupWorkingSetBytes": 249786368,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 51560448,
+          "SpeechWorkingSetBytes": 324771840,
+          "CleanupWorkingSetBytes": 248905728
+        }
+      },
+      "release_ms": 790.0132,
+      "cleanup_ms": 387.1458,
+      "speech_cpu_during_cleanup_ms": 50,
+      "cleanup_cpu_during_cleanup_ms": 1329.9999,
+      "host_cpu_during_cleanup_ms": 150.159,
+      "outcome": "Unchanged",
+      "provider_failure": null,
+      "delivery_calls": 1,
+      "all_text_equal": true,
+      "final_text": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "failures": [],
+      "observer": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup"
+    },
+    {
+      "id": "d-baseline-repeat",
+      "returncode": 0,
+      "elapsed_seconds": 12.959,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/observer-controls/d-baseline-repeat.json",
+      "report_sha256": "1c8c3be4c7ed1c50e7796ae8f710bdec814091fca4cffa720571f9cfca15cbfd",
+      "memory": {
+        "PeakSummedWorkingSetBytes": 622833664,
+        "PeakHostWorkingSetBytes": 66195456,
+        "PeakSpeechWorkingSetBytes": 322596864,
+        "PeakCleanupWorkingSetBytes": 249737216,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 51380224,
+          "SpeechWorkingSetBytes": 322596864,
+          "CleanupWorkingSetBytes": 248856576
+        }
+      },
+      "trial_memory": {
+        "PeakSummedWorkingSetBytes": 622870528,
+        "PeakHostWorkingSetBytes": 66048000,
+        "PeakSpeechWorkingSetBytes": 322633728,
+        "PeakCleanupWorkingSetBytes": 249724928,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 51380224,
+          "SpeechWorkingSetBytes": 322633728,
+          "CleanupWorkingSetBytes": 248856576
+        }
+      },
+      "release_ms": 751.7946,
+      "cleanup_ms": 375.5722,
+      "speech_cpu_during_cleanup_ms": 40,
+      "cleanup_cpu_during_cleanup_ms": 1340,
+      "host_cpu_during_cleanup_ms": 111.669,
+      "outcome": "Unchanged",
+      "provider_failure": null,
+      "delivery_calls": 1,
+      "all_text_equal": true,
+      "final_text": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "failures": [],
+      "observer": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup"
+    }
+  ]
+}

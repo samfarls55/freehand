@@ -34,6 +34,10 @@ public sealed class AssetInstallerTests
         var options = LlamaCleanupOptions.LoadManifest(installed.ManifestPath);
         options.ModelId.ShouldBe(installed.ModelId);
         options.ModelSha256.ShouldBe(Hash(fixture.ModelBytes));
+        options.BatchSize.ShouldBe(128); options.MicroBatchSize.ShouldBe(128);
+        options.MaskSpecialistLiterals.ShouldBeFalse(); options.Repack.ShouldBeTrue();
+        options.PromptCacheMiB.ShouldBe(0); options.ContextCheckpoints.ShouldBe(0);
+        options.PromptLookupTokens.ShouldBe(0); options.PromptLookupMatchTokens.ShouldBe(3);
         options.Artifacts.Count.ShouldBe(7);
         File.ReadAllText(Path.Combine(installed.DirectoryPath, "runtime", "dependency.dll")).ShouldBe("fixture DLL");
         File.ReadAllText(Path.Combine(installed.DirectoryPath, "licenses", "model", "base-LICENSE.txt")).ShouldBe("base model license");
@@ -45,6 +49,136 @@ public sealed class AssetInstallerTests
         (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
         fixture.Transport.RequestCount.ShouldBe(requests);
         fixture.StagingDirectories.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public async Task Specialist_setup_preserves_the_complete_explicit_profile_and_reuses_it()
+    {
+        using var fixture = new Fixture();
+        fixture.SetInference(new Dictionary<string, object>
+        {
+            ["BatchSize"] = 256, ["MicroBatchSize"] = 64, ["PromptCacheMiB"] = 16, ["ContextCheckpoints"] = 2,
+            ["CacheTypeK"] = "q8_0", ["CacheTypeV"] = "q4_0", ["Repack"] = false, ["MaskSpecialistLiterals"] = true,
+            ["PromptLookupTokens"] = 16, ["PromptLookupMatchTokens"] = 3,
+        });
+        var installer = fixture.Installer();
+
+        var installed = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        var options = LlamaCleanupOptions.LoadManifest(installed.ManifestPath);
+
+        options.PromptStyle.ShouldBe(CleanupPromptStyle.S1Mini);
+        options.BatchSize.ShouldBe(256); options.MicroBatchSize.ShouldBe(64);
+        options.PromptCacheMiB.ShouldBe(16); options.ContextCheckpoints.ShouldBe(2);
+        options.CacheTypeK.ShouldBe("q8_0"); options.CacheTypeV.ShouldBe("q4_0");
+        options.Repack.ShouldBeFalse(); options.MaskSpecialistLiterals.ShouldBeTrue();
+        options.PromptLookupTokens.ShouldBe(16); options.PromptLookupMatchTokens.ShouldBe(3);
+        var requests = fixture.Transport.RequestCount;
+        (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
+        fixture.Transport.RequestCount.ShouldBe(requests);
+    }
+
+    [Fact]
+    public async Task Vulkan_setup_selects_the_pinned_windows_artifact_and_preserves_existing_cpu_assets()
+    {
+        using var fixture = new Fixture();
+        var installer = fixture.Installer();
+        var cpu = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        fixture.SetInference(new Dictionary<string, object> { ["GpuLayers"] = 999, ["PromptLookupTokens"] = 16 });
+        fixture.SetRuntimePlatform("win-x64-vulkan");
+
+        var vulkan = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+
+        vulkan.DirectoryPath.ShouldNotBe(cpu.DirectoryPath);
+        File.Exists(cpu.ManifestPath).ShouldBeTrue();
+        using var manifest = JsonDocument.Parse(await File.ReadAllBytesAsync(vulkan.ManifestPath));
+        manifest.RootElement.GetProperty("platform").GetString().ShouldBe("win-x64-vulkan");
+        var options = LlamaCleanupOptions.LoadManifest(vulkan.ManifestPath);
+        options.GpuLayers.ShouldBe(999); options.PromptLookupTokens.ShouldBe(16);
+        var requests = fixture.Transport.RequestCount;
+        (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(vulkan.DirectoryPath);
+        fixture.Transport.RequestCount.ShouldBe(requests);
+    }
+
+    [Theory]
+    [InlineData("linux-x64-cpu")]
+    [InlineData("win-x64-cuda")]
+    [InlineData("arbitrary")]
+    public void Setup_rejects_platforms_outside_the_windows_cpu_vulkan_allowlist(string platform)
+    {
+        using var fixture = new Fixture();
+        fixture.SetRuntimePlatform(platform, includeArtifact: false);
+
+        Should.Throw<InvalidDataException>(() => CleanupAssetInstaller.ValidateAcquisitionMetadata(fixture.ModelManifest, fixture.RuntimeManifest));
+
+        fixture.Transport.RequestCount.ShouldBe(0);
+    }
+
+    [Fact]
+    public void Vulkan_setup_cannot_substitute_the_cpu_artifact_when_its_pin_is_missing()
+    {
+        using var fixture = new Fixture();
+        fixture.SetRuntimePlatform("win-x64-vulkan", includeArtifact: false);
+
+        Should.Throw<InvalidDataException>(() => CleanupAssetInstaller.ValidateAcquisitionMetadata(fixture.ModelManifest, fixture.RuntimeManifest));
+
+        fixture.Transport.RequestCount.ShouldBe(0);
+    }
+
+    [Fact]
+    public async Task Legacy_cached_bundle_without_optional_profile_fields_uses_compatible_defaults()
+    {
+        using var fixture = new Fixture();
+        var installer = fixture.Installer();
+        var installed = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        var manifest = System.Text.Json.Nodes.JsonNode.Parse(await File.ReadAllTextAsync(installed.ManifestPath))!.AsObject();
+        foreach (var field in new[] { "platform", "batchSize", "microBatchSize", "promptCacheMiB", "contextCheckpoints", "cacheTypeK", "cacheTypeV", "repack", "maskSpecialistLiterals", "promptLookupTokens", "promptLookupMatchTokens" })
+            manifest.Remove(field);
+        await File.WriteAllTextAsync(installed.ManifestPath, manifest.ToJsonString());
+        var requests = fixture.Transport.RequestCount;
+
+        (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
+
+        fixture.Transport.RequestCount.ShouldBe(requests);
+    }
+
+    [Theory]
+    [InlineData("BatchSize", 0)]
+    [InlineData("BatchSize", 8193)]
+    [InlineData("MicroBatchSize", 129)]
+    [InlineData("PromptCacheMiB", -1)]
+    [InlineData("ContextCheckpoints", 33)]
+    [InlineData("BatchSize", "128")]
+    [InlineData("BatchSize", true)]
+    [InlineData("MaskSpecialistLiterals", "true")]
+    [InlineData("Repack", 0)]
+    [InlineData("CacheTypeK", "q2_bad")]
+    [InlineData("CacheTypeV", 8)]
+    [InlineData("PromptLookupTokens", -1)]
+    [InlineData("PromptLookupTokens", 65)]
+    [InlineData("PromptLookupMatchTokens", 0)]
+    [InlineData("PromptLookupMatchTokens", 13)]
+    [InlineData("PromptLookupTokens", "16")]
+    [InlineData("PromptLookupMatchTokens", true)]
+    public void Acquisition_rejects_invalid_profile_values_before_downloading(string name, object value)
+    {
+        using var fixture = new Fixture();
+        fixture.SetInference(new Dictionary<string, object> { [name] = value });
+
+        Should.Throw<InvalidDataException>(() => CleanupAssetInstaller.ValidateAcquisitionMetadata(fixture.ModelManifest, fixture.RuntimeManifest));
+
+        fixture.Transport.RequestCount.ShouldBe(0);
+        Directory.Exists(fixture.Root).ShouldBeFalse();
+    }
+
+    [Fact]
+    public void Acquisition_rejects_a_lookup_draft_that_leaves_no_sampled_token_batch_space()
+    {
+        using var fixture = new Fixture();
+        fixture.SetInference(new Dictionary<string, object> { ["BatchSize"] = 16, ["MicroBatchSize"] = 16, ["PromptLookupTokens"] = 16 });
+
+        Should.Throw<InvalidDataException>(() => CleanupAssetInstaller.ValidateAcquisitionMetadata(fixture.ModelManifest, fixture.RuntimeManifest));
+
+        fixture.Transport.RequestCount.ShouldBe(0);
     }
 
     [Fact]
@@ -93,12 +227,23 @@ public sealed class AssetInstallerTests
 
     [Theory]
     [InlineData("promptStyle", "Qwen35")]
+    [InlineData("platform", "win-x64-vulkan")]
     [InlineData("threads", "8")]
     [InlineData("contextSize", "4096")]
     [InlineData("maxOutputTokens", "1024")]
     [InlineData("gpuLayers", "1")]
     [InlineData("startupTimeoutSeconds", "90")]
     [InlineData("idleTimeoutSeconds", "0")]
+    [InlineData("batchSize", "256")]
+    [InlineData("microBatchSize", "64")]
+    [InlineData("promptCacheMiB", "16")]
+    [InlineData("contextCheckpoints", "1")]
+    [InlineData("maskSpecialistLiterals", "true")]
+    [InlineData("repack", "false")]
+    [InlineData("cacheTypeK", "q8_0")]
+    [InlineData("cacheTypeV", "q4_0")]
+    [InlineData("promptLookupTokens", "16")]
+    [InlineData("promptLookupMatchTokens", "12")]
     [InlineData("license", "changed license")]
     [InlineData("notice", "changed base notice")]
     public async Task Cache_reuse_requires_the_selected_inference_and_license_pins(string property, string value)
@@ -115,7 +260,8 @@ public sealed class AssetInstallerTests
             var entry = manifest["files"]!.AsArray().Single(file => file!["path"]!.GetValue<string>() == relative)!;
             entry["sha256"] = Hash(altered); entry["size"] = altered.Length;
         }
-        else if (property == "promptStyle") manifest[property] = value;
+        else if (property is "promptStyle" or "platform" or "cacheTypeK" or "cacheTypeV") manifest[property] = value;
+        else if (property is "maskSpecialistLiterals" or "repack") manifest[property] = bool.Parse(value);
         else manifest[property] = int.Parse(value, System.Globalization.CultureInfo.InvariantCulture);
         await File.WriteAllTextAsync(original.ManifestPath, manifest.ToJsonString());
         var before = fixture.Transport.RequestCount;
@@ -232,6 +378,32 @@ public sealed class AssetInstallerTests
         }
 
         internal CleanupAssetInstaller Installer() => new(_http, Root);
+        internal void SetRuntimePlatform(string platform, bool includeArtifact = true)
+        {
+            _model["RuntimePlatform"] = platform;
+            File.WriteAllText(ModelManifest, JsonSerializer.Serialize(_model));
+            if (!includeArtifact) return;
+            var runtime = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(RuntimeManifest))!;
+            var original = runtime["Artifacts"]![0]!;
+            var selected = original.DeepClone();
+            selected["Platform"] = platform;
+            runtime["Artifacts"]!.AsArray().Add(selected);
+            // Only the explicitly selected row has the correct executable pin.
+            original["ExecutableSha256"] = new string('0', 64);
+            File.WriteAllText(RuntimeManifest, runtime.ToJsonString());
+        }
+        internal void SetInference(Dictionary<string, object> overrides)
+        {
+            var settings = new Dictionary<string, object>(StringComparer.Ordinal)
+            {
+                ["Threads"] = 4, ["ContextSize"] = 8192, ["MaxOutputTokens"] = 2048, ["GpuLayers"] = 0,
+                ["StartupTimeoutSeconds"] = 60, ["IdleTimeoutSeconds"] = 60,
+            };
+            foreach (var setting in overrides) settings[setting.Key] = setting.Value;
+            _model["Inference"] = settings;
+            _model["PromptStyle"] = "S1Mini";
+            File.WriteAllText(ModelManifest, JsonSerializer.Serialize(_model));
+        }
         internal void SetModel(byte[] bytes)
         {
             ModelBytes = bytes; Transport.Payloads["/model"] = bytes;

@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-11-03T15:21:30Z",
+  "candidate": {
+    "id": "Radiumcoders/localflow-clean:localflow-clean-q4_k_m.gguf",
+    "role": "lead_specialist",
+    "repository": "Radiumcoders/localflow-clean",
+    "revision": "4db187970c570ab861e64a61b8dadca4a285d559",
+    "filename": "localflow-clean-q4_k_m.gguf",
+    "bytes": 350373280,
+    "publisher_sha256": "0fa7ba4e4a38b50067a2dbd6eb01ce2e0aa6db755afc4a216cffd27566eb3206",
+    "immutable_url": "https://huggingface.co/Radiumcoders/localflow-clean/resolve/4db187970c570ab861e64a61b8dadca4a285d559/localflow-clean-q4_k_m.gguf",
+    "trained_contract_reference": "specialists/report.md",
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/Radiumcoders_localflow-clean/localflow-clean-q4_k_m.gguf",
+    "verified": true,
+    "sha256": "0fa7ba4e4a38b50067a2dbd6eb01ce2e0aa6db755afc4a216cffd27566eb3206",
+    "download_seconds": 134.148,
+    "reused_verified": false,
+    "verification": "complete_download_size_and_independent_sha256_match_pinned_publisher",
+    "verified_at_utc": "2026-11-03T15:21:11.298925+00:00",
+    "legal_documents": [
+      {
+        "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/Radiumcoders_localflow-clean/LICENSE",
+        "url": "https://huggingface.co/Radiumcoders/localflow-clean/resolve/4db187970c570ab861e64a61b8dadca4a285d559/LICENSE",
+        "bytes": 11544,
+        "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+        "source_cache": "/workspace/freehand/work/cleanup-research-2026-10-30/products/raw/huggingface/beingpax__VoiceInk-Refine-V1/LICENSE-QWEN-APACHE-2.0.txt"
+      }
+    ],
+    "license_assessment": {
+      "metadata_declaration": "apache-2.0",
+      "assessment": "Qwen3.5-0.8B task fine-tune plus vocabulary pruning, Apache2.",
+      "documents": [
+        {
+          "path": "evidence/Radiumcoders__localflow-clean/LICENSE",
+          "url": "https://huggingface.co/Radiumcoders/localflow-clean/resolve/4db187970c570ab861e64a61b8dadca4a285d559/LICENSE",
+          "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+          "size": 11544
+        }
+      ],
+      "metadata_name": null,
+      "metadata_link": "LICENSE"
+    }
+  },
+  "runtime": {
+    "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+    "bytes": 17864,
+    "status": "existing_file_rehashed"
+  },
+  "asset_index_sha256": "c4992eb31c5c9705353d741a4564f7fc1e1fc0d934408512e4a474b76f6972bc",
+  "prompts_sha256": "6e6e9a477ba26d71525ea85532eb5cf7bc38f15c23409fb452204fd186b04edf",
+  "prompt_style": "LocalflowClean",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "222762B0E7C698629B47E99854853C30AA85A617B519E0F6B9701064A09B4FFB",
+    "Freehand.Core.dll": "AD61CEC2A832A4C013A50D98DED6DF24DA342A11021ACC8F8E499D9B9122BBB2",
+    "Freehand.Cleanup.dll": "18AC2046C43B7412EBC0FC4A0427FAD87C2DBEB9E6FC82335398DD4A6F7CDDA6",
+    "Freehand.Dictionary.dll": "F1D435E1A04949CB4483EA4C5BD9B8FB53C0B3820BA7AC9ADDD628584AD2AB7D",
+    "Freehand.Testing.dll": "058A392C54FACCB47356692686EEA105223CECC401ED12AC40987F0147BF10FA",
+    "Freehand.Abstractions.dll": "96E45A4E9A24441BDA372DD861965E1803173E3CC4DC5B1F1C1B947C107D20C3"
+  },
+  "host": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "profile": {
+    "context": 2048,
+    "max_output": 512,
+    "threads": 4,
+    "batch": 128,
+    "micro_batch": 128,
+    "cache_ram_mib": 0,
+    "repeats": 1,
+    "extra_server_args": []
+  },
+  "incomplete": false,
+  "limitations": "Cleanup-server native replay only; no ASR, UI, real capture or Windows delivery. Artifact hashing warms OS pages before startup. First request is cold inference after server warmup, not a filesystem-cold model load. Memory excludes the Python harness and whole Freehand app; no whole-app SLA pass is claimed.",
+  "startup_to_health_seconds": 0.4315813529992738,
+  "server_command": [
+    "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "--model",
+    "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/Radiumcoders_localflow-clean/localflow-clean-q4_k_m.gguf",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "54759",
+    "--alias",
+    "local-cleanup",
+    "--ctx-size",
+    "2048",
+    "--parallel",
+    "1",
+    "--threads",
+    "4",
+    "--threads-batch",
+    "4",
+    "--batch-size",
+    "128",
+    "--ubatch-size",
+    "128",
+    "--cache-ram",
+    "0",
+    "--ctx-checkpoints",
+    "0",
+    "--n-gpu-layers",
+    "0",
+    "--n-predict",
+    "512",
+    "--fit",
+    "off",
+    "--no-context-shift",
+    "--no-webui",
+    "--no-slots",
+    "--no-mmproj",
+    "--offline",
+    "--log-disable",
+    "--no-jinja"
+  ],
+  "summary": {
+    "row_count": 24,
+    "attempt_count": 24,
+    "not_attempted_count": 0,
+    "completed_count": 24,
+    "operational_failures": 0,
+    "known_quality_failures": 5,
+    "target_matches": 17,
+    "review_required_nonmatches": 3,
+    "complete_response_seconds": {
+      "median": 0.480482990499695,
+      "p95_nearest_rank": 2.1683114859988564,
+      "maximum": 2.2401742579986603,
+      "sample_count": 24
+    },
+    "by_category": {
+      "accidental_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_date": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_number": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "dictated_question": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "fillers": {
+        "completed": 2,
+        "known_quality_failures": 1,
+        "target_matches": 1
+      },
+      "grammar": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "hedge": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "intentional_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_marker": {
+        "completed": 2,
+        "known_quality_failures": 2,
+        "target_matches": 1
+      },
+      "long_late_correction": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "no_change": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "quoted_instructions": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "semantic_fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_identifier": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_url": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "unfinished": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      }
+    }
+  },
+  "warm_summary": {
+    "row_count": 23,
+    "attempt_count": 23,
+    "not_attempted_count": 0,
+    "completed_count": 23,
+    "operational_failures": 0,
+    "known_quality_failures": 5,
+    "target_matches": 16,
+    "review_required_nonmatches": 3,
+    "complete_response_seconds": {
+      "median": 0.4874118579991773,
+      "p95_nearest_rank": 2.1683114859988564,
+      "maximum": 2.2401742579986603,
+      "sample_count": 23
+    },
+    "by_category": {
+      "accidental_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_date": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_number": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "dictated_question": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "fillers": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "grammar": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "hedge": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "intentional_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_marker": {
+        "completed": 2,
+        "known_quality_failures": 2,
+        "target_matches": 1
+      },
+      "long_late_correction": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "no_change": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "quoted_instructions": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "semantic_fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_identifier": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_url": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "unfinished": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      }
+    }
+  },
+  "memory": {
+    "scope": "owned_cleanup_server_process_tree_only",
+    "sample_interval_seconds": 0.02,
+    "sample_count": 620,
+    "unavailable_samples": 0,
+    "peak_working_set_bytes": 655486976,
+    "peak_private_resident_bytes": 655110144,
+    "peak_private_commit_bytes": null,
+    "peak_process_count": 1,
+    "notes": "Sampled simultaneous process-tree sums; shared pages may be counted twice. Linux private resident memory differs from Windows private commit. GPU memory and the Freehand desktop/ASR worker are excluded. Sampling can affect timing."
+  },
+  "finished_utc": "2026-11-03T15:21:46Z",
+  "not_run_count": 0
+}

@@ -54,6 +54,34 @@ public sealed class ManifestTests
         options.Artifacts[0].Size.ShouldBe(7);
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Specialist_literal_mask_is_an_explicit_boolean_manifest_option(bool enabled)
+    {
+        using var fixture = new ManifestFixture();
+        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
+        {
+            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
+            modelId = "pinned-model", promptStyle = "S1Mini", maskSpecialistLiterals = enabled,
+        }));
+
+        LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).MaskSpecialistLiterals.ShouldBe(enabled);
+    }
+
+    [Fact]
+    public void Specialist_literal_mask_rejects_a_string_instead_of_a_boolean()
+    {
+        using var fixture = new ManifestFixture();
+        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
+        {
+            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
+            modelId = "pinned-model", promptStyle = "S1Mini", maskSpecialistLiterals = "true",
+        }));
+
+        Should.Throw<InvalidDataException>(() => LlamaCleanupOptions.LoadManifest(fixture.ManifestPath));
+    }
+
     [Fact]
     public void Manifest_resolves_relative_paths_and_does_not_hash_model_on_settings_load()
     {

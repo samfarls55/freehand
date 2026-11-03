@@ -97,6 +97,7 @@ class QualityChecks(unittest.TestCase):
             {"choices": [{"finish_reason": "stop", "message": {"content": "Hello.", "reasoning_content": "I should edit this."}}]},
             {"choices": [{"finish_reason": "stop", "message": {"content": "Hello.", "reasoning_content": []}}]},
             {"choices": [{"finish_reason": "stop", "message": {"content": "<start_of_turn>Hello."}}]},
+            {"choices": [{"finish_reason": "stop", "message": {"content": "<|startoftext|>Hello."}}]},
         ):
             with self.subTest(response=response), self.assertRaises(ValueError):
                 benchmark.read_completion({}, response)
@@ -110,6 +111,7 @@ class QualityChecks(unittest.TestCase):
             {"content": "Hello.", "stopped_eos": "true"},
             {"content": "Hello.", "stop_type": "limit", "stopped_eos": True},
             {"content": "Hello.", "stop_type": "eos", "stopped_limit": True},
+            {"content": "<|startoftext|>Hello.", "stop_type": "eos"},
         ):
             with self.subTest(response=response), self.assertRaises(ValueError):
                 benchmark.read_completion({"style": "quill_chatml"}, response)

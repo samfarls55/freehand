@@ -1,0 +1,165 @@
+{
+  "plan_sha256": "23dcadf51fb9d79c01818c9f82c4ecc3b3089f503d49785ad4e18c96366f9d78",
+  "scope": "Actual production-pinned CPU Parakeet110/native2.0.0 + Core + optional Emberon compact. Linux research speech worker wrapper; Windows App positional argument reference-only. Excludes desktop UI, real capture/hotkey/SendInput and Windows memory.",
+  "statistical_policy": "Repeated identical public audio measures hardware variation only, not independent quality. N5/N10 nearest-rank p95 equals max; single30s/60s trials have no tailprecision.",
+  "results": [
+    {
+      "id": "baseline-10s-r5",
+      "returncode": 0,
+      "elapsed_seconds": 53.14,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-r5.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-r5.log",
+      "report_sha256": "ccb3e96e5419d3c04b931bd8cde4a38e0af4e813520897a4ae73babdb117f0b3",
+      "trials": 5,
+      "failures": [],
+      "memory": {
+        "PeakSummedWorkingSetBytes": 410566656
+      },
+      "timing_by_duration": {
+        "10": {
+          "n": 5,
+          "p50_ms": 276.6379,
+          "p95_ms": 381.9913,
+          "max_ms": 381.9913,
+          "cleanup_outcomes": [
+            "Disabled",
+            "Disabled",
+            "Disabled",
+            "Disabled",
+            "Disabled"
+          ],
+          "delivery_calls": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "emberon-compact-10s-r10",
+      "returncode": 0,
+      "elapsed_seconds": 109.503,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-10s-r10.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-10s-r10.log",
+      "report_sha256": "2434c415798d43d91afa7bb4d632d6865a8ee3c3baa94729d9dfffb10f5d26e2",
+      "trials": 10,
+      "failures": [],
+      "memory": {
+        "PeakSummedWorkingSetBytes": 737173504
+      },
+      "timing_by_duration": {
+        "10": {
+          "n": 10,
+          "p50_ms": 726.9898,
+          "p95_ms": 856.9564,
+          "max_ms": 856.9564,
+          "cleanup_outcomes": [
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged",
+            "Unchanged"
+          ],
+          "delivery_calls": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "baseline-30s-60s",
+      "returncode": 0,
+      "elapsed_seconds": 92.117,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-30s-60s.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-30s-60s.log",
+      "report_sha256": "7b531df14d94624aec5013f4f7f9d1420c36069064b4d2f8e19fbf81633beb6a",
+      "trials": 2,
+      "failures": [],
+      "memory": {
+        "PeakSummedWorkingSetBytes": 482344960
+      },
+      "timing_by_duration": {
+        "30": {
+          "n": 1,
+          "p50_ms": 268.7213,
+          "p95_ms": 268.7213,
+          "max_ms": 268.7213,
+          "cleanup_outcomes": [
+            "Disabled"
+          ],
+          "delivery_calls": [
+            1
+          ]
+        },
+        "60": {
+          "n": 1,
+          "p50_ms": 239.5141,
+          "p95_ms": 239.5141,
+          "max_ms": 239.5141,
+          "cleanup_outcomes": [
+            "Disabled"
+          ],
+          "delivery_calls": [
+            1
+          ]
+        }
+      }
+    },
+    {
+      "id": "emberon-compact-30s-60s",
+      "returncode": 0,
+      "elapsed_seconds": 102.396,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-30s-60s.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-30s-60s.log",
+      "report_sha256": "029a5d2faf3fa34cf16a28664f2d5b42efa2103ffff62b6bf33995c870f42f66",
+      "trials": 2,
+      "failures": [],
+      "memory": {
+        "PeakSummedWorkingSetBytes": 774242304
+      },
+      "timing_by_duration": {
+        "30": {
+          "n": 1,
+          "p50_ms": 4830.0166,
+          "p95_ms": 4830.0166,
+          "max_ms": 4830.0166,
+          "cleanup_outcomes": [
+            "Failed"
+          ],
+          "delivery_calls": [
+            1
+          ]
+        },
+        "60": {
+          "n": 1,
+          "p50_ms": 5451.957,
+          "p95_ms": 5451.957,
+          "max_ms": 5451.957,
+          "cleanup_outcomes": [
+            "Failed"
+          ],
+          "delivery_calls": [
+            1
+          ]
+        }
+      }
+    }
+  ]
+}

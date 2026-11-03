@@ -35,6 +35,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
     internal Task PreferencesTask => _preferencesTask;
     internal TimeSpan ReadinessTime { get; private set; }
     internal BenchmarkWorkerLauncher? BenchmarkWorkers { get; }
+    internal BenchmarkCleanupWorkerLauncher? BenchmarkCleanupWorkers { get; }
     internal bool IsPreparingSpeech => _preparingSpeech;
     internal bool IsDictationReady => !ModelResolver.UsesAcceleratedModel || _residentPrepared && Speech?.IsReady == true;
     internal string? PreparationError => _preparationError;
@@ -71,7 +72,11 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         Transcripts = new TranscriptStore(TranscriptStore.DefaultPath);
         Models = new ModelResolver(_applied.ModelDirectory, cacheDirectory: Path.Combine(AppDataPaths.DirectoryPath, "verification"));
         Logs = new DiagnosticLog(Path.Combine(Path.GetDirectoryName(AppSettings.DefaultPath)!, "logs"));
-        Cleanup = new ConfiguredTranscriptPostProcessor(_applied.CleanupDirectory, PlatformFactory.CreateCleanupWorkerLauncher());
+        var cleanupLauncher = PlatformFactory.CreateCleanupWorkerLauncher();
+        if (cleanupLauncher is not null
+            && Environment.GetCommandLineArgs().Contains("--desktop-delivery-benchmark", StringComparer.Ordinal))
+            cleanupLauncher = BenchmarkCleanupWorkers = new BenchmarkCleanupWorkerLauncher(cleanupLauncher);
+        Cleanup = new ConfiguredTranscriptPostProcessor(_applied.CleanupDirectory, cleanupLauncher);
         Cleanup.Changed += OnCleanupChanged;
         CleanupSetup = CleanupSetupCoordinator.Create(Settings, _cleanupHttp, ReloadCleanupModel);
         CleanupSetup.Changed += OnCleanupChanged;
@@ -363,6 +368,7 @@ public sealed class Composition : IAsyncDisposable, IHotkeyRecorder
         if (Engine is not null) { Engine.Changed -= OnEngineChanged; await Task.Run(async () => await Engine.DisposeAsync().ConfigureAwait(false), CancellationToken.None).ConfigureAwait(false); }
         else await Cleanup.DisposeAsync().ConfigureAwait(false);
         BenchmarkWorkers?.Dispose();
+        BenchmarkCleanupWorkers?.Dispose();
         Models.Dispose(); _preferencesGate.Dispose();
         await Logs.DisposeAsync().ConfigureAwait(false);
         _lifetime.Dispose();
@@ -377,6 +383,9 @@ internal sealed class ConfiguredTranscriptPostProcessor : ITranscriptPostProcess
     private readonly Func<LlamaCleanupOptions, ICleanupWorkerLauncher, ITranscriptPostProcessor> _factory;
     private ITranscriptPostProcessor? _processor;
     private LlamaCleanupOptions? _options;
+    private string? _manifestSha256;
+    private string? _optionsFingerprint;
+    private long _configurationEpoch = 1;
     private string? _selection;
     private string? _error;
     private bool _processing;
@@ -411,16 +420,25 @@ internal sealed class ConfiguredTranscriptPostProcessor : ITranscriptPostProcess
         }
     }
 
+    internal ConfiguredCleanupSnapshot BenchmarkSnapshot()
+    {
+        lock (_sync) return new(_configurationEpoch, _selection, DirectoryPath, _options,
+            _manifestSha256, _optionsFingerprint, !_disposed && _options is not null && _launcher is not null);
+    }
+
     private void SelectDirectory(string? directory)
     {
         _selection = directory;
-        _options = null; _error = null; _completed = false;
+        _options = null; _manifestSha256 = null; _optionsFingerprint = null; _error = null; _completed = false;
         try
         {
             DirectoryPath = Path.GetFullPath(string.IsNullOrWhiteSpace(directory) ? DefaultDirectory : directory);
             var manifestPath = Path.Combine(DirectoryPath, "cleanup-manifest.json");
             if (!File.Exists(manifestPath)) { _error = "No cleanup model installed"; return; }
-            _options = LlamaCleanupOptions.LoadManifest(manifestPath);
+            var bytes = File.ReadAllBytes(manifestPath);
+            _options = LlamaCleanupOptions.LoadManifest(manifestPath, bytes);
+            _manifestSha256 = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes));
+            _optionsFingerprint = BenchmarkCleanupIdentity.Fingerprint(_options);
         }
         catch (Exception error) when (error is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException or InvalidOperationException or NotSupportedException)
         {
@@ -435,7 +453,7 @@ internal sealed class ConfiguredTranscriptPostProcessor : ITranscriptPostProcess
         {
             if (_disposed) return;
             var changed = !string.Equals(_selection, directory, StringComparison.Ordinal);
-            if (changed || reload || !enabled) { previous = _processor; _processor = null; _processing = false; }
+            if (changed || reload || !enabled) { _configurationEpoch++; previous = _processor; _processor = null; _processing = false; }
             if (changed || reload) SelectDirectory(directory);
         }
         if (previous is not null) await previous.DisposeAsync().ConfigureAwait(false);
@@ -481,7 +499,7 @@ internal sealed class ConfiguredTranscriptPostProcessor : ITranscriptPostProcess
         lock (_sync)
         {
             if (_disposed) return;
-            _disposed = true; previous = _processor; _processor = null; _processing = false;
+            _disposed = true; _configurationEpoch++; previous = _processor; _processor = null; _processing = false;
         }
         if (previous is not null) await previous.DisposeAsync().ConfigureAwait(false);
     }

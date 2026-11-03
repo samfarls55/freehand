@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "candidate": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+  "protocol": "specialist-compact-v3",
+  "reviewer": "Assistant manually read every actual dictionary integration input, candidate and final output. These are known development diagnostics, not new holdout gold. Agent judgment, not human sign-off. No inference/tuning performed by reviewer.",
+  "reviewed_utc": "2026-11-03T16:58:48.094750+00:00",
+  "scope": "Text-fixture probe through the real DictationEngine, dictionary, number normalizer, optional cleanup provider and delivery orchestration. A generated tone and canned transcriber feed the selected transcript; RecordingTextInjector counts calls without typing. This does not test recognition accuracy, a microphone, a physical hotkey, foreground application insertion, Windows worker ownership or whole-desktop performance. Candidate text precedes Core validation; output is the accepted result or original-text fallback. Automatic checks do not establish semantic fidelity.",
+  "sources": {
+    "core_report": "work/cleanup-small-models-2026-11-03/frozen-core/emberon-dictionary.json",
+    "core_report_sha256": "ddab3b1706809744cf8e2a90ad8431cb1b8c6706be06c2371dcacaadaf621326",
+    "corpus": "tools/Freehand.Cleanup.Evaluation/integration-fixtures.json",
+    "corpus_sha256": "7ec1485fa16df21215e32ac7d44070af45a5a8ee63d76eb2e320d4ba8f8eda9f",
+    "pre_run_freeze": "work/cleanup-small-models-2026-11-03/final-candidate-freeze.json",
+    "pre_run_freeze_sha256": "eb78b80f46953d7504a04ba97690f2fea1e7fa49d5cc7c5fa77108f5ac90eea1"
+  },
+  "definitions": {
+    "faithful": "Alias of final_faithful. Candidate fidelity remains null when provider returns none. Original fallback can retain meaning without achieving cleanup.",
+    "useful": "Accepted faithful candidate improves a cleanup defect; failed provider/fallback gives no model edit credit.",
+    "fully_cleaned": "Complete faithful cleanup with clean presentation; inserted comma after protected trailing spaces fails this criterion.",
+    "raw_cause": "No native response in Core report; do not infer exact generation or parser cause solely from Processor:InvalidDataException."
+  },
+  "summary": {
+    "case_count": 10,
+    "provider_candidates_returned": 9,
+    "candidate_faithful": 9,
+    "candidate_faithfulness_unassessed": 1,
+    "final_faithful": 10,
+    "acceptable": 8,
+    "needs_cleanup": 10,
+    "useful_faithful_edits": 9,
+    "fully_cleaned_needed_cases": 8,
+    "fallback_count": 1,
+    "fallback_ids": [
+      "integration-09"
+    ],
+    "partial_presentation_ids": [
+      "integration-01"
+    ],
+    "cleanup_status_counts": {
+      "Applied": 9,
+      "Failed": 1
+    },
+    "single_recorded_insertion_cases": 10,
+    "required_exact_literal_spans": 10,
+    "required_exact_literal_spans_preserved": 10,
+    "applied_dictionary_corrections": 11,
+    "accepted_critical_semantic_failure_ids": []
+  },
+  "cases": [
+    {
+      "case_id": "integration-01",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": false,
+      "acceptable": false,
+      "plain_text_usable": true,
+      "severity": "minor",
+      "notes": "Removes Um and preserves exact two-boundary-space/tab replacement, but inserts a comma immediately after protected trailing spaces, yielding Code-two-spaces-comma please. Faithful and partly useful; new punctuation/whitespace boundary is not fully clean. Trimming protected spaces would violate dictionary contract.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Um send it to cloud code please.",
+      "normalized_input": "Um send it to   Claude\tCode   please.",
+      "normalized_targets": [
+        "Send it to   Claude\tCode   please."
+      ],
+      "restored_provider_candidate_with_core_markers": "Send it to [[FREEHAND_LITERAL_af0eec44f12c4923866418477ae5f5c6_0_START]]  Claude\tCode  [[FREEHAND_LITERAL_af0eec44f12c4923866418477ae5f5c6_0_END]], please.",
+      "restored_provider_candidate_without_core_markers": "Send it to   Claude\tCode  , please.",
+      "final_core_output": "Send it to   Claude\tCode  , please.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "  Claude\tCode  ",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-02",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Uh and retains exact dictionary Windows path plus check-logs request.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Uh open project file and check the logs.",
+      "normalized_input": "Uh open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "normalized_targets": [
+        "Open C:\\Work\\Freehand\\src\\App.cs and check the logs."
+      ],
+      "restored_provider_candidate_with_core_markers": "Open [[FREEHAND_LITERAL_c76bb9873ddd49bc86722b08f5ecd3b5_0_START]]C:\\Work\\Freehand\\src\\App.cs[[FREEHAND_LITERAL_c76bb9873ddd49bc86722b08f5ecd3b5_0_END]] and check the logs.",
+      "restored_provider_candidate_without_core_markers": "Open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "final_core_output": "Open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "C:\\Work\\Freehand\\src\\App.cs",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-03",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Um, retaining exact protected currency payload and exactly precision qualifier.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Um the quoted price is special price exactly.",
+      "normalized_input": "Um the quoted price is $  42.00 exactly.",
+      "normalized_targets": [
+        "The quoted price is $  42.00 exactly."
+      ],
+      "restored_provider_candidate_with_core_markers": "The quoted price is [[FREEHAND_LITERAL_9a2b73517a8942eb8ca0f51954936395_0_START]]$  42.00[[FREEHAND_LITERAL_9a2b73517a8942eb8ca0f51954936395_0_END]] exactly.",
+      "restored_provider_candidate_without_core_markers": "The quoted price is $  42.00 exactly.",
+      "final_core_output": "The quoted price is $  42.00 exactly.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "$  42.00",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-04",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Uh, retaining both exact dictionary replacements, their order and this-afternoon timing.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Uh send company alias the config path this afternoon.",
+      "normalized_input": "Uh send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "normalized_targets": [
+        "Send ACME  Labs the /etc/freehand/settings.json this afternoon."
+      ],
+      "restored_provider_candidate_with_core_markers": "Send [[FREEHAND_LITERAL_867212318da34c16b41c766f1bb5f4d9_0_START]]ACME  Labs[[FREEHAND_LITERAL_867212318da34c16b41c766f1bb5f4d9_0_END]] the [[FREEHAND_LITERAL_867212318da34c16b41c766f1bb5f4d9_1_START]]/etc/freehand/settings.json[[FREEHAND_LITERAL_867212318da34c16b41c766f1bb5f4d9_1_END]] this afternoon.",
+      "restored_provider_candidate_without_core_markers": "Send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "final_core_output": "Send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "ACME  Labs",
+          "exact_in_final": true
+        },
+        {
+          "literal": "/etc/freehand/settings.json",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 2,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-05",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Um, preserving exact multiline/indented code replacement and exactly qualifier.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Um replace the snippet with code snippet exactly.",
+      "normalized_input": "Um replace the snippet with v2::Thing<T>\n  value exactly.",
+      "normalized_targets": [
+        "Replace the snippet with v2::Thing<T>\n  value exactly."
+      ],
+      "restored_provider_candidate_with_core_markers": "Replace the snippet with [[FREEHAND_LITERAL_598be1b30a5c4dddaf929843600f75ac_0_START]]v2::Thing<T>\n  value[[FREEHAND_LITERAL_598be1b30a5c4dddaf929843600f75ac_0_END]] exactly.",
+      "restored_provider_candidate_without_core_markers": "Replace the snippet with v2::Thing<T>\n  value exactly.",
+      "final_core_output": "Replace the snippet with v2::Thing<T>\n  value exactly.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "v2::Thing<T>\n  value",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-06",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Uh, preserving normalized $50 amount, ACME dictionary replacement and before-lunch condition. Number conversion is Core-normalizer credit, not model cleanup credit.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Uh send fifty dollars to company alias before lunch.",
+      "normalized_input": "Uh send $50 to ACME before lunch.",
+      "normalized_targets": [
+        "Send $50 to ACME before lunch."
+      ],
+      "restored_provider_candidate_with_core_markers": "Send $50 to [[FREEHAND_LITERAL_f09fa7209b3b4d06bd84d6157045f8a8_0_START]]ACME[[FREEHAND_LITERAL_f09fa7209b3b4d06bd84d6157045f8a8_0_END]] before lunch.",
+      "restored_provider_candidate_without_core_markers": "Send $50 to ACME before lunch.",
+      "final_core_output": "Send $50 to ACME before lunch.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "ACME",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-07",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Um, preserving once-only BetaProject dictionary result without cascading to GammaProject. Dictionary semantics and payload bytes are Core/adapter credit.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Um alpha is ready.",
+      "normalized_input": "Um BetaProject is ready.",
+      "normalized_targets": [
+        "BetaProject is ready."
+      ],
+      "restored_provider_candidate_with_core_markers": "[[FREEHAND_LITERAL_0c72d69080284b07aef1091c9305d6b8_0_START]]BetaProject[[FREEHAND_LITERAL_0c72d69080284b07aef1091c9305d6b8_0_END]] is ready.",
+      "restored_provider_candidate_without_core_markers": "BetaProject is ready.",
+      "final_core_output": "BetaProject is ready.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "BetaProject",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-08",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Resolves Thursday-to-Friday correction while preserving exact ACME dictionary replacement.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Send it to company alias on Thursday, sorry, Friday.",
+      "normalized_input": "Send it to ACME on Thursday, sorry, Friday.",
+      "normalized_targets": [
+        "Send it to ACME on Friday."
+      ],
+      "restored_provider_candidate_with_core_markers": "Send it to [[FREEHAND_LITERAL_1f872cd996564dac80563d4c986408e3_0_START]]ACME[[FREEHAND_LITERAL_1f872cd996564dac80563d4c986408e3_0_END]] on Friday.",
+      "restored_provider_candidate_without_core_markers": "Send it to ACME on Friday.",
+      "final_core_output": "Send it to ACME on Friday.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "ACME",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    },
+    {
+      "case_id": "integration-09",
+      "faithful": true,
+      "candidate_faithful": null,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": false,
+      "fully_cleaned": false,
+      "acceptable": false,
+      "plain_text_usable": true,
+      "severity": "minor",
+      "notes": "Provider returns no candidate; Core records Failed with Processor:InvalidDataException and keeps original normalized ACME-then-Priya correction. Final intended Priya remains recoverable, so final meaning is preserved, but no model-cleanup success or full correction credit. This fixture is a known superseded-protected-literal conflict; the report contains no raw native response, so the precise failure cause is unestablished here.",
+      "candidate_accepted": false,
+      "fallback": true,
+      "cleanup_status": "Failed",
+      "single_recorded_insertion": true,
+      "original_input": "Send it to company alias, sorry, send it to Priya instead.",
+      "normalized_input": "Send it to ACME, sorry, send it to Priya instead.",
+      "normalized_targets": [
+        "Send it to Priya instead."
+      ],
+      "restored_provider_candidate_with_core_markers": null,
+      "restored_provider_candidate_without_core_markers": null,
+      "final_core_output": "Send it to ACME, sorry, send it to Priya instead.",
+      "raw_model_output": null,
+      "required_literal_checks": [],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary, specialist adapter and Core preserve replacement bytes; not model copying of hidden inner payloads. Fallback preservation gives no model quality credit.",
+      "error": "Processor:InvalidDataException"
+    },
+    {
+      "case_id": "integration-10",
+      "faithful": true,
+      "candidate_faithful": true,
+      "final_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "plain_text_usable": true,
+      "severity": "none",
+      "notes": "Removes Uh, retaining exact Unicode dictionary name and whether-test-passed question.",
+      "candidate_accepted": true,
+      "fallback": false,
+      "cleanup_status": "Applied",
+      "single_recorded_insertion": true,
+      "original_input": "Uh ask person alias whether the test passed.",
+      "normalized_input": "Uh ask Zoë Nguyễn whether the test passed.",
+      "normalized_targets": [
+        "Ask Zoë Nguyễn whether the test passed."
+      ],
+      "restored_provider_candidate_with_core_markers": "Ask [[FREEHAND_LITERAL_f6a014442311440b88d802e4edfcb3fb_0_START]]Zoë Nguyễn[[FREEHAND_LITERAL_f6a014442311440b88d802e4edfcb3fb_0_END]] whether the test passed.",
+      "restored_provider_candidate_without_core_markers": "Ask Zoë Nguyễn whether the test passed.",
+      "final_core_output": "Ask Zoë Nguyễn whether the test passed.",
+      "raw_model_output": null,
+      "required_literal_checks": [
+        {
+          "literal": "Zoë Nguyễn",
+          "exact_in_final": true
+        }
+      ],
+      "applied_correction_count": 1,
+      "literal_preservation_credit": "Dictionary/adapter/Core exact-byte restoration; no model inner-payload copying credit.",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,1826 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-03T17:36:32.128684+00:00",
+  "status": "isolated_experimental_preview_windows_execution_unperformed",
+  "windows_execution_tested": false,
+  "gpu_execution_tested": false,
+  "whole_app_sla_qualified": false,
+  "user_windows_access": "No Windows access now",
+  "quality_status": "No qualified production default: fresh validation retained accepted semantic errors. Bundled profiles are explicit experiments.",
+  "target_limits": {
+    "whole_host_ram_bytes": 747500000,
+    "ready_release_to_complete_ms": 805
+  },
+  "platform_layer": "Manually copied from strict win-x64 cross-build because project publish-copy targets intentionally run only on Windows. Actual Windows runtime/startup remains unverified.",
+  "pe_headers": [
+    {
+      "path": "App/Freehand.App.exe",
+      "machine": "0x8664"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.Probe.exe",
+      "machine": "0x8664"
+    },
+    {
+      "path": "App/Freehand.Platform.Windows.dll",
+      "machine": "0x8664"
+    }
+  ],
+  "files": [
+    {
+      "path": "App/Freehand.Abstractions.pdb",
+      "size": 14312,
+      "sha256": "6c458f16afcf6730ac69c93599cdd597aa8d95069e44c8c7b3c6dc09177def52"
+    },
+    {
+      "path": "App/Freehand.Abstractions.xml",
+      "size": 27140,
+      "sha256": "d94164072bd615389cc3d79c3bda5ac01b0520c34cb10ecebdedb1ed23d22177"
+    },
+    {
+      "path": "App/Freehand.App.exe",
+      "size": 86288329,
+      "sha256": "5665f39ab79ea76029eb6c9319b27d88f3843d0cd5fc0e4e840f2e0a33cdf7e6"
+    },
+    {
+      "path": "App/Freehand.App.pdb",
+      "size": 232076,
+      "sha256": "e4aa6bc9efa5384033be18cdc10d8144367efec397506282c466245b46569695"
+    },
+    {
+      "path": "App/Freehand.App.xml",
+      "size": 37382,
+      "sha256": "195d106d3a483b1619bc4d53dd5de07f0bff0c9d1d52eb9460ed74d0cba02b01"
+    },
+    {
+      "path": "App/Freehand.Cleanup.pdb",
+      "size": 57072,
+      "sha256": "1111babec484e26352d87fe89067950fa898193a0dba54ffa2071b7aa3fbbb10"
+    },
+    {
+      "path": "App/Freehand.Cleanup.xml",
+      "size": 29349,
+      "sha256": "29f40cde6ebdb5d216602d0d9e2015eca233e273c7d77bb25bf86b20d635cb7a"
+    },
+    {
+      "path": "App/Freehand.Core.pdb",
+      "size": 115840,
+      "sha256": "c1ddcb7dd51934c731e14e53a62d0a3dcc437754ca5ca9d4c06b1518cc56dff4"
+    },
+    {
+      "path": "App/Freehand.Core.xml",
+      "size": 226759,
+      "sha256": "8fe8b705a9c292f7b6c08c4c8efe54170bf9a6472af66f434cde1204a54ef12a"
+    },
+    {
+      "path": "App/Freehand.Dictionary.pdb",
+      "size": 14576,
+      "sha256": "f9fb139cd620dfaaac6c00d6317a581c4766b1c02c743f45e301e79d6970dba6"
+    },
+    {
+      "path": "App/Freehand.Dictionary.xml",
+      "size": 10315,
+      "sha256": "32e3c3c4764aef0a73c61fd683e44cd10e626a5a698c5eeca0096c344a60192b"
+    },
+    {
+      "path": "App/Freehand.Platform.Windows.dll",
+      "size": 69120,
+      "sha256": "4ae2c7e7900cc0c47368af765c82a81d244305d952602e19804cc794f43e20c4"
+    },
+    {
+      "path": "App/Freehand.Speech.pdb",
+      "size": 52960,
+      "sha256": "176eb6f3e519eca1a5cd11f2ce97171ff38447f50c1216001da1e06446ff9d9f"
+    },
+    {
+      "path": "App/Freehand.Speech.xml",
+      "size": 16071,
+      "sha256": "f6294713b74060fc6dd3dd2b5979918069f2d524f798a60fdbc4765436293191"
+    },
+    {
+      "path": "App/av_libglesv2.dll",
+      "size": 5426176,
+      "sha256": "9b203e40323b49dad29546a52b8b67d200bba8ff4cab9709a79cede23ba847d4"
+    },
+    {
+      "path": "App/fixtures/jfk.wav",
+      "size": 352078,
+      "sha256": "59dfb9a4acb36fe2a2affc14bacbee2920ff435cb13cc314a08c13f66ba7860e"
+    },
+    {
+      "path": "App/libHarfBuzzSharp.dll",
+      "size": 1804872,
+      "sha256": "eb76238c9e8e41d44b5a5b18167c4c5b39ca5db4277af5dbe92d730f0fc14a7d"
+    },
+    {
+      "path": "App/libSkiaSharp.dll",
+      "size": 9414216,
+      "sha256": "9a0d95e8caaa852c70d085af6a40a744242172ad9ea3fd6bc7599875a8a1dbcd"
+    },
+    {
+      "path": "App/models/parakeet-110m/decoder.int8.onnx",
+      "size": 3955863,
+      "sha256": "f7c331c5504c2e593c76ed22b728e3f554af6c4a383dde862e719ced08b1da19"
+    },
+    {
+      "path": "App/models/parakeet-110m/encoder.int8.onnx",
+      "size": 131113202,
+      "sha256": "0f35509ddeb9b39002fb077d979a9fe74f06eb0bc4dd5c34f512f82e5111d657"
+    },
+    {
+      "path": "App/models/parakeet-110m/joiner.int8.onnx",
+      "size": 1411403,
+      "sha256": "bf7dff69e9f2cdbe9943d70da358f38b361c115ba0105bae7e908e0d6ec782f6"
+    },
+    {
+      "path": "App/models/parakeet-110m/manifest.json",
+      "size": 1053,
+      "sha256": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545"
+    },
+    {
+      "path": "App/models/parakeet-110m/tokens.txt",
+      "size": 9953,
+      "sha256": "450e56bd2f036fe5b6aa821865838cc5aa9d8b0106134ce9a9ba0664abe6cd10"
+    },
+    {
+      "path": "App/onnxruntime.dll",
+      "size": 17799168,
+      "sha256": "7f66f939a881baf4f46a2216496798edf4a1429878b646d12674aa62f27d8a25"
+    },
+    {
+      "path": "App/parakeet-110m.bpe.vocab",
+      "size": 10962,
+      "sha256": "1bb9b52a1d2c3a6c6a4d6e9256a3152b78e0f1f4cdd32f235e9597436313e552"
+    },
+    {
+      "path": "App/sherpa-onnx-c-api.dll",
+      "size": 4249088,
+      "sha256": "5534797438348994e7e21630044e94924a33c85ce638f954550b6878d56f8c6e"
+    },
+    {
+      "path": "App/speech-cpu.config",
+      "size": 150,
+      "sha256": "c4636ae4b87ddc53c1ea297241b5ddfe1a34650f4880fb3232bb8607c15f3ca9"
+    },
+    {
+      "path": "Probe/Freehand.Abstractions.dll",
+      "size": 19456,
+      "sha256": "336c040af4d044ee3f77227c9d04d182fdb04ac9199a461ab2afacfc3cf319bb"
+    },
+    {
+      "path": "Probe/Freehand.Abstractions.pdb",
+      "size": 14312,
+      "sha256": "6c458f16afcf6730ac69c93599cdd597aa8d95069e44c8c7b3c6dc09177def52"
+    },
+    {
+      "path": "Probe/Freehand.Abstractions.xml",
+      "size": 27140,
+      "sha256": "d94164072bd615389cc3d79c3bda5ac01b0520c34cb10ecebdedb1ed23d22177"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.Probe.deps.json",
+      "size": 28870,
+      "sha256": "1fe19f50d628e3ab7c9675aeeed554c26de124c7bf0dcbaed70faadc77fc3d0e"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.Probe.dll",
+      "size": 182272,
+      "sha256": "9e777c296ae936a0230afed9d4e32cd18c35256a4b88ca8c91f7f7151ad0e88d"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.Probe.exe",
+      "size": 162816,
+      "sha256": "31e266f8e94f4e5a8ea7aa8fd602bb3e6e16b44e933532f145583337ecd1d09b"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.Probe.pdb",
+      "size": 76420,
+      "sha256": "dca569b68c315d540ed309052137856e141b5e766e8a9226810d5699f25efdb7"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.Probe.runtimeconfig.json",
+      "size": 406,
+      "sha256": "73a5aa95726b1987d7780da2997b15fe1118e1c62d847f9b94237aafa6731630"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.dll",
+      "size": 163328,
+      "sha256": "c1d05341ab67f64ff1da8c2b911cf2782d4fe6020267a08c9c0bf93b508fcb31"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.pdb",
+      "size": 57072,
+      "sha256": "1111babec484e26352d87fe89067950fa898193a0dba54ffa2071b7aa3fbbb10"
+    },
+    {
+      "path": "Probe/Freehand.Cleanup.xml",
+      "size": 29349,
+      "sha256": "29f40cde6ebdb5d216602d0d9e2015eca233e273c7d77bb25bf86b20d635cb7a"
+    },
+    {
+      "path": "Probe/Freehand.Core.dll",
+      "size": 201216,
+      "sha256": "9a9c70c373ac88c8345355c1f233622bc081b34fc06561dd8465c8c8e03672c7"
+    },
+    {
+      "path": "Probe/Freehand.Core.pdb",
+      "size": 115840,
+      "sha256": "c1ddcb7dd51934c731e14e53a62d0a3dcc437754ca5ca9d4c06b1518cc56dff4"
+    },
+    {
+      "path": "Probe/Freehand.Core.xml",
+      "size": 226759,
+      "sha256": "8fe8b705a9c292f7b6c08c4c8efe54170bf9a6472af66f434cde1204a54ef12a"
+    },
+    {
+      "path": "Probe/Freehand.Dictionary.dll",
+      "size": 23040,
+      "sha256": "21e4bdb4174eeacb888f810fc23f80c9e4ad1e26c84ca6a0611d94dab9ccf5ae"
+    },
+    {
+      "path": "Probe/Freehand.Dictionary.pdb",
+      "size": 14576,
+      "sha256": "f9fb139cd620dfaaac6c00d6317a581c4766b1c02c743f45e301e79d6970dba6"
+    },
+    {
+      "path": "Probe/Freehand.Dictionary.xml",
+      "size": 10315,
+      "sha256": "32e3c3c4764aef0a73c61fd683e44cd10e626a5a698c5eeca0096c344a60192b"
+    },
+    {
+      "path": "Probe/Freehand.Testing.dll",
+      "size": 13312,
+      "sha256": "0e4aa397a5e289f3412c8a6312b053baf0152f65d663bb6e09e5ada8395c951f"
+    },
+    {
+      "path": "Probe/Freehand.Testing.pdb",
+      "size": 13160,
+      "sha256": "3c3d1ff55b7410888ce5bae586ba58c39dbe72f2175f23461426a34fd642fe3e"
+    },
+    {
+      "path": "Probe/Freehand.Testing.xml",
+      "size": 5604,
+      "sha256": "9090f4ab3f52d4d5758194da6c81d5d425fae154ad0a16ab3d3ec335181711bf"
+    },
+    {
+      "path": "Probe/Microsoft.CSharp.dll",
+      "size": 981256,
+      "sha256": "cc87a18818bd9d2f2111814f596fc52d35ecaf703686bb4751ebbfdd5c92d829"
+    },
+    {
+      "path": "Probe/Microsoft.DiaSymReader.Native.amd64.dll",
+      "size": 2309152,
+      "sha256": "7f8dcf37d9d66eae14c48a79fa2fcd447bd0f38a21be0203a9c4a89398aacf28"
+    },
+    {
+      "path": "Probe/Microsoft.VisualBasic.Core.dll",
+      "size": 1194248,
+      "sha256": "3888a33ba2a03d34ae40b17f64a352130546c47c06b474295eb3f06a0d7e09f4"
+    },
+    {
+      "path": "Probe/Microsoft.VisualBasic.dll",
+      "size": 17672,
+      "sha256": "adde636f1dabf2025fce3098623ffd17a7f7b1cdecfa93d91f884972e290ac0e"
+    },
+    {
+      "path": "Probe/Microsoft.Win32.Primitives.dll",
+      "size": 16144,
+      "sha256": "7a6c42efbbdb4f6f8be9239f43979189dbd57c66e86e3b6f3afec3dc7ed9febd"
+    },
+    {
+      "path": "Probe/Microsoft.Win32.Registry.dll",
+      "size": 117000,
+      "sha256": "9ecff5771daed1d50ee4c09e539241f807d5bd875ae1416dc94879e2bae83778"
+    },
+    {
+      "path": "Probe/System.AppContext.dll",
+      "size": 15672,
+      "sha256": "a33a18d1d7bddbd1ae354ec97a33911020ca9417db3f17dcc7a8f8ed753a71e6"
+    },
+    {
+      "path": "Probe/System.Buffers.dll",
+      "size": 15672,
+      "sha256": "52bbfcf4a0e7f1ac4064a85b1a3f04d95a139047d68b2bdfa4647dd337c3376e"
+    },
+    {
+      "path": "Probe/System.Collections.Concurrent.dll",
+      "size": 297272,
+      "sha256": "5907e099a52cf59681866ccf265dcb1de2f0183efb6719db050bc285c406586e"
+    },
+    {
+      "path": "Probe/System.Collections.Immutable.dll",
+      "size": 878856,
+      "sha256": "25b42a9d22d375ed5c56187ad037ac515b5da6a5723428c123a9f208f473166d"
+    },
+    {
+      "path": "Probe/System.Collections.NonGeneric.dll",
+      "size": 104720,
+      "sha256": "2e19971e021323ac30093e8c073be68802a5a68a69d651a3871bc9709348bd41"
+    },
+    {
+      "path": "Probe/System.Collections.Specialized.dll",
+      "size": 104720,
+      "sha256": "c4f2b3122f74905face5736869a77d1141fe720addf2ee447898593bceb5f56e"
+    },
+    {
+      "path": "Probe/System.Collections.dll",
+      "size": 297272,
+      "sha256": "6dfc77a96a32028db5e07ae0e6abe39ba24bfef789a23c8ebb875e0cb9df7fc7"
+    },
+    {
+      "path": "Probe/System.ComponentModel.Annotations.dll",
+      "size": 198928,
+      "sha256": "22a3c18685190529c563a2258324c61cc41fc934675d09aeb80e6850fac5c5cb"
+    },
+    {
+      "path": "Probe/System.ComponentModel.DataAnnotations.dll",
+      "size": 17168,
+      "sha256": "71327c2b0d8ac528dcd39dea17ebae7b04aa077aa1c23c761c86231fab54a336"
+    },
+    {
+      "path": "Probe/System.ComponentModel.EventBasedAsync.dll",
+      "size": 47368,
+      "sha256": "10ec06226c0a1acadcbc045d520085b64729586cb8b4f0e4aa48ebdad5287938"
+    },
+    {
+      "path": "Probe/System.ComponentModel.Primitives.dll",
+      "size": 80184,
+      "sha256": "4107f49ee1b1b6e998089cdb04d55800d66ae278ac22b1d91d6f15e216ce8853"
+    },
+    {
+      "path": "Probe/System.ComponentModel.TypeConverter.dll",
+      "size": 768312,
+      "sha256": "429937958fc68dc362619c7107fb80291ce56861d390c29e5bb96a7cf22dab93"
+    },
+    {
+      "path": "Probe/System.ComponentModel.dll",
+      "size": 30984,
+      "sha256": "4af8792134b235cef10b5d936739b298388053eb1fee67a0c6191a5ec2343c6f"
+    },
+    {
+      "path": "Probe/System.Configuration.dll",
+      "size": 19768,
+      "sha256": "43565850e4fa9c8dd6db1942452f38c1c722b1a92c98c8dc3bbb9b5f491f194d"
+    },
+    {
+      "path": "Probe/System.Console.dll",
+      "size": 170256,
+      "sha256": "f631d24f8b135d5776af7e4f2bf2c13538b66aa41bcc51f85c99ad0de70465e9"
+    },
+    {
+      "path": "Probe/System.Core.dll",
+      "size": 23824,
+      "sha256": "5527a5cadfdd1e90183691e5d082e874cb62b258834b843f18b94efd55d5ca6b"
+    },
+    {
+      "path": "Probe/System.Data.Common.dll",
+      "size": 2771216,
+      "sha256": "5f28c5bac44dc53363cb2fa3fa1d96978fc14722f53b9ad409eab2df3a365416"
+    },
+    {
+      "path": "Probe/System.Data.DataSetExtensions.dll",
+      "size": 16136,
+      "sha256": "16273da46db1ce01b72f07a00f59a433422abb2545dc6876d27f13bbe8aa1b0a"
+    },
+    {
+      "path": "Probe/System.Data.dll",
+      "size": 25872,
+      "sha256": "6e9f9a22e7b1c9100f0fdf9ed57f0f1312fb2ce7fd147af88e462341e83c8143"
+    },
+    {
+      "path": "Probe/System.Diagnostics.Contracts.dll",
+      "size": 16648,
+      "sha256": "2f3106e360c5b5b12fef830eea124bdc020a2a65a4e5a8197a44d876777a19c9"
+    },
+    {
+      "path": "Probe/System.Diagnostics.Debug.dll",
+      "size": 16136,
+      "sha256": "2d3a86400e2609c3498efced0d80aab73d92d9a29048bbd38b14b45af62560ed"
+    },
+    {
+      "path": "Probe/System.Diagnostics.DiagnosticSource.dll",
+      "size": 502024,
+      "sha256": "fb78025ddc4f22a7e4548452b5871b93c5bb317276fe4bacc4337ba847a4a5d0"
+    },
+    {
+      "path": "Probe/System.Diagnostics.FileVersionInfo.dll",
+      "size": 47376,
+      "sha256": "81cd1fdf4d8e5056d888dadc4cd6ab7a1afd113993033f4d250b2c25d7547e79"
+    },
+    {
+      "path": "Probe/System.Diagnostics.Process.dll",
+      "size": 330000,
+      "sha256": "53014c4500117e29bc9fab9a83f06930ab54315dcef3f57ccc68d5f6287d11d6"
+    },
+    {
+      "path": "Probe/System.Diagnostics.StackTrace.dll",
+      "size": 43280,
+      "sha256": "57b2340dfa20f07e11ade3cb6aa249a9c9bdce43ee857aa6eff0eec2b5bcda71"
+    },
+    {
+      "path": "Probe/System.Diagnostics.TextWriterTraceListener.dll",
+      "size": 67856,
+      "sha256": "39e4188df4513d85f8410e4ea7aa0c968aa89d456fdb192fec4bc12361d8b2d9"
+    },
+    {
+      "path": "Probe/System.Diagnostics.Tools.dll",
+      "size": 15632,
+      "sha256": "ee395de3621ba77013b0b17f75ed4d75ba63eae4728dbd2b626a980298c92e68"
+    },
+    {
+      "path": "Probe/System.Diagnostics.TraceSource.dll",
+      "size": 141584,
+      "sha256": "665086f318440e3df04d6d9a36ed70879b65bbd9cd7e1a5002af9ed99f70bfa5"
+    },
+    {
+      "path": "Probe/System.Diagnostics.Tracing.dll",
+      "size": 16656,
+      "sha256": "3979fb5c905c8d4b0748ceb25686258a1190cbde4d8513f1b54b8cc9ce9b1bbf"
+    },
+    {
+      "path": "Probe/System.Drawing.Primitives.dll",
+      "size": 133432,
+      "sha256": "120c341a8b651eb8be2017334e4f621306ee412bfe8fdb4a7eaaaff050a5ffc8"
+    },
+    {
+      "path": "Probe/System.Drawing.dll",
+      "size": 20792,
+      "sha256": "5738ee47fc93563bcd9f6411ac7c41f565ac2f1f03139f2f32b1066b99e92996"
+    },
+    {
+      "path": "Probe/System.Dynamic.Runtime.dll",
+      "size": 16656,
+      "sha256": "097f8480fed46948334ea18ac78b0e040ab582b6323616ffcaf2ba177cb449dd"
+    },
+    {
+      "path": "Probe/System.Formats.Asn1.dll",
+      "size": 239928,
+      "sha256": "20acf0fae998d7bffc92cbcdba167939d13c588924c4d8e686145dbc17f5b409"
+    },
+    {
+      "path": "Probe/System.Formats.Tar.dll",
+      "size": 268552,
+      "sha256": "f712fe0e41b80f83ecd4b86c8e0f6d4214777c65c3b254612af0198eeeb5cecc"
+    },
+    {
+      "path": "Probe/System.Globalization.Calendars.dll",
+      "size": 16136,
+      "sha256": "2c63e95ca97396afe5b1933ed4bbf60382b17b34492b01fabc964b1c9a47678b"
+    },
+    {
+      "path": "Probe/System.Globalization.Extensions.dll",
+      "size": 15632,
+      "sha256": "c36d2a33db7e79e774e7d81666678820876f55737d9821414285deb72a438442"
+    },
+    {
+      "path": "Probe/System.Globalization.dll",
+      "size": 16144,
+      "sha256": "408a38eeddfe973793b7f1fd3399b5bef8fa8c0223c69723c6c178fdd4db170f"
+    },
+    {
+      "path": "Probe/System.IO.Compression.Brotli.dll",
+      "size": 84240,
+      "sha256": "72d73af5293b0e43e591298d357e6e7503d0c959c8716f37eb8d9d1f0b580a7a"
+    },
+    {
+      "path": "Probe/System.IO.Compression.FileSystem.dll",
+      "size": 15624,
+      "sha256": "f6d8fd95befdc8a0f05583849331e772667ee1b2b2f3ac0d3d7f54d24cdfc471"
+    },
+    {
+      "path": "Probe/System.IO.Compression.Native.dll",
+      "size": 938256,
+      "sha256": "940ec6591e4c317ff87d627f781d065b5b8534e1876ab3fa6969c3a035864a44"
+    },
+    {
+      "path": "Probe/System.IO.Compression.ZipFile.dll",
+      "size": 100624,
+      "sha256": "bc5740ad5bfe638656ecc93b7ec172fbae0843afc7edf9b43bcaee56e0bd5079"
+    },
+    {
+      "path": "Probe/System.IO.Compression.dll",
+      "size": 420112,
+      "sha256": "96f23b5803cf6e71abb2c4d13da7abc83b5ce58925a5bc7b0c957af18747045f"
+    },
+    {
+      "path": "Probe/System.IO.FileSystem.AccessControl.dll",
+      "size": 104720,
+      "sha256": "a9651bd21c6603e82cfd415b3c02db4e6f68bd1b14f4c4433571f840590bb04e"
+    },
+    {
+      "path": "Probe/System.IO.FileSystem.DriveInfo.dll",
+      "size": 55560,
+      "sha256": "e6fa0274552b2d8370daddac1aa464393aae1f21fc51dd3f072d581dac1ab284"
+    },
+    {
+      "path": "Probe/System.IO.FileSystem.Primitives.dll",
+      "size": 15624,
+      "sha256": "6b434b4e06210110f28c5f38e882af688aec02bd48553e4650f8c1015dbc8922"
+    },
+    {
+      "path": "Probe/System.IO.FileSystem.Watcher.dll",
+      "size": 88336,
+      "sha256": "b3ee39a58ae9a8ac9d9cf9c396a44635dfc07b8b0fc01290d4cf292c344c3160"
+    },
+    {
+      "path": "Probe/System.IO.FileSystem.dll",
+      "size": 16184,
+      "sha256": "0162a93afa5823f4dd5eee0c231d3f4f98cae6f30f8a9e7e6ff4b532d9247191"
+    },
+    {
+      "path": "Probe/System.IO.IsolatedStorage.dll",
+      "size": 88368,
+      "sha256": "7d2d712e6f7ef24e4f760395b0ab24e68017ab39b14f245a86c12a6498e18303"
+    },
+    {
+      "path": "Probe/System.IO.MemoryMappedFiles.dll",
+      "size": 84240,
+      "sha256": "3d80497b97d31d384ffe75b22dce85f0c3bb7e4bd9fab425e870ecd514654e64"
+    },
+    {
+      "path": "Probe/System.IO.Pipelines.dll",
+      "size": 190736,
+      "sha256": "639546250446381f114042ea9039eef6bcd40ebeb1d05035d00447deef4c9d25"
+    },
+    {
+      "path": "Probe/System.IO.Pipes.AccessControl.dll",
+      "size": 16144,
+      "sha256": "099f568ecafafe9b7bc6a991b7400da8a45a03424632c6a2828e6d0f21410f79"
+    },
+    {
+      "path": "Probe/System.IO.Pipes.dll",
+      "size": 166200,
+      "sha256": "7ef59497c3f1f7b72cb8e5d2fb221c14205da195f390fb09ef932b6c9882e695"
+    },
+    {
+      "path": "Probe/System.IO.UnmanagedMemoryStream.dll",
+      "size": 16144,
+      "sha256": "678762d511cae70f4d3aa64b0983b28ed0fa11cda3a31bf3e7f2d069238e1c8e"
+    },
+    {
+      "path": "Probe/System.IO.dll",
+      "size": 16144,
+      "sha256": "94105228a3673676363a7d322524212b19d674106ad67177e111afb67d2bed23"
+    },
+    {
+      "path": "Probe/System.Linq.AsyncEnumerable.dll",
+      "size": 1292600,
+      "sha256": "dc4d4da132e61e6ad6cdda500be6a311dd9888df4e57d01a988b8cf8a6d07302"
+    },
+    {
+      "path": "Probe/System.Linq.Expressions.dll",
+      "size": 3639560,
+      "sha256": "2d3f262548620328514cf248d42742447617d74375b1a504b47a5beb8ab091e1"
+    },
+    {
+      "path": "Probe/System.Linq.Parallel.dll",
+      "size": 776464,
+      "sha256": "fbd58065201d45a1a74751ca7c8491f8d6f8b31f34ef89436a3bd3893055e181"
+    },
+    {
+      "path": "Probe/System.Linq.Queryable.dll",
+      "size": 182576,
+      "sha256": "f9289bee709f9e20e42fb40998eeeeadcf68e3f8990d2d04c6760648ae1780ec"
+    },
+    {
+      "path": "Probe/System.Linq.dll",
+      "size": 698672,
+      "sha256": "fa437ddcb2c1ef4ed88604163b25caa21e75054094c72a72cdf0108932e1d3ab"
+    },
+    {
+      "path": "Probe/System.Memory.dll",
+      "size": 162064,
+      "sha256": "4e101552f1b368e5ba54c967e51f2180677f219dfb878be788c44388a26131b0"
+    },
+    {
+      "path": "Probe/System.Net.Http.Json.dll",
+      "size": 129296,
+      "sha256": "fae211f01b48c3d93f724f0c5ce2d09003901502ed1e0a60ff4cef8faddeabf5"
+    },
+    {
+      "path": "Probe/System.Net.Http.dll",
+      "size": 1747216,
+      "sha256": "ecaafd15657b5f0e808ca7ae56068f38cdd1928646b946011a8f46b4fa4f874e"
+    },
+    {
+      "path": "Probe/System.Net.HttpListener.dll",
+      "size": 534800,
+      "sha256": "d8c11fdddef9d5dc6c4b5a986d20ca920ab84a26c2059dd3eece50d706155a57"
+    },
+    {
+      "path": "Probe/System.Net.Mail.dll",
+      "size": 477456,
+      "sha256": "6831d00fada5066154f01ea9ae6e2a5cf72921b0f0fd0ebe4aedf1154598cfcd"
+    },
+    {
+      "path": "Probe/System.Net.NameResolution.dll",
+      "size": 125200,
+      "sha256": "486afb1ec94f6a350bf493d8f4ecfd44bd990debd66d3ffd66837c5c413b2347"
+    },
+    {
+      "path": "Probe/System.Net.NetworkInformation.dll",
+      "size": 158008,
+      "sha256": "eda9496b95f39673df204973ebca38b3178e526c4c5aea5914d756eaa5cf1a95"
+    },
+    {
+      "path": "Probe/System.Net.Ping.dll",
+      "size": 92424,
+      "sha256": "5fa5e919907649ec20b94ab9340057b5e842a8c2cbedeb58e2bcc5eacdb851ee"
+    },
+    {
+      "path": "Probe/System.Net.Primitives.dll",
+      "size": 211216,
+      "sha256": "7d5282ff1c667f2fc6a661eb4d12e23a2d7bb566bf4cc7c85b79e1e9520237c0"
+    },
+    {
+      "path": "Probe/System.Net.Quic.dll",
+      "size": 358704,
+      "sha256": "46fd538ce44e6dfb930ded9d43d2ad7af7f80bca6a22288509240ee56176b7a2"
+    },
+    {
+      "path": "Probe/System.Net.Requests.dll",
+      "size": 375056,
+      "sha256": "ab247677938201bad521b404955e2dbeb8d4920cd0d5fe54eaca5ac27c6d61f0"
+    },
+    {
+      "path": "Probe/System.Net.Security.dll",
+      "size": 665864,
+      "sha256": "3b14f43c81989bd8ce8497b448c40249d15141a438f6c3160410574a47ca882d"
+    },
+    {
+      "path": "Probe/System.Net.ServerSentEvents.dll",
+      "size": 84240,
+      "sha256": "55bf1db5c147590504057325419e47ccfa1fe28ea0813cb6fd2190c3476424a0"
+    },
+    {
+      "path": "Probe/System.Net.ServicePoint.dll",
+      "size": 15632,
+      "sha256": "eef8e7e948e12e3ee487add72b8117057187edf6c10d0003b20956c78ddaba29"
+    },
+    {
+      "path": "Probe/System.Net.Sockets.dll",
+      "size": 530704,
+      "sha256": "27b4a6b30949a0cce92f85b4f8b3250845b9bee48f5c8b574698cee9c7ec80db"
+    },
+    {
+      "path": "Probe/System.Net.WebClient.dll",
+      "size": 166160,
+      "sha256": "b3b20da80275bcf2a2db0e3db7103fb0cfd74c9867f15f69933ffda7c5b12924"
+    },
+    {
+      "path": "Probe/System.Net.WebHeaderCollection.dll",
+      "size": 63752,
+      "sha256": "cbbc8ef09cf5136c35047fdb5f00f5659481aed5120a399dcf1f68bcfca6866c"
+    },
+    {
+      "path": "Probe/System.Net.WebProxy.dll",
+      "size": 43280,
+      "sha256": "1204d77a099542c0d677ae14c424ee90346ca279abc077556dc73d28d2bba1c8"
+    },
+    {
+      "path": "Probe/System.Net.WebSockets.Client.dll",
+      "size": 104712,
+      "sha256": "0886e949007e7b34fb511b0595fe9e7c6a6a22705508bfd03fb28f5aa21d325d"
+    },
+    {
+      "path": "Probe/System.Net.WebSockets.dll",
+      "size": 243984,
+      "sha256": "ba3f78e7b6bdcc6f646e3e9c7fbdf3fe72296d825d18c721cec3271e1aab3d5e"
+    },
+    {
+      "path": "Probe/System.Net.dll",
+      "size": 17672,
+      "sha256": "2db3f2ce7e1c02b393211b7dae3d709652906c57c076deb77a2f2e0cf09547b2"
+    },
+    {
+      "path": "Probe/System.Numerics.Vectors.dll",
+      "size": 16136,
+      "sha256": "cef4d415c92bae129d7c85eb21791ac22348869467ebcf861fc6d1516751ae51"
+    },
+    {
+      "path": "Probe/System.Numerics.dll",
+      "size": 15632,
+      "sha256": "d81223bc453f6898d58eef31685bb90118760773d6285f77a126aadf08301535"
+    },
+    {
+      "path": "Probe/System.ObjectModel.dll",
+      "size": 80176,
+      "sha256": "45029b4202c016b025a25ad3a36cb2a8d48eda123c5a69a1c01454320b004a8b"
+    },
+    {
+      "path": "Probe/System.Private.CoreLib.dll",
+      "size": 16029968,
+      "sha256": "98f6d0b7d327a97b68da4c10fb5a21675ed2dee2f2b8ebba244b0902f3f9c8ce"
+    },
+    {
+      "path": "Probe/System.Private.DataContractSerialization.dll",
+      "size": 2062608,
+      "sha256": "9d19085daaa01eef7e245a06b47c521d9c42743a5806927564bcae22eb3b1105"
+    },
+    {
+      "path": "Probe/System.Private.Uri.dll",
+      "size": 256304,
+      "sha256": "2643404efb6229889ca7d78dc9db0d594841a9e5989d9237b9fa41dec851f45c"
+    },
+    {
+      "path": "Probe/System.Private.Xml.Linq.dll",
+      "size": 391440,
+      "sha256": "a254a93f1983f0783f020877a166a37a05d9fc3d5d7c856f1a94c7889a1a1f44"
+    },
+    {
+      "path": "Probe/System.Private.Xml.dll",
+      "size": 7784720,
+      "sha256": "18d7aaf871ba2aa23dd3940b1bc7aca56408b15ba55f8d349866c6384deee1ca"
+    },
+    {
+      "path": "Probe/System.Reflection.DispatchProxy.dll",
+      "size": 76088,
+      "sha256": "2bc48b62003e6659515d54c34aac17e20e82a99756fa14f79f046c145aae5c0d"
+    },
+    {
+      "path": "Probe/System.Reflection.Emit.ILGeneration.dll",
+      "size": 16136,
+      "sha256": "9eb90ebe7912d0e41c15ec2d12612e5491425bac26ddcc5ad6a6bbe49f0d4354"
+    },
+    {
+      "path": "Probe/System.Reflection.Emit.Lightweight.dll",
+      "size": 16136,
+      "sha256": "61ffd0cfc11666cb46c4cd8c616f8110d0cedcb8ac83d3ec433068df42d84b10"
+    },
+    {
+      "path": "Probe/System.Reflection.Emit.dll",
+      "size": 305464,
+      "sha256": "565ccf1865e8c49b108eb7ae61b13851ea9719e763b4782e5913384907f34c1d"
+    },
+    {
+      "path": "Probe/System.Reflection.Extensions.dll",
+      "size": 15624,
+      "sha256": "db83c2bfd43f9c501ce62da393f10fa4fa85f7a66e772070067c03dd885520b4"
+    },
+    {
+      "path": "Probe/System.Reflection.Metadata.dll",
+      "size": 1157384,
+      "sha256": "a2acd31846035fd3b73a8253e9e5a531de4cac40cf2ea5baee4b3ade5b812027"
+    },
+    {
+      "path": "Probe/System.Reflection.Primitives.dll",
+      "size": 16144,
+      "sha256": "c5a4b15eb50e46f19b4a54e366869283c9e8b114e9a12ba902eac8de509a0971"
+    },
+    {
+      "path": "Probe/System.Reflection.TypeExtensions.dll",
+      "size": 43280,
+      "sha256": "cfe47e47804036fc39748ba263fef1564a0722c8753955a5dfc084d27693bf78"
+    },
+    {
+      "path": "Probe/System.Reflection.dll",
+      "size": 16648,
+      "sha256": "44495a0b4c86e31180c24760e22909793d838b23d10e0b2d9803981784780810"
+    },
+    {
+      "path": "Probe/System.Resources.Reader.dll",
+      "size": 15632,
+      "sha256": "1b28811b1694a5881fd524d4596a573a88bfb0e50f4311f5d9d6458fd05724e7"
+    },
+    {
+      "path": "Probe/System.Resources.ResourceManager.dll",
+      "size": 16136,
+      "sha256": "ed0c4427c92ce3a8c7344fafe912fe4e429fad85c18ea92c2c9d93206930501b"
+    },
+    {
+      "path": "Probe/System.Resources.Writer.dll",
+      "size": 51472,
+      "sha256": "e9ce81e9a4b5dfc2b984be8ff29e1e478775abe402e3e3ea55c328bd4f074249"
+    },
+    {
+      "path": "Probe/System.Runtime.CompilerServices.Unsafe.dll",
+      "size": 15632,
+      "sha256": "fd0fe08e80949984a5055dbb1aeed1f975adacdcf5f5d22654629d239c0f6ddd"
+    },
+    {
+      "path": "Probe/System.Runtime.CompilerServices.VisualC.dll",
+      "size": 30984,
+      "sha256": "74c7497ae3774aa3a39b77dd1cb7252e690532bbf9861543342585337587b4fe"
+    },
+    {
+      "path": "Probe/System.Runtime.Extensions.dll",
+      "size": 18224,
+      "sha256": "ddcd655e757700858b0e66505c98488cb079213e88992cdbd9c877cf793efff4"
+    },
+    {
+      "path": "Probe/System.Runtime.Handles.dll",
+      "size": 16184,
+      "sha256": "f3d2a035c1720d537eea31925376497a4f6619cd7962692bc7665a383fc11ce0"
+    },
+    {
+      "path": "Probe/System.Runtime.InteropServices.JavaScript.dll",
+      "size": 51472,
+      "sha256": "ddc6dbfa92c6470aa73d02552335b18ebb2bf9ac174bd5b2cdc6e4a222bc41a9"
+    },
+    {
+      "path": "Probe/System.Runtime.InteropServices.RuntimeInformation.dll",
+      "size": 15632,
+      "sha256": "19a50b75f25f3d3d9f52965a4d43dc8a0bf873208d86b8b564e97a5c50e77221"
+    },
+    {
+      "path": "Probe/System.Runtime.InteropServices.dll",
+      "size": 112912,
+      "sha256": "62e69c2d43f27ad89356b3b09718d5b4be6a2a328857ac944aec320eb40a1c1c"
+    },
+    {
+      "path": "Probe/System.Runtime.Intrinsics.dll",
+      "size": 17672,
+      "sha256": "97f652198997ecbbb0fb90d08e0f489c3818a62a2e23d18aedd0ccd7fcea4162"
+    },
+    {
+      "path": "Probe/System.Runtime.Loader.dll",
+      "size": 16144,
+      "sha256": "a6146ea403002476d12707f3426c620689a0cf3170907f263a6b862eb128ad99"
+    },
+    {
+      "path": "Probe/System.Runtime.Numerics.dll",
+      "size": 358664,
+      "sha256": "37e988cd7a6093398240ae0675615d1f78cc6e2e68870e541cac9053f09984d3"
+    },
+    {
+      "path": "Probe/System.Runtime.Serialization.Formatters.dll",
+      "size": 125240,
+      "sha256": "1c73567fca3f9aa09ab4dc808fcbc4acd056308e1413129dde538fb9d4ef37b8"
+    },
+    {
+      "path": "Probe/System.Runtime.Serialization.Json.dll",
+      "size": 16144,
+      "sha256": "de5a68c5a50269f37f0e006189111b2f6a32e2986c096e92bf8113e3eb4d1cff"
+    },
+    {
+      "path": "Probe/System.Runtime.Serialization.Primitives.dll",
+      "size": 39216,
+      "sha256": "27c6648b08fa2a243ca8f21b8c312aae8a2ec5d8500dcce8fc6875a6b6b924cd"
+    },
+    {
+      "path": "Probe/System.Runtime.Serialization.Xml.dll",
+      "size": 17160,
+      "sha256": "6cfd8d848c361635460a9767a0535a48f7f1704e5f1bc013a3977827a8d49aa2"
+    },
+    {
+      "path": "Probe/System.Runtime.Serialization.dll",
+      "size": 17168,
+      "sha256": "7ed92b85c8c9d145e61ea50e80287658b84377d2672a9a9640f139997678f802"
+    },
+    {
+      "path": "Probe/System.Runtime.dll",
+      "size": 45368,
+      "sha256": "2c77e48290be8cc2ee421cd771173815c78d72d2c8af7de8eb1a439560a1a8cb"
+    },
+    {
+      "path": "Probe/System.Security.AccessControl.dll",
+      "size": 227640,
+      "sha256": "d4f27fdbc576c0a0e938265a5b9978431df7f3591321478ef05e3326e132bae5"
+    },
+    {
+      "path": "Probe/System.Security.Claims.dll",
+      "size": 100624,
+      "sha256": "e25b7daa88ae90215571e5526068e1e404c987362cd962101c5b03a0c51c60d3"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.Algorithms.dll",
+      "size": 17680,
+      "sha256": "54fcedee55839ee908659345c96e8df29262ea4bb129c24feb45eb040063c707"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.Cng.dll",
+      "size": 16696,
+      "sha256": "e34147f4ad84bce4c27a2c3d3bfd32700fb4356536c630850028ff63d15b3a59"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.Csp.dll",
+      "size": 16648,
+      "sha256": "d3f5780a778d8a33a6f094cebaa26e7bb37cda3f7d6ebcebe4811faaec1ab3fa"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.Encoding.dll",
+      "size": 16144,
+      "sha256": "d650fb55f415b817803fccfa8fd9cce34cd8c4a67a908ed8bd80a704a0fdd746"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.OpenSsl.dll",
+      "size": 16144,
+      "sha256": "915803c4e8e152c2970d961adb96868f0ce75762d76c3539c9dbf73a9059d668"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.Primitives.dll",
+      "size": 16136,
+      "sha256": "cab9014ba7d99dbd80d9d6553e07adf3cd8e626b7c17759b34fb02dcea7cb257"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.X509Certificates.dll",
+      "size": 17200,
+      "sha256": "5d1cac0dbd4088967ad152cf90c4168db21b0ff1fcd46f0344c2c68c6a29e011"
+    },
+    {
+      "path": "Probe/System.Security.Cryptography.dll",
+      "size": 2545936,
+      "sha256": "f57f81fe22c580cab8eaa467a95c10968fc8cf75237ee266624b409392c5088e"
+    },
+    {
+      "path": "Probe/System.Security.Principal.Windows.dll",
+      "size": 178448,
+      "sha256": "7dd3c59d8f0336129ff2612dfc853ac9940a6d405e8894f3ce871f4d7fe987b0"
+    },
+    {
+      "path": "Probe/System.Security.Principal.dll",
+      "size": 15632,
+      "sha256": "2f624443f1cf566947ff1e89624ceafe9f489ffe83b7777caa27f6bfefb0e4ca"
+    },
+    {
+      "path": "Probe/System.Security.SecureString.dll",
+      "size": 16184,
+      "sha256": "8bc239fc24de117aa9fdde4ea96eb89665aa198783c45b03b70501e22d7624d7"
+    },
+    {
+      "path": "Probe/System.Security.dll",
+      "size": 18696,
+      "sha256": "60c1ea5afd81f82db98c08466d013edf14feb5dc87a2df064fc7dfde48adb22c"
+    },
+    {
+      "path": "Probe/System.ServiceModel.Web.dll",
+      "size": 17168,
+      "sha256": "9f5755b5d76e51dcdcde3ebfacf8acc8d041378128ecda3c4a54bbb89e545e99"
+    },
+    {
+      "path": "Probe/System.ServiceProcess.dll",
+      "size": 16136,
+      "sha256": "c8b8d9d791b90da4ff5c674fba18181c46f8a64bfc5ad8fc6f292bd10d20438f"
+    },
+    {
+      "path": "Probe/System.Text.Encoding.CodePages.dll",
+      "size": 862472,
+      "sha256": "f76e425e69a82ce299359ef612c8dc41b74385ebf95a7162ae19fa3a8126ce76"
+    },
+    {
+      "path": "Probe/System.Text.Encoding.Extensions.dll",
+      "size": 16136,
+      "sha256": "ea49b888dd9a3a197449ff6e3fca58255a2c013732265b642b9bff6896b36be6"
+    },
+    {
+      "path": "Probe/System.Text.Encoding.dll",
+      "size": 16136,
+      "sha256": "a5181030cb30e8ba066baa36cccaf5828fef8121d171992381d34fbf01c8635e"
+    },
+    {
+      "path": "Probe/System.Text.Encodings.Web.dll",
+      "size": 125200,
+      "sha256": "ec4f368e31b7f8774e43c90d87ad000afccac59652735891773ef32ec620192f"
+    },
+    {
+      "path": "Probe/System.Text.Json.dll",
+      "size": 1890576,
+      "sha256": "03c8e6317f7737ca6f2dc7009f1bb51f99cfc9ba4770f2bab9c5cfcebe8de2bc"
+    },
+    {
+      "path": "Probe/System.Text.RegularExpressions.dll",
+      "size": 1038600,
+      "sha256": "ca375076a558d124b8fbc8a97e8602dbc000f5d505281db6413de6d892f21829"
+    },
+    {
+      "path": "Probe/System.Threading.AccessControl.dll",
+      "size": 76040,
+      "sha256": "a0d8680af8664c9a097257bb3a0dfeb6f207fb6393381c8061584fce33cf3cc6"
+    },
+    {
+      "path": "Probe/System.Threading.Channels.dll",
+      "size": 157968,
+      "sha256": "603f90064a3e0f65036f157804242155e907a0e3680397a66280e867407e2c62"
+    },
+    {
+      "path": "Probe/System.Threading.Overlapped.dll",
+      "size": 16144,
+      "sha256": "e54db3bbe5a9fc1ecc25b73b3e92c94a8c6e8bba9bd1b9e5ee57facc99c9b768"
+    },
+    {
+      "path": "Probe/System.Threading.Tasks.Dataflow.dll",
+      "size": 473400,
+      "sha256": "61fdd0f03483e1ebd0004787274eb8da52a56869a349950ac45e2ab82ee82c25"
+    },
+    {
+      "path": "Probe/System.Threading.Tasks.Extensions.dll",
+      "size": 16144,
+      "sha256": "35e762025d75d878b0a83756a7851ec7003fcb171f5fb6f79df55d278d960ad5"
+    },
+    {
+      "path": "Probe/System.Threading.Tasks.Parallel.dll",
+      "size": 133392,
+      "sha256": "35e417600c2e002574090577f0c36cdf8a445d5d72084ce5327d91334cb312bc"
+    },
+    {
+      "path": "Probe/System.Threading.Tasks.dll",
+      "size": 17168,
+      "sha256": "d6a05525fbc5281dbd0f8eac2444d80b9d68c7712bb2c9071bdc1c994050e44e"
+    },
+    {
+      "path": "Probe/System.Threading.Thread.dll",
+      "size": 16144,
+      "sha256": "e5051e5fae4f1d33782ee392640b62690ec9dade74d47163be51505cbaa2ce5b"
+    },
+    {
+      "path": "Probe/System.Threading.ThreadPool.dll",
+      "size": 16176,
+      "sha256": "8549d1aff270da90c4721813dc88d0febe6b25c73f0a4543a78afeda87d8fc32"
+    },
+    {
+      "path": "Probe/System.Threading.Timer.dll",
+      "size": 15632,
+      "sha256": "444560a05db55b6c94fcf355638add826b23bb4775408675fe5a94e1f22dc4fe"
+    },
+    {
+      "path": "Probe/System.Threading.dll",
+      "size": 84272,
+      "sha256": "13208f915bf85cd7ca887d30862672e39f970c028910d905aa2e5a539b0f026b"
+    },
+    {
+      "path": "Probe/System.Transactions.Local.dll",
+      "size": 641328,
+      "sha256": "a1f44ea0c17b87731393bdc65e9cf0d3df90b608036e57baef1c2668b2630c24"
+    },
+    {
+      "path": "Probe/System.Transactions.dll",
+      "size": 17208,
+      "sha256": "5406d91024afe237f0e3727585e51bc50655b65f31640c3f85de2b47605aa0f5"
+    },
+    {
+      "path": "Probe/System.ValueTuple.dll",
+      "size": 16144,
+      "sha256": "c24b24b5432b383b5d6412c7b5c2795c57eed51c63da03a5a242700742732457"
+    },
+    {
+      "path": "Probe/System.Web.HttpUtility.dll",
+      "size": 63752,
+      "sha256": "cacab6beef868f269635827e284230c10c04098bbc3b86cbf2d4e93e74162138"
+    },
+    {
+      "path": "Probe/System.Web.dll",
+      "size": 15624,
+      "sha256": "c92dbcf7c9973f93b1182998871f271933ee60283733378d6812d65503202330"
+    },
+    {
+      "path": "Probe/System.Windows.dll",
+      "size": 16144,
+      "sha256": "99bff280a84add5b28fcd6530a2f8c1ba7f21d6325141698c7dd8039f0e87150"
+    },
+    {
+      "path": "Probe/System.Xml.Linq.dll",
+      "size": 16136,
+      "sha256": "f2ed8f3f0136a240d70790343a9c8e9dc8604b8f3cd96c9f6baa51a54c11296b"
+    },
+    {
+      "path": "Probe/System.Xml.ReaderWriter.dll",
+      "size": 22328,
+      "sha256": "e9dcf6604f8b4291fd94879cfb1369420b512088cf79a3b9b4447e09be3fe047"
+    },
+    {
+      "path": "Probe/System.Xml.Serialization.dll",
+      "size": 16648,
+      "sha256": "d2c5017e05d1b41f4eab9b235a92fcfd6cb03a3310dc123d1b6d92e7c488673d"
+    },
+    {
+      "path": "Probe/System.Xml.XDocument.dll",
+      "size": 16136,
+      "sha256": "98c5b89ed7e514602b8dc9a64600e78692bbb99027f17474b0c7d9ecdfe32168"
+    },
+    {
+      "path": "Probe/System.Xml.XPath.XDocument.dll",
+      "size": 30992,
+      "sha256": "bcbcbef36a4e95b86c64e888b886e426a1573faab6210eed7f2411aaacd01fdb"
+    },
+    {
+      "path": "Probe/System.Xml.XPath.dll",
+      "size": 16136,
+      "sha256": "890f2349328c9deb3efb4d5b2b17cb5dd0713bb33f091eddfb2e0b2c9b99f7a7"
+    },
+    {
+      "path": "Probe/System.Xml.XmlDocument.dll",
+      "size": 16136,
+      "sha256": "4e9909aa5b91953cba3331690fd1b92c17db229b90e7c3dc6b2028996f549561"
+    },
+    {
+      "path": "Probe/System.Xml.XmlSerializer.dll",
+      "size": 18192,
+      "sha256": "85f706e8e9ccb27fd7312f01348ed28b0dc5381d4a8d6b236fb65ff6187ff0e1"
+    },
+    {
+      "path": "Probe/System.Xml.dll",
+      "size": 23824,
+      "sha256": "d9f59e036aac979682817d2968b3823384d97e1f8075f148e747c1767ab4e95a"
+    },
+    {
+      "path": "Probe/System.dll",
+      "size": 50960,
+      "sha256": "b5b531eb993d1580e813f88d65b236bb230e6fd0581ee3b2f1f3cce80aeb56ee"
+    },
+    {
+      "path": "Probe/WindowsBase.dll",
+      "size": 16648,
+      "sha256": "101bbe08e12fd7ff496e8fa3e18c5051f75a6a19dc30ffba31c109612eba2726"
+    },
+    {
+      "path": "Probe/clretwrc.dll",
+      "size": 318216,
+      "sha256": "e097019d026297ea8d833b0fb32797f5166b063222fb99dd52ca11f77dd6c425"
+    },
+    {
+      "path": "Probe/clrgc.dll",
+      "size": 673552,
+      "sha256": "2cffe729b687d4c1f39e0f9b8b142b6be8bdc97a3704bce8dbaeccb87598359f"
+    },
+    {
+      "path": "Probe/clrgcexp.dll",
+      "size": 709432,
+      "sha256": "a15c21df0dcffc62dffaa19a537bffce37eb0ecf79609b5eda6c10bc7cd30976"
+    },
+    {
+      "path": "Probe/clrjit.dll",
+      "size": 2204944,
+      "sha256": "dff97430adccea107e809cdede057b05d85d2d09706b7cd840f8e72d6d105210"
+    },
+    {
+      "path": "Probe/coreclr.dll",
+      "size": 4737808,
+      "sha256": "5201734db1ef225d23d8efca6198b47cc70eddd5a12601e16d76a7da68c5907d"
+    },
+    {
+      "path": "Probe/createdump.exe",
+      "size": 71992,
+      "sha256": "2a3b06e4d18b0abf9d88d87718c95c6d33ba2c7e586b1306689d8d8cbf733a0a"
+    },
+    {
+      "path": "Probe/hostfxr.dll",
+      "size": 380176,
+      "sha256": "099cc2560fdaf301752acb4a76af6ac5264c4e0f7a2873c4f49f1cf6adbe0e9d"
+    },
+    {
+      "path": "Probe/hostpolicy.dll",
+      "size": 379192,
+      "sha256": "401e2ee1d5245cbf157fdd440b47e7b1a45d43de47c87aad4e0633c0f852190f"
+    },
+    {
+      "path": "Probe/mscordaccore.dll",
+      "size": 1351520,
+      "sha256": "b2adb809ddb56059775894e255de3db2154be2fffb419bfdb1ee4cc172e691c7"
+    },
+    {
+      "path": "Probe/mscordaccore_amd64_amd64_10.0.25.52411.dll",
+      "size": 1351520,
+      "sha256": "b2adb809ddb56059775894e255de3db2154be2fffb419bfdb1ee4cc172e691c7"
+    },
+    {
+      "path": "Probe/mscordbi.dll",
+      "size": 1235296,
+      "sha256": "d62093cf90ffc32c259a958b70ebe396893d5b36acb1a9ff1cc1d8a5ea24a52e"
+    },
+    {
+      "path": "Probe/mscorlib.dll",
+      "size": 60176,
+      "sha256": "288e02f146e616cce4ac4e46a32de08ebf40334c0ad5092d569bcb271e9581da"
+    },
+    {
+      "path": "Probe/mscorrc.dll",
+      "size": 134416,
+      "sha256": "7787c20996d9fe719b6998cd1d616cde10acb84d107ef7e58763ba3a7993623d"
+    },
+    {
+      "path": "Probe/msquic.dll",
+      "size": 545864,
+      "sha256": "5b323f46bfc8eb936e4a95b64c2168c9871f9ed9c04d6200c13ae0a0d3280511"
+    },
+    {
+      "path": "Probe/netstandard.dll",
+      "size": 101128,
+      "sha256": "bb4fa062db4c5e34e03fed15d8d499bb96a0a8c64ab764027f9d508cc3c54777"
+    },
+    {
+      "path": "README.md",
+      "size": 7290,
+      "sha256": "dc574271cd4e75d0da0cdc386d7ebd356c443d72c26ecf226682a9bf84d85273"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "size": 1894,
+      "sha256": "7a9c944bde28f35ebde2b738485ba2e64235086dce95d6cc07a581ce0509b354"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/cleanup-manifest.json",
+      "size": 7079,
+      "sha256": "f9a594967364de2c26a5896fcb6f5b2a55735e2376062499e6bf7f7b840091dd"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/licenses/model/NOTICE.txt",
+      "size": 1740,
+      "sha256": "a8f3569920929571848dd5a5937c4066b4bd4b3ee58326119695896d129a558f"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/licenses/model-LICENSE.txt",
+      "size": 10574,
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/licenses/runtime/LICENSE-LLVM-OpenMP",
+      "size": 19741,
+      "sha256": "fdad1758a9e1f9d5a81e18879b3406772115edc92c24bfa36b70c654f325e8e4"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/licenses/runtime-LICENSE.txt",
+      "size": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/model.gguf",
+      "size": 199996928,
+      "sha256": "18fead8b8df3808ed47a84cd41a5a0617e3374d1a62dd52e3ba4bfb839810ffd"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-base.dll",
+      "size": 827904,
+      "sha256": "61a47e6f77984148d281f1bea9df5a63f99f9fdd86428692a3d94a8fb8cf465e"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-alderlake.dll",
+      "size": 1442816,
+      "sha256": "33d299b70ce9a3a4982422a555b63c74ed5e3ccf2a295f2cbc18881b72071a73"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-cannonlake.dll",
+      "size": 1637888,
+      "sha256": "5f8b2da4742aecc12e1baa6838d7e521d8cc30b47995e1079430927799eaf669"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-cascadelake.dll",
+      "size": 1611776,
+      "sha256": "6bd9135cb167e3f7c019cdf45bc8932d39a299f65be50a398da80c5dc4386bdb"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-cooperlake.dll",
+      "size": 1620992,
+      "sha256": "8f84e29fd108af425eec218d5ac94cd68fd02b916dc94aca09294877410ba7b6"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-haswell.dll",
+      "size": 1447424,
+      "sha256": "73a20179cef78a6090519e9e3e8d825c7ba5ac494b88819e63f3165cdc7e3a54"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-icelake.dll",
+      "size": 1617920,
+      "sha256": "f7d4aa296a0853bb28621219e371aa07cb50f77eb5663b03e95e7d4488073bd2"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-ivybridge.dll",
+      "size": 1328640,
+      "sha256": "ee429cb2c4db62de6905a53e8e3ded3e3595598cc44c3803b651b9fe81d4754e"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-piledriver.dll",
+      "size": 1321472,
+      "sha256": "3d67626c68d7b1e557185d04f06cc496fee7c05d5dc1389391863bed789bcc7a"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-sandybridge.dll",
+      "size": 1319424,
+      "sha256": "a89f7cc5dd56bf2db4972a50f9264bcec30f6100813c5ba2b7ea86f3feb12bca"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-sapphirerapids.dll",
+      "size": 1897472,
+      "sha256": "5cb1bbf0c20a4dc09fdc4e1243e0077bb2ae469d96282b77a872084a70190696"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-skylakex.dll",
+      "size": 1631744,
+      "sha256": "5f0dfbb613d19ce92d096ec92fce59d837f1c556232f7e03aaf3db88e1767c03"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-sse42.dll",
+      "size": 944128,
+      "sha256": "a327a1aa51d6b570bfbbab25ee0d3badbf4c91e15e002d5fb8e3e20b723260d0"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-x64.dll",
+      "size": 935936,
+      "sha256": "ca12e05d137b3ef00dcd60cd43e3e8cc358e09effd7f604996abd717f4d83228"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-cpu-zen4.dll",
+      "size": 1627648,
+      "sha256": "5c813f02ab039c16c3883f77bba6fbc7bad3454a4d5532fcc4351ccab27967c0"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-rpc.dll",
+      "size": 231424,
+      "sha256": "0207777ad98cde5f663285c9a71d34972ed0fa1718b3757b4d2aaa63c615d187"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml-vulkan.dll",
+      "size": 41985024,
+      "sha256": "344a4cbba76ee312eb1be589903af430879589870285e1f606f80b951719ac16"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/ggml.dll",
+      "size": 78848,
+      "sha256": "45b54b05e0dd76e550725dfbb2d8c809d4af6c41bcf21db5d0e059be509a38c3"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/libomp.dll",
+      "size": 768000,
+      "sha256": "a12116ba72d1d6820407cf30be23da04ce79d6bb8a71a5ee71759c5a1faa6f1c"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-batched-bench-impl.dll",
+      "size": 61952,
+      "sha256": "297e9ec36804a6744fc08ccb9a61673e8826254840c5c2f974f9141c30584297"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-bench-impl.dll",
+      "size": 404480,
+      "sha256": "4d11b00bc1e24c5ed9b5f00c4e0e16bdb3f2c6e35ac6202c62a916fbd704c243"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-cli-impl.dll",
+      "size": 3375104,
+      "sha256": "39a043385b3fe44d65e114f50cf680d22855066727b4341a87358a8350611116"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-common.dll",
+      "size": 8346112,
+      "sha256": "ee9241183802b5e31a1c2761d1dcb8856cc0a2713f8fa4c886937a8ac5db3e0d"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-completion-impl.dll",
+      "size": 138752,
+      "sha256": "ca1f7bc213a9a6c6d76dc9357e4091852f7fac9b720eba8b9a2cd20ce97f665a"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-fit-params-impl.dll",
+      "size": 43520,
+      "sha256": "8a45989cada48d6ffe13523f5b4b43ed6c42192a645911639beda986a19fcb7c"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-perplexity-impl.dll",
+      "size": 198144,
+      "sha256": "5aa0f3b92de13e0e277240c4a0343147e91c3595af0ea10ec740f3038589b1a3"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-quantize-impl.dll",
+      "size": 137216,
+      "sha256": "94b84e6c989ad9770c40036784bdce636f3c5cd2c19c083b700a2682c5bc95be"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-server-impl.dll",
+      "size": 10088960,
+      "sha256": "85288088adc8e89ce9f904fc8bf1f91551f3b2fec742c54f1820da416768bda4"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama-server.exe",
+      "size": 9728,
+      "sha256": "023d596a40166386ed6e68d4a7f3c62555cf29d5288292fc1fcf940f7c523056"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/llama.dll",
+      "size": 3753472,
+      "sha256": "3d657e7ecb27f5c9b6fd3a441c0fa8783ceb2744bb7a4728f94a31eb5763dda9"
+    },
+    {
+      "path": "cleanup/emberon-vulkan/runtime/mtmd.dll",
+      "size": 2143744,
+      "sha256": "520cd9cb901e147c7b4666ee14dca161b17f218164c90c87619835e0271557f3"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/cleanup-manifest.json",
+      "size": 7495,
+      "sha256": "55e8ce892a30dfba9fa959297818989f6082e42ee5fc986a3b3d19ac0c0688ac"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/model/ADDITIONAL_TERMS.md",
+      "size": 2015,
+      "sha256": "3778f7257e4a80126d5307179fbe9157db49e09fd091364df5dbc56628815bb1"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/model/FREEHAND-CONVERSION-NOTICE.txt",
+      "size": 1014,
+      "sha256": "fcefc076fb012746e6056c26656d0ed94771351b32a508cc1f3dbbf68c5e0de9"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/model/MODIFICATIONS.md",
+      "size": 2532,
+      "sha256": "1364f2c396d45a4ec000a972e1ca0599984b25990fb3e4dc2e42793ff8b73b95"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/model/NOTICE.txt",
+      "size": 5713,
+      "sha256": "4d0d40d15ca51c17c0d9b61ed5a0f9c06ed3640a106ae20cfea4a8f36cd02b73"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/model-LICENSE.txt",
+      "size": 10574,
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/runtime/LICENSE-LLVM-OpenMP",
+      "size": 19741,
+      "sha256": "fdad1758a9e1f9d5a81e18879b3406772115edc92c24bfa36b70c654f325e8e4"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/licenses/runtime-LICENSE.txt",
+      "size": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/model.gguf",
+      "size": 229310752,
+      "sha256": "055ca243daf387431ec09cddd93294ec794332393730d2598766ca6f7413ff72"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-base.dll",
+      "size": 827904,
+      "sha256": "61a47e6f77984148d281f1bea9df5a63f99f9fdd86428692a3d94a8fb8cf465e"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-alderlake.dll",
+      "size": 1442816,
+      "sha256": "33d299b70ce9a3a4982422a555b63c74ed5e3ccf2a295f2cbc18881b72071a73"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-cannonlake.dll",
+      "size": 1637888,
+      "sha256": "5f8b2da4742aecc12e1baa6838d7e521d8cc30b47995e1079430927799eaf669"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-cascadelake.dll",
+      "size": 1611776,
+      "sha256": "6bd9135cb167e3f7c019cdf45bc8932d39a299f65be50a398da80c5dc4386bdb"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-cooperlake.dll",
+      "size": 1620992,
+      "sha256": "8f84e29fd108af425eec218d5ac94cd68fd02b916dc94aca09294877410ba7b6"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-haswell.dll",
+      "size": 1447424,
+      "sha256": "73a20179cef78a6090519e9e3e8d825c7ba5ac494b88819e63f3165cdc7e3a54"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-icelake.dll",
+      "size": 1617920,
+      "sha256": "f7d4aa296a0853bb28621219e371aa07cb50f77eb5663b03e95e7d4488073bd2"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-ivybridge.dll",
+      "size": 1328640,
+      "sha256": "ee429cb2c4db62de6905a53e8e3ded3e3595598cc44c3803b651b9fe81d4754e"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-piledriver.dll",
+      "size": 1321472,
+      "sha256": "3d67626c68d7b1e557185d04f06cc496fee7c05d5dc1389391863bed789bcc7a"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-sandybridge.dll",
+      "size": 1319424,
+      "sha256": "a89f7cc5dd56bf2db4972a50f9264bcec30f6100813c5ba2b7ea86f3feb12bca"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-sapphirerapids.dll",
+      "size": 1897472,
+      "sha256": "5cb1bbf0c20a4dc09fdc4e1243e0077bb2ae469d96282b77a872084a70190696"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-skylakex.dll",
+      "size": 1631744,
+      "sha256": "5f0dfbb613d19ce92d096ec92fce59d837f1c556232f7e03aaf3db88e1767c03"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-sse42.dll",
+      "size": 944128,
+      "sha256": "a327a1aa51d6b570bfbbab25ee0d3badbf4c91e15e002d5fb8e3e20b723260d0"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-x64.dll",
+      "size": 935936,
+      "sha256": "ca12e05d137b3ef00dcd60cd43e3e8cc358e09effd7f604996abd717f4d83228"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-cpu-zen4.dll",
+      "size": 1627648,
+      "sha256": "5c813f02ab039c16c3883f77bba6fbc7bad3454a4d5532fcc4351ccab27967c0"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-rpc.dll",
+      "size": 231424,
+      "sha256": "0207777ad98cde5f663285c9a71d34972ed0fa1718b3757b4d2aaa63c615d187"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml-vulkan.dll",
+      "size": 41985024,
+      "sha256": "344a4cbba76ee312eb1be589903af430879589870285e1f606f80b951719ac16"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/ggml.dll",
+      "size": 78848,
+      "sha256": "45b54b05e0dd76e550725dfbb2d8c809d4af6c41bcf21db5d0e059be509a38c3"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/libomp.dll",
+      "size": 768000,
+      "sha256": "a12116ba72d1d6820407cf30be23da04ce79d6bb8a71a5ee71759c5a1faa6f1c"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-batched-bench-impl.dll",
+      "size": 61952,
+      "sha256": "297e9ec36804a6744fc08ccb9a61673e8826254840c5c2f974f9141c30584297"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-bench-impl.dll",
+      "size": 404480,
+      "sha256": "4d11b00bc1e24c5ed9b5f00c4e0e16bdb3f2c6e35ac6202c62a916fbd704c243"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-cli-impl.dll",
+      "size": 3375104,
+      "sha256": "39a043385b3fe44d65e114f50cf680d22855066727b4341a87358a8350611116"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-common.dll",
+      "size": 8346112,
+      "sha256": "ee9241183802b5e31a1c2761d1dcb8856cc0a2713f8fa4c886937a8ac5db3e0d"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-completion-impl.dll",
+      "size": 138752,
+      "sha256": "ca1f7bc213a9a6c6d76dc9357e4091852f7fac9b720eba8b9a2cd20ce97f665a"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-fit-params-impl.dll",
+      "size": 43520,
+      "sha256": "8a45989cada48d6ffe13523f5b4b43ed6c42192a645911639beda986a19fcb7c"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-perplexity-impl.dll",
+      "size": 198144,
+      "sha256": "5aa0f3b92de13e0e277240c4a0343147e91c3595af0ea10ec740f3038589b1a3"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-quantize-impl.dll",
+      "size": 137216,
+      "sha256": "94b84e6c989ad9770c40036784bdce636f3c5cd2c19c083b700a2682c5bc95be"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-server-impl.dll",
+      "size": 10088960,
+      "sha256": "85288088adc8e89ce9f904fc8bf1f91551f3b2fec742c54f1820da416768bda4"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama-server.exe",
+      "size": 9728,
+      "sha256": "023d596a40166386ed6e68d4a7f3c62555cf29d5288292fc1fcf940f7c523056"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/llama.dll",
+      "size": 3753472,
+      "sha256": "3d657e7ecb27f5c9b6fd3a441c0fa8783ceb2744bb7a4728f94a31eb5763dda9"
+    },
+    {
+      "path": "cleanup/scribekey-q4-vulkan/runtime/mtmd.dll",
+      "size": 2143744,
+      "sha256": "520cd9cb901e147c7b4666ee14dca161b17f218164c90c87619835e0271557f3"
+    },
+    {
+      "path": "fixtures/fresh-holdout40.json",
+      "size": 36367,
+      "sha256": "3529e74da64616e5b08f2c9c189706f03c68e6247c924eb8b9137743c4881e5d"
+    },
+    {
+      "path": "fixtures/integration10.json",
+      "size": 7462,
+      "sha256": "7ec1485fa16df21215e32ac7d44070af45a5a8ee63d76eb2e320d4ba8f8eda9f"
+    },
+    {
+      "path": "licenses/dotnet/LICENSE.txt",
+      "size": 1116,
+      "sha256": "cfc21f5e8bd655ae997eec916138b707b1d290b83272c02a95c9f821b8c87310"
+    },
+    {
+      "path": "licenses/dotnet/ThirdPartyNotices.txt",
+      "size": 77436,
+      "sha256": "2dc8f8c5a39401e928b5784ab564eb8b3ceb99ead3df8f260e0cab7e0bbecc7a"
+    },
+    {
+      "path": "licenses/nuget/avalonia/avalonia.nuspec",
+      "size": 2760,
+      "sha256": "859e57dbdeb44903e2b701e3594e46a56cf8ba6e222ae5b999bad50b8d53c253"
+    },
+    {
+      "path": "licenses/nuget/avalonia.desktop/avalonia.desktop.nuspec",
+      "size": 2557,
+      "sha256": "8e36532c0f563f159285cff8f99c40af5c6e694786a4dd64ff1be77a393dac6c"
+    },
+    {
+      "path": "licenses/nuget/avalonia.fonts.inter/avalonia.fonts.inter.nuspec",
+      "size": 1589,
+      "sha256": "f494f01585d8367f7469c016a2b0fc3ea80401c24a1be2ddb45aa5eab58c06ce"
+    },
+    {
+      "path": "licenses/nuget/avalonia.themes.fluent/avalonia.themes.fluent.nuspec",
+      "size": 1591,
+      "sha256": "4d90ffd43c2df4ab3db7c29a3f926a00db5602021f7ebf5b14020520d75a3223"
+    },
+    {
+      "path": "licenses/nuget/naudio/naudio.nuspec",
+      "size": 2968,
+      "sha256": "c5122033d436055170fc34c3b8b0d8d899243ac486c187cf70cdcf0f5ab73040"
+    },
+    {
+      "path": "licenses/nuget/org.k2fsa.sherpa.onnx/org.k2fsa.sherpa.onnx.nuspec",
+      "size": 10794,
+      "sha256": "5642b48ffccc67e1ebd39a3db2a1614234c0f80338799c2522f2bbb9b1d6f7d1"
+    },
+    {
+      "path": "licenses/nuget/org.k2fsa.sherpa.onnx.runtime.win-x64/org.k2fsa.sherpa.onnx.runtime.win-x64.nuspec",
+      "size": 1488,
+      "sha256": "8d85dcd52bd5d03c13cd7fbc88578a9791f61b1219dd654474fb77191b5abe20"
+    },
+    {
+      "path": "run-preview.ps1",
+      "size": 21457,
+      "sha256": "0559c25dd6daf5fa67a61744b57865d9ba538b608b995bce1ee75a4fa44b29dc"
+    },
+    {
+      "path": "select-preview-device.ps1",
+      "size": 9872,
+      "sha256": "3f6719f09c47f1b9e8c7a61ff631bcc50eb637c3cb8b4580674fa16b34effcf2"
+    }
+  ],
+  "base_commit": "43a949e62eb059381976f669ac8c9670ca9c6ffe",
+  "code_source_files": {
+    "src/Freehand.Abstractions/DeliveryProbe.cs": "6e6801aee9ae2803c83abfc9d638e9f17de03723aed6be4d1d5fb730c1c149de",
+    "src/Freehand.Abstractions/DesktopServices.cs": "9a5c41d233efc4bf3d11c8408883a341602afa90619d50fd4b0fc8505439b3e3",
+    "src/Freehand.Abstractions/Freehand.Abstractions.csproj": "3e019ab20aa591f3dda40caf825da1e008721d15860901fe145697555f830c00",
+    "src/Freehand.Abstractions/GpuMemory.cs": "86ed003a4415468ce1110a8713df4eab9773588af1b50f9be8f8ecaaaf8dae3c",
+    "src/Freehand.Abstractions/IHotkeyRecorder.cs": "25d3ddaf07036c78c7957dd4c836a1b3f21ef74b666cb3d770c4cee85c145b10",
+    "src/Freehand.Abstractions/IKeyNameProvider.cs": "cd34d326e9a907ad759abfa0c010e3d3d711a02d81e5281acb2f9afa9eca34d3",
+    "src/Freehand.Abstractions/ITextDeliveryHotkeySource.cs": "67d29760d08db619c705f8a18fc815d6d064f4a1f8b0b323bbda84386dcd9f63",
+    "src/Freehand.Abstractions/IUpdateInstaller.cs": "a09a0e6f4dac71150dc7462ea30a94195eaecbba33928a1f5230f5590b28c471",
+    "src/Freehand.Abstractions/Interfaces.cs": "c200104fd9816fea82ad3e04c0689c5a5b2d5e5339f20b0868da2e1924977c16",
+    "src/Freehand.Abstractions/ModelAssets.cs": "141263c8d0c4dceb9cbcf9ae2b79d3738fd6b8d55ac785dd599aabb96233e430",
+    "src/Freehand.Abstractions/ProcessMemory.cs": "048ce8f23e52bcce4b8235d96b0c1f2b27fcdecd0e1d302f21c998a8568a7d53",
+    "src/Freehand.Abstractions/TranscriptPostProcessing.cs": "c0fc69acf142f7d16595dfdf5a998d9bba4da48464f8d017a7be7cf4f0b9b0aa",
+    "src/Freehand.Abstractions/CleanupWorker.cs": "90cdb0dc2ae03694633584b826659706b50e7a909c55e229fa92512242f886f6",
+    "src/Freehand.App/App.axaml": "6c3e23da5b0dc16a592f2d7c91bddc30c5ad20a2562c6640eb2258f79c0db7b7",
+    "src/Freehand.App/App.axaml.cs": "f765f14bb5c5ba5a6492a19abb368b7b9d96088c64a1ab98399bffa5e0d0a558",
+    "src/Freehand.App/Composition.cs": "9444c5551522b2186eb30ca7ea9771d274fa6c2eddf2ca4d00109ad1404e8c48",
+    "src/Freehand.App/DesktopDeliveryBenchmark.cs": "d3b2204d70a35537ed3d3585eeb0b99efc3f617d8b818c51802da53c9aab4693",
+    "src/Freehand.App/EngineeringChecks.cs": "06ebffa3a451253322f5490c86353033aeb71ab2aab3958a3bca4bde13eac113",
+    "src/Freehand.App/Freehand.App.csproj": "9b40385b18fc0439c29d709f2349e9ae920140750e7a6051181cfb27ab69f450",
+    "src/Freehand.App/PerformanceChecks.cs": "8e876882fb645d60534bf82225a2a3aa2f54d2d4c97ed3c3299e97b6225328f9",
+    "src/Freehand.App/PlatformFactory.cs": "d3a9ecacc05d7437e68073f526a5e1ce6ee209d290d557bcb2187befcc705cd3",
+    "src/Freehand.App/Program.cs": "9c247c8109118f32b53aafcb96dbbe615fe1950cca0ab22c68bef84e5b4eb6d8",
+    "src/Freehand.App/ResidentSpeechPreparation.cs": "d7c577b6f95834ee6b1fa4a5efb75dbcb03c859f9c4c51870cf6997006abd970",
+    "src/Freehand.App/SelfTest.cs": "1a4cd3ea930c8239c018f474952b05511bc0415f7a9a2c539e4d89fb86c04662",
+    "src/Freehand.App/UpdateHandoffProbe.cs": "4be086a28f20a9dbfa5635686cea4cdaea334d88c7bdaefa95f291bebfec60ae",
+    "src/Freehand.App/BenchmarkCleanupReplay.cs": "2c53a470553b2c4e651c6f6e7b2cedde261e06e65d082924bb3fb611957ff398",
+    "src/Freehand.App/CleanupSetupCoordinator.cs": "c64aa0f9e46797131e7cfc1a75d7eb1bb9da7b0662e05c6c2f7c6d0ea65fea61",
+    "src/Freehand.Core/AppDataPaths.cs": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f",
+    "src/Freehand.Core/AppSettings.cs": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24",
+    "src/Freehand.Core/AudioSegmenter.cs": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9",
+    "src/Freehand.Core/DiagnosticLog.cs": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646",
+    "src/Freehand.Core/DictationEngine.cs": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9",
+    "src/Freehand.Core/DictionaryFile.cs": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8",
+    "src/Freehand.Core/EnglishTextNormalizer.cs": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96",
+    "src/Freehand.Core/Freehand.Core.csproj": "aafe6ccb47fc67d3d1fb07a822bc3a44d59e641a5ea03cb635247dc8d657e97a",
+    "src/Freehand.Core/RecordingBuffer.cs": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e",
+    "src/Freehand.Core/TranscriptStore.cs": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038",
+    "src/Freehand.Dictionary/DictionaryCorrector.cs": "06c63333ad2499b678bd440c8376c294793e5afb04597323a9254746f2b06b57",
+    "src/Freehand.Dictionary/DictionaryEntry.cs": "629ef9794a98b94472e1e850142efc447466beb8213b0ed83cdb07d38ad00a15",
+    "src/Freehand.Dictionary/Freehand.Dictionary.csproj": "07faff6f9c84a992507b8862ececaee658f82b5bfdb9c49d5587b3c5b375a68b",
+    "src/Freehand.Platform.Windows/AudioResampler.cs": "b5ccf0bcf348cfe4ceb64b1989fa3708b0982298fc3d1e6780a353412f2d0ef2",
+    "src/Freehand.Platform.Windows/Freehand.Platform.Windows.csproj": "3f6758754a7005b470fde310363dc069d36c9c0c0c73e850e02be0da62a07217",
+    "src/Freehand.Platform.Windows/HotkeyState.cs": "c03ddec91cfdfcd5413c67b07af51b57dbd1b5a3b6aab0c2fefa72f46584c5f2",
+    "src/Freehand.Platform.Windows/PushToTalkHook.cs": "dcc7465c2757ddd84dc07cf7163faf23245da010364528cb89f2eefc57bff47a",
+    "src/Freehand.Platform.Windows/SendInputTextInjector.cs": "4eb5ef5619cac3926f27bd220bdee8636022f996e1dedc50142278ca17364db7",
+    "src/Freehand.Platform.Windows/WasapiAudioCapture.cs": "eeba7c8be9e53bee407b79bffcff25a893bfc106370d23ac71188bd84ab8c4f8",
+    "src/Freehand.Platform.Windows/WindowsDeliveryProbe.cs": "a96fe3210f5426e4310edd4347cc62f0151c7414778187b12f0ee56b4433f9e6",
+    "src/Freehand.Platform.Windows/WindowsDesktopIntegration.cs": "cf1f4a3eea817902024f25a7a48eb76f70527f3e5cba7a9c056a86e98274e289",
+    "src/Freehand.Platform.Windows/WindowsForeground.cs": "42fc107b650885e72db6dc767fd377998d095361452867e72564f7c0389af9a0",
+    "src/Freehand.Platform.Windows/WindowsGpuMemoryReader.cs": "4e3e4a90219373994757542249c75de106016dce207a3abc6e25649f7255da1b",
+    "src/Freehand.Platform.Windows/WindowsKeyNames.cs": "78165b5b73f93f29d976a715368075ccecc8695814ce5d030a9f9d727bf25617",
+    "src/Freehand.Platform.Windows/WindowsProcessMemoryReader.cs": "eb5ee88596efa809af723622b336c1b83f338b2325048796238e4f5ae1f9a80f",
+    "src/Freehand.Platform.Windows/WindowsUpdateInstaller.cs": "99858b7999342a564542b21aa13005727389bf17377ef5a81d97c07f260dd862",
+    "src/Freehand.Platform.Windows/WindowsWorkerLauncher.cs": "eb61430b1831491ad8ef3ac7563ce5447653048f0fa060a451c70737770db28d",
+    "src/Freehand.Platform.Windows/WindowsCleanupWorkerLauncher.cs": "30a5bf827c4d2c2b35710db532b5ee0cf1ce483272767727991d4260df1828c6",
+    "src/Freehand.Speech/Freehand.Speech.csproj": "432a02b6c4d88fcfe8bb9cc3efe6ede24be44e3e5329e33373fd9263022cca2f",
+    "src/Freehand.Speech/GgmlTranscriber.cs": "d40b8a55367022da3ded66b346b372354ce43b3e1673334ba841c66e7f04734d",
+    "src/Freehand.Speech/ModelResolver.cs": "66b3478442a6e4cb8b7bf4b5fe05202d67d2e9b67b693f9ce00f9372b3536bd6",
+    "src/Freehand.Speech/ParakeetHotwords.cs": "d3445ca01810ebef9e2547e07768e221945e008148bc77c586578c74ed9e99bd",
+    "src/Freehand.Speech/ParakeetRecognizer.cs": "9c7b10b960aabeda5ba089d6f2858487596387cabf22002d0bb265aa6f58b37b",
+    "src/Freehand.Speech/ParakeetTranscriber.cs": "725e64e03234c8622f4a3b65e1dd654b74d2d386471621685bf8da4ae9530cd6",
+    "src/Freehand.Speech/SpeechPresenceDetector.cs": "5cb1529bd7213f6e3e7e45fb1eea4692a227be934ccc92ca2ca857d6ec30bc3a",
+    "src/Freehand.Speech/SpeechWorker.cs": "104f6b4481c269830a12eec230eb03d95d778e37946f6698d9409d3865f019a0",
+    "src/Freehand.Speech/SpeechWorkerClient.cs": "22e5c935ade76d5719ff0edb18bb3415f6f7106c7bc5944577da3248453ed0b2",
+    "src/Freehand.Speech/WorkerProtocol.cs": "098ae0077b6e41e72e9eb50691d3c52284106182972ff021d8b64374f3ebd6f0",
+    "src/Freehand.Speech/speech-cpu.config": "c4636ae4b87ddc53c1ea297241b5ddfe1a34650f4880fb3232bb8607c15f3ca9",
+    "src/Freehand.Testing/Fakes.cs": "0e591672a46ea8d09bb2c8bec65851daac00d0cd892fcc67e143648236f1a87a",
+    "src/Freehand.Testing/Freehand.Testing.csproj": "4b8132e7dc0d4f4a9ce80ff5f91159c0d3ea327cf43900d6bab51ce0733169b7",
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "2e187cdabd005fe7000024e2da40698e4698e9967efbaa2e84d94bfd655a22b4",
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "0ab959f9f28ad0ce15d94f483b512f7966446162c4b94fb7ab6bf0fc1fe425b5",
+    "src/Freehand.Cleanup/CleanupPrompt.cs": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6",
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": "34d01f1dd18e733a98b449020aec608b331f79b2911f826bb6b6394bae2c0daa",
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8",
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a",
+    "src/Freehand.Cleanup/CleanupProtocol.cs": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256",
+    "src/Freehand.Cleanup/Freehand.Cleanup.csproj": "7dacf700bdbe30ccd9edd454a37ad3741c0a5e1a56b71979adf842fa379c76bb",
+    "src/Freehand.App/Controls/DictationActivity.cs": "8041d9e7a4ad833da6d015689b05d71ebd18d863692a771c03b500eaf7a3ae20",
+    "src/Freehand.App/Controls/HotkeyEditor.cs": "2830da9e8b8c43f932f7361b5e93f35bcf913af7aa9f8af272a7f2aaf37faf2a",
+    "src/Freehand.App/Controls/HotkeyLabel.cs": "41cfc7d22c3b82f5db92ffa5371e70119d216b5905a85aa023868906aab98db6",
+    "src/Freehand.App/Controls/Lamp.cs": "e926a392037d69d551e5e2abeec95111b22991af4e3fc92393c7a83f56778fed",
+    "src/Freehand.App/Design/CompactTheme.cs": "7b36e1c0c7213ec305f160155027f2eb6c682d228ba68a79ffcb628c54dea88a",
+    "src/Freehand.App/Design/DesignTokens.cs": "2c464b9b8edb0442e479ed360152e53e74f48bc5f02ac06f018f98763dbf7457",
+    "src/Freehand.App/Properties/AssemblyInfo.cs": "c1ad98003350b28a5cf9e2970c7a2fbab3f54d397e9342c6385ab2bbd968d549",
+    "src/Freehand.App/Views/DictionaryView.cs": "1b84b7bc4f34e758cddeb0a2ebb132446983e41f112cf0ee618009c077727ce1",
+    "src/Freehand.App/Views/MainWindow.cs": "4e92ee467b552e39f59debaff2a7e21b7588e08e7a6c78855e209c622feaff85",
+    "src/Freehand.App/Views/Panels.cs": "876b288f414efe821bd50e510efeff6cfd6b24d90d76a92da831ee538a6fb878",
+    "src/Freehand.App/Views/SettingsView.cs": "ea0d3017f9607315dff851d904685153da55f7a813fa9133043fa3d3544e17ce",
+    "src/Freehand.App/Views/SettingsWindow.cs": "940e4b5d50c3abef8eee6d3b2a4d968db7ce73a0ea8934479576b18ae4781a9d",
+    "src/Freehand.App/Views/StatusIndicator.cs": "6abe43214cf2b3d6c12c11ce258048916a988b22d20b8eb01154250424a45212",
+    "src/Freehand.App/Views/TranscriptionsView.cs": "f12d6301beb7504fd87e463a2e4b7792f1fb5aeeb3e05b8762eaaeb5187ed92b",
+    "src/Freehand.App/Views/UpdateView.cs": "50c1408089da889aa372001c6b90b66cb184413b35fd33d33b59cc1e5cb97912",
+    "src/Freehand.App/Views/UpdateWindow.cs": "ae7492ce644d908b1f75b57836cab28ba21ad7813781ed257e2ea0bb1bda3519",
+    "src/Freehand.Core/Properties/AssemblyInfo.cs": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68",
+    "src/Freehand.Core/Updates/GitHubUpdateSource.cs": "dab4b4c6349d14f15aa1ae1bb98551ca581f8ef1c8206a18ed884f0248124416",
+    "src/Freehand.Core/Updates/UpdatePackage.cs": "5153b4702ea6516bb4c68bca28b23248682e8f3397addcd2ce19fb2d48b7c0f8",
+    "src/Freehand.Core/Updates/UpdateService.cs": "6d47c568921aa17aec868ae2518740949593108a283d353292f4ae52416f01fe",
+    "src/Freehand.Platform.Windows/Properties/AssemblyInfo.cs": "7208b7d288ca6477c3ec9ffc277649f09ef807d999aa1580f50e0d86e59078f7",
+    "src/Freehand.Speech/Properties/AssemblyInfo.cs": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68",
+    "tools/Freehand.Evaluation/Freehand.Evaluation.csproj": "1c288e6bb098c9f3a23ed997e1b127cbb684b87ec7094c1fa8216be7a5bfef34",
+    "tools/Freehand.Evaluation/Program.cs": "81e91ff4b46c50cdc8e656c1e66dd68c811ada2e22d1e4ef98cf3252452bd33a",
+    "tools/Freehand.Evaluation/score_reports.py": "99d9a2694f1308b0ace16282268dc5f9a73a5bffd0c853fee19f07fd982f7235",
+    "tools/Freehand.Native/prepare.ps1": "af1ac4e608e53c1d02e89baba1a0ed835db0b96b9f03e2ff93e0dacda0eabafe",
+    "tools/Freehand.Native/source-manifest.json": "402dd88780ec598c958f07383fb457b8790a9c95f6bd1caaed9e6485490a8a8d",
+    "tools/Freehand.Cleanup.Probe/Freehand.Cleanup.Probe.csproj": "b20faa8c4be3b1ccb653ee234755fb4b1e9235079f48c442be0d038165d9b087",
+    "tools/Freehand.Cleanup.Probe/ProbeCleanupWorkerLauncher.cs": "1d32cc9fd748b9a9648794646813fd7211e96c7f03f7b735d0e740a21a8bc4dd",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "5488a1374ffd5491b69c50fb1b57f5fe524fc9918d18629913d2ee8c4e202343",
+    "tools/Freehand.Cleanup.Evaluation/fixtures.json": "223bba70cf0531ea437e980c50e25b35905f33b19534a858a5211c689a560019",
+    "tools/Freehand.Cleanup.Evaluation/test_small_models.py": "193497d10c9f50a841b2032c402b9ed6a3f22bb2b9cd8613c873693276baaad5",
+    "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+    "tools/Freehand.Cleanup.Evaluation/score_probe.py": "06d80a89c0f4d13613940d75667f3924e428a8a2780a3b93dd8a174745693e55",
+    "tools/Freehand.Cleanup.Evaluation/benchmark.py": "32fd8edd7896fc35c0845f81ac930e2639339323c9c9b80d83a02dc66c0839d9",
+    "tools/Freehand.Cleanup.Evaluation/literal_protection.py": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+    "tools/Freehand.Cleanup.Evaluation/integration-fixtures.json": "7ec1485fa16df21215e32ac7d44070af45a5a8ee63d76eb2e320d4ba8f8eda9f",
+    "tools/Freehand.Cleanup.Evaluation/config.example.json": "4441168a87133b21750756a508149a2c457c0f6f81cf7aa4817c8b088c9587f1",
+    "tools/Freehand.Cleanup.Evaluation/test_literal_protection.py": "5e262ebe7501d571d57c24516ccda3af111e9e34ae7ba37065622ccc39994d79",
+    "tools/Freehand.Cleanup.Evaluation/test_benchmark.py": "07b8bafa4fd4e5f5ddbcc29895e6b337f4fa9851937838dd41651449d2f03918",
+    "tools/Freehand.Cleanup.Evaluation/test_specialist_literal_protection.py": "e6e9253b966c913d87369911bd56c3c90c233527bdc2632757b84b8cc3f443df",
+    "tools/Freehand.Cleanup.Evaluation/small_models.py": "235304be06e4ffbcafe50aa8a6840e71af414f93df9809a5e6c7906c3e4e64e6",
+    "tools/Freehand.Evaluation/normalization/__init__.py": "ff682994aaf8d16afe08eb2dd1e35fee952e25caca2d5e78bda74ecd1d3d3101",
+    "tools/Freehand.Evaluation/normalization/basic.py": "4742eaa040e0657fa1247a1361e0d856c62317a43326ea59a40c2e9edd8d2c38",
+    "tools/Freehand.Evaluation/normalization/english.json": "6607f948be9824d2e1b2fa2223cd94c06c45afa4e05ea0e3d5e1f2bdffde2465",
+    "tools/Freehand.Evaluation/normalization/english.py": "d31a52685b5b42628ea4e3343c3a7925ce5b2f317e6c0ec4575677dd5c8b5d2c",
+    "tools/Freehand.Evaluation/normalization/source.json": "d3746978cd0040330af0afc4d3fb5b20df12f1aea8a9de16e25b92f0f5f82d9f",
+    "scripts/build-release.ps1": "6ed57ac5765bb19efb07a4b392085beef48f014ae20e246bb527faba9593779d",
+    "scripts/common.ps1": "82af7259829788a4a0a5721550d36313b40734a0c630d787dcd3f2a483229a98",
+    "scripts/deploy-local.ps1": "a8dac376bba145ea25184f1a03b6f5275464f7f7d20c724368cea08a7f416a81",
+    "scripts/dev-accuracy.ps1": "dc407042c3388eb26b42ca4a679530be27c511c1f1b98fa24041dfcac299dfe5",
+    "scripts/dev.ps1": "77c1d40590dce4e3f3bdd3ff351fd7ef89e506516663b512278ceeac45e44de7",
+    "scripts/evaluate-dictation.ps1": "10cdd5b4aea3ad8b6f1bea054bc901ba329d38f4d54b12f0a5319aa0a3206926",
+    "scripts/prepare-dictation-fixtures.py": "e4490cedbeee1716058f2d3015acb2fb6154d991f96c704b76f2e0ab22175ad3",
+    "scripts/preview-design.ps1": "c18419f510dc4a048609eca08ebb35cc93173dcc763fb90f81238a3ad24b4725",
+    "scripts/publish-release.ps1": "2bab499f38f1bf33d346e616307dda35865b74881e4f54998819449ac126f9ea",
+    "scripts/release-version.ps1": "1e27472b6339e250ab1d48f1c701728ccb961cc74b3c88330ea467fcdc6cef1a",
+    "scripts/setup-dev.ps1": "161ca616afbc0c580bb45fdcb2b18723df05b5cea133de7c59d9bb9a04940bfe",
+    "scripts/setup-test-tools.ps1": "242ed29befb1bab7e679f2be255fa86db7085a0bd339e1c585de23fb1774631b",
+    "scripts/verify-updates.ps1": "ade199a6dac8d17ea1fc9f843f84fd6cd41a041bed50f7f4419e014ce07d5641",
+    "scripts/verify.ps1": "85702ab0384779177f8d534206c97a4022586d5115f540dfff8ff44dab141250",
+    "scripts/get-cleanup-assets.ps1": "f0916efed410d74a38d0807ac13f1a4baee9c6f44c4a7f287e450c7372c0f78a",
+    "scripts/prepare-cleanup.ps1": "4cd72fba192d94dcce007cf231f4c5ecdac1f003f81c0a3da4616515e626d8f9",
+    "packaging/accuracy-model-manifest.json": "87d3404a8152897e3e8d420fdf0d009e0a05a39e2aabe58077a0e00db720f56f",
+    "packaging/accuracy-runtime-manifest.json": "2d93293ee883204ce1ced1d29105354fa200fdf861381afef7a9195cfad6eef4",
+    "packaging/accuracy-vad-manifest.json": "4aa35fec4dbac65a57aaae280901b701058d6feaf6a091e4056bb70e67f3a6de",
+    "packaging/model-manifest.json": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545",
+    "packaging/cleanup-model-manifest.json": "8a09c66d2ee10783afe63aa62ea63bdb1b8d95cd81968f75c62f96d106ea635b",
+    "packaging/cleanup-runtime-manifest.json": "e2d29acca71a22ea390e030d259a5f357525edb2f4c30855e8a66213a81021cf",
+    "packaging/Installer/Freehand.Installer.csproj": "34e5f54f8a7e6908600708d09b8310f67a1eb65f57d35e4cfd2f0746f2b94ba6",
+    "packaging/Installer/PackageInstaller.cs": "27eee235d19b91c7be0ce4d4ff0cf7cd67fbfc5681f4ab504acba97e90d0042d",
+    "packaging/Installer/Program.cs": "fd06da509d7858a42ae4bce7571e3ee2e9b016da4883cbae026bf2949e83332f",
+    "packaging/Installer/Shortcut.cs": "a234e5fd45f7c118111c23386c9c70e184f04f8039aa0f0728a243e693969388",
+    "Directory.Build.props": "72861bc6a2889f1ca763046051df9e2c3bb027702897fa328b5c3fd5abc0fbf8",
+    "Directory.Packages.props": "c09bce2b106e739a13041690cc0f613b0ba8af9f35d7fc994a0e5f8a8b0eece5",
+    "Version.props": "d9bfa834130288ffd85d5327d24233ae06bf5ddb832fbcad686a4b2bc049f2e0",
+    "global.json": "b48d6da8fa62c0da7cc8a2da4ea036ac55836660a448ba533135abb5b8451b73",
+    "Freehand.sln": "9efafc823dca19e838dad722c63bc28b3b9a82d6309e4d1dc3b6d27b9ccf3a88"
+  },
+  "code_source_fingerprint": "d8a2fe78108f91866ec503492ee01bff98dc94977d3a19165baa431092e85daa",
+  "notes": [
+    "Windows x64 cross-publish/static PE and inventory checks only; no Windows executable or GPU run occurred.",
+    "The branch quality gate remains failed; no model is certified or selected as a production default.",
+    "Root executable pins and full cleanup runtime/model inventories are checked by the isolated launcher.",
+    "Both CPU controls and Vulkan requests use the GPU-capable runtime; profile GPU0 plus exact device none is the CPU control.",
+    "The source tree is identified by file hashes; publication Version metadata differs from the Linux evaluation binary hashes."
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_run",
+  "scope": "Controlled managed-cleanup resource profiling; not a Windows hardware or whole-app SLA qualification.",
+  "candidate_artifact_index": "/workspace/freehand/work/cleanup-small-models-2026-11-03/asset-index.json",
+  "runtime_inventory": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+  "runtime_inventory_sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85",
+  "source_fixtures": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/fixtures.json",
+    "sha256": "223bba70cf0531ea437e980c50e25b35905f33b19534a858a5211c689a560019"
+  },
+  "source_case_ids": [
+    "dev-001",
+    "dev-013",
+    "dev-016",
+    "dev-040",
+    "dev-057"
+  ],
+  "repetitions": 3,
+  "execution_order": "Repetition-major: each block executes all five cases in the same order.",
+  "managed_probe_input": "/workspace/freehand/work/cleanup-small-models-2026-11-03/resource-probe-input.json",
+  "managed_probe_input_sha256": "ce585b74abe0156a51202da9c35b83b7d1bfe811faf73e4da7981dbb5a1f3c1a",
+  "case_id_map": [
+    {
+      "id": "dev-001-resource-r01",
+      "source_case_id": "dev-001",
+      "repetition": 1
+    },
+    {
+      "id": "dev-013-resource-r01",
+      "source_case_id": "dev-013",
+      "repetition": 1
+    },
+    {
+      "id": "dev-016-resource-r01",
+      "source_case_id": "dev-016",
+      "repetition": 1
+    },
+    {
+      "id": "dev-040-resource-r01",
+      "source_case_id": "dev-040",
+      "repetition": 1
+    },
+    {
+      "id": "dev-057-resource-r01",
+      "source_case_id": "dev-057",
+      "repetition": 1
+    },
+    {
+      "id": "dev-001-resource-r02",
+      "source_case_id": "dev-001",
+      "repetition": 2
+    },
+    {
+      "id": "dev-013-resource-r02",
+      "source_case_id": "dev-013",
+      "repetition": 2
+    },
+    {
+      "id": "dev-016-resource-r02",
+      "source_case_id": "dev-016",
+      "repetition": 2
+    },
+    {
+      "id": "dev-040-resource-r02",
+      "source_case_id": "dev-040",
+      "repetition": 2
+    },
+    {
+      "id": "dev-057-resource-r02",
+      "source_case_id": "dev-057",
+      "repetition": 2
+    },
+    {
+      "id": "dev-001-resource-r03",
+      "source_case_id": "dev-001",
+      "repetition": 3
+    },
+    {
+      "id": "dev-013-resource-r03",
+      "source_case_id": "dev-013",
+      "repetition": 3
+    },
+    {
+      "id": "dev-016-resource-r03",
+      "source_case_id": "dev-016",
+      "repetition": 3
+    },
+    {
+      "id": "dev-040-resource-r03",
+      "source_case_id": "dev-040",
+      "repetition": 3
+    },
+    {
+      "id": "dev-057-resource-r03",
+      "source_case_id": "dev-057",
+      "repetition": 3
+    }
+  ],
+  "candidates": {
+    "s1": {
+      "artifact_id": "s1-mini-official-q4",
+      "promptStyle": "S1Mini",
+      "compact_managed_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/s1-compact.json"
+    },
+    "emberon": {
+      "artifact_id": "PromethicLabs/Emberon-2:Emberon-2-Q4_K_M.gguf",
+      "promptStyle": "Emberon2",
+      "compact_managed_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/emberon-compact.json"
+    },
+    "scribe": {
+      "artifact_id": "scribekey/scribekey-cleanup-fast-GGUF:scribekey-cleanup-fast-350m-v1.1-Q8_0.gguf",
+      "promptStyle": "ScribeKeyFast",
+      "compact_managed_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/scribe-compact.json"
+    }
+  },
+  "profiles": [
+    {
+      "id": "p00-baseline",
+      "description": "Baseline: 2048 context, batch/ubatch128, repack enabled.",
+      "changes_from_previous": {},
+      "settings": {
+        "threads": 4,
+        "contextSize": 2048,
+        "maxOutputTokens": 512,
+        "batchSize": 128,
+        "microBatchSize": 128,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": true,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p00-baseline.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p00-baseline.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p00-baseline.json"
+      }
+    },
+    {
+      "id": "p01-context1024",
+      "description": "Change only total context capacity.",
+      "changes_from_previous": {
+        "contextSize": {
+          "from": 2048,
+          "to": 1024
+        }
+      },
+      "settings": {
+        "threads": 4,
+        "contextSize": 1024,
+        "maxOutputTokens": 512,
+        "batchSize": 128,
+        "microBatchSize": 128,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": true,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p01-context1024.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p01-context1024.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p01-context1024.json"
+      }
+    },
+    {
+      "id": "p02-no-repack",
+      "description": "Change only CPU weight repacking.",
+      "changes_from_previous": {
+        "repack": {
+          "from": true,
+          "to": false
+        }
+      },
+      "settings": {
+        "threads": 4,
+        "contextSize": 1024,
+        "maxOutputTokens": 512,
+        "batchSize": 128,
+        "microBatchSize": 128,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": false,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p02-no-repack.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p02-no-repack.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p02-no-repack.json"
+      }
+    },
+    {
+      "id": "p03-batch64",
+      "description": "Reduce logical and physical batch bounds together; this is the coupled batch-bound condition.",
+      "changes_from_previous": {
+        "batchSize": {
+          "from": 128,
+          "to": 64
+        },
+        "microBatchSize": {
+          "from": 128,
+          "to": 64
+        }
+      },
+      "settings": {
+        "threads": 4,
+        "contextSize": 1024,
+        "maxOutputTokens": 512,
+        "batchSize": 64,
+        "microBatchSize": 64,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": false,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p03-batch64.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p03-batch64.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p03-batch64.json"
+      }
+    },
+    {
+      "id": "p04-ubatch32",
+      "description": "Change only physical compute micro-batch.",
+      "changes_from_previous": {
+        "microBatchSize": {
+          "from": 64,
+          "to": 32
+        }
+      },
+      "settings": {
+        "threads": 4,
+        "contextSize": 1024,
+        "maxOutputTokens": 512,
+        "batchSize": 64,
+        "microBatchSize": 32,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": false,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p04-ubatch32.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p04-ubatch32.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p04-ubatch32.json"
+      }
+    },
+    {
+      "id": "p05-threads2",
+      "description": "Change only CPU generation and prompt thread count from 4 to 2.",
+      "changes_from_previous": {
+        "threads": {
+          "from": 4,
+          "to": 2
+        }
+      },
+      "settings": {
+        "threads": 2,
+        "contextSize": 1024,
+        "maxOutputTokens": 512,
+        "batchSize": 64,
+        "microBatchSize": 32,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": false,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p05-threads2.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p05-threads2.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p05-threads2.json"
+      }
+    },
+    {
+      "id": "p06-threads1",
+      "description": "Change only CPU generation and prompt thread count from 2 to 1.",
+      "changes_from_previous": {
+        "threads": {
+          "from": 2,
+          "to": 1
+        }
+      },
+      "settings": {
+        "threads": 1,
+        "contextSize": 1024,
+        "maxOutputTokens": 512,
+        "batchSize": 64,
+        "microBatchSize": 32,
+        "promptCacheMiB": 0,
+        "contextCheckpoints": 0,
+        "cacheTypeK": "f16",
+        "cacheTypeV": "f16",
+        "repack": false,
+        "gpuLayers": 0,
+        "startupTimeoutSeconds": 60,
+        "idleTimeoutSeconds": 60,
+        "maskSpecialistLiterals": true
+      },
+      "managed_manifests": {
+        "s1": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/s1-p06-threads1.json",
+        "emberon": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/emberon-p06-threads1.json",
+        "scribe": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/resource-profiles/scribe-p06-threads1.json"
+      }
+    }
+  ],
+  "controlled_variables": [
+    "Same pinned complete model and native runtime files",
+    "Same trained rendered prompt contract",
+    "Same literal-mask adapter enabled",
+    "Same input cases/order and three repetitions",
+    "Greedy complete-output policy; 512-token bound",
+    "Host prompt cache and context checkpoints remain disabled",
+    "No GPU offload; f16 K/V cache"
+  ],
+  "capacity_policy": {
+    "input_truncation": false,
+    "output_truncation": false,
+    "max_output_tokens": 512,
+    "preflight": "Count the actually rendered prompt with the selected model tokenizer. Require prompt tokens plus 512 output tokens to fit context before inference. Record any rejection as a capacity failure, not a quality success.",
+    "dev-057_input_characters": 425,
+    "dev-057_input_words": 79,
+    "long_input_followup": "If any 1024-context condition cannot fit, do not silently alter that run. Report the failure, then generate a separately named context2048-long-input condition retaining all other settings; preserve both outputs."
+  },
+  "measurement_policy": {
+    "startup": "Record artifact verification and first ready/load duration separately; do not erase first-after-idle or cold-path costs.",
+    "latency": "Record complete response and managed pipeline latency per case, not first-token time.",
+    "memory": "Record peak and ready managed/native RSS separately; Linux RSS is not Windows private commit or whole-app ASR+UI memory.",
+    "cpu_contention": "Parent serializes inference and avoids concurrent builds or benchmark workers.",
+    "semantic_review": "Verify each profile output remains faithful; speed or memory gains do not waive quality.",
+    "holdout": "No held-out cases used in this plan."
+  },
+  "target_limits": {
+    "whole_app_host_memory_bytes": 747500000,
+    "release_to_complete_text_milliseconds": 805,
+    "qualification": "15% above the original 650000000B / 700ms app SLAs; these cleanup-only profiles cannot establish the whole-app limits."
+  }
+}

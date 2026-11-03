@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "scope": "Actual production-pinned CPU Parakeet110/native2.0.0 + Core + optional Emberon compact. Linux research speech worker wrapper; Windows App positional argument reference-only. Excludes desktop UI, real capture/hotkey/SendInput and Windows memory.",
+  "timing_policy": "Ready/warm; initialASRload and cleanupsyntheticwarmup recorded separately; cleanup eval-only idleoverride1hour. Sequential tasks; no overlapping inference/builds.",
+  "statistical_policy": "Repeated identical public audio measures hardware variation only, not independent quality. N5/N10 nearest-rank p95 equals max; single30s/60s trials have no tailprecision.",
+  "estimated_audio_seconds": 330,
+  "environment_overrides": {
+    "DOTNET_ROOT": "/workspace/freehand/.dotnet",
+    "LD_LIBRARY_PATH": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/native"
+  },
+  "frozen_cleanup_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/emberon-compact-frozen.json",
+  "frozen_cleanup_manifest_sha256": "85bac99a46296365e6f1bdd211df28812708c6e7a95e761063e392ebb6db0dd8",
+  "source_managed_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/emberon-compact.json",
+  "source_managed_manifest_sha256": "85bac99a46296365e6f1bdd211df28812708c6e7a95e761063e392ebb6db0dd8",
+  "evaluator_assembly_sha256": "4c3f7773fd0a0139e3f3baf8b5b95d8aa127ee68b2a8a828fac6372353b7e267",
+  "tasks": [
+    {
+      "id": "baseline-10s-r5",
+      "audio_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+      "repetitions": 5,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-r5.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-r5.log",
+      "command": [
+        "/workspace/freehand/.dotnet/dotnet",
+        "/workspace/freehand/tools/Freehand.Evaluation/bin/Release/net10.0/Freehand.Evaluation.dll",
+        "/workspace/freehand/src/Freehand.App/bin/Release/net10.0/Freehand.App",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-10s-r5.json",
+        "--realtime",
+        "--repeat",
+        "5",
+        "--include-text",
+        "--portable-worker"
+      ],
+      "expected_audio_seconds": 50
+    },
+    {
+      "id": "emberon-compact-10s-r10",
+      "audio_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+      "repetitions": 10,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-10s-r10.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-10s-r10.log",
+      "command": [
+        "/workspace/freehand/.dotnet/dotnet",
+        "/workspace/freehand/tools/Freehand.Evaluation/bin/Release/net10.0/Freehand.Evaluation.dll",
+        "/workspace/freehand/src/Freehand.App/bin/Release/net10.0/Freehand.App",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-10s-r10.json",
+        "--realtime",
+        "--repeat",
+        "10",
+        "--include-text",
+        "--portable-worker",
+        "--cleanup-manifest",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/emberon-compact-frozen.json"
+      ],
+      "expected_audio_seconds": 100
+    },
+    {
+      "id": "baseline-30s-60s",
+      "audio_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-30s-60s-manifest.json",
+      "repetitions": 1,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-30s-60s.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-30s-60s.log",
+      "command": [
+        "/workspace/freehand/.dotnet/dotnet",
+        "/workspace/freehand/tools/Freehand.Evaluation/bin/Release/net10.0/Freehand.Evaluation.dll",
+        "/workspace/freehand/src/Freehand.App/bin/Release/net10.0/Freehand.App",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-30s-60s-manifest.json",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-baseline-30s-60s.json",
+        "--realtime",
+        "--repeat",
+        "1",
+        "--include-text",
+        "--portable-worker"
+      ],
+      "expected_audio_seconds": 90
+    },
+    {
+      "id": "emberon-compact-30s-60s",
+      "audio_manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-30s-60s-manifest.json",
+      "repetitions": 1,
+      "report": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-30s-60s.json",
+      "log": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-30s-60s.log",
+      "command": [
+        "/workspace/freehand/.dotnet/dotnet",
+        "/workspace/freehand/tools/Freehand.Evaluation/bin/Release/net10.0/Freehand.Evaluation.dll",
+        "/workspace/freehand/src/Freehand.App/bin/Release/net10.0/Freehand.App",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-30s-60s-manifest.json",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-emberon-compact-30s-60s.json",
+        "--realtime",
+        "--repeat",
+        "1",
+        "--include-text",
+        "--portable-worker",
+        "--cleanup-manifest",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/emberon-compact-frozen.json"
+      ],
+      "expected_audio_seconds": 90
+    }
+  ]
+}

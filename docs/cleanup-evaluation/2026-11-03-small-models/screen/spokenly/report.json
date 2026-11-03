@@ -1,0 +1,369 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-11-03T15:25:04Z",
+  "candidate": {
+    "id": "spokenly/cleanup-1-gguf:cleanup-1-q8_0.gguf",
+    "role": "lead_specialist",
+    "repository": "spokenly/cleanup-1-gguf",
+    "revision": "79936c95e5c0ea9162ae7a435e64cb3127020e36",
+    "filename": "cleanup-1-q8_0.gguf",
+    "bytes": 639442784,
+    "publisher_sha256": "66509e0fe1578d2ac4b0773c79a6c83e8d6f218618dfe11e4532beacd999b6e8",
+    "immutable_url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/cleanup-1-q8_0.gguf",
+    "trained_contract_reference": "specialists/report.md",
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/spokenly_cleanup-1-gguf/cleanup-1-q8_0.gguf",
+    "verified": true,
+    "sha256": "66509e0fe1578d2ac4b0773c79a6c83e8d6f218618dfe11e4532beacd999b6e8",
+    "download_seconds": 324.998,
+    "reused_verified": false,
+    "verification": "complete_download_size_and_independent_sha256_match_pinned_publisher",
+    "verified_at_utc": "2026-11-03T15:25:03.417308+00:00",
+    "legal_documents": [
+      {
+        "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/spokenly_cleanup-1-gguf/LICENSE",
+        "url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/LICENSE",
+        "bytes": 11358,
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "source_cache": "/workspace/freehand/work/cleanup-research-2026-10-30/products/raw/huggingface/spokenly__cleanup-1/LICENSE"
+      },
+      {
+        "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/spokenly_cleanup-1-gguf/NOTICE",
+        "url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/NOTICE",
+        "bytes": 554,
+        "sha256": "c8c2a5b22187685c78261d15938882f1fa91ba75d05d6c469f3b7cb4162fb769",
+        "source_cache": "/workspace/freehand/work/cleanup-research-2026-10-30/products/raw/huggingface/spokenly__cleanup-1-gguf/NOTICE"
+      }
+    ],
+    "license_assessment": {
+      "metadata_declaration": "apache-2.0",
+      "assessment": "Pure format conversion of spokenly/cleanup-1; not an independent model.",
+      "documents": [
+        {
+          "path": "evidence/spokenly__cleanup-1-gguf/LICENSE",
+          "url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/LICENSE",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "size": 11358
+        },
+        {
+          "path": "evidence/spokenly__cleanup-1-gguf/NOTICE",
+          "url": "https://huggingface.co/spokenly/cleanup-1-gguf/resolve/79936c95e5c0ea9162ae7a435e64cb3127020e36/NOTICE",
+          "sha256": "c8c2a5b22187685c78261d15938882f1fa91ba75d05d6c469f3b7cb4162fb769",
+          "size": 554
+        }
+      ],
+      "metadata_name": null,
+      "metadata_link": null
+    }
+  },
+  "runtime": {
+    "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+    "bytes": 17864,
+    "status": "existing_file_rehashed"
+  },
+  "asset_index_sha256": "6fed324e2b677787d77fd8e2aa01efe7a64baa5ad98df36b679b7d5351ea6b47",
+  "prompts_sha256": "6c2447bc4c6ccf797a3bd998cd128604ff8d1967e2beb0ba808e7753b8757f52",
+  "prompt_style": "SpokenlyCleanup",
+  "mask_literals": false,
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "222762B0E7C698629B47E99854853C30AA85A617B519E0F6B9701064A09B4FFB",
+    "Freehand.Core.dll": "AD61CEC2A832A4C013A50D98DED6DF24DA342A11021ACC8F8E499D9B9122BBB2",
+    "Freehand.Cleanup.dll": "18AC2046C43B7412EBC0FC4A0427FAD87C2DBEB9E6FC82335398DD4A6F7CDDA6",
+    "Freehand.Dictionary.dll": "F1D435E1A04949CB4483EA4C5BD9B8FB53C0B3820BA7AC9ADDD628584AD2AB7D",
+    "Freehand.Testing.dll": "058A392C54FACCB47356692686EEA105223CECC401ED12AC40987F0147BF10FA",
+    "Freehand.Abstractions.dll": "96E45A4E9A24441BDA372DD861965E1803173E3CC4DC5B1F1C1B947C107D20C3"
+  },
+  "host": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "profile": {
+    "context": 2048,
+    "max_output": 512,
+    "threads": 4,
+    "batch": 128,
+    "micro_batch": 128,
+    "cache_ram_mib": 0,
+    "repeats": 1,
+    "extra_server_args": []
+  },
+  "incomplete": false,
+  "limitations": "Cleanup-server native replay only; no ASR, UI, real capture or Windows delivery. Artifact hashing warms OS pages before startup. First request is cold inference after server warmup, not a filesystem-cold model load. Memory excludes the Python harness and whole Freehand app; no whole-app SLA pass is claimed.",
+  "startup_to_health_seconds": 0.49696973800018895,
+  "server_command": [
+    "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "--model",
+    "/workspace/freehand/work/cleanup-small-models-2026-11-03/assets/spokenly_cleanup-1-gguf/cleanup-1-q8_0.gguf",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "44121",
+    "--alias",
+    "local-cleanup",
+    "--ctx-size",
+    "2048",
+    "--parallel",
+    "1",
+    "--threads",
+    "4",
+    "--threads-batch",
+    "4",
+    "--batch-size",
+    "128",
+    "--ubatch-size",
+    "128",
+    "--cache-ram",
+    "0",
+    "--ctx-checkpoints",
+    "0",
+    "--n-gpu-layers",
+    "0",
+    "--n-predict",
+    "512",
+    "--fit",
+    "off",
+    "--no-context-shift",
+    "--no-webui",
+    "--no-slots",
+    "--no-mmproj",
+    "--offline",
+    "--log-disable",
+    "--no-jinja"
+  ],
+  "summary": {
+    "row_count": 24,
+    "attempt_count": 24,
+    "not_attempted_count": 0,
+    "completed_count": 24,
+    "operational_failures": 0,
+    "known_quality_failures": 3,
+    "target_matches": 19,
+    "review_required_nonmatches": 2,
+    "complete_response_seconds": {
+      "median": 0.3377197295003498,
+      "p95_nearest_rank": 1.4138169509988074,
+      "maximum": 2.1105461980005202,
+      "sample_count": 24
+    },
+    "by_category": {
+      "accidental_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_date": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_number": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "dictated_question": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "fillers": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "grammar": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "hedge": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "intentional_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_marker": {
+        "completed": 2,
+        "known_quality_failures": 1,
+        "target_matches": 1
+      },
+      "long_late_correction": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "no_change": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "quoted_instructions": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "semantic_fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_identifier": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_url": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "unfinished": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      }
+    }
+  },
+  "warm_summary": {
+    "row_count": 23,
+    "attempt_count": 23,
+    "not_attempted_count": 0,
+    "completed_count": 23,
+    "operational_failures": 0,
+    "known_quality_failures": 3,
+    "target_matches": 18,
+    "review_required_nonmatches": 2,
+    "complete_response_seconds": {
+      "median": 0.34955353700024716,
+      "p95_nearest_rank": 1.4138169509988074,
+      "maximum": 2.1105461980005202,
+      "sample_count": 23
+    },
+    "by_category": {
+      "accidental_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_date": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "backtrack_number": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "dictated_question": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "grammar": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "hedge": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "intentional_repetition": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "literal_marker": {
+        "completed": 2,
+        "known_quality_failures": 1,
+        "target_matches": 1
+      },
+      "long_late_correction": {
+        "completed": 1,
+        "known_quality_failures": 1,
+        "target_matches": 0
+      },
+      "negation": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "no_change": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "quoted_instructions": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 2
+      },
+      "semantic_fillers": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_identifier": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "technical_url": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "unfinished": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      }
+    }
+  },
+  "memory": {
+    "scope": "owned_cleanup_server_process_tree_only",
+    "sample_interval_seconds": 0.02,
+    "sample_count": 446,
+    "unavailable_samples": 0,
+    "peak_working_set_bytes": 944582656,
+    "peak_private_resident_bytes": 943955968,
+    "peak_private_commit_bytes": null,
+    "peak_process_count": 1,
+    "notes": "Sampled simultaneous process-tree sums; shared pages may be counted twice. Linux private resident memory differs from Windows private commit. GPU memory and the Freehand desktop/ASR worker are excluded. Sampling can affect timing."
+  },
+  "finished_utc": "2026-11-03T15:25:16Z",
+  "not_run_count": 0
+}

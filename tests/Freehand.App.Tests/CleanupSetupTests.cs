@@ -55,7 +55,10 @@ public sealed class CleanupSetupTests
             Dispatcher.UIThread.RunJobs();
             FindButton(view, "Retry setup").RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             await WaitUntilAsync(() => setup.Snapshot.Phase == CleanupSetupPhase.Installed);
-            Dispatcher.UIThread.RunJobs();
+            // The coordinator raises its final Changed event after publishing the
+            // installed snapshot. Wait for the view to receive that notification.
+            await WaitUntilAsync(() => view.GetVisualDescendants().OfType<Button>()
+                .Any(button => Equals(button.Content, "Check cleanup assets") && button.IsEnabled));
             FindButton(view, "Check cleanup assets").IsEnabled.ShouldBeTrue();
             data.Settings.Data.CleanupDirectory.ShouldBe(Installed().DirectoryPath);
             reloads.ShouldBe(1);

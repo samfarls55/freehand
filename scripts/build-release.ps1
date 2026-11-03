@@ -20,7 +20,8 @@ if (-not $SkipCleanup) {
         # Weights are kept out of the release asset and the ordinary CI workspace.
         $cleanupProvisioning = & (Join-Path $PSScriptRoot 'get-cleanup-assets.ps1') -ManifestPath $selectedCleanup -ValidateManifestOnly
     }
-    if ($cleanupBundle -and (Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe') {
+    if ($cleanupBundle -and ($cleanupBundle.Platform -notin @('win-x64-cpu', 'win-x64-vulkan') -or
+        (Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe')) {
         throw 'Windows packaging requires a Windows cleanup bundle.'
     }
 }

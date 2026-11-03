@@ -1,0 +1,20 @@
+{
+  "utc": "2026-11-03T17:02:13.387026+00:00",
+  "models": [
+    {
+      "candidate": "s1",
+      "manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/s1-gpu-candidate-cpu-quality.json",
+      "manifest_sha256": "bad71e71001364ddb27a112bea576838ef85edc5a71552c2fabbaab6bebddc64",
+      "model_sha256": "3b41ebe2502cbd03e811d5d16b022f5ab551eda58d62597d152f89535003c634"
+    },
+    {
+      "candidate": "spokenly",
+      "manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/manifests/spokenly-gpu-candidate-cpu-quality.json",
+      "manifest_sha256": "a5b1eb934d3b91496e7ebccc3d385fea123c1978585e3f73988f4fa148cd779d",
+      "model_sha256": "66509e0fe1578d2ac4b0773c79a6c83e8d6f218618dfe11e4532beacd999b6e8"
+    }
+  ],
+  "original_corpus_sha256": "3529e74da64616e5b08f2c9c189706f03c68e6247c924eb8b9137743c4881e5d",
+  "scope": "POST-HOLDOUT VALIDATION EXTENSION. Corpus already viewed for Emberon/Scribe, so no fresh held-out claim for these added models. Existing prescribed prompts and v3 adapter frozen; no tuning. CPU quality measured; both fail CPU whole-app memory planning and GPU behavior/SLA remain untested.",
+  "reason": "Recorded target RTX4060 dedicated VRAM makes larger specialists relevant despite CPU memory rejection; evaluate unchanged trained contracts without pretending GPU execution."
+}

@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "candidate": "Spokenly Cleanup 1 Q8",
+  "protocol": "Post-holdout validation extension: Spokenly Cleanup1 Q8 CPU execution + frozen specialist-compact-v3. Corpus previously viewed for earlier candidates; NOT a fresh holdout. No tuning after this validation.",
+  "reviewer": "Assistant manually read all40 validation and10 dictionary actual normalized inputs, restored candidates and final delivered outputs. Agent judgment, not human sign-off; identity visible and not blinded. Reviewer implemented adapters, so not an independent implementation audit.",
+  "reviewed_utc": "2026-11-03T17:10:05.927550+00:00",
+  "scope": "Actual Core fixture pipeline with canned ASR and counted delivery. CPU layers0; GPU potential and Windows/whole-app 15% SLA compliance remain untested. Candidate fields are after provider restoration; raw native model output unavailable. Leading unprotected whitespace is kept in evidence, judged benign for semantics and never credited as useful cleanup.",
+  "sources": {
+    "work/cleanup-small-models-2026-11-03/gpu-candidate-validation/spokenly-dictionary10.json": "4469cf8ff2e8b8b1d19e744200b602e651505acc31142aeaca17e4128ebf4e4d",
+    "work/cleanup-small-models-2026-11-03/gpu-candidate-validation-freeze.json": "abc28649ea0d12738ff26e890492a88e6cdcd3501819754c7f0e930c1f6947ac"
+  },
+  "definitions": {
+    "faithful": "Final intended facts, negation, conditions, uncertainty, intentional emphasis, speech act and required literal/quoted bytes survive. Fallback delivery is judged separately from a model return.",
+    "useful": "A faithful edit addresses an actual defect in the normalized baseline; prior dictionary/number normalization and restored opaque payloads do not earn cleanup credit.",
+    "fully_cleaned": "Faithful clean plain text resolves required cleanup. No-edit inputs qualify when adequately preserved; a harmless final period on an unfinished spoken fragment does not invent a completion.",
+    "acceptable": "Faithful and fully cleaned output. Semantic failures remain failures even though Core structurally accepts them."
+  },
+  "summary": {
+    "case_count": 10,
+    "delivered_faithful": 10,
+    "returned_provider_faithful": 9,
+    "provider_faithfulness_unassessed": 1,
+    "fully_acceptable": 9,
+    "needs_cleanup": 10,
+    "useful_faithful_edits": 9,
+    "fully_cleaned_needed_cases": 9,
+    "no_edit_cases": 0,
+    "no_edit_acceptable": 0,
+    "semantic_failure_case_ids": [],
+    "partial_or_missed_cleanup_case_ids": [
+      "integration-09"
+    ],
+    "fallback_count": 1,
+    "cleanup_status_counts": {
+      "Applied": 9,
+      "Failed": 1
+    },
+    "all_exactly_one_insertion_and_delivery": true,
+    "unprotected_leading_space_count": 9,
+    "explicit_payload_checks": 10,
+    "explicit_payload_checks_exact": 10,
+    "dictionary_payload_checks": 11,
+    "dictionary_payload_checks_exact": 11,
+    "quoted_payload_checks": 0,
+    "quoted_payload_checks_exact": 0
+  },
+  "cases": [
+    {
+      "case_id": "integration-01",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Um and preserves exact Claude-tab-Code replacement including boundary spaces; dictionary/adapter byte preservation, not raw model payload copying.",
+      "original_input": "Um send it to cloud code please.",
+      "normalized_input": "Um send it to   Claude\tCode   please.",
+      "cleanup_input": "Um send it to [[FREEHAND_LITERAL_5c07f1a91cce44c8887383d204303c7b_0_START]]  Claude\tCode  [[FREEHAND_LITERAL_5c07f1a91cce44c8887383d204303c7b_0_END]] please.",
+      "provider_candidate_text": " Send it to [[FREEHAND_LITERAL_5c07f1a91cce44c8887383d204303c7b_0_START]]  Claude\tCode  [[FREEHAND_LITERAL_5c07f1a91cce44c8887383d204303c7b_0_END]] please.",
+      "final_output": " Send it to   Claude\tCode   please.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "  Claude\tCode  ",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "5c07f1a91cce44c8887383d204303c7b_0",
+          "payload": "  Claude\tCode  ",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-02",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Uh and preserves exact replacement Windows path plus check-logs request.",
+      "original_input": "Uh open project file and check the logs.",
+      "normalized_input": "Uh open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "cleanup_input": "Uh open [[FREEHAND_LITERAL_1993395511ca477683e2a0d677c1e87f_0_START]]C:\\Work\\Freehand\\src\\App.cs[[FREEHAND_LITERAL_1993395511ca477683e2a0d677c1e87f_0_END]] and check the logs.",
+      "provider_candidate_text": " Open [[FREEHAND_LITERAL_1993395511ca477683e2a0d677c1e87f_0_START]]C:\\Work\\Freehand\\src\\App.cs[[FREEHAND_LITERAL_1993395511ca477683e2a0d677c1e87f_0_END]] and check the logs.",
+      "final_output": " Open C:\\Work\\Freehand\\src\\App.cs and check the logs.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "C:\\Work\\Freehand\\src\\App.cs",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "1993395511ca477683e2a0d677c1e87f_0",
+          "payload": "C:\\Work\\Freehand\\src\\App.cs",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-03",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Um and preserves exact dollar-space-space42.00 replacement and exactly requirement.",
+      "original_input": "Um the quoted price is special price exactly.",
+      "normalized_input": "Um the quoted price is $  42.00 exactly.",
+      "cleanup_input": "Um the quoted price is [[FREEHAND_LITERAL_e3fc20b4c8e543b4b34bae1112df64d0_0_START]]$  42.00[[FREEHAND_LITERAL_e3fc20b4c8e543b4b34bae1112df64d0_0_END]] exactly.",
+      "provider_candidate_text": " The quoted price is [[FREEHAND_LITERAL_e3fc20b4c8e543b4b34bae1112df64d0_0_START]]$  42.00[[FREEHAND_LITERAL_e3fc20b4c8e543b4b34bae1112df64d0_0_END]] exactly.",
+      "final_output": " The quoted price is $  42.00 exactly.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "$  42.00",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "e3fc20b4c8e543b4b34bae1112df64d0_0",
+          "payload": "$  42.00",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-04",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Uh and preserves both ACME-double-space-Labs and Unix-path replacements in their original order.",
+      "original_input": "Uh send company alias the config path this afternoon.",
+      "normalized_input": "Uh send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "cleanup_input": "Uh send [[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_0_START]]ACME  Labs[[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_0_END]] the [[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_1_START]]/etc/freehand/settings.json[[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_1_END]] this afternoon.",
+      "provider_candidate_text": " Send [[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_0_START]]ACME  Labs[[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_0_END]] the [[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_1_START]]/etc/freehand/settings.json[[FREEHAND_LITERAL_392ed13b34d94999a38ee35a22c81293_1_END]] this afternoon.",
+      "final_output": " Send ACME  Labs the /etc/freehand/settings.json this afternoon.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "ACME  Labs",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        },
+        {
+          "payload": "/etc/freehand/settings.json",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "392ed13b34d94999a38ee35a22c81293_0",
+          "payload": "ACME  Labs",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        },
+        {
+          "marker_key": "392ed13b34d94999a38ee35a22c81293_1",
+          "payload": "/etc/freehand/settings.json",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-05",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Um and preserves exact multiline code replacement including newline and two-space indentation.",
+      "original_input": "Um replace the snippet with code snippet exactly.",
+      "normalized_input": "Um replace the snippet with v2::Thing<T>\n  value exactly.",
+      "cleanup_input": "Um replace the snippet with [[FREEHAND_LITERAL_a67250a3a7744b6881e84a6c8b70806c_0_START]]v2::Thing<T>\n  value[[FREEHAND_LITERAL_a67250a3a7744b6881e84a6c8b70806c_0_END]] exactly.",
+      "provider_candidate_text": " Replace the snippet with [[FREEHAND_LITERAL_a67250a3a7744b6881e84a6c8b70806c_0_START]]v2::Thing<T>\n  value[[FREEHAND_LITERAL_a67250a3a7744b6881e84a6c8b70806c_0_END]] exactly.",
+      "final_output": " Replace the snippet with v2::Thing<T>\n  value exactly.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "v2::Thing<T>\n  value",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "a67250a3a7744b6881e84a6c8b70806c_0",
+          "payload": "v2::Thing<T>\n  value",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-06",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Uh while preserving already normalized $50 and exact ACME replacement with before-lunch deadline.",
+      "original_input": "Uh send fifty dollars to company alias before lunch.",
+      "normalized_input": "Uh send $50 to ACME before lunch.",
+      "cleanup_input": "Uh send $50 to [[FREEHAND_LITERAL_d1ceb66f83c54ad1b46a0ad898e62f71_0_START]]ACME[[FREEHAND_LITERAL_d1ceb66f83c54ad1b46a0ad898e62f71_0_END]] before lunch.",
+      "provider_candidate_text": " Send $50 to [[FREEHAND_LITERAL_d1ceb66f83c54ad1b46a0ad898e62f71_0_START]]ACME[[FREEHAND_LITERAL_d1ceb66f83c54ad1b46a0ad898e62f71_0_END]] before lunch.",
+      "final_output": " Send $50 to ACME before lunch.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "ACME",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "d1ceb66f83c54ad1b46a0ad898e62f71_0",
+          "payload": "ACME",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-07",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Um and preserves once-applied BetaProject replacement; no cascade to GammaProject.",
+      "original_input": "Um alpha is ready.",
+      "normalized_input": "Um BetaProject is ready.",
+      "cleanup_input": "Um [[FREEHAND_LITERAL_b8b1a3f1a4194a9ab2e57fa8f36a035b_0_START]]BetaProject[[FREEHAND_LITERAL_b8b1a3f1a4194a9ab2e57fa8f36a035b_0_END]] is ready.",
+      "provider_candidate_text": " [[FREEHAND_LITERAL_b8b1a3f1a4194a9ab2e57fa8f36a035b_0_START]]BetaProject[[FREEHAND_LITERAL_b8b1a3f1a4194a9ab2e57fa8f36a035b_0_END]] is ready.",
+      "final_output": " BetaProject is ready.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "BetaProject",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "b8b1a3f1a4194a9ab2e57fa8f36a035b_0",
+          "payload": "BetaProject",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-08",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Resolves Thursday-to-Friday correction while preserving exact ACME replacement.",
+      "original_input": "Send it to company alias on Thursday, sorry, Friday.",
+      "normalized_input": "Send it to ACME on Thursday, sorry, Friday.",
+      "cleanup_input": "Send it to [[FREEHAND_LITERAL_a11fe0f6f64a439485a14bff38ba4f56_0_START]]ACME[[FREEHAND_LITERAL_a11fe0f6f64a439485a14bff38ba4f56_0_END]] on Thursday, sorry, Friday.",
+      "provider_candidate_text": " Send it to [[FREEHAND_LITERAL_a11fe0f6f64a439485a14bff38ba4f56_0_START]]ACME[[FREEHAND_LITERAL_a11fe0f6f64a439485a14bff38ba4f56_0_END]] on Friday.",
+      "final_output": " Send it to ACME on Friday.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "ACME",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "a11fe0f6f64a439485a14bff38ba4f56_0",
+          "payload": "ACME",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-09",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": null,
+      "needs_cleanup": true,
+      "useful": false,
+      "fully_cleaned": false,
+      "acceptable": false,
+      "severity": "minor",
+      "notes": "Processor reports InvalidDataException and no candidate text. Core delivers normalized original with ACME-to-Priya correction narrative intact once. Fallback is faithful and retains replacement bytes, but cleanup is unsuccessful. Strict required-literal preservation conflicts with removing this obsolete protected recipient. This report does not expose raw model output or prove which token/change caused rejection.",
+      "original_input": "Send it to company alias, sorry, send it to Priya instead.",
+      "normalized_input": "Send it to ACME, sorry, send it to Priya instead.",
+      "cleanup_input": "Send it to [[FREEHAND_LITERAL_0215ea7f630a4f4985810cdff1e3a8fb_0_START]]ACME[[FREEHAND_LITERAL_0215ea7f630a4f4985810cdff1e3a8fb_0_END]], sorry, send it to Priya instead.",
+      "provider_candidate_text": null,
+      "final_output": "Send it to ACME, sorry, send it to Priya instead.",
+      "cleanup_status": "Failed",
+      "fallback_used": true,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": "Processor:InvalidDataException",
+      "unprotected_leading_space": false,
+      "explicit_literal_checks": [],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "0215ea7f630a4f4985810cdff1e3a8fb_0",
+          "payload": "ACME",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": null
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Core fallback retains normalized original; no candidate or raw model output available, so rejected model content and precise error cause remain unassessed.",
+      "raw_model_output_available": false
+    },
+    {
+      "case_id": "integration-10",
+      "category": "dictionary_integration",
+      "faithful": true,
+      "provider_faithful": true,
+      "needs_cleanup": true,
+      "useful": true,
+      "fully_cleaned": true,
+      "acceptable": true,
+      "severity": "none",
+      "notes": "Removes Uh and preserves exact Unicode Zoë Nguyễn dictionary replacement and test-passed question.",
+      "original_input": "Uh ask person alias whether the test passed.",
+      "normalized_input": "Uh ask Zoë Nguyễn whether the test passed.",
+      "cleanup_input": "Uh ask [[FREEHAND_LITERAL_039b36c3dde24322a4924225e0a25ece_0_START]]Zoë Nguyễn[[FREEHAND_LITERAL_039b36c3dde24322a4924225e0a25ece_0_END]] whether the test passed.",
+      "provider_candidate_text": " Ask [[FREEHAND_LITERAL_039b36c3dde24322a4924225e0a25ece_0_START]]Zoë Nguyễn[[FREEHAND_LITERAL_039b36c3dde24322a4924225e0a25ece_0_END]] whether the test passed.",
+      "final_output": " Ask Zoë Nguyễn whether the test passed.",
+      "cleanup_status": "Applied",
+      "fallback_used": false,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "error": null,
+      "unprotected_leading_space": true,
+      "explicit_literal_checks": [
+        {
+          "payload": "Zoë Nguyễn",
+          "exact_present": true,
+          "source_occurrences": 1,
+          "delivered_occurrences": 1
+        }
+      ],
+      "dictionary_payload_checks": [
+        {
+          "marker_key": "039b36c3dde24322a4924225e0a25ece_0",
+          "payload": "Zoë Nguyễn",
+          "exact_present_in_delivered_text": true,
+          "exact_present_in_candidate": true
+        }
+      ],
+      "quoted_payload_checks": [],
+      "all_explicit_literal_checks_exact": true,
+      "all_dictionary_payloads_exact": true,
+      "all_quoted_payloads_exact": true,
+      "literal_preservation_credit": "Exact replacement bytes preserved by dictionary/adapter/Core.",
+      "raw_model_output_available": false
+    }
+  ]
+}

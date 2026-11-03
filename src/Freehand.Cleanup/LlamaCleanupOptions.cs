@@ -13,6 +13,30 @@ public enum CleanupPromptStyle
     Ministral3,
     /// <summary>Gemma 4 instruction model using its embedded chat template.</summary>
     Gemma4,
+    /// <summary>S1-mini by Superwhisper, with the prescribed system, controls and empty thinking prefix.</summary>
+    S1Mini,
+    /// <summary>Handy Editor's documented empty-system ChatML condition.</summary>
+    HandyEditor,
+    /// <summary>Handy Editor's user-only template condition, for a separately labeled comparison.</summary>
+    HandyEditorUserOnly,
+    /// <summary>Emberon-2's short fixed instruction and raw transcript.</summary>
+    Emberon2,
+    /// <summary>BitVoice's SmolLM2 fine-tune, with its trained cleanup instruction.</summary>
+    BitVoiceSmol,
+    /// <summary>Kudu Writer Tiny's v2 prose prompt with its optional polished-text note.</summary>
+    KuduTinyPolished,
+    /// <summary>localflow-clean's fixed instruction and dictation tags, without optional context.</summary>
+    LocalflowClean,
+    /// <summary>Spokenly Cleanup 1's plain key-value completion, without optional context.</summary>
+    SpokenlyCleanup,
+    /// <summary>ScribeKey Fast's semi-casual/prose/general task completion.</summary>
+    ScribeKeyFast,
+    /// <summary>Original Sotto's BOS and input/output task completion.</summary>
+    Sotto,
+    /// <summary>A general instruction-model control using the embedded chat template.</summary>
+    GenericChat,
+    /// <summary>SmolLM2 Post-ASR Engine's clean-punctuate formatting task.</summary>
+    SmolPostAsr,
 }
 
 /// <summary>A pinned runtime dependency, model or accompanying asset in the cleanup bundle.</summary>
@@ -36,12 +60,33 @@ public sealed record LlamaCleanupOptions
     public required string ModelId { get; init; }
     /// <summary>The selected model's trained input contract.</summary>
     public required CleanupPromptStyle PromptStyle { get; init; }
+    /// <summary>Whether to protect dictionary blocks and paired quoted wording with verified compact specialist identifiers.</summary>
+    /// <remarks>Disabled by default so trained specialist contracts can be evaluated independently of this adapter.</remarks>
+    public bool MaskSpecialistLiterals { get; init; }
     /// <summary>Absolute manifest directory for a complete bundle inventory, when supplied.</summary>
     public string? BundleDirectory { get; init; }
     /// <summary>Optional complete inventory, including runtime dependencies, the model and accompanying assets.</summary>
     public IReadOnlyList<CleanupArtifactHash> Artifacts { get; init; } = [];
     /// <summary>CPU generation and prompt-processing thread count.</summary>
     public int Threads { get; init; } = 4;
+    /// <summary>Logical prompt batch bound; independent of the complete input context limit.</summary>
+    public int BatchSize { get; init; } = 128;
+    /// <summary>Physical compute batch bound; must not exceed the logical batch.</summary>
+    public int MicroBatchSize { get; init; } = 128;
+    /// <summary>Maximum retained host prompt-cache size in MiB; zero disables it.</summary>
+    public int PromptCacheMiB { get; init; }
+    /// <summary>Maximum recurrent/sliding-window state checkpoints per inference slot; zero disables them.</summary>
+    public int ContextCheckpoints { get; init; }
+    /// <summary>KV key-cache type. Quantized types require exact model/backend validation.</summary>
+    public string CacheTypeK { get; init; } = "f16";
+    /// <summary>KV value-cache type. Quantized types require exact model/backend validation.</summary>
+    public string CacheTypeV { get; init; } = "f16";
+    /// <summary>Whether the CPU runtime may repack weights for its selected kernels.</summary>
+    public bool Repack { get; init; } = true;
+    /// <summary>Maximum prompt-lookup draft tokens for fixed ngram-map-k speculation; zero disables it.</summary>
+    public int PromptLookupTokens { get; init; }
+    /// <summary>Prompt-lookup match length in tokens; only used when prompt lookup is enabled.</summary>
+    public int PromptLookupMatchTokens { get; init; } = 3;
     /// <summary>Total input and output token budget for one inference slot.</summary>
     public int ContextSize { get; init; } = 8192;
     /// <summary>Maximum complete response length; reaching the limit is rejected.</summary>
@@ -60,7 +105,16 @@ public sealed record LlamaCleanupOptions
         ArgumentException.ThrowIfNullOrWhiteSpace(manifestPath);
         var fullPath = Path.GetFullPath(manifestPath);
         if (!File.Exists(fullPath)) throw new FileNotFoundException("Cleanup manifest is missing.", fullPath);
-        using var document = JsonDocument.Parse(File.ReadAllBytes(fullPath), new JsonDocumentOptions { MaxDepth = 8 });
+        return LoadManifest(fullPath, File.ReadAllBytes(fullPath));
+    }
+
+    /// <summary>Parses one already-read manifest snapshot, resolving its artifacts beside the supplied manifest path.</summary>
+    /// <remarks>This overload lets qualification bind the exact parsed bytes to a source hash without a second file read.</remarks>
+    public static LlamaCleanupOptions LoadManifest(string manifestPath, ReadOnlyMemory<byte> contents)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(manifestPath);
+        var fullPath = Path.GetFullPath(manifestPath);
+        using var document = JsonDocument.Parse(contents, new JsonDocumentOptions { MaxDepth = 8 });
         var root = document.RootElement;
         if (root.ValueKind != JsonValueKind.Object) throw new InvalidDataException("Cleanup manifest must be a JSON object.");
         var directory = Path.GetDirectoryName(fullPath)!;
@@ -75,9 +129,19 @@ public sealed record LlamaCleanupOptions
             ModelSha256 = Required(root, "modelSha256"),
             ModelId = Required(root, "modelId"),
             PromptStyle = style,
+            MaskSpecialistLiterals = Boolean(root, "maskSpecialistLiterals", false),
             BundleDirectory = artifacts.Length > 0 ? directory : null,
             Artifacts = artifacts,
             Threads = Integer(root, "threads", 4),
+            BatchSize = Integer(root, "batchSize", 128),
+            MicroBatchSize = Integer(root, "microBatchSize", 128),
+            PromptCacheMiB = Integer(root, "promptCacheMiB", 0),
+            ContextCheckpoints = Integer(root, "contextCheckpoints", 0),
+            CacheTypeK = OptionalString(root, "cacheTypeK", "f16"),
+            CacheTypeV = OptionalString(root, "cacheTypeV", "f16"),
+            Repack = Boolean(root, "repack", true),
+            PromptLookupTokens = Integer(root, "promptLookupTokens", 0),
+            PromptLookupMatchTokens = Integer(root, "promptLookupMatchTokens", 3),
             ContextSize = Integer(root, "contextSize", 8192),
             MaxOutputTokens = Integer(root, "maxOutputTokens", 2048),
             GpuLayers = Integer(root, "gpuLayers", 0),
@@ -102,6 +166,15 @@ public sealed record LlamaCleanupOptions
         if (!IsHash(RuntimeSha256) || !IsHash(ModelSha256)) throw new ArgumentException("Cleanup artifacts require SHA-256 hashes.");
         if (!Enum.IsDefined(PromptStyle)) throw new ArgumentOutOfRangeException(nameof(PromptStyle));
         if (Threads is < 1 or > 256) throw new ArgumentOutOfRangeException(nameof(Threads));
+        if (BatchSize is < 1 or > 8192) throw new ArgumentOutOfRangeException(nameof(BatchSize));
+        if (MicroBatchSize < 1 || MicroBatchSize > BatchSize) throw new ArgumentOutOfRangeException(nameof(MicroBatchSize));
+        if (PromptCacheMiB is < 0 or > 8192) throw new ArgumentOutOfRangeException(nameof(PromptCacheMiB));
+        if (ContextCheckpoints is < 0 or > 32) throw new ArgumentOutOfRangeException(nameof(ContextCheckpoints));
+        if (CacheTypeK is not ("f16" or "q8_0" or "q4_0")) throw new ArgumentException("Unsupported cleanup key-cache type.", nameof(CacheTypeK));
+        if (CacheTypeV is not ("f16" or "q8_0" or "q4_0")) throw new ArgumentException("Unsupported cleanup value-cache type.", nameof(CacheTypeV));
+        if (PromptLookupTokens is < 0 or > 64) throw new ArgumentOutOfRangeException(nameof(PromptLookupTokens));
+        if (PromptLookupMatchTokens is < 1 or > 12) throw new ArgumentOutOfRangeException(nameof(PromptLookupMatchTokens));
+        if (PromptLookupTokens >= BatchSize) throw new ArgumentException("Prompt lookup plus its sampled token must fit the logical batch.", nameof(PromptLookupTokens));
         if (ContextSize < 256) throw new ArgumentOutOfRangeException(nameof(ContextSize));
         if (MaxOutputTokens < 1 || MaxOutputTokens >= ContextSize) throw new ArgumentOutOfRangeException(nameof(MaxOutputTokens));
         if (GpuLayers < 0) throw new ArgumentOutOfRangeException(nameof(GpuLayers));
@@ -181,8 +254,24 @@ public sealed record LlamaCleanupOptions
     {
         var value = Property(root, name);
         if (value.ValueKind == JsonValueKind.Undefined) return fallback;
-        if (!value.TryGetInt32(out var number)) throw new InvalidDataException("Cleanup manifest contains an invalid integer: " + name + ".");
+        if (value.ValueKind != JsonValueKind.Number || !value.TryGetInt32(out var number))
+            throw new InvalidDataException("Cleanup manifest contains an invalid integer: " + name + ".");
         return number;
+    }
+    private static string OptionalString(JsonElement root, string name, string fallback)
+    {
+        var value = Property(root, name);
+        if (value.ValueKind == JsonValueKind.Undefined) return fallback;
+        if (value.ValueKind != JsonValueKind.String) throw new InvalidDataException("Cleanup manifest contains an invalid string: " + name + ".");
+        return value.GetString()!;
+    }
+    private static bool Boolean(JsonElement root, string name, bool fallback)
+    {
+        var value = Property(root, name);
+        if (value.ValueKind == JsonValueKind.Undefined) return fallback;
+        if (value.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
+            throw new InvalidDataException("Cleanup manifest contains an invalid boolean: " + name + ".");
+        return value.GetBoolean();
     }
     private static JsonElement Property(JsonElement root, string name)
     {

@@ -14,6 +14,7 @@ internal static class DesktopDeliveryBenchmark
     {
         var report = new DesktopDeliveryReport
         {
+            IncludeCleanup = Environment.GetCommandLineArgs().Contains("--include-cleanup", StringComparer.Ordinal),
             RequireGpuTelemetry = Environment.GetCommandLineArgs().Contains("--require-gpu-telemetry", StringComparer.Ordinal),
             ColdOnly = Environment.GetCommandLineArgs().Contains("--cold-only", StringComparer.Ordinal),
             ReadyOnly = Environment.GetCommandLineArgs().Contains("--ready-only", StringComparer.Ordinal),
@@ -35,11 +36,14 @@ internal static class DesktopDeliveryBenchmark
         {
             using var monitorStop = new CancellationTokenSource();
             var workers = composition.BenchmarkWorkers ?? throw new IOException("The actual desktop worker tracker is unavailable.");
+            var cleanupWorkers = composition.BenchmarkCleanupWorkers;
+            BenchmarkCleanupReplayContext? cleanupContext = null;
             var memory = PlatformFactory.CreateProcessMemoryReader() ?? throw new IOException("Process memory counters unavailable.");
             using var gpuMemory = PlatformFactory.CreateGpuMemoryReader();
             report.InitializationCompletedBeforeMemorySampling = composition.ReadinessTask.IsCompleted;
             report.MemorySamplingStartedMillisecondsAfterLaunch = Stopwatch.GetElapsedTime(Program.LaunchedAt).TotalMilliseconds;
-            var monitor = SampleMemoryAsync(memory, gpuMemory, workers, report, monitorStop.Token);
+            report.CleanupWorkersExistedBeforeMemorySampling = cleanupWorkers?.Snapshot().Count > 0;
+            var monitor = SampleMemoryAsync(memory, gpuMemory, workers, cleanupWorkers, report, monitorStop.Token);
             try
             {
                 await composition.ReadinessTask.ConfigureAwait(false);
@@ -58,20 +62,61 @@ internal static class DesktopDeliveryBenchmark
                     await speech.DisposeAsync().ConfigureAwait(false);
                     report.StartupWorkerResetForColdDiagnostic = true;
                 }
-                var context = new BenchmarkReplayContext(speech, workers, report.ResidentPolicy, report.StartupLoadMilliseconds);
+                if (report.IncludeCleanup)
+                {
+                    if (!report.ValidateCleanupSelection(composition.Settings.Data.CleanupEnabled, composition.Cleanup.IsAvailable))
+                        throw new IOException("Cleanup qualification requires the enabled, available configured model.");
+                    if (cleanupWorkers is null) throw new IOException("The actual desktop cleanup worker tracker is unavailable.");
+                    cleanupContext = new(composition.Cleanup,
+                        () => composition.Settings.Data.CleanupEnabled && composition.Cleanup.IsAvailable,
+                        cleanupWorkers);
+                    var options = cleanupContext.Options;
+                    report.CleanupConfiguration = new(options.ModelId, cleanupContext.ManifestPath, cleanupContext.ManifestSha256,
+                        options.ModelSha256, options.RuntimeSha256, options.PromptStyle.ToString(), options.Threads,
+                        options.ContextSize, options.MaxOutputTokens, options.BatchSize, options.MicroBatchSize,
+                        options.MaskSpecialistLiterals, options.Repack, options.IdleTimeout.TotalMilliseconds,
+                        cleanupContext.InitialEpoch, cleanupContext.OptionsFingerprint,
+                        JsonSerializer.SerializeToElement(options, BenchmarkCleanupJsonContext.Default.LlamaCleanupOptions));
+                    report.ApplicationIdentity = await BenchmarkApplicationIdentity.CaptureAsync().ConfigureAwait(false);
+                    if (!report.ColdOnly)
+                    {
+                        var warmupAt = Stopwatch.GetTimestamp();
+                        await composition.Cleanup.ProcessAsync("This is a cleanup warmup.", CancellationToken.None).ConfigureAwait(false);
+                        report.CleanupStartupWarmupMilliseconds = Stopwatch.GetElapsedTime(warmupAt).TotalMilliseconds;
+                        cleanupContext.ValidateConfiguration();
+                    }
+                }
+                var context = new BenchmarkReplayContext(speech, workers, report.ResidentPolicy, report.StartupLoadMilliseconds, cleanupContext);
                 report.Replay = await EngineeringChecks.RunDeliveryReplayAsync(deliveryHotkey: composition.DeliveryHotkey,
                     realtimeWarmCapture: true, coldOnly: report.ColdOnly, readyOnly: report.ReadyOnly, context: context).ConfigureAwait(false);
-                report.ValidateReplayGate(report.Replay);
             }
-            catch (Exception error) when (error is IOException or JsonException or InvalidOperationException or OperationCanceledException)
+            catch (Exception error) when (error is IOException or InvalidDataException or JsonException or InvalidOperationException or OperationCanceledException or ArgumentException or UnauthorizedAccessException or TimeoutException)
             {
                 report.Failures.Add(error.GetType().Name + ": " + error.Message);
             }
             finally
             {
+                if (cleanupContext is not null)
+                {
+                    try
+                    {
+                        // Release the worker while sampling remains active; keep the
+                        // application's configured processor object and selection alive.
+                        await cleanupContext.StopAsync().ConfigureAwait(false);
+                        report.CleanupTeardownCompleted = cleanupContext.Workers.LiveWorkerIds().Count == 0;
+                        await Task.Delay(20).ConfigureAwait(false);
+                    }
+                    catch (Exception error) when (error is IOException or InvalidDataException or InvalidOperationException or OperationCanceledException or TimeoutException or UnauthorizedAccessException)
+                    {
+                        report.Failures.Add("Cleanup teardown failed: " + error.GetType().Name);
+                    }
+                    report.OwnedCleanupWorkers.AddRange(cleanupContext.Workers.Snapshot());
+                    report.CleanupOrphanWorkers = report.OwnedCleanupWorkers.Count(worker => !worker.HasExited);
+                }
                 await monitorStop.CancelAsync().ConfigureAwait(false);
                 await monitor.ConfigureAwait(false);
             }
+            if (report.Replay is not null) report.ValidateReplayGate(report.Replay);
             report.ValidateMemoryGate();
         }
         Directory.CreateDirectory(Path.GetDirectoryName(output)!);
@@ -80,7 +125,7 @@ internal static class DesktopDeliveryBenchmark
     }
 
     private static async Task SampleMemoryAsync(IProcessMemoryReader reader, IGpuMemoryReader? gpuReader,
-        BenchmarkWorkerLauncher workers, DesktopDeliveryReport report, CancellationToken token)
+        BenchmarkWorkerLauncher workers, BenchmarkCleanupWorkerLauncher? cleanupWorkers, DesktopDeliveryReport report, CancellationToken token)
     {
         try
         {
@@ -95,10 +140,12 @@ internal static class DesktopDeliveryBenchmark
                 var processes = new List<(int Id, string Role, ProcessMemory Memory)> { (Environment.ProcessId, "desktop", host) };
                 // Include every live process launched by this actual composition,
                 // including startup, reset, recovery and diagnostic transitions.
-                foreach (var workerId in workers.LiveWorkerIds())
+                var owned = workers.LiveWorkerIds().Select(id => (Id: id, Role: "speech"))
+                    .Concat((cleanupWorkers?.LiveWorkerIds() ?? []).Select(id => (Id: id, Role: "cleanup")));
+                foreach (var (workerId, role) in owned)
                 {
-                    if (reader.TryRead(workerId, out var worker)) processes.Add((workerId, "worker", worker));
-                    else if (workers.LiveWorkerIds().Contains(workerId))
+                    if (reader.TryRead(workerId, out var worker)) processes.Add((workerId, role, worker));
+                    else if (role == "speech" ? workers.LiveWorkerIds().Contains(workerId) : cleanupWorkers!.LiveWorkerIds().Contains(workerId))
                     {
                         report.Failures.Add("Could not sample native worker memory.");
                         return;
@@ -118,6 +165,17 @@ internal static class DesktopDeliveryBenchmark
 internal sealed class DesktopDeliveryReport
 {
     private static readonly int[] PreparedRecordingSeconds = [1, 3, 8, 10];
+    private static readonly int[] LongRecordingSeconds = [30, 60];
+    public bool IncludeCleanup { get; set; }
+    public BenchmarkCleanupConfiguration? CleanupConfiguration { get; set; }
+    public BenchmarkApplicationIdentity? ApplicationIdentity { get; set; }
+    public double? CleanupStartupWarmupMilliseconds { get; set; }
+    public bool CleanupWorkersExistedBeforeMemorySampling { get; set; }
+    public bool CleanupTeardownCompleted { get; set; }
+    public int CleanupOrphanWorkers { get; set; }
+    public List<BenchmarkWorkerIdentity> OwnedCleanupWorkers { get; } = [];
+    public bool FullCleanupQualificationRequested => IncludeCleanup && !ColdOnly && !ReadyOnly;
+    public bool CleanupQualificationPassed => FullCleanupQualificationRequested && Failures.Count == 0 && Replay is not null && MemorySamples > 0;
     public bool ColdOnly { get; set; }
     public bool ReadyOnly { get; set; }
     public bool ResidentPolicy { get; set; }
@@ -128,8 +186,12 @@ internal sealed class DesktopDeliveryReport
     public bool StartupWorkerResetForColdDiagnostic { get; set; }
     public string Scope { get; } = "Actual Avalonia composition and all its tracked native workers. Resident acceptance measures prepared-worker recordings after 15 seconds idle, plus 50 warm recordings; model initialization is measured separately before hotkey readiness. Each idle interval begins after a separate one-second drain allowance and records the change in successful native preparation count, which must be zero. Capture starts without awaiting preparation; each prepared-worker trial records successful preparations from just before key press through return to idle, which must be positive. These counts describe native requests, not measured GPU clocks. Forced-fresh and ready-only modes are separate diagnostics. Public audio reaches an owned Windows EDIT control through real SendInput; timestamps measure received characters, not compositor paint. No physical microphone/hotkey test or fresh-worker 700 ms claim. Memory sampling begins on benchmark entry after UI construction, before awaiting readiness; any earlier startup allocation may precede sampling. RAM sums simultaneous desktop and all live owned worker working sets plus shared GPU bytes, conservatively permitting double counting. Dedicated VRAM and private commit remain separate. GPU acceptance requires --require-gpu-telemetry.";
     public string Comparison { get; } = "Provisional limits only. Wispr Flow was not benchmarked.";
-    public long MemoryLimitBytes { get; } = 650_000_000;
-    public double LatencyLimitMilliseconds { get; } = 700;
+    public long OriginalMemoryLimitBytes { get; } = 650_000_000;
+    public double OriginalLatencyLimitMilliseconds { get; } = 700;
+    public int RequestedTolerancePercent => IncludeCleanup ? 15 : 0;
+    public long MemoryLimitBytes => IncludeCleanup ? 747_500_000 : OriginalMemoryLimitBytes;
+    public double LatencyLimitMilliseconds => IncludeCleanup ? 805 : OriginalLatencyLimitMilliseconds;
+    public string CleanupScope { get; } = "--include-cleanup explicitly executes the configured local processor through Core before the owned Windows EDIT receives real SendInput. Warmup is separate; forced-fresh, first-after-cleanup-idle, restart and repeated-audio 30/60-second observations are separate from 50 warm short recordings. Every qualification trial requires one executed accepted cleanup; fallback is a failure. Core acceptance is structural, not proof of semantic fidelity; repeated public audio tests performance, not cleanup quality. Cleanup memory includes startup, retained workers, restarts and reset teardown. Baseline 650MB/700ms limits remain unchanged without the flag. No physical microphone/hotkey or all-length 805ms claim. Idle diagnostic waits at most two minutes; a longer configured timeout cannot establish idle unload in this run.";
     public long PeakWorkingSetBytes { get; set; }
     public long PeakPrivateBytes { get; set; }
     public bool RequireGpuTelemetry { get; set; }
@@ -137,6 +199,9 @@ internal sealed class DesktopDeliveryReport
     public long GpuTelemetryMissingSamples { get; private set; }
     public long GpuTelemetrySamples { get; private set; }
     public bool WorkerGpuInstanceObserved { get; private set; }
+    public bool CleanupGpuMemoryObserved { get; private set; }
+    public bool CleanupGpuOffloadRequested => CleanupConfiguration?.ActualOptions is { ValueKind: JsonValueKind.Object } options
+        && options.TryGetProperty("GpuLayers", out var layers) && layers.TryGetInt32(out var count) && count > 0;
     public long? PeakGpuDedicatedBytes => GpuTelemetrySamples == 0 ? null : _peakGpuDedicated;
     public long? PeakGpuSharedBytes => GpuTelemetrySamples == 0 ? null : _peakGpuShared;
     public long? PeakGpuCommittedBytes => GpuTelemetrySamples == 0 ? null : _peakGpuCommitted;
@@ -149,6 +214,14 @@ internal sealed class DesktopDeliveryReport
     private long _peakConservativeRam;
     private long _peakGpuDedicated, _peakGpuShared, _peakGpuCommitted;
 
+    internal bool ValidateCleanupSelection(bool enabled, bool available)
+    {
+        if (!IncludeCleanup) return true;
+        if (enabled && available) return true;
+        Failures.Add("Cleanup qualification requires cleanup enabled and a configured available model.");
+        return false;
+    }
+
     internal void ValidateReplayGate(BenchmarkReport replay)
     {
         if (replay.Failures.Count != 0 || replay.OrphanWorkers != 0)
@@ -158,7 +231,7 @@ internal sealed class DesktopDeliveryReport
             if (replay.ReleaseToFullInputMilliseconds.Count != 50)
                 Failures.Add("Complete text receipt was not confirmed for every warm trial.");
             if (replay.ReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
-                Failures.Add("A warm delivery exceeded the provisional 700 ms limit.");
+                Failures.Add("A warm delivery exceeded the requested " + LatencyLimitMilliseconds + " ms limit.");
             if (!replay.WorkerCrashRecoveryPassed || !replay.TimeoutRetentionPassed || replay.UnloadCycles != 20)
                 Failures.Add("The complete recovery, retained-audio and unload controls did not pass.");
         }
@@ -177,7 +250,7 @@ internal sealed class DesktopDeliveryReport
             if (replay.ReadyPreparationCounts.Count != 4 || replay.ReadyPreparationCounts.Any(value => value <= 0))
                 Failures.Add("A prepared-worker recording did not confirm a successful native preparation request.");
             if (replay.ReadyReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
-                Failures.Add("A prepared-worker delivery exceeded the provisional 700 ms limit.");
+                Failures.Add("A prepared-worker delivery exceeded the requested " + LatencyLimitMilliseconds + " ms limit.");
             if (replay.ColdRecordingSeconds.Count != 0)
                 Failures.Add("Prepared-worker results were mislabeled as forced-fresh recordings.");
         }
@@ -185,8 +258,40 @@ internal sealed class DesktopDeliveryReport
         {
             if (replay.ColdReleaseToFullInputMilliseconds.Count != 3)
                 Failures.Add("Complete text receipt was not confirmed for every forced-fresh dictation.");
-            if (replay.ColdReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
-                Failures.Add("A forced-fresh delivery exceeded the provisional 700 ms limit.");
+            // The full cleanup gate is ready-state acceptance. Cold initialization
+            // remains visible separately; explicit cold-only diagnostics keep a cap.
+            if ((!IncludeCleanup || ColdOnly) && replay.ColdReleaseToFullInputMilliseconds.Any(value => value > LatencyLimitMilliseconds))
+                Failures.Add("A forced-fresh delivery exceeded the requested " + LatencyLimitMilliseconds + " ms limit.");
+        }
+        if (IncludeCleanup)
+        {
+            if (!replay.IncludeCleanup || replay.CleanupTrials.Count == 0
+                || replay.CleanupTrials.Any(trial => trial.ProviderCalls != 1 || trial.Outcome is not ("Applied" or "Unchanged")))
+                Failures.Add("Cleanup qualification requires an executed accepted cleanup on every replay trial; fallback or disabled cleanup is not a pass.");
+            var initialPhase = ResidentPolicy ? "prepared" : "forced-fresh";
+            if (replay.CleanupTrials.Count(trial => trial.Phase == initialPhase) != (ResidentPolicy ? 4 : 3))
+                Failures.Add("Cleanup execution was not confirmed for every initial replay diagnostic.");
+            if (CleanupConfiguration is null || CleanupConfiguration.OptionsFingerprint is not { Length: 64 }
+                || CleanupConfiguration.ActualOptions is null || ApplicationIdentity is null
+                || CleanupWorkersExistedBeforeMemorySampling || OwnedCleanupWorkers.Count == 0
+                || CleanupOrphanWorkers != 0 || !CleanupTeardownCompleted)
+                Failures.Add("Cleanup configuration, complete startup sampling and worker teardown were not confirmed.");
+            if (FullCleanupQualificationRequested)
+            {
+                if (replay.CleanupTrials.Count(trial => trial.Phase == "warm") != 50
+                    || replay.CleanupWarmups.Count == 0 || replay.CleanupWarmups.Any(warmup => warmup.ProviderCalls != 1))
+                    Failures.Add("Cleanup qualification did not execute a separate warmup and all 50 warm recordings.");
+                if (!replay.LongRecordingSeconds.SequenceEqual(LongRecordingSeconds) || replay.LongReleaseToFullInputMilliseconds.Count != 2)
+                    Failures.Add("Long cleanup delivery diagnostics were not completed.");
+                if (replay.CleanupTrials.Count(trial => trial.Phase == "long") != 2
+                    || replay.CleanupTrials.Count(trial => trial.Phase == "first-after-cleanup-idle") != 1
+                    || replay.CleanupTrials.Count(trial => trial.Phase == "cleanup-worker-recovery") != 1
+                    || replay.CleanupTrials.Count(trial => trial.Phase == "speech-worker-recovery") != 1)
+                    Failures.Add("Cleanup execution was not confirmed for every long, idle and recovery diagnostic.");
+                if (!replay.CleanupIdleUnloadObserved || replay.FirstAfterCleanupIdleFullInputMilliseconds is null
+                    || !replay.CleanupCrashRecoveryPassed)
+                    Failures.Add("Cleanup first-after-idle and native-worker recovery diagnostics were not completed.");
+            }
         }
     }
 
@@ -212,7 +317,9 @@ internal sealed class DesktopDeliveryReport
         var dedicated = processes.Sum(process => process.Gpu!.Value.DedicatedBytes);
         var shared = processes.Sum(process => process.Gpu!.Value.SharedBytes);
         var gpuCommitted = processes.Sum(process => process.Gpu!.Value.CommittedBytes);
-        WorkerGpuInstanceObserved |= processes.Any(process => process.Role == "worker" && process.Gpu!.Value.HasInstance);
+        WorkerGpuInstanceObserved |= processes.Any(process => process.Role is "worker" or "speech" or "cleanup" && process.Gpu!.Value.HasInstance);
+        CleanupGpuMemoryObserved |= processes.Any(process => process.Role == "cleanup" && process.Gpu!.Value is
+            { HasInstance: true } gpu && (gpu.DedicatedBytes > 0 || gpu.SharedBytes > 0 || gpu.CommittedBytes > 0));
         GpuTelemetrySamples++;
         _peakGpuDedicated = Math.Max(_peakGpuDedicated, dedicated);
         _peakGpuShared = Math.Max(_peakGpuShared, shared);
@@ -227,11 +334,13 @@ internal sealed class DesktopDeliveryReport
     internal void ValidateMemoryGate()
     {
         if (PeakWorkingSetBytes > MemoryLimitBytes || _peakConservativeRam > MemoryLimitBytes)
-            Failures.Add("The desktop and native worker exceeded the provisional 650 MB physical RAM limit.");
+            Failures.Add("The desktop and native workers exceeded the requested " + MemoryLimitBytes + " byte physical RAM limit.");
         if (GpuTelemetryMissingSamples != 0 || MemorySamples == 0)
             Failures.Add("Physical RAM acceptance requires complete dedicated/shared GPU memory telemetry.");
         if (RequireGpuTelemetry && !WorkerGpuInstanceObserved)
             Failures.Add("GPU acceptance did not observe a native worker GPU counter instance.");
+        if (RequireGpuTelemetry && CleanupGpuOffloadRequested && !CleanupGpuMemoryObserved)
+            Failures.Add("Cleanup GPU offload acceptance did not observe positive memory counters for the actual cleanup worker.");
     }
 }
 
