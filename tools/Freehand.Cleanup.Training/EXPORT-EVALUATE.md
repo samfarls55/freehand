@@ -123,6 +123,45 @@ case content. Reusing that consumed test after tuning is rejected; further
 training requires a genuinely new independently authored test. A blind path
 cannot be passed as development data.
 
+An optional preregistered original control can join the same one-time Core run.
+Freeze the original IQ4_XS artifact with `freeze --original-control-provenance
+ORIGINAL-CONTROL-EXPORT-REPORT.json`, without an adapter. Its report must pin the
+original HF revision/BF16 SHA, original F16 SHA
+`f11b2e31506e87e4e270a36a91fabfb7698dde68f942b64b02f6428cdc8f71dc`,
+direct IQ4_XS quantization, no adapter, and the independently verified control:
+211,804,448 bytes, SHA-256
+`82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174`.
+Metadata claims cannot substitute different model bytes. Then use:
+
+```sh
+python3 tools/Freehand.Cleanup.Training/evaluate.py native \
+  --dataset INDEPENDENT-500-CASE-CORPUS.json \
+  --blind-commitment COMMITMENT.json --phase blind-final --mode core \
+  --candidate-freeze SELECTED-FREEZE.json \
+  --paired-baseline-freeze ORIGINAL-CONTROL-FREEZE.json \
+  --dotnet .dotnet/dotnet --output FRESH-PAIRED-RESULTS
+```
+
+Both artifacts and identical runtime/profile/source/managed assembly identities
+are verified before parsing test cases. One preserved consumed lock binds the
+two freezes and fixed selected-then-control order. Both full inventories and
+role-specific metadata exist before inference. Selected outputs stay at the
+root; the control gets `paired-baseline/`. Selected provider failures never skip
+the control or shrink either denominator. `paired-completion.json` records both
+report hashes/full500-case completeness, followed by verification of both
+identities. Each report needs its own complete output-bound semantic review.
+Paired review requires its own role-specific metadata, the verified successful
+paired completion receipt and the exact captured report hash for that role;
+swapped reports, missing metadata and any incomplete candidate are rejected.
+
+The selected score alone determines495/500 qualification. Summaries retain
+`semantic_role` and `primary_qualification_candidate`; a passing control has
+`selected_primary_quality_gate_passed: false`. A consumed test cannot run a
+third model or later tuned candidate under another output directory. Failures
+preserve locks/partial reports for explicit documented infrastructure recovery.
+This support is prospective: the first consumed500-case run had no paired
+control, and that historical deviation remains recorded.
+
 Create a review worksheet from either native `outputs.jsonl` or integrated
 `core-results.json`:
 

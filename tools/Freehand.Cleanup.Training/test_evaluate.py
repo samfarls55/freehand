@@ -241,5 +241,267 @@ class CorpusTests(unittest.TestCase):
             evaluate.phase_gate(args, {})
 
 
+class PairedBlindTests(unittest.TestCase):
+    def setUp(self):
+        # Unit fixtures stand in for the independently hashed211MB original artifact.
+        for name, value in (("ORIGINAL_SCRIBE_IQ4_XS_SHA256", evaluate.output_sha("control weights")),
+                            ("ORIGINAL_SCRIBE_IQ4_XS_BYTES", len(b"control weights"))):
+            mock = patch("evaluate." + name, value)
+            mock.start()
+            self.addCleanup(mock.stop)
+
+    def fixtures(self, root):
+        shared = {}
+        for key in ("runtime", "runtime_inventory", "probe"):
+            path = root / key
+            path.write_text(key)
+            shared[key] = evaluate.artifact(path)
+        shared.update(managed_assemblies=[], sources={}, profile=evaluate.runtime_profile(),
+                      quality_target=evaluate.quality_target(500),
+                      source_snapshot=evaluate.snapshot_sources(root / "sources.tar.gz", {}))
+        selected = copy.deepcopy(shared)
+        control = copy.deepcopy(shared)
+        for role, value in (("selected", selected), ("control", control)):
+            path = root / (role + ".gguf")
+            path.write_text(role + " weights")
+            value["model"] = evaluate.artifact(path)
+        provenance = root / "original-control.json"
+        provenance.write_text(json.dumps({"role": "original_scribekey_control",
+            "source_repository": "scribekey/scribekey-cleanup-fast",
+            "source_revision": "c484dad2d815bff83d376e46b25a11dbc820992a",
+            "source_model_sha256": evaluate.ORIGINAL_SCRIBE_BF16_SHA256,
+            "source_f16": {"sha256": evaluate.ORIGINAL_SCRIBE_F16_SHA256},
+            "quantization": "IQ4_XS", "adapter_applied": False, "quantized": control["model"]}))
+        control["original_control_provenance"] = evaluate.artifact(provenance)
+        paths = []
+        for role, value in (("selected", selected), ("control", control)):
+            path = root / (role + "-freeze.json")
+            path.write_text(json.dumps(value))
+            paths.append(path)
+        corpus = root / "unopened-corpus.json"
+        corpus.write_text(json.dumps({"schema_version": 1, "cases": [
+            {"id": str(index), "input": "um keep it", "targets": ["Keep it."]}
+            for index in range(500)]}))
+        commitment = root / "COMMITMENT.json"
+        commitment.write_text(json.dumps({"case_count": 500, "corpus_sha256": evaluate.sha256_file(corpus)}))
+        args = argparse.Namespace(candidate_freeze=paths[0], paired_baseline_freeze=paths[1],
+            dataset=corpus, blind_commitment=commitment, dotnet=root / "dotnet", phase="blind-final",
+            mode="core", output=root / "paired-results")
+        return args, selected, control
+
+    def patches(self):
+        return patch("evaluate.source_files", return_value={}), patch("evaluate.small_models.verify_runtime_inventory")
+
+    def test_pair_profile_source_and_runtime_mismatches_rejected_before_corpus_open(self):
+        for mismatch in ("profile", "sources", "runtime", "managed_assemblies"):
+            with self.subTest(mismatch=mismatch), tempfile.TemporaryDirectory() as directory:
+                args, selected, baseline = self.fixtures(Path(directory))
+                changed = copy.deepcopy(baseline)
+                if mismatch == "profile":
+                    changed[mismatch] = evaluate.runtime_profile(24)
+                elif mismatch == "sources":
+                    changed[mismatch] = {"tool.py": "different"}
+                elif mismatch == "runtime":
+                    changed[mismatch]["sha256"] = "different"
+                else:
+                    changed[mismatch] = [{"path": "another.dll", "bytes": 1, "sha256": "different"}]
+                with patch("evaluate.verify_freeze", side_effect=[selected, changed]), \
+                        patch("evaluate.phase_gate") as gate, patch("evaluate.load_corpus") as loader:
+                    with self.assertRaisesRegex(ValueError, "mismatch"):
+                        evaluate.native(args)
+                    gate.assert_not_called()
+                    loader.assert_not_called()
+                self.assertFalse(args.blind_commitment.with_suffix(".consumed.json").exists())
+
+    def test_control_artifact_drift_rejected_before_corpus_open(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args, _, baseline = self.fixtures(Path(directory))
+            Path(baseline["model"]["path"]).write_text("changed control weights")
+            sources, runtime = self.patches()
+            with sources, runtime, patch("evaluate.load_corpus") as loader:
+                with self.assertRaisesRegex(ValueError, "Artifact drift"):
+                    evaluate.native(args)
+                loader.assert_not_called()
+            self.assertFalse(args.blind_commitment.with_suffix(".consumed.json").exists())
+
+    def test_trained_or_unproven_control_cannot_be_relabelled_as_original(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _, selected, baseline = self.fixtures(Path(directory))
+            with self.assertRaisesRegex(ValueError, "export provenance"):
+                evaluate.verify_pair(baseline, selected)
+            baseline["adapter"] = selected["model"]
+            with self.assertRaisesRegex(ValueError, "trained adapter"):
+                evaluate.verify_pair(selected, baseline)
+
+    def test_fabricated_original_provenance_cannot_label_another_model_as_control(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _, selected, baseline = self.fixtures(Path(directory))
+            baseline["model"] = selected["model"]
+            provenance = Path(baseline["original_control_provenance"]["path"])
+            fabricated = json.loads(provenance.read_text())
+            fabricated["quantized"] = selected["model"]
+            provenance.write_text(json.dumps(fabricated))
+            baseline["original_control_provenance"] = evaluate.artifact(provenance)
+            with self.assertRaisesRegex(ValueError, "verified original IQ4_XS bytes/hash"):
+                evaluate.verify_original_control(baseline)
+
+    def test_paired_mode_is_bounded_to_blind_core(self):
+        for phase, mode in (("development", "core"), ("blind-final", "native"), ("blind-final", "both")):
+            with self.subTest(phase=phase, mode=mode), tempfile.TemporaryDirectory() as directory:
+                args, _, _ = self.fixtures(Path(directory))
+                args.phase, args.mode = phase, mode
+                with patch("evaluate.load_corpus") as loader, self.assertRaisesRegex(ValueError, "blind-final Core"):
+                    evaluate.native(args)
+                loader.assert_not_called()
+
+    def test_one_lock_binds_both_before_parse_and_both_full_denominators_survive_failures(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args, _, _ = self.fixtures(Path(directory))
+            real_loader = evaluate.load_corpus
+            calls = []
+            def guarded_loader(path):
+                lock = json.loads(args.blind_commitment.with_suffix(".consumed.json").read_text())
+                self.assertEqual(evaluate.artifact(args.candidate_freeze), lock["candidate_freeze"])
+                self.assertEqual(evaluate.artifact(args.paired_baseline_freeze), lock["paired_baseline_freeze"])
+                self.assertEqual(500, lock["case_count_per_candidate"])
+                return real_loader(path)
+            def fake_probe(argv, log):
+                # The control's full pre-run registration must exist before selected inference starts.
+                self.assertTrue((args.output / "paired-baseline/evaluation-pre-run-freeze.json").is_file())
+                output = Path(argv[argv.index("--output") + 1])
+                is_baseline = output.parent.name == "paired-baseline"
+                calls.append("original_control" if is_baseline else "selected_primary")
+                cases = [{"id": str(index), "cleanup_status": "Failed" if index == 0 else "Applied"}
+                         for index in range(500)]
+                output.write_text(json.dumps({"incomplete": False, "cases": cases}))
+                return 1  # Provider failures must not skip the second complete500 run.
+            sources, runtime = self.patches()
+            with sources, runtime, patch("evaluate.load_corpus", side_effect=guarded_loader), \
+                    patch("evaluate.invoke", side_effect=fake_probe), patch("builtins.print"):
+                self.assertEqual(1, evaluate.native(args))
+            self.assertEqual(["selected_primary", "original_control"], calls)
+            summary = json.loads((args.output / "paired-completion.json").read_text())
+            self.assertTrue(summary["both_complete_denominators"])
+            self.assertEqual(495, summary["quality_target_each"]["required_pass_count"])
+            for role, subfolder in (("selected_primary", args.output), ("original_control", args.output / "paired-baseline")):
+                metadata = json.loads((subfolder / "evaluation-pre-run-freeze.json").read_text())
+                self.assertEqual(500, metadata["case_count"])
+                self.assertEqual(500, len(set(metadata["case_ids"])))
+                self.assertEqual(role, metadata["semantic_role"])
+                self.assertEqual(role == "selected_primary", metadata["primary_qualification_candidate"])
+                self.assertEqual(500, summary["candidate_reports"][role]["observed_count"])
+            # A third candidate cannot reuse the same consumed test, even in a new output folder.
+            args.output = Path(directory) / "third-results"
+            sources, runtime = self.patches()
+            with sources, runtime, patch("evaluate.load_corpus") as loader:
+                with self.assertRaisesRegex(ValueError, "already been consumed"):
+                    evaluate.native(args)
+                loader.assert_not_called()
+
+    def test_missing_or_duplicate_cases_cannot_claim_complete_500(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "partial.json"
+            for ids, incomplete in ((list(range(499)), False), (list(range(499)) + [498], False),
+                                    (list(range(500)), True)):
+                path.write_text(json.dumps({"incomplete": incomplete, "cases": [{"id": str(i)} for i in ids]}))
+                inventory = evaluate.complete_core_inventory(path, [str(i) for i in range(500)])
+                self.assertEqual(500, inventory["expected_count"])
+                self.assertFalse(inventory["complete"])
+
+    def completed_pair(self, root, malformed_selected=False):
+        args, _, _ = self.fixtures(root)
+        calls = []
+        def fake_probe(argv, log):
+            output = Path(argv[argv.index("--output") + 1])
+            baseline = output.parent.name == "paired-baseline"
+            calls.append(baseline)
+            if malformed_selected and not baseline:
+                output.write_text('{"incomplete":true,"cases":[')
+                return 1
+            text = "Keep that." if baseline else "Keep it."
+            cases = [{"id": str(index), "input": "um keep it", "output": text,
+                      "normalized_targets": ["Keep it."], "cleanup_status": "Applied",
+                      "candidate_text": text, "insertion_count": 1, "delivered_count": 1, "error": None}
+                     for index in range(500)]
+            output.write_text(json.dumps({"incomplete": False, "cases": cases}))
+            return 0
+        sources, runtime = self.patches()
+        with sources, runtime, patch("evaluate.invoke", side_effect=fake_probe), patch("builtins.print"):
+            code = evaluate.native(args)
+        self.assertEqual([False, True], calls)
+        self.assertEqual(int(malformed_selected), code)
+        return args
+
+    def review_args(self, results):
+        judgments = results.parent / "reviewed.json"
+        judgments.write_text(json.dumps({"reviewer": "fixture reviewer", "cases": [{
+            "case_id": row["case_id"], "output_sha256": evaluate.output_sha(row["output"]),
+            "semantic_faithful": True, "clean_usable": True, "critical_error": False}
+            for row in evaluate.result_rows(results)]}))
+        return argparse.Namespace(results=results, judgments=judgments, output=results.parent / "summary.json")
+
+    def test_scored_summary_retains_role_and_control_cannot_replace_selected_gate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = self.completed_pair(Path(directory))
+            for role, folder in (("selected_primary", args.output), ("original_control", args.output / "paired-baseline")):
+                review_args = self.review_args(folder / "core-results.json")
+                with patch("builtins.print"):
+                    evaluate.review(review_args)
+                summary = json.loads(review_args.output.read_text())
+                self.assertEqual(500, summary["case_count"])
+                self.assertTrue(summary["quality_gate_passed"])
+                self.assertEqual(role, summary["semantic_role"])
+                self.assertEqual(role == "selected_primary", summary["primary_qualification_candidate"])
+                self.assertEqual(role == "selected_primary", summary["selected_primary_quality_gate_passed"])
+                self.assertIn("original_control", summary["paired_evaluation"])
+                self.assertEqual(evaluate.artifact(args.output / "paired-completion.json"), summary["paired_completion"])
+
+    def test_malformed_selected_report_preserved_and_control_still_completes_500(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = self.completed_pair(Path(directory), malformed_selected=True)
+            summary = json.loads((args.output / "paired-completion.json").read_text())
+            self.assertFalse(summary["both_complete_denominators"])
+            self.assertEqual(500, summary["candidate_reports"]["original_control"]["observed_count"])
+            selected = summary["candidate_reports"]["selected_primary"]
+            self.assertFalse(selected["complete"])
+            self.assertEqual(evaluate.artifact(args.output / "core-results.json"), selected["report"])
+            self.assertIn("Unusable", selected["error"])
+
+    def test_paired_review_rejects_missing_failed_receipt_or_swapped_role_report(self):
+        for defect in ("missing_completion", "post_run_failed", "control_incomplete", "swapped_report", "missing_control_metadata"):
+            with self.subTest(defect=defect), tempfile.TemporaryDirectory() as directory:
+                args = self.completed_pair(Path(directory))
+                results = args.output / "core-results.json"
+                completion = args.output / "paired-completion.json"
+                if defect == "missing_completion":
+                    completion.unlink()
+                elif defect in ("post_run_failed", "control_incomplete"):
+                    value = json.loads(completion.read_text())
+                    if defect == "post_run_failed":
+                        value["post_run_identities_verified"] = False
+                    else:
+                        value["candidate_reports"]["original_control"]["complete"] = False
+                    completion.write_text(json.dumps(value))
+                elif defect == "swapped_report":
+                    results.write_bytes((args.output / "paired-baseline/core-results.json").read_bytes())
+                else:
+                    results = args.output / "paired-baseline/core-results.json"
+                    (results.parent / "evaluation-pre-run-freeze.json").unlink()
+                review_args = self.review_args(results)
+                with self.assertRaisesRegex(ValueError, "Paired"):
+                    evaluate.review(review_args)
+                self.assertFalse(review_args.output.exists())
+
+    def test_full500_rows_marked_incomplete_cannot_be_scored(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = self.completed_pair(Path(directory))
+            results = args.output / "core-results.json"
+            value = json.loads(results.read_text())
+            value["incomplete"] = True
+            results.write_text(json.dumps(value))
+            with self.assertRaisesRegex(ValueError, "incomplete"):
+                evaluate.result_rows(results)
+
+
 if __name__ == "__main__":
     unittest.main()

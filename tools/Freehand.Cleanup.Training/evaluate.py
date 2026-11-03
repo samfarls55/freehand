@@ -24,6 +24,10 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 EVALUATION = HERE.parent / "Freehand.Cleanup.Evaluation"
 MINIMUM_JOINT_ACCURACY = .99
+ORIGINAL_SCRIBE_BF16_SHA256 = "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a"
+ORIGINAL_SCRIBE_F16_SHA256 = "f11b2e31506e87e4e270a36a91fabfb7698dde68f942b64b02f6428cdc8f71dc"
+ORIGINAL_SCRIBE_IQ4_XS_SHA256 = "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174"
+ORIGINAL_SCRIBE_IQ4_XS_BYTES = 211804448
 sys.path.insert(0, str(EVALUATION))
 from benchmark import sha256_file  # noqa: E402
 import small_models  # noqa: E402
@@ -123,6 +127,11 @@ def freeze(arguments) -> int:
         value["adapter_config"] = artifact(arguments.adapter_config)
         adapter = arguments.adapter_config.with_name("adapter.safetensors")
         value["adapter"] = artifact(adapter)
+    if getattr(arguments, "original_control_provenance", None):
+        if arguments.adapter_config:
+            raise ValueError("The original control cannot contain a trained adapter")
+        value["original_control_provenance"] = artifact(arguments.original_control_provenance)
+        verify_original_control(value)
     arguments.output.parent.mkdir(parents=True, exist_ok=True)
     snapshot = arguments.output.with_name(arguments.output.stem + ".source-snapshot.tar.gz")
     value["source_snapshot"] = snapshot_sources(snapshot, value["sources"])
@@ -139,6 +148,8 @@ def verify_freeze(path: Path) -> dict:
     for key in ("adapter", "adapter_config"):
         if key in value:
             verify_artifact(value[key])
+    if "original_control_provenance" in value:
+        verify_original_control(value)
     for item in value["managed_assemblies"]:
         verify_artifact(item)
     if "source_snapshot" not in value:
@@ -152,6 +163,46 @@ def verify_freeze(path: Path) -> dict:
     if value.get("quality_target") != quality_target(500):
         raise ValueError("Candidate freeze does not record the current 99 percent acceptance target")
     return value
+
+
+def verify_original_control(value: dict) -> None:
+    """Require an explicitly pinned direct-original-F16 control, never a trained derivative."""
+    if "adapter" in value or "adapter_config" in value:
+        raise ValueError("The original control cannot contain a trained adapter")
+    entry = value.get("original_control_provenance")
+    if entry is None:
+        raise ValueError("Paired baseline needs pinned original-control export provenance")
+    provenance = json.loads(verify_artifact(entry).read_text(encoding="utf-8"))
+    if (provenance.get("role") != "original_scribekey_control"
+            or provenance.get("source_repository") != "scribekey/scribekey-cleanup-fast"
+            or provenance.get("source_revision") != "c484dad2d815bff83d376e46b25a11dbc820992a"
+            or provenance.get("source_model_sha256") != ORIGINAL_SCRIBE_BF16_SHA256
+            or provenance.get("source_f16", {}).get("sha256") != ORIGINAL_SCRIBE_F16_SHA256
+            or provenance.get("adapter_applied") is not False
+            or provenance.get("quantization") != "IQ4_XS"):
+        raise ValueError("Paired baseline is not the pinned original ScribeKey IQ4_XS control")
+    quantized = provenance.get("quantized", {})
+    if (value["model"]["sha256"] != ORIGINAL_SCRIBE_IQ4_XS_SHA256
+            or value["model"]["bytes"] != ORIGINAL_SCRIBE_IQ4_XS_BYTES):
+        raise ValueError("Original control does not match the verified original IQ4_XS bytes/hash")
+    if any(quantized.get(key) != value["model"][key] for key in ("bytes", "sha256")):
+        raise ValueError("Original-control provenance does not identify the frozen model")
+
+
+def verify_pair(selected: dict, baseline: dict) -> None:
+    verify_original_control(baseline)
+    if selected["model"]["sha256"] == baseline["model"]["sha256"]:
+        raise ValueError("Paired control must have distinct original model weights")
+    for key in ("profile", "sources", "quality_target"):
+        if selected[key] != baseline[key]:
+            raise ValueError(f"Paired baseline semantic {key} mismatch")
+    for key in ("runtime", "runtime_inventory", "probe"):
+        if any(selected[key][field] != baseline[key][field] for field in ("bytes", "sha256")):
+            raise ValueError(f"Paired baseline semantic {key} artifact mismatch")
+    assemblies = lambda value: {Path(item["path"]).name: (item["bytes"], item["sha256"])
+                                for item in value["managed_assemblies"]}
+    if assemblies(selected) != assemblies(baseline):
+        raise ValueError("Paired baseline managed assembly mismatch")
 
 
 def runtime_profile(prompt_lookup_tokens: int = 16) -> dict:
@@ -207,8 +258,11 @@ def load_corpus(path: Path) -> dict:
     return value
 
 
-def phase_gate(arguments, freeze_value: dict) -> dict | None:
+def phase_gate(arguments, freeze_value: dict, baseline: dict | None = None,
+               frozen_identity: dict | None = None, baseline_identity: dict | None = None) -> dict | None:
     if arguments.phase == "development":
+        if getattr(arguments, "paired_baseline_freeze", None):
+            raise ValueError("Paired baseline is permitted only for one-time blind-final Core evaluation")
         if any("blind" in part.casefold() for part in arguments.dataset.parts):
             raise ValueError("Blind corpus cannot be opened as development material")
         return None
@@ -222,10 +276,19 @@ def phase_gate(arguments, freeze_value: dict) -> dict | None:
     consumed = arguments.blind_commitment.with_suffix(".consumed.json")
     if consumed.exists():
         raise ValueError("Blind corpus has already been consumed; further tuning requires a new independent test")
-    write_new(consumed, {"created_utc": utc(), "dataset_sha256": commitment["corpus_sha256"],
-                        "candidate_freeze": artifact(arguments.candidate_freeze),
-                        "model_sha256": freeze_value["model"]["sha256"],
-                        "purpose": "one-time blind qualification; preserve even if inference fails"})
+    record = {"created_utc": utc(), "dataset_sha256": commitment["corpus_sha256"],
+              "candidate_freeze": frozen_identity or artifact(arguments.candidate_freeze),
+              "model_sha256": freeze_value["model"]["sha256"],
+              "purpose": "one-time blind qualification; preserve even if inference fails"}
+    if baseline is not None:
+        record.update({"paired_baseline_freeze": baseline_identity or artifact(arguments.paired_baseline_freeze),
+                       "paired_baseline_model_sha256": baseline["model"]["sha256"],
+                       "paired_roles": {"selected_primary": "candidate_freeze",
+                                        "original_control": "paired_baseline_freeze"},
+                       "run_order": ["selected_primary", "original_control"],
+                       "case_count_per_candidate": 500,
+                       "primary_score": "selected candidate only; baseline never replaces selected qualification"})
+    write_new(consumed, record)
     return commitment
 
 
@@ -235,62 +298,136 @@ def invoke(argv: list[str], log: Path) -> int:
     return result.returncode
 
 
-def native(arguments) -> int:
-    if arguments.output.exists():
-        raise ValueError("Evaluation output already exists; use a fresh directory")
-    frozen = verify_freeze(arguments.candidate_freeze)
-    frozen_identity = artifact(arguments.candidate_freeze)
-    commitment = phase_gate(arguments, frozen)  # Do not parse test text before identity/commitment validation.
-    corpus = load_corpus(arguments.dataset)
-    if commitment is not None and len(corpus["cases"]) != commitment["case_count"]:
-        raise ValueError("Blind corpus case count drift")
-    arguments.output.mkdir(parents=True)
-    corpus_path = arguments.output / "probe-corpus.json"
+def prepare_evaluation(arguments, frozen: dict, frozen_identity: dict, corpus: dict,
+                       output: Path, role: str, pair: dict | None) -> None:
+    output.mkdir(parents=True)
+    corpus_path = output / "probe-corpus.json"
     write_new(corpus_path, corpus)
-    write_new(arguments.output / "evaluation-pre-run-freeze.json", {
+    metadata = {
         "schema_version": 1, "created_utc": utc(), "phase": arguments.phase,
         "dataset": artifact(arguments.dataset), "candidate_freeze": frozen_identity,
         "blind_commitment": artifact(arguments.blind_commitment) if arguments.blind_commitment else None,
         "case_count": len(corpus["cases"]), "case_ids": [row["id"] for row in corpus["cases"]], "mode": arguments.mode,
         "quality_target": quality_target(len(corpus["cases"])),
-        "semantic_review_required": True, "windows_execution_tested": False, "whole_app_sla_qualified": False})
+        "semantic_review_required": True, "windows_execution_tested": False, "whole_app_sla_qualified": False}
+    if pair is not None:
+        metadata.update({"semantic_role": role, "paired_evaluation": pair,
+                         "primary_qualification_candidate": role == "selected_primary"})
+    write_new(output / "evaluation-pre-run-freeze.json", metadata)
     profile = dict(frozen["profile"])
     manifest = {"runtimePath": frozen["runtime"]["path"], "runtimeSha256": frozen["runtime"]["sha256"],
                 "modelPath": frozen["model"]["path"], "modelSha256": frozen["model"]["sha256"],
                 "modelId": "ScribeKey-Freehand-" + ("trained-" if "adapter" in frozen else "baseline-")
                 + frozen["model"]["sha256"][:12], **profile}
-    manifest_path = arguments.output / "cleanup-manifest.json"
-    write_new(manifest_path, manifest)
+    write_new(output / "cleanup-manifest.json", manifest)
+
+
+def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
+    corpus_path = output / "probe-corpus.json"
+    manifest_path = output / "cleanup-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    profile = frozen["profile"]
     codes = {}
     probe_argv = [str(arguments.dotnet), frozen["probe"]["path"]]
     if arguments.mode in ("native", "both"):
-        prompts = arguments.output / "production-prompts.json"
+        prompts = output / "production-prompts.json"
         codes["export_prompts"] = invoke(probe_argv + ["--export-prompts", "--input", str(corpus_path),
             "--output", str(prompts), "--prompt-style", "ScribeKeyFast", "--mask-specialist-literals", "true"],
-            arguments.output / "export-prompts.log")
+            output / "export-prompts.log")
         if codes["export_prompts"]:
-            write_new(arguments.output / "command-results.json", codes)
-            return 1
+            return codes
         index = {"runtime": frozen["runtime"], "assets": [{"id": manifest["modelId"],
                  "verified": True, **frozen["model"]}]}
-        asset_index = arguments.output / "asset-index.json"
+        asset_index = output / "asset-index.json"
         write_new(asset_index, index)
         replay = argparse.Namespace(asset_index=asset_index, runtime_file_index=Path(frozen["runtime_inventory"]["path"]),
-            candidate=manifest["modelId"], prompts=prompts, output=arguments.output / "native",
+            candidate=manifest["modelId"], prompts=prompts, output=output / "native",
             split="all", ids=None, limit=None, threads=4, context=1024, max_output=512, batch=64,
             micro_batch=32, cache_ram=0, repeats=1, request_timeout=120, startup_timeout=180,
             memory_interval=.02, extra_server_arg=native_server_arguments(profile))
         codes["native"] = small_models.run(replay)
     if arguments.mode in ("core", "both"):
         codes["core"] = invoke(probe_argv + ["--input", str(corpus_path), "--output",
-            str(arguments.output / "core-results.json"), "--manifest", str(manifest_path),
-            "--split", "all", "--cleanup-timeout-seconds", "120"], arguments.output / "core.log")
+            str(output / "core-results.json"), "--manifest", str(manifest_path),
+            "--split", "all", "--cleanup-timeout-seconds", "120"], output / "core.log")
+    return codes
+
+
+def complete_core_inventory(path: Path, expected_ids: list[str]) -> dict:
+    if not path.is_file():
+        return {"expected_count": len(expected_ids), "observed_count": 0, "complete": False}
+    try:
+        report = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(report, dict) or not isinstance(report.get("cases"), list):
+            raise ValueError("Core report must contain a cases array")
+        ids = [row["id"] for row in report["cases"]]
+        if any(not isinstance(identity, str) for identity in ids):
+            raise ValueError("Core report case IDs must be strings")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        return {"expected_count": len(expected_ids), "observed_count": None, "complete": False,
+                "error": "Unusable Core report: " + type(error).__name__, "report": artifact(path)}
+    return {"expected_count": len(expected_ids), "observed_count": len(ids),
+            "unique_case_count": len(set(ids)), "incomplete": report.get("incomplete", True),
+            "complete": report.get("incomplete") is False and len(ids) == len(expected_ids)
+                        and len(set(ids)) == len(ids) and set(ids) == set(expected_ids),
+            "report": artifact(path)}
+
+
+def native(arguments) -> int:
+    if arguments.output.exists():
+        raise ValueError("Evaluation output already exists; use a fresh directory")
+    baseline_path = getattr(arguments, "paired_baseline_freeze", None)
+    if baseline_path and (arguments.phase != "blind-final" or arguments.mode != "core"):
+        raise ValueError("Paired baseline is permitted only for one-time blind-final Core evaluation")
+    frozen_identity = artifact(arguments.candidate_freeze)
+    baseline_identity = artifact(baseline_path) if baseline_path else None
+    frozen = verify_freeze(arguments.candidate_freeze)
+    baseline = verify_freeze(baseline_path) if baseline_path else None
     verify_artifact(frozen_identity)
-    verify_freeze(arguments.candidate_freeze)
-    write_new(arguments.output / "command-results.json", codes)
+    if baseline_identity is not None:
+        verify_artifact(baseline_identity)
+    if baseline is not None:
+        verify_pair(frozen, baseline)
+    commitment = phase_gate(arguments, frozen, baseline, frozen_identity, baseline_identity)
+    # Both identities/semantics are checked and one preserved lock is written before parsing any test text.
+    corpus = load_corpus(arguments.dataset)
+    if commitment is not None and len(corpus["cases"]) != commitment["case_count"]:
+        raise ValueError("Blind corpus case count drift")
+    if commitment is not None and sha256_file(arguments.dataset) != commitment["corpus_sha256"].lower():
+        raise ValueError("Blind corpus changed while opening the frozen cases; preserve consumed lock")
+    pair = None if baseline is None else {
+        "selected_primary": frozen_identity, "original_control": baseline_identity,
+        "run_order": ["selected_primary", "original_control"], "case_count_per_candidate": len(corpus["cases"]),
+        "primary_score": "selected candidate only; baseline never replaces selected qualification"}
+    runs = [("selected_primary", frozen, frozen_identity, arguments.candidate_freeze, arguments.output)]
+    if baseline is not None:
+        runs.append(("original_control", baseline, baseline_identity, baseline_path, arguments.output / "paired-baseline"))
+    # Both complete inventories/identities are written before the first inference call.
+    for role, value, identity, _, output in runs:
+        prepare_evaluation(arguments, value, identity, corpus, output, role, pair)
+    commands = {}
+    inventories = {}
+    for role, value, _, _, output in runs:
+        commands[role] = execute_evaluation(arguments, value, output)
+        if baseline is not None:
+            inventories[role] = complete_core_inventory(output / "core-results.json", [row["id"] for row in corpus["cases"]])
+    # Retained provider failures do not skip the control, and both identities are rechecked after both runs.
+    for role, _, identity, path, output in runs:
+        verify_artifact(identity)
+        verify_freeze(path)
+        write_new(output / "command-results.json", commands[role])
+    codes = commands["selected_primary"]
+    if baseline is not None:
+        write_new(arguments.output / "paired-completion.json", {
+            "schema_version": 1, "phase": arguments.phase, "paired_evaluation": pair,
+            "candidate_reports": inventories, "commands": commands, "post_run_identities_verified": True,
+            "both_complete_denominators": all(item["complete"] for item in inventories.values()),
+            "quality_target_each": quality_target(len(corpus["cases"])),
+            "semantic_accuracy": "unreviewed; each complete report needs its own output-bound review"})
     print(json.dumps({"output": str(arguments.output), "commands": codes,
                       "semantic_accuracy": "unreviewed; structural results are not accuracy"}))
-    return 1 if any(codes.values()) else 0
+    failed = any(code for candidate_codes in commands.values() for code in candidate_codes.values())
+    return 1 if failed or any(not item["complete"] for item in inventories.values()) else 0
 
 
 def result_rows(path: Path) -> list[dict]:
@@ -300,6 +437,8 @@ def result_rows(path: Path) -> list[dict]:
                  "targets": row.get("targets", []), "structural_success": row.get("status") == "completed",
                  "source": row} for row in rows]
     report = json.loads(path.read_text(encoding="utf-8"))
+    if report.get("incomplete") is not False:
+        raise ValueError("Core results are incomplete; they cannot establish a complete review denominator")
     rows = report.get("cases", [])
     return [{"case_id": row["id"], "input": row["input"], "output": row.get("output"),
              "targets": row.get("normalized_targets", []), "structural_success":
@@ -359,6 +498,40 @@ def score_review(rows: list[dict], review: dict, minimum: float = MINIMUM_JOINT_
             "limitations": "Finite assistant-authored synthetic diagnostic corpus and named semantic reviewer; no population accuracy or Windows SLA claim."}
 
 
+def paired_review_receipt(results: Path, metadata_path: Path, metadata: dict) -> dict | None:
+    pair = metadata.get("paired_evaluation")
+    if pair is None:
+        return None
+    if results.suffix == ".jsonl" or metadata_path.parent != results.parent:
+        raise ValueError("Paired Core review requires its own role-specific pre-run metadata")
+    role = metadata.get("semantic_role")
+    if role not in ("selected_primary", "original_control"):
+        raise ValueError("Paired review needs its preregistered semantic role")
+    if metadata.get("primary_qualification_candidate") is not (role == "selected_primary"):
+        raise ValueError("Paired review primary role mismatch")
+    root = results.parent if role == "selected_primary" else results.parent.parent
+    completion_path = root / "paired-completion.json"
+    if not completion_path.is_file():
+        raise ValueError("Paired review requires the completed paired-run integrity receipt")
+    completion = json.loads(completion_path.read_text(encoding="utf-8"))
+    if (completion.get("paired_evaluation") != pair
+            or completion.get("both_complete_denominators") is not True
+            or completion.get("post_run_identities_verified") is not True):
+        raise ValueError("Paired completion did not verify both complete candidates and frozen identities")
+    reports = completion.get("candidate_reports", {})
+    if set(reports) != {"selected_primary", "original_control"} or metadata.get("case_count") != 500:
+        raise ValueError("Paired review requires both declared full500-case inventories")
+    for inventory in reports.values():
+        if (inventory.get("complete") is not True or inventory.get("expected_count") != 500
+                or inventory.get("observed_count") != 500 or inventory.get("unique_case_count") != 500
+                or inventory.get("incomplete") is not False):
+            raise ValueError("Paired review requires both declared full500-case inventories")
+    expected = reports[role]["report"]
+    if artifact(results) != expected:
+        raise ValueError("Paired review report does not match the captured preregistered role artifact")
+    return artifact(completion_path)
+
+
 def review(arguments) -> int:
     rows = result_rows(arguments.results)
     metadata_paths = [parent / "evaluation-pre-run-freeze.json" for parent in
@@ -367,6 +540,7 @@ def review(arguments) -> int:
     if metadata_path is None:
         raise ValueError("Results need their pre-run evaluation metadata; partial denominators are forbidden")
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    paired_receipt = paired_review_receipt(arguments.results, metadata_path, metadata)
     if len(rows) != metadata["case_count"] or {row["case_id"] for row in rows} != set(metadata["case_ids"]):
         raise ValueError("Results do not cover the exact pre-run case inventory")
     if arguments.judgments:
@@ -384,6 +558,16 @@ def review(arguments) -> int:
                             "targets": row["targets"], "output_sha256": output_sha(row["output"]),
                             "structural_success": row["structural_success"], "semantic_faithful": None,
                             "clean_usable": None, "critical_error": None, "reason": ""} for row in rows]}
+    for key in ("semantic_role", "primary_qualification_candidate", "paired_evaluation"):
+        if key in metadata:
+            value[key] = metadata[key]
+    if paired_receipt is not None:
+        value["paired_completion"] = paired_receipt
+    if "paired_evaluation" in metadata and arguments.judgments:
+        value["selected_primary_quality_gate_passed"] = (
+            metadata.get("semantic_role") == "selected_primary"
+            and metadata.get("primary_qualification_candidate") is True
+            and value["quality_gate_passed"])
     write_new(arguments.output, value)
     print(json.dumps({"output": str(arguments.output), "quality_gate_passed": value.get("quality_gate_passed")}))
     return 0
@@ -396,6 +580,8 @@ def main() -> int:
     for name in ("model", "runtime", "runtime-inventory", "probe", "output"):
         frozen.add_argument("--" + name, type=Path, required=True)
     frozen.add_argument("--adapter-config", type=Path)
+    frozen.add_argument("--original-control-provenance", type=Path,
+                        help="Pin the direct-original-F16 IQ4_XS control export report; incompatible with an adapter")
     frozen.add_argument("--prompt-lookup-tokens", type=int, default=16,
                         help="Bounded prompt-lookup draft length: 0..63, default16; 0 disables lookup. Other profile fields stay fixed.")
     native_parser = sub.add_parser("native")
@@ -404,6 +590,8 @@ def main() -> int:
     native_parser.add_argument("--phase", choices=("development", "blind-final"), required=True)
     native_parser.add_argument("--mode", choices=("native", "core", "both"), default="both")
     native_parser.add_argument("--blind-commitment", type=Path)
+    native_parser.add_argument("--paired-baseline-freeze", type=Path,
+                               help="Pre-frozen original control, blind-final Core only; both models consume one test together")
     reviews = sub.add_parser("review", description="Score the current 99% joint semantic-quality target: "
                             "at least 495/500 faithful and clean/usable final outputs. "
                             "Every result requires an explicit output-bound review.")
