@@ -108,6 +108,7 @@ def managed_files(probe: Path) -> list[dict]:
 def freeze(arguments) -> int:
     if arguments.output.exists():
         raise ValueError("Candidate freeze already exists; preserve it")
+    profile = runtime_profile(arguments.prompt_lookup_tokens)
     runtime = artifact(arguments.runtime)
     inventory = small_models.verify_runtime_inventory(arguments.runtime_inventory, Path(runtime["path"]))
     value = {"schema_version": 1, "created_utc": utc(), "purpose": "candidate_frozen_before_final_test_opening",
@@ -116,7 +117,7 @@ def freeze(arguments) -> int:
              "probe": artifact(arguments.probe), "managed_assemblies": managed_files(arguments.probe),
              "sources": source_files(), "git_head_historical": subprocess.check_output(
                  ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-             "profile": runtime_profile(), "quality_target": quality_target(500),
+             "profile": profile, "quality_target": quality_target(500),
              "limitations": "A candidate freeze is identity evidence, not quality or performance qualification."}
     if arguments.adapter_config:
         value["adapter_config"] = artifact(arguments.adapter_config)
@@ -146,19 +147,30 @@ def verify_freeze(path: Path) -> dict:
     if value["sources"] != source_files():
         raise ValueError("Evaluation/production source drift after candidate freeze")
     small_models.verify_runtime_inventory(Path(value["runtime_inventory"]["path"]), Path(value["runtime"]["path"]))
-    if value["profile"] != runtime_profile():
+    if value["profile"] != runtime_profile(value["profile"].get("promptLookupTokens")):
         raise ValueError("Runtime profile drift after candidate freeze")
     if value.get("quality_target") != quality_target(500):
         raise ValueError("Candidate freeze does not record the current 99 percent acceptance target")
     return value
 
 
-def runtime_profile() -> dict:
+def runtime_profile(prompt_lookup_tokens: int = 16) -> dict:
+    if type(prompt_lookup_tokens) is not int or not 0 <= prompt_lookup_tokens < 64:
+        raise ValueError("Prompt lookup draft tokens must be an integer from 0 through 63, below batch64")
     return {"promptStyle": "ScribeKeyFast", "threads": 4, "contextSize": 1024,
             "maxOutputTokens": 512, "batchSize": 64, "microBatchSize": 32,
             "promptCacheMiB": 0, "contextCheckpoints": 0, "cacheTypeK": "f16", "cacheTypeV": "f16",
             "repack": False, "gpuLayers": 0, "startupTimeoutSeconds": 60, "idleTimeoutSeconds": 60,
-            "maskSpecialistLiterals": True, "promptLookupTokens": 16, "promptLookupMatchTokens": 3}
+            "maskSpecialistLiterals": True, "promptLookupTokens": prompt_lookup_tokens, "promptLookupMatchTokens": 3}
+
+
+def native_server_arguments(profile: dict) -> list[str]:
+    arguments = ["--cache-type-k", "f16", "--cache-type-v", "f16", "--no-repack"]
+    if profile["promptLookupTokens"] > 0:
+        arguments.extend(["--spec-type", "ngram-map-k", "--spec-ngram-map-k-size-n",
+                          str(profile["promptLookupMatchTokens"]), "--spec-ngram-map-k-size-m",
+                          str(profile["promptLookupTokens"])])
+    return arguments
 
 
 def load_corpus(path: Path) -> dict:
@@ -227,6 +239,7 @@ def native(arguments) -> int:
     if arguments.output.exists():
         raise ValueError("Evaluation output already exists; use a fresh directory")
     frozen = verify_freeze(arguments.candidate_freeze)
+    frozen_identity = artifact(arguments.candidate_freeze)
     commitment = phase_gate(arguments, frozen)  # Do not parse test text before identity/commitment validation.
     corpus = load_corpus(arguments.dataset)
     if commitment is not None and len(corpus["cases"]) != commitment["case_count"]:
@@ -236,12 +249,12 @@ def native(arguments) -> int:
     write_new(corpus_path, corpus)
     write_new(arguments.output / "evaluation-pre-run-freeze.json", {
         "schema_version": 1, "created_utc": utc(), "phase": arguments.phase,
-        "dataset": artifact(arguments.dataset), "candidate_freeze": artifact(arguments.candidate_freeze),
+        "dataset": artifact(arguments.dataset), "candidate_freeze": frozen_identity,
         "blind_commitment": artifact(arguments.blind_commitment) if arguments.blind_commitment else None,
         "case_count": len(corpus["cases"]), "case_ids": [row["id"] for row in corpus["cases"]], "mode": arguments.mode,
         "quality_target": quality_target(len(corpus["cases"])),
         "semantic_review_required": True, "windows_execution_tested": False, "whole_app_sla_qualified": False})
-    profile = runtime_profile()
+    profile = dict(frozen["profile"])
     manifest = {"runtimePath": frozen["runtime"]["path"], "runtimeSha256": frozen["runtime"]["sha256"],
                 "modelPath": frozen["model"]["path"], "modelSha256": frozen["model"]["sha256"],
                 "modelId": "ScribeKey-Freehand-" + ("trained-" if "adapter" in frozen else "baseline-")
@@ -266,14 +279,13 @@ def native(arguments) -> int:
             candidate=manifest["modelId"], prompts=prompts, output=arguments.output / "native",
             split="all", ids=None, limit=None, threads=4, context=1024, max_output=512, batch=64,
             micro_batch=32, cache_ram=0, repeats=1, request_timeout=120, startup_timeout=180,
-            memory_interval=.02, extra_server_arg=["--cache-type-k", "f16", "--cache-type-v", "f16",
-                "--no-repack", "--spec-type", "ngram-map-k", "--spec-ngram-map-k-size-n", "3",
-                "--spec-ngram-map-k-size-m", "16"])
+            memory_interval=.02, extra_server_arg=native_server_arguments(profile))
         codes["native"] = small_models.run(replay)
     if arguments.mode in ("core", "both"):
         codes["core"] = invoke(probe_argv + ["--input", str(corpus_path), "--output",
             str(arguments.output / "core-results.json"), "--manifest", str(manifest_path),
             "--split", "all", "--cleanup-timeout-seconds", "120"], arguments.output / "core.log")
+    verify_artifact(frozen_identity)
     verify_freeze(arguments.candidate_freeze)
     write_new(arguments.output / "command-results.json", codes)
     print(json.dumps({"output": str(arguments.output), "commands": codes,
@@ -384,6 +396,8 @@ def main() -> int:
     for name in ("model", "runtime", "runtime-inventory", "probe", "output"):
         frozen.add_argument("--" + name, type=Path, required=True)
     frozen.add_argument("--adapter-config", type=Path)
+    frozen.add_argument("--prompt-lookup-tokens", type=int, default=16,
+                        help="Bounded prompt-lookup draft length: 0..63, default16; 0 disables lookup. Other profile fields stay fixed.")
     native_parser = sub.add_parser("native")
     for name in ("dataset", "candidate-freeze", "dotnet", "output"):
         native_parser.add_argument("--" + name, type=Path, required=True)

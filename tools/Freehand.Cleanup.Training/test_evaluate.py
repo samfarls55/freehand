@@ -11,6 +11,49 @@ from unittest.mock import patch
 import evaluate
 
 
+class ProfileTests(unittest.TestCase):
+    def test_lookup24_changes_only_the_bounded_draft_length_and_native_flags(self):
+        expected = evaluate.runtime_profile()
+        expected["promptLookupTokens"] = 24
+        profile = evaluate.runtime_profile(24)
+        self.assertEqual(expected, json.loads(json.dumps(profile)))
+        flags = evaluate.native_server_arguments(profile)
+        self.assertEqual("24", flags[flags.index("--spec-ngram-map-k-size-m") + 1])
+        self.assertEqual("3", flags[flags.index("--spec-ngram-map-k-size-n") + 1])
+        self.assertNotIn("--spec-type", evaluate.native_server_arguments(evaluate.runtime_profile(0)))
+
+    def test_lookup_length_cannot_reach_logical_batch_or_use_nonintegers(self):
+        for invalid in [-1, 64, 65, True, 24.5, "24", None]:
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                evaluate.runtime_profile(invalid)
+        self.assertEqual(63, evaluate.runtime_profile(63)["promptLookupTokens"])
+
+    def test_lookup24_freeze_serializes_selected_value_and_rejects_profile_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            paths = {}
+            for name in ["model", "runtime", "runtime_inventory", "probe"]:
+                paths[name] = root / name
+                paths[name].write_text("fixture " + name)
+            args = argparse.Namespace(**paths, output=root / "freeze.json", adapter_config=None,
+                                      prompt_lookup_tokens=24)
+            with patch("evaluate.source_files", return_value={}), patch("evaluate.managed_files", return_value=[]), \
+                    patch("evaluate.small_models.verify_runtime_inventory", return_value={}), patch("builtins.print"):
+                evaluate.freeze(args)
+                value = json.loads(args.output.read_text())
+                self.assertEqual(24, value["profile"]["promptLookupTokens"])
+                evaluate.verify_freeze(args.output)
+                frozen_identity = evaluate.artifact(args.output)
+                value["profile"]["threads"] = 8
+                args.output.write_text(json.dumps(value))
+                with self.assertRaisesRegex(ValueError, "Runtime profile drift"):
+                    evaluate.verify_freeze(args.output)
+                value["profile"] = evaluate.runtime_profile(25)
+                args.output.write_text(json.dumps(value))
+                with self.assertRaisesRegex(ValueError, "Artifact drift"):
+                    evaluate.verify_artifact(frozen_identity)
+
+
 class ReviewTests(unittest.TestCase):
     def rows(self, count=100):
         return [{"case_id": str(index), "input": "um keep it", "output": "Keep it.",

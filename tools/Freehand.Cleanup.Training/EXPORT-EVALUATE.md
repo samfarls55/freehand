@@ -53,7 +53,7 @@ disk is tight; preserve their adapters, logs and hashes, and retain the chosen
 final Q4 artifact on persistent workspace storage.
 
 The default precision is `--quantization Q4_K_M`; the explicitly allowed
-development alternatives are `Q3_K_M` and `Q3_K_S`. They need their own accuracy
+development alternatives are `Q3_K_M`, `Q3_K_S` and `IQ4_XS`. They need their own accuracy
 and resource comparisons before selection. `--keep-f16` retains a hard link
 when the temporary/output directories share a filesystem, or copies otherwise,
 so a controlled precision comparison can reuse that exact merged F16. Its hash
@@ -85,6 +85,14 @@ references through the managed Probe. It uses literal protocol v3 and exact
 token IDs, plus the unchanged context1024/output512/thread4/batch64/micro32,
 f16 KV, no-repack, cache0/checkpoints0 and prompt-lookup16/3 profile. Actual
 dictionary fixtures therefore receive Core normalization before inference.
+
+`freeze --prompt-lookup-tokens 24` records a separate bounded runtime experiment;
+the default remains 16 and the accepted range is 0 through 63, strictly below the
+logical batch64. Zero disables speculation. The exact selected length flows
+from the frozen profile into both the Core manifest and native replay flags;
+all other runtime settings remain fixed. A new profile requires a new freeze
+and output-equivalence/performance checks. Choosing24 does not establish any
+99% accuracy or whole-app SLA claim by itself.
 `--mode core` runs only the integrated Core provider and single-delivery probe;
 `--mode native` runs only the raw native replay; `both` preserves both reports.
 Native execution refuses concurrent native servers. Coordinate all training,

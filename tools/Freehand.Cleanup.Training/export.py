@@ -206,7 +206,7 @@ def main() -> int:
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--temporary-parent", type=Path, default=Path("/tmp"))
     parser.add_argument("--threads", type=int, default=4)
-    parser.add_argument("--quantization", choices=("Q4_K_M", "Q3_K_M", "Q3_K_S"), default="Q4_K_M")
+    parser.add_argument("--quantization", choices=("Q4_K_M", "Q3_K_M", "Q3_K_S", "IQ4_XS"), default="Q4_K_M")
     parser.add_argument("--merge-dtype", choices=("bfloat16", "float16"), default="bfloat16",
                         help="Precision of the merged checkpoint before native conversion; float16 retains smaller learned deltas")
     parser.add_argument("--keep-f16", action="store_true", help="Retain the merged F16 in this fresh output directory for controlled alternate-precision experiments")
