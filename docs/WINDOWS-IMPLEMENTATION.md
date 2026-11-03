@@ -32,6 +32,12 @@ The fallback sample-rate converter stops when each callback's real input runs ou
 Its buffered source must use `ReadFully = false`; padding would keep the drain loop
 generating silent output indefinitely. Tests cover float mono, stereo and multichannel
 input, PCM16 input, later callbacks after underrun, and output ownership.
+Capture bounds owned samples to `[-1, 1]` and replaces nonfinite device values with
+zero before publishing them. Device gain and resampling can overshoot full scale,
+so otherwise valid microphone input can fail the worker's audio validation.
+Worker failures report fixed reason codes for audio validation, model loading,
+inference, preparation, shutdown, and protocol errors. Diagnostic logs include
+the request ID and reason, without exception messages, audio, or transcript text.
 
 ## Delivery, preferences, and data
 
@@ -61,9 +67,15 @@ Storage errors are reported separately from delivery.
 The main window owns presentation; composition owns the key and worker. Closing hides
 the window. Tray actions and second launches reuse it. Activation requests arriving before
 UI initialization remain in the named event until handlers are attached. Hidden recording
-feedback uses a nonactivating panel; hidden and idle meter animation stops. Explicit Quit
+feedback uses a nonactivating panel created when dictation needs it. Each recording
+gets a fresh native window, and successful completion closes it. A retained recording
+keeps its panel and display through Retry. Capture failures and retained recordings
+open the main window's recovery controls, including when another hotkey press is
+blocked by retained audio. Hidden and idle meter animation stops. Explicit Quit
 confirms discarded audio and awaits owned work off the UI thread.
 Background status notifications share one pending UI refresh, preventing an event backlog.
+The native lifecycle self-test checks lazy popup creation at tray startup, fresh
+windows across recordings, retry continuity, and cleanup at idle.
 
 ## Installation
 

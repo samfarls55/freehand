@@ -43,11 +43,19 @@ public static class SpeechWorker
                             break;
                         }
                         case "transcribe":
+                        {
                             if (transcriber is null) throw new InvalidDataException("Model not ready");
-                            var samples = await WorkerProtocol.ReadAudioAsync(pipe, message.SampleCount, CancellationToken.None).ConfigureAwait(false);
+                            float[] samples;
+                            try { samples = await WorkerProtocol.ReadAudioAsync(pipe, message.SampleCount, CancellationToken.None).ConfigureAwait(false); }
+                            catch (InvalidDataException)
+                            {
+                                await ReplyAsync("error", nameof(WorkerFailure.InvalidAudio)).ConfigureAwait(false);
+                                break;
+                            }
                             var text = await transcriber.TranscribeAsync(samples, message.BiasPhrases ?? [], CancellationToken.None).ConfigureAwait(false);
                             await ReplyAsync("text", text).ConfigureAwait(false);
                             break;
+                        }
                         case "prepare":
                             if (transcriber is not GgmlTranscriber gpu) throw new InvalidDataException("GPU model not ready");
                             await gpu.PrepareAsync(CancellationToken.None).ConfigureAwait(false);
@@ -60,7 +68,18 @@ public static class SpeechWorker
                         default: throw new InvalidDataException("Unknown request");
                     }
                 }
-                catch (Exception e) { await ReplyAsync("error", e.GetType().Name).ConfigureAwait(false); }
+                catch (Exception)
+                {
+                    var reason = message.Kind switch
+                    {
+                        "load" => WorkerFailure.ModelLoad,
+                        "transcribe" => WorkerFailure.Inference,
+                        "prepare" => WorkerFailure.Preparation,
+                        "shutdown" => WorkerFailure.Shutdown,
+                        _ => WorkerFailure.Protocol,
+                    };
+                    await ReplyAsync("error", reason.ToString()).ConfigureAwait(false);
+                }
                 Task ReplyAsync(string kind, string? value = null) => WorkerProtocol.WriteAsync(pipe,
                     new WorkerMessage(WorkerProtocol.Version, message.RequestId, kind, value), CancellationToken.None);
             }

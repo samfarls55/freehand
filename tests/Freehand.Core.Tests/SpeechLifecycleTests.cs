@@ -10,6 +10,25 @@ namespace Freehand.CoreTests;
 
 public sealed class SpeechLifecycleTests
 {
+    [Theory]
+    [InlineData("InvalidAudio", "InvalidAudio")]
+    [InlineData("Inference", "Inference")]
+    [InlineData("private native exception text", "Protocol")]
+    public async Task Worker_failures_report_only_bounded_reason_codes(string reply, string expected)
+    {
+        var launcher = new PipeWorkerLauncher { InferenceFailure = reply };
+        var failures = new List<(Guid Request, string Reason)>();
+        await using var client = new SpeechWorkerClient(launcher, new VerifiedAssets(),
+            reportFailure: (request, reason) => failures.Add((request, reason)));
+        await client.LoadAsync(CancellationToken.None);
+        var error = await Should.ThrowAsync<InvalidDataException>(() =>
+            client.TranscribeAsync(new float[320], [], CancellationToken.None).AsTask());
+        var failure = failures.ShouldHaveSingleItem();
+        failure.Request.ShouldNotBe(Guid.Empty);
+        failure.Reason.ShouldBe(expected);
+        error.Message.ShouldBe("Worker reported " + expected);
+    }
+
     [Fact]
     public async Task Dictionary_bias_reaches_the_worker_and_is_scoped_to_each_request()
     {
@@ -386,6 +405,7 @@ public sealed class SpeechLifecycleTests
         internal bool HoldPreparation { get; init; }
         internal bool HangPreparation { get; init; }
         internal string PreparationReplyKind { get; init; } = "prepared";
+        internal string? InferenceFailure { get; init; }
         internal int Preparations;
         internal int Launches { get; private set; }
         internal int LiveWorkers;
@@ -442,7 +462,9 @@ public sealed class SpeechLifecycleTests
                                 await pipe.ReadExactlyAsync(audio, _stop.Token);
                                 owner.InferenceReceived.TrySetResult();
                                 if (owner.HangInference) await Task.Delay(Timeout.Infinite, _stop.Token);
-                                await WriteAsync(pipe, owner.StaleTranscript ? Guid.NewGuid() : requestId, "text", "Speech.", 0, _stop.Token);
+                                if (owner.InferenceFailure is { } failure)
+                                    await WriteAsync(pipe, requestId, "error", failure, 0, _stop.Token);
+                                else await WriteAsync(pipe, owner.StaleTranscript ? Guid.NewGuid() : requestId, "text", "Speech.", 0, _stop.Token);
                             }
                             else if (kind == "shutdown")
                             {

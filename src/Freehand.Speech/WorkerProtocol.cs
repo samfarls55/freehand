@@ -23,6 +23,7 @@ public sealed record WorkerOptions
 }
 internal sealed record WorkerMessage(int Version, Guid RequestId, string Kind, string? Value = null, int SampleCount = 0, int ProcessId = 0,
     string[]? BiasPhrases = null);
+internal enum WorkerFailure { InvalidAudio, ModelLoad, Inference, Preparation, Shutdown, Protocol }
 internal static class WorkerProtocol
 {
     internal const int Version = 2;

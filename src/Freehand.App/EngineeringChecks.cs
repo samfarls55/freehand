@@ -77,11 +77,21 @@ internal static class EngineeringChecks
         {
             var audio = ReadFixture();
             using var models = new ModelResolver();
-            await using var speech = new SpeechWorkerClient(PlatformFactory.CreateWorkerLauncher() ?? throw new InvalidOperationException("Worker launcher unavailable"), models);
+            string? rejection = null;
+            var invalidAudio = new float[] { 1.1f };
+            await using var speech = new SpeechWorkerClient(PlatformFactory.CreateWorkerLauncher() ?? throw new InvalidOperationException("Worker launcher unavailable"), models,
+                reportFailure: (_, reason) => rejection = reason);
             for (var run = 0; run < 2; run++)
             {
                 await speech.BeginWorkAsync(CancellationToken.None).ConfigureAwait(false);
                 if (!await speech.LoadAsync(CancellationToken.None).ConfigureAwait(false)) throw new IOException("Bundled model invalid");
+                rejection = null;
+                try
+                {
+                    await speech.TranscribeAsync(invalidAudio, [], CancellationToken.None).ConfigureAwait(false);
+                    throw new IOException("Worker accepted out-of-range audio");
+                }
+                catch (InvalidDataException) when (rejection == "InvalidAudio") { }
                 if (ModelResolver.UsesAcceleratedModel && run == 0)
                 {
                     // Prepare the GPU's shader variants with public voiced audio;
@@ -109,7 +119,7 @@ internal static class EngineeringChecks
                 speech.FinishWork(); await speech.ResetAsync(CancellationToken.None).ConfigureAwait(false);
                 if (speech.WorkerId is not null) throw new IOException("Worker did not stop");
             }
-            Console.WriteLine("  [ok] bundled model, known and quiet speech, silence, per-recording hotwords, worker stop and restart");
+            Console.WriteLine("  [ok] invalid-audio reason and recovery, bundled model, known and quiet speech, silence, per-recording hotwords, worker stop and restart");
             return 0;
         }
         catch (Exception e) { Console.Error.WriteLine("Speech check failed: " + e); return 1; }

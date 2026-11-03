@@ -89,14 +89,20 @@ internal sealed class StatusIndicator : Window
     private bool IsProcessing => _state is DictationState.Preparing or DictationState.Transcribing
         or DictationState.Recovering or DictationState.Delivering;
 
+    internal static bool IsActiveState(DictationState state) => state is DictationState.Recording
+        or DictationState.Preparing or DictationState.Transcribing or DictationState.Recovering or DictationState.Delivering;
+
+    internal static bool ShouldShow(bool mainHidden, DictationState state, DictationFeedback? feedback) =>
+        IsActiveState(state) || mainHidden && state != DictationState.Stopping &&
+        (state != DictationState.Idle || feedback?.Outcome is DictationOutcome.CaptureFailure
+            or DictationOutcome.DeliveryFailure or DictationOutcome.EmptySpeech);
+
     internal void Update(bool mainHidden, DictationState state, float level = 0, DictationFeedback? feedback = null)
     {
         var starting = state == DictationState.Recording && _state != state;
         _state = state;
-        var needsAttention = feedback?.Outcome is DictationOutcome.CaptureFailure
-            or DictationOutcome.DeliveryFailure or DictationOutcome.EmptySpeech;
-        var active = state == DictationState.Recording || IsProcessing;
-        if (!active && (!mainHidden || state == DictationState.Stopping || (state == DictationState.Idle && !needsAttention)))
+        var active = IsActiveState(state);
+        if (!ShouldShow(mainHidden, state, feedback))
         {
             _attentionTimer.Stop();
             Hide();

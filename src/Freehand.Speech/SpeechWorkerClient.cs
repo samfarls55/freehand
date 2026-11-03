@@ -17,6 +17,7 @@ public sealed class SpeechWorkerClient : ISpeechSession
     private readonly IWorkerLauncher _launcher;
     private readonly IModelAssets _models;
     private readonly WorkerOptions _options;
+    private readonly Action<Guid, string>? _reportFailure;
     private readonly SemaphoreSlim _gate = new(1);
     private readonly object _idleSync = new();
     private readonly TimeProvider _time;
@@ -47,10 +48,12 @@ public sealed class SpeechWorkerClient : ISpeechSession
     /// <inheritdoc />
     public event EventHandler? Changed;
     /// <summary>Creates an unloaded session. No child starts here.</summary>
-    public SpeechWorkerClient(IWorkerLauncher launcher, IModelAssets models, WorkerOptions? options = null, TimeProvider? time = null)
+    public SpeechWorkerClient(IWorkerLauncher launcher, IModelAssets models, WorkerOptions? options = null, TimeProvider? time = null,
+        Action<Guid, string>? reportFailure = null)
     {
         _launcher = launcher; _models = models; _options = options ?? new WorkerOptions();
         _idleTimeout = _options.IdleTimeout; _time = time ?? TimeProvider.System;
+        _reportFailure = reportFailure;
     }
     /// <inheritdoc />
     public ValueTask BeginWorkAsync(CancellationToken cancellationToken)
@@ -237,7 +240,15 @@ public sealed class SpeechWorkerClient : ISpeechSession
         var response = await WorkerProtocol.ReadAsync(pipe, token).ConfigureAwait(false);
         // A reply from any obsolete request cannot reach delivery.
         if (response.RequestId != request.RequestId) throw new InvalidDataException("Obsolete worker reply");
-        if (response.Kind == "error") throw new InvalidDataException("Worker reported " + response.Value);
+        if (response.Kind == "error")
+        {
+            // Only fixed reason codes cross into diagnostics. Native exception
+            // messages and unrecognized pipe values can contain private data.
+            var reason = Enum.TryParse<WorkerFailure>(response.Value, out var parsed) && Enum.IsDefined(parsed)
+                ? parsed : WorkerFailure.Protocol;
+            _reportFailure?.Invoke(request.RequestId, reason.ToString());
+            throw new InvalidDataException("Worker reported " + reason);
+        }
         return response;
     }
     /// <inheritdoc />
