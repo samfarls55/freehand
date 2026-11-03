@@ -10,6 +10,88 @@ namespace Freehand.Cleanup.Tests;
 
 public sealed class ProviderTests
 {
+    private const string DotNetWhitespace = "\t\n\v\f\r \u0085\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
+
+    [Fact]
+    public void Replay_whitespace_fixture_matches_the_complete_dotnet_character_set()
+    {
+        var actual = new string(Enumerable.Range(char.MinValue, char.MaxValue + 1)
+            .Select(value => (char)value).Where(char.IsWhiteSpace).ToArray());
+
+        actual.ShouldBe(DotNetWhitespace);
+    }
+
+    [Theory]
+    [InlineData(CleanupPromptStyle.QuillChatMl)]
+    [InlineData(CleanupPromptStyle.S1Mini)]
+    [InlineData(CleanupPromptStyle.HandyEditor)]
+    [InlineData(CleanupPromptStyle.HandyEditorUserOnly)]
+    [InlineData(CleanupPromptStyle.Emberon2)]
+    [InlineData(CleanupPromptStyle.BitVoiceSmol)]
+    [InlineData(CleanupPromptStyle.KuduTinyPolished)]
+    [InlineData(CleanupPromptStyle.LocalflowClean)]
+    [InlineData(CleanupPromptStyle.SpokenlyCleanup)]
+    [InlineData(CleanupPromptStyle.ScribeKeyFast)]
+    [InlineData(CleanupPromptStyle.Sotto)]
+    [InlineData(CleanupPromptStyle.SmolPostAsr)]
+    public async Task Specialists_trim_all_dotnet_exterior_whitespace_without_changing_interior_text(CleanupPromptStyle style)
+    {
+        const string expected = "Keep  interior\tspacing.\r\nSecond line.";
+        using var fixture = new Fixture(style);
+        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new
+        {
+            content = DotNetWhitespace + expected + DotNetWhitespace, stop_type = "eos", truncated = false,
+        });
+        await using var provider = fixture.Provider();
+
+        (await provider.ProcessAsync("keep interior spacing second line", CancellationToken.None)).ShouldBe(expected);
+    }
+
+    [Theory]
+    [InlineData("\u001c")]
+    [InlineData("\u001d")]
+    [InlineData("\u001e")]
+    [InlineData("\u001f")]
+    [InlineData("\u200b")]
+    [InlineData("\ufeff")]
+    public async Task Specialist_trim_preserves_characters_outside_dotnet_whitespace(string boundary)
+    {
+        var expected = boundary + "Keep this." + boundary;
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new { content = " " + expected + " ", stop_type = "eos" });
+        await using var provider = fixture.Provider();
+
+        (await provider.ProcessAsync("keep this", CancellationToken.None)).ShouldBe(expected);
+    }
+
+    [Theory]
+    [InlineData("[[FREEHAND_LITERAL_01_START]] \t\r\n Acme  [[FREEHAND_LITERAL_01_END]] and \"  quoted\tΔ🙂\r\n  \" [[FREEHAND_LITERAL_02_START]]  tail\t\r\n [[FREEHAND_LITERAL_02_END]]")]
+    [InlineData("\" \tquoted\r\nΔ🙂  \"")]
+    public async Task Specialist_trim_precedes_restoration_so_protected_boundary_payloads_keep_exact_bytes(string input)
+    {
+        var masked = SpecialistLiteralMask.Create(input).MaskedText;
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new { content = DotNetWhitespace + masked + DotNetWhitespace, stop_type = "eos" });
+        await using var provider = fixture.Provider(fixture.Options with { MaskSpecialistLiterals = true });
+
+        (await provider.ProcessAsync(input, CancellationToken.None)).ShouldBe(input);
+    }
+
+    [Theory]
+    [InlineData(CleanupPromptStyle.Qwen35)]
+    [InlineData(CleanupPromptStyle.Ministral3)]
+    [InlineData(CleanupPromptStyle.Gemma4)]
+    [InlineData(CleanupPromptStyle.GenericChat)]
+    public async Task General_models_keep_their_existing_exterior_whitespace_contract(CleanupPromptStyle style)
+    {
+        const string expected = " \t\r\nKeep this.\u00a0\u3000";
+        using var fixture = new Fixture(style);
+        fixture.Transport.ChatOutput = _ => expected;
+        await using var provider = fixture.Provider();
+
+        (await provider.ProcessAsync("keep this", CancellationToken.None)).ShouldBe(expected);
+    }
+
     [Fact]
     public async Task Quill_uses_prescribed_raw_contract_and_private_owned_worker()
     {

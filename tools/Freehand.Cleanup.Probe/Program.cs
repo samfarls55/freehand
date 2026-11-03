@@ -92,11 +92,13 @@ internal static class Program
                 ? [new("system", CleanupPrompt.Text), new("user", CleanupPrompt.WrapTranscript(modelText))]
                 : null;
             exported.Add(new(fixture.Clone(), text, references.Targets, references.Checks, maskLiterals, maskProtocol,
+                general ? "none" : LlamaTranscriptPostProcessor.SpecialistOutputNormalization,
                 Convert.ToHexString(SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(modelText))).ToLowerInvariant(), completion, messages));
         }
         var report = new PromptExport(1, input, Convert.ToHexString(SHA256.HashData(bytes)), style.ToString(),
             CleanupPrompt.IsGeneral(style) || maskSpecialistLiterals,
             CleanupPrompt.IsGeneral(style) ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none",
+            CleanupPrompt.IsGeneral(style) ? "none" : LlamaTranscriptPostProcessor.SpecialistOutputNormalization,
             "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
             await ManagedHashesAsync(CancellationToken.None).ConfigureAwait(false), exported);
         Directory.CreateDirectory(Path.GetDirectoryName(output)!);
@@ -475,10 +477,11 @@ internal sealed record FixtureChecks(IReadOnlyList<string> Include, IReadOnlyLis
 internal sealed record ProbeReport(int SchemaVersion, ProbeMetadata Metadata, bool Incomplete, IReadOnlyList<ProbeCaseResult> Cases);
 internal sealed record ExportedChatMessage(string Role, string Content);
 internal sealed record ExportedPromptCase(JsonElement Fixture, string NormalizedInput, IReadOnlyList<string> NormalizedTargets,
-    FixtureChecks? NormalizedChecks, bool MaskLiterals, string LiteralMaskProtocol, string ModelInputSha256,
+    FixtureChecks? NormalizedChecks, bool MaskLiterals, string LiteralMaskProtocol, string SpecialistOutputNormalization, string ModelInputSha256,
     CleanupCompletionPrompt? Completion, ExportedChatMessage[]? Messages);
 internal sealed record PromptExport(int SchemaVersion, string CorpusPath, string CorpusSha256, string PromptStyle,
-    bool MaskLiterals, string LiteralMaskProtocol, string InputNote, IReadOnlyDictionary<string, string> ManagedAssemblySha256, IReadOnlyList<ExportedPromptCase> Cases);
+    bool MaskLiterals, string LiteralMaskProtocol, string SpecialistOutputNormalization, string InputNote,
+    IReadOnlyDictionary<string, string> ManagedAssemblySha256, IReadOnlyList<ExportedPromptCase> Cases);
 
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower, WriteIndented = true)]
 [JsonSerializable(typeof(ProbeReport))]

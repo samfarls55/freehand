@@ -13,6 +13,9 @@ namespace Freehand.Cleanup;
 /// <remarks>Only complete responses are returned. The caller owns transcript fallback and delivery.</remarks>
 public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
 {
+    /// <summary>The versioned exterior-whitespace rule applied before specialist literal restoration.</summary>
+    public const string SpecialistOutputNormalization = "trim-v1";
+
     private const int MaximumResponseBytes = 2 * 1024 * 1024;
     private static readonly string[] InputControlTokens =
     [
@@ -80,7 +83,9 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
                 };
                 using var response = await PostAsync("completion", request,
                     CleanupJsonContext.Default.CompletionRequest, linked.Token).ConfigureAwait(false);
-                output = CompleteNative(response.RootElement);
+                // Trim only the model's exterior formatting. Protected payloads are
+                // still opaque here, so restoring them later preserves their exact bytes.
+                output = CompleteNative(response.RootElement).Trim();
             }
             else
             {

@@ -7,7 +7,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from small_models import literal_mask_protocol, replay, selected_asset, verify_runtime_inventory
+from small_models import (DOTNET_WHITESPACE, literal_mask_protocol, normalize_specialist_output, replay,
+                          selected_asset, specialist_output_normalization, verify_runtime_inventory)
 from literal_protection import LiteralProtectionMask
 from specialist_literal_protection import SpecialistLiteralMask
 
@@ -33,6 +34,100 @@ class SmallModelReplayTests(unittest.TestCase):
                            "temperature": 0, "repeat_penalty": 1, "seed": 0, "add_special": False},
             "messages": None,
         }
+
+    def test_trim_fixture_matches_dotnet_without_pythons_four_extra_control_characters(self):
+        whitespace = "\t\n\v\f\r \u0085\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000"
+        self.assertEqual(whitespace, DOTNET_WHITESPACE)
+        python_whitespace = {chr(value) for value in range(0x110000) if chr(value).isspace()}
+        self.assertEqual(set("\x1c\x1d\x1e\x1f"), python_whitespace - set(DOTNET_WHITESPACE))
+        self.assertEqual(set(), set(DOTNET_WHITESPACE) - python_whitespace)
+        expected = "Keep  interior\tspacing.\r\nSecond line."
+        self.assertEqual(expected, normalize_specialist_output(whitespace + expected + whitespace, "trim-v1"))
+        for boundary in "\x1c\x1d\x1e\x1f\u200b\ufeff":
+            with self.subTest(boundary=ord(boundary)):
+                text = boundary + expected + boundary
+                self.assertEqual(text, normalize_specialist_output(" " + text + " ", "trim-v1"))
+
+    def test_new_native_replay_trims_only_explicitly_flagged_contract_and_retains_raw_output(self):
+        raw = DOTNET_WHITESPACE + "Can you send it?" + DOTNET_WHITESPACE
+        for flag, expected in [(None, raw), ("none", raw), ("trim-v1", "Can you send it?")]:
+            with self.subTest(flag=flag):
+                exported = copy.deepcopy(self.exported)
+                if flag is not None:
+                    exported["specialist_output_normalization"] = flag
+                server = FakeServer([{"tokens": [1]}, {"content": raw, "stop_type": "eos"}])
+
+                row = replay(server, exported, self.arguments)
+
+                self.assertEqual("completed", row["status"])
+                self.assertEqual(raw, row["raw_model_output"])
+                self.assertEqual(raw, row["raw_response"]["content"])
+                self.assertEqual(expected, row["output"])
+                if flag == "trim-v1":
+                    self.assertEqual(expected, row["normalized_model_output"])
+                else:
+                    self.assertNotIn("normalized_model_output", row)
+
+    def test_new_native_trim_precedes_restoration_of_exact_protected_boundary_payloads(self):
+        texts = ['[[FREEHAND_LITERAL_01_START]] \t\r\n Acme  [[FREEHAND_LITERAL_01_END]] and "  quoted\tΔ🙂\r\n  " [[FREEHAND_LITERAL_02_START]]  tail\t\r\n [[FREEHAND_LITERAL_02_END]]',
+                 '" \tquoted\r\nΔ🙂  "']
+        for text in texts:
+            with self.subTest(text=text):
+                exported = copy.deepcopy(self.exported)
+                exported.update(normalized_input=text, normalized_targets=[text], mask_literals=True,
+                                literal_mask_protocol="specialist-compact-v3", specialist_output_normalization="trim-v1")
+                masked = SpecialistLiteralMask.create(text).masked_text
+                raw = DOTNET_WHITESPACE + masked + DOTNET_WHITESPACE
+                server = FakeServer([{"tokens": [1]}, {"content": raw, "stop_type": "eos"}])
+
+                row = replay(server, exported, self.arguments)
+
+                self.assertEqual("completed", row["status"])
+                self.assertEqual(text, row["output"])
+                self.assertEqual(raw, row["raw_model_output"])
+                self.assertEqual(masked, row["normalized_model_output"])
+
+    def test_historical_v2_and_v3_exports_without_normalization_flag_keep_exterior_whitespace(self):
+        text = 'She said "Go."'
+        masked = SpecialistLiteralMask.create(text).masked_text
+        for protocol, restored in [("specialist-compact-v2", text + "."), ("specialist-compact-v3", text)]:
+            with self.subTest(protocol=protocol):
+                exported = copy.deepcopy(self.exported)
+                exported.update(normalized_input=text, normalized_targets=[text], mask_literals=True, literal_mask_protocol=protocol)
+                server = FakeServer([{"tokens": [1]}, {"content": " \t" + masked + ".\r\n ", "stop_type": "eos"}])
+
+                row = replay(server, exported, self.arguments)
+
+                self.assertEqual("completed", row["status"])
+                self.assertEqual(" \t" + restored + "\r\n ", row["output"])
+
+    def test_general_replay_keeps_exterior_whitespace(self):
+        exported = copy.deepcopy(self.exported)
+        exported.update(completion=None, messages=[], specialist_output_normalization="none")
+        raw = DOTNET_WHITESPACE + "Can you send it?" + DOTNET_WHITESPACE
+        server = FakeServer([{"prompt": "template"}, {"tokens": [1]},
+                             {"choices": [{"finish_reason": "stop", "message": {"content": raw}}]}])
+
+        row = replay(server, exported, self.arguments)
+
+        self.assertEqual("completed", row["status"])
+        self.assertEqual(raw, row["output"])
+        self.assertNotIn("normalized_model_output", row)
+
+    def test_unknown_or_general_trim_normalization_fails_before_any_server_request(self):
+        for value, general in [("trim-v2", False), (None, False), (True, False), ("trim-v1", True)]:
+            with self.subTest(value=value, general=general):
+                exported = copy.deepcopy(self.exported)
+                exported["specialist_output_normalization"] = value
+                if general:
+                    exported.update(completion=None, messages=[])
+                server = FakeServer([])
+
+                row = replay(server, exported, self.arguments)
+
+                self.assertEqual("failed", row["status"])
+                self.assertEqual([], server.calls)
+        self.assertEqual("none", specialist_output_normalization({}, False))
 
     def test_native_generation_receives_validated_token_array_with_exact_bos_setting(self):
         server = FakeServer([{"tokens": [1, 2, 3]}, {"content": "Can you send it?", "stop_type": "eos"}])

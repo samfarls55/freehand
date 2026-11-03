@@ -20,6 +20,29 @@ from literal_protection import LiteralProtectionMask
 from specialist_literal_protection import SpecialistLiteralMask
 
 
+# System.Char.IsWhiteSpace / String.Trim: Python's default strip additionally
+# removes U+001C through U+001F, which the production provider preserves.
+DOTNET_WHITESPACE = "\t\n\v\f\r \u0085\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000"
+
+
+def specialist_output_normalization(exported: dict, general: bool) -> str:
+    """Old exports keep their original output bytes unless they opt in explicitly."""
+    protocol = exported.get("specialist_output_normalization", "none")
+    if protocol not in ("none", "trim-v1"):
+        raise ValueError("Unsupported specialist output normalization")
+    if general and protocol != "none":
+        raise ValueError("General-model contracts do not normalize exterior whitespace")
+    return protocol
+
+
+def normalize_specialist_output(text: str, protocol: str) -> str:
+    if protocol == "trim-v1":
+        return text.strip(DOTNET_WHITESPACE)
+    if protocol == "none":
+        return text
+    raise ValueError("Unsupported specialist output normalization")
+
+
 def selected_asset(index: dict, identity: str) -> dict:
     matches = [asset for asset in index["assets"] if asset["id"] == identity]
     if not matches:
@@ -131,11 +154,13 @@ def replay(server: OwnedServer, exported: dict, arguments: argparse.Namespace) -
         contract = exported.get("completion")
         general = contract is None
         protocol = literal_mask_protocol(exported, general)
+        normalization = specialist_output_normalization(exported, general)
         protection = (SpecialistLiteralMask.create(fixture["input"], remove_added_quote_period=protocol == "specialist-compact-v3")
                       if protocol in ("specialist-compact-v2", "specialist-compact-v3")
                       else LiteralProtectionMask.create(fixture["input"]) if protocol == "literal-token-v1" else None)
         row["mask_literals"] = protocol != "none"
         row["literal_mask_protocol"] = protocol
+        row["specialist_output_normalization"] = normalization
         model_text = protection.masked_text if protection is not None else fixture["input"]
         row["model_input_sha256"] = hashlib.sha256(model_text.encode("utf-8")).hexdigest()
         if (exported.get("model_input_sha256") is not None
@@ -176,6 +201,9 @@ def replay(server: OwnedServer, exported: dict, arguments: argparse.Namespace) -
         if general and isinstance(response.get("choices"), list) and response["choices"]:
             row["raw_model_output"] = response["choices"][0].get("message", {}).get("content")
         output, metadata = read_completion({"style": "chat" if general else "quill_chatml"}, response)
+        if normalization != "none":
+            output = normalize_specialist_output(output, normalization)
+            row["normalized_model_output"] = output
         if protection is not None:
             output = protection.restore(output)
         row.update({"status": "completed", "output": output, "generation_seconds": generation_seconds,
@@ -225,6 +253,9 @@ def run(arguments: argparse.Namespace) -> int:
     mask_protocol = literal_mask_protocol(exported, general)
     if any(literal_mask_protocol(row, general) != mask_protocol for row in selected):
         raise ValueError("Prompt export mixes literal mask protocols")
+    normalization = specialist_output_normalization(exported, general)
+    if any(specialist_output_normalization(row, general) != normalization for row in selected):
+        raise ValueError("Prompt export mixes specialist output normalization protocols")
     arguments.output.mkdir(parents=True)
     server_args = ["--alias", "local-cleanup", "--ctx-size", str(arguments.context), "--parallel", "1",
                    "--threads", str(arguments.threads), "--threads-batch", str(arguments.threads),
@@ -239,6 +270,7 @@ def run(arguments: argparse.Namespace) -> int:
               "prompts_sha256": sha256_file(arguments.prompts), "prompt_style": exported["prompt_style"],
               "mask_literals": exported.get("mask_literals", general),
               "literal_mask_protocol": mask_protocol,
+              "specialist_output_normalization": normalization,
               "managed_assembly_sha256": exported["managed_assembly_sha256"], "host": platform.platform(),
               "profile": {"context": arguments.context, "max_output": arguments.max_output, "threads": arguments.threads,
                           "batch": arguments.batch, "micro_batch": arguments.micro_batch, "cache_ram_mib": arguments.cache_ram,
