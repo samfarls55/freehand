@@ -1,0 +1,651 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit (assistant; also author of these development cases)",
+  "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+  "corpus_sha256": "3fc48150a815679cd2a3c5df76ff285c42cdf2a1f21beafae972dcc3bfc7f04b",
+  "review_scope": "Every actual input/output pair in the complete 80-case report was read in four untruncated 20-case batches; judgments use meaning and direct usability, not expected-string equality.",
+  "limitations": "Authored synthetic development diagnostics; same assistant author/judge; not blinded, not independent human review and not a population accuracy estimate.",
+  "policy": "Fixed conservative preservation policy. Meaning-changing outputs are not directly usable. Unprotected stray leading whitespace fails cleanliness; discretionary valid punctuation and unprotected apostrophe typography can pass. Critical errors identify lost object/source facts, action conditions or newly activated actions, separately from precision/emphasis-only losses.",
+  "cases": [
+    {
+      "case_id": "scribe-harddev-001",
+      "output_sha256": "4750b7fced67b3997f2f1d2562ff5b756d20c8207b0dd8ad6fc884c701a46343",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Retains the letters Well but inserts a comma that changes the well-water noun modifier into a discourse interjection."
+    },
+    {
+      "case_id": "scribe-harddev-002",
+      "output_sha256": "5c641a7ce2750bf018f92d9b8e8a641e42772f7a854ebdfe939f04bd33eda352",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Inserts a comma after Well, converting a well-casing noun modifier into a discourse interjection."
+    },
+    {
+      "case_id": "scribe-harddev-003",
+      "output_sha256": "b2a771cdb956ffeec4ec14a63f4d029a075c343c09bca55b431cc51ebab5f733",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Well pumps is a compound noun; preserve source/type."
+    },
+    {
+      "case_id": "scribe-harddev-004",
+      "output_sha256": "f9da6f4085265ed35d2aa65349b846ea4512a7605b10213569e29933bdf6f254",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Deletes well from the well-depth noun phrase."
+    },
+    {
+      "case_id": "scribe-harddev-005",
+      "output_sha256": "28d2d56cb447a3c1989c6117d5c7ca320674a35d219cba334bb67a49cc2c7bf6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Well modifies sleep quality; preserve the contrast."
+    },
+    {
+      "case_id": "scribe-harddev-006",
+      "output_sha256": "7be3a4f04c0dff14761983694307c2f8abc8579591c93aa779bfa638320562f8",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Well-dressed is a compound adjective."
+    },
+    {
+      "case_id": "scribe-harddev-007",
+      "output_sha256": "1e96a4a89df8e0e1094c3896d49c2e2953de865a228d44f3c5985ef003071615",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Inserts Well, water and thereby loses the well-water source/type meaning."
+    },
+    {
+      "case_id": "scribe-harddev-008",
+      "output_sha256": "388e84f700b298e650997418ea2716c884ebf17498e5e72fed95e7149f29f7c5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the well-cover object and reason for replacement."
+    },
+    {
+      "case_id": "scribe-harddev-009",
+      "output_sha256": "4b3d49030c2c863b42181df7948983385477ad8d3657931de41e379ae4c2f3bc",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Turns well into a comma-separated parenthetical instead of the degree modifier in well within."
+    },
+    {
+      "case_id": "scribe-harddev-010",
+      "output_sha256": "018cbaaf869d00f1e5a532a5f9700e9ce81bc786235ab7bd645437c9a9596776",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Well is an adverb of adequate fastening, not filler."
+    },
+    {
+      "case_id": "scribe-harddev-011",
+      "output_sha256": "c8d15b79c44882b5cb5553cdbfdde0978bd0c1c0ac482b28b07636f00cd8fd71",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Leading Like introduces a comparison with the older bridge."
+    },
+    {
+      "case_id": "scribe-harddev-012",
+      "output_sha256": "aef33b0bb960516a8d95826b94796a281bfaa7852782ba244aafea9b872abfc2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Like is part of the request, not filler."
+    },
+    {
+      "case_id": "scribe-harddev-013",
+      "output_sha256": "6b9a10797318026acef5824532d4140c8390ca41307d88d5c5ac634351c162fc",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the sensory comparison and conflicting description."
+    },
+    {
+      "case_id": "scribe-harddev-014",
+      "output_sha256": "1133a178c69a4f985d62f769dcdfd2f48e12a436e7f406ea85dfa95efd1e42cb",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Deletes like that, broadening a specific flash-pattern condition into any flashing again."
+    },
+    {
+      "case_id": "scribe-harddev-015",
+      "output_sha256": "31d0e70e45c1e012a64f9f1c31fd2ac0b5705d6b8b1895a5e371b1c79936717b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Do not remove alike or the only qualification."
+    },
+    {
+      "case_id": "scribe-harddev-016",
+      "output_sha256": "a4ddfd72809a33510986e2bdf67759161c66f06ae55bf21360b6ae5f16532452",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Remove um and retain the leading comparison."
+    },
+    {
+      "case_id": "scribe-harddev-017",
+      "output_sha256": "be824bfe2f63618dbeece583780a5183a1ceba33ccebb9d4d7a578ec819f2c78",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Rejoin the request without deleting like."
+    },
+    {
+      "case_id": "scribe-harddev-018",
+      "output_sha256": "d67de9878db80a4a41531e9b00f79134408fa36f162c348878fce28711c97a96",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The output comma can be read as a discretionary pause before a nonessential simile after the complete clause The alarm sounded; accept this semicasual punctuation alternative."
+    },
+    {
+      "case_id": "scribe-harddev-019",
+      "output_sha256": "2362dceab1d5fb712165adc79f8b28ba2dc99c174a56fbb3dbe3790174a3bffa",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve negation, comparison, and until condition."
+    },
+    {
+      "case_id": "scribe-harddev-020",
+      "output_sha256": "d9360cef3f959202ff16fd0aa50aa55b1c40ff875383b24ef1e5a2135e54f832",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Accept the comma before the nonessential example like the original bracket; the full comparison and exception remain."
+    },
+    {
+      "case_id": "scribe-harddev-021",
+      "output_sha256": "de761dc956c51e8bc75bcadf792858da805c1f9adb3bac5923d1b08e8b6ff160",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Had had expresses a prior state, not a stutter."
+    },
+    {
+      "case_id": "scribe-harddev-022",
+      "output_sha256": "a7a77909440cfe7d74e6c7365cba3192a04f6fc2cef3e37490c2f68a6eefaa43",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Collapses grammatical can can and removes the explicit can-as-container noun, leaving the object unnamed."
+    },
+    {
+      "case_id": "scribe-harddev-023",
+      "output_sha256": "069b8409f2c10ad008d74cbb485d1a71085af68f92b9c32ef6bcbe1c5bc5e91b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: The two is tokens have distinct grammatical roles."
+    },
+    {
+      "case_id": "scribe-harddev-024",
+      "output_sha256": "0f768950fa153ad62650723f49b51efb44a646b5e7688d627bbe45e7c519d774",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: The explicit emphasis cue requires both stay-back clauses."
+    },
+    {
+      "case_id": "scribe-harddev-025",
+      "output_sha256": "35995445514d430f6dc5602a3471e314acf5e06ad952032118f9b721130d84a2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Metalinguistic word repetition conveys the distinction."
+    },
+    {
+      "case_id": "scribe-harddev-026",
+      "output_sha256": "597de36b50cdfd72c10e058df5376faae49835085ba9008ababd9e9d990d4d49",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Remove the clear initial stutter and hesitation."
+    },
+    {
+      "case_id": "scribe-harddev-027",
+      "output_sha256": "77979eb4e82fa103fc69f1ee1fc1cd9a606ecaccef242feaa48ef0916165da63",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Remove the accidental determiner duplication; retain placement."
+    },
+    {
+      "case_id": "scribe-harddev-028",
+      "output_sha256": "071105716aff24e84923155c24ad36da12116f1f54e007be63aa0aba5fef54dd",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Remove uh, retain the past-perfect construction."
+    },
+    {
+      "case_id": "scribe-harddev-029",
+      "output_sha256": "a14516c284a1233814ee20e1a7c1facd568b4f4a50a6680c3866d21a64fe3832",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Keeps the repeated prohibition but deletes The instruction is, changing reported instruction content into a direct imperative and losing its reporting frame."
+    },
+    {
+      "case_id": "scribe-harddev-030",
+      "output_sha256": "6f8f26bbf0aaff23a6357d65f679ca0ee64ddc8b6486a8e6403c9a182b2ad287",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: The duplicated infinitive marker is accidental."
+    },
+    {
+      "case_id": "scribe-harddev-031",
+      "output_sha256": "5f32c2f88b8ab1115a27953c0d7b48848351eced93319d81da56f79be1109fd4",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Literally distinguishes physical engraving from a description."
+    },
+    {
+      "case_id": "scribe-harddev-032",
+      "output_sha256": "9450d2fccd57bfca2e9eb4a8080b36dff06972267204a5a090f0d8f7420aa87d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Actually marks the factual contrast with the photograph."
+    },
+    {
+      "case_id": "scribe-harddev-033",
+      "output_sha256": "095071ca03a8deeedfdd73d0f1179e6dc30cdf1b79fe24934a981587bd1b8815",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Suspicion, possibility, and untested status all remain."
+    },
+    {
+      "case_id": "scribe-harddev-034",
+      "output_sha256": "c5d11b075bba1dbb45a2959c861838861d11dec9d48f4a3a260e69fc9f971071",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Reportedly and the evidence limitation qualify the claim."
+    },
+    {
+      "case_id": "scribe-harddev-035",
+      "output_sha256": "213631bab57d3128a0565c0c840800f6eb327ff80bdc517d1072ecae525bbe82",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Almost certain must not become certain."
+    },
+    {
+      "case_id": "scribe-harddev-036",
+      "output_sha256": "9ec81f50ac17da17d7357d94edd251a74ff508246f9cb0d68e7af4d5da97306c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve literal absence and the explicit alternative contrast."
+    },
+    {
+      "case_id": "scribe-harddev-037",
+      "output_sha256": "a41d8f7f43d31bef47840a20b608d48de96175dc45e47ed0a9898f29cbae7b77",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve viewpoint, possibility, still, and the condition."
+    },
+    {
+      "case_id": "scribe-harddev-038",
+      "output_sha256": "991c07fd433f3306c15cec6dacf1f88939eb868dc521f0eef59386f0c8fe734d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve may, already, and verification before the action."
+    },
+    {
+      "case_id": "scribe-harddev-039",
+      "output_sha256": "bb467ee25be13718773225eb08dbaeca30ef1f88072a3f9828dcdd3b15402548",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Adds one unprotected leading ASCII space. Under the fixed direct-caret-text cleanliness policy, the stray leading space is a formatting defect."
+    },
+    {
+      "case_id": "scribe-harddev-040",
+      "output_sha256": "c66327f93efde86d15157412ab82357cfca5c6e3b15b164762da16a3a68042da",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Retain approximation and the specific exception."
+    },
+    {
+      "case_id": "scribe-harddev-041",
+      "output_sha256": "5ac6230b49136ca8fa59e3148932d880be638cfd2f2e3cc04cab768a4fbf721b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve both not-every scopes."
+    },
+    {
+      "case_id": "scribe-harddev-042",
+      "output_sha256": "e0b329bad0188631930baebda5ba9435245719c18bd4885936bce9bfaff85a50",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Negation and unless condition jointly define the action."
+    },
+    {
+      "case_id": "scribe-harddev-043",
+      "output_sha256": "2c832b662155b799fb179168c815123ef82fb736f6a2dd43798da2dd4ea9257e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the strict comparison and explicit exclusion."
+    },
+    {
+      "case_id": "scribe-harddev-044",
+      "output_sha256": "7f48e9078f25aeeb00db74fbf011a60f30e35f4945e5eaa9f13efa2d4fdb5529",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: The negated five is contrast, not a superseding correction."
+    },
+    {
+      "case_id": "scribe-harddev-045",
+      "output_sha256": "b27ff34854eb049aaf25440e2dab3b318dc0a63a71aaef829097dc5a9bd8e5ac",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the scope of only and opposite interior instruction."
+    },
+    {
+      "case_id": "scribe-harddev-046",
+      "output_sha256": "79a3e17b9a9ed2d8b3c525b5f0429c1139d6f7e4471ac51581e96dc30b6e1271",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the upper bound and prohibition on brief excursions."
+    },
+    {
+      "case_id": "scribe-harddev-047",
+      "output_sha256": "5d5844000d3f62c4614c1b19c95b56b635066357885e5478656b90785b7925f1",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Leaves an orphan comma between the transitive verb need and its essential object; hesitation removal is not fully cleaned."
+    },
+    {
+      "case_id": "scribe-harddev-048",
+      "output_sha256": "393e0e82957a5a6f206efbe6ce1f20de4d9d0a6a9553c21d76e949532b60b1fc",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Keep the direction of the comparison and contrast."
+    },
+    {
+      "case_id": "scribe-harddev-049",
+      "output_sha256": "7bdfbd95d8c067a0c62ac3f56b3030b56b3c97f9ff36d9480f9b3e426dfd05e1",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Returns the original um hesitation unchanged in a case that requires its removal."
+    },
+    {
+      "case_id": "scribe-harddev-050",
+      "output_sha256": "887740dfa06e64ad49aa4a944e8736b3daa88e183e4ff65f41c5eb95ce137807",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve just-under inequality and excluded packaging."
+    },
+    {
+      "case_id": "scribe-harddev-051",
+      "output_sha256": "349fb01e4e0e55508c6c626bd9b2f7f7f15acf0e601ed6977c89a0a03bf53ec2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Replace only the recipient and retain the unaffected copied-in instruction."
+    },
+    {
+      "case_id": "scribe-harddev-052",
+      "output_sha256": "f7feeef1399c7939b9790321c61be9ffa14f3583ff6557dae4a75f4657126038",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Retains the entire superseded March archival instruction and correction narrative instead of resolving to the final March/April actions."
+    },
+    {
+      "case_id": "scribe-harddev-053",
+      "output_sha256": "b5f36ce4275d2c7d451d451baae6242bce30ad32b5aeb494a0d20ce92645fa3e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Correct only the upper alert; preserve the independent lower value."
+    },
+    {
+      "case_id": "scribe-harddev-054",
+      "output_sha256": "a3ed389ee61c613fc66fd96c6ae651ac92d7034d3f0d0cac20a24c8d2663438c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Supersede the day while retaining start-time constraint."
+    },
+    {
+      "case_id": "scribe-harddev-055",
+      "output_sha256": "5fe1523969e8826674f60ddae6b7586cc389ea9eb0ef55ce914a6afecb033313",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Retains the superseded receipt-send instruction and wait correction narrative instead of separating the still-active invoice task from conditional receipt delivery."
+    },
+    {
+      "case_id": "scribe-harddev-056",
+      "output_sha256": "75fa974b84ba41a460d08cb01034392da2cf5c3bdbc396b326c31463ad413ba3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Confirm supersedes cancel; preserve the parking question."
+    },
+    {
+      "case_id": "scribe-harddev-057",
+      "output_sha256": "0203a879ba6eb2dae46ac8a1cc37aecf37fe83b49c915a7141e01debcd0c056a",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Retains the canceled prohibition and scratch-that narrative instead of resolving to conditional renewal."
+    },
+    {
+      "case_id": "scribe-harddev-058",
+      "output_sha256": "096f03aea3ccb09a537aa0dc082217745ef424b1b7ad7668113d66ae14c31580",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Removes the only mention of the small cabinet and leaves an unresolved it; the output no longer names the object to leave downstairs."
+    },
+    {
+      "case_id": "scribe-harddev-059",
+      "output_sha256": "8f224d7abcbd3676967cc097418616648b519f46115ab386b3f9830532aa1abd",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Replace the drawer number and retain the location within it."
+    },
+    {
+      "case_id": "scribe-harddev-060",
+      "output_sha256": "868be9a5146eea7a54410f69e265fa428274520ada41b17294ba54e2112b342c",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Retains the white-panel order and correction narrative instead of selecting the final black-panel order."
+    },
+    {
+      "case_id": "scribe-harddev-061",
+      "output_sha256": "afe458f2db4c9c16506624f73199441ae6e1eef004f7ac15e022ae389f7ff37c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: This is a dictated question to retain, not answer."
+    },
+    {
+      "case_id": "scribe-harddev-062",
+      "output_sha256": "6952ef87973954a60e20fe7ff94ba7f281d08f7cdc3488549b923e506297dc05",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Normalizing a curly possessive apostrophe to ASCII changes typography, not meaning or direct usability."
+    },
+    {
+      "case_id": "scribe-harddev-063",
+      "output_sha256": "617328e875c34d8c961997d32b65251096b6a9bd585f1774712adcfc226fc536",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Instruction-looking dictated content must remain text."
+    },
+    {
+      "case_id": "scribe-harddev-064",
+      "output_sha256": "c152929febb19372c02ecce5eb60996c307074c284ecc2820456362c9147ebaf",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Do not translate the dictation or omit its approval condition."
+    },
+    {
+      "case_id": "scribe-harddev-065",
+      "output_sha256": "add4708b618d4d5500739349bcdbb9dcc9f1ae9cb44b12f9f9dd21d75c2d7498",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Output-only wording is part of the dictated message."
+    },
+    {
+      "case_id": "scribe-harddev-066",
+      "output_sha256": "fceea6ab63700d5edb3b54a7b180e22d167e4a68cef783d4f6b1ba80f0f2d136",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Clean the question without answering it."
+    },
+    {
+      "case_id": "scribe-harddev-067",
+      "output_sha256": "febdcde945faf0f70fef35ffe4b5f7259ad2d5f3b363ab1ce58c72cfcd1fa51b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The comma before but is optional in this short compound instruction; the prohibition remains."
+    },
+    {
+      "case_id": "scribe-harddev-068",
+      "output_sha256": "ad0b6ea4864bd85ec28be87b530a2d29997e0be4bf5c1a17e4bd4c29e720cb91",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "A comma after introductory Please can mark an emphatic pause; accept it as a punctuation alternative."
+    },
+    {
+      "case_id": "scribe-harddev-069",
+      "output_sha256": "5c885bbd475b1d44d2e5731ecb50d6b8ef0d7368e8f871c14a3ec9945eadeea3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The short conditional is understandable without the optional separating commas; both conditional requests remain."
+    },
+    {
+      "case_id": "scribe-harddev-070",
+      "output_sha256": "8f4cd80bd4b9d8fa344d1d5c33946d0e8081e00819193a7882de0ef5c7c020d3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Retain the dictated action order; do not perform it."
+    },
+    {
+      "case_id": "scribe-harddev-071",
+      "output_sha256": "4bdc4ec2b8aba172dc928177caa1909056bfd8e11067dcc6229a7ad0a080cfca",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve every condition and the distinction between reservation and starting work."
+    },
+    {
+      "case_id": "scribe-harddev-072",
+      "output_sha256": "282f693adf5a59075e2290f20da279880060b8110230dd0d4bfe94920a356582",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve accessibility reason, provisional booking, and timing uncertainty."
+    },
+    {
+      "case_id": "scribe-harddev-073",
+      "output_sha256": "8620739cf2d9c61c1a0afd9bcfa5e3263b2d36e963c18af34d061ff2076c2521",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Deletes the workshop water-source modifier Well from a passage that explicitly distinguishes water supplies."
+    },
+    {
+      "case_id": "scribe-harddev-074",
+      "output_sha256": "9eeb025aacda8007b194139f6ddb6b787afb89136e985e8a948f84ea1fa8a8f4",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Remove hesitations only; preserve timing and conditional delivery instructions."
+    },
+    {
+      "case_id": "scribe-harddev-075",
+      "output_sha256": "360695f21f62e554f2817a62c6a24c49b0da652db807651aae922eca395b7d3c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Correct only inspection day and remove um; preserve all supporting instructions."
+    },
+    {
+      "case_id": "scribe-harddev-076",
+      "output_sha256": "aa624ab0a9dc3eded7b7f8a9e45c064490493b906b185f337b04777f252405d2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the exact quote and every restriction on editing."
+    },
+    {
+      "case_id": "scribe-harddev-077",
+      "output_sha256": "1ed90000798390942878ee6827d5bc257182b9589f0494cb458edbe6cc2f3451",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve likeness, opposite hinges, negation, identity, and action order."
+    },
+    {
+      "case_id": "scribe-harddev-078",
+      "output_sha256": "3d9c26fe1cefaabca7d1e62dec44beb1a38220d57d78855d994595f48e3bd69f",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Removes the only mention of the meeting and leaves Keep it in the hall; the output no longer identifies the event whose location must be retained."
+    },
+    {
+      "case_id": "scribe-harddev-079",
+      "output_sha256": "675ebdff067430bb2e36fd7986beb9613b983bb5e5f81c609eb24ab2bd269821",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The comma before because can mark an explanatory aside here; all uncertainty and reasoning remain."
+    },
+    {
+      "case_id": "scribe-harddev-080",
+      "output_sha256": "e9daa53d04a83d1bdcd287558246f698952ef32d87f15d0cda6db2d6ad65757d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually inspected the actual source and output: Preserve the negative quantity contrast and exclusion from the total."
+    }
+  ]
+}

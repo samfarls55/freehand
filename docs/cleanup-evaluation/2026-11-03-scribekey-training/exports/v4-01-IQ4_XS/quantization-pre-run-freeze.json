@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "source_f16": {
+    "path": "/tmp/freehand-scribekey-v4-01-export/merged-F16.gguf",
+    "bytes": 711483680,
+    "sha256": "86520ebad60f9219bd3f8bc59825b5974e5f212452dd6d67045341a58bf5bf51"
+  },
+  "source_q4_export_report": {
+    "path": "/tmp/freehand-scribekey-v4-01-export/export-report.json",
+    "bytes": 36989,
+    "sha256": "f9626d97537cbb5605a83df4f5b1a215c0d981591ab8f3712c4de86f8a8085f8"
+  },
+  "quantizer": {
+    "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-quantize",
+    "bytes": 17864,
+    "sha256": "e13e535eb25f87161d20906251388e2021024e66fa859562eaad3a8e0aef963d"
+  },
+  "runtime_inventory": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+    "sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85",
+    "verified_file_count": 51,
+    "verified_symlink_count": 10,
+    "verification": "complete_file_hashes_sizes_and_local_symlink_targets"
+  },
+  "converter_inventory": {
+    "inventory": {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/converter-source-index.json",
+      "bytes": 45149,
+      "sha256": "2461c411cd538e9dabd01c7ac453cc1ae73c92deb0b27b85a91ddedee0b7e49b"
+    },
+    "source_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+    "verified_source_files": 145
+  },
+  "executed_derivation_source": {
+    "path": "/tmp/freehand-scribekey-v4-01-IQ4_XS/derivation-source.py",
+    "bytes": 5199,
+    "sha256": "9f9d2871962818e79dfc2c35ae721e7cf9cb00ea59b81b52d352fc706214b576"
+  },
+  "argv": [
+    "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-quantize",
+    "/tmp/freehand-scribekey-v4-01-export/merged-F16.gguf",
+    "/tmp/freehand-scribekey-v4-01-IQ4_XS/ScribeKey-Freehand-trained-IQ4_XS.gguf",
+    "IQ4_XS",
+    "4"
+  ],
+  "source_adapter_sha256": "4bb67a90dd6bcf8e7d7319c7fae8d805d8f771661acfafa3ba0ea5ebadc2b40e",
+  "q4_requantization": false,
+  "new_training": false,
+  "quality_qualified": false
+}

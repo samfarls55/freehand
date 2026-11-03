@@ -1,0 +1,48 @@
+{
+  "artifact_bytes": 211804448,
+  "artifact_sha256": "de03a46194457357482dcc3620f463fa3ab5e2e92180788b5bf91b36d9c671c8",
+  "source_f16_sha256": "86520ebad60f9219bd3f8bc59825b5974e5f212452dd6d67045341a58bf5bf51",
+  "importance_matrix_used": false,
+  "new_training": false,
+  "Q4_requantization": false,
+  "runs": [
+    {
+      "quantization": "IQ4_XS",
+      "corpus": "development546",
+      "case_count": 546,
+      "statuses": {
+        "Applied": 344,
+        "Unchanged": 202
+      },
+      "structural_model_success": 546,
+      "exact_final_target_matches_diagnostic_including_fallback": 542,
+      "exact_returned_candidate_target_matches_diagnostic": 542,
+      "fixed_assertion_passes": 546,
+      "single_deliveries": 546,
+      "changed_output_or_status_vs_Q4": 2,
+      "worker_peak_observed_rss_bytes": 280502272,
+      "worker_peak_kernel_hwm_bytes": 280502272,
+      "worker_samples": 6588,
+      "scope": "Cleanup-worker-only memory and development diagnostics; semantic review and actual whole-app resources are separate."
+    },
+    {
+      "quantization": "IQ4_XS",
+      "corpus": "hard80",
+      "case_count": 80,
+      "statuses": {
+        "Unchanged": 34,
+        "Applied": 46
+      },
+      "structural_model_success": 80,
+      "exact_final_target_matches_diagnostic_including_fallback": 73,
+      "exact_returned_candidate_target_matches_diagnostic": 73,
+      "fixed_assertion_passes": 80,
+      "single_deliveries": 80,
+      "changed_output_or_status_vs_Q4": 7,
+      "worker_peak_observed_rss_bytes": 280166400,
+      "worker_peak_kernel_hwm_bytes": 280166400,
+      "worker_samples": 1181,
+      "scope": "Cleanup-worker-only memory and development diagnostics; semantic review and actual whole-app resources are separate."
+    }
+  ]
+}

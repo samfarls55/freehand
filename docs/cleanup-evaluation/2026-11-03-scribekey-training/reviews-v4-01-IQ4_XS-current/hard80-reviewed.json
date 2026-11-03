@@ -1,0 +1,1498 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit (assistant; author of hard80 development cases)",
+  "results_sha256": "372afd07918daa6aa402db18fbb20f5ee572bd7ef57d5047fcb9330e9c591eb6",
+  "q4_comparison_results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+  "q4_comparison_review_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183",
+  "review_scope": "73 strict input/reference/final-output SHA and structural identity judgments inherited; all7 changed actual pairs manually read in a complete untruncated batch. No target-string accuracy oracle.",
+  "inherited_case_ids": [
+    "scribe-harddev-001",
+    "scribe-harddev-002",
+    "scribe-harddev-003",
+    "scribe-harddev-004",
+    "scribe-harddev-005",
+    "scribe-harddev-006",
+    "scribe-harddev-007",
+    "scribe-harddev-008",
+    "scribe-harddev-009",
+    "scribe-harddev-010",
+    "scribe-harddev-011",
+    "scribe-harddev-012",
+    "scribe-harddev-013",
+    "scribe-harddev-014",
+    "scribe-harddev-015",
+    "scribe-harddev-017",
+    "scribe-harddev-018",
+    "scribe-harddev-019",
+    "scribe-harddev-020",
+    "scribe-harddev-021",
+    "scribe-harddev-022",
+    "scribe-harddev-023",
+    "scribe-harddev-024",
+    "scribe-harddev-025",
+    "scribe-harddev-026",
+    "scribe-harddev-027",
+    "scribe-harddev-028",
+    "scribe-harddev-029",
+    "scribe-harddev-030",
+    "scribe-harddev-031",
+    "scribe-harddev-032",
+    "scribe-harddev-033",
+    "scribe-harddev-034",
+    "scribe-harddev-035",
+    "scribe-harddev-036",
+    "scribe-harddev-037",
+    "scribe-harddev-038",
+    "scribe-harddev-039",
+    "scribe-harddev-040",
+    "scribe-harddev-041",
+    "scribe-harddev-042",
+    "scribe-harddev-043",
+    "scribe-harddev-044",
+    "scribe-harddev-045",
+    "scribe-harddev-046",
+    "scribe-harddev-047",
+    "scribe-harddev-049",
+    "scribe-harddev-050",
+    "scribe-harddev-052",
+    "scribe-harddev-053",
+    "scribe-harddev-057",
+    "scribe-harddev-058",
+    "scribe-harddev-059",
+    "scribe-harddev-061",
+    "scribe-harddev-062",
+    "scribe-harddev-063",
+    "scribe-harddev-064",
+    "scribe-harddev-065",
+    "scribe-harddev-066",
+    "scribe-harddev-067",
+    "scribe-harddev-068",
+    "scribe-harddev-069",
+    "scribe-harddev-070",
+    "scribe-harddev-071",
+    "scribe-harddev-072",
+    "scribe-harddev-073",
+    "scribe-harddev-074",
+    "scribe-harddev-075",
+    "scribe-harddev-076",
+    "scribe-harddev-077",
+    "scribe-harddev-078",
+    "scribe-harddev-079",
+    "scribe-harddev-080"
+  ],
+  "manually_reviewed_changed_case_ids": [
+    "scribe-harddev-016",
+    "scribe-harddev-048",
+    "scribe-harddev-051",
+    "scribe-harddev-054",
+    "scribe-harddev-055",
+    "scribe-harddev-056",
+    "scribe-harddev-060"
+  ],
+  "policy": "Unchanged conservative fidelity and direct-usability rubric. Preserve all active tasks and factual/conditional content. Valid discretionary punctuation may pass; critical semantic changes always fail the case.",
+  "normalization_attribution": "Same trim-v1 and protected-literal restoration code as other V4 runs. The Core-only IQ4 replay does not expose a native raw counterpart, so final pipeline accuracy must not be called pure weight-only accuracy.",
+  "remaining_failed_case_ids": [
+    "scribe-harddev-052",
+    "scribe-harddev-055"
+  ],
+  "selection_scope": "Development evidence for candidate comparison. This set is not the independent final500; its99% calculation is diagnostic rather than an additional perfect-development gate.",
+  "limitations": "Consumed development cases, assistant author/judge, not blinded human review or population accuracy. Same retained V4 F16 checkpoint directly quantized to IQ4_XS; no new training or blind access.",
+  "cases": [
+    {
+      "case_id": "scribe-harddev-001",
+      "output_sha256": "d612d93967069ce8646475d1ec7f0c2bd2bac84f6e30f442670fb228c9f8b568",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Preserves Well water as a substantive source/type noun phrase without introducing a meaning-changing comma.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-002",
+      "output_sha256": "4af74e219a344292c5c026d9b07f2ddaa56a14db2b502750f804408536f5f593",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Preserves well casing as the physical-object noun phrase.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-003",
+      "output_sha256": "b2a771cdb956ffeec4ec14a63f4d029a075c343c09bca55b431cc51ebab5f733",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Well pumps is a compound noun; preserve source/type.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-004",
+      "output_sha256": "b1bd971bf53d3df55830929c35930aa786cbf7f4547d896859e0d28858edf637",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Preserves well depth as the specified measured attribute.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-005",
+      "output_sha256": "28d2d56cb447a3c1989c6117d5c7ca320674a35d219cba334bb67a49cc2c7bf6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Well modifies sleep quality; preserve the contrast.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-006",
+      "output_sha256": "7be3a4f04c0dff14761983694307c2f8abc8579591c93aa779bfa638320562f8",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Well-dressed is a compound adjective.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-007",
+      "output_sha256": "954a1b3ac2b03e46bb9db9eaf9849b7d78bb1113361ce94fe2b2e7cdad0a3394",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes the hesitation and restores the full well-water noun phrase, capitalization and punctuation.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-008",
+      "output_sha256": "388e84f700b298e650997418ea2716c884ebf17498e5e72fed95e7149f29f7c5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. The cover identity, crack location and replacement instruction remain; the comma before so is an allowed punctuation alternative.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-009",
+      "output_sha256": "88b5d02402f46d1c5100006c22346b5cb12b36bfbc62f01f331a79fe28c08e38",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Preserves well within as a degree modifier, rather than a comma-separated interjection.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-010",
+      "output_sha256": "018cbaaf869d00f1e5a532a5f9700e9ce81bc786235ab7bd645437c9a9596776",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Well is an adverb of adequate fastening, not filler.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-011",
+      "output_sha256": "c8d15b79c44882b5cb5553cdbfdde0978bd0c1c0ac482b28b07636f00cd8fd71",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Leading Like introduces a comparison with the older bridge.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-012",
+      "output_sha256": "aef33b0bb960516a8d95826b94796a281bfaa7852782ba244aafea9b872abfc2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Like is part of the request, not filler.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-013",
+      "output_sha256": "6b9a10797318026acef5824532d4140c8390ca41307d88d5c5ac634351c162fc",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve the sensory comparison and conflicting description.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-014",
+      "output_sha256": "365a193661223a07fa0fe8a65a15f73386ac22447a9c2932d61eb77a198c00f8",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Retains like that, preserving the specific flash-pattern condition on disconnection.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-015",
+      "output_sha256": "31d0e70e45c1e012a64f9f1c31fd2ac0b5705d6b8b1895a5e371b1c79936717b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Do not remove alike or the only qualification.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-016",
+      "output_sha256": "a4ddfd72809a33510986e2bdf67759161c66f06ae55bf21360b6ae5f16532452",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually read the complete changed actual input/output pair. Preserves the red-container reference and correctly keeps the yellow one as the upright-in-transit instruction target."
+    },
+    {
+      "case_id": "scribe-harddev-017",
+      "output_sha256": "be824bfe2f63618dbeece583780a5183a1ceba33ccebb9d4d7a578ec819f2c78",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Rejoin the request without deleting like.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-018",
+      "output_sha256": "c14339534e04590cfa76551ae543f87a959038acd88901a4b8074cf8c277ace7",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes the hesitation and preserves the complete phone-ringing comparison; ordinary punctuation is clean.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-019",
+      "output_sha256": "2362dceab1d5fb712165adc79f8b28ba2dc99c174a56fbb3dbe3790174a3bffa",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve negation, comparison, and until condition.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-020",
+      "output_sha256": "1303d1ec9aa6d057219a4222d2107fb4ceb49602cc5c6e9cc496f7e909620434",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes the hesitation and preserves the original-bracket comparison and wider-slot exception.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-021",
+      "output_sha256": "de761dc956c51e8bc75bcadf792858da805c1f9adb3bac5923d1b08e8b6ff160",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Had had expresses a prior state, not a stutter.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-022",
+      "output_sha256": "99eb657dcf26c65b7a835e900f1369dfc2b678a595c6c2985cac0a45e1c9239c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Preserves both grammatical can tokens, retaining the explicit container noun and modal verb.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-023",
+      "output_sha256": "069b8409f2c10ad008d74cbb485d1a71085af68f92b9c32ef6bcbe1c5bc5e91b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: The two is tokens have distinct grammatical roles.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-024",
+      "output_sha256": "0f768950fa153ad62650723f49b51efb44a646b5e7688d627bbe45e7c519d774",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: The explicit emphasis cue requires both stay-back clauses.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-025",
+      "output_sha256": "35995445514d430f6dc5602a3471e314acf5e06ad952032118f9b721130d84a2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Metalinguistic word repetition conveys the distinction.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-026",
+      "output_sha256": "597de36b50cdfd72c10e058df5376faae49835085ba9008ababd9e9d990d4d49",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Remove the clear initial stutter and hesitation.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-027",
+      "output_sha256": "77979eb4e82fa103fc69f1ee1fc1cd9a606ecaccef242feaa48ef0916165da63",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Remove the accidental determiner duplication; retain placement.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-028",
+      "output_sha256": "071105716aff24e84923155c24ad36da12116f1f54e007be63aa0aba5fef54dd",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Remove uh, retain the past-perfect construction.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-029",
+      "output_sha256": "d02c74f452ae02d16dc81d503acbb35d9836bdaa768a6711a79ec4e499f6d44b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes um while retaining both the reporting frame The instruction is and the repeated prohibition.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-030",
+      "output_sha256": "6f8f26bbf0aaff23a6357d65f679ca0ee64ddc8b6486a8e6403c9a182b2ad287",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: The duplicated infinitive marker is accidental.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-031",
+      "output_sha256": "5f32c2f88b8ab1115a27953c0d7b48848351eced93319d81da56f79be1109fd4",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Literally distinguishes physical engraving from a description.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-032",
+      "output_sha256": "9450d2fccd57bfca2e9eb4a8080b36dff06972267204a5a090f0d8f7420aa87d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Actually marks the factual contrast with the photograph.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-033",
+      "output_sha256": "095071ca03a8deeedfdd73d0f1179e6dc30cdf1b79fe24934a981587bd1b8815",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Suspicion, possibility, and untested status all remain.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-034",
+      "output_sha256": "c5d11b075bba1dbb45a2959c861838861d11dec9d48f4a3a260e69fc9f971071",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Reportedly and the evidence limitation qualify the claim.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-035",
+      "output_sha256": "213631bab57d3128a0565c0c840800f6eb327ff80bdc517d1072ecae525bbe82",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Almost certain must not become certain.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-036",
+      "output_sha256": "9ec81f50ac17da17d7357d94edd251a74ff508246f9cb0d68e7af4d5da97306c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. The output preserves literally and the explicit missing-versus-hidden contrast; the added contrast comma is valid.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-037",
+      "output_sha256": "a41d8f7f43d31bef47840a20b608d48de96175dc45e47ed0a9898f29cbae7b77",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve viewpoint, possibility, still, and the condition.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-038",
+      "output_sha256": "991c07fd433f3306c15cec6dacf1f88939eb868dc521f0eef59386f0c8fe734d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve may, already, and verification before the action.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-039",
+      "output_sha256": "19c08dfed90ebacbc6bc6038a85d5109cf73cfca611c1ab9a5814d323da0904b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherits the semantic and final-cleanliness judgment because input/reference/final output and Core structural records are exactly identical to Q4. Trim-v1 is active; the IQ4 Core-only record does not expose its pre-trim raw generation, so the Q4 raw-leading-space observation is not asserted for IQ4.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-040",
+      "output_sha256": "c66327f93efde86d15157412ab82357cfca5c6e3b15b164762da16a3a68042da",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Retain approximation and the specific exception.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-041",
+      "output_sha256": "5ac6230b49136ca8fa59e3148932d880be638cfd2f2e3cc04cab768a4fbf721b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve both not-every scopes.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-042",
+      "output_sha256": "e0b329bad0188631930baebda5ba9435245719c18bd4885936bce9bfaff85a50",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Negation and unless condition jointly define the action.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-043",
+      "output_sha256": "2c832b662155b799fb179168c815123ef82fb736f6a2dd43798da2dd4ea9257e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve the strict comparison and explicit exclusion.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-044",
+      "output_sha256": "7f48e9078f25aeeb00db74fbf011a60f30e35f4945e5eaa9f13efa2d4fdb5529",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: The negated five is contrast, not a superseding correction.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-045",
+      "output_sha256": "b27ff34854eb049aaf25440e2dab3b318dc0a63a71aaef829097dc5a9bd8e5ac",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve the scope of only and opposite interior instruction.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-046",
+      "output_sha256": "79a3e17b9a9ed2d8b3c525b5f0429c1139d6f7e4471ac51581e96dc30b6e1271",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve the upper bound and prohibition on brief excursions.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-047",
+      "output_sha256": "39af2d7c0af1d59c566283ef89eb2ddb1a6c1c569955b437463a7326fbd9f544",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes uh and the orphan comma, retaining the dry-sample minimum and total-count contrast.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-048",
+      "output_sha256": "393e0e82957a5a6f206efbe6ce1f20de4d9d0a6a9553c21d76e949532b60b1fc",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually read the complete changed actual input/output pair. Preserves fewer rather than more responses after the second notice; the added contrast comma is valid."
+    },
+    {
+      "case_id": "scribe-harddev-049",
+      "output_sha256": "b0d556019d6686343ad761229547b15c531155f392f71a5402337dddc70d4c09",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes the hesitation while preserving the either-ladder prohibition and both-doors condition.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-050",
+      "output_sha256": "887740dfa06e64ad49aa4a944e8736b3daa88e183e4ff65f41c5eb95ce137807",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve just-under inequality and excluded packaging.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-051",
+      "output_sha256": "349fb01e4e0e55508c6c626bd9b2f7f7f15acf0e601ed6977c89a0a03bf53ec2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually read the complete changed actual input/output pair. Selects final recipient Pilar and preserves the independent caretaker-copy instruction; the comma before and is optional."
+    },
+    {
+      "case_id": "scribe-harddev-052",
+      "output_sha256": "b339221464fd15b4766183303a6cc3557cea82f886feccf1c4b17b4fb7adfe5d",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. Corrects the March/April archival choice but deletes the independent instruction to update the index.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-053",
+      "output_sha256": "b5f36ce4275d2c7d451d451baae6242bce30ad32b5aeb494a0d20ce92645fa3e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Correct only the upper alert; preserve the independent lower value.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-054",
+      "output_sha256": "a3ed389ee61c613fc66fd96c6ae651ac92d7034d3f0d0cac20a24c8d2663438c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually read the complete changed actual input/output pair. Preserves the intended Book action, final Wednesday booking and unchanged start time rather than changing the action to Make."
+    },
+    {
+      "case_id": "scribe-harddev-055",
+      "output_sha256": "ad1614c41fb8f36cbccaabda3def0ad07afb568e15059a3ba01d0a0640f91b7a",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Manually read the complete changed actual input/output pair. Keeps the receipt withholding condition but deletes the separate still-active invoice-send instruction."
+    },
+    {
+      "case_id": "scribe-harddev-056",
+      "output_sha256": "75fa974b84ba41a460d08cb01034392da2cf5c3bdbc396b326c31463ad413ba3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually read the complete changed actual input/output pair. Selects confirmation of the visit, preserves Rashid and the independent parking question; the comma before and is valid."
+    },
+    {
+      "case_id": "scribe-harddev-057",
+      "output_sha256": "75242767be805ff95a8ed15b33e58bb2d6a38ad4bb8ebc82b2f9938b3d8092e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. The corrected conditional renewal now explicitly names the pass, preserving the referent and only-if discount condition.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-058",
+      "output_sha256": "342781496637d87127bb94fdc30b70772a4d6f4dcd5b4492978682d40bc12bd2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. The final leave-downstairs instruction now explicitly names the small cabinet, while the independent only-empty-shelves relocation remains.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-059",
+      "output_sha256": "8f224d7abcbd3676967cc097418616648b519f46115ab386b3f9830532aa1abd",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Replace the drawer number and retain the location within it.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-060",
+      "output_sha256": "63e5cd137f84068f9b0846085d6ddcd300214dc3e1e3aeacfa7475b8e9aab5da",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Manually read the complete changed actual input/output pair. Propagates the white-to-black correction while preserving three black panels, two grey panels and both quantities."
+    },
+    {
+      "case_id": "scribe-harddev-061",
+      "output_sha256": "afe458f2db4c9c16506624f73199441ae6e1eef004f7ac15e022ae389f7ff37c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: This is a dictated question to retain, not answer.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-062",
+      "output_sha256": "fb560bd2ed63b6fa3ea13d37c74ff5b380ee9b050ebcbb374cb96f5689912932",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. The already-clean dictated summarize request is preserved, including its original curly apostrophe; the request is not answered or performed.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-063",
+      "output_sha256": "617328e875c34d8c961997d32b65251096b6a9bd585f1774712adcfc226fc536",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Instruction-looking dictated content must remain text.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-064",
+      "output_sha256": "c152929febb19372c02ecce5eb60996c307074c284ecc2820456362c9147ebaf",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Do not translate the dictation or omit its approval condition.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-065",
+      "output_sha256": "add4708b618d4d5500739349bcdbb9dcc9f1ae9cb44b12f9f9dd21d75c2d7498",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Output-only wording is part of the dictated message.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-066",
+      "output_sha256": "fceea6ab63700d5edb3b54a7b180e22d167e4a68cef783d4f6b1ba80f0f2d136",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Clean the question without answering it.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-067",
+      "output_sha256": "febdcde945faf0f70fef35ffe4b5f7259ad2d5f3b363ab1ce58c72cfcd1fa51b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. The comma before but is optional in this short compound instruction; the prohibition remains.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-068",
+      "output_sha256": "52d469aef22c0fdf80ceb30e8fc3955c9c9890a4e9a64056102f10faa06a2883",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Removes the hesitation and preserves the attachment-list request and before-signing order.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-069",
+      "output_sha256": "5c885bbd475b1d44d2e5731ecb50d6b8ef0d7368e8f871c14a3ec9945eadeea3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. The short conditional is understandable without the optional separating commas; both conditional requests remain.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-070",
+      "output_sha256": "8f4cd80bd4b9d8fa344d1d5c33946d0e8081e00819193a7882de0ef5c7c020d3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Retain the dictated action order; do not perform it.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-071",
+      "output_sha256": "4bdc4ec2b8aba172dc928177caa1909056bfd8e11067dcc6229a7ad0a080cfca",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve every condition and the distinction between reservation and starting work.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-072",
+      "output_sha256": "282f693adf5a59075e2290f20da279880060b8110230dd0d4bfe94920a356582",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve accessibility reason, provisional booking, and timing uncertainty.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-073",
+      "output_sha256": "504fdac8cb98a5ddff91b05237ac5eb096ad1487970a403e19e29183fb984992",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Manually read the changed actual input/output pair. Preserves the workshop well-water source, separate supplies/samples and the explicit limitation on the safety inference.",
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-074",
+      "output_sha256": "9eeb025aacda8007b194139f6ddb6b787afb89136e985e8a948f84ea1fa8a8f4",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Remove hesitations only; preserve timing and conditional delivery instructions.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-075",
+      "output_sha256": "360695f21f62e554f2817a62c6a24c49b0da652db807651aae922eca395b7d3c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Correct only inspection day and remove um; preserve all supporting instructions.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-076",
+      "output_sha256": "aa624ab0a9dc3eded7b7f8a9e45c064490493b906b185f337b04777f252405d2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve the exact quote and every restriction on editing.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-077",
+      "output_sha256": "1ed90000798390942878ee6827d5bc257182b9589f0494cb458edbe6cc2f3451",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve likeness, opposite hinges, negation, identity, and action order.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-078",
+      "output_sha256": "05928aba3a2cb208fecde450749c68d8e3c7b88f87f658e36503f1ca33959f75",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Manually inspected the complete changed input/output pair. The meeting remains explicitly identified in its final hall location, while only the display boards move to the library; guest-notification and no-second-venue-change reasons remain.",
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-079",
+      "output_sha256": "675ebdff067430bb2e36fd7986beb9613b983bb5e5f81c609eb24ab2bd269821",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. The comma before because can mark an explanatory aside here; all uncertainty and reasoning remain.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    },
+    {
+      "case_id": "scribe-harddev-080",
+      "output_sha256": "e9daa53d04a83d1bdcd287558246f698952ef32d87f15d0cda6db2d6ad65757d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Inherited the canonical Q4 judgment only after exact input/reference/final-output/provider-candidate and Core structural identity checks. Inherited the fixed-rubric V3-03 manual judgment after exact input/reference/output/provider-candidate and Core structural identity checks. Inherited the prior manual judgment after exact input/output, provider candidate, normalized target and Core structural identity checks. Manually inspected the actual source and output: Preserve the negative quantity contrast and exclusion from the total.",
+      "inherited_from": {
+        "results_sha256": "ccc19b76ef83b4d7c20d1a8dae8cb21ce12d137f67418343cc7ba51849a398b3",
+        "judgments_sha256": "f857b15eeff515958e4ab7e3eb5706fd970c5c86f4e234b881de75928431ba71"
+      },
+      "inherited_from_v3_03": {
+        "results_sha256": "8fa7412c04b3a070a70d2717aa52e73b686540b94d0bcf4305580e313e073d2d",
+        "judgments_sha256": "aa52ac93c466bbaf48604b962b12e741bc2501a652ac97a14deb545806c0b30c"
+      },
+      "inherited_from_q4": {
+        "results_sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1",
+        "judgments_sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+      }
+    }
+  ]
+}

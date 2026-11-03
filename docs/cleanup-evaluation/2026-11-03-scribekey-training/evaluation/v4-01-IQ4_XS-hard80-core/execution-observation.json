@@ -1,0 +1,32 @@
+{
+  "quantization": "IQ4_XS",
+  "label": "hard80",
+  "expected_cases": 80,
+  "exit_code": 0,
+  "seconds": 26.232830570999795,
+  "report": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v4-01-IQ4_XS-hard80-core/core-results.json",
+  "observer_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/run-v4-iq4xs-core.py",
+    "sha256": "5a79a7854115206ed042e052236dd1e25beb9e5e02262f16eec98a3ae5ad4d10"
+  },
+  "memory": {
+    "method": "Read-only Linux /proc status VmRSS and lifetime VmHWM; unique model argv plus PID/start identity guard",
+    "sample_interval_seconds": 0.02,
+    "discovery_interval_seconds": 0.25,
+    "samples": 1181,
+    "workers": [
+      {
+        "pid": 53173,
+        "start_ticks": 3236995,
+        "model_path": "/tmp/freehand-scribekey-v4-01-IQ4_XS/ScribeKey-Freehand-trained-IQ4_XS.gguf",
+        "peak_observed_rss_bytes": 280166400,
+        "peak_kernel_hwm_bytes": 280166400,
+        "samples": 1181
+      }
+    ],
+    "peak_worker_observed_rss_bytes": 280166400,
+    "peak_worker_kernel_hwm_bytes": 280166400,
+    "scope": "Cleanup native worker only. Excludes Python evaluator, Core/ASR/desktop and GPU; not whole-app memory or SLA qualification."
+  },
+  "scope": "Development only; no blind or whole-app SLA pass."
+}

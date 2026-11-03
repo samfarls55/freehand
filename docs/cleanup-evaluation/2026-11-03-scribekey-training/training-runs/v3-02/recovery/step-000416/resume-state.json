@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "producer": "freehand-training-legacy-recovery-v1",
+  "source_run": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v3-02",
+  "global_step": 416,
+  "global_microbatch": 832,
+  "epoch": 3,
+  "assistant_tokens": 49563,
+  "elapsed_seconds": 1556.749113486003,
+  "learning_rate": 2.0995670995670998e-05,
+  "train_sha256": "502f7884a5b8be4db1a20a0154cfbc4b646168b4e1b812cddcad0fe6e7154b4d",
+  "schedule_total_optimizer_steps": 512,
+  "effective_warmup_steps": 50,
+  "rng_states_stored": false,
+  "legacy_rng_note": "Old executing trainer cannot be changed in memory; LFM2 uses no stochastic forward/dropout, AdamW no stochastic update, epoch ordering is seeded independently. New trainer checkpoints must record actual RNG states.",
+  "checkpoint_adapter_inode_ctime": [
+    923115,
+    1793732805913950586
+  ],
+  "checkpoint_optimizer_inode_ctime": [
+    923099,
+    1793732805941950540
+  ],
+  "files": {
+    "adapter.safetensors": {
+      "bytes": 12012752,
+      "sha256": "1b142e56e5de1c73adb8d17a4a06c2ef11a8f044445e4f9021ff62d306a011a3"
+    },
+    "optimizer.pt": {
+      "bytes": 24146485,
+      "sha256": "b92054f88b3bc6a482669e36f128b7ee6b6af8fd56e25b2e367a5ba711722f75"
+    },
+    "adapter-config.json": {
+      "bytes": 4958,
+      "sha256": "c6fb3f2ad3310a0eb48cdce7d54635196498167db25b520eace72062fa22050c"
+    },
+    "training-source.py": {
+      "bytes": 32033,
+      "sha256": "f5c91d4ce38882353598cb493aaf03dc78ec6d34ac18125af0d8815d6608b4e1"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "status": "DEVELOPMENT_PARAMETER_COMPARISON",
+  "verified_utc": "2026-11-03T20:47:28.981814+00:00",
+  "plan_sha256": "4a8c0343c11d286995bfecb3dec2d3877d5cacc283646a9d4a4f4b38bedf4f35",
+  "report_sha256": "c71de4352662c8e867f1015121d445b3c983ebec1317965ce3fad142b25c5cbb",
+  "metrics": {
+    "TranscriptMilliseconds": {
+      "n": 10,
+      "p50_ms": 754.9813,
+      "p95_ms": 845.2322,
+      "max_ms": 845.2322,
+      "over805_count": 3,
+      "within805ms": false
+    },
+    "CountingInjectorCompleteMilliseconds": {
+      "n": 10,
+      "p50_ms": 754.9947,
+      "p95_ms": 845.246,
+      "max_ms": 845.246,
+      "over805_count": 3,
+      "within805ms": false
+    }
+  },
+  "latency_gate_field": "CountingInjectorCompleteMilliseconds",
+  "peak_simultaneous_memory": {
+    "PeakSummedWorkingSetBytes": 764616704,
+    "PeakHostWorkingSetBytes": 94789632,
+    "PeakSpeechWorkingSetBytes": 378671104,
+    "PeakCleanupWorkingSetBytes": 301776896,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 84168704,
+      "SpeechWorkingSetBytes": 378671104,
+      "CleanupWorkingSetBytes": 301776896
+    }
+  },
+  "ram_cap_bytes": 747500000,
+  "latency_cap_ms": 805,
+  "ram_gate_pass": false,
+  "all_ten_complete_one_delivery_no_fallback": true,
+  "frozen_worker_model_manifests_unchanged": true,
+  "production_asr_config_unchanged": true,
+  "first_trial_included": true,
+  "quality_or_full_app_or_windows_qualified": false,
+  "release_complete_ramp_ms": [
+    828.6381,
+    808.957,
+    792.4311,
+    754.9947,
+    845.246,
+    705.3122,
+    700.8034,
+    721.0703,
+    791.2688,
+    740.9549
+  ]
+}

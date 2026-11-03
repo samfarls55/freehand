@@ -1,0 +1,1838 @@
+{
+  "schema_version": 1,
+  "model_display_credit": "Derived from ScribeKey Fast by ScribeKey",
+  "source_repository": "scribekey/scribekey-cleanup-fast",
+  "source_revision": "c484dad2d815bff83d376e46b25a11dbc820992a",
+  "commands": [
+    {
+      "label": "merge-adapter",
+      "argv": [
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python",
+        "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+        "merge",
+        "--base",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model",
+        "--adapter",
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v4-01",
+        "--output",
+        "/tmp/freehand-scribekey-export-oj4v73ad/merged",
+        "--threads",
+        "4",
+        "--dtype",
+        "float16"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 6.128354202999617,
+      "log": {
+        "path": "/tmp/freehand-scribekey-v4-01-export/merge-adapter.log",
+        "bytes": 147,
+        "sha256": "1ba1a4e18609e8326f8eb422d85a4ebaea5cac2f3f9da809e3ba10d562c07df8"
+      }
+    },
+    {
+      "label": "convert-merged-bf16-to-f16",
+      "argv": [
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python",
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/llama.cpp-source/convert_hf_to_gguf.py",
+        "/tmp/freehand-scribekey-export-oj4v73ad/merged",
+        "--outfile",
+        "/tmp/freehand-scribekey-export-oj4v73ad/merged-F16.gguf",
+        "--outtype",
+        "f16",
+        "--model-name",
+        "Derived from ScribeKey Fast by ScribeKey (Freehand trained cleanup)"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 4.239421361002314,
+      "log": {
+        "path": "/tmp/freehand-scribekey-v4-01-export/convert-merged-bf16-to-f16.log",
+        "bytes": 16056,
+        "sha256": "b5e01b7626d504c4d6b9c3a868b746c5c9bf791973293d9f4a5d9ae3fc253c32"
+      }
+    },
+    {
+      "label": "quantize-f16-to-compact",
+      "argv": [
+        "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-quantize",
+        "/tmp/freehand-scribekey-export-oj4v73ad/merged-F16.gguf",
+        "/tmp/freehand-scribekey-v4-01-export/ScribeKey-Freehand-trained-Q4_K_M.gguf",
+        "Q4_K_M",
+        "4"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 6.911914470998454,
+      "log": {
+        "path": "/tmp/freehand-scribekey-v4-01-export/quantize-f16-to-compact.log",
+        "bytes": 27246,
+        "sha256": "50e18587a1fb56ba7e8fdc34be811a4e841435b0deed85d4ff7ecf7d2bec77c3"
+      }
+    }
+  ],
+  "native_inference_tested": false,
+  "windows_execution_tested": false,
+  "qualified": false,
+  "merge": {
+    "base_model_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+    "adapter_sha256": "4bb67a90dd6bcf8e7d7319c7fae8d805d8f771661acfafa3ba0ea5ebadc2b40e",
+    "adapter_config_sha256": "0948ec4d0b4197973a1087f55907966e0f1ec13b8c3f4f2b2df03c6dff19ce2e",
+    "merged_model_sha256": "dccffaa38e041a1377e118633de4db92b578a450fff042cff1f3fefbcf2466cb",
+    "dtype": "float16",
+    "source_code_sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+    "merge_formula": "W + (B @ A) * alpha/rank",
+    "tokenizer_and_configuration_changed": true,
+    "tokenizer_changed": false,
+    "configuration_changes": {
+      "dtype": {
+        "before": "bfloat16",
+        "after": "float16"
+      }
+    },
+    "rounding": {
+      "updated_elements": 287309824,
+      "nonzero_float32_updates": 287309824,
+      "stored_elements_changed_from_base": 276912181,
+      "stored_update_survival_fraction": 0.9638103464224043
+    },
+    "display_credit": "Derived from ScribeKey Fast by ScribeKey"
+  },
+  "merged_checkpoint": {
+    "path": "/tmp/freehand-scribekey-export-oj4v73ad/merged/model.safetensors",
+    "bytes": 708984312,
+    "sha256": "dccffaa38e041a1377e118633de4db92b578a450fff042cff1f3fefbcf2466cb"
+  },
+  "tokenizer_compatibility": {
+    "before": {
+      "path": "/tmp/freehand-scribekey-export-oj4v73ad/merged/tokenizer_config.json",
+      "bytes": 584,
+      "sha256": "f64a21219f1af8db7a30ea1347f460eeb57a7c25ed72554e313f8e3e9d4a3881"
+    },
+    "after": {
+      "path": "/tmp/freehand-scribekey-export-oj4v73ad/merged/tokenizer_config.json",
+      "bytes": 590,
+      "sha256": "28b75964f587e03f69d47db814ab6adba4dda53bf24ece5d7be3f71e5c50d2a8"
+    },
+    "changes": [
+      "tokenizer_class TokenizersBackend -> PreTrainedTokenizerFast for pinned Transformers4 compatibility",
+      "empty extra_special_tokens [] -> {}; no vocabulary or special-token changes"
+    ]
+  },
+  "f16_intermediate": {
+    "path": "/tmp/freehand-scribekey-export-oj4v73ad/merged-F16.gguf",
+    "bytes": 711483680,
+    "sha256": "86520ebad60f9219bd3f8bc59825b5974e5f212452dd6d67045341a58bf5bf51",
+    "tensor_count": 148,
+    "tensor_types": {
+      "1": 93,
+      "0": 55
+    },
+    "tensor_names_and_shapes": {
+      "token_embd.weight": [
+        1024,
+        65536
+      ],
+      "token_embd_norm.weight": [
+        1024
+      ],
+      "blk.0.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.0.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.0.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.0.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.0.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.ffn_norm.weight": [
+        1024
+      ],
+      "blk.0.attn_norm.weight": [
+        1024
+      ],
+      "blk.1.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.1.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.1.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.1.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.1.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.ffn_norm.weight": [
+        1024
+      ],
+      "blk.1.attn_norm.weight": [
+        1024
+      ],
+      "blk.10.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.10.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.10.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.10.ffn_norm.weight": [
+        1024
+      ],
+      "blk.10.attn_norm.weight": [
+        1024
+      ],
+      "blk.10.attn_k_norm.weight": [
+        64
+      ],
+      "blk.10.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.10.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q_norm.weight": [
+        64
+      ],
+      "blk.10.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.11.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.11.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.11.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.11.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.11.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.ffn_norm.weight": [
+        1024
+      ],
+      "blk.11.attn_norm.weight": [
+        1024
+      ],
+      "blk.12.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.12.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.12.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.12.ffn_norm.weight": [
+        1024
+      ],
+      "blk.12.attn_norm.weight": [
+        1024
+      ],
+      "blk.12.attn_k_norm.weight": [
+        64
+      ],
+      "blk.12.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.12.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q_norm.weight": [
+        64
+      ],
+      "blk.12.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.13.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.13.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.13.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.13.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.13.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.ffn_norm.weight": [
+        1024
+      ],
+      "blk.13.attn_norm.weight": [
+        1024
+      ],
+      "blk.14.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.14.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.14.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.14.ffn_norm.weight": [
+        1024
+      ],
+      "blk.14.attn_norm.weight": [
+        1024
+      ],
+      "blk.14.attn_k_norm.weight": [
+        64
+      ],
+      "blk.14.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.14.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q_norm.weight": [
+        64
+      ],
+      "blk.14.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.15.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.15.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.15.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.15.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.15.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.ffn_norm.weight": [
+        1024
+      ],
+      "blk.15.attn_norm.weight": [
+        1024
+      ],
+      "blk.2.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.2.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.2.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.2.ffn_norm.weight": [
+        1024
+      ],
+      "blk.2.attn_norm.weight": [
+        1024
+      ],
+      "blk.2.attn_k_norm.weight": [
+        64
+      ],
+      "blk.2.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.2.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q_norm.weight": [
+        64
+      ],
+      "blk.2.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.3.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.3.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.3.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.3.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.3.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.ffn_norm.weight": [
+        1024
+      ],
+      "blk.3.attn_norm.weight": [
+        1024
+      ],
+      "blk.4.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.4.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.4.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.4.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.4.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.ffn_norm.weight": [
+        1024
+      ],
+      "blk.4.attn_norm.weight": [
+        1024
+      ],
+      "blk.5.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.5.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.5.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.5.ffn_norm.weight": [
+        1024
+      ],
+      "blk.5.attn_norm.weight": [
+        1024
+      ],
+      "blk.5.attn_k_norm.weight": [
+        64
+      ],
+      "blk.5.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.5.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q_norm.weight": [
+        64
+      ],
+      "blk.5.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.6.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.6.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.6.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.6.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.6.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.ffn_norm.weight": [
+        1024
+      ],
+      "blk.6.attn_norm.weight": [
+        1024
+      ],
+      "blk.7.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.7.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.7.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.7.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.7.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.ffn_norm.weight": [
+        1024
+      ],
+      "blk.7.attn_norm.weight": [
+        1024
+      ],
+      "blk.8.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.8.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.8.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.8.ffn_norm.weight": [
+        1024
+      ],
+      "blk.8.attn_norm.weight": [
+        1024
+      ],
+      "blk.8.attn_k_norm.weight": [
+        64
+      ],
+      "blk.8.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.8.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q_norm.weight": [
+        64
+      ],
+      "blk.8.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.9.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.9.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.9.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.9.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.9.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.ffn_norm.weight": [
+        1024
+      ],
+      "blk.9.attn_norm.weight": [
+        1024
+      ]
+    },
+    "token_count": 65536,
+    "token_bytes_fingerprint": "6df99b75be04e0db2e9e57fb1b18cf2c20d2966fb52f95131cab7dd465f6f4a6"
+  },
+  "quantized": {
+    "path": "/tmp/freehand-scribekey-v4-01-export/ScribeKey-Freehand-trained-Q4_K_M.gguf",
+    "bytes": 229310752,
+    "sha256": "4d1c2c0e9a7b93670f30e9b044529b88a69e8367e95ac267d102bf8bfad7621a",
+    "tensor_count": 148,
+    "tensor_types": {
+      "14": 11,
+      "0": 55,
+      "12": 82
+    },
+    "tensor_names_and_shapes": {
+      "token_embd.weight": [
+        1024,
+        65536
+      ],
+      "token_embd_norm.weight": [
+        1024
+      ],
+      "blk.0.attn_norm.weight": [
+        1024
+      ],
+      "blk.0.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.0.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.ffn_norm.weight": [
+        1024
+      ],
+      "blk.0.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.0.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.0.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.1.attn_norm.weight": [
+        1024
+      ],
+      "blk.1.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.1.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.ffn_norm.weight": [
+        1024
+      ],
+      "blk.1.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.1.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.1.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.2.attn_k_norm.weight": [
+        64
+      ],
+      "blk.2.attn_norm.weight": [
+        1024
+      ],
+      "blk.2.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q_norm.weight": [
+        64
+      ],
+      "blk.2.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.2.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.2.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.2.ffn_norm.weight": [
+        1024
+      ],
+      "blk.2.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.attn_norm.weight": [
+        1024
+      ],
+      "blk.3.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.3.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.ffn_norm.weight": [
+        1024
+      ],
+      "blk.3.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.3.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.3.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.4.attn_norm.weight": [
+        1024
+      ],
+      "blk.4.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.4.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.ffn_norm.weight": [
+        1024
+      ],
+      "blk.4.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.4.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.4.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.5.attn_k_norm.weight": [
+        64
+      ],
+      "blk.5.attn_norm.weight": [
+        1024
+      ],
+      "blk.5.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q_norm.weight": [
+        64
+      ],
+      "blk.5.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.5.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.5.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.5.ffn_norm.weight": [
+        1024
+      ],
+      "blk.5.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.attn_norm.weight": [
+        1024
+      ],
+      "blk.6.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.6.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.ffn_norm.weight": [
+        1024
+      ],
+      "blk.6.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.6.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.6.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.7.attn_norm.weight": [
+        1024
+      ],
+      "blk.7.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.7.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.ffn_norm.weight": [
+        1024
+      ],
+      "blk.7.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.7.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.7.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.8.attn_k_norm.weight": [
+        64
+      ],
+      "blk.8.attn_norm.weight": [
+        1024
+      ],
+      "blk.8.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q_norm.weight": [
+        64
+      ],
+      "blk.8.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.8.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.8.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.8.ffn_norm.weight": [
+        1024
+      ],
+      "blk.8.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.attn_norm.weight": [
+        1024
+      ],
+      "blk.9.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.9.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.ffn_norm.weight": [
+        1024
+      ],
+      "blk.9.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.9.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.9.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.10.attn_k_norm.weight": [
+        64
+      ],
+      "blk.10.attn_norm.weight": [
+        1024
+      ],
+      "blk.10.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q_norm.weight": [
+        64
+      ],
+      "blk.10.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.10.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.10.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.10.ffn_norm.weight": [
+        1024
+      ],
+      "blk.10.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.attn_norm.weight": [
+        1024
+      ],
+      "blk.11.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.11.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.ffn_norm.weight": [
+        1024
+      ],
+      "blk.11.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.11.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.11.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.12.attn_k_norm.weight": [
+        64
+      ],
+      "blk.12.attn_norm.weight": [
+        1024
+      ],
+      "blk.12.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q_norm.weight": [
+        64
+      ],
+      "blk.12.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.12.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.12.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.12.ffn_norm.weight": [
+        1024
+      ],
+      "blk.12.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.attn_norm.weight": [
+        1024
+      ],
+      "blk.13.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.13.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.ffn_norm.weight": [
+        1024
+      ],
+      "blk.13.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.13.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.13.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.14.attn_k_norm.weight": [
+        64
+      ],
+      "blk.14.attn_norm.weight": [
+        1024
+      ],
+      "blk.14.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q_norm.weight": [
+        64
+      ],
+      "blk.14.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.14.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.14.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.14.ffn_norm.weight": [
+        1024
+      ],
+      "blk.14.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.attn_norm.weight": [
+        1024
+      ],
+      "blk.15.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.15.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.ffn_norm.weight": [
+        1024
+      ],
+      "blk.15.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.15.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.15.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ]
+    },
+    "token_count": 65536,
+    "token_bytes_fingerprint": "6df99b75be04e0db2e9e57fb1b18cf2c20d2966fb52f95131cab7dd465f6f4a6"
+  },
+  "q4": {
+    "path": "/tmp/freehand-scribekey-v4-01-export/ScribeKey-Freehand-trained-Q4_K_M.gguf",
+    "bytes": 229310752,
+    "sha256": "4d1c2c0e9a7b93670f30e9b044529b88a69e8367e95ac267d102bf8bfad7621a",
+    "tensor_count": 148,
+    "tensor_types": {
+      "14": 11,
+      "0": 55,
+      "12": 82
+    },
+    "tensor_names_and_shapes": {
+      "token_embd.weight": [
+        1024,
+        65536
+      ],
+      "token_embd_norm.weight": [
+        1024
+      ],
+      "blk.0.attn_norm.weight": [
+        1024
+      ],
+      "blk.0.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.0.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.ffn_norm.weight": [
+        1024
+      ],
+      "blk.0.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.0.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.0.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.1.attn_norm.weight": [
+        1024
+      ],
+      "blk.1.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.1.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.ffn_norm.weight": [
+        1024
+      ],
+      "blk.1.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.1.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.1.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.2.attn_k_norm.weight": [
+        64
+      ],
+      "blk.2.attn_norm.weight": [
+        1024
+      ],
+      "blk.2.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q_norm.weight": [
+        64
+      ],
+      "blk.2.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.2.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.2.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.2.ffn_norm.weight": [
+        1024
+      ],
+      "blk.2.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.attn_norm.weight": [
+        1024
+      ],
+      "blk.3.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.3.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.ffn_norm.weight": [
+        1024
+      ],
+      "blk.3.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.3.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.3.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.4.attn_norm.weight": [
+        1024
+      ],
+      "blk.4.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.4.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.ffn_norm.weight": [
+        1024
+      ],
+      "blk.4.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.4.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.4.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.5.attn_k_norm.weight": [
+        64
+      ],
+      "blk.5.attn_norm.weight": [
+        1024
+      ],
+      "blk.5.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q_norm.weight": [
+        64
+      ],
+      "blk.5.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.5.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.5.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.5.ffn_norm.weight": [
+        1024
+      ],
+      "blk.5.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.attn_norm.weight": [
+        1024
+      ],
+      "blk.6.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.6.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.ffn_norm.weight": [
+        1024
+      ],
+      "blk.6.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.6.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.6.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.7.attn_norm.weight": [
+        1024
+      ],
+      "blk.7.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.7.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.ffn_norm.weight": [
+        1024
+      ],
+      "blk.7.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.7.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.7.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.8.attn_k_norm.weight": [
+        64
+      ],
+      "blk.8.attn_norm.weight": [
+        1024
+      ],
+      "blk.8.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q_norm.weight": [
+        64
+      ],
+      "blk.8.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.8.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.8.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.8.ffn_norm.weight": [
+        1024
+      ],
+      "blk.8.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.attn_norm.weight": [
+        1024
+      ],
+      "blk.9.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.9.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.ffn_norm.weight": [
+        1024
+      ],
+      "blk.9.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.9.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.9.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.10.attn_k_norm.weight": [
+        64
+      ],
+      "blk.10.attn_norm.weight": [
+        1024
+      ],
+      "blk.10.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q_norm.weight": [
+        64
+      ],
+      "blk.10.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.10.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.10.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.10.ffn_norm.weight": [
+        1024
+      ],
+      "blk.10.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.attn_norm.weight": [
+        1024
+      ],
+      "blk.11.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.11.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.ffn_norm.weight": [
+        1024
+      ],
+      "blk.11.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.11.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.11.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.12.attn_k_norm.weight": [
+        64
+      ],
+      "blk.12.attn_norm.weight": [
+        1024
+      ],
+      "blk.12.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q_norm.weight": [
+        64
+      ],
+      "blk.12.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.12.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.12.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.12.ffn_norm.weight": [
+        1024
+      ],
+      "blk.12.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.attn_norm.weight": [
+        1024
+      ],
+      "blk.13.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.13.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.ffn_norm.weight": [
+        1024
+      ],
+      "blk.13.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.13.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.13.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.14.attn_k_norm.weight": [
+        64
+      ],
+      "blk.14.attn_norm.weight": [
+        1024
+      ],
+      "blk.14.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q_norm.weight": [
+        64
+      ],
+      "blk.14.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.14.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.14.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.14.ffn_norm.weight": [
+        1024
+      ],
+      "blk.14.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.attn_norm.weight": [
+        1024
+      ],
+      "blk.15.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.15.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.ffn_norm.weight": [
+        1024
+      ],
+      "blk.15.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.15.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.15.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ]
+    },
+    "token_count": 65536,
+    "token_bytes_fingerprint": "6df99b75be04e0db2e9e57fb1b18cf2c20d2966fb52f95131cab7dd465f6f4a6"
+  },
+  "retained_f16": {
+    "path": "/tmp/freehand-scribekey-v4-01-export/merged-F16.gguf",
+    "bytes": 711483680,
+    "sha256": "86520ebad60f9219bd3f8bc59825b5974e5f212452dd6d67045341a58bf5bf51"
+  },
+  "temporary_intermediates_removed": "Only this invocation's UUID-owned directory; exact intermediate sizes/hashes retained.",
+  "notices": [
+    {
+      "path": "/tmp/freehand-scribekey-v4-01-export/notices/ADDITIONAL_TERMS.md",
+      "bytes": 2015,
+      "sha256": "3778f7257e4a80126d5307179fbe9157db49e09fd091364df5dbc56628815bb1"
+    },
+    {
+      "path": "/tmp/freehand-scribekey-v4-01-export/notices/FREEHAND-TRAINING-NOTICE.txt",
+      "bytes": 361,
+      "sha256": "1dbada69a370fc289c7fa3f790f0cf046b8820ce73faff2a8b4a23a9a0fe71f0"
+    },
+    {
+      "path": "/tmp/freehand-scribekey-v4-01-export/notices/LICENSE",
+      "bytes": 10574,
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c"
+    },
+    {
+      "path": "/tmp/freehand-scribekey-v4-01-export/notices/MODIFICATIONS.md",
+      "bytes": 2532,
+      "sha256": "1364f2c396d45a4ec000a972e1ca0599984b25990fb3e4dc2e42793ff8b73b95"
+    },
+    {
+      "path": "/tmp/freehand-scribekey-v4-01-export/notices/NOTICE",
+      "bytes": 5713,
+      "sha256": "4d0d40d15ca51c17c0d9b61ed5a0f9c06ed3640a106ae20cfea4a8f36cd02b73"
+    }
+  ],
+  "status": "export_complete_not_inference_qualified"
+}

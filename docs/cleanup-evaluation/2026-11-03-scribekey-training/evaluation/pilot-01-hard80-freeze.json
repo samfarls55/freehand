@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-03T18:30:31Z",
+  "purpose": "candidate_frozen_before_final_test_opening",
+  "model": {
+    "path": "/tmp/freehand-scribekey-pilot-01-export/ScribeKey-Freehand-trained-Q4_K_M.gguf",
+    "bytes": 229310752,
+    "sha256": "7c0950537e79bcd5e363aeb3e2ab2b7c652179c31ccbb9d75e1f70d066a02faf"
+  },
+  "runtime": {
+    "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "bytes": 17864,
+    "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+  },
+  "runtime_inventory": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+    "bytes": 9010,
+    "sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85"
+  },
+  "runtime_verification": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+    "sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85",
+    "verified_file_count": 51,
+    "verified_symlink_count": 10,
+    "verification": "complete_file_hashes_sizes_and_local_symlink_targets"
+  },
+  "probe": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+    "bytes": 182784,
+    "sha256": "90ce79f6a2db635298927f8d66f3649658d7c820a12a3f876bc9928f038702fd"
+  },
+  "managed_assemblies": [
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+      "bytes": 182784,
+      "sha256": "90ce79f6a2db635298927f8d66f3649658d7c820a12a3f876bc9928f038702fd"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+      "bytes": 162816,
+      "sha256": "4a0ceff86c3d9c0de83978e9e3a26fda14de08aadd53a381b4260efa420149ba"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+      "bytes": 201216,
+      "sha256": "ad61cec2a832a4c013a50d98ded6df24da342a11021acc8f8e499d9b9122bbb2"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+      "bytes": 22528,
+      "sha256": "f1d435e1a04949cb4483ea4c5bd9b8fb53c0b3820ba7ac9addd628584ad2ab7d"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+      "bytes": 18944,
+      "sha256": "96e45a4e9a24441bda372dd861965e1803173e3cc4dc5b1f1c1b947c107d20c3"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+      "bytes": 12800,
+      "sha256": "058a392c54faccb47356692686eea105223cecc401ed12ac40987f0147bf10fa"
+    }
+  ],
+  "sources": {
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": "34d01f1dd18e733a98b449020aec608b331f79b2911f826bb6b6394bae2c0daa",
+    "src/Freehand.Cleanup/CleanupPrompt.cs": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6",
+    "src/Freehand.Cleanup/CleanupProtocol.cs": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256",
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a",
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "0ab959f9f28ad0ce15d94f483b512f7966446162c4b94fb7ab6bf0fc1fe425b5",
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "2e187cdabd005fe7000024e2da40698e4698e9967efbaa2e84d94bfd655a22b4",
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8",
+    "src/Freehand.Core/AppDataPaths.cs": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f",
+    "src/Freehand.Core/AppSettings.cs": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24",
+    "src/Freehand.Core/AudioSegmenter.cs": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9",
+    "src/Freehand.Core/DiagnosticLog.cs": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646",
+    "src/Freehand.Core/DictationEngine.cs": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9",
+    "src/Freehand.Core/DictionaryFile.cs": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8",
+    "src/Freehand.Core/EnglishTextNormalizer.cs": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96",
+    "src/Freehand.Core/RecordingBuffer.cs": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e",
+    "src/Freehand.Core/TranscriptStore.cs": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038",
+    "tools/Freehand.Cleanup.Evaluation/benchmark.py": "32fd8edd7896fc35c0845f81ac930e2639339323c9c9b80d83a02dc66c0839d9",
+    "tools/Freehand.Cleanup.Evaluation/literal_protection.py": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+    "tools/Freehand.Cleanup.Evaluation/score_probe.py": "06d80a89c0f4d13613940d75667f3924e428a8a2780a3b93dd8a174745693e55",
+    "tools/Freehand.Cleanup.Evaluation/small_models.py": "235304be06e4ffbcafe50aa8a6840e71af414f93df9809a5e6c7906c3e4e64e6",
+    "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+    "tools/Freehand.Cleanup.Evaluation/test_benchmark.py": "07b8bafa4fd4e5f5ddbcc29895e6b337f4fa9851937838dd41651449d2f03918",
+    "tools/Freehand.Cleanup.Evaluation/test_literal_protection.py": "5e262ebe7501d571d57c24516ccda3af111e9e34ae7ba37065622ccc39994d79",
+    "tools/Freehand.Cleanup.Evaluation/test_small_models.py": "193497d10c9f50a841b2032c402b9ed6a3f22bb2b9cd8613c873693276baaad5",
+    "tools/Freehand.Cleanup.Evaluation/test_specialist_literal_protection.py": "e6e9253b966c913d87369911bd56c3c90c233527bdc2632757b84b8cc3f443df",
+    "tools/Freehand.Cleanup.Probe/ProbeCleanupWorkerLauncher.cs": "1d32cc9fd748b9a9648794646813fd7211e96c7f03f7b735d0e740a21a8bc4dd",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "5488a1374ffd5491b69c50fb1b57f5fe524fc9918d18629913d2ee8c4e202343",
+    "tools/Freehand.Cleanup.Training/evaluate.py": "d384fe7609171ff146cffd45c1a4bf52a13373131087d0b7b03fae91f79daba6",
+    "tools/Freehand.Cleanup.Training/export.py": "d29b9c0eeac8e47185d3168f29f3e27a1cf13f45eec1154769414d8d33819f32",
+    "tools/Freehand.Cleanup.Training/make_data.py": "dd6f58f97947e9f0f7e9c0337d1f4ebc3fb801eed4a06235c41be271eebe0bd0",
+    "tools/Freehand.Cleanup.Training/make_data_v2.py": "7353c2d0c99c855a2a11e5726ffe7c5c601925f911e574d881b8fab6f4d6393a",
+    "tools/Freehand.Cleanup.Training/make_pilot.py": "142d8130cf9e28671e76722abca7b3da7f9fdd46799cbd87c31ff97ca36d3200",
+    "tools/Freehand.Cleanup.Training/pipeline.py": "f5c91d4ce38882353598cb493aaf03dc78ec6d34ac18125af0d8815d6608b4e1",
+    "tools/Freehand.Cleanup.Training/test_evaluate.py": "e858dd12e10537c7cb6e61621db8b25da79f078882da8dde293a31c48925907a",
+    "tools/Freehand.Cleanup.Training/test_pipeline.py": "152ec7cba665d529f4fff80690c808b375b5974957f17330405c55ddffed8522"
+  },
+  "git_head_historical": "f46780f861b58ea0c1404bfd90cb4e4c8b94af00",
+  "profile": {
+    "promptStyle": "ScribeKeyFast",
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 32,
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "repack": false,
+    "gpuLayers": 0,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3
+  },
+  "limitations": "A candidate freeze is identity evidence, not quality or performance qualification.",
+  "adapter_config": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/pilot-01/adapter-config.json",
+    "bytes": 4709,
+    "sha256": "cebf1d102569be6a553b7a9bef72fe0fa373f89f131598039c4b75b5a278ecc8"
+  },
+  "adapter": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/pilot-01/adapter.safetensors",
+    "bytes": 12012752,
+    "sha256": "8455966ec52a482484e11849850013c362bc227866671cd42441da8349ba7d37"
+  }
+}

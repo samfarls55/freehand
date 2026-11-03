@@ -1,0 +1,126 @@
+{
+  "verified_utc": "2026-11-03T20:38:55.522205+00:00",
+  "selection_status": "DEVELOPMENT_COMPARISON_ONLY",
+  "independent500_qualified": false,
+  "windows_or_fullapp_qualified": false,
+  "plan_sha256": "ea657e647fdef3a61abc034cd3f29c3e8fc5e4149bb7a22c533337921b7d2444",
+  "prepacking_plan_sha256": "d904702713c98beabd7a47508b4adb9b325dc1cb81d70636afa8be122e5e90fa",
+  "verified_files_and_links": 125,
+  "all_frozen_files_unchanged": true,
+  "original_quality_probe_dlls": [
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+      "unchanged": true
+    }
+  ],
+  "source_checks": {
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": true,
+    "src/Freehand.Cleanup/CleanupPrompt.cs": true,
+    "src/Freehand.Cleanup/CleanupProtocol.cs": true,
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": true,
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": true,
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": true,
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": true,
+    "src/Freehand.Core/AppDataPaths.cs": true,
+    "src/Freehand.Core/AppSettings.cs": true,
+    "src/Freehand.Core/AudioSegmenter.cs": true,
+    "src/Freehand.Core/DiagnosticLog.cs": true,
+    "src/Freehand.Core/DictationEngine.cs": true,
+    "src/Freehand.Core/DictionaryFile.cs": true,
+    "src/Freehand.Core/EnglishTextNormalizer.cs": true,
+    "src/Freehand.Core/RecordingBuffer.cs": true,
+    "src/Freehand.Core/TranscriptStore.cs": true,
+    "tools/Freehand.Evaluation/Program.cs": true,
+    "tools/Freehand.Evaluation/Freehand.Evaluation.csproj": true,
+    "Directory.Packages.props": true,
+    "global.json": true,
+    "packaging/model-manifest.json": true,
+    "src/Freehand.Speech/speech-cpu.config": true,
+    "src/Freehand.Speech/GgmlTranscriber.cs": true,
+    "src/Freehand.Speech/ModelResolver.cs": true,
+    "src/Freehand.Speech/ParakeetHotwords.cs": true,
+    "src/Freehand.Speech/ParakeetRecognizer.cs": true,
+    "src/Freehand.Speech/ParakeetTranscriber.cs": true,
+    "src/Freehand.Speech/SpeechPresenceDetector.cs": true,
+    "src/Freehand.Speech/SpeechWorker.cs": true,
+    "src/Freehand.Speech/SpeechWorkerClient.cs": true,
+    "src/Freehand.Speech/WorkerProtocol.cs": true
+  },
+  "production_speech_config_unchanged": true,
+  "reports": [
+    {
+      "id": "baseline-10s-r5",
+      "report_sha256": "315a354f1d0f8e1859eb3b4c9a9a2df3c74b5dd55c52ccd7134e7b0e918ca2ab",
+      "actual_worker": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/release/Freehand.Evaluation.dll",
+      "actual_worker_sha256": "88A234C172F03A1D93E23BE6DE5CC239CA637EB68ECCD3A2EA1058CFCA658F56",
+      "trials": 5,
+      "one_delivery_each": true,
+      "cleanup_outcomes": [
+        "Disabled",
+        "Disabled",
+        "Disabled",
+        "Disabled",
+        "Disabled"
+      ]
+    },
+    {
+      "id": "development-q4-10s-r10",
+      "report_sha256": "3c9a68ffc7da996d9619b081fc14ffc5ccd7ee00575d2478a53b59b26938726c",
+      "actual_worker": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/release/Freehand.Evaluation.dll",
+      "actual_worker_sha256": "88A234C172F03A1D93E23BE6DE5CC239CA637EB68ECCD3A2EA1058CFCA658F56",
+      "trials": 10,
+      "one_delivery_each": true,
+      "cleanup_outcomes": [
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged",
+        "Unchanged"
+      ]
+    },
+    {
+      "id": "development-q4-prepacking-off-10s-r1",
+      "report_sha256": "df9c146117955556f27450e8dc3f46783d4264a4a41d7eb3d9829c8e635bc339",
+      "actual_worker": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/prepacking-off-worker/Freehand.Evaluation.dll",
+      "actual_worker_sha256": "88A234C172F03A1D93E23BE6DE5CC239CA637EB68ECCD3A2EA1058CFCA658F56",
+      "trials": 1,
+      "one_delivery_each": true,
+      "cleanup_outcomes": [
+        "Unchanged"
+      ]
+    }
+  ],
+  "single_diagnostic_comparison": {
+    "default_first_trial_ms": 816.9002,
+    "prepacking_off_ms": 827.1929,
+    "default_first_trial_rss": 648912896,
+    "prepacking_off_trial_rss": 650784768,
+    "rss_delta_bytes_off_minus_default_first": 1871872,
+    "interpretation": "N1didnotshowmemoryorlatencyimprovement. Do not compare N1 againstdefaultN10growthandclaimsavings; no productionchange."
+  }
+}

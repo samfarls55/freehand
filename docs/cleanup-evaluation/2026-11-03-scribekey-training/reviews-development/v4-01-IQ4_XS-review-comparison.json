@@ -1,0 +1,51 @@
+{
+  "new_results_sha256": "ba18c8405acc3fcd4e4a07957da6380abf13748e8057aca9d056b557a03823e4",
+  "prior_results_sha256": "d238ed54db8b83d31a2fe1b4c6bd904cf21b58a1bc0bd9a67acc4c440be8a867",
+  "quantization_only": true,
+  "canonical_policy_changed": false,
+  "changed_pairs": [
+    {
+      "index": 130,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7eebf071adab29e9",
+      "old_output_sha256": "3353043b58c53bcde98dd7e30a81a2e1d47f00836569fe2500f1141a10bb346c",
+      "new_output_sha256": "ba3c0cc8b8c36ca26b9f3797a0b496da96ed7379dfecf4a65a94964df5857f0b",
+      "old_status": "Applied",
+      "new_status": "Applied",
+      "prior_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false
+      },
+      "new_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false
+      },
+      "reason": "Valid grammatical alternate: The report [implicit relative pronoun] that reviewer requested is ready retains demonstrative that reviewer and the readiness claim. The optional relative pronoun may be omitted; this is not a repeated-word-count oracle."
+    },
+    {
+      "index": 428,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8317315207b5038c",
+      "old_output_sha256": "91a95cb9e178c1cda3b3b8cee55494811a06b24d2b9a4fedc94e5014bf55c4d9",
+      "new_output_sha256": "91a95cb9e178c1cda3b3b8cee55494811a06b24d2b9a4fedc94e5014bf55c4d9",
+      "old_status": "Failed",
+      "new_status": "Unchanged",
+      "prior_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false
+      },
+      "new_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false
+      },
+      "reason": "Returns the unchanged clean dictionary text as a complete accepted candidate; Q4 had faithfully retained the same clean text only by provider-failure fallback. The cause of either raw-generation outcome is not inferred."
+    }
+  ],
+  "known_failure_indices": [
+    53,
+    82
+  ],
+  "independent_new_cross_check": "Unavailable concurrency slot; prior fixed grammatical-alternate policy applied by named reviewer."
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "captured_utc": "2026-11-03T19:24:26.042009+00:00",
+  "runs": [
+    {
+      "run": "pilot-01",
+      "training_source_bytes": 24033,
+      "training_source_sha256": "887f777dccf5ce503a31b8c9200811d76e29e11c58d32aabb9f0a362e78435c4",
+      "config_source_sha256_matches": true,
+      "train_rows": 512,
+      "train_sha256": "88c074c119c260679287350569935f73065f041add2441ac71d2e9bfa6cf4f21",
+      "resume_global_step": null,
+      "observed_log_rows": 128,
+      "first_observed_step": 1,
+      "last_observed_step": 128,
+      "log_prefix_sha256": "bb411ada9e044046b590eaa33375eb6bb833d8fc5b4cb1be25992cb6a093a44b",
+      "log_observation": {
+        "source_size_before_read": 25186,
+        "source_size_after_read": 25186,
+        "captured_bytes": 25186,
+        "append_only_prefix_snapshot": true,
+        "complete_source_at_snapshot": true
+      },
+      "qualification": "Observed historical files; changing V3-03 logs/state are phase snapshots."
+    },
+    {
+      "run": "pilot-01-epoch1",
+      "training_source_bytes": 24033,
+      "training_source_sha256": "887f777dccf5ce503a31b8c9200811d76e29e11c58d32aabb9f0a362e78435c4",
+      "config_source_sha256_matches": true,
+      "train_rows": 512,
+      "train_sha256": "88c074c119c260679287350569935f73065f041add2441ac71d2e9bfa6cf4f21",
+      "resume_global_step": null,
+      "observed_log_rows": 0,
+      "first_observed_step": null,
+      "last_observed_step": null,
+      "log_prefix_sha256": null,
+      "log_observation": {},
+      "qualification": "Preserved epoch-1/step-64 checkpoint from the two-epoch pilot; not an independent one-epoch training run."
+    },
+    {
+      "run": "v3-01",
+      "training_source_bytes": 32033,
+      "training_source_sha256": "f5c91d4ce38882353598cb493aaf03dc78ec6d34ac18125af0d8815d6608b4e1",
+      "config_source_sha256_matches": true,
+      "train_rows": 1364,
+      "train_sha256": "502f7884a5b8be4db1a20a0154cfbc4b646168b4e1b812cddcad0fe6e7154b4d",
+      "resume_global_step": null,
+      "observed_log_rows": 56,
+      "first_observed_step": 1,
+      "last_observed_step": 56,
+      "log_prefix_sha256": "219ad16516c37d344f718f22dbf7b29f35963a11160049e976ea6c8191c2976e",
+      "log_observation": {
+        "source_size_before_read": 10509,
+        "source_size_after_read": 10509,
+        "captured_bytes": 10509,
+        "append_only_prefix_snapshot": true,
+        "complete_source_at_snapshot": true
+      },
+      "qualification": "Observed historical files; changing V3-03 logs/state are phase snapshots."
+    },
+    {
+      "run": "v3-02",
+      "training_source_bytes": 32033,
+      "training_source_sha256": "f5c91d4ce38882353598cb493aaf03dc78ec6d34ac18125af0d8815d6608b4e1",
+      "config_source_sha256_matches": true,
+      "train_rows": 1364,
+      "train_sha256": "502f7884a5b8be4db1a20a0154cfbc4b646168b4e1b812cddcad0fe6e7154b4d",
+      "resume_global_step": null,
+      "observed_log_rows": 447,
+      "first_observed_step": 1,
+      "last_observed_step": 447,
+      "log_prefix_sha256": "1f5341fee313363f3459dc9136793cf7fc34e97e8149b84cdf8fd238b9542b69",
+      "log_observation": {
+        "source_size_before_read": 89184,
+        "source_size_after_read": 89184,
+        "captured_bytes": 89184,
+        "append_only_prefix_snapshot": true,
+        "complete_source_at_snapshot": true
+      },
+      "qualification": "Observed historical files; changing V3-03 logs/state are phase snapshots."
+    },
+    {
+      "run": "v3-03",
+      "training_source_bytes": 41949,
+      "training_source_sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+      "config_source_sha256_matches": true,
+      "train_rows": 1364,
+      "train_sha256": "502f7884a5b8be4db1a20a0154cfbc4b646168b4e1b812cddcad0fe6e7154b4d",
+      "resume_global_step": 416,
+      "observed_log_rows": 96,
+      "first_observed_step": 417,
+      "last_observed_step": 512,
+      "log_prefix_sha256": "a404c27cba3892b9075741c5c2ddfaad62db1699575d6a29fa4614b092161e80",
+      "log_observation": {
+        "source_size_before_read": 18730,
+        "source_size_after_read": 18730,
+        "captured_bytes": 18730,
+        "append_only_prefix_snapshot": true,
+        "complete_source_at_snapshot": true
+      },
+      "qualification": "Observed historical files; changing V3-03 logs/state are phase snapshots."
+    }
+  ],
+  "source_hash_association_limit": "Metrics logs contain no embedded source hash; association is supported by adjacent run configuration and checkpoint state. Exact historical code is preserved, not reconstructed from later Git code.",
+  "legacy_resume_limit": "V3-02 legacy recovery did not save RNG tensors; the separate trajectory check records deterministic recovery behavior. New checkpoints declare RNG states saved; their binaries are excluded.",
+  "current_git_trainer_substituted": false,
+  "model_or_training_execution_by_collector": false
+}

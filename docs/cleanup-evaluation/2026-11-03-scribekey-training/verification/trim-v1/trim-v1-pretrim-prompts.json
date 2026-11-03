@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/task/trim-v1-probe-fixtures.json",
+  "corpus_sha256": "AD24194CBCF0B058F934D1FA9DD1A898CB4BE2F92CDAB2841377C86B7EF44B72",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "90CE79F6A2DB635298927F8D66F3649658D7C820A12A3F876BC9928F038702FD",
+    "Freehand.Core.dll": "AD61CEC2A832A4C013A50D98DED6DF24DA342A11021ACC8F8E499D9B9122BBB2",
+    "Freehand.Cleanup.dll": "4A0CEFF86C3D9C0DE83978E9E3A26FDA14DE08AADD53A381B4260EFA420149BA",
+    "Freehand.Dictionary.dll": "F1D435E1A04949CB4483EA4C5BD9B8FB53C0B3820BA7AC9ADDD628584AD2AB7D",
+    "Freehand.Testing.dll": "058A392C54FACCB47356692686EEA105223CECC401ED12AC40987F0147BF10FA",
+    "Freehand.Abstractions.dll": "96E45A4E9A24441BDA372DD861965E1803173E3CC4DC5B1F1C1B947C107D20C3"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "trim-contract",
+        "input": "um keep \u0022  quoted  \u0022 exactly",
+        "targets": [
+          "Keep \u0022  quoted  \u0022 exactly."
+        ],
+        "split": "development",
+        "category": "formatting"
+      },
+      "normalized_input": "um keep \u0022  quoted  \u0022 exactly",
+      "normalized_targets": [
+        "Keep \u0022  quoted  \u0022 exactly."
+      ],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "model_input_sha256": "0b619cb4ef12f4a352eae56f6a04d40e15dc652e4ebc55eb935ddbce95385e94",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\num keep FHX_278baa76 exactly\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

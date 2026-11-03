@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "reviewer": "root independent two-changed-pair cross-check",
+  "scope": "Read actual input/output/normalized targets for both changed pairs; no score or rubric change",
+  "results_sha256": "ba18c8405acc3fcd4e4a07957da6380abf13748e8057aca9d056b557a03823e4",
+  "cases": [
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7eebf071adab29e9",
+      "output_sha256": "ba3c0cc8b8c36ca26b9f3797a0b496da96ed7379dfecf4a65a94964df5857f0b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The relative pronoun can be omitted: report [that reviewer requested] still identifies the same requested report and the same demonstratively identified reviewer. Ready remains asserted. The alternate is grammatical and preserves meaning."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8317315207b5038c",
+      "output_sha256": "91a95cb9e178c1cda3b3b8cee55494811a06b24d2b9a4fedc94e5014bf55c4d9",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The accepted Unchanged candidate contains the exact Core dictionary replacement Málaga 008. This earns model credit because cleanup_status is Unchanged with a returned candidate; the earlier identical delivered fallback text alone did not."
+    }
+  ]
+}

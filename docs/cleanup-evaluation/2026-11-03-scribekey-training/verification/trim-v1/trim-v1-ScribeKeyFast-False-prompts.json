@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/task/trim-v1-probe-fixtures.json",
+  "corpus_sha256": "AD24194CBCF0B058F934D1FA9DD1A898CB4BE2F92CDAB2841377C86B7EF44B72",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": false,
+  "literal_mask_protocol": "none",
+  "specialist_output_normalization": "trim-v1",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "AD479BEC39E0CD5CD62AB7055B72885A1B96252A8BE3ABB31BFA33C8E76DBD76",
+    "Freehand.Core.dll": "A4F46C6EF3519464CCD36B89546275626BA529F908B13584AB3D18C6472C9236",
+    "Freehand.Cleanup.dll": "87D2171175E1A88A07CE1A5623089D6BD4BC3EF7C8AD720D4C992F1554970EB0",
+    "Freehand.Dictionary.dll": "C948C62A1A001221920EE0FD07DDA266CF94BA3191BEBDEED1DA9698A8BED9D3",
+    "Freehand.Testing.dll": "BDE45BB19DC4BE966F1EADF5199321263226A257D230E18EA39BA1AEF405FAB5",
+    "Freehand.Abstractions.dll": "E600A623D8EA9798294963EDA89DFE6946DA6BD1F9DDE96981A9397068813BCD"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "trim-contract",
+        "input": "um keep \u0022  quoted  \u0022 exactly",
+        "targets": [
+          "Keep \u0022  quoted  \u0022 exactly."
+        ],
+        "split": "development",
+        "category": "formatting"
+      },
+      "normalized_input": "um keep \u0022  quoted  \u0022 exactly",
+      "normalized_targets": [
+        "Keep \u0022  quoted  \u0022 exactly."
+      ],
+      "normalized_checks": null,
+      "mask_literals": false,
+      "literal_mask_protocol": "none",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ca54383ccf4b6677a939c398858c68a84f5cf4ad707ff2e6d9a94bb99a6d18c8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\num keep \u0022  quoted  \u0022 exactly\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

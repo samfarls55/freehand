@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "purpose": "Reviewed focused curriculum, not yet trained",
+  "sha256": "463edcfe52558dfb614741ce548cc7a7de9a2284ef91f6e372ef7fc44f93eff9",
+  "effective_rows": 1150,
+  "unique_input_target_pairs": 710,
+  "unchanged_rows": 410,
+  "v3_replay_rows": 480,
+  "sources": [
+    {
+      "path": "work/cleanup-scribekey-training-2026-11-03/audit/anaphora-curriculum/train-120-v3.jsonl",
+      "sha256": "6bd8efb9da8b3362d6275ea7389a049523c94f6d865dc551d4db4d1c33744472",
+      "unique_rows": 120,
+      "exposures": 3
+    },
+    {
+      "path": "work/cleanup-scribekey-training-2026-11-03/audit/development-repair-curriculum/train-90-v1.jsonl",
+      "sha256": "1f186a9dd5d796dbb4c61cd453f66669bfcb56ec09df6496ec020453167c981e",
+      "unique_rows": 90,
+      "exposures": 3
+    },
+    {
+      "path": "work/cleanup-scribekey-training-2026-11-03/audit/protected-correction-curriculum/train-20.jsonl",
+      "sha256": "4d92f682b278300a9d5d1974a830d9c84d5c5a7be50fef7768fb53ec1bf5e34e",
+      "unique_rows": 20,
+      "exposures": 2
+    }
+  ],
+  "normalized_overlap_counts": {
+    "data/development-core-corpus.json": {
+      "input_vs_input": 0,
+      "input_vs_target": 0,
+      "target_vs_input": 0,
+      "target_vs_target": 0
+    },
+    "data/development-hard-80.json": {
+      "input_vs_input": 0,
+      "input_vs_target": 0,
+      "target_vs_input": 0,
+      "target_vs_target": 0
+    },
+    "blind-final/corpus.json": {
+      "input_vs_input": 0,
+      "input_vs_target": 0,
+      "target_vs_input": 0,
+      "target_vs_target": 0
+    }
+  },
+  "literal_roundtrip_passes": 1150,
+  "blind_text_exposed_to_assistant": false,
+  "training_started": false
+}

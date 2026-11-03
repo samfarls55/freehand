@@ -1,0 +1,295 @@
+{
+  "At": "2026-11-03T20:33:19.8074435+00:00",
+  "Executable": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-q4-linux/reference-Freehand.App",
+  "ExecutableSha256": "23E5E35A7E6F48813AE364939614B08CD42C0A4EA82CA743B787E7804EC14261",
+  "RuntimeSha256": {},
+  "Manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+  "ManifestSha256": "81297543939948A3C29B85855558E0F71EF0AE0D34A878E8C23DF30F5E535D92",
+  "ReplayMode": "realtime audio replay",
+  "ColdLoadsBeforeRecording": false,
+  "Limitations": "Memory includes simultaneous evaluator, ASR worker and optional cleanup worker sums, excludes desktop UI. Working sets can double-count shared pages. Linux private commit is undefined and omitted. Injector counts calls and does not type. Cold ASR mode measures loading separately before recording. Cleanup uses an evaluation-only one-hour idle timeout; initial synthetic warmup is separate unless skipped. No Windows, microphone, physical hotkey, visible-delivery or whole-app SLA claim.",
+  "InitialLoadMilliseconds": 1539.9822,
+  "Memory": {
+    "PeakSummedWorkingSetBytes": 406310912,
+    "PeakHostWorkingSetBytes": 99840000,
+    "PeakSpeechWorkingSetBytes": 328327168,
+    "PeakCleanupWorkingSetBytes": 0,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 78852096,
+      "SpeechWorkingSetBytes": 327458816,
+      "CleanupWorkingSetBytes": 0
+    }
+  },
+  "Summaries": [
+    {
+      "Gain": 1,
+      "Trials": 5,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 110
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 110
+      },
+      "TranscriptP50Milliseconds": 364.2637,
+      "TranscriptP95Milliseconds": 409.2071
+    }
+  ],
+  "Trials": [
+    {
+      "Id": "jfk-10s",
+      "Repeat": 0,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 10,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptMilliseconds": 409.2071,
+      "CountingInjectorCompleteMilliseconds": 409.5155,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 330244096,
+        "PeakHostWorkingSetBytes": 57896960,
+        "PeakSpeechWorkingSetBytes": 284590080,
+        "PeakCleanupWorkingSetBytes": 0,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 45654016,
+          "SpeechWorkingSetBytes": 284590080,
+          "CleanupWorkingSetBytes": 0
+        }
+      },
+      "CaptureMilliseconds": 10003.9644,
+      "CaptureDriftMilliseconds": 3.964400000000751,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1,
+      "HostAllocatedBytesDuringTrial": 1766712,
+      "HostManagedHeapBytesAfterTrial": 3789504,
+      "HostGcCommittedBytesAtLastCollection": 0,
+      "HostGen0CollectionsDuringTrial": 0,
+      "HostGen1CollectionsDuringTrial": 0,
+      "HostGen2CollectionsDuringTrial": 0
+    },
+    {
+      "Id": "jfk-10s",
+      "Repeat": 1,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 10,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptMilliseconds": 268.2046,
+      "CountingInjectorCompleteMilliseconds": 268.2271,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 384692224,
+        "PeakHostWorkingSetBytes": 63053824,
+        "PeakSpeechWorkingSetBytes": 322596864,
+        "PeakCleanupWorkingSetBytes": 0,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 62095360,
+          "SpeechWorkingSetBytes": 322596864,
+          "CleanupWorkingSetBytes": 0
+        }
+      },
+      "CaptureMilliseconds": 10004.1059,
+      "CaptureDriftMilliseconds": 4.105900000000474,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1,
+      "HostAllocatedBytesDuringTrial": 1717408,
+      "HostManagedHeapBytesAfterTrial": 6156720,
+      "HostGcCommittedBytesAtLastCollection": 0,
+      "HostGen0CollectionsDuringTrial": 0,
+      "HostGen1CollectionsDuringTrial": 0,
+      "HostGen2CollectionsDuringTrial": 0
+    },
+    {
+      "Id": "jfk-10s",
+      "Repeat": 2,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 10,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptMilliseconds": 372.9806,
+      "CountingInjectorCompleteMilliseconds": 372.9959,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 402976768,
+        "PeakHostWorkingSetBytes": 76242944,
+        "PeakSpeechWorkingSetBytes": 326733824,
+        "PeakCleanupWorkingSetBytes": 0,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 76242944,
+          "SpeechWorkingSetBytes": 326733824,
+          "CleanupWorkingSetBytes": 0
+        }
+      },
+      "CaptureMilliseconds": 9996.373,
+      "CaptureDriftMilliseconds": -3.6270000000004075,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1,
+      "HostAllocatedBytesDuringTrial": 1671456,
+      "HostManagedHeapBytesAfterTrial": 3369968,
+      "HostGcCommittedBytesAtLastCollection": 4456448,
+      "HostGen0CollectionsDuringTrial": 0,
+      "HostGen1CollectionsDuringTrial": 0,
+      "HostGen2CollectionsDuringTrial": 0
+    },
+    {
+      "Id": "jfk-10s",
+      "Repeat": 3,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 10,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptMilliseconds": 364.2637,
+      "CountingInjectorCompleteMilliseconds": 364.2788,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 406310912,
+        "PeakHostWorkingSetBytes": 99840000,
+        "PeakSpeechWorkingSetBytes": 327458816,
+        "PeakCleanupWorkingSetBytes": 0,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 78852096,
+          "SpeechWorkingSetBytes": 327458816,
+          "CleanupWorkingSetBytes": 0
+        }
+      },
+      "CaptureMilliseconds": 9998.8188,
+      "CaptureDriftMilliseconds": -1.1812000000008993,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1,
+      "HostAllocatedBytesDuringTrial": 1691352,
+      "HostManagedHeapBytesAfterTrial": 5703240,
+      "HostGcCommittedBytesAtLastCollection": 4456448,
+      "HostGen0CollectionsDuringTrial": 0,
+      "HostGen1CollectionsDuringTrial": 0,
+      "HostGen2CollectionsDuringTrial": 0
+    },
+    {
+      "Id": "jfk-10s",
+      "Repeat": 4,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 10,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptMilliseconds": 336.9624,
+      "CountingInjectorCompleteMilliseconds": 336.9746,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 394973184,
+        "PeakHostWorkingSetBytes": 79749120,
+        "PeakSpeechWorkingSetBytes": 328327168,
+        "PeakCleanupWorkingSetBytes": 0,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 66646016,
+          "SpeechWorkingSetBytes": 328327168,
+          "CleanupWorkingSetBytes": 0
+        }
+      },
+      "CaptureMilliseconds": 9999.1578,
+      "CaptureDriftMilliseconds": -0.8421999999991385,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "CleanupOutcome": "Disabled",
+      "CleanupMilliseconds": 0,
+      "DeliveryCalls": 1,
+      "HostAllocatedBytesDuringTrial": 1735520,
+      "HostManagedHeapBytesAfterTrial": 3134776,
+      "HostGcCommittedBytesAtLastCollection": 8704000,
+      "HostGen0CollectionsDuringTrial": 1,
+      "HostGen1CollectionsDuringTrial": 1,
+      "HostGen2CollectionsDuringTrial": 1
+    }
+  ],
+  "Failures": [],
+  "SpeechWorkerMode": "portable-linux-research-worker; APP argument is reference-only",
+  "SpeechWorkerAssembly": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/release/Freehand.Evaluation.dll",
+  "SpeechWorkerAssemblySha256": "88A234C172F03A1D93E23BE6DE5CC239CA637EB68ECCD3A2EA1058CFCA658F56",
+  "MemoryObserverProfile": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup"
+}

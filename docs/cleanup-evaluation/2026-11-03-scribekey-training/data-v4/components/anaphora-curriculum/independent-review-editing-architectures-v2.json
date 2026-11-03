@@ -1,0 +1,1121 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/editing_architectures",
+  "review_type": "Manual assistant semantic-target audit of all 120 fixed source/target pairs; not human review or model evaluation.",
+  "reviewed_utc": "2026-11-03T18:56:21.985076+00:00",
+  "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/anaphora-curriculum/train-120-v2.jsonl",
+  "source_sha256": "4b8d5f75340a4f4b819031aa16e431b405250e71a8bb80b97b7634de1a0077ea",
+  "case_count": 120,
+  "all_source_target_pairs_read": true,
+  "blind_case_contents_accessed": false,
+  "dataset_modified": false,
+  "model_runs": 0,
+  "summary": {
+    "pass": 117,
+    "minor_target_revision_recommended": 3,
+    "critical_semantic_errors_found": 0,
+    "recommended_disposition": "Semantically usable as-is, but recommend a separately versioned 3-case target overlay retaining explicit then before the next training run. Do not change the frozen V2 artifact.",
+    "families": {
+      "anaphoric_object_carryover": 32,
+      "outer_request_preservation": 16,
+      "neighboring_clause_preservation": 16,
+      "reported_frame_preservation": 8,
+      "reported_correction_language_clean": 16,
+      "question_tense_voice_preservation": 8,
+      "clean_question_tense_voice": 8,
+      "already_clean_ambiguous_reference": 16
+    }
+  },
+  "secondary_review_scope": "A separate assistant reviewed only the three temporal-connector concerns and agreed they are avoidable weakenings, not clear critical semantic errors. It did not review all 120.",
+  "cases": [
+    {
+      "id": "scribe-anaphora-curriculum-001",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "57e187980edae1da8d2686aa2385dfa9fdff76d255d796f57459bfe9ec0c6024",
+      "target_sha256": "fb79253b59d6f2bb1cbdd1f360a36fdb49e031781f6be9df6b76f95bd9128aef",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Full narrow/oak bookcase identity survives; canceled study move is replaced only by the final leave state and dining-room location."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-002",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "0ab1a2428575c2598087d1bd886bd187d648041078ea862e9ae1946c250bbe11",
+      "target_sha256": "12d513c5927637d31351d726e229d803e9f3f0ff97ca68a6df043ea4b324cb3e",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Spare/front wheel identity survives; service-van retention supersedes bringing it inside."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-003",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "cce31f2cd7490341619b0c45286765c3f897b14c3b21091a9a1d1db66ec9b05e",
+      "target_sha256": "de7eecd4b81c3d133c00bbcff9cda5c3f7f7e0f7feeff5e002377c25a4bb4f95",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Blue/ceramic vase identity survives; final padded-stand placement replaces packing and crate destination."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-004",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "edd9478b5df20cbb60b3eccf17ab84455a1d7c4021d778385a89212f6fd4f5fa",
+      "target_sha256": "d6c55c043f704eb01dcd48bc6eb53269d0b57d89924126fe7472190920e7d642",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Exact count 2 and unused-router attribute survive with plural retention in the locked cupboard."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-005",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "e02f1d4d0ab5d5a6a1488a199e448eca428a110294dc2a93ec5e82e4790dbe96",
+      "target_sha256": "f7e384ee5c7ee6087ef359d424810df0950a836616334a9dbda97e5cebfeedee",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "The smaller-of-two suitcase restriction survives; the final passenger-footwell state is not converted into a move."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-006",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "54427cb16d86fd9f2c4aa8a0ce0e7b7baf38c4c0ec43107c590056109c7172a7",
+      "target_sha256": "f5ebdfbe45dbd96ba86930623eef0501db0c78100ccad244cd0a5bcd4695298d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Draft weather bulletin survives; saving replaces deletion and retains review folder and instead."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-007",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "b34739eac5cf5cba85e55c3d1503c6377d64887a1028d6856ca3d772dea1621f",
+      "target_sha256": "5e98b7219960d04ac96fd7067bf7684e67a1bb1c6b605f4a163acc2d2f69d839",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Eastern/pedestrian gate, bolted state, and steward-arrival restriction survive; unlocking is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-008",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "8d81231efa1590d123740da4688f2855dda65b815dad0b6b811edf1bedac15f0",
+      "target_sha256": "7818694917c47328e80e7e730a5a8fb20178d523bca673b9240f304376cfd6cc",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Upstairs extractor and running-until-paint-dry condition survive; the canceled turn-off instruction is not revived."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-009",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "d353ab1b98540c5c17588c4361042c58a100dfd0a4bd10060364bd85f8fe96ee",
+      "target_sha256": "2754b6369356a0f9e39b146f7898d6d38c33f9221001875860c5de88c776d66e",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unsigned consent-form identity survives with the witness-signing purpose; posting today is superseded."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-010",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "fc320a8a2cdfa158d25463a0220d4265ec69bb75847863a29a794fd0badf514b",
+      "target_sha256": "ea9a5d5c39eb163266ab7cfa57c72a7d9d9df049337f8f13e71bc1beb7a05273",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Afternoon/eye-examination identity and unless-clinic-calls exception survive; cancellation is superseded."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-011",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "9751bbed4ae047c8ae621f96d5a44d8753434da31b1a16771e5ccceb9b891cd2",
+      "target_sha256": "e53f49081d9097c536f47ba79535455a65196bb1c0fbf514fcb4c9d19b73b969",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "All, exact count 5, numbered samples, and refrigerated-drawer location survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-012",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "8f3aed07863a8c2768c2122644a926e0c16a590b496548d091156661780c5dbe",
+      "target_sha256": "d4e60bccd390c4d5f4fb1733a9478e8223932a949b0f3f57989b5d547723558c",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Cracked/amber lens and insurance-assessor purpose survive; replacing it is superseded."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-013",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "3b708d0e5be206b4369f74d82278d2e72e33ff06a87d0e0ba06dfcfdc449082f",
+      "target_sha256": "7e447a2d57332e13f537de3424912576b3aaaf89aca5aee2c2500394052ca474",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "First/signed copy and original-register relation survive; courier sending is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-014",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "ee8755a6ad8e09aedf314551c1e76fc8538a2ea3500ea47686ba2d27f76af45b",
+      "target_sha256": "cb377a0a822ead87fe03bbc871a6208c1660c9361510a4054153cc8d0bc30818",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Both/adjustable lamps and control-desk retention survive; no new relocation command is introduced."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-015",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "b5d94f68ed30d6c8d5b81f93d600f32aae879070833a69e213747d142003110b",
+      "target_sha256": "0883e72b25df577689291243aff83435f5e98d3624d444846443c2f849e9454b",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Red/inspection barrier, raised state, and lorry-reversing condition survive; lowering is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-016",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "da1c854125ff551f9b11f751f2c68b5c714560c3240a61b9760207c2159b56fc",
+      "target_sha256": "c1e6ba3c2de6ac187ad041fe888f965cc1975ae58149d47060e7f42a011efafd",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Out-of-date rehearsal pass and record-of-previous-design purpose survive; disposal is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-017",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "c61cc4cfbb2c144f914c6534cdfe86b41eec488c1a968f8ca54d05f888c6b6c3",
+      "target_sha256": "d2249082ecdd208ef1e92b725bba85ad4f7cee4505da3ef567ea6e836cf82529",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Both marked cushions and waiting-area antecedents are recoverable; photographer-finish condition survives."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-018",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "1e9f2caf134eedf9896c7e1446ee9d674630bf7dde3340d5eda98fcfd30b8379",
+      "target_sha256": "6ff561b84065cf2c6750dbe35b324b0a99401793090e6bd02de1b3b9652a95b7",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unopened flour sack and shelf location are carried over; marking its tag remains an additional action."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-019",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "6c737633446052c98fe214ffc196e673ad6af3e726c2775556d38c2140c324f5",
+      "target_sha256": "d1f5710ea16e180763d535362e440b18c51d23de9f8b7a82b4e15040591afb61",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Round/roof vent, open state, and another 10 minutes survive; closing is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-020",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "fff4be01ae7f8a8d845ad11ef55d4a04a15d283c63eb98475dae7762cee06ff2",
+      "target_sha256": "1ad38fb06b4e43be9a50848b985c48ff88cf10d909bff2d2b324bc4ac5f4f692",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Family/museum membership, lapse action, and end-of-month timing survive; renewal is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-021",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "23ba490e460fe1d8dca0ab3f3b26e0e6c900186d4101684e40c82d22a95cbe74",
+      "target_sha256": "eacf0bebe698f77f8ba5db2568f493357c89eadb5a9c7cddc870730f92e7de80",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Long/canvas banner and hanging-for-paint-curing purpose survive; folding is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-022",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "320667dcc9924baa24820c091df098b474b31995bcd3c8603c51ad2a93cdb59e",
+      "target_sha256": "f2c240e4af42fc6a35ed9c11147861219a6977f6646acf3ada5408817c83d07f",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "The four-to-three quantity repair is applied before the action repair; green bottles and final draining-board location survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-023",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "e1bfaa61515c4213af098c6aec88167cf8b4752d7aa6f92f3e885c91a2570d0b",
+      "target_sha256": "d512c88e162e25402b3c9f23c1fe1b910d1f66de7c226b562953698d439bd9d5",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "The corrected third ordinal, supplier-quote identity, and active-file location survive; archiving is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-024",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "7834922022e1760494913bfd0693dffbaace9f5a0d00a18cc7acbfc5bd5c4f54",
+      "target_sha256": "d342667859ecc605169283be685eac85c335d2b7ca999877f784dc369433a878",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "The direct object is the rear-left corner of the cabinet; its full identifying phrase and wooden-wedge support survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-025",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "d8aed28f2d5d4f24efc536b09c17218b4e35e0a0d8e03851bd73426d726f2261",
+      "target_sha256": "b1152d7ba46bcfcd4d4ee3448b981566ac000d160a8d22d07db2023928851c50",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Smaller/metal filter and dry-for-laboratory-test requirement survive; washing is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-026",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "06dc7626499651382d89ffc3a957e0b9c8d7e99a080d7039903a98ace6f9623d",
+      "target_sha256": "dd912930d1d22c22c3699fe98bc48dbd2ea7ccde27d4e5aaa384a2e7d7dd48b4",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Short/black lead, tester connection endpoint, and reading-settles condition survive; disconnecting is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-027",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "2a3202a4b9fa1b011e5a9f6e76da1514da716e2a73e841656148e1d39958de28",
+      "target_sha256": "b1f853ddfebe8de94192d680e1c57a291291a67c87b9e63f07b54a67e8e26c4a",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Two/repaired hearing aids, audiologist custody, and one-more-check purpose survive; collection this evening is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-028",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "1cef06a51b19113781620587ceb26e30fc6088822a91090fb25c075f7520b227",
+      "target_sha256": "bc95093d09d308ab9b96840d59f8786b84d7069c8a86075eead0150608bc8434",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Duplicate payroll sheet and separation from the signed master survive; shredding is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-029",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "46450d2181b1d33d1fc2d85ddbaf877e282ed9f8c63ea16c1dbe18cc27bb4475",
+      "target_sha256": "467fe42d5f637cea07e4c9032e6cf8db65d079cadd8a7cf12762ade51ac919cc",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "First/row of seedlings survives as the singular antecedent; final mesh-tunnel location replaces greenhouse relocation."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-030",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "91ca15230529d2adf1f7b423381ab8b05ee770f302c669f6f05260e443d566c7",
+      "target_sha256": "2b970c75943cd9c34b0a5fae617bd6783a940e71d632d060dbd9ad655d870325",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Only/working torch restriction and emergency-exit location survive; drawer placement is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-031",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "0be4b81d364715b6a31fd3a6e3ec73c878d50e935e0f74987b7b462af8aa5fc1",
+      "target_sha256": "1e9ee268e05e76277b78094565084e446402d15fa5d78db6c9b81477f16b27f3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Pale/blue ribbon, medal attachment endpoint, and owner-inspection condition survive; the later owner sees it pronoun is left intact."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-032",
+      "family": "anaphoric_object_carryover",
+      "input_sha256": "415f692d4537353abaff49ce8ab3ca643ffaf15708cebd6cf47b107216257295",
+      "target_sha256": "8ab4750c94b0566f6a33d8c88dcd93811934f5cb3f536ac7de00823a66507966",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Backup/circulation fan, on state, and lowest-setting restriction survive; switching off is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-033",
+      "family": "outer_request_preservation",
+      "input_sha256": "e91a45cfef5b0a02aa0ee99fd3aeab12e0435e1d4c4e736018e7223ec0d1e733",
+      "target_sha256": "239fba288138cdd54df82940c7b929ecffd25afdc74ad581c3c255d40447f09a",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Please/tell/Imani outer request survives with spare lectern identity and final seminar-room location."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-034",
+      "family": "outer_request_preservation",
+      "input_sha256": "989ab95d06ed84e2a6ad90e61c84d1c48bb5040ffb60b714d219780ba5c79fea",
+      "target_sha256": "50ef58acdd5afbcd5584049c31c6d8fea7bb50d3d42aaf49cc6bbc2e419c0e8a",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Could-you-ask question and porter recipient survive; borrowed trolley is kept at the final loading-bay location."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-035",
+      "family": "outer_request_preservation",
+      "input_sha256": "2229f210cd2cde2b03138c6e0e3dbdbeb1d7cb0fadf4f88e7f2fb377da284032",
+      "target_sha256": "ed4db714e126e57d14b3abfbe794d1299cadd7fd890f7a9f01c512334b2ff517",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Remind/gardener frame survives with trailing-branch identity, tie-back action, and nesting-season condition."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-036",
+      "family": "outer_request_preservation",
+      "input_sha256": "4fdac6cf08103d4ce018116b6b8ec0c29339f1a04b961da8747b9dbb82382cfa",
+      "target_sha256": "e3a78167f44b554ddc1339824df7c48f671e4287bc5d29a17c0fb7e2af4c0f65",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Write-to-treasurer/asking-her frame survives; duplicate transfer is retained pending for now rather than canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-037",
+      "family": "outer_request_preservation",
+      "input_sha256": "04aa6e109d0c22c80b48a320df550fec934fb951ea7c8ddeb642a7e3d98d3447",
+      "target_sha256": "efb9c1a04841e082020335a52542ea0e250fd62e8ed493baf985a3a9668b0436",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Instruction-for-night-guard frame survives; courtyard shutters remain plural and open until the guests depart."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-038",
+      "family": "outer_request_preservation",
+      "input_sha256": "ec5dccc7dc9adab69dd8757ed9930927aacb55041dc89d9439d9e377db1ae04b",
+      "target_sha256": "9c330bba8686d009fbe0de3f503499ce56fba348938ffc59fbf2cad6d6de9b7d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "I-want-you-to-ask-Ben nesting survives; portable screen remains assembled beside the projector."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-039",
+      "family": "outer_request_preservation",
+      "input_sha256": "3c62ed20d7691e0269b350d3238a0d94636c639cb8887fae94ca465e8c488068",
+      "target_sha256": "e4bf49a1395351e3807c7ecaaac954c4e8dc388412883ea032adb618a7346784",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Please/send-Mei-a-note/telling-her frame survives; both spare badges and conference-end condition survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-040",
+      "family": "outer_request_preservation",
+      "input_sha256": "056015586a13ac1467cb14f5b54b32da69c4e3b666254d35b4621ebd24b5cfbd",
+      "target_sha256": "3b51c3d7ecc09890884871c54002a588afeebdffec8932292e8ad3ec9140d5dc",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Would-you-remind question and mechanic recipient survive; bent bracket remains fitted for the photograph."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-041",
+      "family": "outer_request_preservation",
+      "input_sha256": "855290a47628f202dd4399bd1ad4a72f5b11fbd40b2bce9cf965ec5647c00c05",
+      "target_sha256": "f32a3b44d391aab0dd095a1d643a731c45ada3284167c698ada5bf57eed2140e",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Tell-neighbour and that-we-should modality survive; garden pump remains running through the frost."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-042",
+      "family": "outer_request_preservation",
+      "input_sha256": "0a04bf0a7740ae505e6714e51f1912f71cda8384bc0512aa3c9eac7a22c11b09",
+      "target_sha256": "c045d4c2ed7b58bb208e29f90f8d5d6369226207b1d210ac8d5f74a58f6c5932",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "My-request-to-librarian frame survives; annotated atlas remains available for the class."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-043",
+      "family": "outer_request_preservation",
+      "input_sha256": "8ac210a56f6c6fa8ad9174794ca1e25689e53a50f4565b22bc474dc7e52a5ded",
+      "target_sha256": "1e1a3bd2631cc914dd076bf359dc29a0ff961afc5c2979fdf0c915a5966158f9",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Ask-coordinator/whether-we-should uncertainty survives; three display plinths and gallery location survive without deciding the answer."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-044",
+      "family": "outer_request_preservation",
+      "input_sha256": "940d49eebb9a7cb435441d075d11dde49963d909c7b9ef8a49c1c766271d341b",
+      "target_sha256": "68a48111210fbba259c2dfe4735b219dbd0d3667166705c811a51473e3143ca0",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Can-you-tell-receptionist question survives; side entrance remains unlocked until cleaner arrival."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-045",
+      "family": "outer_request_preservation",
+      "input_sha256": "8e907b0381e491ee95afd9a711df98b4679ffeaae95ca3917ab67bcdf034050c",
+      "target_sha256": "974e6ae00eadd8fefc2f22c7c318e86834da377968c3df92fb1d9ba00690cb83",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Message-to-Daria/should-say frame survives; stamped application is retained until address checking."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-046",
+      "family": "outer_request_preservation",
+      "input_sha256": "d68a8757b849d3716ba0d5d363beda4516cf0b73ccdc0c9fbd45b198cd5a22a9",
+      "target_sha256": "be9dd9421f8183b0a5d32728cdaeb29b84150c72ccaaf45b086a6ce982ba5ab6",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "I-would-like/caretaker-asked indirect voice survives; all six folding chairs and oval-table arrangement survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-047",
+      "family": "outer_request_preservation",
+      "input_sha256": "d5ac4aaecaadf1015c2e629982e6425d8da81bbb8892272444aeab441c3f59a8",
+      "target_sha256": "5ce6dce62ddd635c7f29b04faf755b22e6ba1ec7b75aad7bdf79c91bb38fac5d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Rehearsal-leader recipient and tell frame survive; corrected change action retains first entrance and only-after-lighting-check restriction."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-048",
+      "family": "outer_request_preservation",
+      "input_sha256": "bfe416b8d515d47565ef213df87c2ecf29897c78d72a5553b420554bf116687c",
+      "target_sha256": "92f8ab6a15ed5fbd48b3e8623ef8ac78f2204ce8e36ab4be3abf15acec7c4217",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Could-you-email-conservator/to-ask-her nesting survives; carved panel remains wrapped until humidity stability."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-049",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "4e161b0825313af1fc33d5bd8bda1f29b0915d97e4bdb2354ef3c00b7666a5f4",
+      "target_sha256": "db8809a26dfda29e90307d8cd52e50ec326be057b850fed064dd417881e6cf8b",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Printing the attendance sheet remains independent; empty lectern receives only its final window placement and sheet-on-desk action survives."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-050",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "4fa889d450120165ad7daf493c2e2f37e877e7bc59dbd6788548cd6a2d7de2c0",
+      "target_sha256": "6693386b45d853d814395705d5d8a59660337e2ae5ad90bf7feda6c20a33283b",
+      "verdict": "minor_target_revision_recommended",
+      "critical_semantic_error": false,
+      "note": "Pressure check, small-hose identity, and before-lunch recording survive, but dropping explicit then weakens stated sequencing; preserve then in conservative gold.",
+      "concern": "Avoidable weakening of an explicit temporal connector; action-list ordering remains, so not classified as a clear critical semantic error.",
+      "proposed_target": "Check the boiler pressure, then leave the small hose attached and record the reading before lunch.",
+      "proposal_applied": false
+    },
+    {
+      "id": "scribe-anaphora-curriculum-051",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "696781ad08131332d20a969c32ae14d693c79f6d88f32ed87cc5f6ac1dca9e40",
+      "target_sha256": "015d116e0014178bd6ede48000a23f16ea13b8c6f19c9264537f0fd94a81b5d3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Independent front-aisle instruction survives; sealed crate remains in the freight lift until crew arrival."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-052",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "1c1ad5d104d1995538a24e614d046a78c41abe01e0c1b4ab4b94d7db7520653e",
+      "target_sha256": "a24b8425bb3c0122217d424fe7cfe175edcf23004628a9d51b5f5d7fd5787d40",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Repair-desk call and before-noon deadline survive; inspection slot is kept and the different-engineer request remains."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-053",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "f0d228fafde6841ba0255296121529ce4bd21e88e57f3b52913de993a4692d85",
+      "target_sha256": "d1243827ecc3708dfdf7976d8f94986c47500e4c9713583fe88a1747acda70f3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Music-volume instruction survives; west balcony door remains open while the room is airing."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-054",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "b12faab15eaf99c952b86d38e196a4677df887d79f07941ec4b6798cc5904e5b",
+      "target_sha256": "6ae58da14c92157c1c81d399eac14c9099ec6f330c145639d5c52b773011e76d",
+      "verdict": "minor_target_revision_recommended",
+      "critical_semantic_error": false,
+      "note": "Both photo requirements and scratched-cover identity survive, but explicit then is dropped; retain the source sequence rather than silently resolving its slightly awkward timing.",
+      "concern": "Avoidable weakening of an explicit temporal connector; action-list ordering remains, so not classified as a clear critical semantic error.",
+      "proposed_target": "Take a photograph of the scratched cover, then leave the cover untouched and include a ruler in the photograph.",
+      "proposal_applied": false
+    },
+    {
+      "id": "scribe-anaphora-curriculum-055",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "0e57c393764aa0e92efda7f4a5b0123dc706d45bdb5ee69c19b402718f13b59a",
+      "target_sha256": "d66a80f9d6c14908d92ec2c21b29ef416e19aef829d4a6bb5665291dfe055de6",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Both-reel labeling survives; heavier-reel identity, final weighing-bench location, and its weight logging survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-056",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "21cf494b1aab5331ca2d9ab49dae18dc43fdca6162acd69168e871264e5fe6b4",
+      "target_sha256": "a130f701ff99464c16a55f1a1bb2457c5523d4e9ee01f0fbda56809058cd04e9",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Please/sign-delivery-note action survives; spare battery retention remains conditional on replacement charging."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-057",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "44898afddd484d15058a4297bfc47a741a4e6a2163b3446cf6f580f7a19baa5d",
+      "target_sha256": "53d39c191279a682f66adf89f51804b9974457edba1a41a928104e0b858108d2",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Before-touching-tray hygiene instruction survives; small-jar contents remain in place and clean-foil covering action survives."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-058",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "8e8460b24df5e9e19fe83b9f5b8b09fc916e5101ec5d260ad3821e429f48e4ee",
+      "target_sha256": "4863c5ef7fde8facb78eab3738b3c3bf2435cc85065df109c0be75f1d8b89430",
+      "verdict": "minor_target_revision_recommended",
+      "critical_semantic_error": false,
+      "note": "Scanned-letter saving and paper-original identity survive, but explicit then is dropped; conservative gold should preserve the stated sequence before filing/location-note actions.",
+      "concern": "Avoidable weakening of an explicit temporal connector; action-list ordering remains, so not classified as a clear critical semantic error.",
+      "proposed_target": "Save the scanned letter, then keep the paper original in the fireproof cabinet and note where it is filed.",
+      "proposal_applied": false
+    },
+    {
+      "id": "scribe-anaphora-curriculum-059",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "416eda3f13a34ec56fa79a93e3baddba5296ad69557fa1843c3a201389bed908",
+      "target_sha256": "39ceb32985d69001b7f6b0834c7dae95fc102236b1f9b964ad59ea1fdf0dc505",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Temperature-log instruction survives; little heater stays on low until the sample reaches room temperature."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-060",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "06116425deb20deaafa1ec6db0f888c388063c7879a1dd2d3c11c2e49b59a91b",
+      "target_sha256": "95d864f4a39096e9b3536b0f9ed8a04ef21e8809c51b255fac5d401704eba574",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Independent blue-seal intact requirement survives; narrow inspection flap stays closed and viewing-port inspection survives."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-061",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "efe242a73ab1aeda8bd5e36f46c83a8f8fb95592c02c02ba17cccb65f87c23c8",
+      "target_sha256": "8b7077f312be86e84993512bfa52f7445566016db6826353433fc5e98ed743c3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Sending supplier the serial number survives; torn sticker stays attached until their reply."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-062",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "a384ad4ac7e942c02d29a03b08a61fc6f77590f8abc09d1ce8e5db720f9ac4ea",
+      "target_sha256": "58bdf24d912df4d22cfbdc8b704b8b6c8081f1fc036ece5d12177307d36d3075",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Receipt-in-envelope action survives independently; parcel posting is superseded by keeping it in the office until tomorrow."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-063",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "a3c9f63f11892d1db47cdd2eca445430af6c70e8023f5ef33d18d15e7bfafb90",
+      "target_sha256": "800cb52a421cce6d5e01d3e14ea0e35d3d1b728448b53cdbadd8f6805122f519",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "V2 retains the explicit record-before-reset relation and second-controller ordinal, plus the final prohibition until technician approval; no unconditional reset command is added."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-064",
+      "family": "neighboring_clause_preservation",
+      "input_sha256": "0b99af64dcd150f995fb63a228ba6442f15d3baaa16b0d9ca524bc0b056ce75c",
+      "target_sha256": "8ec8b430b44c64b8d55cce2968d3d787eca9c2498212ff32d802997c9a0b20f0",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Courier parking reservation survives; copper cylinder remains in the ventilated cage and security-location notification survives."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-065",
+      "family": "reported_frame_preservation",
+      "input_sha256": "420fb565ecbebe889ace02498941f3ee450c161708022dadddb6be676d057f3f",
+      "target_sha256": "281a91d807da92be3a194abdf33fc89b89fba785cb926214a7e9d44d072f04b2",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Past proposed-arrangement frame survives; damaged hinge is kept for materials testing rather than sent back."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-066",
+      "family": "reported_frame_preservation",
+      "input_sha256": "7ce3a2cd92d32131f15ee02ab6e7ffa986d86158b013b3ce23b3900b105b8836",
+      "target_sha256": "58cecf63b768d5b098980a2d0d4e8aba228689a520772b5dda76dfc7a558a8ed",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Her/past-recommendation frame survives; west lift remains available for wheelchair users without becoming a current direct command."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-067",
+      "family": "reported_frame_preservation",
+      "input_sha256": "d00bb55979d2563fc93834f0141d8033e9f45bad913082936539689e522e8d6c",
+      "target_sha256": "012d84db93694b85162255dbcc011260fb39a12212c413d232ef5f4f8d977da5",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Drafting-note and steward-recipient frame survive; equipment store remains unlocked during the demonstration."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-068",
+      "family": "reported_frame_preservation",
+      "input_sha256": "f7c9981eb44abcce282b26e8d2c5be1e0e573c57de00266b2790e3d2524c715f",
+      "target_sha256": "d9a57924443fc4a155f0e437c3a5a855e79551e9e8dd564b25c5a43a3bef20e1",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Past-perfect intention survives; faded map remains displayed beside the newer version without asserting present action."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-069",
+      "family": "reported_frame_preservation",
+      "input_sha256": "d20ce5ff6f2f644967a05a4593f9f7dde798279ab20562b24c0a8581a560d8b7",
+      "target_sha256": "0fd11cc92886cb30185fa27cee3fb26f7871d10deaed3336e7dfcd4875754f24",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Proposed-condition/that-we-should modality survives; test rig remains anchored to the concrete base."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-070",
+      "family": "reported_frame_preservation",
+      "input_sha256": "462b6affb61c2435e57279140e143e6fd705e5ffd49984bdec1e07b109e60665",
+      "target_sha256": "56520bff91af832af18997f26e83a1a59b1bcfbaf0ff72ce5ef46c89d9bf9b05",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "He-said/his-plan-was nested report survives; rural stop remains on the route until the survey finished, retaining past timing."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-071",
+      "family": "reported_frame_preservation",
+      "input_sha256": "2bd17061f60c3850e46c42ee4557b0d55f74b9afbab0d3384531245290694c81",
+      "target_sha256": "d37886af09e5220a52aaae1618d98e50f9cee460b02990e6b67c7f7939ba28a0",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "What-I-meant-to-request retrospective frame survives; hanging sign is retained until artwork approval rather than removed."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-072",
+      "family": "reported_frame_preservation",
+      "input_sha256": "380011415edea9cca05ffc5fd7cbfe21d7ff3a0f47f453588bc179f2b9e3aef8",
+      "target_sha256": "2526c1eca4fec2bd7fad46aa5486beea740a1adc38fc5537329f517d246a34b5",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Draft/would-have-required-us counterfactual frame survives; warning bell remains connected during the evacuation drill."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-073",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "b7cf04a395acc19d1e002356fa01cdacc4f6d2d448647f7c3a6a710574910dcb",
+      "target_sha256": "b7cf04a395acc19d1e002356fa01cdacc4f6d2d448647f7c3a6a710574910dcb",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target correctly preserves a report of twice saying scratch that; no active correction is executed."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-074",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "e712fe6fc966a1471773439a88fc0022d0dedd1c18c7ac141436cd8648021284",
+      "target_sha256": "e712fe6fc966a1471773439a88fc0022d0dedd1c18c7ac141436cd8648021284",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves apology, reported move wording, and explicit nonwithdrawal of the written instruction."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-075",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "021bdc98733bca4ccc46459994b248c326b4ed5bf4e5bd72b5e5ddbc95f309ed",
+      "target_sha256": "021bdc98733bca4ccc46459994b248c326b4ed5bf4e5bd72b5e5ddbc95f309ed",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the metalinguistic explanation of sorry rather than treating it as a repair cue."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-076",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "cba4123e0e962748878c81455de72657bd2737ef6a3cc7fa58f81aae07334932",
+      "target_sha256": "cba4123e0e962748878c81455de72657bd2737ef6a3cc7fa58f81aae07334932",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves both abandoned destination and later correction as the subject of a report."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-077",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "0c113b4c49f8c45591df46f0771e92265a5c0fc132c9bbe9f477d3b0dacc0b71",
+      "target_sha256": "0c113b4c49f8c45591df46f0771e92265a5c0fc132c9bbe9f477d3b0dacc0b71",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the explicit distinction between describing a proposal and requesting action."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-078",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "3d0ba6703952b0c0885d14d5c69cfd8b5a0c696f9d0a3f7afa8de199e901b453",
+      "target_sha256": "3d0ba6703952b0c0885d14d5c69cfd8b5a0c696f9d0a3f7afa8de199e901b453",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves chronology of attic suggestion and later basement choice as historical content."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-079",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "3a03b8a80b153a35e5250f73df9bda41decc2060e06da4006fc20c27efbcd2e7",
+      "target_sha256": "3a03b8a80b153a35e5250f73df9bda41decc2060e06da4006fc20c27efbcd2e7",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves no as the clerk's reported answer to a customer, not a current repair."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-080",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "576f82e5d1d59eab7540a084d7f1a098879f70fa425fcdab39a30ef22919076e",
+      "target_sha256": "576f82e5d1d59eab7540a084d7f1a098879f70fa425fcdab39a30ef22919076e",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves leave-it-there as an example of unclear reference without inventing its antecedent."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-081",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "f6f69e16d4ec1c172b5f3a4d2fc0f3ebdddbff478d183833fdf3cc6699565c9a",
+      "target_sha256": "f6f69e16d4ec1c172b5f3a4d2fc0f3ebdddbff478d183833fdf3cc6699565c9a",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the nested fact that an earlier cancellation was itself canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-082",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "fda577a25cabd4f0d09ba8863a7a9e04718b15f95e026368fff44fee6a4dd68b",
+      "target_sha256": "fda577a25cabd4f0d09ba8863a7a9e04718b15f95e026368fff44fee6a4dd68b",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the witness's recalled keep-key wording and before-lock-change knowledge relation."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-083",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "35e6e65e8e4eb31321b5ed8ac7796d2ecaaf7209a83b8ba809844ea261ed737b",
+      "target_sha256": "35e6e65e8e4eb31321b5ed8ac7796d2ecaaf7209a83b8ba809844ea261ed737b",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves actually as a discussed sentence-opening word in a signed statement."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-084",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "f03c1539e83f0ea6bcdbd5db49537f842dfe0e5eeb4cc307947bedf39d160342",
+      "target_sha256": "f03c1539e83f0ea6bcdbd5db49537f842dfe0e5eeb4cc307947bedf39d160342",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves both answers and the explicit instruction to compare rather than delete the first."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-085",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "88229845a33e1095d50ddfaa636fdeb4d7995cb5161ae93a7ae93dad12ed5fc2",
+      "target_sha256": "88229845a33e1095d50ddfaa636fdeb4d7995cb5161ae93a7ae93dad12ed5fc2",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves sincere apology and explicit unchanged promised payment amount."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-086",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "f5df4d47bb20908e42cd0dfe2de16e8b2ca54e0a7db41b7d5c03ac048a202826",
+      "target_sha256": "f5df4d47bb20908e42cd0dfe2de16e8b2ca54e0a7db41b7d5c03ac048a202826",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the nurse's reported unresolved close-versus-open question without choosing an answer."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-087",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "b7f1d121ead57fd4abac0a099696ea2a4ed585ec192fba9e761648a29fc2b2f3",
+      "target_sha256": "b7f1d121ead57fd4abac0a099696ea2a4ed585ec192fba9e761648a29fc2b2f3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves reported not-this-one wording and its relation to the rejected photograph."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-088",
+      "family": "reported_correction_language_clean",
+      "input_sha256": "8aca4e212d9efa8adf98530c55f05f3e0a6242f21da59eb4f318a81065b18258",
+      "target_sha256": "8aca4e212d9efa8adf98530c55f05f3e0a6242f21da59eb4f318a81065b18258",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the instruction-versus-historical-proposal distinction without acting on either."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-089",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "0c5af169a007263769e70a274276b969c8b4aa2aa971699719c8e9a300453ef3",
+      "target_sha256": "9ce4e7ca585cd589b0683142ade02c24d7d038da6b22a7ab3da5bcd1d3e6c5b3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Could-you question, striped-awning identity, and terrace-closing duration survive; taking it down is canceled."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-090",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "bb9427fe0a5f05ca19fdef3cb8a19f294491c500a3cd990ccbb58fa861874c5a",
+      "target_sha256": "c7641fd6b9a7146e207771daee84f09df01cd25533519ae5d93f0ea5a00c39f3",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Would-team-have counterfactual past question survives; yellow generator receives final service-room retention."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-091",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "1617996a3d85e49aa5337c8f7c66ba9c4647db7ba6f03bcff43cbebda366d794",
+      "target_sha256": "e526008492a3418c684caddd18c8ebd1c53af09b312c182d2af000e77abedb83",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "I-was-planning past frame survives; smaller telescope is kept for school visits without issuing a command."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-092",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "f9c70bf2154f5eab33b2a78e8dbf0ce40ea1963e337a5fcbf70a794f20843cf4",
+      "target_sha256": "f270e9b9cfdd0f9d20beadf01db3e7c572291fd51a1b43d58ee6e91835d8040e",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Second/linen bundle, should-be passive modality, dry state, and dye-testing condition survive."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-093",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "6d935228d7c2dc3912af7efece8a636b30ec812de06aa7eb19afc927841a3512",
+      "target_sha256": "32ced864fd513544616ebb2153debe96dd061e20e7b83109348725d5918e650d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Had-they-been-asked past-perfect passive question survives; portable ramp is retained through the holiday."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-094",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "fb63250a358ad70de0cf890d5d9f3e78ba8822aacace6e969598c38e94db7561",
+      "target_sha256": "7a7ebcccb0a78835b9eee328f0bbe6646d33be20f393f404b18f71abf38c8db2",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "We-would-have counterfactual modality survives; small kiosk remains open for the evening queue."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-095",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "e7e8717016886ef9c17aae263b9ec85f2544452ed40c965002513b926d6894bc",
+      "target_sha256": "8c57b1ed9c4b5d441bde1b85cb5d59836c5f38b0758d9453562c8656316250a2",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Was-assistant-supposed-to unresolved past question survives; temporary rail stays secured until surveyor arrival."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-096",
+      "family": "question_tense_voice_preservation",
+      "input_sha256": "9baeaf762d909f39d7dfe9e7074ecd784b616760d006acf9c69528d3f0017bd0",
+      "target_sha256": "2a14e925a50099ac3b7fa01f6547e3690fd0f3b4c4f55e99c82907189b75ff37",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "You-had-suggested past-perfect report survives; rusted chain is kept as evidence of the original fitting."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-097",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "aff82c009d24bb5d13e71a2a382742f6dda2c6336f9c6c8044d12cb1f133925d",
+      "target_sha256": "aff82c009d24bb5d13e71a2a382742f6dda2c6336f9c6c8044d12cb1f133925d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves conditional wheelchair-clearance question and smaller-trolley identity without answering it."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-098",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "a1fefb03ceb710319825a82d0232ffe71726079b7f7bca7c75517e92afebfd6c",
+      "target_sha256": "a1fefb03ceb710319825a82d0232ffe71726079b7f7bca7c75517e92afebfd6c",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves past-perfect desire, cracked tile, and manufacturer's inspection reason."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-099",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "81c51690e0078ab0a24ba358ca9807b5ac7ec1e2a306075d4ececfa8fb1b16f8",
+      "target_sha256": "81c51690e0078ab0a24ba358ca9807b5ac7ec1e2a306075d4ececfa8fb1b16f8",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves three/spare clips, were-supposed-to passive modality, and new-ones arrival condition."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-100",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "1e83b8469ff9585519215d1251ef49930ce96c99734a38ca4092a416ab176d29",
+      "target_sha256": "1e83b8469ff9585519215d1251ef49930ce96c99734a38ca4092a416ab176d29",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the counterfactual open-hatch question and earlier-rain condition without answering it."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-101",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "9012809cac7ed64daeefd796473d52c8bee27b5abe9a7cd31d2b9b5e6ed2bfdd",
+      "target_sha256": "9012809cac7ed64daeefd796473d52c8bee27b5abe9a7cd31d2b9b5e6ed2bfdd",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves might-have-meant uncertainty and both outer-sleeve versus padded-inner-case alternatives."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-102",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "57ebba2bd1004bc60deb31b5a7c07c1dac63d73cc68468c2c40bf2dd176f8c0f",
+      "target_sha256": "57ebba2bd1004bc60deb31b5a7c07c1dac63d73cc68468c2c40bf2dd176f8c0f",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the unresolved missing-versus-damaged sample question and red-marker identity."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-103",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "07690ef66307c1953bd995a18016ed2956ccb9b05675f00f826e918cd079f99d",
+      "target_sha256": "07690ef66307c1953bd995a18016ed2956ccb9b05675f00f826e918cd079f99d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves had-been-revised passive tense, before relation, and either-of-fitters scope."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-104",
+      "family": "clean_question_tense_voice",
+      "input_sha256": "5c89604121b6f870ba94f269c495dcd4d1e820f27da4669aebe8b2dcb27ba9bc",
+      "target_sha256": "5c89604121b6f870ba94f269c495dcd4d1e820f27da4669aebe8b2dcb27ba9bc",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves only-considering status and explicit absence of relocation agreement."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-105",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "a0bac2d02f137a0db65cca9143f1f0fd2afbf27587cc7618bcd6431b30221e88",
+      "target_sha256": "a0bac2d02f137a0db65cca9143f1f0fd2afbf27587cc7618bcd6431b30221e88",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves two/brass weights, scale location, and reading-settles condition; existing pronouns need no expansion."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-106",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "0b91073e6d93ee358f3ef26214a3bed54db5427b151d455f099b36fffc4d9737",
+      "target_sha256": "0b91073e6d93ee358f3ef26214a3bed54db5427b151d455f099b36fffc4d9737",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves the latter reference and outside-pocket instruction without replacing the object."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-107",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "6ecc03413df1c372d279a7485271efb0e74cbf86040e43ff2cd1a48cc2844563",
+      "target_sha256": "6ecc03413df1c372d279a7485271efb0e74cbf86040e43ff2cd1a48cc2844563",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves old/new latch distinction, either prohibition, and dimension-comparison condition."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-108",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "d89e4bfc5da7819fd60d01420d30b8371bf775a695ac2a550e3c44a0d9e7119c",
+      "target_sha256": "d89e4bfc5da7819fd60d01420d30b8371bf775a695ac2a550e3c44a0d9e7119c",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves two possible strap-securing methods and explicit absence of a choice."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-109",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "e9a0ca68ef12f0d7b9f4f046b2c21899e3eeb1f81038a09fa5c6f175ef3c0a3c",
+      "target_sha256": "e9a0ca68ef12f0d7b9f4f046b2c21899e3eeb1f81038a09fa5c6f175ef3c0a3c",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves possible right-hand-drawer reference and the photograph's insufficient evidence."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-110",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "59cdee54b35cbfa1df9dceebe0609b6ff87727380b6143d3563568a3661e9d4d",
+      "target_sha256": "59cdee54b35cbfa1df9dceebe0609b6ff87727380b6143d3563568a3661e9d4d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target conservatively retains Well and the qualified would-rather preference with signature-before-final-offer relation."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-111",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "2bca47329c3f4785853228a1d36a51f8d46eb3e55ae12cb3da7c6db65f93a993",
+      "target_sha256": "2bca47329c3f4785853228a1d36a51f8d46eb3e55ae12cb3da7c6db65f93a993",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves explicitly deliberate repeated receipt instruction and refund-arrival duration."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-112",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "9f0101ee9db4821c3ca6113c609e2ad5648ce23ca9f22e1fef732fd8bbb094f0",
+      "target_sha256": "9f0101ee9db4821c3ca6113c609e2ad5648ce23ca9f22e1fef732fd8bbb094f0",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves narrow-inside-wide containment direction and not-the-other-way-around negation."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-113",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "7b722198a1d23e695a2e91356950420986da6c155428a1ad446adae8030cbf39",
+      "target_sha256": "7b722198a1d23e695a2e91356950420986da6c155428a1ad446adae8030cbf39",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves envelope/form context and unopened-until-applicant-present requirement without forcing a new antecedent."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-114",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "d3ed2a53abe1757819637ea28ed3565762cf0ea581204cd7ec8ca0342934da74",
+      "target_sha256": "d3ed2a53abe1757819637ea28ed3565762cf0ea581204cd7ec8ca0342934da74",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves old/replacement label distinction, possible underneath relation, and cannot-tell uncertainty."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-115",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "2f57193908c80f11c8f93b437226e4d79f39772cffa5c9589cf2a00b522d865e",
+      "target_sha256": "2f57193908c80f11c8f93b437226e4d79f39772cffa5c9589cf2a00b522d865e",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves spare-key versus outer-gate-key distinction and negation."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-116",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "746f5923c4ead166058cb5038500eb8f976cdd39e28f7add42a46f3cee5e9681",
+      "target_sha256": "746f5923c4ead166058cb5038500eb8f976cdd39e28f7add42a46f3cee5e9681",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves worn/new belt distinction, separation obligation, and even-if matching-sizes qualification."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-117",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "559d22f82e61aaf531a1acd8dc07edfe3dd33c5190e288c64b0b9545a549c53d",
+      "target_sha256": "559d22f82e61aaf531a1acd8dc07edfe3dd33c5190e288c64b0b9545a549c53d",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves I-think uncertainty, possible keep versus send verb, and avoids resolving the message."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-118",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "c20acd158a75b1e372c10349ff51c24ef9802b676372767fa73b025d0a9a5376",
+      "target_sha256": "c20acd158a75b1e372c10349ff51c24ef9802b676372767fa73b025d0a9a5376",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves only-one checked quantity and explicit ignorance of which carton."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-119",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "c47699d7e62aad8b9c932bc64de0a85499fcff1a45b979c688531ca3d221f6a5",
+      "target_sha256": "c47699d7e62aad8b9c932bc64de0a85499fcff1a45b979c688531ca3d221f6a5",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves blue replaced versus red original states and both colour identities."
+    },
+    {
+      "id": "scribe-anaphora-curriculum-120",
+      "family": "already_clean_ambiguous_reference",
+      "input_sha256": "41d466ef2a794ed20cd8554fcd7a2d4c0aa9f2fa3c8a2cc6b437841690476015",
+      "target_sha256": "41d466ef2a794ed20cd8554fcd7a2d4c0aa9f2fa3c8a2cc6b437841690476015",
+      "verdict": "pass",
+      "critical_semantic_error": false,
+      "note": "Unchanged target preserves conditional longer-cable reference, coiled action, and otherwise-wait-for-clarification alternative."
+    }
+  ]
+}

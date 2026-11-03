@@ -1,0 +1,71 @@
+{
+  "case_count": 546,
+  "baseline_exact_target_matches": 526,
+  "pilot_exact_target_matches": 529,
+  "different_outputs": 5,
+  "fixed_exact_target_misses": 4,
+  "new_exact_target_misses": 1,
+  "changes": [
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-d68e779c5c20540c",
+      "category": "multi_sentence_fillers",
+      "input": "Um, please do not substitute a different material without asking. Uh, our volunteers will distribute the maps at the main entrance.",
+      "targets": [
+        "Please do not substitute a different material without asking. Our volunteers will distribute the maps at the main entrance."
+      ],
+      "baseline_output": "Please do not substitute a different material without asking our volunteers will distribute the maps at the main entrance.",
+      "pilot_output": "Please do not substitute a different material without asking. Our volunteers will distribute the maps at the main entrance.",
+      "baseline_exact": false,
+      "pilot_exact": true
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-eeecc9c1025ef644",
+      "category": "retain_unaffected_clause",
+      "input": "Keep the blue folder and discard the yellow one, no, archive the yellow one.",
+      "targets": [
+        "Keep the blue folder and archive the yellow one."
+      ],
+      "baseline_output": "Keep the blue folder and discard the yellow one.",
+      "pilot_output": "Keep the blue folder and archive the yellow one.",
+      "baseline_exact": false,
+      "pilot_exact": true
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-ce37a98f34ede686",
+      "category": "multi_sentence_fillers",
+      "input": "Um, our volunteers will distribute the maps at the main entrance. Uh, the bakery across the square closes earlier on Sundays.",
+      "targets": [
+        "Our volunteers will distribute the maps at the main entrance. The bakery across the square closes earlier on Sundays."
+      ],
+      "baseline_output": "Our volunteers will distribute the maps at the main entrance. The bakery across the square closes earlier on Sundays.",
+      "pilot_output": "Our volunteers will distribute the maps at the main entrance, the bakery across the square closes earlier on Sundays.",
+      "baseline_exact": true,
+      "pilot_exact": false
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-c869fa182594b50b",
+      "category": "discussed_correction",
+      "input": "She considered twelve and then proposed 18.",
+      "targets": [
+        "She considered twelve and then proposed 18."
+      ],
+      "baseline_output": "She considered 12 and then proposed 18.",
+      "pilot_output": "She considered twelve and then proposed 18.",
+      "baseline_exact": false,
+      "pilot_exact": true
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-b3985c73a8afde54",
+      "category": "multi_sentence_fillers",
+      "input": "Um, please do not substitute a different material without asking. Uh, the report distinguishes measured values from estimates.",
+      "targets": [
+        "Please do not substitute a different material without asking. The report distinguishes measured values from estimates."
+      ],
+      "baseline_output": "Please do not substitute a different material without asking the report distinguishes measured values from estimates.",
+      "pilot_output": "Please do not substitute a different material without asking. The report distinguishes measured values from estimates.",
+      "baseline_exact": false,
+      "pilot_exact": true
+    }
+  ],
+  "semantic_accuracy": "Pending complete independent output-bound review; exact matching is diagnostic only."
+}

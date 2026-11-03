@@ -1,0 +1,110 @@
+{
+  "At": "2026-11-03T20:36:41.594483+00:00",
+  "Executable": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-q4-linux/reference-Freehand.App",
+  "ExecutableSha256": "23E5E35A7E6F48813AE364939614B08CD42C0A4EA82CA743B787E7804EC14261",
+  "RuntimeSha256": {},
+  "Manifest": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+  "ManifestSha256": "81297543939948A3C29B85855558E0F71EF0AE0D34A878E8C23DF30F5E535D92",
+  "ReplayMode": "realtime audio replay",
+  "ColdLoadsBeforeRecording": false,
+  "Limitations": "Memory includes simultaneous evaluator, ASR worker and optional cleanup worker sums, excludes desktop UI. Working sets can double-count shared pages. Linux private commit is undefined and omitted. Injector counts calls and does not type. Cold ASR mode measures loading separately before recording. Cleanup uses an evaluation-only one-hour idle timeout; initial synthetic warmup is separate unless skipped. No Windows, microphone, physical hotkey, visible-delivery or whole-app SLA claim.",
+  "InitialLoadMilliseconds": 1233.9055,
+  "Memory": {
+    "PeakSummedWorkingSetBytes": 650784768,
+    "PeakHostWorkingSetBytes": 67702784,
+    "PeakSpeechWorkingSetBytes": 308973568,
+    "PeakCleanupWorkingSetBytes": 297234432,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 52744192,
+      "SpeechWorkingSetBytes": 308973568,
+      "CleanupWorkingSetBytes": 289067008
+    }
+  },
+  "Summaries": [
+    {
+      "Gain": 1,
+      "Trials": 1,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptP50Milliseconds": 827.1929,
+      "TranscriptP95Milliseconds": 827.1929
+    }
+  ],
+  "Trials": [
+    {
+      "Id": "jfk-10s",
+      "Repeat": 0,
+      "Gain": 1,
+      "RmsDbfs": -16.601158250481404,
+      "AudioSeconds": 10,
+      "Raw": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "Formatted": {
+        "ReferenceWords": 0,
+        "Substitutions": 0,
+        "Deletions": 0,
+        "Insertions": 22
+      },
+      "TranscriptMilliseconds": 827.1929,
+      "CountingInjectorCompleteMilliseconds": 827.401,
+      "SeparateColdLoadMilliseconds": 0,
+      "Memory": {
+        "PeakSummedWorkingSetBytes": 650784768,
+        "PeakHostWorkingSetBytes": 67493888,
+        "PeakSpeechWorkingSetBytes": 308973568,
+        "PeakCleanupWorkingSetBytes": 297222144,
+        "AtSummedWorkingSetPeak": {
+          "HostWorkingSetBytes": 52744192,
+          "SpeechWorkingSetBytes": 308973568,
+          "CleanupWorkingSetBytes": 289067008
+        }
+      },
+      "CaptureMilliseconds": 9999.6793,
+      "CaptureDriftMilliseconds": -0.32070000000021537,
+      "BelowEngineSilenceThreshold": false,
+      "RawOutputEmpty": false,
+      "Reference": "",
+      "RawText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "FinalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "CleanupOutcome": "Unchanged",
+      "CleanupMilliseconds": 329.6343,
+      "NormalizedOriginalText": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "ProviderInput": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "ProviderOutput": "And so my fellow Americans, ask not what your country can do for you, ask what you can do for your country.",
+      "DeliveryCalls": 1,
+      "SpeechCpuDuringCleanupMilliseconds": 40,
+      "CleanupWorkerCpuDuringCleanupMilliseconds": 1150,
+      "HostCpuDuringCleanupMilliseconds": 123.724,
+      "HostAllocatedBytesDuringTrial": 1872592,
+      "HostManagedHeapBytesAfterTrial": 4614808,
+      "HostGcCommittedBytesAtLastCollection": 0,
+      "HostGen0CollectionsDuringTrial": 0,
+      "HostGen1CollectionsDuringTrial": 0,
+      "HostGen2CollectionsDuringTrial": 0
+    }
+  ],
+  "Failures": [],
+  "CleanupManifest": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-q4-linux/candidate-cleanup-manifest.json",
+  "CleanupManifestSha256": "26298978E831E81D146964CE452986A2A89729BCB8CE9B885A9239410EEA27A6",
+  "InitialCleanupWarmupMilliseconds": 683.9293,
+  "CleanupWarmupSkipped": false,
+  "CleanupIdleTimeoutOverrideSeconds": 3600,
+  "SpeechWorkerMode": "portable-linux-research-worker; APP argument is reference-only",
+  "SpeechWorkerAssembly": "/tmp/freehand-v4-perf-build-JMqytr/bin/Freehand.Evaluation/prepacking-off-worker/Freehand.Evaluation.dll",
+  "SpeechWorkerAssemblySha256": "88A234C172F03A1D93E23BE6DE5CC239CA637EB68ECCD3A2EA1058CFCA658F56",
+  "MemoryObserverProfile": "100Hz cached /proc/PID/statm handles with worker-generation identity; low-allocation resident counters; CPU reads only around cleanup"
+}

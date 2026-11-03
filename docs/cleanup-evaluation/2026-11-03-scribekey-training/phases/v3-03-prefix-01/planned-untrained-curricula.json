@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "captured_utc": "2026-11-03T19:24:26.042009+00:00",
+  "future": [
+    {
+      "name": "anaphora-120-v3",
+      "known_rows": 120,
+      "status": "not_yet_trained_at_parent_authorization",
+      "source_manifest_path_historical": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/anaphora-curriculum/root-v3-validation.json",
+      "source_manifest_sha256": "f23e08e48529707c1135e8de7398a1eb8fa7eb5912ffe72654bf87c5541fe4f5",
+      "factual_scalar_metadata_only": {
+        "rows": 120,
+        "revised_targets": 3,
+        "sha256": "6bd8efb9da8b3362d6275ea7389a049523c94f6d865dc551d4db4d1c33744472",
+        "literal_roundtrip_passed": 120,
+        "blind_contents_exposed_to_assistant": false
+      },
+      "dataset_rows_read_or_copied_by_collector": false
+    },
+    {
+      "name": "anaphora-replay-720-candidate",
+      "known_rows": 720,
+      "status": "not_yet_trained_at_parent_authorization",
+      "source_manifest_path_historical": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v4-candidate/manifest.json",
+      "source_manifest_sha256": "bc012b2c7a185831c834a5345d0ef0ad451fb39fbe0ea79c75a9e32577071e51",
+      "factual_scalar_metadata_only": {
+        "schema_version": 1,
+        "sha256": "364139adc1a840da9bf031814f8a5a8ea434056cb164643e8cdbc316dfb6e1d5",
+        "rows": 720,
+        "unique_input_target_pairs": 600,
+        "unchanged_rows": 280,
+        "v3_replay_rows": 480,
+        "new_authored_pairs": 120,
+        "new_pairs_explicit_exposures": 2,
+        "no_blind_contents_used": true,
+        "training_started": false,
+        "literal_roundtrip_validated": 720
+      },
+      "dataset_rows_read_or_copied_by_collector": false
+    }
+  ],
+  "qualification": "Planning metadata only; neither curriculum is counted as used training data or evaluated model results."
+}

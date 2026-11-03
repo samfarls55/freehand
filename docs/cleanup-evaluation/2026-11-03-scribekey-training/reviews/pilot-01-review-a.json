@@ -1,0 +1,1657 @@
+{
+  "reviewer": "assistant /root/development_quality/review_a",
+  "case_count": 182,
+  "scope": "All assigned pilot cases verified against previously directly reviewed baseline input/output pairs. 180 byte-identical outputs with identical normalized input/targets and structural outcomes explicitly inherit baseline judgments; changed cases0 and87 directly inspected and newly judged. Manual assistant semantic review, not human review.",
+  "results_path": "work/cleanup-scribekey-training-2026-11-03/evaluation/pilot-01-core/core-results.json",
+  "results_sha256": "4ab7487da45afe09f4f857d14aae8b68a49e8eea319ffa2ca5efdab783d0aadc",
+  "inherited_baseline_review": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/reviews/baseline-review-a.json",
+    "sha256": "5e3d053ca8cc0c71c0f83ecc99dcba500f2aa1a835212300f645eb7ade213f79",
+    "inherited_case_count": 180,
+    "case_ids": [
+      "scribekey-minimal-edit-synthetic-v1-50247893d9f984aa",
+      "scribekey-minimal-edit-synthetic-v1-76190e33fb344dbb",
+      "scribekey-minimal-edit-synthetic-v1-fa9bc5146e2a43fd",
+      "scribekey-minimal-edit-synthetic-v1-26b0e1bcb34f32b4",
+      "scribekey-minimal-edit-synthetic-v1-de79d140d024da9b",
+      "scribekey-minimal-edit-synthetic-v1-66d38f503be1b257",
+      "scribekey-minimal-edit-synthetic-v1-5256a176106bb5dd",
+      "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+      "scribekey-minimal-edit-synthetic-v1-4f5032176a6c93c3",
+      "scribekey-minimal-edit-synthetic-v1-224dfb59fe89b53b",
+      "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+      "scribekey-minimal-edit-synthetic-v1-33c800f10e0983b1",
+      "scribekey-minimal-edit-synthetic-v1-4702f1464d6d92da",
+      "scribekey-minimal-edit-synthetic-v1-63de84b6f3dca282",
+      "scribekey-minimal-edit-synthetic-v1-f26d3d7aaba4b663",
+      "scribekey-minimal-edit-synthetic-v1-ef799e8f84ed892f",
+      "scribekey-minimal-edit-synthetic-v1-49f64d01e4699de7",
+      "scribekey-minimal-edit-synthetic-v1-874058024580651d",
+      "scribekey-minimal-edit-synthetic-v1-16c21e8191b67c0f",
+      "scribekey-minimal-edit-synthetic-v1-e353091059dddd8e",
+      "scribekey-minimal-edit-synthetic-v1-0920d44723081395",
+      "scribekey-minimal-edit-synthetic-v1-c8e75106081f561b",
+      "scribekey-minimal-edit-synthetic-v1-ff4c0e3af813d6ea",
+      "scribekey-minimal-edit-synthetic-v1-f6764d34528aea67",
+      "scribekey-minimal-edit-synthetic-v1-766c13cd8efb7f00",
+      "scribekey-minimal-edit-synthetic-v1-432d2cd80039db69",
+      "scribekey-minimal-edit-synthetic-v1-e4bf80c37a8df896",
+      "scribekey-minimal-edit-synthetic-v1-7d5a95c06cd36cbf",
+      "scribekey-minimal-edit-synthetic-v1-1ac17dc50aba6def",
+      "scribekey-minimal-edit-synthetic-v1-3f618d9febcf7294",
+      "scribekey-minimal-edit-synthetic-v1-2ba96ab4183c6de1",
+      "scribekey-minimal-edit-synthetic-v1-f82e8099e3fb91ed",
+      "scribekey-minimal-edit-synthetic-v1-ea4cf05c991982dd",
+      "scribekey-minimal-edit-synthetic-v1-d3543b61f4db3c61",
+      "scribekey-minimal-edit-synthetic-v1-cb5304dda32f223a",
+      "scribekey-minimal-edit-synthetic-v1-73e74a606b98c665",
+      "scribekey-minimal-edit-synthetic-v1-9042d958bb7aec2f",
+      "scribekey-minimal-edit-synthetic-v1-f72cccff525ab83d",
+      "scribekey-minimal-edit-synthetic-v1-8cb1be2636bab123",
+      "scribekey-minimal-edit-synthetic-v1-582fba568c608daf",
+      "scribekey-minimal-edit-synthetic-v1-1d235a55ca2ace08",
+      "scribekey-minimal-edit-synthetic-v1-ecf76f798667b3b7",
+      "scribekey-minimal-edit-synthetic-v1-076c91ef997a103a",
+      "scribekey-minimal-edit-synthetic-v1-15f21b6bb090c2c2",
+      "scribekey-minimal-edit-synthetic-v1-a72f96824f9ae76a",
+      "scribekey-minimal-edit-synthetic-v1-b19b3f90f27a7cef",
+      "scribekey-minimal-edit-synthetic-v1-8fdea903592eaa12",
+      "scribekey-minimal-edit-synthetic-v1-66da0b15eb50d040",
+      "scribekey-minimal-edit-synthetic-v1-8c0eccd57975c625",
+      "scribekey-minimal-edit-synthetic-v1-5f829fb1a04fdb6d",
+      "scribekey-minimal-edit-synthetic-v1-b0c0c8454fdb3785",
+      "scribekey-minimal-edit-synthetic-v1-77399dfd1252fcc6",
+      "scribekey-minimal-edit-synthetic-v1-78dc34098bdc2c23",
+      "scribekey-minimal-edit-synthetic-v1-c66db0897a562cdf",
+      "scribekey-minimal-edit-synthetic-v1-f56c27bff2fd44b1",
+      "scribekey-minimal-edit-synthetic-v1-cd27adbeb7e5ee0c",
+      "scribekey-minimal-edit-synthetic-v1-7b2011c617533d59",
+      "scribekey-minimal-edit-synthetic-v1-14937951578acfeb",
+      "scribekey-minimal-edit-synthetic-v1-6f447f330a7ea2ef",
+      "scribekey-minimal-edit-synthetic-v1-3885a86b47763d64",
+      "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+      "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+      "scribekey-minimal-edit-synthetic-v1-439b205bbde79028",
+      "scribekey-minimal-edit-synthetic-v1-bc6b25c3ef9aa3e2",
+      "scribekey-minimal-edit-synthetic-v1-291d65c066ee20f9",
+      "scribekey-minimal-edit-synthetic-v1-88e5fefe3d32d701",
+      "scribekey-minimal-edit-synthetic-v1-e374e323dc61cea0",
+      "scribekey-minimal-edit-synthetic-v1-18edfbb132a21c8c",
+      "scribekey-minimal-edit-synthetic-v1-a2a3673b92ea8a78",
+      "scribekey-minimal-edit-synthetic-v1-3a8fa8febc56bf2b",
+      "scribekey-minimal-edit-synthetic-v1-5b8453cddae18db2",
+      "scribekey-minimal-edit-synthetic-v1-b626c9a7283da46f",
+      "scribekey-minimal-edit-synthetic-v1-329c7e05fa5cc5bc",
+      "scribekey-minimal-edit-synthetic-v1-b1f8f95fe70697be",
+      "scribekey-minimal-edit-synthetic-v1-db6fbdb3dcc731fd",
+      "scribekey-minimal-edit-synthetic-v1-96d847296bc5a229",
+      "scribekey-minimal-edit-synthetic-v1-8936c7863f1f5827",
+      "scribekey-minimal-edit-synthetic-v1-266b146dbca520f5",
+      "scribekey-minimal-edit-synthetic-v1-f82ca394aed6af43",
+      "scribekey-minimal-edit-synthetic-v1-4225bfe15782ef4b",
+      "scribekey-minimal-edit-synthetic-v1-d63b1b3977faa622",
+      "scribekey-minimal-edit-synthetic-v1-0d1054d883b0bdb2",
+      "scribekey-minimal-edit-synthetic-v1-8257a6a053fbdb10",
+      "scribekey-minimal-edit-synthetic-v1-6be81d627fb38606",
+      "scribekey-minimal-edit-synthetic-v1-94d214ff2b91c38d",
+      "scribekey-minimal-edit-synthetic-v1-9dd5109d05e71743",
+      "scribekey-minimal-edit-synthetic-v1-dc9a067dd6966fcb",
+      "scribekey-minimal-edit-synthetic-v1-887b5e6e775c7006",
+      "scribekey-minimal-edit-synthetic-v1-ccf24aaa16b4b807",
+      "scribekey-minimal-edit-synthetic-v1-adf0f97377c393e8",
+      "scribekey-minimal-edit-synthetic-v1-fd22ee3d0e11ec0d",
+      "scribekey-minimal-edit-synthetic-v1-da116f8697279241",
+      "scribekey-minimal-edit-synthetic-v1-028e665dfc21edf5",
+      "scribekey-minimal-edit-synthetic-v1-9d7387e71b66f7aa",
+      "scribekey-minimal-edit-synthetic-v1-938a07d27cbf0410",
+      "scribekey-minimal-edit-synthetic-v1-a22d75ecc372c7f5",
+      "scribekey-minimal-edit-synthetic-v1-4f5ceffb3fcf891a",
+      "scribekey-minimal-edit-synthetic-v1-325f85552da98ed2",
+      "scribekey-minimal-edit-synthetic-v1-a68f44fb77d387a3",
+      "scribekey-minimal-edit-synthetic-v1-81786d4b1dc3c640",
+      "scribekey-minimal-edit-synthetic-v1-bc87b002cfc07754",
+      "scribekey-minimal-edit-synthetic-v1-3a5e6fc165ecdbbd",
+      "scribekey-minimal-edit-synthetic-v1-8519837b83a675e6",
+      "scribekey-minimal-edit-synthetic-v1-5f91a8b7cde1e292",
+      "scribekey-minimal-edit-synthetic-v1-05e082567f065a0b",
+      "scribekey-minimal-edit-synthetic-v1-524b7b071394dafe",
+      "scribekey-minimal-edit-synthetic-v1-251857b457d64936",
+      "scribekey-minimal-edit-synthetic-v1-1b0b8a56f267c349",
+      "scribekey-minimal-edit-synthetic-v1-946e2a2f53148f6d",
+      "scribekey-minimal-edit-synthetic-v1-a6279e346f8a7216",
+      "scribekey-minimal-edit-synthetic-v1-52679666dcfbfab4",
+      "scribekey-minimal-edit-synthetic-v1-fd67b87ebe8c45eb",
+      "scribekey-minimal-edit-synthetic-v1-ee3d04f80226da13",
+      "scribekey-minimal-edit-synthetic-v1-57d99630fbdd6136",
+      "scribekey-minimal-edit-synthetic-v1-f9f687f5ed2d8d63",
+      "scribekey-minimal-edit-synthetic-v1-9b1e2c009beec7cc",
+      "scribekey-minimal-edit-synthetic-v1-c7c2f5ec3fe6f138",
+      "scribekey-minimal-edit-synthetic-v1-801862924ccc02f9",
+      "scribekey-minimal-edit-synthetic-v1-d31b573a2803f68d",
+      "scribekey-minimal-edit-synthetic-v1-eedec2b4b363e87e",
+      "scribekey-minimal-edit-synthetic-v1-598381f5d05f3b84",
+      "scribekey-minimal-edit-synthetic-v1-48d29d43ad4f9321",
+      "scribekey-minimal-edit-synthetic-v1-42c28ff806acff45",
+      "scribekey-minimal-edit-synthetic-v1-fd4d519f52f15e5e",
+      "scribekey-minimal-edit-synthetic-v1-9963f4fae544a463",
+      "scribekey-minimal-edit-synthetic-v1-6233689706e9baa7",
+      "scribekey-minimal-edit-synthetic-v1-65c196546a4a128a",
+      "scribekey-minimal-edit-synthetic-v1-7008970b80eb7277",
+      "scribekey-minimal-edit-synthetic-v1-7eebf071adab29e9",
+      "scribekey-minimal-edit-synthetic-v1-440db239f51b5746",
+      "scribekey-minimal-edit-synthetic-v1-71462b2326f6b62e",
+      "scribekey-minimal-edit-synthetic-v1-e01e7fbcff753ad6",
+      "scribekey-minimal-edit-synthetic-v1-c08a92bfb64c48f0",
+      "scribekey-minimal-edit-synthetic-v1-1a9e630f37103afd",
+      "scribekey-minimal-edit-synthetic-v1-3548fe48c43a672a",
+      "scribekey-minimal-edit-synthetic-v1-05b34215b20764fa",
+      "scribekey-minimal-edit-synthetic-v1-780e2ab66b40e7ac",
+      "scribekey-minimal-edit-synthetic-v1-fd368e084e9153f2",
+      "scribekey-minimal-edit-synthetic-v1-d057c04ffe383436",
+      "scribekey-minimal-edit-synthetic-v1-492c4aa03ca25f2e",
+      "scribekey-minimal-edit-synthetic-v1-21577a6b625f2b8e",
+      "scribekey-minimal-edit-synthetic-v1-49a7cd5047fcdab9",
+      "scribekey-minimal-edit-synthetic-v1-2ccba8b25bb4a302",
+      "scribekey-minimal-edit-synthetic-v1-27a4cf5c26566244",
+      "scribekey-minimal-edit-synthetic-v1-2aa215664a1fa97b",
+      "scribekey-minimal-edit-synthetic-v1-6d0f6e354005427d",
+      "scribekey-minimal-edit-synthetic-v1-8408e3cfa37e09ed",
+      "scribekey-minimal-edit-synthetic-v1-d4afc717487c7416",
+      "scribekey-minimal-edit-synthetic-v1-e46732c651c8e869",
+      "scribekey-minimal-edit-synthetic-v1-643703701eea9423",
+      "scribekey-minimal-edit-synthetic-v1-e070bce68001c5dd",
+      "scribekey-minimal-edit-synthetic-v1-2ce2b3ebe8bfe119",
+      "scribekey-minimal-edit-synthetic-v1-d67a0823d4585d2f",
+      "scribekey-minimal-edit-synthetic-v1-d9e60fca36f04957",
+      "scribekey-minimal-edit-synthetic-v1-c7eec40700784abd",
+      "scribekey-minimal-edit-synthetic-v1-0b8baa87d1d1b986",
+      "scribekey-minimal-edit-synthetic-v1-63a281a3c10b1efb",
+      "scribekey-minimal-edit-synthetic-v1-0862b868bd0c7179",
+      "scribekey-minimal-edit-synthetic-v1-a361af611e70f4ae",
+      "scribekey-minimal-edit-synthetic-v1-f50b6f1f5dd92a02",
+      "scribekey-minimal-edit-synthetic-v1-11b5a3a1c7f80bc8",
+      "scribekey-minimal-edit-synthetic-v1-7e295d8078b122e1",
+      "scribekey-minimal-edit-synthetic-v1-8ecd824e059bf6c1",
+      "scribekey-minimal-edit-synthetic-v1-37586551c6f5dd60",
+      "scribekey-minimal-edit-synthetic-v1-009fce1bee2c65ec",
+      "scribekey-minimal-edit-synthetic-v1-519b80d305f291ba",
+      "scribekey-minimal-edit-synthetic-v1-c9405fa1fc8d6757",
+      "scribekey-minimal-edit-synthetic-v1-269d84a4213242bc",
+      "scribekey-minimal-edit-synthetic-v1-bc71310dbd1df468",
+      "scribekey-minimal-edit-synthetic-v1-bf7c7beee6d85376",
+      "scribekey-minimal-edit-synthetic-v1-6e3862e69837017b",
+      "scribekey-minimal-edit-synthetic-v1-1da61f74ed60168e",
+      "scribekey-minimal-edit-synthetic-v1-c4723b7810f9343f",
+      "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+      "scribekey-minimal-edit-synthetic-v1-ac8b50f3850e97a9",
+      "scribekey-minimal-edit-synthetic-v1-47745a59234d92a1",
+      "scribekey-minimal-edit-synthetic-v1-e5bf39e4805af03c",
+      "scribekey-minimal-edit-synthetic-v1-7f0d60d73f45ac87",
+      "scribekey-minimal-edit-synthetic-v1-b59783319e289e8c",
+      "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3"
+    ]
+  },
+  "newly_reviewed_changed_indices": [
+    0,
+    87
+  ],
+  "cases": [
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d68e779c5c20540c",
+      "output_sha256": "bc238d103ee05705ae5d8d18496019beb2834133e7998cf1c7fe80b80562c1b5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes hesitation and retains the required sentence boundary, preserving both the prohibition and the volunteers statement."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-50247893d9f984aa",
+      "output_sha256": "5628b0c45c64196f44b91736f1503106832c2d99d8981309904d7c67d7754f95",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-76190e33fb344dbb",
+      "output_sha256": "87cbacb25a24ec15bf518ac899a37149f6cb9e2ada85149262416d3614ea45ec",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes hesitation but keeps the reported statement and correction discussion."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fa9bc5146e2a43fd",
+      "output_sha256": "28f671fd04f7bb9cad91546e96f1b469638499c0a349e3deed7efd4870bc272d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes hesitation while retaining the names/Unicode wording and original claim."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-26b0e1bcb34f32b4",
+      "output_sha256": "48bfd206d841fd1f037b19d8a154c06b0e6420222908f9b047de3593eae6a1b3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-de79d140d024da9b",
+      "output_sha256": "b55664a09aaed4420d2b79ee657c0cdeefe21898245a0a93e26c3b27286d6e98",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Deletes the auxiliary did required after the subject clause What she did; output is an ungrammatical fragment."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-66d38f503be1b257",
+      "output_sha256": "8002485f03125f0695d0eac97ed0511a3c9fc8b69a6050894e5d2c957403a13c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-5256a176106bb5dd",
+      "output_sha256": "13b21baf784f5591dade4f51b19431ea9680761222f663a788a5b7125b39573d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+      "output_sha256": "00aed06ff79ae4dbc7e9857dff7015e9177b93743ac473e3947f9ae73b50ae34",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-4f5032176a6c93c3",
+      "output_sha256": "5e2b8cb90ca69e0814de65feff009ef8198d1becf372d168997a9332b5af08e6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-224dfb59fe89b53b",
+      "output_sha256": "9d1ed1cb31f173648f735f69346c63e2d22f77fde758d836bd1865587fb61024",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains grammatical repeated words and their tense/subject meaning."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+      "output_sha256": "a55e42b1ec32d57e5fae011ef62a6be5d2b717985b661b2352f3fca934796872",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-33c800f10e0983b1",
+      "output_sha256": "eefaa512e9407240f666ffc9360f156efa5232879398d37f7fd413bcb84af5cd",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-4702f1464d6d92da",
+      "output_sha256": "1ef3ee5ca292d9072cb682ba0b7b1151752ad33377603be9952a37f2102344e1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-63de84b6f3dca282",
+      "output_sha256": "918d6a062ed52213ad7052aee0cb5b410e8860165bfd8f0dd4cb0bcf10ecb0a0",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f26d3d7aaba4b663",
+      "output_sha256": "fad573607eefe4df8358288af37dd41f7241fd72a31288043631f69b29d063fb",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ef799e8f84ed892f",
+      "output_sha256": "48bfd206d841fd1f037b19d8a154c06b0e6420222908f9b047de3593eae6a1b3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-49f64d01e4699de7",
+      "output_sha256": "68aa2bc99c7df26eb3f07396cecdb738828a24c547ce5648233cd7d7e2afd694",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-874058024580651d",
+      "output_sha256": "6f09c628d6f88f495992704ac8539c3180b79584d38be2203e6e5242d806a2d5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-16c21e8191b67c0f",
+      "output_sha256": "4251ae2469892c751f67e6485c855a57c578e650e0fd739b15c132dc00574fa2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e353091059dddd8e",
+      "output_sha256": "c078580f0b92030bf17c4579df748ac2c8b3592c60db821612bec3006ddc2368",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-0920d44723081395",
+      "output_sha256": "17c669a75a1a59f787f9da337a94548f87386d068e7e95cfc445851a4608625a",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c8e75106081f561b",
+      "output_sha256": "cb6473f5c78cbcee4a9941aaf40709971bdd99bc450d1539bf46fee47ec23a43",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ff4c0e3af813d6ea",
+      "output_sha256": "c7ef33be50638b401b41e1f188f7fb83cbe98e559431e76ce2596370a6bc4877",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f6764d34528aea67",
+      "output_sha256": "f4fe4d2cc62523ab676bfb62de3d055c34edf3cd71a240d993cf4b115ba388ef",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-766c13cd8efb7f00",
+      "output_sha256": "96720317abe246bdf67a5f1888e0ef08656368b2bc53f2d8f55f2a1f4c5e07c8",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Resolves the local correction while retaining the unaffected instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-432d2cd80039db69",
+      "output_sha256": "8002485f03125f0695d0eac97ed0511a3c9fc8b69a6050894e5d2c957403a13c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e4bf80c37a8df896",
+      "output_sha256": "c4d99cd506ea425fe391bbb3b759147abd09dd9283f876c87f681f4f1dc2ffc2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7d5a95c06cd36cbf",
+      "output_sha256": "c9c9c799119335c2f602f5e2db5df1708e967623198e7928d30d3fc4a3faf215",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1ac17dc50aba6def",
+      "output_sha256": "e49378818b2310fc67a05d78ba14d31f1a6f58ba049449930a233e9517a5e393",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3f618d9febcf7294",
+      "output_sha256": "e1b57865b2c82333c8469deb3fa6fd5eb8b3ffc3721392ad3080588978431281",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Deletes substantive can (the container noun) as if it were an accidental repeat; the identified object type is lost."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-2ba96ab4183c6de1",
+      "output_sha256": "e68b243c553bf992849e65d087c87c3c59343cbaddcfe35574534ee5c0bcfd66",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f82e8099e3fb91ed",
+      "output_sha256": "f7344f0bf105c8dc07b169093a144db7f3463ecea17d200a338bad58df8a3187",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ea4cf05c991982dd",
+      "output_sha256": "a18f6871ed2aef00e4c98f054850de764de67a575d587bd15f47ebbe5bf83091",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d3543b61f4db3c61",
+      "output_sha256": "07bf5165e20b932be8afbfd6ea5c57287d3dfd30172be7c277d2771057baf996",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-cb5304dda32f223a",
+      "output_sha256": "fad573607eefe4df8358288af37dd41f7241fd72a31288043631f69b29d063fb",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-73e74a606b98c665",
+      "output_sha256": "8002485f03125f0695d0eac97ed0511a3c9fc8b69a6050894e5d2c957403a13c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-9042d958bb7aec2f",
+      "output_sha256": "b4879222544587e44b18680b908dcffb543ae139630c128283eaf25bd0882485",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f72cccff525ab83d",
+      "output_sha256": "2ed9a2c8825e27d1f3e432c3739f8b390395c9d29c697341545aba98337e2c7d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8cb1be2636bab123",
+      "output_sha256": "bbaccbde44fe420d5e46ec1d98f70191b7af3140d25e69285447dac685a52f7a",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-582fba568c608daf",
+      "output_sha256": "7fd228b9e83b50b393352730ba3f9f58689140deea74b9bf0938f0edf1bbab6b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1d235a55ca2ace08",
+      "output_sha256": "94ac9d950d2f55372dd3840d58df7d3d14ace8ae02ed3951c7aa2389630c538d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ecf76f798667b3b7",
+      "output_sha256": "38065b2dfd57fc562908327f8e635dca1010ab56989d7ee65c93113549d49ac7",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-076c91ef997a103a",
+      "output_sha256": "c2b97939956049cc294efe36e7218f8a7e45e65d1a66bd3a69beb135fd33a39c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-15f21b6bb090c2c2",
+      "output_sha256": "efa1d5deeb864c07831bc1b0be7a293e3b188af4253580ea15b4cafbcbbbaf9f",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-a72f96824f9ae76a",
+      "output_sha256": "4bdc721541d8d686a4be299f9259b673068f98421117225eb9871f80c73c2d92",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-b19b3f90f27a7cef",
+      "output_sha256": "9466fa142a149d099b189e5803d26bbf6e15a98658867a25736df0690f1e7744",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8fdea903592eaa12",
+      "output_sha256": "db26acd23917653ca9e790ce97c6b93871f27f6db3106837cfea48f01b018d70",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-66da0b15eb50d040",
+      "output_sha256": "94ac9d950d2f55372dd3840d58df7d3d14ace8ae02ed3951c7aa2389630c538d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8c0eccd57975c625",
+      "output_sha256": "2f37fa43558001aca0c31e0eacfcc2278df55216b41299142997d332914d91e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-5f829fb1a04fdb6d",
+      "output_sha256": "79dc6a7f2258a19d9fe5de7e0044744cf50251ce2565010ee1f424005034256c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-b0c0c8454fdb3785",
+      "output_sha256": "1ee4ccc5f6692915ae81d7fb9de369b2b08bac25f02f260350128c17d3f74873",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-77399dfd1252fcc6",
+      "output_sha256": "68aa2bc99c7df26eb3f07396cecdb738828a24c547ce5648233cd7d7e2afd694",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-78dc34098bdc2c23",
+      "output_sha256": "1290ea6f43311db8e1457dfcc594060ada5be38472a24aece76432ec67b06f76",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Deletes the word Is being discussed; the metalinguistic subject disappears and the output becomes a fragment."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c66db0897a562cdf",
+      "output_sha256": "85dcfc1bbe9c091fd011eff2a63b999cbadd07b1229dea92bfd27e4ec1d4e884",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f56c27bff2fd44b1",
+      "output_sha256": "778cce332b2012ac485e54c5340ed50c582b3edbb9b2ace14cd8e75f4ed39f3e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-cd27adbeb7e5ee0c",
+      "output_sha256": "08001277f7e215323b4d96f83b5296711329f94184209b42dc7c582be15a486f",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7b2011c617533d59",
+      "output_sha256": "be8a1976cf51958b3bc120aedac404f01e4574d52580d5a9ccfc1b100dc6bc2d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-14937951578acfeb",
+      "output_sha256": "11d8562022613e62838c8282b18b8b3bf3b68f34942b7c82a2a599858219eff9",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-6f447f330a7ea2ef",
+      "output_sha256": "9466fa142a149d099b189e5803d26bbf6e15a98658867a25736df0690f1e7744",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3885a86b47763d64",
+      "output_sha256": "713b62b9f33815fdb29f30378b5c700ab7dd1699f4569c9cd2066282709751cf",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+      "output_sha256": "38065b2dfd57fc562908327f8e635dca1010ab56989d7ee65c93113549d49ac7",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+      "output_sha256": "211aaff33994893798a6cc5891ee31ee09e3f5f1f26f24ef057b5694bf6bd4f4",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Retains canceled replace-the-lock instruction and drops corrected lubricate-the-lock action; hinge clause survives."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-439b205bbde79028",
+      "output_sha256": "fad5aa722487ac95ade619722a7cc6d2fb91b698c57c1f79ee72b458e2ad7ef0",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Resolves the local correction while retaining the unaffected instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-bc6b25c3ef9aa3e2",
+      "output_sha256": "918d6a062ed52213ad7052aee0cb5b410e8860165bfd8f0dd4cb0bcf10ecb0a0",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-291d65c066ee20f9",
+      "output_sha256": "0e3a6dc5574e6759d1ec83908616f93ce5f785badd2e744385b3e1c977783175",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-88e5fefe3d32d701",
+      "output_sha256": "0c19dd721307880ffab78e5889235794e02429fe2d49c0b735220992629a0bc0",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e374e323dc61cea0",
+      "output_sha256": "c9c9c799119335c2f602f5e2db5df1708e967623198e7928d30d3fc4a3faf215",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-18edfbb132a21c8c",
+      "output_sha256": "784bb3fd3674714a346f386340a3b8e227b6a64cfaba082a5f8507a25a79bc17",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-a2a3673b92ea8a78",
+      "output_sha256": "6d0beb130dbca689dddaf16b5820960a198ec4d7087464dc14ed1ea3dfb0167e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3a8fa8febc56bf2b",
+      "output_sha256": "31235434ade9b3e1c2cbfe8bd04a24c8545d14f7337750ba940161d989403d8a",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-5b8453cddae18db2",
+      "output_sha256": "f7344f0bf105c8dc07b169093a144db7f3463ecea17d200a338bad58df8a3187",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-b626c9a7283da46f",
+      "output_sha256": "918d6a062ed52213ad7052aee0cb5b410e8860165bfd8f0dd4cb0bcf10ecb0a0",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-329c7e05fa5cc5bc",
+      "output_sha256": "18387d82c5b37efa1133a7c2dc365ad5b513ff87a6ad1bd9f3f5feff28984cbf",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-b1f8f95fe70697be",
+      "output_sha256": "b4bc1391060fcc6e1095079d07f19ffb7617da6ea0c4db85981fd9dcb24ff54f",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-db6fbdb3dcc731fd",
+      "output_sha256": "63a6e61bb66f0cbb62ea507ff8884e5577e8a7f042c0bfcb956869a01a0d6b34",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-96d847296bc5a229",
+      "output_sha256": "17c669a75a1a59f787f9da337a94548f87386d068e7e95cfc445851a4608625a",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8936c7863f1f5827",
+      "output_sha256": "c2bceed458f2f55a87c5d234ec0e00f0738f8dcb9aa8fae53c3c3abc3fa52439",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-266b146dbca520f5",
+      "output_sha256": "9de8e5084a6ba54105794618f2e58ca16fb4cdd410fff1155a71cda82edb5969",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f82ca394aed6af43",
+      "output_sha256": "b4d9bbbb1d8601cc93220db57b4593b2d60245bbd05accc160c30b0e68086b15",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-4225bfe15782ef4b",
+      "output_sha256": "c078580f0b92030bf17c4579df748ac2c8b3592c60db821612bec3006ddc2368",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d63b1b3977faa622",
+      "output_sha256": "437a1cec37418d4c4b7d3e4f972a278d8c8954f44d1c92058edaf98c2eddd959",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-0d1054d883b0bdb2",
+      "output_sha256": "cf80ab49ff457d46bdd2a5bcf31172449aec52aac0d79726c02afdb55cc4903c",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Correctly retains open-window correction but drops the unaffected intended action Take the key."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8257a6a053fbdb10",
+      "output_sha256": "94ac9d950d2f55372dd3840d58df7d3d14ace8ae02ed3951c7aa2389630c538d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-6be81d627fb38606",
+      "output_sha256": "aa67873a3944b65b6caf103d70107948d24df30ecd6b8e4ac8f424fb51eb8ffd",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-94d214ff2b91c38d",
+      "output_sha256": "88db23325934b3b74e9ea4f582690cf75df49ea12141c693197cb561d54df1b5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-9dd5109d05e71743",
+      "output_sha256": "ec8fe58fe745f18cc7a690cc833402e03cc55af47bc82ba64d26ddc0f753b6a1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-eeecc9c1025ef644",
+      "output_sha256": "923e56b377e8a8856f8d091d2edb1cc354c028daabf246c1f3ab1f3939cb350c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the unaffected blue-folder instruction and the corrected archive-yellow-folder action, removing the canceled discard action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-dc9a067dd6966fcb",
+      "output_sha256": "4a0a424e53e653accd311c89b1c6df51677f8d1a3130d38048b472ec40d11181",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-887b5e6e775c7006",
+      "output_sha256": "c078580f0b92030bf17c4579df748ac2c8b3592c60db821612bec3006ddc2368",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ccf24aaa16b4b807",
+      "output_sha256": "e03f8669d26d13e9b7c4748fbded0cb99984ba7c001b03046a52269444826207",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-adf0f97377c393e8",
+      "output_sha256": "f7d970807ac750486de0ccf9cac78972c4427e968539e5803842211bfd9ca596",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final intended action and its condition/date, removing the canceled action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fd22ee3d0e11ec0d",
+      "output_sha256": "8002485f03125f0695d0eac97ed0511a3c9fc8b69a6050894e5d2c957403a13c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-da116f8697279241",
+      "output_sha256": "a25e6528d6873b392e42286652e303dc06785680a4afeae2334c32ee84e2456d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-028e665dfc21edf5",
+      "output_sha256": "2f37fa43558001aca0c31e0eacfcc2278df55216b41299142997d332914d91e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-9d7387e71b66f7aa",
+      "output_sha256": "beecbfb23ec11be69884cb2ebcab2d35ce4602337131877a88e32743fea16388",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-938a07d27cbf0410",
+      "output_sha256": "bf017b6f347d790a0d3a1f57b24705147f32a9618c98ab6b3c58a6b134ecdf52",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-a22d75ecc372c7f5",
+      "output_sha256": "6d0beb130dbca689dddaf16b5820960a198ec4d7087464dc14ed1ea3dfb0167e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-4f5ceffb3fcf891a",
+      "output_sha256": "9de8e5084a6ba54105794618f2e58ca16fb4cdd410fff1155a71cda82edb5969",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-325f85552da98ed2",
+      "output_sha256": "7d6fcbaf8e7e30691d334f1638c57fe55aee64bf14ec5378a5708d425ea2e29f",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-a68f44fb77d387a3",
+      "output_sha256": "6d0beb130dbca689dddaf16b5820960a198ec4d7087464dc14ed1ea3dfb0167e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-81786d4b1dc3c640",
+      "output_sha256": "67d294996c8a75db9331e2f8322f12f33377a5b87c22c796b072fc66653d67e1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-bc87b002cfc07754",
+      "output_sha256": "cb6473f5c78cbcee4a9941aaf40709971bdd99bc450d1539bf46fee47ec23a43",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3a5e6fc165ecdbbd",
+      "output_sha256": "3342671b181a72351a3aa0a4d297dca2318065bfb176b61173dc4badb31e3c39",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final intended action and its condition/date, removing the canceled action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8519837b83a675e6",
+      "output_sha256": "0fd61b05a6e00ac679e695fe148ec6ed134f0959cc7b220d87dfcfdb4fca1732",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-5f91a8b7cde1e292",
+      "output_sha256": "7386be19aa80a8937dbfb2b8b9d3f20a43cfe9ef2ff499d2bd8026ec35c68ea6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-05e082567f065a0b",
+      "output_sha256": "48bfd206d841fd1f037b19d8a154c06b0e6420222908f9b047de3593eae6a1b3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-524b7b071394dafe",
+      "output_sha256": "a24467ce95924f51b54e214d1a2f83ef2799e749b53d14868a5f024b46670b45",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-251857b457d64936",
+      "output_sha256": "f4fe4d2cc62523ab676bfb62de3d055c34edf3cd71a240d993cf4b115ba388ef",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1b0b8a56f267c349",
+      "output_sha256": "d62e0822378821b5b6e3eb44bff68d801e6e52b12b62fd1bd9d8d53c9c505776",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-946e2a2f53148f6d",
+      "output_sha256": "5368f048569b32a601637179424c0fb1f60a264d07233c42cfb221fad6275e69",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-a6279e346f8a7216",
+      "output_sha256": "38065b2dfd57fc562908327f8e635dca1010ab56989d7ee65c93113549d49ac7",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-52679666dcfbfab4",
+      "output_sha256": "376a4518b52950bad7dda03cb190e87113b451faeb5c1756e7acb77744964cfa",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fd67b87ebe8c45eb",
+      "output_sha256": "b4bc1391060fcc6e1095079d07f19ffb7617da6ea0c4db85981fd9dcb24ff54f",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ee3d04f80226da13",
+      "output_sha256": "2f37fa43558001aca0c31e0eacfcc2278df55216b41299142997d332914d91e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-57d99630fbdd6136",
+      "output_sha256": "5e2b8cb90ca69e0814de65feff009ef8198d1becf372d168997a9332b5af08e6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f9f687f5ed2d8d63",
+      "output_sha256": "8002485f03125f0695d0eac97ed0511a3c9fc8b69a6050894e5d2c957403a13c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-9b1e2c009beec7cc",
+      "output_sha256": "e5462d00e82203da6ccb286554a508fc13042a90f241998044497b9eced743e6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c7c2f5ec3fe6f138",
+      "output_sha256": "2ed9a2c8825e27d1f3e432c3739f8b390395c9d29c697341545aba98337e2c7d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-801862924ccc02f9",
+      "output_sha256": "c895a0a28b48fd6dfef3f99f723c6f00390b62633667b282b473e0a284652bee",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d31b573a2803f68d",
+      "output_sha256": "137780d3bb4398c7543c9877d37dca0c54dbd8400a8549727805f2907f341a98",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-eedec2b4b363e87e",
+      "output_sha256": "b4879222544587e44b18680b908dcffb543ae139630c128283eaf25bd0882485",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-598381f5d05f3b84",
+      "output_sha256": "792487b6a81378194223bda8aa231889d3a668fdb175b0288feec60ba9c7a327",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-48d29d43ad4f9321",
+      "output_sha256": "88db23325934b3b74e9ea4f582690cf75df49ea12141c693197cb561d54df1b5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-42c28ff806acff45",
+      "output_sha256": "b4d9bbbb1d8601cc93220db57b4593b2d60245bbd05accc160c30b0e68086b15",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fd4d519f52f15e5e",
+      "output_sha256": "8002485f03125f0695d0eac97ed0511a3c9fc8b69a6050894e5d2c957403a13c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-9963f4fae544a463",
+      "output_sha256": "ee0790604a8f035e78ba724c8ade0b8147ed2aaa24d383a8cee5d95fd5d66f25",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Resolves the local correction while retaining the unaffected instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-6233689706e9baa7",
+      "output_sha256": "a0f5174e244509df05c11135b8289dc01d307bf7a02361ad4dacc83a815c7382",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-65c196546a4a128a",
+      "output_sha256": "6154a77c18370f02e2b9737c075050e5ee78512445ae793f09db45e1a66604da",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7008970b80eb7277",
+      "output_sha256": "8cdf504c7e7b3f24aa7e3cba0314961924fb607d1af5765dbe684bdad78f3af6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7eebf071adab29e9",
+      "output_sha256": "3353043b58c53bcde98dd7e30a81a2e1d47f00836569fe2500f1141a10bb346c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Changes demonstrative that reviewer to the reviewer while retaining the identified reviewer, requested report and readiness claim; acceptable light grammatical rendering."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-440db239f51b5746",
+      "output_sha256": "5e2b8cb90ca69e0814de65feff009ef8198d1becf372d168997a9332b5af08e6",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-71462b2326f6b62e",
+      "output_sha256": "f0c16ee43720c0e91a3d1e6a9851632efac23487591ccc42446ca60b4c7d0177",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e01e7fbcff753ad6",
+      "output_sha256": "615c7ce92e9ea534518ce5e9b74274673b2381f35435b3dc7398c5bfd940c99d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c08a92bfb64c48f0",
+      "output_sha256": "68aa2bc99c7df26eb3f07396cecdb738828a24c547ce5648233cd7d7e2afd694",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1a9e630f37103afd",
+      "output_sha256": "c4d99cd506ea425fe391bbb3b759147abd09dd9283f876c87f681f4f1dc2ffc2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3548fe48c43a672a",
+      "output_sha256": "2f5ac4326fe7379c41daecb02277a774bf1fa26f91bc65bfa88a3e48087bb403",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-05b34215b20764fa",
+      "output_sha256": "1c711d7e7f3bf1b98ad602cd603e46d348cf91b0fad135e1573302177063e0c1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-780e2ab66b40e7ac",
+      "output_sha256": "2f37fa43558001aca0c31e0eacfcc2278df55216b41299142997d332914d91e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fd368e084e9153f2",
+      "output_sha256": "2f37fa43558001aca0c31e0eacfcc2278df55216b41299142997d332914d91e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d057c04ffe383436",
+      "output_sha256": "6d4678c08b7daccc8565c3baf5a5a9221701b29977e1a818ce2548821754f718",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-492c4aa03ca25f2e",
+      "output_sha256": "6e6ba73f72fde99eb7df11508b8592c5490367e6e7a8fc126bb817ab0a33ac7c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-21577a6b625f2b8e",
+      "output_sha256": "e62d9e0a47fc941f06a3d28c92fb1d3c8616f595d7a04b8a99a7f1f12dde4f64",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-49a7cd5047fcdab9",
+      "output_sha256": "2ed9a2c8825e27d1f3e432c3739f8b390395c9d29c697341545aba98337e2c7d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-2ccba8b25bb4a302",
+      "output_sha256": "2ed9a2c8825e27d1f3e432c3739f8b390395c9d29c697341545aba98337e2c7d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-27a4cf5c26566244",
+      "output_sha256": "48c0e55c9f7295a39ada836020b43e7d35c5c6eb4da1ebfd96dca4e8546305c8",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-2aa215664a1fa97b",
+      "output_sha256": "2d2f3e3769e63b61e6da75bba8e741f76d76daeecf7868f28a51ef690617006c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-6d0f6e354005427d",
+      "output_sha256": "6c34f5ce1f82c202511576bbaa20116666f77c8f9c25a29821bfa39e710a0ced",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8408e3cfa37e09ed",
+      "output_sha256": "b4bc1391060fcc6e1095079d07f19ffb7617da6ea0c4db85981fd9dcb24ff54f",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d4afc717487c7416",
+      "output_sha256": "fe9e30ad81e97d4f3319c8588ce7525b022b369e40af83f661e76f03609cbb21",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes hesitation while retaining the names/Unicode wording and original claim."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e46732c651c8e869",
+      "output_sha256": "3342671b181a72351a3aa0a4d297dca2318065bfb176b61173dc4badb31e3c39",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-643703701eea9423",
+      "output_sha256": "20f32f7553f732df92fb02c285141798fa8cb8d763573267f618e881472f4707",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e070bce68001c5dd",
+      "output_sha256": "615c7ce92e9ea534518ce5e9b74274673b2381f35435b3dc7398c5bfd940c99d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-2ce2b3ebe8bfe119",
+      "output_sha256": "15f89c6f165c61a1f14a8611f1279fa322faf563a5c66f6b8f77e3489666b09c",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d67a0823d4585d2f",
+      "output_sha256": "33ed6938f9bf5f8b670a6dddb88ebc10ba837d15c2f2f34498a0c3a75f4b9e9d",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes hesitation but keeps the reported statement and correction discussion."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-d9e60fca36f04957",
+      "output_sha256": "ce7a2cc7b7b0c6214c2b4a3d965abc101f774febdeaa7e1422efda89c14517ec",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c7eec40700784abd",
+      "output_sha256": "c3297381016c880db99104b1d4b2adf628655d76b319845775edcabacaaa5ac5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-0b8baa87d1d1b986",
+      "output_sha256": "6c2ace9121f342d2dacf0a6c72323004031273a2a1028bf1a74519214a5654a1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-63a281a3c10b1efb",
+      "output_sha256": "6cc6aa2317f87ce593ecfa48ac55170f86c9d7471648bb0a9acfd2acd5170773",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-0862b868bd0c7179",
+      "output_sha256": "c078580f0b92030bf17c4579df748ac2c8b3592c60db821612bec3006ddc2368",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-a361af611e70f4ae",
+      "output_sha256": "2f37fa43558001aca0c31e0eacfcc2278df55216b41299142997d332914d91e5",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f50b6f1f5dd92a02",
+      "output_sha256": "6d0beb130dbca689dddaf16b5820960a198ec4d7087464dc14ed1ea3dfb0167e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-11b5a3a1c7f80bc8",
+      "output_sha256": "48c0e55c9f7295a39ada836020b43e7d35c5c6eb4da1ebfd96dca4e8546305c8",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7e295d8078b122e1",
+      "output_sha256": "6d0beb130dbca689dddaf16b5820960a198ec4d7087464dc14ed1ea3dfb0167e",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8ecd824e059bf6c1",
+      "output_sha256": "63eb4795577d8613a3134e573112903879a99d76261eb15420f66b3f323ed5cb",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Treats reported words scratch that as an active editing command and deletes what he actually said."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-37586551c6f5dd60",
+      "output_sha256": "60557e3c63c3a69a4cf85e339700bca46da34c0e52a8af0ffcb2a8b2c6d0d533",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only applicable hesitation while preserving the exact quoted payload and intended instruction."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-009fce1bee2c65ec",
+      "output_sha256": "411c66a3fb2c52c4e1e07971f96b85559f99bb63c15d88b98fe0f14c749ace43",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-519b80d305f291ba",
+      "output_sha256": "6a20811d20cb54ef899c7b67de86d5f1f45597d4fa7d6aa7d25a48556404a65a",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c9405fa1fc8d6757",
+      "output_sha256": "0c19dd721307880ffab78e5889235794e02429fe2d49c0b735220992629a0bc0",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-269d84a4213242bc",
+      "output_sha256": "68be1057319f71b6b53077138d88d736b902da19fd0f83f9efe5824ba16334ba",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-bc71310dbd1df468",
+      "output_sha256": "96d726ced5fdd70664447d1f1d3b6a723a94e3858a4f2b9ab53f55be7d0a0408",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-bf7c7beee6d85376",
+      "output_sha256": "e49378818b2310fc67a05d78ba14d31f1a6f58ba049449930a233e9517a5e393",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-6e3862e69837017b",
+      "output_sha256": "71a6f8706248f1910acad6534cd91c60e6ff0716330b15f52d67aee25f6b8ac2",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1da61f74ed60168e",
+      "output_sha256": "0fd61b05a6e00ac679e695fe148ec6ed134f0959cc7b220d87dfcfdb4fca1732",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the corrected quantity and its unit/action without adding claims."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c4723b7810f9343f",
+      "output_sha256": "a24467ce95924f51b54e214d1a2f83ef2799e749b53d14868a5f024b46670b45",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+      "output_sha256": "1ef3ee5ca292d9072cb682ba0b7b1151752ad33377603be9952a37f2102344e1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ac8b50f3850e97a9",
+      "output_sha256": "63a6e61bb66f0cbb62ea507ff8884e5577e8a7f042c0bfcb956869a01a0d6b34",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-47745a59234d92a1",
+      "output_sha256": "ef3843d9c9af8c140234a9f055e1608d4c4ca91136609f9bf1daef9cc281c58b",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the restored dictionary replacement bytes exactly and applies only surrounding minimal cleanup."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e5bf39e4805af03c",
+      "output_sha256": "f7344f0bf105c8dc07b169093a144db7f3463ecea17d200a338bad58df8a3187",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7f0d60d73f45ac87",
+      "output_sha256": "a24467ce95924f51b54e214d1a2f83ef2799e749b53d14868a5f024b46670b45",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-b59783319e289e8c",
+      "output_sha256": "48bfd206d841fd1f037b19d8a154c06b0e6420222908f9b047de3593eae6a1b3",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the full meaning, conditions and wording, with only appropriate filler/case/punctuation cleanup or unchanged clean text."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+      "output_sha256": "1ef3ee5ca292d9072cb682ba0b7b1151752ad33377603be9952a37f2102344e1",
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the final corrected recipient and the original delivery action."
+    }
+  ],
+  "blind_corpus_accessed": false
+}

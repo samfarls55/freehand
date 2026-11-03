@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-03T19:34:32.293594+00:00",
+  "purpose": "TRAINING expansion from parent-reported actual V3 mismatch families; not an evaluation corpus.",
+  "dataset_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/development-repair-curriculum/train-90-v1.jsonl",
+  "dataset_sha256": "1f186a9dd5d796dbb4c61cd453f66669bfcb56ec09df6496ec020453167c981e",
+  "dataset_bytes": 83483,
+  "case_count": 90,
+  "needs_cleanup": 60,
+  "unchanged_controls": 30,
+  "unchanged_fraction": 0.3333333333333333,
+  "families": {
+    "conjunct_partial_correction": {
+      "count": 18,
+      "needs_cleanup": 12,
+      "unchanged_controls": 6
+    },
+    "grammatical_did_and_accidental_stutter": {
+      "count": 18,
+      "needs_cleanup": 12,
+      "unchanged_controls": 6
+    },
+    "independent_sentence_boundary": {
+      "count": 18,
+      "needs_cleanup": 12,
+      "unchanged_controls": 6
+    },
+    "late_attribute_two_quantity_groups": {
+      "count": 18,
+      "needs_cleanup": 12,
+      "unchanged_controls": 6
+    },
+    "leading_comparative_like": {
+      "count": 18,
+      "needs_cleanup": 12,
+      "unchanged_controls": 6
+    }
+  },
+  "semantic_review_disposition": "trainable_as_is",
+  "independent_review_case_count": 90,
+  "human_review": false,
+  "provenance": "Individually authored assistant synthetic sentences and targets from mismatch-family descriptions only; no evaluation source/target cases were opened for authoring, and no external dataset text is included.",
+  "source_parts": [
+    {
+      "path": "core-part-54.jsonl",
+      "sha256": "d378e678efe3f73baa7849715f6099b284b2b3a4a288b24798e87372bc80a715"
+    },
+    {
+      "path": "boundary-part.jsonl",
+      "sha256": "1ecbfdf837c803045687ba685fd34336495b6b012c4091c688ca203b1dba0f52"
+    }
+  ],
+  "pre_freeze_replacements": [
+    {
+      "id": "scribe-repair-curriculum-060",
+      "reason": "Add an unambiguous filler-like contrast to the comparison family; original author-part record is preserved."
+    },
+    {
+      "id": "scribe-repair-curriculum-063",
+      "reason": "Add an unambiguous filler-like contrast to the comparison family; original author-part record is preserved."
+    },
+    {
+      "id": "scribe-repair-curriculum-066",
+      "reason": "Add an unambiguous filler-like contrast to the comparison family; original author-part record is preserved."
+    }
+  ],
+  "casewise_audit": {
+    "path": "casewise-audit-90-v1.json",
+    "sha256": "83ebd3ef216081e40bdd9dceb9bf596e4ef6f410310d738c215b0854ff6ecd89"
+  },
+  "structural_validation": {
+    "unique_ids": 90,
+    "unique_inputs": 90,
+    "nonempty_targets": 90,
+    "unchanged_flags_consistent": true
+  },
+  "separation": {
+    "blind_contents_accessed": false,
+    "existing_evaluation_corpora_opened_for_authoring": false,
+    "opaque_blind_overlap_check": "Pending root; not performed by this author team.",
+    "evaluation_overlap_check": "Pending root; individual freshness is an authorship declaration, not a measured overlap result.",
+    "final_evaluation_eligible": false
+  },
+  "application_source_changed": false,
+  "model_runs": 0,
+  "integration_instruction": "Use only train-90-v1.jsonl as the 90-pair training input. Source-part files are preserved authoring artifacts, not additional rows."
+}

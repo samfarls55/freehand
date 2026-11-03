@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "results": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v4-01-retry1-hard80-both/core-results.json",
+    "bytes": 107089,
+    "sha256": "6614ae64b97d47e5ae7abb06b1e4de10c4d8329523f3af7c3a84aa2fd73426a1"
+  },
+  "judgments": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/reviews-v4-01-retry1/hard80-reviewed.json",
+    "bytes": 77717,
+    "sha256": "3963f0fb71bfa99ee233cd5d42b7f250860dae41157e2898aace575b0d443183"
+  },
+  "evaluation_metadata": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v4-01-retry1-hard80-both/evaluation-pre-run-freeze.json",
+    "bytes": 3003,
+    "sha256": "25a3a6da4790c1958a5ae404a803b96498fa4ac524e0749b5e922e8101a24edb"
+  },
+  "phase": "development",
+  "pre_run_quality_target": {
+    "semantic_metric": "faithful_and_clean_usable",
+    "minimum_joint_accuracy": 0.99,
+    "case_count": 80,
+    "required_pass_count": 80
+  },
+  "current_quality_target": {
+    "semantic_metric": "faithful_and_clean_usable",
+    "minimum_joint_accuracy": 0.99,
+    "case_count": 80,
+    "required_pass_count": 80
+  },
+  "case_count": 80,
+  "structural_success": 80,
+  "faithful": 75,
+  "clean_usable": 75,
+  "faithful_and_clean_usable": 75,
+  "joint_accuracy": 0.9375,
+  "critical_errors": 5,
+  "minimum_joint_accuracy": 0.99,
+  "required_pass_count": 80,
+  "failed_or_unusable_cases": 5,
+  "quality_gate_passed": false,
+  "zero_observed_critical_errors": false,
+  "exact_target_matches_diagnostic_only": 67,
+  "reviewer": "/root/training_audit (assistant; author of hard80 development cases)",
+  "limitations": "Finite assistant-authored synthetic diagnostic corpus and named semantic reviewer; no population accuracy or Windows SLA claim."
+}

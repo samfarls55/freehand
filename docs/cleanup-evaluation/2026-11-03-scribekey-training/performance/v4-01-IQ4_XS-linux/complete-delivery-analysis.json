@@ -1,0 +1,89 @@
+{
+  "status": "DEVELOPMENT_COMPARISON_ONLY",
+  "verified_utc": "2026-11-03T21:01:57.415375+00:00",
+  "plan_sha256": "7eff793505447b16d94e17a661f6d7801e175606abec5263b45f02e5db6720a6",
+  "report_sha256": "c4ea708281dcd6578ee05c7e38eb58442d0593d566446e09ab59dd63781f9d2b",
+  "model_sha256": "de03a46194457357482dcc3620f463fa3ab5e2e92180788b5bf91b36d9c671c8",
+  "metrics": {
+    "TranscriptMilliseconds": {
+      "p50_ms": 727.7719,
+      "p95_ms": 922.8829,
+      "max_ms": 922.8829,
+      "over805_count": 4,
+      "within805ms": false
+    },
+    "CountingInjectorCompleteMilliseconds": {
+      "p50_ms": 727.8454,
+      "p95_ms": 922.8956,
+      "max_ms": 922.8956,
+      "over805_count": 4,
+      "within805ms": false
+    }
+  },
+  "latency_gate_field": "CountingInjectorCompleteMilliseconds",
+  "latency_cap_ms": 805,
+  "ram_cap_bytes": 747500000,
+  "peak_simultaneous_memory": {
+    "PeakSummedWorkingSetBytes": 701325312,
+    "PeakHostWorkingSetBytes": 109207552,
+    "PeakSpeechWorkingSetBytes": 329809920,
+    "PeakCleanupWorkingSetBytes": 280027136,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 91488256,
+      "SpeechWorkingSetBytes": 329809920,
+      "CleanupWorkingSetBytes": 280027136
+    }
+  },
+  "ram_gate_pass": true,
+  "all_ten_complete_once_no_fallback": true,
+  "verified_frozen_files_and_links": 97,
+  "all_frozen_artifacts_unchanged": true,
+  "source_checks": {
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": true,
+    "src/Freehand.Cleanup/CleanupPrompt.cs": true,
+    "src/Freehand.Cleanup/CleanupProtocol.cs": true,
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": true,
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": true,
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": true,
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": true,
+    "src/Freehand.Core/AppDataPaths.cs": true,
+    "src/Freehand.Core/AppSettings.cs": true,
+    "src/Freehand.Core/AudioSegmenter.cs": true,
+    "src/Freehand.Core/DiagnosticLog.cs": true,
+    "src/Freehand.Core/DictationEngine.cs": true,
+    "src/Freehand.Core/DictionaryFile.cs": true,
+    "src/Freehand.Core/EnglishTextNormalizer.cs": true,
+    "src/Freehand.Core/RecordingBuffer.cs": true,
+    "src/Freehand.Core/TranscriptStore.cs": true,
+    "tools/Freehand.Evaluation/Program.cs": true,
+    "tools/Freehand.Evaluation/Freehand.Evaluation.csproj": true,
+    "Directory.Packages.props": true,
+    "global.json": true,
+    "packaging/model-manifest.json": true,
+    "src/Freehand.Speech/speech-cpu.config": true,
+    "src/Freehand.Speech/GgmlTranscriber.cs": true,
+    "src/Freehand.Speech/ModelResolver.cs": true,
+    "src/Freehand.Speech/ParakeetHotwords.cs": true,
+    "src/Freehand.Speech/ParakeetRecognizer.cs": true,
+    "src/Freehand.Speech/ParakeetTranscriber.cs": true,
+    "src/Freehand.Speech/SpeechPresenceDetector.cs": true,
+    "src/Freehand.Speech/SpeechWorker.cs": true,
+    "src/Freehand.Speech/SpeechWorkerClient.cs": true,
+    "src/Freehand.Speech/WorkerProtocol.cs": true
+  },
+  "original_production_asr_config_unchanged": true,
+  "first_trial_included": true,
+  "independent500_or_fullapp_or_windows_qualified": false,
+  "counting_complete_ramp_ms": [
+    828.8467,
+    727.8454,
+    805.4112,
+    743.4616,
+    715.6068,
+    678.038,
+    922.8956,
+    823.8349,
+    703.4669,
+    667.3705
+  ]
+}

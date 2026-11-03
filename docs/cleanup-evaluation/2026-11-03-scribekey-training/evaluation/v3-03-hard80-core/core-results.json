@@ -1,0 +1,2366 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "started_at_utc": "2026-11-03T19:21:08.4137293+00:00",
+    "corpus_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v3-03-hard80-core/probe-corpus.json",
+    "corpus_sha256": "3FC48150A815679CD2A3C5DF76FF285C42CDF2A1F21BEAFAE972DCC3BFC7F04B",
+    "manifest_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v3-03-hard80-core/cleanup-manifest.json",
+    "manifest_sha256": "6B83398F15F4495A2ADB38C7C67F0FE1B923927874BAF6C16B36C92875D500C3",
+    "model_id": "ScribeKey-Freehand-trained-1d8f6d484594",
+    "prompt_style": "ScribeKeyFast",
+    "runtime": {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+      "expected_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "actual_sha256": "9E0F40401CE7079BC0DE040B6CF0FB456417BBF9FBC4C82A0B96F591917682F6"
+    },
+    "model": {
+      "path": "/tmp/freehand-scribekey-v3-03-export/ScribeKey-Freehand-trained-Q4_K_M.gguf",
+      "expected_sha256": "1d8f6d4845943658f9d88361cdd8d60daf0546478a60460c48c12c02695b2a6c",
+      "actual_sha256": "1D8F6D4845943658F9D88361CDD8D60DAF0546478A60460C48C12C02695B2A6C"
+    },
+    "threads": 4,
+    "context_size": 1024,
+    "max_output_tokens": 512,
+    "gpu_layers": 0,
+    "cleanup_timeout_seconds": 120,
+    "split": "all",
+    "operating_system": "Debian GNU/Linux 13 (trixie)",
+    "architecture": "X64",
+    "framework": ".NET 10.0.0",
+    "logical_processor_count": 4,
+    "gc_total_available_memory_bytes": 12884901888,
+    "probe_version": "1.0.0.0",
+    "managed_assembly_sha256": {
+      "Freehand.Cleanup.Probe.dll": "90CE79F6A2DB635298927F8D66F3649658D7C820A12A3F876BC9928F038702FD",
+      "Freehand.Core.dll": "AD61CEC2A832A4C013A50D98DED6DF24DA342A11021ACC8F8E499D9B9122BBB2",
+      "Freehand.Cleanup.dll": "4A0CEFF86C3D9C0DE83978E9E3A26FDA14DE08AADD53A381B4260EFA420149BA",
+      "Freehand.Dictionary.dll": "F1D435E1A04949CB4483EA4C5BD9B8FB53C0B3820BA7AC9ADDD628584AD2AB7D",
+      "Freehand.Testing.dll": "058A392C54FACCB47356692686EEA105223CECC401ED12AC40987F0147BF10FA",
+      "Freehand.Abstractions.dll": "96E45A4E9A24441BDA372DD861965E1803173E3CC4DC5B1F1C1B947C107D20C3"
+    },
+    "limitations": "Text-fixture probe through the real DictationEngine, dictionary, number normalizer, optional cleanup provider and delivery orchestration. A generated tone and canned transcriber feed the selected transcript; RecordingTextInjector counts calls without typing. This does not test recognition accuracy, a microphone, a physical hotkey, foreground application insertion, Windows worker ownership or whole-desktop performance. Candidate text precedes Core validation; output is the accepted result or original-text fallback. Automatic checks do not establish semantic fidelity."
+  },
+  "incomplete": false,
+  "cases": [
+    {
+      "id": "scribe-harddev-001",
+      "split": "development",
+      "input": "Well water sometimes stains the white sink after the pump has been idle.",
+      "normalized_input": "Well water sometimes stains the white sink after the pump has been idle.",
+      "output": "Well water sometimes stains the white sink after the pump has been idle.",
+      "candidate_text": "Well water sometimes stains the white sink after the pump has been idle.",
+      "cleanup_input": "Well water sometimes stains the white sink after the pump has been idle.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 803.2659,
+      "processing_time_ms": 805.1504,
+      "elapsed_ms": 815.4223,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Well water sometimes stains the white sink after the pump has been idle."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-002",
+      "split": "development",
+      "input": "Well casing must extend above the surrounding ground to keep surface runoff out.",
+      "normalized_input": "Well casing must extend above the surrounding ground to keep surface runoff out.",
+      "output": "Well casing must extend above the surrounding ground to keep surface runoff out.",
+      "candidate_text": "Well casing must extend above the surrounding ground to keep surface runoff out.",
+      "cleanup_input": "Well casing must extend above the surrounding ground to keep surface runoff out.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 231.4367,
+      "processing_time_ms": 231.6494,
+      "elapsed_ms": 238.7369,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Well casing must extend above the surrounding ground to keep surface runoff out."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-003",
+      "split": "development",
+      "input": "Well pumps draw more current when the pressure tank is empty.",
+      "normalized_input": "Well pumps draw more current when the pressure tank is empty.",
+      "output": "Well pumps draw more current when the pressure tank is empty.",
+      "candidate_text": "Well pumps draw more current when the pressure tank is empty.",
+      "cleanup_input": "Well pumps draw more current when the pressure tank is empty.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 191.0308,
+      "processing_time_ms": 191.2519,
+      "elapsed_ms": 207.4609,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Well pumps draw more current when the pressure tank is empty."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-004",
+      "split": "development",
+      "input": "Well depth is recorded in the survey beside the parcel number.",
+      "normalized_input": "Well depth is recorded in the survey beside the parcel number.",
+      "output": "Well depth is recorded in the survey beside the parcel number.",
+      "candidate_text": "Well depth is recorded in the survey beside the parcel number.",
+      "cleanup_input": "Well depth is recorded in the survey beside the parcel number.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 218.9728,
+      "processing_time_ms": 219.1609,
+      "elapsed_ms": 225.2908,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Well depth is recorded in the survey beside the parcel number."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-005",
+      "split": "development",
+      "input": "The clinic needs a record of how well each patient sleeps, not merely the number of hours.",
+      "normalized_input": "The clinic needs a record of how well each patient sleeps, not merely the number of hours.",
+      "output": "The clinic needs a record of how well each patient sleeps, not merely the number of hours.",
+      "candidate_text": "The clinic needs a record of how well each patient sleeps, not merely the number of hours.",
+      "cleanup_input": "The clinic needs a record of how well each patient sleeps, not merely the number of hours.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 274.0198,
+      "processing_time_ms": 274.2305,
+      "elapsed_ms": 282.8413,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The clinic needs a record of how well each patient sleeps, not merely the number of hours."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-006",
+      "split": "development",
+      "input": "A well-dressed visitor was waiting beside the lift when the caretaker arrived.",
+      "normalized_input": "A well-dressed visitor was waiting beside the lift when the caretaker arrived.",
+      "output": "A well-dressed visitor was waiting beside the lift when the caretaker arrived.",
+      "candidate_text": "A well-dressed visitor was waiting beside the lift when the caretaker arrived.",
+      "cleanup_input": "A well-dressed visitor was waiting beside the lift when the caretaker arrived.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 267.3344,
+      "processing_time_ms": 267.5278,
+      "elapsed_ms": 282.9743,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "A well-dressed visitor was waiting beside the lift when the caretaker arrived."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-007",
+      "split": "development",
+      "input": "um well water from the north field needs a separate sample bottle",
+      "normalized_input": "um well water from the north field needs a separate sample bottle",
+      "output": "Well water from the north field needs a separate sample bottle.",
+      "candidate_text": "Well water from the north field needs a separate sample bottle.",
+      "cleanup_input": "um well water from the north field needs a separate sample bottle",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 223.3033,
+      "processing_time_ms": 223.4174,
+      "elapsed_ms": 231.4014,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Well water from the north field needs a separate sample bottle."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-008",
+      "split": "development",
+      "input": "uh the well cover is cracked near the hinge so please mark it for replacement",
+      "normalized_input": "uh the well cover is cracked near the hinge so please mark it for replacement",
+      "output": "The well cover is cracked near the hinge so please mark it for replacement.",
+      "candidate_text": "The well cover is cracked near the hinge so please mark it for replacement.",
+      "cleanup_input": "uh the well cover is cracked near the hinge so please mark it for replacement",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 241.2083,
+      "processing_time_ms": 241.3804,
+      "elapsed_ms": 256.7693,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The well cover is cracked near the hinge, so please mark it for replacement."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-009",
+      "split": "development",
+      "input": "The answer is, um, well within the permitted range, although the display rounds it down.",
+      "normalized_input": "The answer is, um, well within the permitted range, although the display rounds it down.",
+      "output": "The answer is well within the permitted range, although the display rounds it down.",
+      "candidate_text": "The answer is well within the permitted range, although the display rounds it down.",
+      "cleanup_input": "The answer is, um, well within the permitted range, although the display rounds it down.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 303.7417,
+      "processing_time_ms": 303.8884,
+      "elapsed_ms": 312.7941,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The answer is well within the permitted range, although the display rounds it down."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-010",
+      "split": "development",
+      "input": "um make sure the rope is tied well before anybody climbs down",
+      "normalized_input": "um make sure the rope is tied well before anybody climbs down",
+      "output": "Make sure the rope is tied well before anybody climbs down.",
+      "candidate_text": "Make sure the rope is tied well before anybody climbs down.",
+      "cleanup_input": "um make sure the rope is tied well before anybody climbs down",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 215.7091,
+      "processing_time_ms": 215.8676,
+      "elapsed_ms": 224.5004,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Make sure the rope is tied well before anybody climbs down."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-011",
+      "split": "development",
+      "input": "Like the older bridge, the replacement will close whenever the river floods.",
+      "normalized_input": "Like the older bridge, the replacement will close whenever the river floods.",
+      "output": "Like the older bridge, the replacement will close whenever the river floods.",
+      "candidate_text": "Like the older bridge, the replacement will close whenever the river floods.",
+      "cleanup_input": "Like the older bridge, the replacement will close whenever the river floods.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 215.8665,
+      "processing_time_ms": 216.0504,
+      "elapsed_ms": 219.4935,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Like the older bridge, the replacement will close whenever the river floods."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-012",
+      "split": "development",
+      "input": "I would like a copy of the marked-up plan before the contractor leaves.",
+      "normalized_input": "I would like a copy of the marked-up plan before the contractor leaves.",
+      "output": "I would like a copy of the marked-up plan before the contractor leaves.",
+      "candidate_text": "I would like a copy of the marked-up plan before the contractor leaves.",
+      "cleanup_input": "I would like a copy of the marked-up plan before the contractor leaves.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 260.2709,
+      "processing_time_ms": 260.3961,
+      "elapsed_ms": 274.7491,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I would like a copy of the marked-up plan before the contractor leaves."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-013",
+      "split": "development",
+      "input": "The coating feels like wax, but the maintenance sheet calls it a resin.",
+      "normalized_input": "The coating feels like wax, but the maintenance sheet calls it a resin.",
+      "output": "The coating feels like wax, but the maintenance sheet calls it a resin.",
+      "candidate_text": "The coating feels like wax, but the maintenance sheet calls it a resin.",
+      "cleanup_input": "The coating feels like wax, but the maintenance sheet calls it a resin.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 230.7848,
+      "processing_time_ms": 230.9335,
+      "elapsed_ms": 237.5599,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The coating feels like wax, but the maintenance sheet calls it a resin."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-014",
+      "split": "development",
+      "input": "If the lamp flashes like that again, disconnect the charger before touching the contacts.",
+      "normalized_input": "If the lamp flashes like that again, disconnect the charger before touching the contacts.",
+      "output": "If the lamp flashes like that again, disconnect the charger before touching the contacts.",
+      "candidate_text": "If the lamp flashes like that again, disconnect the charger before touching the contacts.",
+      "cleanup_input": "If the lamp flashes like that again, disconnect the charger before touching the contacts.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 251.1724,
+      "processing_time_ms": 251.335,
+      "elapsed_ms": 261.0864,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "If the lamp flashes like that again, disconnect the charger before touching the contacts."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-015",
+      "split": "development",
+      "input": "They look alike from a distance, although only the brass handle fits this lock.",
+      "normalized_input": "They look alike from a distance, although only the brass handle fits this lock.",
+      "output": "They look alike from a distance, although only the brass handle fits this lock.",
+      "candidate_text": "They look alike from a distance, although only the brass handle fits this lock.",
+      "cleanup_input": "They look alike from a distance, although only the brass handle fits this lock.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 233.6747,
+      "processing_time_ms": 233.7644,
+      "elapsed_ms": 243.0125,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "They look alike from a distance, although only the brass handle fits this lock."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-016",
+      "split": "development",
+      "input": "um like the red container the yellow one should stay upright during transit",
+      "normalized_input": "um like the red container the yellow one should stay upright during transit",
+      "output": "Like the yellow one should stay upright during transit.",
+      "candidate_text": "Like the yellow one should stay upright during transit.",
+      "cleanup_input": "um like the red container the yellow one should stay upright during transit",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 207.8457,
+      "processing_time_ms": 208.1793,
+      "elapsed_ms": 220.8628,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Like the red container, the yellow one should stay upright during transit."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-017",
+      "split": "development",
+      "input": "I would, uh, like the warning printed on both sides of the insert.",
+      "normalized_input": "I would, uh, like the warning printed on both sides of the insert.",
+      "output": "I would like the warning printed on both sides of the insert.",
+      "candidate_text": "I would like the warning printed on both sides of the insert.",
+      "cleanup_input": "I would, uh, like the warning printed on both sides of the insert.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 252.0498,
+      "processing_time_ms": 252.1609,
+      "elapsed_ms": 259.322,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I would like the warning printed on both sides of the insert."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-018",
+      "split": "development",
+      "input": "The alarm sounded, um, like a phone ringing in the next room.",
+      "normalized_input": "The alarm sounded, um, like a phone ringing in the next room.",
+      "output": "The alarm sounded like a phone ringing in the next room.",
+      "candidate_text": "The alarm sounded like a phone ringing in the next room.",
+      "cleanup_input": "The alarm sounded, um, like a phone ringing in the next room.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 267.7191,
+      "processing_time_ms": 267.8317,
+      "elapsed_ms": 280.0225,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The alarm sounded like a phone ringing in the next room."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-019",
+      "split": "development",
+      "input": "uh do not treat the spare unit like a replacement until it passes the same inspection",
+      "normalized_input": "uh do not treat the spare unit like a replacement until it passes the same inspection",
+      "output": "Do not treat the spare unit like a replacement until it passes the same inspection.",
+      "candidate_text": "Do not treat the spare unit like a replacement until it passes the same inspection.",
+      "cleanup_input": "uh do not treat the spare unit like a replacement until it passes the same inspection",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 247.1666,
+      "processing_time_ms": 247.2852,
+      "elapsed_ms": 257.1712,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Do not treat the spare unit like a replacement until it passes the same inspection."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-020",
+      "split": "development",
+      "input": "We need something, uh, like the original bracket, except with a wider mounting slot.",
+      "normalized_input": "We need something, uh, like the original bracket, except with a wider mounting slot.",
+      "output": "We need something like the original bracket, except with a wider mounting slot.",
+      "candidate_text": "We need something like the original bracket, except with a wider mounting slot.",
+      "cleanup_input": "We need something, uh, like the original bracket, except with a wider mounting slot.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 227.7193,
+      "processing_time_ms": 227.8206,
+      "elapsed_ms": 238.9725,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "We need something like the original bracket, except with a wider mounting slot."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-021",
+      "split": "development",
+      "input": "I had had the spare badge for a week before anyone asked where it came from.",
+      "normalized_input": "I had had the spare badge for a week before anyone asked where it came from.",
+      "output": "I had had the spare badge for a week before anyone asked where it came from.",
+      "candidate_text": "I had had the spare badge for a week before anyone asked where it came from.",
+      "cleanup_input": "I had had the spare badge for a week before anyone asked where it came from.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 238.4845,
+      "processing_time_ms": 238.575,
+      "elapsed_ms": 252.4703,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I had had the spare badge for a week before anyone asked where it came from."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-022",
+      "split": "development",
+      "input": "The last can can go in the recycling bin once the paint has dried.",
+      "normalized_input": "The last can can go in the recycling bin once the paint has dried.",
+      "output": "The last can can go in the recycling bin once the paint has dried.",
+      "candidate_text": "The last can can go in the recycling bin once the paint has dried.",
+      "cleanup_input": "The last can can go in the recycling bin once the paint has dried.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 230.9816,
+      "processing_time_ms": 231.106,
+      "elapsed_ms": 242.5908,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The last can can go in the recycling bin once the paint has dried."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-023",
+      "split": "development",
+      "input": "What it is is a removable spacer, not a permanent part of the frame.",
+      "normalized_input": "What it is is a removable spacer, not a permanent part of the frame.",
+      "output": "What it is is a removable spacer, not a permanent part of the frame.",
+      "candidate_text": "What it is is a removable spacer, not a permanent part of the frame.",
+      "cleanup_input": "What it is is a removable spacer, not a permanent part of the frame.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 275.0034,
+      "processing_time_ms": 275.1316,
+      "elapsed_ms": 284.224,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "What it is is a removable spacer, not a permanent part of the frame."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-024",
+      "split": "development",
+      "input": "I am saying this twice for emphasis: stay back, stay back until the cable is disconnected.",
+      "normalized_input": "I am saying this twice for emphasis: stay back, stay back until the cable is disconnected.",
+      "output": "I am saying this twice for emphasis: stay back, stay back until the cable is disconnected.",
+      "candidate_text": "I am saying this twice for emphasis: stay back, stay back until the cable is disconnected.",
+      "cleanup_input": "I am saying this twice for emphasis: stay back, stay back until the cable is disconnected.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 279.4376,
+      "processing_time_ms": 279.5068,
+      "elapsed_ms": 288.3134,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I am saying this twice for emphasis: stay back, stay back until the cable is disconnected."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-025",
+      "split": "development",
+      "input": "Please remember the distinction between the word word and the object it names.",
+      "normalized_input": "Please remember the distinction between the word word and the object it names.",
+      "output": "Please remember the distinction between the word word and the object it names.",
+      "candidate_text": "Please remember the distinction between the word word and the object it names.",
+      "cleanup_input": "Please remember the distinction between the word word and the object it names.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 215.3951,
+      "processing_time_ms": 215.4974,
+      "elapsed_ms": 221.3792,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Please remember the distinction between the word word and the object it names."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-026",
+      "split": "development",
+      "input": "um I I left the sealed envelope with the receptionist",
+      "normalized_input": "um I I left the sealed envelope with the receptionist",
+      "output": "I left the sealed envelope with the receptionist.",
+      "candidate_text": "I left the sealed envelope with the receptionist.",
+      "cleanup_input": "um I I left the sealed envelope with the receptionist",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 184.1077,
+      "processing_time_ms": 184.1773,
+      "elapsed_ms": 192.2807,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I left the sealed envelope with the receptionist."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-027",
+      "split": "development",
+      "input": "Please put the the clean towels on the lower shelf, away from the detergent.",
+      "normalized_input": "Please put the the clean towels on the lower shelf, away from the detergent.",
+      "output": "Please put the clean towels on the lower shelf, away from the detergent.",
+      "candidate_text": "Please put the clean towels on the lower shelf, away from the detergent.",
+      "cleanup_input": "Please put the the clean towels on the lower shelf, away from the detergent.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 238.5667,
+      "processing_time_ms": 238.6767,
+      "elapsed_ms": 241.4246,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Please put the clean towels on the lower shelf, away from the detergent."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-028",
+      "split": "development",
+      "input": "uh she had had enough warning before the inspection started",
+      "normalized_input": "uh she had had enough warning before the inspection started",
+      "output": "She had had enough warning before the inspection started.",
+      "candidate_text": "She had had enough warning before the inspection started.",
+      "cleanup_input": "uh she had had enough warning before the inspection started",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 170.2193,
+      "processing_time_ms": 170.3282,
+      "elapsed_ms": 185.0558,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "She had had enough warning before the inspection started."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-029",
+      "split": "development",
+      "input": "The instruction is, um, do not, do not open the cover while the fan is moving.",
+      "normalized_input": "The instruction is, um, do not, do not open the cover while the fan is moving.",
+      "output": "The instruction is do not, do not open the cover while the fan is moving.",
+      "candidate_text": "The instruction is do not, do not open the cover while the fan is moving.",
+      "cleanup_input": "The instruction is, um, do not, do not open the cover while the fan is moving.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 247.3935,
+      "processing_time_ms": 247.4946,
+      "elapsed_ms": 250.9113,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The instruction is do not, do not open the cover while the fan is moving."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-030",
+      "split": "development",
+      "input": "We need to to replace the gasket before we refill the tank.",
+      "normalized_input": "We need to to replace the gasket before we refill the tank.",
+      "output": "We need to replace the gasket before we refill the tank.",
+      "candidate_text": "We need to replace the gasket before we refill the tank.",
+      "cleanup_input": "We need to to replace the gasket before we refill the tank.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 210.4068,
+      "processing_time_ms": 210.5201,
+      "elapsed_ms": 221.2968,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "We need to replace the gasket before we refill the tank."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-031",
+      "split": "development",
+      "input": "The phrase is literally engraved on the underside of the original plate.",
+      "normalized_input": "The phrase is literally engraved on the underside of the original plate.",
+      "output": "The phrase is literally engraved on the underside of the original plate.",
+      "candidate_text": "The phrase is literally engraved on the underside of the original plate.",
+      "cleanup_input": "The phrase is literally engraved on the underside of the original plate.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 226.5847,
+      "processing_time_ms": 226.6578,
+      "elapsed_ms": 231.3672,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The phrase is literally engraved on the underside of the original plate."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-032",
+      "split": "development",
+      "input": "The ceiling is actually lower in the rear room than it appears in the photograph.",
+      "normalized_input": "The ceiling is actually lower in the rear room than it appears in the photograph.",
+      "output": "The ceiling is actually lower in the rear room than it appears in the photograph.",
+      "candidate_text": "The ceiling is actually lower in the rear room than it appears in the photograph.",
+      "cleanup_input": "The ceiling is actually lower in the rear room than it appears in the photograph.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 273.6872,
+      "processing_time_ms": 273.8174,
+      "elapsed_ms": 280.1091,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The ceiling is actually lower in the rear room than it appears in the photograph."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-033",
+      "split": "development",
+      "input": "I suspect the smaller fuse might have failed, but I have not tested it yet.",
+      "normalized_input": "I suspect the smaller fuse might have failed, but I have not tested it yet.",
+      "output": "I suspect the smaller fuse might have failed, but I have not tested it yet.",
+      "candidate_text": "I suspect the smaller fuse might have failed, but I have not tested it yet.",
+      "cleanup_input": "I suspect the smaller fuse might have failed, but I have not tested it yet.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 295.1932,
+      "processing_time_ms": 295.2513,
+      "elapsed_ms": 299.9633,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I suspect the smaller fuse might have failed, but I have not tested it yet."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-034",
+      "split": "development",
+      "input": "The document is reportedly unsigned; I have only seen the scanned first page.",
+      "normalized_input": "The document is reportedly unsigned; I have only seen the scanned first page.",
+      "output": "The document is reportedly unsigned; I have only seen the scanned first page.",
+      "candidate_text": "The document is reportedly unsigned; I have only seen the scanned first page.",
+      "cleanup_input": "The document is reportedly unsigned; I have only seen the scanned first page.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 234.4921,
+      "processing_time_ms": 234.7272,
+      "elapsed_ms": 241.0334,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The document is reportedly unsigned; I have only seen the scanned first page."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-035",
+      "split": "development",
+      "input": "We are almost certain that the error occurs before the second connection attempt.",
+      "normalized_input": "We are almost certain that the error occurs before the second connection attempt.",
+      "output": "We are almost certain that the error occurs before the second connection attempt.",
+      "candidate_text": "We are almost certain that the error occurs before the second connection attempt.",
+      "cleanup_input": "We are almost certain that the error occurs before the second connection attempt.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 226.3412,
+      "processing_time_ms": 226.452,
+      "elapsed_ms": 240.5646,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "We are almost certain that the error occurs before the second connection attempt."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-036",
+      "split": "development",
+      "input": "um the word is literally missing from the printed version not just hidden by the fold",
+      "normalized_input": "um the word is literally missing from the printed version not just hidden by the fold",
+      "output": "The word is literally missing from the printed version not just hidden by the fold.",
+      "candidate_text": "The word is literally missing from the printed version not just hidden by the fold.",
+      "cleanup_input": "um the word is literally missing from the printed version not just hidden by the fold",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 242.3828,
+      "processing_time_ms": 242.5016,
+      "elapsed_ms": 252.6532,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The word is literally missing from the printed version, not just hidden by the fold."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-037",
+      "split": "development",
+      "input": "I think, uh, the revised timetable could still work if the evening service is restored.",
+      "normalized_input": "I think, uh, the revised timetable could still work if the evening service is restored.",
+      "output": "I think the revised timetable could still work if the evening service is restored.",
+      "candidate_text": "I think the revised timetable could still work if the evening service is restored.",
+      "cleanup_input": "I think, uh, the revised timetable could still work if the evening service is restored.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 263.5648,
+      "processing_time_ms": 263.6353,
+      "elapsed_ms": 264.0829,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I think the revised timetable could still work if the evening service is restored."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-038",
+      "split": "development",
+      "input": "The switch may, um, already be off, but please verify it before moving the panel.",
+      "normalized_input": "The switch may, um, already be off, but please verify it before moving the panel.",
+      "output": "The switch may already be off, but please verify it before moving the panel.",
+      "candidate_text": "The switch may already be off, but please verify it before moving the panel.",
+      "cleanup_input": "The switch may, um, already be off, but please verify it before moving the panel.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 243.3106,
+      "processing_time_ms": 243.4086,
+      "elapsed_ms": 256.5052,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The switch may already be off, but please verify it before moving the panel."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-039",
+      "split": "development",
+      "input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "normalized_input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "output": " Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "candidate_text": " Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "cleanup_input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 202.2347,
+      "processing_time_ms": 202.3079,
+      "elapsed_ms": 216.5163,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Apparently the keys were returned yesterday, although nobody has signed the receipt."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-040",
+      "split": "development",
+      "input": "The listing is, um, approximately correct, except that the depth is an estimate.",
+      "normalized_input": "The listing is, um, approximately correct, except that the depth is an estimate.",
+      "output": "The listing is approximately correct, except that the depth is an estimate.",
+      "candidate_text": "The listing is approximately correct, except that the depth is an estimate.",
+      "cleanup_input": "The listing is, um, approximately correct, except that the depth is an estimate.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 214.54,
+      "processing_time_ms": 214.6034,
+      "elapsed_ms": 216.1177,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The listing is approximately correct, except that the depth is an estimate."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-041",
+      "split": "development",
+      "input": "Not every applicant needs an interview, and not every interview leads to an offer.",
+      "normalized_input": "Not every applicant needs an interview, and not every interview leads to an offer.",
+      "output": "Not every applicant needs an interview, and not every interview leads to an offer.",
+      "candidate_text": "Not every applicant needs an interview, and not every interview leads to an offer.",
+      "cleanup_input": "Not every applicant needs an interview, and not every interview leads to an offer.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 238.8002,
+      "processing_time_ms": 238.8904,
+      "elapsed_ms": 245.425,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Not every applicant needs an interview, and not every interview leads to an offer."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-042",
+      "split": "development",
+      "input": "Do not remove the tag unless the replacement has already been attached.",
+      "normalized_input": "Do not remove the tag unless the replacement has already been attached.",
+      "output": "Do not remove the tag unless the replacement has already been attached.",
+      "candidate_text": "Do not remove the tag unless the replacement has already been attached.",
+      "cleanup_input": "Do not remove the tag unless the replacement has already been attached.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 206.8686,
+      "processing_time_ms": 206.938,
+      "elapsed_ms": 216.1591,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Do not remove the tag unless the replacement has already been attached."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-043",
+      "split": "development",
+      "input": "The rack holds fewer than six trays, not exactly six.",
+      "normalized_input": "The rack holds fewer than six trays, not exactly six.",
+      "output": "The rack holds fewer than six trays, not exactly six.",
+      "candidate_text": "The rack holds fewer than six trays, not exactly six.",
+      "cleanup_input": "The rack holds fewer than six trays, not exactly six.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 227.069,
+      "processing_time_ms": 227.2154,
+      "elapsed_ms": 233.0532,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The rack holds fewer than six trays, not exactly six."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-044",
+      "split": "development",
+      "input": "The fee is four pounds, not five, for each additional bag.",
+      "normalized_input": "The fee is four pounds, not five, for each additional bag.",
+      "output": "The fee is four pounds, not five, for each additional bag.",
+      "candidate_text": "The fee is four pounds, not five, for each additional bag.",
+      "cleanup_input": "The fee is four pounds, not five, for each additional bag.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 217.6391,
+      "processing_time_ms": 217.746,
+      "elapsed_ms": 232.8416,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The fee is four pounds, not five, for each additional bag."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-045",
+      "split": "development",
+      "input": "Only the exterior lamps should remain on; the interior lamps must stay off.",
+      "normalized_input": "Only the exterior lamps should remain on; the interior lamps must stay off.",
+      "output": "Only the exterior lamps should remain on; the interior lamps must stay off.",
+      "candidate_text": "Only the exterior lamps should remain on; the interior lamps must stay off.",
+      "cleanup_input": "Only the exterior lamps should remain on; the interior lamps must stay off.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 223.2696,
+      "processing_time_ms": 223.3781,
+      "elapsed_ms": 236.1368,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Only the exterior lamps should remain on; the interior lamps must stay off."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-046",
+      "split": "development",
+      "input": "um the reading must not rise above twelve even briefly while the valve is open",
+      "normalized_input": "um the reading must not rise above 12 even briefly while the valve is open",
+      "output": "The reading must not rise above 12 even briefly while the valve is open.",
+      "candidate_text": "The reading must not rise above 12 even briefly while the valve is open.",
+      "cleanup_input": "um the reading must not rise above 12 even briefly while the valve is open",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 239.1146,
+      "processing_time_ms": 239.2436,
+      "elapsed_ms": 240.6693,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The reading must not rise above 12, even briefly, while the valve is open."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-047",
+      "split": "development",
+      "input": "We need, uh, at least three dry samples, not three samples in total.",
+      "normalized_input": "We need, uh, at least three dry samples, not three samples in total.",
+      "output": "We need at least three dry samples, not three samples in total.",
+      "candidate_text": "We need at least three dry samples, not three samples in total.",
+      "cleanup_input": "We need, uh, at least three dry samples, not three samples in total.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 259.264,
+      "processing_time_ms": 259.3572,
+      "elapsed_ms": 267.3404,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "We need at least three dry samples, not three samples in total."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-048",
+      "split": "development",
+      "input": "uh fewer people replied after the second notice not more",
+      "normalized_input": "uh fewer people replied after the second notice not more",
+      "output": "Fewer people replied after the second notice not more.",
+      "candidate_text": "Fewer people replied after the second notice not more.",
+      "cleanup_input": "uh fewer people replied after the second notice not more",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 177.0374,
+      "processing_time_ms": 177.1485,
+      "elapsed_ms": 184.7922,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Fewer people replied after the second notice, not more."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-049",
+      "split": "development",
+      "input": "Please do not, um, move either ladder until both doors are secured.",
+      "normalized_input": "Please do not, um, move either ladder until both doors are secured.",
+      "output": "Please do not move either ladder until both doors are secured.",
+      "candidate_text": "Please do not move either ladder until both doors are secured.",
+      "cleanup_input": "Please do not, um, move either ladder until both doors are secured.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 191.5605,
+      "processing_time_ms": 191.6325,
+      "elapsed_ms": 195.4574,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Please do not move either ladder until both doors are secured."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-050",
+      "split": "development",
+      "input": "The package weighs, uh, just under two kilograms without the outer sleeve.",
+      "normalized_input": "The package weighs, uh, just under two kilograms without the outer sleeve.",
+      "output": "The package weighs just under two kilograms without the outer sleeve.",
+      "candidate_text": "The package weighs just under two kilograms without the outer sleeve.",
+      "cleanup_input": "The package weighs, uh, just under two kilograms without the outer sleeve.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 205.7483,
+      "processing_time_ms": 205.8246,
+      "elapsed_ms": 208.6173,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The package weighs just under two kilograms without the outer sleeve."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-051",
+      "split": "development",
+      "input": "Email the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.",
+      "normalized_input": "Email the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.",
+      "output": "Email the handover note to Pilar and leave the caretaker copied in.",
+      "candidate_text": "Email the handover note to Pilar and leave the caretaker copied in.",
+      "cleanup_input": "Email the handover note to Noor, sorry, to Pilar, and leave the caretaker copied in.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 254.8834,
+      "processing_time_ms": 254.9457,
+      "elapsed_ms": 255.7807,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Email the handover note to Pilar, and leave the caretaker copied in."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-052",
+      "split": "development",
+      "input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "normalized_input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "output": "Leave March alone and archive April, then update the index.",
+      "candidate_text": "Leave March alone and archive April, then update the index.",
+      "cleanup_input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 194.6619,
+      "processing_time_ms": 194.7399,
+      "elapsed_ms": 204.2716,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Leave March alone and archive April, then update the index."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-053",
+      "split": "development",
+      "input": "Set the upper alert to twenty, sorry, twenty-five, and keep the lower alert at eight.",
+      "normalized_input": "Set the upper alert to 20, sorry, twenty-five, and keep the lower alert at eight.",
+      "output": "Set the upper alert to twenty-five, and keep the lower alert at eight.",
+      "candidate_text": "Set the upper alert to twenty-five, and keep the lower alert at eight.",
+      "cleanup_input": "Set the upper alert to 20, sorry, twenty-five, and keep the lower alert at eight.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 254.5797,
+      "processing_time_ms": 254.7147,
+      "elapsed_ms": 263.2018,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Set the upper alert to twenty-five, and keep the lower alert at eight."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-054",
+      "split": "development",
+      "input": "Book the room for Monday, actually make that Wednesday, but keep the same start time.",
+      "normalized_input": "Book the room for Monday, actually make that Wednesday, but keep the same start time.",
+      "output": "Book the room for Wednesday, but keep the same start time.",
+      "candidate_text": "Book the room for Wednesday, but keep the same start time.",
+      "cleanup_input": "Book the room for Monday, actually make that Wednesday, but keep the same start time.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 233.8643,
+      "processing_time_ms": 233.9737,
+      "elapsed_ms": 248.5525,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Book the room for Wednesday, but keep the same start time."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-055",
+      "split": "development",
+      "input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+      "normalized_input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+      "output": "Do not send the receipt until I approve the wording.",
+      "candidate_text": "Do not send the receipt until I approve the wording.",
+      "cleanup_input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 237.1777,
+      "processing_time_ms": 237.2472,
+      "elapsed_ms": 244.7281,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Send the invoice. Do not send the receipt until I approve the wording."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-056",
+      "split": "development",
+      "input": "Call Rashid to cancel the visit, sorry, to confirm the visit, and ask whether parking is available.",
+      "normalized_input": "Call Rashid to cancel the visit, sorry, to confirm the visit, and ask whether parking is available.",
+      "output": "Call Rashid to confirm the visit, and ask whether parking is available.",
+      "candidate_text": "Call Rashid to confirm the visit, and ask whether parking is available.",
+      "cleanup_input": "Call Rashid to cancel the visit, sorry, to confirm the visit, and ask whether parking is available.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 247.3569,
+      "processing_time_ms": 247.5812,
+      "elapsed_ms": 256.9179,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Call Rashid to confirm the visit, and ask whether parking is available."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-057",
+      "split": "development",
+      "input": "Do not renew the pass, scratch that, renew it only if the discount still applies.",
+      "normalized_input": "Do not renew the pass, scratch that, renew it only if the discount still applies.",
+      "output": "Renew it only if the discount still applies.",
+      "candidate_text": "Renew it only if the discount still applies.",
+      "cleanup_input": "Do not renew the pass, scratch that, renew it only if the discount still applies.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 182.5165,
+      "processing_time_ms": 182.6001,
+      "elapsed_ms": 195.6703,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Renew the pass only if the discount still applies."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-058",
+      "split": "development",
+      "input": "Move the small cabinet upstairs, no, leave it downstairs and move only the empty shelves upstairs.",
+      "normalized_input": "Move the small cabinet upstairs, no, leave it downstairs and move only the empty shelves upstairs.",
+      "output": "Leave it downstairs and move only the empty shelves upstairs.",
+      "candidate_text": "Leave it downstairs and move only the empty shelves upstairs.",
+      "cleanup_input": "Move the small cabinet upstairs, no, leave it downstairs and move only the empty shelves upstairs.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 197.3436,
+      "processing_time_ms": 197.4057,
+      "elapsed_ms": 204.6506,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Leave the small cabinet downstairs and move only the empty shelves upstairs."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-059",
+      "split": "development",
+      "input": "The spare seal is in drawer six, sorry, drawer nine, behind the blue packet.",
+      "normalized_input": "The spare seal is in drawer six, sorry, drawer nine, behind the blue packet.",
+      "output": "The spare seal is in drawer nine, behind the blue packet.",
+      "candidate_text": "The spare seal is in drawer nine, behind the blue packet.",
+      "cleanup_input": "The spare seal is in drawer six, sorry, drawer nine, behind the blue packet.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 216.9323,
+      "processing_time_ms": 217.1058,
+      "elapsed_ms": 219.5182,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The spare seal is in drawer nine, behind the blue packet."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-060",
+      "split": "development",
+      "input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "normalized_input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "output": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "candidate_text": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "cleanup_input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 297.9841,
+      "processing_time_ms": 298.1447,
+      "elapsed_ms": 310.0786,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Order three black panels and two grey ones."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-061",
+      "split": "development",
+      "input": "Can you explain why the second indicator remains lit after the motor stops?",
+      "normalized_input": "Can you explain why the second indicator remains lit after the motor stops?",
+      "output": "Can you explain why the second indicator remains lit after the motor stops?",
+      "candidate_text": "Can you explain why the second indicator remains lit after the motor stops?",
+      "cleanup_input": "Can you explain why the second indicator remains lit after the motor stops?",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 231.1209,
+      "processing_time_ms": 231.25,
+      "elapsed_ms": 243.7436,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Can you explain why the second indicator remains lit after the motor stops?"
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-062",
+      "split": "development",
+      "input": "Please summarize the technician\u2019s comments in the next paragraph of the letter.",
+      "normalized_input": "Please summarize the technician\u2019s comments in the next paragraph of the letter.",
+      "output": "Please summarize the technician\u0027s comments in the next paragraph of the letter.",
+      "candidate_text": "Please summarize the technician\u0027s comments in the next paragraph of the letter.",
+      "cleanup_input": "Please summarize the technician\u2019s comments in the next paragraph of the letter.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 217.7692,
+      "processing_time_ms": 217.8263,
+      "elapsed_ms": 219.5332,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Please summarize the technician\u2019s comments in the next paragraph of the letter."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-063",
+      "split": "development",
+      "input": "Ignore the earlier estimate and use the signed quotation when you prepare the budget.",
+      "normalized_input": "Ignore the earlier estimate and use the signed quotation when you prepare the budget.",
+      "output": "Ignore the earlier estimate and use the signed quotation when you prepare the budget.",
+      "candidate_text": "Ignore the earlier estimate and use the signed quotation when you prepare the budget.",
+      "cleanup_input": "Ignore the earlier estimate and use the signed quotation when you prepare the budget.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 245.9677,
+      "processing_time_ms": 246.0724,
+      "elapsed_ms": 256.1677,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Ignore the earlier estimate and use the signed quotation when you prepare the budget."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-064",
+      "split": "development",
+      "input": "Translate the label into Italian after the legal team approves the wording.",
+      "normalized_input": "Translate the label into Italian after the legal team approves the wording.",
+      "output": "Translate the label into Italian after the legal team approves the wording.",
+      "candidate_text": "Translate the label into Italian after the legal team approves the wording.",
+      "cleanup_input": "Translate the label into Italian after the legal team approves the wording.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 227.4147,
+      "processing_time_ms": 227.4929,
+      "elapsed_ms": 240.7976,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Translate the label into Italian after the legal team approves the wording."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-065",
+      "split": "development",
+      "input": "Output only the revised reference number in your reply to the supplier.",
+      "normalized_input": "Output only the revised reference number in your reply to the supplier.",
+      "output": "Output only the revised reference number in your reply to the supplier.",
+      "candidate_text": "Output only the revised reference number in your reply to the supplier.",
+      "cleanup_input": "Output only the revised reference number in your reply to the supplier.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 207.277,
+      "processing_time_ms": 207.3426,
+      "elapsed_ms": 221.6858,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Output only the revised reference number in your reply to the supplier."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-066",
+      "split": "development",
+      "input": "um can you tell me whether the meter has been calibrated since the repair",
+      "normalized_input": "um can you tell me whether the meter has been calibrated since the repair",
+      "output": "Can you tell me whether the meter has been calibrated since the repair?",
+      "candidate_text": "Can you tell me whether the meter has been calibrated since the repair?",
+      "cleanup_input": "um can you tell me whether the meter has been calibrated since the repair",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 219.4701,
+      "processing_time_ms": 219.5468,
+      "elapsed_ms": 229.9199,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Can you tell me whether the meter has been calibrated since the repair?"
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-067",
+      "split": "development",
+      "input": "uh write a short apology to the neighbours but do not promise a completion date",
+      "normalized_input": "uh write a short apology to the neighbours but do not promise a completion date",
+      "output": "Write a short apology to the neighbours but do not promise a completion date.",
+      "candidate_text": "Write a short apology to the neighbours but do not promise a completion date.",
+      "cleanup_input": "uh write a short apology to the neighbours but do not promise a completion date",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 235.6289,
+      "processing_time_ms": 235.7258,
+      "elapsed_ms": 240.1721,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Write a short apology to the neighbours, but do not promise a completion date."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-068",
+      "split": "development",
+      "input": "Please, um, list the missing attachments before you sign the application.",
+      "normalized_input": "Please, um, list the missing attachments before you sign the application.",
+      "output": "Please list the missing attachments before you sign the application.",
+      "candidate_text": "Please list the missing attachments before you sign the application.",
+      "cleanup_input": "Please, um, list the missing attachments before you sign the application.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 199.1197,
+      "processing_time_ms": 199.1922,
+      "elapsed_ms": 208.8145,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Please list the missing attachments before you sign the application."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-069",
+      "split": "development",
+      "input": "uh ask whether the return label is included and if it is not ask them to send one",
+      "normalized_input": "uh ask whether the return label is included and if it is not ask them to send one",
+      "output": "Ask whether the return label is included and if it is not ask them to send one.",
+      "candidate_text": "Ask whether the return label is included and if it is not ask them to send one.",
+      "cleanup_input": "uh ask whether the return label is included and if it is not ask them to send one",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 255.4006,
+      "processing_time_ms": 255.4569,
+      "elapsed_ms": 256.9688,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Ask whether the return label is included, and if it is not, ask them to send one."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-070",
+      "split": "development",
+      "input": "um read the final sentence aloud before changing any of its punctuation",
+      "normalized_input": "um read the final sentence aloud before changing any of its punctuation",
+      "output": "Read the final sentence aloud before changing any of its punctuation.",
+      "candidate_text": "Read the final sentence aloud before changing any of its punctuation.",
+      "cleanup_input": "um read the final sentence aloud before changing any of its punctuation",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 195.1975,
+      "processing_time_ms": 195.2703,
+      "elapsed_ms": 201.4962,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Read the final sentence aloud before changing any of its punctuation."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-071",
+      "split": "development",
+      "input": "The engineer has not approved the repair. We can reserve the equipment now, but we must not start work until the written approval arrives. If the replacement part is late, keep the old assembly sealed and record the delay in the maintenance log.",
+      "normalized_input": "The engineer has not approved the repair. We can reserve the equipment now, but we must not start work until the written approval arrives. If the replacement part is late, keep the old assembly sealed and record the delay in the maintenance log.",
+      "output": "The engineer has not approved the repair. We can reserve the equipment now, but we must not start work until the written approval arrives. If the replacement part is late, keep the old assembly sealed and record the delay in the maintenance log.",
+      "candidate_text": "The engineer has not approved the repair. We can reserve the equipment now, but we must not start work until the written approval arrives. If the replacement part is late, keep the old assembly sealed and record the delay in the maintenance log.",
+      "cleanup_input": "The engineer has not approved the repair. We can reserve the equipment now, but we must not start work until the written approval arrives. If the replacement part is late, keep the old assembly sealed and record the delay in the maintenance log.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 479.1326,
+      "processing_time_ms": 479.2631,
+      "elapsed_ms": 491.6797,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The engineer has not approved the repair. We can reserve the equipment now, but we must not start work until the written approval arrives. If the replacement part is late, keep the old assembly sealed and record the delay in the maintenance log."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-072",
+      "split": "development",
+      "input": "I would prefer a quiet table near the entrance because my father cannot manage the stairs. The booking is provisional, and I may need to change the arrival time after his appointment. Please keep that uncertainty in the note rather than treating the time as confirmed.",
+      "normalized_input": "I would prefer a quiet table near the entrance because my father cannot manage the stairs. The booking is provisional, and I may need to change the arrival time after his appointment. Please keep that uncertainty in the note rather than treating the time as confirmed.",
+      "output": "I would prefer a quiet table near the entrance because my father cannot manage the stairs. The booking is provisional, and I may need to change the arrival time after his appointment. Please keep that uncertainty in the note rather than treating the time as confirmed.",
+      "candidate_text": "I would prefer a quiet table near the entrance because my father cannot manage the stairs. The booking is provisional, and I may need to change the arrival time after his appointment. Please keep that uncertainty in the note rather than treating the time as confirmed.",
+      "cleanup_input": "I would prefer a quiet table near the entrance because my father cannot manage the stairs. The booking is provisional, and I may need to change the arrival time after his appointment. Please keep that uncertainty in the note rather than treating the time as confirmed.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 561.7907,
+      "processing_time_ms": 561.877,
+      "elapsed_ms": 572.9739,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I would prefer a quiet table near the entrance because my father cannot manage the stairs. The booking is provisional, and I may need to change the arrival time after his appointment. Please keep that uncertainty in the note rather than treating the time as confirmed."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-073",
+      "split": "development",
+      "input": "Well water is supplied to the workshop, while the kitchen uses the town supply. The samples must be labeled separately even when they are collected on the same morning. A clear result from the kitchen sample does not establish that the workshop water is safe.",
+      "normalized_input": "Well water is supplied to the workshop, while the kitchen uses the town supply. The samples must be labeled separately even when they are collected on the same morning. A clear result from the kitchen sample does not establish that the workshop water is safe.",
+      "output": "Well water is supplied to the workshop, while the kitchen uses the town supply. The samples must be labeled separately even when they are collected on the same morning. A clear result from the kitchen sample does not establish that the workshop water is safe.",
+      "candidate_text": "Well water is supplied to the workshop, while the kitchen uses the town supply. The samples must be labeled separately even when they are collected on the same morning. A clear result from the kitchen sample does not establish that the workshop water is safe.",
+      "cleanup_input": "Well water is supplied to the workshop, while the kitchen uses the town supply. The samples must be labeled separately even when they are collected on the same morning. A clear result from the kitchen sample does not establish that the workshop water is safe.",
+      "cleanup_status": "Unchanged",
+      "cleanup_time_ms": 548.2425,
+      "processing_time_ms": 548.3138,
+      "elapsed_ms": 560.7397,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Well water is supplied to the workshop, while the kitchen uses the town supply. The samples must be labeled separately even when they are collected on the same morning. A clear result from the kitchen sample does not establish that the workshop water is safe."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-074",
+      "split": "development",
+      "input": "Um, the caretaker can unlock the store at eight. Uh, please do not leave the delivery outside if nobody is there to receive it. The driver should call the number on the gate, wait for a reply, and take the parcel back if entry cannot be arranged.",
+      "normalized_input": "Um, the caretaker can unlock the store at eight. Uh, please do not leave the delivery outside if nobody is there to receive it. The driver should call the number on the gate, wait for a reply, and take the parcel back if entry cannot be arranged.",
+      "output": "The caretaker can unlock the store at eight. Please do not leave the delivery outside if nobody is there to receive it. The driver should call the number on the gate, wait for a reply, and take the parcel back if entry cannot be arranged.",
+      "candidate_text": "The caretaker can unlock the store at eight. Please do not leave the delivery outside if nobody is there to receive it. The driver should call the number on the gate, wait for a reply, and take the parcel back if entry cannot be arranged.",
+      "cleanup_input": "Um, the caretaker can unlock the store at eight. Uh, please do not leave the delivery outside if nobody is there to receive it. The driver should call the number on the gate, wait for a reply, and take the parcel back if entry cannot be arranged.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 631.3836,
+      "processing_time_ms": 631.5555,
+      "elapsed_ms": 643.9536,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The caretaker can unlock the store at eight. Please do not leave the delivery outside if nobody is there to receive it. The driver should call the number on the gate, wait for a reply, and take the parcel back if entry cannot be arranged."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-075",
+      "split": "development",
+      "input": "The inspection is on Thursday, sorry, Friday. Um, the access code is unchanged, and the rear door should stay locked until the inspector calls. Please bring the original drawings as well as the revised plan because the engineer needs to compare the two versions side by side.",
+      "normalized_input": "The inspection is on Thursday, sorry, Friday. Um, the access code is unchanged, and the rear door should stay locked until the inspector calls. Please bring the original drawings as well as the revised plan because the engineer needs to compare the two versions side by side.",
+      "output": "The inspection is on Friday. The access code is unchanged, and the rear door should stay locked until the inspector calls. Please bring the original drawings as well as the revised plan because the engineer needs to compare the two versions side by side.",
+      "candidate_text": "The inspection is on Friday. The access code is unchanged, and the rear door should stay locked until the inspector calls. Please bring the original drawings as well as the revised plan because the engineer needs to compare the two versions side by side.",
+      "cleanup_input": "The inspection is on Thursday, sorry, Friday. Um, the access code is unchanged, and the rear door should stay locked until the inspector calls. Please bring the original drawings as well as the revised plan because the engineer needs to compare the two versions side by side.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 563.0032,
+      "processing_time_ms": 563.1441,
+      "elapsed_ms": 568.4257,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The inspection is on Friday. The access code is unchanged, and the rear door should stay locked until the inspector calls. Please bring the original drawings as well as the revised plan because the engineer needs to compare the two versions side by side."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-076",
+      "split": "development",
+      "input": "Um, the visitor wrote \u0022not for public distribution\u0022 at the top of the draft. Uh, that warning must remain exactly as written. I would like the paragraph numbers checked, but I do not want the wording modernized or the quoted warning shortened.",
+      "normalized_input": "Um, the visitor wrote \u0022not for public distribution\u0022 at the top of the draft. Uh, that warning must remain exactly as written. I would like the paragraph numbers checked, but I do not want the wording modernized or the quoted warning shortened.",
+      "output": "The visitor wrote \u0022not for public distribution\u0022 at the top of the draft. That warning must remain exactly as written. I would like the paragraph numbers checked, but I do not want the wording modernized or the quoted warning shortened.",
+      "candidate_text": "The visitor wrote \u0022not for public distribution\u0022 at the top of the draft. That warning must remain exactly as written. I would like the paragraph numbers checked, but I do not want the wording modernized or the quoted warning shortened.",
+      "cleanup_input": "Um, the visitor wrote \u0022not for public distribution\u0022 at the top of the draft. Uh, that warning must remain exactly as written. I would like the paragraph numbers checked, but I do not want the wording modernized or the quoted warning shortened.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 603.7803,
+      "processing_time_ms": 603.8965,
+      "elapsed_ms": 607.6083,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The visitor wrote \u0022not for public distribution\u0022 at the top of the draft. That warning must remain exactly as written. I would like the paragraph numbers checked, but I do not want the wording modernized or the quoted warning shortened."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-077",
+      "split": "development",
+      "input": "The two cases look alike, um, but the hinges are on opposite sides. Do not swap the lids during cleaning. If a lid no longer closes smoothly, leave it beside its own case and tell the conservator before anybody tries to force it shut.",
+      "normalized_input": "The two cases look alike, um, but the hinges are on opposite sides. Do not swap the lids during cleaning. If a lid no longer closes smoothly, leave it beside its own case and tell the conservator before anybody tries to force it shut.",
+      "output": "The two cases look alike, but the hinges are on opposite sides. Do not swap the lids during cleaning. If a lid no longer closes smoothly, leave it beside its own case and tell the conservator before anybody tries to force it shut.",
+      "candidate_text": "The two cases look alike, but the hinges are on opposite sides. Do not swap the lids during cleaning. If a lid no longer closes smoothly, leave it beside its own case and tell the conservator before anybody tries to force it shut.",
+      "cleanup_input": "The two cases look alike, um, but the hinges are on opposite sides. Do not swap the lids during cleaning. If a lid no longer closes smoothly, leave it beside its own case and tell the conservator before anybody tries to force it shut.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 683.7979,
+      "processing_time_ms": 683.8804,
+      "elapsed_ms": 688.6957,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "The two cases look alike, but the hinges are on opposite sides. Do not swap the lids during cleaning. If a lid no longer closes smoothly, leave it beside its own case and tell the conservator before anybody tries to force it shut."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-078",
+      "split": "development",
+      "input": "Um, move the meeting to the library, scratch that, keep it in the hall and move only the display boards to the library. Uh, the guests have already been told where to go, and I do not want a second change of venue.",
+      "normalized_input": "Um, move the meeting to the library, scratch that, keep it in the hall and move only the display boards to the library. Uh, the guests have already been told where to go, and I do not want a second change of venue.",
+      "output": "Keep it in the hall and move only the display boards to the library. The guests have already been told where to go, and I do not want a second change of venue.",
+      "candidate_text": "Keep it in the hall and move only the display boards to the library. The guests have already been told where to go, and I do not want a second change of venue.",
+      "cleanup_input": "Um, move the meeting to the library, scratch that, keep it in the hall and move only the display boards to the library. Uh, the guests have already been told where to go, and I do not want a second change of venue.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 451.3197,
+      "processing_time_ms": 451.39,
+      "elapsed_ms": 459.6258,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "Keep the meeting in the hall and move only the display boards to the library. The guests have already been told where to go, and I do not want a second change of venue."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-079",
+      "split": "development",
+      "input": "I think the lower figure is probably an estimate, um, because the note says that the final measurement was not available. Please keep both figures in the report and make the uncertainty clear. Removing the older figure would hide the size of the disagreement.",
+      "normalized_input": "I think the lower figure is probably an estimate, um, because the note says that the final measurement was not available. Please keep both figures in the report and make the uncertainty clear. Removing the older figure would hide the size of the disagreement.",
+      "output": "I think the lower figure is probably an estimate, because the note says that the final measurement was not available. Please keep both figures in the report and make the uncertainty clear. Removing the older figure would hide the size of the disagreement.",
+      "candidate_text": "I think the lower figure is probably an estimate, because the note says that the final measurement was not available. Please keep both figures in the report and make the uncertainty clear. Removing the older figure would hide the size of the disagreement.",
+      "cleanup_input": "I think the lower figure is probably an estimate, um, because the note says that the final measurement was not available. Please keep both figures in the report and make the uncertainty clear. Removing the older figure would hide the size of the disagreement.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 553.4378,
+      "processing_time_ms": 553.5437,
+      "elapsed_ms": 560.3061,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "I think the lower figure is probably an estimate because the note says that the final measurement was not available. Please keep both figures in the report and make the uncertainty clear. Removing the older figure would hide the size of the disagreement."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    },
+    {
+      "id": "scribe-harddev-080",
+      "split": "development",
+      "input": "Uh, there should be six sealed cartons on the trolley, not seven. The open carton belongs on the bench so that the contents can be counted separately. Please do not include it in the sealed-carton total even if the individual packets still have their wrappers.",
+      "normalized_input": "Uh, there should be six sealed cartons on the trolley, not seven. The open carton belongs on the bench so that the contents can be counted separately. Please do not include it in the sealed-carton total even if the individual packets still have their wrappers.",
+      "output": "There should be six sealed cartons on the trolley, not seven. The open carton belongs on the bench so that the contents can be counted separately. Please do not include it in the sealed-carton total even if the individual packets still have their wrappers.",
+      "candidate_text": "There should be six sealed cartons on the trolley, not seven. The open carton belongs on the bench so that the contents can be counted separately. Please do not include it in the sealed-carton total even if the individual packets still have their wrappers.",
+      "cleanup_input": "Uh, there should be six sealed cartons on the trolley, not seven. The open carton belongs on the bench so that the contents can be counted separately. Please do not include it in the sealed-carton total even if the individual packets still have their wrappers.",
+      "cleanup_status": "Applied",
+      "cleanup_time_ms": 639.0226,
+      "processing_time_ms": 639.1001,
+      "elapsed_ms": 647.4621,
+      "insertion_count": 1,
+      "delivered_count": 1,
+      "delivery_outcome": "Delivered",
+      "dictation_outcome": "Success",
+      "error": null,
+      "applied_correction_count": 0,
+      "normalized_targets": [
+        "There should be six sealed cartons on the trolley, not seven. The open carton belongs on the bench so that the contents can be counted separately. Please do not include it in the sealed-carton total even if the individual packets still have their wrappers."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      }
+    }
+  ]
+}
