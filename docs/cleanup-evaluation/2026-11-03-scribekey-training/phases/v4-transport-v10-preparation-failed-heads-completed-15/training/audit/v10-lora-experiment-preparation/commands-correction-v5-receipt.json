@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "original_draft": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/proposed-commands.json",
+    "bytes": 3210,
+    "sha256": "8aa7cf27c09df6c3d111bef59ee738865df33e9c8fa045219f31eb0f8078c265"
+  },
+  "already_correct_concrete_v4": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/concrete-commands-v4.json",
+    "bytes": 3440,
+    "sha256": "2b94912ca3066c9675810a48bcda8e14423695ef437dbb4785fd876cdb7281a1"
+  },
+  "actual_versioned_commands": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/concrete-commands-v5-actual-paths.json",
+    "bytes": 4093,
+    "sha256": "222b93cafc9761d8c9346a87d80ea546b2dc4bb3859448e62cfcc66a025382de"
+  },
+  "actual_dataset": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/data-600-v1/positive-600-v1.jsonl",
+    "bytes": 1233361,
+    "sha256": "4fec04c191c8324a547050500ce691fd3bc9ae65f45637cb218641a8e768c697"
+  },
+  "correction": "Original proposed-commands draft pointed to data/positive-600-v1.jsonl. Concrete-v4 already used frozen data-600-v1/positive-600-v1.jsonl. Version5 preserves both and additionally replaces unapplied-pipeline placeholder with root-applied main trainer path; output run-ID placeholder intentionally remains controller-owned.",
+  "actual_main_pipeline": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+    "bytes": 84747,
+    "sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb"
+  },
+  "training_launch_performed_by_this_correction": false
+}

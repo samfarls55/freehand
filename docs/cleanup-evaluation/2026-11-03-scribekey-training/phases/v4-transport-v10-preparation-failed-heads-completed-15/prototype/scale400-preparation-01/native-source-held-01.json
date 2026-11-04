@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T10:11:46.174825+00:00",
+  "status": "NATIVE400_SOURCE_HELD_NOT_EXECUTED_REQUIRES_ROOT_SERIAL_CPU_GRANT",
+  "sources": {
+    "native400_client.py": "b6091ba3f524a26f6009adcfb56daf9dfd757931041bfe585ed82a714ff4faf3",
+    "native400_cache.py": "3f161098fef2c70a005ecdab287f74d81058f566a68b71d2814b98e3d38fdb6e",
+    "native400_observed_cache.py": "dc5646aa380d3f0b0420aaeb06ec63ccef9747f4ef147709097b7765287d6230",
+    "feature_contract.py": "3b510a3f42fedf125326b875804b4f09f4e5787e22d00832a57d79e7833969a2",
+    "protection.py": "7c1d270b57b5f653f177cd9703aaa45d6828166314f4facd023ef15c23ca8a43",
+    "editor_core/__init__.py": "a105664ebc907d08bfacf2b873d2479391b423c45e7660c229eae1709aa9b15e",
+    "editor_core/core.py": "cf56a846e75edd09e62ea82a3e6e5310cedec7ed9c736995a09ed65793ffee7d",
+    "editor_core/head_contract.py": "2c7fdf966b07990512102da947c0c78061eea575e8bee1568f970b3782ef32be",
+    "prepare_pilot400.py": "0d4e6e9bdf6d022baff6554e6620c78fdfb8d416c2bf11ebf8ee47ef95634175",
+    "test_prepare_pilot400.py": "69b35b304b3528436d2836ad2c23c3a157e69a39d1f98dc64b8a01cc85f19800",
+    "test_native400_observer.py": "56c2250ed9dcbed5189de426e78e72be5616478fcdce56232f28f956ab5a4097",
+    "test_native400_client.py": "91b610c89b96713f697edcfd6cd9123494b62e7fc53212984331c9988d3e7d18",
+    "test_native400_cache.py": "dff9f42f3f47e1d01f07bc4077c9cb337165429e1eca9d78aee4e9477e968275"
+  },
+  "plan": {
+    "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/scale400-preparation-01/pilot400-plan-v2.compact.json",
+    "sha256": "a709c8d3fdb36ceedfc7cd4430d1e79a75e05b4608d4ffabad84bd992cad793e",
+    "bytes": 5539256
+  },
+  "managed_binding": {
+    "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/scale400-preparation-01/managed-qualification-binding-v2.json",
+    "sha256": "19aafec1b54b582872bdacda7a7e89fbcdfe8339c8263e0f460ae6b3f12af1ae"
+  },
+  "serialization_equivalence_sha256": "5321b3584cb3179c115a3fc72ba91bc8cddcaaf5b114d0e4c209a8e7fc312ef3",
+  "feature_profile": {
+    "batchSize": 256,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "contextCheckpoints": 0,
+    "contextSize": 1024,
+    "embedding": true,
+    "featureWidth": 1024,
+    "flashAttention": "auto-no-explicit-override",
+    "generationSpeculation": false,
+    "gpuLayers": 0,
+    "maxSourceAtoms": 512,
+    "microBatchSize": 256,
+    "parallel": 1,
+    "pooling": "none",
+    "promptCacheMiB": 0,
+    "repack": false,
+    "threads": 4,
+    "threadsBatch": 4,
+    "transport": "llama-server-http-embeddings",
+    "warmup": false
+  },
+  "feature_profile_sha256": "5e7801534ab449dd0f45260118a690491024780f3e57682cd8d2249d6e2c3c02",
+  "cases": 400,
+  "train": 320,
+  "development": 80,
+  "all400_source_ready": true,
+  "maximum_forced_source_copy_tokens": 238,
+  "maximum_source_atoms": 78,
+  "expected_feature_bytes": 43159552,
+  "feature_byte_cap": 50000000,
+  "request_budget": 400,
+  "explicit_work_grant_seconds_range": [
+    240,
+    900
+  ],
+  "cleanup_grace_seconds_maximum": 20,
+  "storage": {
+    "feature_files": "Fresh exact-granted/dev/shm directory",
+    "metadata_logs_closure": "Fresh exact-granted prototype subdirectories"
+  },
+  "actual_execution_closure": "8project Python dependencies+plan/data/tokenizer/runtime/model/libs+archived certificate/helper bodies; mutable unused pipeline not frozen",
+  "old64_source_test_pins_preserved": {
+    "native_client.py": "bf510541afa7ca5fa03d6b2fde369e326b2afff2632f16307577429d420c786e",
+    "native_cache.py": "b1eccd3aefad5571cbde2032b8b30853c24bd724df5d49c9d300a2b496ddabcb",
+    "test_native_client.py": "6ff16bbc034ae0bf0c0e95f6cbab453ef12173ead07707a3981ae1c0a77401c0",
+    "test_native_cache.py": "de1497ba2b3f018ac8d6dd94b818403589f390935caf2801d9c0d0f249e18627"
+  },
+  "tests": {
+    "count": 46,
+    "seconds": 0.745,
+    "exit_code": 0,
+    "exec_chunk": "3949a5",
+    "scope": "stdlib/mock/source only; no actual native/Torch/model/feature execution"
+  },
+  "target_trap_guard": "Actual400plan mapping denies target,target_sha256,label,tag_label during native prepare_cases",
+  "source_only_no_activation": true
+}

@@ -1,0 +1,50 @@
+{
+  "created_utc": "2026-11-04T08:56:55.070283+00:00",
+  "plan_sha256": "3febe6cc32d274fde91171fd8b61da61eef6b92699440f60c87e06663d79597b",
+  "grant_sha256": "0a9c5b3744174e2bef8e060181de8f76a36949feaedf0a32979b99daaa324f87",
+  "feature_profile": {
+    "transport": "llama-server-http-embeddings",
+    "featureWidth": 1024,
+    "contextSize": 1024,
+    "threads": 4,
+    "threadsBatch": 4,
+    "batchSize": 512,
+    "microBatchSize": 512,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "gpuLayers": 0,
+    "repack": false,
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "embedding": true,
+    "pooling": "none",
+    "warmup": false,
+    "flashAttention": "auto-no-explicit-override",
+    "parallel": 1,
+    "generationSpeculation": false,
+    "maxSourceAtoms": 512
+  },
+  "feature_profile_sha256": "d83fd78d858ef4a13c8bd2f1dcc095e85d2eb80edfbd886d036d39253721486f",
+  "pins": {
+    "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+    "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+    "/tmp/freehand-v8-v9-factor-izdqupmr/t050/native-F32.gguf": "4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1"
+  },
+  "maximum_embedding_requests": 64,
+  "expected_atom_cache_bytes": 6664192,
+  "max_wall_seconds": 120,
+  "per_HTTP_timeout_seconds_maximum": 90,
+  "dataset": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/scope-copy-v10-training/core-normalization-v1/train-400-core-normalized-v1.jsonl",
+    "sha256": "caa3695b10055e28766f19f75df0652170bc9957a9e7e086e208374d79326f25",
+    "rows": 400,
+    "scope": "Approved training-only400; old3634 remains separate and unchanged"
+  },
+  "target_or_label_used_for_native_input": false,
+  "no_Torch_while_model_active": true,
+  "read_only_weights": true,
+  "source_pins": {
+    "controller": "b1eccd3aefad5571cbde2032b8b30853c24bd724df5d49c9d300a2b496ddabcb",
+    "client": "bf510541afa7ca5fa03d6b2fde369e326b2afff2632f16307577429d420c786e"
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "status": "PREPARED_NOT_EXECUTED_CLOSURE",
+  "large_model_runtime_pins_from_prior_receipts_not_rehashed_during_preparation": true,
+  "common": [
+    {
+      "role": "applied_pipeline",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+      "sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb"
+    },
+    {
+      "role": "original_bf16",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/model.safetensors",
+      "sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a"
+    },
+    {
+      "role": "original_iq4",
+      "path": "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf",
+      "sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174"
+    },
+    {
+      "role": "parent_raw",
+      "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter.safetensors",
+      "sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993"
+    },
+    {
+      "role": "parent_config",
+      "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter-config.json",
+      "sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660"
+    },
+    {
+      "role": "parent_derivation",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/DERIVATION.json",
+      "sha256": "187afb518ec4d43f1d812ebf9900e34ec6fe09a291ed8bfcc777ebae70ef624e"
+    },
+    {
+      "role": "base_config",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/config.json",
+      "sha256": "13ab9863955d2016c32417ff97b1a9840951d2481b6d3095f7ae98d10611a7d2"
+    },
+    {
+      "role": "tokenizer",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/tokenizer.json",
+      "sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd"
+    },
+    {
+      "role": "approved600",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/data-600-v1/positive-600-v1.jsonl",
+      "sha256": "4fec04c191c8324a547050500ce691fd3bc9ae65f45637cb218641a8e768c697"
+    },
+    {
+      "role": "native_executable",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+      "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+    },
+    {
+      "role": "native_library_0",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-base.so.0.28.0",
+      "sha256": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb"
+    },
+    {
+      "role": "native_library_1",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-haswell.so",
+      "sha256": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5"
+    },
+    {
+      "role": "native_library_2",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-rpc.so",
+      "sha256": "39d3e844f1985afd722007641cd28a2161e86981835474ee406278edf6588620"
+    },
+    {
+      "role": "native_library_3",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml.so.0.28.0",
+      "sha256": "8643a58bb37af6fb153e2ea98b48efa227855725ee51c05f4ca76b9867956463"
+    },
+    {
+      "role": "native_library_4",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-common.so.0.8.0",
+      "sha256": "d54634b12e99da239333588d01c80b7714df8dc416ebd71e19204e64ee26465f"
+    },
+    {
+      "role": "native_library_5",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-server-impl.so",
+      "sha256": "e9708c1c53e02db7f565d292d80dd754eaaadeb6ff159a2f6473a7518703287a"
+    },
+    {
+      "role": "native_library_6",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama.so.0.8.0",
+      "sha256": "da1e126ab98e2a8b52abc2a79589a5f9bde160e43f4c1f40469ef8927736da7b"
+    },
+    {
+      "role": "specialist_literal_protection.py",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py",
+      "sha256": "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561",
+      "bytes": 8886
+    },
+    {
+      "role": "literal_protection.py",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/literal_protection.py",
+      "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+      "bytes": 3976
+    },
+    {
+      "role": "specialist_literal_word_ranges.py",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_word_ranges.py",
+      "sha256": "8d3e4b053be74326530914610c5e592d8a00d5870eba68a65da403845b70c42e",
+      "bytes": 13994
+    },
+    {
+      "role": "gguf/quants.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/gguf/quants.py",
+      "sha256": "db403c3b2292d3f2c5cfef4109d4b5745f437b5599c7afc94d4b97feca7e9247",
+      "bytes": 64919
+    },
+    {
+      "role": "gguf/tensor_mapping.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/gguf/tensor_mapping.py",
+      "sha256": "64c24cf3560015d8faf30be5d801fe7b511349f9ba2d96fa33782b3a2efbc624",
+      "bytes": 104406
+    },
+    {
+      "role": "transformers/models/lfm2/modeling_lfm2.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/models/lfm2/modeling_lfm2.py",
+      "sha256": "8bb414ac677a00fe8fade1655c66ad0af7111822d629cbbc12c31c2db779421e",
+      "bytes": 32195
+    },
+    {
+      "role": "transformers/modeling_layers.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_layers.py",
+      "sha256": "bd262f364af26b99381db23583ca6e1a9741d8c3894bc3aa08f204fe6a7f68ee",
+      "bytes": 11566
+    },
+    {
+      "role": "transformers/modeling_utils.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_utils.py",
+      "sha256": "bf1c6b2a43cf7c36fb79f37c981424dd6ae78eb863fcaa5d2a37e76c9828611d",
+      "bytes": 308964
+    },
+    {
+      "role": "torch/utils/checkpoint.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/utils/checkpoint.py",
+      "sha256": "bce92715ec3c0d3941dd74c939396686632457a2c7cf98247f3f67b351e97309",
+      "bytes": 72873
+    },
+    {
+      "role": "torch/nn/utils/clip_grad.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/nn/utils/clip_grad.py",
+      "sha256": "d3df2a8ff98f579529b95a3863ad3e8f471ea82531c906a4a30b7dc2a30e8e67",
+      "bytes": 11516
+    },
+    {
+      "role": "torch/optim/adamw.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/optim/adamw.py",
+      "sha256": "54299056b7745c162192132bb6028f3387c05ff4203518ff0240058584968312",
+      "bytes": 7388
+    },
+    {
+      "role": "profile-datasets.json",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-datasets.json",
+      "sha256": "104363c86527239de439c943e5b6b86904c6ead83aad59bd36fcf29d85911c61",
+      "bytes": 1991
+    },
+    {
+      "role": "profile-recipes.json",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-recipes.json",
+      "sha256": "747845a9e4353384467b618283521309c71d6033fc52ce52e292a5ce4b4bc2c1",
+      "bytes": 5628
+    },
+    {
+      "role": "expected-adapter-schema.json",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/expected-adapter-schema.json",
+      "sha256": "596639db7fcc5d89c390e96d731b3ed5a83e0dd1a7326d34af6e258a91b993a4",
+      "bytes": 13768
+    }
+  ]
+}

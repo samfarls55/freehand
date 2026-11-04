@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "authorized_by": "/root",
+  "operation": "v10-matched-memory-profile",
+  "approved": true,
+  "profile": "worst239_gc_on",
+  "output_directory": "/dev/shm/freehand-v10-worst239-profile-02",
+  "recipe_sha256": "747845a9e4353384467b618283521309c71d6033fc52ce52e292a5ce4b4bc2c1",
+  "profile_sha256": "8f09440b612fb74d5dc19fe452a93e0dcd4849424273d12e8af6c5bbcd8ee09d",
+  "source_pins": {
+    "profile_common.py": "ed9fa1333fc66871113f2e2d0c1a1860518a57a8087c3670dacb268d1dca1d24",
+    "profile_controller.py": "b8e7d87a362628a54f32e4875a915bbcf1da72b3e464ea761a12ee5187f91fb7",
+    "profile_worker.py": "04908002da0ecb5d6480bba2e3bd4a3457f525597f6626262c9f48b424cfd93e",
+    "profile_supervisor.py": "3d7545eeaa0191e435b967c170e007ee4b8a89dba424491c917300c3b261328a",
+    "safetensor_audit.py": "68036c9de844428ac884a655c59e8ec3394fb8da9a50031c5039e17e2401abb7"
+  },
+  "inputs_manifest_sha256": "45654a072bd512e181d1d14cb26e2068bcba06f9595f0bc3e731894d4e3cb3d1",
+  "memory_cap_bytes": 16500000000,
+  "max_wall_seconds": 180,
+  "exclusive_cpu_after_prior_release": true,
+  "profile_weights_are_not_candidates": true,
+  "created_utc": "2026-11-04T10:10:05.717737+00:00",
+  "root_review": "Readentirecontroller/common/worker/supervisorandstreamingauditcore.34independentsyntheticguardsPASS; actualpipeline43regressionsPASS. Sameapplied27a2trainer/nativeIQ4t050warmstart/239tokens/B1acc8/v4GC/1freshupdatewithreadonlyclosure. NoappSLAoraccuracy/candidateclaim; memorysampler16.5GBstop+ownedreap180sec.",
+  "actual_application_source_sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+  "resource_condition": {
+    "type": "Cold unused overlay-file cache after POSIX_FADV_DONTNEED only; filebytes/paths/meta preserved",
+    "receipt_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/root-cold-cache-condition-02.json",
+    "receipt_sha256": "6651d4925104df1e9ae5ceef2d01d5516950ccab0fa11610dece001896cd819d",
+    "prior_incomplete_profile_preserved": "/dev/shm/freehand-v10-worst239-profile-01",
+    "current_cgroup_bytes": 10926624768
+  }
+}

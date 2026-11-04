@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "status": "PASS_BOUNDED_PROPOSED_SOURCE_REVIEW",
+  "reviewer": "cleanup_pipeline_review",
+  "reviewed_at_utc": "2026-11-04T09:45:17.366447+00:00",
+  "patch": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/PROPOSED-NOT-APPLIED-v4-memory-v4.patch",
+    "bytes": 13852,
+    "sha256": "2b5162d40dd862731a59e82735f04d9bfb94a18b2030ad568a1c3cb0a03f0c9d"
+  },
+  "candidate_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/work-only-candidate-v4/tools/Freehand.Cleanup.Training/pipeline.py",
+    "bytes": 84747,
+    "sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb"
+  },
+  "main_pipeline_before_and_after": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+    "bytes": 79171,
+    "sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
+  },
+  "main_source_modified_by_reviewer": false,
+  "hunks_reconstructed_exact_candidate": true,
+  "preserved_default_v3_equivalence_evidence": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-source-review.json",
+    "bytes": 7322,
+    "sha256": "3c207a04034963e579a2d902eba9c8d6bd9d33f5985457815ea65efeb2e388cb"
+  },
+  "synthetic_validation": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/independent-review-v4/synthetic-config-review.json",
+    "bytes": 8061,
+    "sha256": "7019e637f3999362b0dfceb3681a0ff976a19ff081511b97e45158e532282736"
+  },
+  "existing_pure_contract_tests": {
+    "passed": 8,
+    "failed": 0,
+    "log": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/independent-review-v4/pure-contract-tests-complete-namespace.log",
+      "bytes": 1280,
+      "sha256": "600a2c1479a981bcf02291c4cb524581fd209e65f47a127129538b3b0f5b105e"
+    },
+    "scope": "Only pre-existing pure TrainingContractTests AST class executed; top-level Torch import omitted deliberately. Full tensor suite not run."
+  },
+  "unchanged_math_and_native_guard_function_sources": [
+    "validate_gguf_base_identity",
+    "quantized_base_model",
+    "gguf_tensor_mapping",
+    "inverse_gguf_tensor",
+    "install_lora",
+    "install_native_q8_activation",
+    "install_kv_roundtrip",
+    "assistant_loss",
+    "chosen_token_loss",
+    "save_resume_checkpoint"
+  ],
+  "installed_GC_sources_read_without_import": [
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/models/lfm2/modeling_lfm2.py",
+      "bytes": 32195,
+      "sha256": "8bb414ac677a00fe8fade1655c66ad0af7111822d629cbbc12c31c2db779421e"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_layers.py",
+      "bytes": 11566,
+      "sha256": "bd262f364af26b99381db23583ca6e1a9741d8c3894bc3aa08f204fe6a7f68ee"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_utils.py",
+      "bytes": 308964,
+      "sha256": "bf1c6b2a43cf7c36fb79f37c981424dd6ae78eb863fcaa5d2a37e76c9828611d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/utils/checkpoint.py",
+      "bytes": 72873,
+      "sha256": "bce92715ec3c0d3941dd74c939396686632457a2c7cf98247f3f67b351e97309"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/_compile.py",
+      "bytes": 1994,
+      "sha256": "b2c7521692c9b45445d83710de03e1620578d2cef2a6ee93ec0a3fae3dc1d277"
+    }
+  ],
+  "findings_resolved": [
+    "V1 newhelperSHA/False versus old missingkeys rejected legacy default resumes; explicit knownlegacy mode now handles missing metadata without fabricating historic identities.",
+    "V2 broad schema1 fallback narrowed to actual integer1, exact savedsource8c/v3/noGC and the current helper9ee registered by proof3c207. Other historical/unknown source, helper drift, true GC and v4 cannot obtain a legacy waiver.",
+    "V3 direct inspect.getfile(checkpoint_function) would capture torch._compile decorator wrapper; final inspect.unwrap binds the underlying torch.utils.checkpoint implementation.",
+    "Programmatic namespaces lacking new args use explicit v3/noGC defaults; malformed checkpoint flags reject before new output writes."
+  ],
+  "review_conclusions": [
+    "protected_pair/load_data and both UL gold/bad paths receive the selected protocol; default PROTOCOL remainsv3. Config accurately records actual protocol/helper/optional frozen word table, with no falsified defaultv4 metadata.",
+    "Newv4/GC resume mode fields require presence even for null values, compare exact types and values, and GC also compares package identities. Four actual GC source hashes cover LFM2 blocks, Transformer wrapper/enable and underlying Torch checkpoint.",
+    "Source load verifies original checkpoint bytes, source/config binding and boundary positions before comparing mode identity. Existing quantized-training source identity remains strict and unwaived.",
+    "Installed Lfm2DecoderLayer inherits GradientCheckpointingLayer; modern enable traverses matching modules and installs partial checkpoint with use_reentrant=False. Nonreentrant supports frozen/no-grad inputs, so manual LoRA need not pretend PEFT was installed or force input gradients.",
+    "assistant_loss explicitly uses_cache=False; layer checkpoint wrapper discards mutable past/cache kwargs. Existing Q8 linear prehooks and manual LoRA path remain inside each block; all base/scale/KVnone guards are unchanged.",
+    "GC enable occurs after zero-adapter and parent-init checks; model.train precedes the chosen forward/backward. No adapter/base math or inference default was changed by this patch.",
+    "Legacy profile() still measures short originalBF16/v3/noGC; generate() remains legacy and rejects quantized adapters. Neither supplies qualification for the planned nativeIQ4/v4/GC profile."
+  ],
+  "required_next_actual_gates": [
+    "Before training qualification, execute the separately authorized matched worst239-token B1/acc8 nonreentrant-GC one-backward memory profile using actual selected base/parent/Q8/v4 setup; source inspection proves no memory or gradient result.",
+    "Before50-to150 continuation, the NEW outer V10 verifier must qualify all184 finite F32 AdamW moments and exact parameter shapes/step50 plus actual saved Torch/Python RNG restore/getstate roundtrip. Existing shared loader was intentionally not rewritten.",
+    "Keep source/data/full150-step LR schedule fixed across endpoints50/150, checkpoint50 complete/durable, and preserve every original source/config/optimizer/RNG payload.",
+    "Only root may authorize applying this still-unapplied patch and starting those model jobs. No model/Torch/profile/training operation was performed by this reviewer."
+  ],
+  "no_Torch_native_model_weights_build_training_or_fresh3_access": true,
+  "no_expensive_weight_hashing": true,
+  "blockers": []
+}

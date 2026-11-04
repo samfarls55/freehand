@@ -1,0 +1,39 @@
+{
+  "pid": 172907,
+  "pgid": 172907,
+  "proc_start_ticks": "7373490",
+  "controller_pid": 172906,
+  "argv": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "build",
+    "Freehand.sln",
+    "-c",
+    "Release",
+    "--no-incremental",
+    "-warnaserror",
+    "-p:EnableWindowsTargeting=true",
+    "--artifacts-path",
+    "/dev/shm/freehand-quote-v4-build-20261104T082647Z",
+    "--disable-build-servers",
+    "-maxcpucount:1",
+    "-nodeReuse:false",
+    "-p:UseSharedCompilation=false"
+  ],
+  "environment_overrides": {
+    "DOTNET_PROCESSOR_COUNT": "1",
+    "NUGET_PACKAGES": "/home/agent/.nuget/packages",
+    "MSBUILDDISABLENODEREUSE": "1",
+    "DOTNET_CLI_USE_MSBUILD_SERVER": "0",
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+    "DOTNET_CLI_WORKLOAD_UPDATE_NOTIFY_DISABLE": "true",
+    "TMPDIR": "/dev/shm/freehand-quote-v4-build-20261104T082647Z/tmp"
+  },
+  "artifact_root": "/dev/shm/freehand-quote-v4-build-20261104T082647Z",
+  "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/strict-build.log",
+  "source_packet": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/source-ready-v3.json",
+    "bytes": 15920,
+    "sha256": "7960f93db6de4e55a90277dac62a52ce4c9c60a75906e69006c317d18b5a9472"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T09:25:58.026512+00:00",
+  "status": "SOURCE_TAG_CONTROLLERS_SOURCE_READY_NOT_TORCH_EXECUTED",
+  "sources": {
+    "source_tag_train.py": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source_tag_train.py",
+      "bytes": 19312,
+      "sha256": "45db0262dba99151e4f110f54c985ec2109a85c10e82d8ee975ccfcb09c9d84f"
+    },
+    "source_tag_unit.py": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source_tag_unit.py",
+      "bytes": 6256,
+      "sha256": "56838120fa89f6ca0e562a152c8f8f5b768463bc7b0f9955fab54cc95f853589"
+    },
+    "source_tag_runtime.py": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source_tag_runtime.py",
+      "bytes": 10061,
+      "sha256": "981baaff26ad12648c1973efa711c512ca987cfecd4e3bc3aa0ff6230ade8491"
+    },
+    "test_source_tag_train.py": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/test_source_tag_train.py",
+      "bytes": 8246,
+      "sha256": "937951df9827b97219bba26ae61bec93a7077946958a2788543fe3a591261b06"
+    },
+    "test_source_tag_runtime.py": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/test_source_tag_runtime.py",
+      "bytes": 13161,
+      "sha256": "2cb72b8ebbe957f955142cc6e2bffb980aa926c0f96edb7e0f9f52ece79479ff"
+    },
+    "SOURCE_TAG_CONTROLLERS.md": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/SOURCE_TAG_CONTROLLERS.md",
+      "bytes": 4481,
+      "sha256": "44902e097e62b7e86908ff12a52f165665d6d00b093e4c90fcbba50f191091c7"
+    },
+    "source-tag-final-stdlib-tests.log": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source-tag-final-stdlib-tests.log",
+      "bytes": 4418,
+      "sha256": "3bf83808e301ac26d82ac7f75e56765e0fe12f3b378808c4e58705028b16c2ff"
+    }
+  },
+  "required_dependency_inventory": [
+    "source_tag_contract.py",
+    "source_tag_model.py",
+    "source_tag_train.py",
+    "source_tag_unit.py",
+    "source_tag_runtime.py",
+    "editor_core/__init__.py",
+    "editor_core/core.py",
+    "editor_core/head_contract.py"
+  ],
+  "model_source_sha256_current": "5af20ad0977466d715a15794d201c5e44db22f1079fafdd4907c162fe31e74f9",
+  "contract_source_sha256_current": "f7479589349812f8915f566ddf981833d8869bc093e4ede9fcc48a2d349f91d5",
+  "dependency_note": "Model/contract final freeze belongs to their owners; grant must pin current full required_pins after their independent review.",
+  "plan_sha256": "3febe6cc32d274fde91171fd8b61da61eef6b92699440f60c87e06663d79597b",
+  "fixed_denominators": {
+    "all": 64,
+    "train": 48,
+    "development": 16
+  },
+  "unit_settings": {
+    "seed": 20261104,
+    "dropout": 0.0,
+    "optimizer_steps": 0,
+    "unit_profile": "synthetic-source-tag-graph-v1"
+  },
+  "unit_settings_sha256": "b4cf82953cd31c562d94ca45770355c285970765cc8f68e41bb815a3f28a3db8",
+  "default_training_settings": {
+    "steps": 300,
+    "batch_size": 4,
+    "learning_rate": 0.001,
+    "seed": 20261104,
+    "worker_seconds": 110.0,
+    "architecture": "source-tag-graph-defaults-source-pinned",
+    "max_visits": 3,
+    "max_insertions": 4,
+    "model_forward_input": "source_features_and_source_padding_only"
+  },
+  "tests": {
+    "result": "PASS",
+    "tests": 27,
+    "elapsed_seconds": 0.034,
+    "scope": "stdlib synthetic metadata/compiler labels and mocked owned-process lifecycle; no Torch, native or actual cache features"
+  },
+  "synthetic_unit_source_labels_exact_roundtrip": true,
+  "AST_parse_and_imports_without_Torch": true,
+  "independent_source_review": {
+    "reviewer": "/root/native_alignment_preparation/preview_ps_micro64",
+    "CE_actual_usage_reporting_blocker": "Fixed and source-verified; used_ids updated after completed optimizer steps only"
+  },
+  "execution_gates": {
+    "new_root_source_settings_output_grant_required": true,
+    "unit_worker_seconds": 20,
+    "train_worker_supervisor_seconds": 120,
+    "cleanup_grace_seconds": 2,
+    "exact_original_python_spelling": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python"
+  },
+  "feature_inputs": "Cached source atom features+source padding only; native never called",
+  "all64_retained": true,
+  "unsupported_labels_skip_CE_only": true,
+  "actual_CE_usage_tracked_after_optimizer_step": true,
+  "quality_or_SLA_claim": false,
+  "Torch_or_model_execution": false,
+  "actual_cached_features_read": false,
+  "native_execution": false,
+  "old_source_modified": false,
+  "default_training_settings_sha256": "1619b190c924733ee3f1e7ed87c899d554212d576ecc7d002e9b89d53c8145f7"
+}

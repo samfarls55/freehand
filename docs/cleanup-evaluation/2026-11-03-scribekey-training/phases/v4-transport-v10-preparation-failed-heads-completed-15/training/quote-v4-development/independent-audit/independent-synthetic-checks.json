@@ -1,0 +1,23 @@
+{
+  "scope": "Synthetic only; no corpus/model/native/managed build access",
+  "seed": 8404,
+  "legacy_default_cases": 2506,
+  "v2_v3_configurations": 2,
+  "restore_probes_per_mask": 3,
+  "legacy_comparisons_passed": 5012,
+  "historical_python_sha256": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+  "unchanged_ast": [
+    "_trim_end_length",
+    "_escaped",
+    "_quote_spans",
+    "SpecialistLiteralMask.__init__",
+    "SpecialistLiteralMask.restore"
+  ],
+  "all_shared_accepted_payloads_match": true,
+  "bounded_grammar_edge": {
+    "input": "Keep \"tell 'em later\".",
+    "result": "explicit_rejection",
+    "error": "Specialist literal v4 found an unmatched or ambiguous quote boundary",
+    "v3_preserved": true
+  }
+}

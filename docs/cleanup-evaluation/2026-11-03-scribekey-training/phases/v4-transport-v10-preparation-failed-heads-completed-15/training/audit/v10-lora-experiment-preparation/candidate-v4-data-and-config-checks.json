@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "candidate_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/work-only-candidate-v4/tools/Freehand.Cleanup.Training/pipeline.py",
+  "candidate_sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+  "data_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/data-600-v1/positive-600-v1.jsonl",
+  "data_sha256": "4fec04c191c8324a547050500ce691fd3bc9ae65f45637cb218641a8e768c697",
+  "actual_load_data_v4_rows": 600,
+  "actual_encode_rows": 600,
+  "maximum_complete_tokens": 239,
+  "synthetic_repeated_and_nested_payload_checks": [
+    {
+      "source": "Keep \"um\" and \"um\" unchanged.",
+      "target": "Keep \"um\" and \"um\" unchanged.",
+      "spans": 2,
+      "roundtrip": true
+    },
+    {
+      "source": "Use \"contains [block]\" beside \"[block]\".",
+      "target": "Use \"contains [block]\" beside \"[block]\".",
+      "spans": 2,
+      "roundtrip": true
+    }
+  ],
+  "legacy8c9ee_noGC_missingmetadata_accepted_honestly": true,
+  "strict_rejected_subcases": [
+    "unknownlegacy",
+    "schemabool",
+    "helperdrift",
+    "v4missingnullable",
+    "quantizedsource"
+  ],
+  "Torch_transformers_or_models_imported": false,
+  "pipeline_repo_source_changed": false
+}

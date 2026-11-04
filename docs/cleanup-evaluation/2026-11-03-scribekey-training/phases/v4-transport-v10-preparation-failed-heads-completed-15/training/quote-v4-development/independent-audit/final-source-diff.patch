@@ -1,0 +1,1132 @@
+diff --git a/scripts/get-cleanup-assets.ps1 b/scripts/get-cleanup-assets.ps1
+index 3d9b705..4c7f574 100644
+--- a/scripts/get-cleanup-assets.ps1
++++ b/scripts/get-cleanup-assets.ps1
+@@ -105,7 +105,7 @@ $limits = @{
+     PromptLookupTokens = @(0, 64); PromptLookupMatchTokens = @(1, 12)
+ }
+ $optionalSettings = @{ BatchSize = 128; MicroBatchSize = 128; PromptCacheMiB = 0; ContextCheckpoints = 0
+-    CacheTypeK = 'f16'; CacheTypeV = 'f16'; Repack = $true; MaskSpecialistLiterals = $false
++    CacheTypeK = 'f16'; CacheTypeV = 'f16'; Repack = $true; MaskSpecialistLiterals = $false; SpecialistLiteralProtocol = 'CompactV3'
+     PromptLookupTokens = 0; PromptLookupMatchTokens = 3 }
+ foreach ($name in $optionalSettings.Keys) {
+     if ($null -eq $selected.Inference.PSObject.Properties[$name]) {
+@@ -129,6 +129,14 @@ foreach ($name in @('CacheTypeK', 'CacheTypeV')) {
+         throw "Cleanup cache type is invalid: $name"
+     }
+ }
++if ($selected.Inference.SpecialistLiteralProtocol -isnot [string] -or
++    $selected.Inference.SpecialistLiteralProtocol -cnotin @('CompactV3', 'CompactV4')) {
++    throw 'Cleanup specialist literal protocol is unsupported.'
++}
++if ($selected.Inference.SpecialistLiteralProtocol -eq 'CompactV4' -and
++    (-not $selected.Inference.MaskSpecialistLiterals -or $selected.PromptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat'))) {
++    throw 'Specialist literal v4 requires an enabled specialist mask.'
++}
+ 
+ if ($ValidateManifestOnly) {
+     return [pscustomobject]@{
+@@ -177,7 +185,7 @@ try {
+         RuntimeSourceUrl = $native.Source; RuntimeRevision = $runtime.SourceCommit
+     }
+     foreach ($name in $limits.Keys) { $prepare[$name] = $selected.Inference.$name }
+-    foreach ($name in @('CacheTypeK', 'CacheTypeV', 'Repack', 'MaskSpecialistLiterals')) { $prepare[$name] = $selected.Inference.$name }
++    foreach ($name in @('CacheTypeK', 'CacheTypeV', 'Repack', 'MaskSpecialistLiterals', 'SpecialistLiteralProtocol')) { $prepare[$name] = $selected.Inference.$name }
+     return & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') @prepare
+ } finally {
+     if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
+diff --git a/scripts/prepare-cleanup.ps1 b/scripts/prepare-cleanup.ps1
+index e57898a..67fa864 100644
+--- a/scripts/prepare-cleanup.ps1
++++ b/scripts/prepare-cleanup.ps1
+@@ -27,6 +27,7 @@ param(
+     [Parameter(ParameterSetName = 'Prepare')][ValidateSet('f16', 'q8_0', 'q4_0')][string]$CacheTypeV = 'f16',
+     [Parameter(ParameterSetName = 'Prepare')][bool]$Repack = $true,
+     [Parameter(ParameterSetName = 'Prepare')][bool]$MaskSpecialistLiterals = $false,
++    [Parameter(ParameterSetName = 'Prepare')][ValidateSet('CompactV3', 'CompactV4')][string]$SpecialistLiteralProtocol = 'CompactV3',
+     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(0, 64)][int]$PromptLookupTokens = 0,
+     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(1, 12)][int]$PromptLookupMatchTokens = 3,
+     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(256, 1048576)][int]$ContextSize = 8192,
+@@ -101,6 +102,14 @@ function Get-PreparedCleanupBundle([string]$Directory) {
+     foreach ($name in @('cacheTypeK', 'cacheTypeV')) {
+         if ($manifest.$name -isnot [string] -or $manifest.$name -cnotin @('f16', 'q8_0', 'q4_0')) { throw 'Cleanup manifest cache type is invalid.' }
+     }
++    $literalProtocol = if ($null -eq $manifest.PSObject.Properties['specialistLiteralProtocol']) { 'CompactV3' } else { $manifest.specialistLiteralProtocol }
++    if ($literalProtocol -isnot [string] -or $literalProtocol -cnotin @('CompactV3', 'CompactV4')) {
++        throw 'Cleanup manifest specialist literal protocol is unsupported.'
++    }
++    if ($literalProtocol -eq 'CompactV4' -and
++        (-not $manifest.maskSpecialistLiterals -or $manifest.promptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat'))) {
++        throw 'Specialist literal v4 requires an enabled specialist mask.'
++    }
+     $runtime = Get-CleanupRelativePath $manifest.runtimePath
+     $model = Get-CleanupRelativePath $manifest.modelPath
+     if ($null -eq $manifest.PSObject.Properties['platform']) {
+@@ -149,6 +158,11 @@ function Get-PreparedCleanupBundle([string]$Directory) {
+ 
+ if ($PSCmdlet.ParameterSetName -eq 'Validate') { return Get-PreparedCleanupBundle $ValidateDirectory }
+ 
++$SpecialistLiteralProtocol = if ($SpecialistLiteralProtocol -eq 'CompactV4') { 'CompactV4' } else { 'CompactV3' }
++if ($SpecialistLiteralProtocol -eq 'CompactV4' -and
++    (-not $MaskSpecialistLiterals -or $PromptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat'))) {
++    throw 'Specialist literal v4 requires an enabled specialist mask.'
++}
+ if ($MaxOutputTokens -ge $ContextSize) { throw 'MaxOutputTokens must be smaller than ContextSize.' }
+ if ($MicroBatchSize -gt $BatchSize) { throw 'MicroBatchSize must not exceed BatchSize.' }
+ if ($PromptLookupTokens -ge $BatchSize) { throw 'Prompt lookup plus its sampled token must fit BatchSize.' }
+@@ -280,6 +294,7 @@ try {
+         runtimeRevision = $RuntimeRevision
+         files = $files
+     }
++    if ($SpecialistLiteralProtocol -eq 'CompactV4') { $manifest['specialistLiteralProtocol'] = $SpecialistLiteralProtocol }
+     $temporaryManifest = Join-Path $stage 'cleanup-manifest.json.tmp'
+     $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $temporaryManifest -Encoding utf8NoBOM
+     [IO.File]::Move($temporaryManifest, (Join-Path $stage 'cleanup-manifest.json'))
+diff --git a/src/Freehand.Cleanup/CleanupAssetInstaller.cs b/src/Freehand.Cleanup/CleanupAssetInstaller.cs
+index 6b04f17..1f65189 100644
+--- a/src/Freehand.Cleanup/CleanupAssetInstaller.cs
++++ b/src/Freehand.Cleanup/CleanupAssetInstaller.cs
+@@ -285,6 +285,8 @@ public sealed class CleanupAssetInstaller
+             writer.WriteString("runtimeRevision", plan.RuntimeRevision);
+             foreach (var setting in plan.Inference) writer.WriteNumber(char.ToLowerInvariant(setting.Key[0]) + setting.Key[1..], setting.Value);
+             writer.WriteBoolean("maskSpecialistLiterals", plan.MaskSpecialistLiterals);
++            if (plan.SpecialistLiteralProtocol != SpecialistLiteralProtocol.CompactV3)
++                writer.WriteString("specialistLiteralProtocol", plan.SpecialistLiteralProtocol.ToString());
+             writer.WriteBoolean("repack", plan.Repack);
+             writer.WriteString("cacheTypeK", plan.CacheTypeK);
+             writer.WriteString("cacheTypeV", plan.CacheTypeV);
+@@ -319,6 +321,7 @@ public sealed class CleanupAssetInstaller
+                 || options.PromptCacheMiB != plan.Inference["PromptCacheMiB"] || options.ContextCheckpoints != plan.Inference["ContextCheckpoints"]
+                 || options.PromptLookupTokens != plan.Inference["PromptLookupTokens"] || options.PromptLookupMatchTokens != plan.Inference["PromptLookupMatchTokens"]
+                 || options.MaskSpecialistLiterals != plan.MaskSpecialistLiterals || options.Repack != plan.Repack
++                || options.SpecialistLiteralProtocol != plan.SpecialistLiteralProtocol
+                 || options.CacheTypeK != plan.CacheTypeK || options.CacheTypeV != plan.CacheTypeV
+                 || options.StartupTimeout != TimeSpan.FromSeconds(plan.Inference["StartupTimeoutSeconds"])
+                 || options.IdleTimeout != TimeSpan.FromSeconds(plan.Inference["IdleTimeoutSeconds"])
+@@ -367,7 +370,7 @@ public sealed class CleanupAssetInstaller
+     private sealed record Plan(string ModelId, string PromptStyle, string ModelRevision, string RuntimeRevision, string RuntimePlatform,
+         Artifact Model, Artifact ModelLicense, Artifact RuntimeLicense, Artifact Archive, Artifact[] Notices,
+         string ExecutableSha256, IReadOnlyDictionary<string, int> Inference,
+-        bool MaskSpecialistLiterals, bool Repack, string CacheTypeK, string CacheTypeV)
++        bool MaskSpecialistLiterals, SpecialistLiteralProtocol SpecialistLiteralProtocol, bool Repack, string CacheTypeK, string CacheTypeV)
+     {
+         internal long TotalBytes => checked(Model.Size + ModelLicense.Size + RuntimeLicense.Size + Archive.Size + Notices.Sum(notice => notice.Size));
+     }
+@@ -431,8 +434,17 @@ public sealed class CleanupAssetInstaller
+         if (settings["MaxOutputTokens"] >= settings["ContextSize"]) throw new InvalidDataException("Cleanup output must fit inside its context budget.");
+         if (settings["MicroBatchSize"] > settings["BatchSize"]) throw new InvalidDataException("Cleanup micro-batch must not exceed its logical batch.");
+         if (settings["PromptLookupTokens"] >= settings["BatchSize"]) throw new InvalidDataException("Cleanup prompt lookup plus its sampled token must fit the logical batch.");
++        var maskSpecialistLiterals = OptionalBoolean(inference, "MaskSpecialistLiterals", false);
++        var literalProtocol = inference.TryGetProperty("SpecialistLiteralProtocol", out _) ? Text(inference, "SpecialistLiteralProtocol") switch
++        {
++            nameof(SpecialistLiteralProtocol.CompactV3) => SpecialistLiteralProtocol.CompactV3,
++            nameof(SpecialistLiteralProtocol.CompactV4) => SpecialistLiteralProtocol.CompactV4,
++            _ => throw new InvalidDataException("Cleanup acquisition specialist literal protocol is unsupported."),
++        } : SpecialistLiteralProtocol.CompactV3;
++        if (literalProtocol == SpecialistLiteralProtocol.CompactV4 && (!maskSpecialistLiterals || CleanupPrompt.IsGeneral(parsed)))
++            throw new InvalidDataException("Specialist literal v4 requires an enabled specialist mask.");
+         return new(id, style, revision, runtimeRevision, runtimePlatform, weights, license, runtimeLicense, archive, notices, executableHash, settings,
+-            OptionalBoolean(inference, "MaskSpecialistLiterals", false), OptionalBoolean(inference, "Repack", true),
++            maskSpecialistLiterals, literalProtocol, OptionalBoolean(inference, "Repack", true),
+             CacheType(inference, "CacheTypeK"), CacheType(inference, "CacheTypeV"));
+     }
+ 
+diff --git a/src/Freehand.Cleanup/LlamaCleanupOptions.cs b/src/Freehand.Cleanup/LlamaCleanupOptions.cs
+index b7a25ef..04464b5 100644
+--- a/src/Freehand.Cleanup/LlamaCleanupOptions.cs
++++ b/src/Freehand.Cleanup/LlamaCleanupOptions.cs
+@@ -70,6 +70,8 @@ public sealed record LlamaCleanupOptions
+     /// <summary>Whether to protect dictionary blocks and paired quoted wording with verified compact specialist identifiers.</summary>
+     /// <remarks>Disabled by default so trained specialist contracts can be evaluated independently of this adapter.</remarks>
+     public bool MaskSpecialistLiterals { get; init; }
++    /// <summary>Explicit specialist literal protocol; defaults to the existing v3 adapter.</summary>
++    public SpecialistLiteralProtocol SpecialistLiteralProtocol { get; init; } = SpecialistLiteralProtocol.CompactV3;
+     /// <summary>Absolute manifest directory for a complete bundle inventory, when supplied.</summary>
+     public string? BundleDirectory { get; init; }
+     /// <summary>Optional complete inventory, including runtime dependencies, the model and accompanying assets.</summary>
+@@ -143,6 +145,7 @@ public sealed record LlamaCleanupOptions
+             ModelId = Required(root, "modelId"),
+             PromptStyle = style,
+             MaskSpecialistLiterals = Boolean(root, "maskSpecialistLiterals", false),
++            SpecialistLiteralProtocol = ReadSpecialistLiteralProtocol(root),
+             BundleDirectory = artifacts.Length > 0 ? directory : null,
+             Artifacts = artifacts,
+             Threads = Integer(root, "threads", 4),
+@@ -191,6 +194,10 @@ public sealed record LlamaCleanupOptions
+         if (AdapterPath?.Contains(',') == true || (AdapterScale != 1 && AdapterPath?.Contains(':') == true))
+             throw new ArgumentException("The cleanup adapter path contains a separator unsupported by its native adapter option.", nameof(AdapterPath));
+         if (!Enum.IsDefined(PromptStyle)) throw new ArgumentOutOfRangeException(nameof(PromptStyle));
++        if (!Enum.IsDefined(SpecialistLiteralProtocol)) throw new ArgumentOutOfRangeException(nameof(SpecialistLiteralProtocol));
++        if (SpecialistLiteralProtocol == SpecialistLiteralProtocol.CompactV4
++            && (!MaskSpecialistLiterals || CleanupPrompt.IsGeneral(PromptStyle)))
++            throw new ArgumentException("Specialist literal v4 requires an enabled specialist mask.", nameof(SpecialistLiteralProtocol));
+         if (Threads is < 1 or > 256) throw new ArgumentOutOfRangeException(nameof(Threads));
+         if (BatchSize is < 1 or > 8192) throw new ArgumentOutOfRangeException(nameof(BatchSize));
+         if (MicroBatchSize < 1 || MicroBatchSize > BatchSize) throw new ArgumentOutOfRangeException(nameof(MicroBatchSize));
+@@ -313,6 +320,16 @@ public sealed record LlamaCleanupOptions
+         if (value.ValueKind != JsonValueKind.String) throw new InvalidDataException("Cleanup manifest contains an invalid string: " + name + ".");
+         return value.GetString()!;
+     }
++    private static SpecialistLiteralProtocol ReadSpecialistLiteralProtocol(JsonElement root)
++    {
++        var value = OptionalString(root, "specialistLiteralProtocol", nameof(SpecialistLiteralProtocol.CompactV3));
++        if (value.Equals(nameof(SpecialistLiteralProtocol.CompactV3), StringComparison.OrdinalIgnoreCase))
++            return SpecialistLiteralProtocol.CompactV3;
++        if (value.Equals(nameof(SpecialistLiteralProtocol.CompactV4), StringComparison.OrdinalIgnoreCase))
++            return SpecialistLiteralProtocol.CompactV4;
++        throw new InvalidDataException("Cleanup manifest specialistLiteralProtocol is unsupported.");
++    }
++
+     private static bool Boolean(JsonElement root, string name, bool fallback)
+     {
+         var value = Property(root, name);
+diff --git a/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs b/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs
+index 297d386..72834a2 100644
+--- a/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs
++++ b/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs
+@@ -61,7 +61,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
+             throw new InvalidDataException("The transcript contains unsupported model control tokens.");
+         var literals = CleanupPrompt.IsGeneral(_options.PromptStyle) ? LiteralProtectionMask.Create(text) : null;
+         var specialistLiterals = !CleanupPrompt.IsGeneral(_options.PromptStyle) && _options.MaskSpecialistLiterals
+-            ? SpecialistLiteralMask.Create(text) : null;
++            ? SpecialistLiteralMask.Create(text, protocol: _options.SpecialistLiteralProtocol) : null;
+         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
+         await _gate.WaitAsync(linked.Token).ConfigureAwait(false);
+         try
+diff --git a/src/Freehand.Cleanup/SpecialistLiteralMask.cs b/src/Freehand.Cleanup/SpecialistLiteralMask.cs
+index 9a054c9..4032f8e 100644
+--- a/src/Freehand.Cleanup/SpecialistLiteralMask.cs
++++ b/src/Freehand.Cleanup/SpecialistLiteralMask.cs
+@@ -4,7 +4,7 @@ using System.Text;
+ 
+ namespace Freehand.Cleanup;
+ 
+-/// <summary>Protects dictionary blocks and paired double-quoted text with compact specialist identifiers.</summary>
++/// <summary>Protects dictionary blocks and explicitly selected quoted text with compact specialist identifiers.</summary>
+ /// <remarks>Restoration validates every identifier before returning any text. General models retain their existing literal protocol.</remarks>
+ public sealed class SpecialistLiteralMask
+ {
+@@ -31,14 +31,24 @@ public sealed class SpecialistLiteralMask
+     /// <summary>Creates a deterministic mask without normalizing, editing or interpreting literal contents.</summary>
+     /// <param name="text">Complete pre-cleanup transcript.</param>
+     /// <param name="removeAddedQuotePeriod">Whether to remove one model-added terminal period after an already punctuated final quote; false replays protocol v2.</param>
+-    public static SpecialistLiteralMask Create(string text, bool removeAddedQuotePeriod = true)
++    public static SpecialistLiteralMask Create(string text, bool removeAddedQuotePeriod = true) =>
++        CreateCore(text, removeAddedQuotePeriod, SpecialistLiteralProtocol.CompactV3);
++
++    /// <summary>Creates an explicitly versioned mask; legacy callers retain their original overload and behavior.</summary>
++    /// <param name="text">Complete pre-cleanup transcript.</param>
++    /// <param name="protocol">Opt-in v4 also protects balanced single quotes and rejects ambiguous quote boundaries.</param>
++    public static SpecialistLiteralMask Create(string text, SpecialistLiteralProtocol protocol) => CreateCore(text, true, protocol);
++
++    private static SpecialistLiteralMask CreateCore(string text, bool removeAddedQuotePeriod, SpecialistLiteralProtocol protocol)
+     {
+         ArgumentNullException.ThrowIfNull(text);
++        if (!Enum.IsDefined(protocol)) throw new ArgumentOutOfRangeException(nameof(protocol));
++        if (protocol == SpecialistLiteralProtocol.CompactV4) ValidateUnicode(text);
+         if (text.Contains(Family, StringComparison.Ordinal))
+             throw new InvalidDataException("The transcript contains a reserved specialist literal identifier.");
+         var dictionary = LiteralProtectionMask.Create(text);
+         var source = dictionary.MaskedText;
+-        var quotes = QuoteSpans(source);
++        var quotes = protocol == SpecialistLiteralProtocol.CompactV4 ? QuoteSpansV4(source) : QuoteSpans(source);
+         var tokens = new List<string>();
+         var payloads = new List<string>();
+         var known = new HashSet<string>(StringComparer.Ordinal);
+@@ -138,6 +148,115 @@ public sealed class SpecialistLiteralMask
+         return spans;
+     }
+ 
++    private static void ValidateUnicode(string text)
++    {
++        for (var at = 0; at < text.Length;)
++        {
++            if (!Rune.TryGetRuneAt(text, at, out var rune))
++                throw new InvalidDataException("Specialist literal v4 requires valid Unicode scalar values.");
++            at += rune.Utf16SequenceLength;
++        }
++    }
++
++    private static Dictionary<int, int> QuoteSpansV4(string text)
++    {
++        var spans = new Dictionary<int, int>();
++        var closing = new List<char>();
++        var opening = -1;
++        var pairedSingleFamilies = 0;
++        var barePossessiveFamilies = 0;
++        var leadingElisionFamilies = 0;
++        for (var at = 0; at < text.Length; at++)
++        {
++            var character = text[at];
++            if (character is not ('"' or '“' or '”' or '\'' or '‘' or '’') || IsEscaped(text, at)) continue;
++            var single = character is '\'' or '‘' or '’';
++            var before = WordBefore(text, at);
++            var after = WordAt(text, at + 1);
++            if (single && before && after) continue; // don't, we're, it's, l’esprit
++            if ((character is '\'' or '’') && !before && IsLeadingElision(text, at))
++            {
++                if (closing.Count == 0) leadingElisionFamilies |= character == '\'' ? 1 : 2;
++                continue;
++            }
++
++            if (closing.Count > 0 && character == closing[^1])
++            {
++                // Identical straight delimiters can nest only at an unmistakable
++                // opening word boundary. An end after padding/punctuation closes.
++                if ((character is '"' or '\'') && !before && after)
++                {
++                    PushQuote(closing, character);
++                    continue;
++                }
++                closing.RemoveAt(closing.Count - 1);
++                if (single) pairedSingleFamilies |= character == '\'' ? 1 : 2;
++                if (closing.Count == 0) spans.Add(opening, at + 1);
++                continue;
++            }
++            if (character is '”' or '’')
++            {
++                if (character == '’' && before && !closing.Contains('’'))
++                {
++                    if (closing.Count == 0 && AmbiguousTerminalApostrophe(text, at)) barePossessiveFamilies |= 2;
++                    continue;
++                }
++                throw new InvalidDataException("Specialist literal v4 found unmatched or crossing quote delimiters.");
++            }
++            if (character == '\'' && before)
++            {
++                if (closing.Count == 0 && AmbiguousTerminalApostrophe(text, at)) barePossessiveFamilies |= 1;
++                continue; // James' outside a single quote never opens one.
++            }
++            if (closing.Count == 0) opening = at;
++            PushQuote(closing, character switch { '“' => '”', '‘' => '’', _ => character });
++        }
++        if (closing.Count != 0 || ((pairedSingleFamilies | leadingElisionFamilies) & barePossessiveFamilies) != 0)
++            throw new InvalidDataException("Specialist literal v4 found an unmatched or ambiguous quote boundary.");
++        return spans;
++    }
++
++    private static void PushQuote(List<char> closing, char character)
++    {
++        if (closing.Count >= 64) throw new InvalidDataException("Specialist literal v4 quote nesting is too deep.");
++        closing.Add(character);
++    }
++
++    private static bool IsLeadingElision(string text, int at)
++    {
++        var end = at + 1;
++        while (WordAt(text, end)) end += Rune.GetRuneAt(text, end).Utf16SequenceLength;
++        if (end < text.Length && text[end] == text[at]) return false; // 'cause' is a pair.
++        var word = text.AsSpan(at + 1, end - at - 1);
++        foreach (var character in word) if (character > 0x7f) return false;
++        return word.Equals("cause", StringComparison.OrdinalIgnoreCase) || word.Equals("em", StringComparison.OrdinalIgnoreCase)
++            || word.Equals("tis", StringComparison.OrdinalIgnoreCase);
++    }
++
++    private static bool AmbiguousTerminalApostrophe(string text, int at)
++    {
++        // Ordinary James' notebook has a following noun. Unquoted -in'
++        // shortenings (goin', waitin') also remain speech, including at the end.
++        if (at >= 2 && (text[at - 2] is 'i' or 'I') && (text[at - 1] is 'n' or 'N')) return false;
++        var after = at + 1;
++        while (after < text.Length && char.IsWhiteSpace(text[after])) after++;
++        return !WordAt(text, after);
++    }
++
++    private static bool WordBefore(string text, int at)
++    {
++        if (at == 0) return false;
++        at--;
++        if (char.IsLowSurrogate(text[at])) at--;
++        return WordAt(text, at);
++    }
++
++    private static bool WordAt(string text, int at)
++    {
++        if (at < 0 || at >= text.Length) return false;
++        return SpecialistLiteralWordRanges.IsWord(Rune.GetRuneAt(text, at).Value);
++    }
++
+     private static bool IsEscaped(string text, int at)
+     {
+         var slashes = 0;
+diff --git a/tests/Freehand.Cleanup.Tests/AssetInstallerTests.cs b/tests/Freehand.Cleanup.Tests/AssetInstallerTests.cs
+index 7eca33d..003a2d9 100644
+--- a/tests/Freehand.Cleanup.Tests/AssetInstallerTests.cs
++++ b/tests/Freehand.Cleanup.Tests/AssetInstallerTests.cs
+@@ -36,6 +36,8 @@ public sealed class AssetInstallerTests
+         options.ModelSha256.ShouldBe(Hash(fixture.ModelBytes));
+         options.BatchSize.ShouldBe(128); options.MicroBatchSize.ShouldBe(128);
+         options.MaskSpecialistLiterals.ShouldBeFalse(); options.Repack.ShouldBeTrue();
++        options.SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV3);
++        File.ReadAllText(installed.ManifestPath).ShouldNotContain("specialistLiteralProtocol");
+         options.PromptCacheMiB.ShouldBe(0); options.ContextCheckpoints.ShouldBe(0);
+         options.PromptLookupTokens.ShouldBe(0); options.PromptLookupMatchTokens.ShouldBe(3);
+         options.Artifacts.Count.ShouldBe(7);
+@@ -77,6 +79,29 @@ public sealed class AssetInstallerTests
+         fixture.Transport.RequestCount.ShouldBe(requests);
+     }
+ 
++    [Fact]
++    public async Task Explicit_quote_v4_setup_preserves_version_and_repairs_a_changed_cached_protocol()
++    {
++        using var fixture = new Fixture();
++        fixture.SetInference(new Dictionary<string, object>
++        {
++            ["MaskSpecialistLiterals"] = true, ["SpecialistLiteralProtocol"] = "CompactV4",
++        });
++        var installer = fixture.Installer();
++        var installed = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
++        LlamaCleanupOptions.LoadManifest(installed.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV4);
++        var requests = fixture.Transport.RequestCount;
++        (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
++        fixture.Transport.RequestCount.ShouldBe(requests);
++        var manifest = System.Text.Json.Nodes.JsonNode.Parse(await File.ReadAllTextAsync(installed.ManifestPath))!;
++        manifest["specialistLiteralProtocol"] = "CompactV3";
++        await File.WriteAllTextAsync(installed.ManifestPath, manifest.ToJsonString());
++        var repaired = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
++        repaired.DirectoryPath.ShouldNotBe(installed.DirectoryPath);
++        LlamaCleanupOptions.LoadManifest(repaired.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV4);
++        File.Exists(installed.ManifestPath).ShouldBeTrue();
++    }
++
+     [Fact]
+     public async Task Vulkan_setup_selects_the_pinned_windows_artifact_and_preserves_existing_cpu_assets()
+     {
+@@ -169,6 +194,9 @@ public sealed class AssetInstallerTests
+     [InlineData("BatchSize", "128")]
+     [InlineData("BatchSize", true)]
+     [InlineData("MaskSpecialistLiterals", "true")]
++    [InlineData("SpecialistLiteralProtocol", "CompactV4")]
++    [InlineData("SpecialistLiteralProtocol", "CompactV5")]
++    [InlineData("SpecialistLiteralProtocol", true)]
+     [InlineData("Repack", 0)]
+     [InlineData("CacheTypeK", "q2_bad")]
+     [InlineData("CacheTypeV", 8)]
+diff --git a/tests/Freehand.Cleanup.Tests/Freehand.Cleanup.Tests.csproj b/tests/Freehand.Cleanup.Tests/Freehand.Cleanup.Tests.csproj
+index 6e321b0..0a19658 100644
+--- a/tests/Freehand.Cleanup.Tests/Freehand.Cleanup.Tests.csproj
++++ b/tests/Freehand.Cleanup.Tests/Freehand.Cleanup.Tests.csproj
+@@ -15,5 +15,6 @@
+   </ItemGroup>
+   <ItemGroup>
+     <ProjectReference Include="..\..\src\Freehand.Cleanup\Freehand.Cleanup.csproj" />
++    <None Include="..\..\shared\specialist-literal-v4-vectors.json" Link="specialist-literal-v4-vectors.json" CopyToOutputDirectory="PreserveNewest" />
+   </ItemGroup>
+ </Project>
+diff --git a/tests/Freehand.Cleanup.Tests/ManifestTests.cs b/tests/Freehand.Cleanup.Tests/ManifestTests.cs
+index 7d17d2d..670961c 100644
+--- a/tests/Freehand.Cleanup.Tests/ManifestTests.cs
++++ b/tests/Freehand.Cleanup.Tests/ManifestTests.cs
+@@ -67,6 +67,50 @@ public sealed class ManifestTests
+         }));
+ 
+         LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).MaskSpecialistLiterals.ShouldBe(enabled);
++        LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV3);
++    }
++
++    [Fact]
++    public void Single_quote_protocol_requires_an_explicit_typed_version()
++    {
++        using var fixture = new ManifestFixture();
++        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
++        {
++            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
++            modelId = "pinned-model", promptStyle = "ScribeKeyFast", maskSpecialistLiterals = true, specialistLiteralProtocol = "CompactV4",
++        }));
++        LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV4);
++    }
++
++    [Theory]
++    [InlineData(true)]
++    [InlineData(1)]
++    [InlineData("1")]
++    [InlineData("CompactV5")]
++    [InlineData("")]
++    public void Unknown_or_untyped_literal_protocols_are_rejected(object protocol)
++    {
++        using var fixture = new ManifestFixture();
++        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
++        {
++            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
++            modelId = "pinned-model", promptStyle = "ScribeKeyFast", maskSpecialistLiterals = true, specialistLiteralProtocol = protocol,
++        }));
++        Should.Throw<InvalidDataException>(() => LlamaCleanupOptions.LoadManifest(fixture.ManifestPath));
++    }
++
++    [Theory]
++    [InlineData("ScribeKeyFast", false)]
++    [InlineData("Qwen35", true)]
++    public void Version_four_cannot_be_selected_for_an_unmasked_or_general_contract(string style, bool mask)
++    {
++        using var fixture = new ManifestFixture();
++        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
++        {
++            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
++            modelId = "pinned-model", promptStyle = style, maskSpecialistLiterals = mask, specialistLiteralProtocol = "CompactV4",
++        }));
++        Should.Throw<ArgumentException>(() => LlamaCleanupOptions.LoadManifest(fixture.ManifestPath));
+     }
+ 
+     [Fact]
+diff --git a/tests/Freehand.Cleanup.Tests/ProviderTests.cs b/tests/Freehand.Cleanup.Tests/ProviderTests.cs
+index c13a488..08c94d4 100644
+--- a/tests/Freehand.Cleanup.Tests/ProviderTests.cs
++++ b/tests/Freehand.Cleanup.Tests/ProviderTests.cs
+@@ -391,6 +391,56 @@ public sealed class ProviderTests
+         (await provider.ProcessAsync(input, CancellationToken.None)).ShouldBe(input);
+     }
+ 
++    [Fact]
++    public async Task Explicit_version_four_hides_single_quoted_speech_from_the_model_and_restores_it_exactly()
++    {
++        const string input = "Um, keep 'Uh, wait\tΔ🙂.' and ‘ready later’ exactly.";
++        var masked = SpecialistLiteralMask.Create(input, protocol: SpecialistLiteralProtocol.CompactV4).MaskedText;
++        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
++        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new
++        {
++            content = masked.Replace("Um, keep", "Keep", StringComparison.Ordinal), stop_type = "eos", truncated = false,
++        });
++        await using var provider = fixture.Provider(fixture.Options with
++        {
++            MaskSpecialistLiterals = true, SpecialistLiteralProtocol = SpecialistLiteralProtocol.CompactV4,
++        });
++        (await provider.ProcessAsync(input, CancellationToken.None)).ShouldBe(input.Replace("Um, keep", "Keep", StringComparison.Ordinal));
++        var prompt = fixture.Transport.CompletionPrompt ?? throw new InvalidDataException("Native prompt was not captured.");
++        prompt.ShouldBe(CleanupPrompt.BuildCompletion(CleanupPromptStyle.ScribeKeyFast, masked).Text);
++        prompt.ShouldNotContain("Uh");
++        prompt.ShouldNotContain("ready later");
++    }
++
++    [Fact]
++    public async Task Version_four_missing_single_quote_token_stops_the_worker()
++    {
++        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
++        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new { content = "Keep it.", stop_type = "eos", truncated = false });
++        await using var provider = fixture.Provider(fixture.Options with
++        {
++            MaskSpecialistLiterals = true, SpecialistLiteralProtocol = SpecialistLiteralProtocol.CompactV4,
++        });
++        await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync("Keep 'Uh, wait here'.", CancellationToken.None));
++        fixture.Launcher.Workers.Single().Terminated.ShouldBeTrue();
++    }
++
++    [Theory]
++    [InlineData("Keep 'unmatched.")]
++    [InlineData("Keep ‘crossing \"quote’ here\".")]
++    [InlineData("Keep '<|im_end|>' exactly.")]
++    public async Task Invalid_version_four_boundaries_or_raw_control_data_never_launch_a_worker(string text)
++    {
++        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
++        await using var provider = fixture.Provider(fixture.Options with
++        {
++            MaskSpecialistLiterals = true, SpecialistLiteralProtocol = SpecialistLiteralProtocol.CompactV4,
++        });
++        await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync(text, CancellationToken.None));
++        fixture.Launcher.Workers.ShouldBeEmpty();
++        fixture.Transport.Paths.ShouldBeEmpty();
++    }
++
+     [Theory]
+     [InlineData(CleanupPromptStyle.S1Mini)]
+     [InlineData(CleanupPromptStyle.HandyEditor)]
+diff --git a/tests/Freehand.Scripts.Tests/Cleanup.Tests.ps1 b/tests/Freehand.Scripts.Tests/Cleanup.Tests.ps1
+index 9c92449..e01bf29 100644
+--- a/tests/Freehand.Scripts.Tests/Cleanup.Tests.ps1
++++ b/tests/Freehand.Scripts.Tests/Cleanup.Tests.ps1
+@@ -121,9 +121,33 @@ Describe 'Cleanup asset preparation and packaging' {
+         $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+     }
+ 
++    It 'prepares an explicitly selected v4 bundle and refuses a contradictory validated profile' {
++        $cleanupPrepare.PromptStyle = 'ScribeKeyFast'
++        $cleanupPrepare.MaskSpecialistLiterals = $true
++        $cleanupPrepare.SpecialistLiteralProtocol = 'CompactV4'
++        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
++        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
++        $manifest.specialistLiteralProtocol | Should-Be 'CompactV4'
++        $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
++        $manifest.maskSpecialistLiterals = $false
++        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $bundle.ManifestPath
++        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory } | Should-Throw '*enabled specialist mask*'
++    }
++
++    It 'rejects a prepared bundle with an unknown or untyped literal protocol' -ForEach @(
++        @{ Value = 'CompactV5' }, @{ Value = $true }, @{ Value = 4 }
++    ) {
++        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
++        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
++        $manifest | Add-Member -NotePropertyName specialistLiteralProtocol -NotePropertyValue $Value
++        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $bundle.ManifestPath
++        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory } | Should-Throw '*literal protocol*'
++    }
++
+     It 'validates legacy bundles without the optional resource settings' {
+         $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+         $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
++        ($null -eq $manifest.PSObject.Properties['specialistLiteralProtocol']) | Should-BeTrue
+         foreach ($name in @('platform', 'batchSize', 'microBatchSize', 'promptCacheMiB', 'contextCheckpoints', 'cacheTypeK', 'cacheTypeV', 'repack', 'maskSpecialistLiterals', 'promptLookupTokens', 'promptLookupMatchTokens')) {
+             $manifest.PSObject.Properties.Remove($name)
+         }
+diff --git a/tests/Freehand.Scripts.Tests/CleanupAcquisition.Tests.ps1 b/tests/Freehand.Scripts.Tests/CleanupAcquisition.Tests.ps1
+index e4e0a52..078159c 100644
+--- a/tests/Freehand.Scripts.Tests/CleanupAcquisition.Tests.ps1
++++ b/tests/Freehand.Scripts.Tests/CleanupAcquisition.Tests.ps1
+@@ -77,6 +77,7 @@ Describe 'Pinned default cleanup acquisition' {
+         $manifest.modelRevision | Should-Be ('a' * 40)
+         $manifest.runtimeRevision | Should-Be ('b' * 40)
+         $manifest.platform | Should-Be 'win-x64-cpu'
++        ($null -eq $manifest.PSObject.Properties['specialistLiteralProtocol']) | Should-BeTrue
+         (Get-Content -LiteralPath (Join-Path $bundle.Directory 'licenses/model/BASE-LICENSE.txt')) | Should-Be 'fixture base model license'
+         @($manifest.files | Where-Object { $_.path -eq 'runtime/llama.dll' }).Count | Should-Be 1
+         Should-Invoke Invoke-WebRequest -Exactly -Times 5
+@@ -172,10 +173,35 @@ Describe 'Pinned default cleanup acquisition' {
+         $manifest.promptLookupMatchTokens | Should-Be 3
+     }
+ 
++    It 'preserves an explicit quote-v4 acquisition through prepared bundle validation' {
++        $acquisitionSelected.PromptStyle = 'ScribeKeyFast'
++        $acquisitionSelected.Inference.MaskSpecialistLiterals = $true
++        $acquisitionSelected.Inference.SpecialistLiteralProtocol = 'CompactV4'
++        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
++        $bundle = & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions
++        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
++        $manifest.specialistLiteralProtocol | Should-Be 'CompactV4'
++        $manifest.maskSpecialistLiterals | Should-BeTrue
++        $null = & (Join-Path $acquisitionScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
++    }
++
++    It 'rejects quote-v4 without an enabled specialist route before downloading' -ForEach @(
++        @{ Style = 'S1Mini'; Enabled = $false }, @{ Style = 'Qwen35'; Enabled = $true }
++    ) {
++        $acquisitionSelected.PromptStyle = $Style
++        $acquisitionSelected.Inference.MaskSpecialistLiterals = $Enabled
++        $acquisitionSelected.Inference.SpecialistLiteralProtocol = 'CompactV4'
++        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
++        { & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions -ValidateManifestOnly } | Should-Throw '*enabled specialist mask*'
++        Should-NotInvoke Invoke-WebRequest
++        (Test-Path -LiteralPath $acquisitionOptions.CacheDirectory) | Should-BeFalse
++    }
++
+     It 'rejects invalid acquisition profile setting <Field> before downloading' -ForEach @(
+         @{ Field = 'BatchSize'; Value = '128' }, @{ Field = 'MicroBatchSize'; Value = 129 },
+         @{ Field = 'PromptCacheMiB'; Value = -1 }, @{ Field = 'ContextCheckpoints'; Value = 33 },
+         @{ Field = 'MaskSpecialistLiterals'; Value = 'true' }, @{ Field = 'Repack'; Value = 0 },
++        @{ Field = 'SpecialistLiteralProtocol'; Value = 'CompactV5' }, @{ Field = 'SpecialistLiteralProtocol'; Value = $true },
+         @{ Field = 'CacheTypeK'; Value = 'q2_bad' }, @{ Field = 'CacheTypeV'; Value = 8 },
+         @{ Field = 'PromptLookupTokens'; Value = 65 }, @{ Field = 'PromptLookupMatchTokens'; Value = 0 },
+         @{ Field = 'PromptLookupTokens'; Value = '16' }, @{ Field = 'PromptLookupMatchTokens'; Value = $true }
+diff --git a/tools/Freehand.Cleanup.Evaluation/small_models.py b/tools/Freehand.Cleanup.Evaluation/small_models.py
+index 99caa20..d15d2e8 100644
+--- a/tools/Freehand.Cleanup.Evaluation/small_models.py
++++ b/tools/Freehand.Cleanup.Evaluation/small_models.py
+@@ -135,11 +135,11 @@ def literal_mask_protocol(exported: dict, general: bool) -> str:
+     # Initial specialist experiments deliberately reused the legacy general mask.
+     # Their unchanged exports lack the protocol field and must remain legacy.
+     protocol = exported.get("literal_mask_protocol", "literal-token-v1" if masked else "none")
+-    if protocol not in ("none", "literal-token-v1", "specialist-compact-v2", "specialist-compact-v3"):
++    if protocol not in ("none", "literal-token-v1", "specialist-compact-v2", "specialist-compact-v3", "specialist-compact-v4"):
+         raise ValueError("Unsupported literal mask protocol")
+     if masked != (protocol != "none"):
+         raise ValueError("Literal mask protocol disagrees with mask_literals")
+-    if general and protocol in ("specialist-compact-v2", "specialist-compact-v3"):
++    if general and protocol in ("specialist-compact-v2", "specialist-compact-v3", "specialist-compact-v4"):
+         raise ValueError("General-model contracts retain the legacy literal mask")
+     return protocol
+ 
+@@ -155,8 +155,13 @@ def replay(server: OwnedServer, exported: dict, arguments: argparse.Namespace) -
+         general = contract is None
+         protocol = literal_mask_protocol(exported, general)
+         normalization = specialist_output_normalization(exported, general)
+-        protection = (SpecialistLiteralMask.create(fixture["input"], remove_added_quote_period=protocol == "specialist-compact-v3")
+-                      if protocol in ("specialist-compact-v2", "specialist-compact-v3")
++        if protocol == "specialist-compact-v4" and any(control in fixture["input"] for control in (
++                "<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>", "<end_of_turn>",
++                "[INST]", "[/INST]", "[SYSTEM_PROMPT]", "[/SYSTEM_PROMPT]", "<|endoftext|>", "<|startoftext|>")):
++            raise ValueError("Transcript contains unsupported model control tokens")
++        protection = (SpecialistLiteralMask.create(fixture["input"], remove_added_quote_period=protocol != "specialist-compact-v2",
++                                                 protocol="specialist-compact-v4" if protocol == "specialist-compact-v4" else "specialist-compact-v3")
++                      if protocol in ("specialist-compact-v2", "specialist-compact-v3", "specialist-compact-v4")
+                       else LiteralProtectionMask.create(fixture["input"]) if protocol == "literal-token-v1" else None)
+         row["mask_literals"] = protocol != "none"
+         row["literal_mask_protocol"] = protocol
+diff --git a/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py b/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py
+index cebee38..2f26554 100644
+--- a/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py
++++ b/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py
+@@ -1,4 +1,4 @@
+-"""Mirror of Freehand.Cleanup.SpecialistLiteralMask, protocols compact-v2/v3.
++"""Mirror of Freehand.Cleanup.SpecialistLiteralMask, protocols compact-v2/v3/v4.
+ 
+ This protects exact Core literal blocks and paired quoted wording. It does not
+ correct language or decide which words are meaningful. Native results retain
+@@ -15,6 +15,7 @@ from literal_protection import LiteralProtectionMask, TOKEN_SUFFIX
+ 
+ TOKEN_FAMILY = "FHX_"
+ PROTOCOL = "specialist-compact-v3"
++SINGLE_QUOTE_PROTOCOL = "specialist-compact-v4"
+ 
+ 
+ def _trim_end_length(text: str) -> int:
+@@ -52,6 +53,85 @@ def _quote_spans(text: str) -> list[tuple[int, int]]:
+     return spans
+ 
+ 
++def _word_at(text: str, index: int) -> bool:
++    if not 0 <= index < len(text):
++        return False
++    # The new table is loaded only on the explicit v4 path, never for v3.
++    from specialist_literal_word_ranges import is_word
++    return is_word(ord(text[index]))
++
++
++def _quote_spans_v4(text: str) -> list[tuple[int, int]]:
++    spans, closing = [], []
++    opening = -1
++    paired_single_families = bare_possessive_families = 0
++    leading_elision_families = 0
++
++    def push(character):
++        if len(closing) >= 64:
++            raise ValueError("Specialist literal v4 quote nesting is too deep")
++        closing.append(character)
++
++    for index, character in enumerate(text):
++        if character not in ('"', '“', '”', "'", '‘', '’') or _escaped(text, index):
++            continue
++        single = character in ("'", '‘', '’')
++        before, after = _word_at(text, index - 1), _word_at(text, index + 1)
++        if single and before and after:
++            continue
++        if character in ("'", '’') and not before and _leading_elision(text, index):
++            if not closing:
++                leading_elision_families |= 1 if character == "'" else 2
++            continue
++        if closing and character == closing[-1]:
++            if character in ('"', "'") and not before and after:
++                push(character)
++                continue
++            closing.pop()
++            if single:
++                paired_single_families |= 1 if character == "'" else 2
++            if not closing:
++                spans.append((opening, index + 1))
++            continue
++        if character in ('”', '’'):
++            if character == '’' and before and '’' not in closing:
++                if not closing and _ambiguous_terminal_apostrophe(text, index):
++                    bare_possessive_families |= 2
++                continue
++            raise ValueError("Specialist literal v4 found unmatched or crossing quote delimiters")
++        if character == "'" and before:
++            if not closing and _ambiguous_terminal_apostrophe(text, index):
++                bare_possessive_families |= 1
++            continue
++        if not closing:
++            opening = index
++        push({'“': '”', '‘': '’'}.get(character, character))
++    if closing or (paired_single_families | leading_elision_families) & bare_possessive_families:
++        raise ValueError("Specialist literal v4 found an unmatched or ambiguous quote boundary")
++    return spans
++
++
++def _leading_elision(text: str, index: int) -> bool:
++    end = index + 1
++    while _word_at(text, end):
++        end += 1
++    if end < len(text) and text[end] == text[index]:
++        return False
++    word = text[index + 1:end]
++    return word.isascii() and word.lower() in ('cause', 'em', 'tis')
++
++
++def _ambiguous_terminal_apostrophe(text: str, index: int) -> bool:
++    suffix = text[max(0, index - 2):index]
++    if suffix.isascii() and suffix.lower() == 'in':
++        return False
++    after = index + 1
++    while after < len(text) and (text[after] in "\t\n\v\f\r\x85"
++                               or unicodedata.category(text[after]) in ('Zs', 'Zl', 'Zp')):
++        after += 1
++    return not _word_at(text, after)
++
++
+ class SpecialistLiteralMask:
+     def __init__(self, masked_text: str, legacy: LiteralProtectionMask,
+                  tokens: list[str], payloads: list[str], terminal_quote_token: str | None = None):
+@@ -62,12 +142,19 @@ class SpecialistLiteralMask:
+         self.terminal_quote_token = terminal_quote_token
+ 
+     @classmethod
+-    def create(cls, text: str, remove_added_quote_period: bool = True):
++    def create(cls, text: str, remove_added_quote_period: bool = True, *, protocol: str = PROTOCOL):
++        if protocol not in (PROTOCOL, SINGLE_QUOTE_PROTOCOL):
++            raise ValueError("Unsupported specialist literal protocol")
++        if protocol == SINGLE_QUOTE_PROTOCOL:
++            if remove_added_quote_period is not True:
++                raise ValueError("Specialist literal v4 includes terminal quote normalization")
++            # Reject lone surrogates instead of inventing replacement bytes.
++            text.encode("utf-8")
+         if TOKEN_FAMILY in text:
+             raise ValueError("Transcript contains a reserved specialist literal identifier")
+         legacy = LiteralProtectionMask.create(text)
+         source = legacy.masked_text
+-        quote_spans = _quote_spans(source)
++        quote_spans = _quote_spans_v4(source) if protocol == SINGLE_QUOTE_PROTOCOL else _quote_spans(source)
+         quote_index = 0
+         terminal_quote_token = None
+         literal = re.compile(re.escape(legacy.token_prefix) + r"[0-9]+" + re.escape(TOKEN_SUFFIX))
+diff --git a/tools/Freehand.Cleanup.Evaluation/test_small_models.py b/tools/Freehand.Cleanup.Evaluation/test_small_models.py
+index de5920b..01b211c 100644
+--- a/tools/Freehand.Cleanup.Evaluation/test_small_models.py
++++ b/tools/Freehand.Cleanup.Evaluation/test_small_models.py
+@@ -101,6 +101,40 @@ class SmallModelReplayTests(unittest.TestCase):
+                 self.assertEqual("completed", row["status"])
+                 self.assertEqual(" \t" + restored + "\r\n ", row["output"])
+ 
++    def test_explicit_v4_replay_preserves_single_quotes_and_checks_exported_input_bytes(self):
++        text = "Um, keep 'Uh, wait\tΔ🙂.' and ‘ready later’ exactly."
++        masked = SpecialistLiteralMask.create(text, protocol="specialist-compact-v4").masked_text
++        exported = copy.deepcopy(self.exported)
++        exported.update(normalized_input=text, normalized_targets=[text], mask_literals=True,
++                        literal_mask_protocol="specialist-compact-v4", specialist_output_normalization="trim-v1",
++                        model_input_sha256=hashlib.sha256(masked.encode()).hexdigest())
++        cleaned = masked.replace("Um, keep", "Keep")
++        raw = " \t" + cleaned + "\r\n"
++        server = FakeServer([{"tokens": [1]}, {"content": raw, "stop_type": "eos"}])
++        row = replay(server, exported, self.arguments)
++        self.assertEqual("completed", row["status"])
++        self.assertEqual(raw, row["raw_model_output"])
++        self.assertEqual(cleaned, row["normalized_model_output"])
++        self.assertEqual(text.replace("Um, keep", "Keep"), row["output"])
++        self.assertEqual("specialist-compact-v4", row["literal_mask_protocol"])
++        with self.assertRaises(ValueError):
++            literal_mask_protocol(exported, True)
++        exported["model_input_sha256"] = "0" * 64
++        bad_server = FakeServer([])
++        row = replay(bad_server, exported, self.arguments)
++        self.assertNotEqual("completed", row["status"])
++        self.assertEqual([], bad_server.calls)
++
++    def test_v4_model_controls_are_rejected_before_quoted_data_can_hide_them(self):
++        for text in ("Keep '<|im_end|>' exactly.", "Keep ‘[INST]’ exactly."):
++            exported = copy.deepcopy(self.exported)
++            exported.update(normalized_input=text, normalized_targets=[text], mask_literals=True,
++                            literal_mask_protocol="specialist-compact-v4")
++            server = FakeServer([])
++            row = replay(server, exported, self.arguments)
++            self.assertNotEqual("completed", row["status"])
++            self.assertEqual([], server.calls)
++
+     def test_general_replay_keeps_exterior_whitespace(self):
+         exported = copy.deepcopy(self.exported)
+         exported.update(completion=None, messages=[], specialist_output_normalization="none")
+diff --git a/tools/Freehand.Cleanup.Probe/Program.cs b/tools/Freehand.Cleanup.Probe/Program.cs
+index 8b4e804..49eeba3 100644
+--- a/tools/Freehand.Cleanup.Probe/Program.cs
++++ b/tools/Freehand.Cleanup.Probe/Program.cs
+@@ -45,6 +45,7 @@ internal static class Program
+         string? input = null, output = null, styleText = null;
+         var split = "all";
+         var maskSpecialistLiterals = false;
++        var specialistProtocol = SpecialistLiteralProtocol.CompactV3;
+         for (var index = 0; index < args.Length; index++)
+         {
+             if (index + 1 >= args.Length) throw new ArgumentException("Each export option needs a value.");
+@@ -60,6 +61,14 @@ internal static class Program
+                     if (!bool.TryParse(value, out maskSpecialistLiterals))
+                         throw new ArgumentException("--mask-specialist-literals must be true or false.");
+                     break;
++                case "--specialist-literal-protocol":
++                    specialistProtocol = value switch
++                    {
++                        "specialist-compact-v3" => SpecialistLiteralProtocol.CompactV3,
++                        "specialist-compact-v4" => SpecialistLiteralProtocol.CompactV4,
++                        _ => throw new ArgumentException("Unsupported specialist literal protocol."),
++                    };
++                    break;
+                 default: throw new ArgumentException("Unknown prompt export option: " + option);
+             }
+         }
+@@ -69,6 +78,9 @@ internal static class Program
+         if (split is not ("all" or "development" or "heldout")) throw new ArgumentException("Unsupported split.");
+         if (!Enum.TryParse<CleanupPromptStyle>(styleText, true, out var style) || !Enum.IsDefined(style))
+             throw new ArgumentException("Unsupported prompt style.");
++        if (specialistProtocol == SpecialistLiteralProtocol.CompactV4 && (!maskSpecialistLiterals || CleanupPrompt.IsGeneral(style)))
++            throw new ArgumentException("Specialist literal v4 requires an enabled specialist mask.");
++        var specialistProtocolName = specialistProtocol == SpecialistLiteralProtocol.CompactV4 ? "specialist-compact-v4" : "specialist-compact-v3";
+         var bytes = await File.ReadAllBytesAsync(input).ConfigureAwait(false);
+         using var document = JsonDocument.Parse(bytes);
+         var parsed = ReadCases(document.RootElement, split).ToDictionary(fixture => fixture.Id, StringComparer.Ordinal);
+@@ -84,9 +96,9 @@ internal static class Program
+             var references = await NormalizeReferencesAsync(source, CancellationToken.None).ConfigureAwait(false);
+             var general = CleanupPrompt.IsGeneral(style);
+             var maskLiterals = general || maskSpecialistLiterals;
+-            var maskProtocol = general ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none";
++            var maskProtocol = general ? "literal-token-v1" : maskSpecialistLiterals ? specialistProtocolName : "none";
+             var modelText = general ? LiteralProtectionMask.Create(text).MaskedText
+-                : maskSpecialistLiterals ? SpecialistLiteralMask.Create(text).MaskedText : text;
++                : maskSpecialistLiterals ? SpecialistLiteralMask.Create(text, protocol: specialistProtocol).MaskedText : text;
+             var completion = general ? null : CleanupPrompt.BuildCompletion(style, modelText);
+             ExportedChatMessage[]? messages = general
+                 ? [new("system", CleanupPrompt.Text), new("user", CleanupPrompt.WrapTranscript(modelText))]
+@@ -97,7 +109,7 @@ internal static class Program
+         }
+         var report = new PromptExport(1, input, Convert.ToHexString(SHA256.HashData(bytes)), style.ToString(),
+             CleanupPrompt.IsGeneral(style) || maskSpecialistLiterals,
+-            CleanupPrompt.IsGeneral(style) ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none",
++            CleanupPrompt.IsGeneral(style) ? "literal-token-v1" : maskSpecialistLiterals ? specialistProtocolName : "none",
+             CleanupPrompt.IsGeneral(style) ? "none" : LlamaTranscriptPostProcessor.SpecialistOutputNormalization,
+             "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+             await ManagedHashesAsync(CancellationToken.None).ConfigureAwait(false), exported);
+@@ -156,7 +168,11 @@ internal static class Program
+             RuntimeInformation.OSDescription, RuntimeInformation.ProcessArchitecture.ToString(),
+             RuntimeInformation.FrameworkDescription, Environment.ProcessorCount, GC.GetGCMemoryInfo().TotalAvailableMemoryBytes,
+             typeof(Program).Assembly.GetName().Version?.ToString(),
+-            await ManagedHashesAsync(cancellationToken).ConfigureAwait(false), Limitations);
++            await ManagedHashesAsync(cancellationToken).ConfigureAwait(false), Limitations)
++        {
++            SpecialistLiteralProtocol = cleanupOptions?.SpecialistLiteralProtocol == SpecialistLiteralProtocol.CompactV4
++                ? "specialist-compact-v4" : null,
++        };
+         var results = new List<ProbeCaseResult>();
+         var report = new ProbeReport(1, metadata, true, results);
+         await WriteReportAsync(arguments.Output, report).ConfigureAwait(false);
+@@ -470,7 +486,11 @@ internal sealed record ProbeMetadata(DateTimeOffset StartedAtUtc, string CorpusP
+     string? CacheTypeK, string? CacheTypeV,
+     double CleanupTimeoutSeconds, string Split, string OperatingSystem, string Architecture,
+     string Framework, int LogicalProcessorCount, long GcTotalAvailableMemoryBytes, string? ProbeVersion,
+-    IReadOnlyDictionary<string, string> ManagedAssemblySha256, string Limitations);
++    IReadOnlyDictionary<string, string> ManagedAssemblySha256, string Limitations)
++{
++    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
++    public string? SpecialistLiteralProtocol { get; init; }
++}
+ internal sealed record ProbeCaseResult(string Id, string Split, string Input, string? NormalizedInput,
+     string? Output, string? CandidateText, string? CleanupInput, string CleanupStatus,
+     double? CleanupTimeMs, double? ProcessingTimeMs, double ElapsedMs, int InsertionCount, int DeliveredCount,
+diff --git a/tools/Freehand.Cleanup.Training/evaluate.py b/tools/Freehand.Cleanup.Training/evaluate.py
+index ca2debe..f3d088b 100644
+--- a/tools/Freehand.Cleanup.Training/evaluate.py
++++ b/tools/Freehand.Cleanup.Training/evaluate.py
+@@ -122,7 +122,8 @@ def freeze(arguments) -> int:
+     profile = runtime_profile(arguments.prompt_lookup_tokens, deployed,
+                               getattr(arguments, "runtime_adapter_scale", 1),
+                               cache_type_k=getattr(arguments, "cache_type_k", "f16"),
+-                              cache_type_v=getattr(arguments, "cache_type_v", "f16"))
++                              cache_type_v=getattr(arguments, "cache_type_v", "f16"),
++                              literal_protocol=getattr(arguments, "specialist_literal_protocol", "specialist-compact-v3"))
+     runtime = artifact(arguments.runtime)
+     inventory = small_models.verify_runtime_inventory(arguments.runtime_inventory, Path(runtime["path"]))
+     value = {"schema_version": 1, "created_utc": utc(), "purpose": "candidate_frozen_before_final_test_opening",
+@@ -135,6 +136,8 @@ def freeze(arguments) -> int:
+              "cache_configuration": {key: profile[key] for key in ("cacheTypeK", "cacheTypeV")},
+              "quality_target": quality_target(500),
+              "limitations": "A candidate freeze is identity evidence, not quality or performance qualification."}
++    if "specialistLiteralProtocol" in profile:
++        value["specialist_literal_protocol"] = "specialist-compact-v4"
+     if deployed is not None:
+         value["runtime_adapter"] = deployed
+         verify_runtime_adapter(value)
+@@ -160,6 +163,7 @@ def freeze(arguments) -> int:
+ def verify_freeze(path: Path) -> dict:
+     value = json.loads(path.read_text(encoding="utf-8"))
+     caches = frozen_cache_configuration(value)
++    literal_protocol = frozen_specialist_literal_protocol(value)
+     for key in ("model", "runtime", "runtime_inventory", "probe"):
+         verify_artifact(value[key])
+     for key in ("adapter", "adapter_config"):
+@@ -180,7 +184,8 @@ def verify_freeze(path: Path) -> dict:
+     small_models.verify_runtime_inventory(Path(value["runtime_inventory"]["path"]), Path(value["runtime"]["path"]))
+     if value["profile"] != runtime_profile(value["profile"].get("promptLookupTokens"),
+                                           value.get("runtime_adapter"), value["profile"].get("adapterScale", 1),
+-                                          cache_type_k=caches["cacheTypeK"], cache_type_v=caches["cacheTypeV"]):
++                                          cache_type_k=caches["cacheTypeK"], cache_type_v=caches["cacheTypeV"],
++                                          literal_protocol=literal_protocol):
+         raise ValueError("Runtime profile drift after candidate freeze")
+     if value.get("quality_target") != quality_target(500):
+         raise ValueError("Candidate freeze does not record the current 99 percent acceptance target")
+@@ -251,8 +256,23 @@ def frozen_cache_configuration(value: dict) -> dict:
+     return expected
+ 
+ 
++def specialist_literal_protocol(value: str) -> str:
++    if type(value) is not str or value not in ("specialist-compact-v3", "specialist-compact-v4"):
++        raise ValueError("Unsupported specialist literal protocol")
++    return value
++
++
++def frozen_specialist_literal_protocol(value: dict) -> str:
++    protocol = specialist_literal_protocol(value.get("specialist_literal_protocol", "specialist-compact-v3"))
++    field = value["profile"].get("specialistLiteralProtocol")
++    if field != ("CompactV4" if protocol == "specialist-compact-v4" else None):
++        raise ValueError("Frozen specialist literal declaration differs from its runtime profile")
++    return protocol
++
++
+ def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None = None,
+-                    adapter_scale: float = 1, *, cache_type_k: str = "f16", cache_type_v: str = "f16") -> dict:
++                    adapter_scale: float = 1, *, cache_type_k: str = "f16", cache_type_v: str = "f16",
++                    literal_protocol: str = "specialist-compact-v3") -> dict:
+     if type(prompt_lookup_tokens) is not int or not 0 <= prompt_lookup_tokens < 64:
+         raise ValueError("Prompt lookup draft tokens must be an integer from 0 through 63, below batch64")
+     if type(adapter_scale) not in (int, float) or not math.isfinite(adapter_scale) or not 0 < adapter_scale <= 1:
+@@ -265,6 +285,8 @@ def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None
+             "cacheTypeK": cache_type(cache_type_k), "cacheTypeV": cache_type(cache_type_v),
+             "repack": False, "gpuLayers": 0, "startupTimeoutSeconds": 60, "idleTimeoutSeconds": 60,
+             "maskSpecialistLiterals": True, "promptLookupTokens": prompt_lookup_tokens, "promptLookupMatchTokens": 3}
++    if specialist_literal_protocol(literal_protocol) == "specialist-compact-v4":
++        profile["specialistLiteralProtocol"] = "CompactV4"
+     if runtime_adapter is not None:
+         digest = runtime_adapter.get("sha256", "")
+         path = runtime_adapter.get("path", "")
+@@ -297,11 +319,16 @@ def effective_model_identity(value: dict) -> dict:
+             "runtime_adapter_scale": value["profile"].get("adapterScale") if deployed else None}
+ 
+ 
+-def verify_core_deployment(results: Path, identity: dict, cache_configuration: dict | None = None) -> None:
++def verify_core_deployment(results: Path, identity: dict, cache_configuration: dict | None = None,
++                           literal_protocol: str | None = None) -> None:
+     report = json.loads(results.read_text(encoding="utf-8"))
+     if not isinstance(report, dict) or not isinstance(report.get("metadata", {}), dict):
+         raise ValueError("Core deployment metadata must be an object")
+     metadata = report.get("metadata", {})
++    if literal_protocol is not None:
++        expected_protocol = specialist_literal_protocol(literal_protocol)
++        if type(metadata.get("specialist_literal_protocol")) is not str or metadata["specialist_literal_protocol"] != expected_protocol:
++            raise ValueError("Core report specialist literal protocol differs from its frozen declaration")
+     def verify_report_artifact(entry: dict | None, expected_hash: str, expected_bytes: int, label: str) -> None:
+         if not isinstance(entry, dict) or any(not isinstance(entry.get(key), str)
+                 or entry[key].lower() != expected_hash for key in ("expected_sha256", "actual_sha256")):
+@@ -444,6 +471,8 @@ def prepare_evaluation(arguments, frozen: dict, frozen_identity: dict, corpus: d
+                          "primary_qualification_candidate": role == "selected_primary"})
+     if "cache_configuration" in frozen:
+         metadata["cache_configuration"] = frozen_cache_configuration(frozen)
++    if "specialist_literal_protocol" in frozen:
++        metadata["specialist_literal_protocol"] = frozen_specialist_literal_protocol(frozen)
+     write_new(output / "evaluation-pre-run-freeze.json", metadata)
+     profile = dict(frozen["profile"])
+     manifest = {"runtimePath": frozen["runtime"]["path"], "runtimeSha256": frozen["runtime"]["sha256"],
+@@ -461,14 +490,18 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
+     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+     profile = frozen["profile"]
+     caches = frozen_cache_configuration(frozen)
++    literal_protocol = frozen_specialist_literal_protocol(frozen)
+     if any(cache_type(manifest.get(key, "f16")) != expected for key, expected in caches.items()):
+         raise ValueError("Core manifest cache configuration differs from the frozen runtime profile")
++    if manifest.get("specialistLiteralProtocol") != profile.get("specialistLiteralProtocol"):
++        raise ValueError("Core manifest specialist literal protocol differs from the frozen runtime profile")
+     codes = {}
+     probe_argv = [str(arguments.dotnet), frozen["probe"]["path"]]
+     if arguments.mode in ("native", "both"):
+         prompts = output / "production-prompts.json"
++        protocol_arguments = ["--specialist-literal-protocol", literal_protocol] if literal_protocol == "specialist-compact-v4" else []
+         codes["export_prompts"] = invoke(probe_argv + ["--export-prompts", "--input", str(corpus_path),
+-            "--output", str(prompts), "--prompt-style", "ScribeKeyFast", "--mask-specialist-literals", "true"],
++            "--output", str(prompts), "--prompt-style", "ScribeKeyFast", "--mask-specialist-literals", "true"] + protocol_arguments,
+             output / "export-prompts.log")
+         if codes["export_prompts"]:
+             return codes
+@@ -489,7 +522,8 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
+         report_path = output / "core-results.json"
+         deployment = {"effective_model_identity": effective_model_identity(frozen), "verified": False}
+         try:
+-            verify_core_deployment(report_path, deployment["effective_model_identity"], frozen.get("cache_configuration"))
++            verify_core_deployment(report_path, deployment["effective_model_identity"], frozen.get("cache_configuration"),
++                                   frozen.get("specialist_literal_protocol"))
+             deployment["verified"] = True
+         except (OSError, ValueError, KeyError, TypeError) as error:
+             codes["runtime_deployment"] = 1
+@@ -701,7 +735,8 @@ def review(arguments) -> int:
+         raise ValueError("Results need their pre-run evaluation metadata; partial denominators are forbidden")
+     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+     if "effective_model_identity" in metadata and arguments.results.suffix != ".jsonl":
+-        verify_core_deployment(arguments.results, metadata["effective_model_identity"], metadata.get("cache_configuration"))
++        verify_core_deployment(arguments.results, metadata["effective_model_identity"], metadata.get("cache_configuration"),
++                               metadata.get("specialist_literal_protocol"))
+     paired_receipt = paired_review_receipt(arguments.results, metadata_path, metadata)
+     if len(rows) != metadata["case_count"] or {row["case_id"] for row in rows} != set(metadata["case_ids"]):
+         raise ValueError("Results do not cover the exact pre-run case inventory")
+@@ -755,6 +790,8 @@ def main() -> int:
+                         help="Explicit key-cache precision for this new runtime freeze; default f16")
+     frozen.add_argument("--cache-type-v", choices=("f16", "f32"), default="f16",
+                         help="Explicit value-cache precision for this new runtime freeze; default f16")
++    frozen.add_argument("--specialist-literal-protocol", choices=("specialist-compact-v3", "specialist-compact-v4"),
++                        default="specialist-compact-v3", help="Explicit quote/literal adapter; existing v3 remains the default")
+     native_parser = sub.add_parser("native")
+     for name in ("dataset", "candidate-freeze", "dotnet", "output"):
+         native_parser.add_argument("--" + name, type=Path, required=True)
+diff --git a/tools/Freehand.Cleanup.Training/test_evaluate.py b/tools/Freehand.Cleanup.Training/test_evaluate.py
+index 5342a70..7c600ce 100644
+--- a/tools/Freehand.Cleanup.Training/test_evaluate.py
++++ b/tools/Freehand.Cleanup.Training/test_evaluate.py
+@@ -12,6 +12,70 @@ import evaluate
+ 
+ 
+ class ProfileTests(unittest.TestCase):
++    def test_literal_v4_is_an_explicit_typed_profile_while_legacy_fields_stay_absent(self):
++        baseline = evaluate.runtime_profile()
++        self.assertNotIn("specialistLiteralProtocol", baseline)
++        self.assertEqual("specialist-compact-v3", evaluate.frozen_specialist_literal_protocol({"profile": baseline}))
++        current = evaluate.runtime_profile(literal_protocol="specialist-compact-v4")
++        self.assertEqual({**baseline, "specialistLiteralProtocol": "CompactV4"}, current)
++        self.assertEqual("specialist-compact-v4", evaluate.frozen_specialist_literal_protocol(
++            {"profile": current, "specialist_literal_protocol": "specialist-compact-v4"}))
++        for invalid in (None, True, 4, "CompactV4", "specialist-compact-v5"):
++            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
++                evaluate.runtime_profile(literal_protocol=invalid)
++        for frozen in ({"profile": current}, {"profile": baseline, "specialist_literal_protocol": "specialist-compact-v4"},
++                       {"profile": baseline, "specialist_literal_protocol": True}):
++            with self.subTest(frozen=frozen), self.assertRaises(ValueError):
++                evaluate.frozen_specialist_literal_protocol(frozen)
++
++    def test_v4_freeze_manifest_export_and_actual_probe_protocol_are_bound(self):
++        with tempfile.TemporaryDirectory() as temporary:
++            root = Path(temporary)
++            paths = {}
++            for name in ("model", "runtime", "runtime_inventory", "probe"):
++                paths[name] = root / name
++                paths[name].write_text("fixture " + name)
++            dataset = root / "dataset.json"
++            corpus = {"cases": [{"id": "fixture", "input": "Um, keep 'Uh, wait' here.", "targets": ["Keep 'Uh, wait' here."]}]}
++            dataset.write_text(json.dumps(corpus))
++            args = argparse.Namespace(**paths, output=root / "freeze.json", adapter_config=None,
++                prompt_lookup_tokens=16, specialist_literal_protocol="specialist-compact-v4",
++                dataset=dataset, phase="development", mode="native", blind_commitment=None, dotnet=root / "no-dotnet")
++            with patch("evaluate.source_files", return_value={}), patch("evaluate.managed_files", return_value=[]), \
++                    patch("evaluate.small_models.verify_runtime_inventory", return_value={}), patch("builtins.print"):
++                evaluate.freeze(args)
++                frozen = evaluate.verify_freeze(args.output)
++                self.assertEqual("specialist-compact-v4", frozen["specialist_literal_protocol"])
++                output = root / "evaluation"
++                evaluate.prepare_evaluation(args, frozen, evaluate.artifact(args.output), corpus, output, "selected_primary", None)
++                metadata = json.loads((output / "evaluation-pre-run-freeze.json").read_text())
++                self.assertEqual("specialist-compact-v4", metadata["specialist_literal_protocol"])
++                with patch("evaluate.invoke", return_value=1) as invoke:
++                    evaluate.execute_evaluation(args, frozen, output)
++                command = invoke.call_args.args[0]
++                self.assertEqual("specialist-compact-v4", command[command.index("--specialist-literal-protocol") + 1])
++                manifest_path = output / "cleanup-manifest.json"
++                manifest = json.loads(manifest_path.read_text());manifest.pop("specialistLiteralProtocol")
++                manifest_path.write_text(json.dumps(manifest))
++                with patch("evaluate.invoke") as invoke, self.assertRaisesRegex(ValueError, "manifest specialist"):
++                    evaluate.execute_evaluation(args, frozen, output)
++                invoke.assert_not_called()
++
++    def test_v4_requires_matching_typed_actual_probe_metadata_but_legacy_does_not(self):
++        identity = {"base_sha256": "a" * 64, "base_bytes": 5, "runtime_adapter_sha256": None,
++                    "runtime_adapter_bytes": None, "runtime_adapter_scale": None}
++        metadata = {"model": {"expected_sha256": "a" * 64, "actual_sha256": "a" * 64}}
++        with tempfile.TemporaryDirectory() as temporary:
++            report = Path(temporary) / "report.json"
++            report.write_text(json.dumps({"metadata": metadata}))
++            evaluate.verify_core_deployment(report, identity)
++            for value in (None, True, 4, "specialist-compact-v3", "CompactV4"):
++                report.write_text(json.dumps({"metadata": {**metadata, "specialist_literal_protocol": value}}))
++                with self.subTest(value=value), self.assertRaisesRegex(ValueError, "literal protocol"):
++                    evaluate.verify_core_deployment(report, identity, literal_protocol="specialist-compact-v4")
++            report.write_text(json.dumps({"metadata": {**metadata, "specialist_literal_protocol": "specialist-compact-v4"}}))
++            evaluate.verify_core_deployment(report, identity, literal_protocol="specialist-compact-v4")
++
+     def test_cache_precision_is_explicit_typed_and_defaults_to_f16(self):
+         baseline = evaluate.runtime_profile()
+         self.assertEqual(("f16", "f16"), (baseline["cacheTypeK"], baseline["cacheTypeV"]))

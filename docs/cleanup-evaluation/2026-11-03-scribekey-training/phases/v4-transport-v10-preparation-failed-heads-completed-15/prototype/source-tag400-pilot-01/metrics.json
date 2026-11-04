@@ -1,0 +1,4743 @@
+{
+  "scope": "New source-tag architecture pilot; no heldout/manual quality or whole-app SLA claim",
+  "loss_coefficients": {
+    "count": 1.0,
+    "case": 0.25,
+    "form": 0.5,
+    "repair": 1.0,
+    "pointer": 1.0,
+    "insert_count": 0.5,
+    "insert": 0.5
+  },
+  "development_inference": {
+    "case_count": 80,
+    "forward_attempted": 80,
+    "accepted": 76,
+    "exact_canonical": 40,
+    "statuses": {
+      "accepted": 76,
+      "rejected": 4
+    },
+    "fallback_success_credit": false
+  },
+  "training_inference": {
+    "case_count": 320,
+    "forward_attempted": 320,
+    "accepted": 309,
+    "exact_canonical": 251,
+    "statuses": {
+      "accepted": 309,
+      "rejected": 11
+    },
+    "fallback_success_credit": false
+  },
+  "all_cases": 400,
+  "train_denominator": 320,
+  "development_denominator": 80,
+  "supported_label_counts": {
+    "train": 319,
+    "development": 80
+  },
+  "train_ce_eligible_cases": 319,
+  "train_ce_cases": 319,
+  "train_without_ce": 1,
+  "steps": 1000,
+  "stop_reason": "max_steps",
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.532525539398193,
+      "components": {
+        "count": 1.143863320350647,
+        "case": 0.3822932839393616,
+        "form": 0.1875651329755783,
+        "repair": 0.00033539862488396466,
+        "pointer": 0.0,
+        "insert_count": 0.34916695952415466,
+        "insert": 8.048774719238281
+      }
+    },
+    {
+      "step": 20,
+      "loss": 5.242526531219482,
+      "components": {
+        "count": 0.485649973154068,
+        "case": 0.11584191024303436,
+        "form": 0.0021024520974606276,
+        "repair": 0.22528432309627533,
+        "pointer": 3.3323616981506348,
+        "insert_count": 0.14232024550437927,
+        "insert": 2.1961162090301514
+      }
+    },
+    {
+      "step": 40,
+      "loss": 0.5024613738059998,
+      "components": {
+        "count": 0.43449896574020386,
+        "case": 0.05458306893706322,
+        "form": 0.0003810853813774884,
+        "repair": 0.0011344889644533396,
+        "pointer": 0.0,
+        "insert_count": 0.0992642343044281,
+        "insert": 0.006718961987644434
+      }
+    },
+    {
+      "step": 60,
+      "loss": 0.24324439465999603,
+      "components": {
+        "count": 0.21273891627788544,
+        "case": 0.015546941198408604,
+        "form": 0.0002947803877759725,
+        "repair": 0.0012643092777580023,
+        "pointer": 0.0,
+        "insert_count": 0.04384371638298035,
+        "insert": 0.0065704029984772205
+      }
+    },
+    {
+      "step": 80,
+      "loss": 0.16093415021896362,
+      "components": {
+        "count": 0.12126785516738892,
+        "case": 0.03649470582604408,
+        "form": 0.00036016738158650696,
+        "repair": 0.003240229096263647,
+        "pointer": 0.0,
+        "insert_count": 0.036517612636089325,
+        "insert": 0.01772698014974594
+      }
+    },
+    {
+      "step": 100,
+      "loss": 3.3968095779418945,
+      "components": {
+        "count": 0.24372811615467072,
+        "case": 0.15548723936080933,
+        "form": 0.000442326971096918,
+        "repair": 0.2550894021987915,
+        "pointer": 1.7951009273529053,
+        "insert_count": 0.10937023907899857,
+        "insert": 2.018226146697998
+      }
+    },
+    {
+      "step": 120,
+      "loss": 0.3050001263618469,
+      "components": {
+        "count": 0.2322368323802948,
+        "case": 0.12977123260498047,
+        "form": 0.00016181157843675464,
+        "repair": 0.0017907115397974849,
+        "pointer": 0.0,
+        "insert_count": 0.07262052595615387,
+        "insert": 0.004277239087969065
+      }
+    },
+    {
+      "step": 140,
+      "loss": 0.2462916225194931,
+      "components": {
+        "count": 0.19679982960224152,
+        "case": 0.024105289950966835,
+        "form": 4.421640915097669e-05,
+        "repair": 0.0029957906808704138,
+        "pointer": 0.0,
+        "insert_count": 0.06998427957296371,
+        "insert": 0.01091083511710167
+      }
+    },
+    {
+      "step": 160,
+      "loss": 0.13764435052871704,
+      "components": {
+        "count": 0.11157328635454178,
+        "case": 0.0369630828499794,
+        "form": 0.00011412703315727413,
+        "repair": 0.0026021269150078297,
+        "pointer": 0.0,
+        "insert_count": 0.024508945643901825,
+        "insert": 0.003833265043795109
+      }
+    },
+    {
+      "step": 180,
+      "loss": 1.4401065111160278,
+      "components": {
+        "count": 0.09008415043354034,
+        "case": 0.022211281582713127,
+        "form": 0.00010356621351093054,
+        "repair": 0.08344215154647827,
+        "pointer": 1.2540814876556396,
+        "insert_count": 0.009019993245601654,
+        "insert": 0.004768072627484798
+      }
+    },
+    {
+      "step": 200,
+      "loss": 0.2494533210992813,
+      "components": {
+        "count": 0.20412279665470123,
+        "case": 0.07470770925283432,
+        "form": 0.0001075249383575283,
+        "repair": 0.0051135774701833725,
+        "pointer": 0.0,
+        "insert_count": 0.03851581737399101,
+        "insert": 0.004456723108887672
+      }
+    },
+    {
+      "step": 220,
+      "loss": 0.2658189833164215,
+      "components": {
+        "count": 0.23857885599136353,
+        "case": 0.012485056184232235,
+        "form": 7.236428064061329e-05,
+        "repair": 0.0002913926728069782,
+        "pointer": 0.0,
+        "insert_count": 0.04592067748308182,
+        "insert": 0.0016618840163573623
+      }
+    },
+    {
+      "step": 240,
+      "loss": 0.0865558609366417,
+      "components": {
+        "count": 0.06880059838294983,
+        "case": 0.03590572252869606,
+        "form": 0.0001317677233600989,
+        "repair": 0.002516621956601739,
+        "pointer": 0.0,
+        "insert_count": 0.00888556893914938,
+        "insert": 0.0035070970188826323
+      }
+    },
+    {
+      "step": 260,
+      "loss": 0.036877866834402084,
+      "components": {
+        "count": 0.025758951902389526,
+        "case": 0.005520918872207403,
+        "form": 0.00011164903844473884,
+        "repair": 0.0005878791562281549,
+        "pointer": 0.0,
+        "insert_count": 0.010625964030623436,
+        "insert": 0.00756399892270565
+      }
+    },
+    {
+      "step": 280,
+      "loss": 0.24377281963825226,
+      "components": {
+        "count": 0.22009631991386414,
+        "case": 0.055449776351451874,
+        "form": 0.00012777592928614467,
+        "repair": 0.0030810118187218904,
+        "pointer": 0.0,
+        "insert_count": 0.011591114103794098,
+        "insert": 0.0017472244799137115
+      }
+    },
+    {
+      "step": 300,
+      "loss": 0.14645661413669586,
+      "components": {
+        "count": 0.1257346123456955,
+        "case": 0.049251846969127655,
+        "form": 0.00014918930537533015,
+        "repair": 0.003470605006441474,
+        "pointer": 0.0,
+        "insert_count": 0.00784450676292181,
+        "insert": 0.0018831733614206314
+      }
+    },
+    {
+      "step": 320,
+      "loss": 0.06324410438537598,
+      "components": {
+        "count": 0.04633433371782303,
+        "case": 0.05078563094139099,
+        "form": 0.00011906404688488692,
+        "repair": 0.002244027331471443,
+        "pointer": 0.0,
+        "insert_count": 0.0022350281942635775,
+        "insert": 0.0015845759771764278
+      }
+    },
+    {
+      "step": 340,
+      "loss": 0.030673062428832054,
+      "components": {
+        "count": 0.025622533634305,
+        "case": 0.007906909100711346,
+        "form": 0.00011497058585518971,
+        "repair": 0.0008986531756818295,
+        "pointer": 0.0,
+        "insert_count": 0.001698199543170631,
+        "insert": 0.002537128748372197
+      }
+    },
+    {
+      "step": 360,
+      "loss": 1.1501636505126953,
+      "components": {
+        "count": 0.32562240958213806,
+        "case": 0.14712272584438324,
+        "form": 0.00022190540039446205,
+        "repair": 0.269930899143219,
+        "pointer": 0.38409703969955444,
+        "insert_count": 0.15482670068740845,
+        "insert": 0.11241667717695236
+      }
+    },
+    {
+      "step": 380,
+      "loss": 0.06532902270555496,
+      "components": {
+        "count": 0.03962349891662598,
+        "case": 0.06164299324154854,
+        "form": 0.00011364161036908627,
+        "repair": 0.002460428746417165,
+        "pointer": 0.0,
+        "insert_count": 0.014502870850265026,
+        "insert": 0.001052179140970111
+      }
+    },
+    {
+      "step": 400,
+      "loss": 0.028428664430975914,
+      "components": {
+        "count": 0.01811867207288742,
+        "case": 0.009873972274363041,
+        "form": 0.00020497268997132778,
+        "repair": 0.0019067665562033653,
+        "pointer": 0.0,
+        "insert_count": 0.0017962033161893487,
+        "insert": 0.009868287481367588
+      }
+    },
+    {
+      "step": 420,
+      "loss": 0.07933176308870316,
+      "components": {
+        "count": 0.06981862336397171,
+        "case": 0.014653182588517666,
+        "form": 0.0002055103104794398,
+        "repair": 0.0028393766842782497,
+        "pointer": 0.0,
+        "insert_count": 0.0009326571598649025,
+        "insert": 0.004882758483290672
+      }
+    },
+    {
+      "step": 440,
+      "loss": 1.7569726705551147,
+      "components": {
+        "count": 0.28975003957748413,
+        "case": 0.11031711101531982,
+        "form": 0.00083274015923962,
+        "repair": 0.20882156491279602,
+        "pointer": 1.1091526746749878,
+        "insert_count": 0.16423331201076508,
+        "insert": 0.07827235758304596
+      }
+    },
+    {
+      "step": 460,
+      "loss": 0.015777859836816788,
+      "components": {
+        "count": 0.010728210210800171,
+        "case": 0.013330390676856041,
+        "form": 3.908145663444884e-05,
+        "repair": 0.0008419878431595862,
+        "pointer": 0.0,
+        "insert_count": 0.001120415749028325,
+        "insert": 0.0005906267906539142
+      }
+    },
+    {
+      "step": 480,
+      "loss": 0.1351817548274994,
+      "components": {
+        "count": 0.10557343065738678,
+        "case": 0.008243939839303493,
+        "form": 0.00023654085816815495,
+        "repair": 0.016800519078969955,
+        "pointer": 0.0,
+        "insert_count": 0.02064477652311325,
+        "insert": 0.0006123098428361118
+      }
+    },
+    {
+      "step": 500,
+      "loss": 2.304969310760498,
+      "components": {
+        "count": 0.3092854917049408,
+        "case": 0.07351286709308624,
+        "form": 0.001742140157148242,
+        "repair": 0.11867218464612961,
+        "pointer": 1.7724331617355347,
+        "insert_count": 0.13384775817394257,
+        "insert": 0.036810390651226044
+      }
+    },
+    {
+      "step": 520,
+      "loss": 0.628710150718689,
+      "components": {
+        "count": 0.16252557933330536,
+        "case": 0.06828947365283966,
+        "form": 0.0013300972059369087,
+        "repair": 0.19955894351005554,
+        "pointer": 0.09394088387489319,
+        "insert_count": 0.19564709067344666,
+        "insert": 0.11424752324819565
+      }
+    },
+    {
+      "step": 540,
+      "loss": 0.025874866172671318,
+      "components": {
+        "count": 0.015585069544613361,
+        "case": 0.017824234440922737,
+        "form": 0.00011552796786418185,
+        "repair": 0.004325841087847948,
+        "pointer": 0.0,
+        "insert_count": 0.0025082656648010015,
+        "insert": 0.00039200199535116553
+      }
+    },
+    {
+      "step": 560,
+      "loss": 0.05629536509513855,
+      "components": {
+        "count": 0.031620800495147705,
+        "case": 0.024193014949560165,
+        "form": 0.0005046070436947048,
+        "repair": 0.009676861576735973,
+        "pointer": 0.0,
+        "insert_count": 0.015250436961650848,
+        "insert": 0.0021438542753458023
+      }
+    },
+    {
+      "step": 580,
+      "loss": 1.0803413391113281,
+      "components": {
+        "count": 0.4475310742855072,
+        "case": 0.05237869918346405,
+        "form": 0.006489539053291082,
+        "repair": 0.13062050938606262,
+        "pointer": 0.44144222140312195,
+        "insert_count": 0.07626380026340485,
+        "insert": 0.01255236379802227
+      }
+    },
+    {
+      "step": 600,
+      "loss": 1.2686681747436523,
+      "components": {
+        "count": 0.17434336245059967,
+        "case": 0.06890875846147537,
+        "form": 0.0014624121831730008,
+        "repair": 0.19970732927322388,
+        "pointer": 0.7005698084831238,
+        "insert_count": 0.2502111792564392,
+        "insert": 0.1019672155380249
+      }
+    },
+    {
+      "step": 620,
+      "loss": 0.012313035316765308,
+      "components": {
+        "count": 0.007403821684420109,
+        "case": 0.0071899741888046265,
+        "form": 4.1609546315157786e-05,
+        "repair": 0.0020855229813605547,
+        "pointer": 0.0,
+        "insert_count": 0.0017739469185471535,
+        "insert": 0.00023683757171966136
+      }
+    },
+    {
+      "step": 640,
+      "loss": 0.020966079086065292,
+      "components": {
+        "count": 0.0179424025118351,
+        "case": 0.004454937297850847,
+        "form": 2.9355354854487814e-05,
+        "repair": 0.00045736233005300164,
+        "pointer": 0.0,
+        "insert_count": 0.002504534088075161,
+        "insert": 0.0003712678444571793
+      }
+    },
+    {
+      "step": 660,
+      "loss": 0.7675855755805969,
+      "components": {
+        "count": 0.2535996735095978,
+        "case": 0.058236878365278244,
+        "form": 0.0020636278204619884,
+        "repair": 0.12707087397575378,
+        "pointer": 0.33019694685935974,
+        "insert_count": 0.07176630944013596,
+        "insert": 0.010487782768905163
+      }
+    },
+    {
+      "step": 680,
+      "loss": 0.059601470828056335,
+      "components": {
+        "count": 0.011303050443530083,
+        "case": 0.0027447124011814594,
+        "form": 2.2508358597406186e-05,
+        "repair": 0.0011116520036011934,
+        "pointer": 0.0,
+        "insert_count": 0.08345676958560944,
+        "insert": 0.009521898813545704
+      }
+    },
+    {
+      "step": 700,
+      "loss": 0.024614136666059494,
+      "components": {
+        "count": 0.02229841984808445,
+        "case": 0.0034013683907687664,
+        "form": 1.4782214748265687e-05,
+        "repair": 0.0006666057743132114,
+        "pointer": 0.0,
+        "insert_count": 0.0014336354797706008,
+        "insert": 0.00014911805919837207
+      }
+    },
+    {
+      "step": 720,
+      "loss": 0.023099413141608238,
+      "components": {
+        "count": 0.00981085654348135,
+        "case": 0.03459455817937851,
+        "form": 2.658445191627834e-05,
+        "repair": 0.00033952310332097113,
+        "pointer": 0.0,
+        "insert_count": 0.00832997914403677,
+        "insert": 0.0002442245022393763
+      }
+    },
+    {
+      "step": 740,
+      "loss": 0.3898615837097168,
+      "components": {
+        "count": 0.20794492959976196,
+        "case": 0.04396079480648041,
+        "form": 0.0008549668127670884,
+        "repair": 0.09809982776641846,
+        "pointer": 0.05049864202737808,
+        "insert_count": 0.03425303474068642,
+        "insert": 0.009547955356538296
+      }
+    },
+    {
+      "step": 760,
+      "loss": 0.07140649855136871,
+      "components": {
+        "count": 0.048571888357400894,
+        "case": 0.08718147873878479,
+        "form": 3.7443322071339935e-05,
+        "repair": 0.0004107655258849263,
+        "pointer": 0.0,
+        "insert_count": 0.0011514900252223015,
+        "insert": 6.800655683036894e-05
+      }
+    },
+    {
+      "step": 780,
+      "loss": 0.015577214770019054,
+      "components": {
+        "count": 0.009464092552661896,
+        "case": 0.019361330196261406,
+        "form": 3.4313194191781804e-05,
+        "repair": 0.0008210503146983683,
+        "pointer": 0.0,
+        "insert_count": 0.0007713382947258651,
+        "insert": 9.78262978605926e-05
+      }
+    },
+    {
+      "step": 800,
+      "loss": 0.020928530022501945,
+      "components": {
+        "count": 0.011012216098606586,
+        "case": 0.025880126282572746,
+        "form": 0.00018798244127538055,
+        "repair": 0.002445237711071968,
+        "pointer": 0.0,
+        "insert_count": 0.0015427923062816262,
+        "insert": 0.0002713178109843284
+      }
+    },
+    {
+      "step": 820,
+      "loss": 0.020008733496069908,
+      "components": {
+        "count": 0.017882665619254112,
+        "case": 0.0006053491379134357,
+        "form": 6.605676026083529e-05,
+        "repair": 0.0011447783326730132,
+        "pointer": 0.0,
+        "insert_count": 0.0008731198613531888,
+        "insert": 0.0007207278395071626
+      }
+    },
+    {
+      "step": 840,
+      "loss": 0.0657605454325676,
+      "components": {
+        "count": 0.057703498750925064,
+        "case": 0.0286716278642416,
+        "form": 5.345300451153889e-05,
+        "repair": 0.0003758110979106277,
+        "pointer": 0.0,
+        "insert_count": 0.0009081806056201458,
+        "insert": 6.50066212983802e-05
+      }
+    },
+    {
+      "step": 860,
+      "loss": 0.025847066193819046,
+      "components": {
+        "count": 0.024184031412005424,
+        "case": 0.0015451614744961262,
+        "form": 4.6281162212835625e-05,
+        "repair": 0.0005802431842312217,
+        "pointer": 0.0,
+        "insert_count": 0.00122271035797894,
+        "insert": 0.0001240079727722332
+      }
+    },
+    {
+      "step": 880,
+      "loss": 0.08637481182813644,
+      "components": {
+        "count": 0.07413802295923233,
+        "case": 0.014784571714699268,
+        "form": 0.00023696648713666946,
+        "repair": 0.007300186436623335,
+        "pointer": 0.0,
+        "insert_count": 0.0021547875367105007,
+        "insert": 8.916423394111916e-05
+      }
+    },
+    {
+      "step": 900,
+      "loss": 0.020846810191869736,
+      "components": {
+        "count": 0.008478696458041668,
+        "case": 0.00844699889421463,
+        "form": 3.4175092878285795e-05,
+        "repair": 7.866028317948803e-05,
+        "pointer": 0.0,
+        "insert_count": 0.01916518807411194,
+        "insert": 0.001156044309027493
+      }
+    },
+    {
+      "step": 920,
+      "loss": 0.05166070908308029,
+      "components": {
+        "count": 0.03810468688607216,
+        "case": 0.031762100756168365,
+        "form": 4.8564957978669554e-05,
+        "repair": 0.005246875807642937,
+        "pointer": 0.0,
+        "insert_count": 0.0005741204367950559,
+        "insert": 0.00011455281492089853
+      }
+    },
+    {
+      "step": 940,
+      "loss": 0.014866957440972328,
+      "components": {
+        "count": 0.011400531977415085,
+        "case": 0.0005615957197733223,
+        "form": 1.584086385264527e-05,
+        "repair": 4.833276761928573e-05,
+        "pointer": 0.0,
+        "insert_count": 0.006492879707366228,
+        "insert": 4.666908716899343e-05
+      }
+    },
+    {
+      "step": 960,
+      "loss": 0.16424711048603058,
+      "components": {
+        "count": 0.14268271625041962,
+        "case": 0.003527302760630846,
+        "form": 0.00028425882919691503,
+        "repair": 0.018281035125255585,
+        "pointer": 0.0,
+        "insert_count": 0.004408748354762793,
+        "insert": 0.00011008277942892164
+      }
+    },
+    {
+      "step": 980,
+      "loss": 0.08924367278814316,
+      "components": {
+        "count": 0.043150436133146286,
+        "case": 0.0031543951481580734,
+        "form": 0.000531814235728234,
+        "repair": 0.03117535449564457,
+        "pointer": 2.0324865545262583e-05,
+        "insert_count": 0.023997129872441292,
+        "insert": 0.0036889773327857256
+      }
+    },
+    {
+      "step": 1000,
+      "loss": 0.018839549273252487,
+      "components": {
+        "count": 0.012161986902356148,
+        "case": 0.022954942658543587,
+        "form": 3.466881753411144e-05,
+        "repair": 0.0006496597197838128,
+        "pointer": 0.0,
+        "insert_count": 0.0004018213658127934,
+        "insert": 0.00014184779138304293
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "pilot64-001",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-002",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-003",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-004",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-005",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-006",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-007",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-008",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-009",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-010",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-011",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-012",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-013",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-014",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-015",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-016",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-017",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-018",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-019",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-020",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-021",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-022",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-023",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-024",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-025",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-026",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-027",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-028",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-029",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-030",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-031",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-032",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-033",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-034",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-035",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-036",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-037",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-038",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-039",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-040",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-041",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-042",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-043",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-044",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-045",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-046",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-047",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-048",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-049",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-050",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-051",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-052",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-053",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-054",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-055",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-056",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-057",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-058",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-059",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-060",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-061",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-062",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-063",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-064",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-065",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-066",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-067",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-068",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-069",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-070",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-071",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-072",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-073",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-074",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-075",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-076",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-077",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-078",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-079",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-080",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-081",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-082",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-083",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-084",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-085",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-086",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-087",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-088",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-089",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-090",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-091",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-092",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-093",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-094",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-095",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-096",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-097",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-098",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-099",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-100",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-101",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-102",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-103",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-104",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-105",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-106",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-107",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-108",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-109",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-110",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-111",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-112",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-113",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-114",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-115",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-116",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-117",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-118",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-119",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-120",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-121",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-122",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-123",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-124",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-125",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-126",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-127",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-128",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-129",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-130",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-131",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-132",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-133",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-134",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-135",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-136",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-137",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-138",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-139",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-140",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-141",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-142",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-143",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-144",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-145",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-146",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-147",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-148",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-149",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-150",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-151",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-152",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-153",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-154",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-155",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-156",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-157",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-158",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-159",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-160",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-161",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-162",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-163",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-164",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-165",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-166",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-167",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-168",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-169",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-170",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-171",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-172",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-173",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-174",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-175",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-176",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-177",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-178",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-179",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-180",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-181",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-182",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-183",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-184",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-185",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-186",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-187",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-188",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-189",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-190",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-191",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-192",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-193",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-194",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-195",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-196",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-197",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-198",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-199",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-200",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-201",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-202",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-203",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-204",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-205",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-206",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-207",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-208",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-209",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-210",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-211",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-212",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-213",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-214",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-215",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-216",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-217",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-218",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-219",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-220",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-221",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-222",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-223",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-224",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-225",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-226",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-227",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-228",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-229",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-230",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-231",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-232",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-233",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-234",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-235",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-236",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-237",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-238",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-239",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": false,
+      "label_reasons": [
+        "unsupported_target_atom: No anchored/finite operation for 'use' at target offset 26"
+      ],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-240",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-241",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-242",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-243",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-244",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-245",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-246",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-247",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-248",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-249",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-250",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-251",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-252",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-253",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-254",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-255",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-256",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-257",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-258",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-259",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-260",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-261",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-262",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-263",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-264",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-265",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-266",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-267",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-268",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-269",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-270",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-271",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-272",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-273",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-274",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-275",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-276",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-277",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-278",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-279",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-280",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-281",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-282",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-283",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-284",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-285",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-286",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-287",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-288",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-289",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-290",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-291",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-292",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-293",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-294",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-295",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-296",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-297",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-298",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-299",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-300",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-301",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-302",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-303",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-304",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-305",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-306",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-307",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-308",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-309",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-310",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-311",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-312",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-313",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-314",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-315",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-316",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-317",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-318",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-319",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-320",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-321",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-322",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-323",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-324",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-325",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-326",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-327",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-328",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-329",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-330",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-331",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-332",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-333",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-334",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-335",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-336",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "scale400-337",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-338",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-339",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-340",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-341",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-342",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-343",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-344",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-345",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-346",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-347",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-348",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-349",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-350",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-351",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-352",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-353",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-354",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-355",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-356",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-357",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-358",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-359",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-360",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-361",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-362",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-363",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-364",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-365",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-366",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-367",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-368",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-369",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-370",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-371",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-372",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-373",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-374",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-375",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-376",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-377",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-378",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-379",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-380",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-381",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-382",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-383",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-384",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-385",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-386",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-387",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-388",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-389",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-390",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-391",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-392",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-393",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-394",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-395",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-396",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-397",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-398",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-399",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "scale400-400",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    }
+  ],
+  "settings": {
+    "steps": 1000,
+    "batch_size": 4,
+    "learning_rate": 0.001,
+    "seed": 20261104,
+    "worker_seconds": 170.0,
+    "inference_reserve_seconds": 40.0,
+    "supervisor_seconds": 180.0,
+    "architecture": "same-held-source-tag-graph-defaults-cold-start",
+    "max_visits": 3,
+    "max_insertions": 4,
+    "model_forward_input": "source_features_and_source_padding_only",
+    "expected_plan_sha256": "a709c8d3fdb36ceedfc7cd4430d1e79a75e05b4608d4ffabad84bd992cad793e",
+    "feature_profile_sha256": "5e7801534ab449dd0f45260118a690491024780f3e57682cd8d2249d6e2c3c02",
+    "train_count": 320,
+    "development_count": 80,
+    "initialization": "new-default-copy-random-head-no-checkpoint-load"
+  },
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "torch_threads": 2,
+  "torch_interop_threads": 1,
+  "elapsed_seconds": 37.4930064020009,
+  "parameters": 597006,
+  "rss_max_bytes": 480411648,
+  "source_only_forward": true,
+  "native_calls": 0,
+  "fallback_success_credit": false
+}

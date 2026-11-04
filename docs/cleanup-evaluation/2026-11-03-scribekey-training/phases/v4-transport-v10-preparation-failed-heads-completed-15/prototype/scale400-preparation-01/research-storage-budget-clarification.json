@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T10:16:35.875677+00:00",
+  "scope": "Additive root budget clarification; prior manifests retained without rewrite",
+  "component_budgets_bytes": {
+    "native_cache_features_plus_metadata": 50000000,
+    "training_head_full_labels_full400_traces_and_metadata": 50000000,
+    "aggregate_native_plus_training": 100000000
+  },
+  "immutable_compact_plan_separate_bytes": 5539256,
+  "expected_native_feature_input_bytes": 43159552,
+  "interpretation": {
+    "native_features": "Research training input data, not candidate head weights",
+    "training_guard": "Current source_tag_train400 sums only its output/metadata directories, excluding the feature input directory",
+    "native_guard": "Current native400 controller caps F32 feature allocation at50MB; final component accounting must additionally report metadata/log/closure bytes",
+    "no_case_or_trace_truncation_for_budget": true,
+    "no_failed_evidence_deletion": true,
+    "not_application_SLA": true
+  },
+  "plan_sha256": "a709c8d3fdb36ceedfc7cd4430d1e79a75e05b4608d4ffabad84bd992cad793e",
+  "prior_native_held_sha256": "98876bc3718bd84f06648ee10f02bb3c1c08af8bb302d08bfcfa985b902e8742",
+  "prior_trainer_held_sha256": "2204ddb12b3b699f6f7a692f2d345ed181239f6b7f1759b74ff6a2f4d6e1d151",
+  "actual_execution": false
+}

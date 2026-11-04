@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "status": "CONCRETE600_PROPOSED_NO_TRAINING",
+  "initialization": {
+    "adapter_directory": "/tmp/freehand-v8-v9-factor-izdqupmr/t050",
+    "raw_adapter_sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993",
+    "raw_config_sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660",
+    "native_reference_sha256": "4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1",
+    "artifact_kind": "derived_lora_adapter_not_optimizer_checkpoint",
+    "derivation_sha256": "187afb518ec4d43f1d812ebf9900e34ec6fe09a291ed8bfcc777ebae70ef624e",
+    "parent_optimizer_steps": 0,
+    "optimizer_initialization": "fresh AdamW; no inherited V8/V9 or derivation optimizer/RNG/step count"
+  },
+  "positive_data": {
+    "rows_per_epoch": 600,
+    "epochs": 2,
+    "dataset_path_proposed": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/data-600-v1/positive-600-v1.jsonl",
+    "dataset_sha256": "4fec04c191c8324a547050500ce691fd3bc9ae65f45637cb218641a8e768c697",
+    "new400_sha256": "caa3695b10055e28766f19f75df0652170bc9957a9e7e086e208374d79326f25",
+    "old_source3634_sha256": "50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451",
+    "new_rows": 400,
+    "old_replay_unique_rows": 200,
+    "clean": 240,
+    "edit": 360,
+    "long55_100_rows_minimum": 100,
+    "full_two_epoch_exposures": 1200,
+    "new400_exposures": 800,
+    "old200_exposures": 400,
+    "replay_disjoint_buckets_in_order": [
+      {
+        "bucket": "canonical32 approved positive examples",
+        "rows": 32,
+        "clean": 4,
+        "edit": 28,
+        "source_sha256": "69aafb96f128953cdbc5204db18ffa68b0dcd4e65d8f145f97d16084a32fae14"
+      },
+      {
+        "bucket": "long55–100word contexts",
+        "rows": 20,
+        "clean": 6,
+        "edit": 14
+      },
+      {
+        "bucket": "partial/whole action-object scope and neighbor retention",
+        "rows": 48,
+        "clean": 12,
+        "edit": 36
+      },
+      {
+        "bucket": "grammatical/metalinguistic/deliberate repeats and sparse disfluencies",
+        "rows": 48,
+        "clean": 32,
+        "edit": 16
+      },
+      {
+        "bucket": "quoted/dictionary opaque literals",
+        "rows": 32,
+        "clean": 12,
+        "edit": 20
+      },
+      {
+        "bucket": "other general family-balanced replay",
+        "rows": 20,
+        "clean": 14,
+        "edit": 6
+      }
+    ],
+    "selection": "First dedupe old source by exact input-target pair, preserve earliest source provenance. Exclude exact new400 pairs. Reserve canonical32 then select disjoint quota buckets by SHA256(seed42,family,input,NUL,target), round-robin families. Every skipped unsupported literal row remains in a candidate audit; do not change targets or assert whole-old-pool coverage. If quotas cannot be met, report before changing the recipe.",
+    "literal_validation": "Every selected pair must pass exact complete v4 input-derived target restoration and source-order/multiplicity, BOS1/EOS7 and <=256complete tokens without truncation. Preserve all older framed source/target bytes; no renormalization or old-file replacement.",
+    "canonical_UL_policy": "CE-only for this fixed experiment; retain32 approved positives in replay but do not load stale v3 event artifacts. Optional UL is a separate future objective change needing v4 rerender/re-audit/rebind of all prompt/prefix/badID fingerprints, not a hidden eta sweep."
+  },
+  "optimization": {
+    "rank": 8,
+    "alpha": 16,
+    "trainable_F32_tensors": 184,
+    "base_mode": "original-iq4-dequantized-fp32-v1",
+    "base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+    "activation_quantization": "native-q8-k",
+    "kv_roundtrip": "none",
+    "batch_size": 1,
+    "gradient_accumulation": 8,
+    "effective_examples_per_update": 8,
+    "threads": 4,
+    "seed": 42,
+    "learning_rate": 2e-05,
+    "weight_decay": 0,
+    "warmup_steps": 15,
+    "schedule_total_updates": 150,
+    "microbatches_total": 1200,
+    "max_complete_tokens": 256,
+    "gradient_checkpointing": true,
+    "gradient_checkpointing_use_reentrant": false,
+    "unlikelihood_eta": 0
+  },
+  "endpoints": [
+    {
+      "updates": 50,
+      "microbatches": 400,
+      "method": "Phase50 --max-steps50 with original150schedule; checkpoint-every10 saves actual50RNG/optimizer. Keep the whole phase output unchanged.",
+      "full_curriculum_epoch_completed": false
+    },
+    {
+      "updates": 150,
+      "microbatches": 1200,
+      "method": "Fresh phase150 output; --resume-checkpoint phase50/checkpoints/step-000050, same150schedule/data/source/seed/GC/v4; omit --resume-adapter and omit --max-steps. Exact optimizer/RNG/LR continuation.",
+      "full_curriculum_epochs_completed": 2
+    }
+  ],
+  "storage": {
+    "future_root": "/dev/shm/freehand-v10-lora-<owned-run-id>",
+    "weights_cache_optimizer_and_intermediates_only_on_devshm": true,
+    "phase_outputs": [
+      "phase50",
+      "phase150"
+    ],
+    "estimated_two_phase_weight_optimizer_checkpoint_bytes": 217000000,
+    "two_small_native_export_workdirs_estimate_bytes": 48000000,
+    "reserve_new_tmpfs_bytes": 300000000,
+    "FP32_base_serialization": false,
+    "old_generations_moved_deleted_or_overwritten": false
+  },
+  "preflight_before_training": {
+    "must_be_exclusive_after_head_native_reaped": true,
+    "root_owns_cgroup_monitor": true,
+    "requested_incremental_memory_budget_bytes": [
+      2800000000,
+      3000000000
+    ],
+    "worst_case": "One approved239-token source+target example, B1. Measure model-load peak plus source-only no-grad control forward, GC-enabled forward/backward and actual AdamW update. Record loss/logit comparison,184 finite gradients/deltas, frozen-base no grads, VmHWM and actual cgroup peak. No quality credit for profile weights.",
+    "gradient_control": "Before full model, tiny frozen-input LoRA unit compares GC-off/on gradients and exact resume. Actual full-parent one-step control required; do not infer numeric equivalence from API availability. Serial no-GC backward reference only if root memory guard permits; otherwise explicitly scope the full-model control to no-grad forward equality plus finite GC update.",
+    "if_over_budget": "Stop and preserve profile logs/partial artifacts. Do not launch150updates or silently change dtype/base/Q8/rank/batch/long examples. Root may then authorize byte-preserving build-output dedup or a separately reviewed loader-memory change; neither is authorized by this plan."
+  },
+  "no_training_source_or_data_files_changed_by_plan": true,
+  "quota_adjustment_receipt": "selection-quota-adjustment-v1.json",
+  "actual_data_manifest": "data-600-v1/manifest.json",
+  "latest_proposed_source_patch": "PROPOSED-NOT-APPLIED-v4-memory-v4.patch",
+  "actual_source_data_checks": "candidate-v4-data-and-config-checks.json"
+}

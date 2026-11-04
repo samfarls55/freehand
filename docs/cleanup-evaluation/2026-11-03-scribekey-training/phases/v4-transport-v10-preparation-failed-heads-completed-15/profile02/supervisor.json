@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "reason": "completed",
+  "returncode": 0,
+  "status": "COMPLETED_SAMPLED_PROFILE",
+  "measurement_complete": true,
+  "sample_count": 893,
+  "owned_pid": 195772,
+  "owned_process_group": 195772,
+  "owned_session": 195772,
+  "ownership_confirmed": true,
+  "owned_process_reaped": true,
+  "owned_group_released": true,
+  "cpu_release": true,
+  "max_seconds": 180,
+  "memory_cap_bytes": 16500000000,
+  "poll_seconds": 0.05,
+  "cleanup_grace_seconds_maximum": 3.0,
+  "elapsed_seconds_including_cleanup": 45.26524681400042,
+  "observed_peaks": {
+    "cgroup_current_bytes": 14613848064,
+    "cgroup_peak_bytes": 17179877376,
+    "owned_rss_bytes": 2779525120,
+    "owned_rss_peak_bytes": 2779525120
+  },
+  "cgroup_baseline": {
+    "current_bytes": 11661570048,
+    "peak_bytes": 17179877376,
+    "events": {
+      "low": 0,
+      "high": 0,
+      "max": 30869,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "last_cgroup_sample": {
+    "current_bytes": 12592709632,
+    "peak_bytes": 17179877376,
+    "events": {
+      "low": 0,
+      "high": 0,
+      "max": 30869,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "final_cgroup_sample": {
+    "current_bytes": 12053757952,
+    "peak_bytes": 17179877376,
+    "events": {
+      "low": 0,
+      "high": 0,
+      "max": 30869,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "final_memory_event_delta": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "sampled_memory_guard_only": true,
+  "oom_avoidance_guaranteed": false,
+  "limitation": "Polling can miss allocation jumps or OOM between samples; cgroup memory includes other workloads and its peak is historical. Owned RSS covers only this PID.",
+  "error": null,
+  "cleanup_errors": []
+}

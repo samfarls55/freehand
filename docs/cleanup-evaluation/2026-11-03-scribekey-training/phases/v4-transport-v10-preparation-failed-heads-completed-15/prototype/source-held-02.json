@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "created_utc": "2026-11-04T08:44:29.794694+00:00",
+  "status": "SOURCE_HELD_FOR_NARROW_REAUDIT_NO_TORCH_FEATURECACHE_OR_TRAINING",
+  "previous_manifest": {
+    "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source-held-01.json",
+    "sha256": "23e4aed509db99ffa73d563254b29e37f45c63b82453c3e62ed5a2b3b5007fc0",
+    "preserved_bytes": "historical/source-held-01/"
+  },
+  "files": [
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/core.py",
+      "bytes": 29067,
+      "sha256": "cf56a846e75edd09e62ea82a3e6e5310cedec7ed9c736995a09ed65793ffee7d"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/head_contract.py",
+      "bytes": 17707,
+      "sha256": "2c7fdf966b07990512102da947c0c78061eea575e8bee1568f970b3782ef32be"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/head_model.py",
+      "bytes": 8889,
+      "sha256": "03ea7cdbeed45446370678af66e7d23096e7a7c7db3fabc375b54bbaca841de9"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/audit.py",
+      "bytes": 7141,
+      "sha256": "168d93dacda7e09f1c074cce7dcd638249a6a42dc6d2a98825706aade520bb2e"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/__init__.py",
+      "bytes": 851,
+      "sha256": "a105664ebc907d08bfacf2b873d2479391b423c45e7660c229eae1709aa9b15e"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/protection.py",
+      "bytes": 11057,
+      "sha256": "7c1d270b57b5f653f177cd9703aaa45d6828166314f4facd023ef15c23ca8a43"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/feature_contract.py",
+      "bytes": 6682,
+      "sha256": "3b510a3f42fedf125326b875804b4f09f4e5787e22d00832a57d79e7833969a2"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/test_core.py",
+      "bytes": 16398,
+      "sha256": "872350210823303fc5046a77513d7f60c62b01cb74e9d84e5cc12a1ced50ca7c"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/editor_core/test_head_contract.py",
+      "bytes": 8279,
+      "sha256": "f4b9e3472c222801266eaf2d42c32aa0ac3babcb3031083b8d1223cdc60d0f24"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/test_protection.py",
+      "bytes": 5526,
+      "sha256": "aa4ae1a77b7837b0bc5113cc95df571c68f299e6c3aab687260b8e54c8eac50c"
+    },
+    {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/test_feature_contract.py",
+      "bytes": 1105,
+      "sha256": "fdb6a98d91743c0b126d815f1487bb7df6e7e40f736a4d9edfcbe722dff389a4"
+    }
+  ],
+  "fixes": [
+    "External protection policy rejection becomes per-row unsupported without dropping audit denominator; internal faults still propagate.",
+    "Execute freshly compiled exact held helper and explicit eager/lazy dependencies; ignore public sys.modules cache entries.",
+    "Empty/whitespace source labels unsupported, consistent with source-feature head contract.",
+    "Finite defer and format paradigms use deferred/deferring/formatted/formatting; incorrect undoubled forms unavailable."
+  ],
+  "pure_test_observation": {
+    "argv": [
+      "python",
+      "-m",
+      "unittest",
+      "editor_core.test_core",
+      "editor_core.test_head_contract",
+      "test_protection",
+      "test_feature_contract",
+      "-q"
+    ],
+    "observed_exit_code": 0,
+    "tests": 42,
+    "reported_seconds": 0.033,
+    "exec_chunk": "508daf",
+    "no_torch_import": true
+  },
+  "quote_dependency": {
+    "source_packet_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/source-ready-v3.json",
+    "source_packet_sha256": "7960f93db6de4e55a90277dac62a52ce4c9c60a75906e69006c317d18b5a9472",
+    "executed_sources": {
+      "specialist_literal_protection": {
+        "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py",
+        "sha256": "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561"
+      },
+      "literal_protection": {
+        "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/literal_protection.py",
+        "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc"
+      },
+      "specialist_literal_word_ranges": {
+        "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_word_ranges.py",
+        "sha256": "8d3e4b053be74326530914610c5e592d8a00d5870eba68a65da403845b70c42e"
+      }
+    },
+    "managed_qualification": "Strict new Probe build/tests/exports owned by quote agent; this receipt does not assert completion."
+  },
+  "native_status": "Six-case native proof completed and reaped; no current native job or feature cache."
+}

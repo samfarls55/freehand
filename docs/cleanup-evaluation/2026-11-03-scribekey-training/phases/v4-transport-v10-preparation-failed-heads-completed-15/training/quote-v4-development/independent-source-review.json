@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "author": "benchmark_harness independent reviewer",
+  "created_utc": "2026-11-04T08:23:41Z",
+  "decision": "PASS_SOURCE_REVIEW_NO_REMAINING_BLOCKER",
+  "source_packet": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/source-ready.json",
+    "bytes": 15920,
+    "sha256": "7960f93db6de4e55a90277dac62a52ce4c9c60a75906e69006c317d18b5a9472"
+  },
+  "held_source_file_count": 27,
+  "held_source_total_bytes": 517382,
+  "all_27_source_pins_verified_before_and_after_independent_tests": true,
+  "reviewed_scope": [
+    "AGENTS.md and docs/DEVELOPMENT.md constraints plus fixed Training/PROTOCOL.md minimal-edit/literal rules",
+    "Bounded 64-delimiter scanner, outer-span disjointness, odd-backslash escaping, apostrophe/possessive/elision distinctions and strict malformed-input rejection",
+    "Frozen Unicode14 word ranges, astral/scalar handling, unknown newer scalars, reproducible source generation and Unicode license notice",
+    "Unchanged legacy-v3 parser/restoration/terminal punctuation behavior and original Create(string,bool=true) source ABI",
+    "Typed opt-in options/manifest validation, managed acquisition/cache reuse, PowerShell acquisition/preparation/validation propagation",
+    "Provider raw-control rejection before masking, exact token order/count restoration, no partial literal restoration, default general/dictionary/trainer paths unchanged",
+    "Probe export and actual-Core protocol metadata, evaluator freeze/profile/manifest/export/deployment binding and source-archive closure",
+    "C#/Python shared UTF8/scalar vectors, independent declared-payload verification and v3 differential checks"
+  ],
+  "checks": {
+    "evaluation_python": {
+      "passed": 72,
+      "failed": 0
+    },
+    "training_evaluator_python": {
+      "passed": 52,
+      "failed": 0
+    },
+    "affected_pester": {
+      "Passed": 78,
+      "FailedContainers": 0,
+      "Skipped": 0,
+      "Total": 78,
+      "Failed": 0
+    },
+    "unicode14_generation_check_exit_code": 0,
+    "legacy_python_old_new_comparisons": 5012,
+    "managed_legacy_parser_restore_bodies_byte_identical": true,
+    "original_public_bool_overload_signature_preserved": true,
+    "all_shared_23_accepted_payloads_and_exact_utf8_roundtrips": true,
+    "root_U001C_U001F_counterexamples": "Current explicit Python whitespace predicate excludes all four, matching managed source branch; all four explicitly reject as ambiguous. Core source need not sanitize them away.",
+    "historical_v2_all_23_source_bytes_verified_preserved": true
+  },
+  "findings_closed": [
+    {
+      "id": "QV4-SETUP-001",
+      "resolution": "Both scripts propagate/validate explicit CompactV4 before downloads/output mutation; default-v3 manifests omit the new field. Independent synthetic Pester regressions pass."
+    },
+    {
+      "id": "QV4-GRAMMAR-001",
+      "resolution": "Defined leading elisions are recognized inside outer quotes, while only outside-quote cases contribute global ambiguity tracking; paired inner elisions remain nested. Four shared vectors pass."
+    },
+    {
+      "id": "QV4-METADATA-001",
+      "resolution": "Packet now scopes host-Unicode independence to word classification and explicitly discloses existing whitespace API semantics."
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/initial-v2-review.json",
+      "bytes": 4181,
+      "sha256": "f469656d2bb8bf562bfaafb81a576f0cce859b95b69b424471dfa9f9cbb9301f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/legacy-managed-source-proof.json",
+      "bytes": 677,
+      "sha256": "2d9c9b575ea2954afa6748073fbaeb0e35223d5066767767c0685469389a078d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/independent-synthetic-checks.json",
+      "bytes": 747,
+      "sha256": "312e71980b29963081bb3311675ba35dca50664277c35e3f5a8b784482c3b145"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-extra-parity-and-history.json",
+      "bytes": 6507,
+      "sha256": "d48f82d1a477429b049ca537a61384c08eeaf4e6ec9d431e662d07e6bdc3aab1"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/unicode-generator-check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-evaluation-tests.log",
+      "bytes": 13106,
+      "sha256": "afeb936090eb72724b9c6e24de011ae42fcb225467ccd730a23b8d7c5b275462"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-training-evaluator-tests.log",
+      "bytes": 8685,
+      "sha256": "4b58dce37ca57bd0845e18e99258ba6c4d0c410d5212d3496f23beaf03b5e680"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-script-tests-console.log",
+      "bytes": 7184,
+      "sha256": "8b92abf3da33d420c23132e5e93ceff78bb167b70d1549edd482471595b1c9cd"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-script-tests/summary.json",
+      "bytes": 90,
+      "sha256": "e2e146d942913eebf1728f8335908bc948666dc9118d648b38a57c4e7d54a5b7"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-script-tests/results.xml",
+      "bytes": 30716,
+      "sha256": "6ba66367d23c981d321e3d8f1c1e41a06204bfa790e97d84b1d86f36845b8f83"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/independent-audit/final-source-diff.patch",
+      "bytes": 73646,
+      "sha256": "1668ef7079cc11628e1418bda23ce8489ae6f66a697a1393c062017e81e53bb1"
+    }
+  ],
+  "execution_boundary": {
+    "shared_source_edits_by_reviewer": false,
+    "managed_build_or_managed_test_execution": false,
+    "real_native_model_or_inference_or_torch_execution": false,
+    "real_downloads_or_installed_profile_changes": false,
+    "private_unopened_round3_inputs_accessed": false,
+    "actual_quality_or_SLA_qualification_claimed": false
+  },
+  "limitations": [
+    "This PASS covers pinned source and the independent pure/synthetic checks. Strict isolated managed compilation and C# test execution remain a separate root-owned gate.",
+    "The original public signature is preserved at source level; no binary ABI runtime test was performed by this reviewer.",
+    "A new literal transport can reject deliberately ambiguous grammar or unsupported targets. Such failures must retain their denominators and receive no fallback accuracy credit.",
+    "Transport correctness does not establish v4 semantic quality, memory/latency qualification, Windows behavior, installation/default promotion, or authorization to open an unopened corpus."
+  ]
+}

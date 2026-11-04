@@ -1,0 +1,209 @@
+--- a/tools/Freehand.Cleanup.Training/pipeline.py
++++ b/tools/Freehand.Cleanup.Training/pipeline.py
+@@ -49,9 +49,9 @@
+         stream.write("\n")
+ 
+ 
+-def protected_pair(source: str, target: str) -> tuple[str, str, SpecialistLiteralMask]:
++def protected_pair(source: str, target: str, literal_protocol: str = PROTOCOL) -> tuple[str, str, SpecialistLiteralMask]:
+     """Use input-derived tokens on both sides, then prove exact target restoration."""
+-    mask = SpecialistLiteralMask.create(source)
++    mask = SpecialistLiteralMask.create(source, protocol=literal_protocol)
+     masked_target = target
+     for ordinal, block in enumerate(mask.legacy.blocks):
+         if masked_target.count(block) != 1:
+@@ -72,7 +72,7 @@
+     return PREFIX + mask.masked_text + SUFFIX, masked_target, mask
+ 
+ 
+-def load_data(path: Path):
++def load_data(path: Path, literal_protocol: str = PROTOCOL):
+     rows = []
+     ids = set()
+     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+@@ -87,7 +87,7 @@
+         for value in [row["input"], row["target"]]:
+             if not value or any(control in value for control in ["<|", "###", "\x00"]):
+                 raise ValueError(f"Empty/reserved control input at line {line_number}")
+-        prompt, target, mask = protected_pair(row["input"], row["target"])
++        prompt, target, mask = protected_pair(row["input"], row["target"], literal_protocol)
+         rows.append({**row, "prompt": prompt, "masked_target": target, "literal_count": len(mask.tokens)})
+     if not rows:
+         raise ValueError("Dataset is empty")
+@@ -463,7 +463,7 @@
+     return hashlib.sha256(value.encode("utf-8")).hexdigest()
+ 
+ 
+-def load_unlikelihood_events(path, positive_path, rows, tokenizer, tokenizer_path=None):
++def load_unlikelihood_events(path, positive_path, rows, tokenizer, tokenizer_path=None, *, literal_protocol=PROTOCOL):
+     """Validate token events against the exact positive file; never add examples."""
+     positive_sha = sha(Path(positive_path))
+     by_id = {row["id"]: row for row in rows}
+@@ -494,8 +494,8 @@
+             raise ValueError("Unlikelihood source/gold/bad strings are empty, equal or contain reserved controls")
+         if record.get("source_input_sha256") != text_sha(source) or record.get("approved_gold_sha256") != text_sha(gold):
+             raise ValueError("Unlikelihood source/gold hash mismatch")
+-        prompt, masked_gold, mask = protected_pair(source, gold)
+-        other_prompt, masked_bad, other_mask = protected_pair(source, bad)
++        prompt, masked_gold, mask = protected_pair(source, gold, literal_protocol)
++        other_prompt, masked_bad, other_mask = protected_pair(source, bad, literal_protocol)
+         if prompt != other_prompt or mask.tokens != other_mask.tokens or mask.payloads != other_mask.payloads:
+             raise ValueError("Gold/bad do not share the same source-derived literal mask")
+         # Require the exact multiplicity of every protected payload, including repeated quotes.
+@@ -661,7 +661,10 @@
+     "activation_quantization_mode", "activation_cpu_library_sha256", "activation_base_library_sha256",
+     "activation_linear_inventory_sha256", "unlikelihood_schema", "unlikelihood_events_sha256",
+     "unlikelihood_positive_sha256", "unlikelihood_tokenizer_sha256", "unlikelihood_mapping_sha256",
+-    "unlikelihood_eta", "unlikelihood_source_sha256")
++    "unlikelihood_eta", "unlikelihood_source_sha256", "literal_protocol", "literal_helper_sha256",
++    "literal_word_ranges_sha256", "gradient_checkpointing", "gradient_checkpointing_use_reentrant",
++    "gradient_checkpointing_model_source_sha256", "gradient_checkpointing_framework_source_sha256",
++    "gradient_checkpointing_enable_source_sha256", "gradient_checkpointing_checkpoint_source_sha256")
+ 
+ 
+ def _fsync_directory(path):
+@@ -749,6 +752,36 @@
+     return final
+ 
+ 
++def validate_resume_configuration(saved, expectedconfig):
++    """Only registered8c/v3/noGC may lack these newly introduced metadata fields."""
++    optional = {"literal_protocol", "literal_helper_sha256", "literal_word_ranges_sha256",
++        "gradient_checkpointing", "gradient_checkpointing_use_reentrant",
++        "gradient_checkpointing_model_source_sha256", "gradient_checkpointing_framework_source_sha256",
++        "gradient_checkpointing_enable_source_sha256", "gradient_checkpointing_checkpoint_source_sha256"}
++    legacy_v3_no_gc = (type(saved.get("schema_version")) is int and saved.get("schema_version") == 1
++        and expectedconfig.get("literal_helper_sha256") == "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561"
++        and saved.get("training_source_sha256") == "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
++        and saved.get("literal_protocol", PROTOCOL) == "specialist-compact-v3"
++        and expectedconfig.get("literal_protocol", PROTOCOL) == "specialist-compact-v3"
++        and saved.get("gradient_checkpointing", False) is False
++        and expectedconfig.get("gradient_checkpointing", False) is False)
++    if expectedconfig.get("gradient_checkpointing") is True and saved.get("packages") != expectedconfig.get("packages"):
++        raise ValueError("Checkpoint configuration mismatch: checkpointing packages")
++    missing = []
++    for key in RESUME_CONFIG_KEYS:
++        if key in optional and key in expectedconfig and key not in saved:
++            if legacy_v3_no_gc:
++                missing.append(key)
++                continue
++            raise ValueError("Checkpoint configuration missing required mode field: " + key)
++        if key in expectedconfig or key in saved:
++            if (expectedconfig.get(key) != saved.get(key)
++                    or key in optional and key in expectedconfig and key in saved
++                    and type(expectedconfig[key]) is not type(saved[key])):
++                raise ValueError("Checkpoint configuration mismatch: " + key)
++    return missing
++
++
+ def load_resume_checkpoint(model, optimizer, torch, path, expectedconfig, *, allow_legacy_rng=False):
+     """Verify all saved bytes/config, then restore adapters, optimizer and RNG."""
+     from safetensors.torch import load_file
+@@ -768,10 +801,7 @@
+     saved = json.loads((path / "adapter-config.json").read_text())
+     if sha(path / "training-source.py") != saved["training_source_sha256"]:
+         raise ValueError("Checkpoint source/configuration binding mismatch")
+-    for key in RESUME_CONFIG_KEYS:
+-        if key in expectedconfig or key in saved:
+-            if expectedconfig.get(key) != saved.get(key):
+-                raise ValueError("Checkpoint configuration mismatch: " + key)
++    legacy_missing_optional_fields = validate_resume_configuration(saved, expectedconfig)
+     micro, step = int(state["global_microbatch"]), int(state["global_step"])
+     accumulation = saved.get("gradient_accumulation", 1)
+     total_micro = saved.get("epochs", 1) * math.ceil(saved.get("train_rows", micro) / saved.get("batch_size", 1))
+@@ -804,15 +834,24 @@
+         state["rng_restore_mode"] = "legacy_deterministic_no_stochastic_training_operations"
+     state["resume_state_sha256"] = sha(path / "resume-state.json")
+     state["source_training_code_sha256"] = saved["training_source_sha256"]
++    state["legacy_missing_optional_fields"] = legacy_missing_optional_fields
++    state["legacy_optional_compatibility_evidence_sha256"] = (
++        "3c207a04034963e579a2d902eba9c8d6bd9d33f5985457815ea65efeb2e388cb"
++        if legacy_missing_optional_fields else None)
+     return state
+ 
+ 
+ def train(args):
++    literal_protocol = getattr(args, "specialist_literal_protocol", PROTOCOL)
++    gradient_checkpointing = getattr(args, "gradient_checkpointing", False)
++    if (literal_protocol not in ("specialist-compact-v3", "specialist-compact-v4")
++            or type(gradient_checkpointing) is not bool):
++        raise ValueError("Invalid explicit literal/checkpointing mode")
+     if args.output.exists():
+         raise ValueError("Output must be a fresh directory")
+     args.output.mkdir(parents=True)
+     shutil.copyfile(Path(__file__), args.output / "training-source.py")
+-    raw = load_data(args.train)
++    raw = load_data(args.train, literal_protocol)
+     if any(row.get("split") not in (None, "train") for row in raw):
+         raise ValueError("Training file contains a non-training split")
+     random.seed(args.seed)
+@@ -844,7 +883,7 @@
+     unlikelihood_config = {}
+     if args.unlikelihood_events:
+         rows, unlikelihood_config = load_unlikelihood_events(args.unlikelihood_events, args.train, rows, tokenizer,
+-                                                           args.base / "tokenizer.json")
++                                                           args.base / "tokenizer.json", literal_protocol=literal_protocol)
+         unlikelihood_config["unlikelihood_eta"] = args.unlikelihood_eta
+         write_json(args.output / "unlikelihood-provenance.json", {**unlikelihood_config,
+             "canonical_event_count": len({event["event_id"] for row in rows for event in row["_unlikelihood_events"]}),
+@@ -903,6 +942,26 @@
+         extra_config.update(parent_adapter_sha256=args.parent_adapter_sha256,
+             parent_adapter_config_sha256=saved_identity.get("parent_adapter_config_sha256"),
+             rank_expansion=saved_identity.get("rank_expansion"))
++    checkpointing = {"gradient_checkpointing": gradient_checkpointing,
++        "gradient_checkpointing_use_reentrant": False if gradient_checkpointing else None,
++        "gradient_checkpointing_model_source_sha256": None,
++        "gradient_checkpointing_framework_source_sha256": None,
++        "gradient_checkpointing_enable_source_sha256": None,
++        "gradient_checkpointing_checkpoint_source_sha256": None}
++    if gradient_checkpointing:
++        import inspect
++        from transformers.modeling_layers import GradientCheckpointingLayer
++        from torch.utils.checkpoint import checkpoint as checkpoint_function
++        model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
++        model.config.use_cache = False
++        if not model.is_gradient_checkpointing:
++            raise ValueError("Requested nonreentrant gradient checkpointing did not enable")
++        checkpointing.update(
++            gradient_checkpointing_model_source_sha256=sha(Path(inspect.getfile(type(model.model.layers[0])))),
++            gradient_checkpointing_framework_source_sha256=sha(Path(inspect.getfile(GradientCheckpointingLayer))),
++            gradient_checkpointing_enable_source_sha256=sha(Path(inspect.getfile(model.gradient_checkpointing_enable))),
++            gradient_checkpointing_checkpoint_source_sha256=sha(Path(inspect.getfile(inspect.unwrap(checkpoint_function)))))
++    extra_config.update(checkpointing)
+     trainable = [parameter for parameter in model.parameters() if parameter.requires_grad]
+     total_micro = args.epochs * math.ceil(len(rows) / args.batch_size)
+     total_steps = math.ceil(total_micro / args.gradient_accumulation)
+@@ -913,7 +972,10 @@
+               "train_rows": len(rows), "trainable_parameters": sum(p.numel() for p in trainable),
+               "epochs": args.epochs, "batch_size": args.batch_size, "gradient_accumulation": args.gradient_accumulation,
+               "learning_rate": args.learning_rate, "max_tokens": args.max_tokens, "threads": args.threads,
+-              "dtype": "float32", "packages": packages(), "literal_protocol": PROTOCOL,
++              "dtype": "float32", "packages": packages(), "literal_protocol": literal_protocol,
++              "literal_helper_sha256": sha(REPO / "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py"),
++              "literal_word_ranges_sha256": (sha(REPO / "tools/Freehand.Cleanup.Evaluation/specialist_literal_word_ranges.py")
++                  if literal_protocol == "specialist-compact-v4" else None),
+               "assistant_only_loss": True, "zero_adapter_exact_logit_identity": True,
+               "training_source_sha256": sha(Path(__file__)), "optimizer": "AdamW", "weight_decay": 0,
+               "warmup_steps": args.warmup_steps, "checkpoint_every_steps": args.checkpoint_every,
+@@ -933,7 +995,11 @@
+                       resume_global_step=resumed["global_step"],
+                       resume_global_microbatch=resumed["global_microbatch"],
+                       resume_rng_restore_mode=resumed["rng_restore_mode"],
+-                      resume_source_training_code_sha256=resumed["source_training_code_sha256"])
++                      resume_source_training_code_sha256=resumed["source_training_code_sha256"],
++                      resume_legacy_missing_optional_fields=resumed["legacy_missing_optional_fields"],
++                      resume_legacy_optional_compatibility_evidence_sha256=resumed["legacy_optional_compatibility_evidence_sha256"],
++                      resume_legacy_metadata_note=("Historic optional helper/GC fields were absent; no original hashes were inferred."
++                          if resumed["legacy_missing_optional_fields"] else None))
+     write_json(args.output / "adapter-config.json", config)
+     optimizer.zero_grad(set_to_none=True)
+     start = time.monotonic()
+@@ -1227,6 +1293,8 @@
+     training.add_argument("--train", type=Path, required=True)
+     training.add_argument("--output", type=Path, required=True)
+     training.add_argument("--threads", type=int, default=4)
++    training.add_argument("--specialist-literal-protocol", choices=["specialist-compact-v3", "specialist-compact-v4"], default=PROTOCOL)
++    training.add_argument("--gradient-checkpointing", action="store_true")
+     training.add_argument("--seed", type=int, default=42)
+     training.add_argument("--rank", type=int, default=8)
+     training.add_argument("--alpha", type=float, default=16)

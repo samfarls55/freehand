@@ -1,0 +1,4109 @@
+{
+  "profile_only": true,
+  "candidate_eligible": false,
+  "profile": "worst239_gc_on",
+  "process": {
+    "schema_version": 1,
+    "reason": "completed",
+    "returncode": 0,
+    "status": "COMPLETED_SAMPLED_PROFILE",
+    "measurement_complete": true,
+    "sample_count": 893,
+    "owned_pid": 195772,
+    "owned_process_group": 195772,
+    "owned_session": 195772,
+    "ownership_confirmed": true,
+    "owned_process_reaped": true,
+    "owned_group_released": true,
+    "cpu_release": true,
+    "max_seconds": 180,
+    "memory_cap_bytes": 16500000000,
+    "poll_seconds": 0.05,
+    "cleanup_grace_seconds_maximum": 3.0,
+    "elapsed_seconds_including_cleanup": 45.26524681400042,
+    "observed_peaks": {
+      "cgroup_current_bytes": 14613848064,
+      "cgroup_peak_bytes": 17179877376,
+      "owned_rss_bytes": 2779525120,
+      "owned_rss_peak_bytes": 2779525120
+    },
+    "cgroup_baseline": {
+      "current_bytes": 11661570048,
+      "peak_bytes": 17179877376,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 30869,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "last_cgroup_sample": {
+      "current_bytes": 12592709632,
+      "peak_bytes": 17179877376,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 30869,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "final_cgroup_sample": {
+      "current_bytes": 12053757952,
+      "peak_bytes": 17179877376,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 30869,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      }
+    },
+    "final_memory_event_delta": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "sampled_memory_guard_only": true,
+    "oom_avoidance_guaranteed": false,
+    "limitation": "Polling can miss allocation jumps or OOM between samples; cgroup memory includes other workloads and its peak is historical. Owned RSS covers only this PID.",
+    "error": null,
+    "cleanup_errors": []
+  },
+  "status": "MATCHED_ONE_UPDATE_MEMORY_PROFILE_COMPLETE_NOT_CANDIDATE",
+  "quality_or_SLA_claim": false,
+  "inputs_after": [
+    {
+      "role": "applied_pipeline",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+      "sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+      "observed_sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+      "observed_bytes": 84747,
+      "resolved_path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py"
+    },
+    {
+      "role": "original_bf16",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/model.safetensors",
+      "sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+      "observed_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+      "observed_bytes": 708984464,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/model.safetensors"
+    },
+    {
+      "role": "original_iq4",
+      "path": "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf",
+      "sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+      "observed_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+      "observed_bytes": 211804448,
+      "resolved_path": "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf"
+    },
+    {
+      "role": "parent_raw",
+      "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter.safetensors",
+      "sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993",
+      "observed_sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993",
+      "observed_bytes": 12012656,
+      "resolved_path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter.safetensors"
+    },
+    {
+      "role": "parent_config",
+      "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter-config.json",
+      "sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660",
+      "observed_sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660",
+      "observed_bytes": 4453,
+      "resolved_path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter-config.json"
+    },
+    {
+      "role": "parent_derivation",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/DERIVATION.json",
+      "sha256": "187afb518ec4d43f1d812ebf9900e34ec6fe09a291ed8bfcc777ebae70ef624e",
+      "observed_sha256": "187afb518ec4d43f1d812ebf9900e34ec6fe09a291ed8bfcc777ebae70ef624e",
+      "observed_bytes": 43987,
+      "resolved_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/DERIVATION.json"
+    },
+    {
+      "role": "base_config",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/config.json",
+      "sha256": "13ab9863955d2016c32417ff97b1a9840951d2481b6d3095f7ae98d10611a7d2",
+      "observed_sha256": "13ab9863955d2016c32417ff97b1a9840951d2481b6d3095f7ae98d10611a7d2",
+      "observed_bytes": 1072,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/config.json"
+    },
+    {
+      "role": "tokenizer",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/tokenizer.json",
+      "sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+      "observed_sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+      "observed_bytes": 4733389,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/tokenizer.json"
+    },
+    {
+      "role": "approved600",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/data-600-v1/positive-600-v1.jsonl",
+      "sha256": "4fec04c191c8324a547050500ce691fd3bc9ae65f45637cb218641a8e768c697",
+      "observed_sha256": "4fec04c191c8324a547050500ce691fd3bc9ae65f45637cb218641a8e768c697",
+      "observed_bytes": 1233361,
+      "resolved_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-experiment-preparation/data-600-v1/positive-600-v1.jsonl"
+    },
+    {
+      "role": "native_executable",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+      "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "observed_sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6",
+      "observed_bytes": 17864,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server"
+    },
+    {
+      "role": "native_library_0",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-base.so.0.28.0",
+      "sha256": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb",
+      "observed_sha256": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb",
+      "observed_bytes": 929000,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-base.so.0.28.0"
+    },
+    {
+      "role": "native_library_1",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-haswell.so",
+      "sha256": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5",
+      "observed_sha256": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5",
+      "observed_bytes": 1438128,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-haswell.so"
+    },
+    {
+      "role": "native_library_2",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-rpc.so",
+      "sha256": "39d3e844f1985afd722007641cd28a2161e86981835474ee406278edf6588620",
+      "observed_sha256": "39d3e844f1985afd722007641cd28a2161e86981835474ee406278edf6588620",
+      "observed_bytes": 319896,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-rpc.so"
+    },
+    {
+      "role": "native_library_3",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml.so.0.28.0",
+      "sha256": "8643a58bb37af6fb153e2ea98b48efa227855725ee51c05f4ca76b9867956463",
+      "observed_sha256": "8643a58bb37af6fb153e2ea98b48efa227855725ee51c05f4ca76b9867956463",
+      "observed_bytes": 51040,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml.so.0.28.0"
+    },
+    {
+      "role": "native_library_4",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-common.so.0.8.0",
+      "sha256": "d54634b12e99da239333588d01c80b7714df8dc416ebd71e19204e64ee26465f",
+      "observed_sha256": "d54634b12e99da239333588d01c80b7714df8dc416ebd71e19204e64ee26465f",
+      "observed_bytes": 6758616,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-common.so.0.8.0"
+    },
+    {
+      "role": "native_library_5",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-server-impl.so",
+      "sha256": "e9708c1c53e02db7f565d292d80dd754eaaadeb6ff159a2f6473a7518703287a",
+      "observed_sha256": "e9708c1c53e02db7f565d292d80dd754eaaadeb6ff159a2f6473a7518703287a",
+      "observed_bytes": 8281320,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-server-impl.so"
+    },
+    {
+      "role": "native_library_6",
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama.so.0.8.0",
+      "sha256": "da1e126ab98e2a8b52abc2a79589a5f9bde160e43f4c1f40469ef8927736da7b",
+      "observed_sha256": "da1e126ab98e2a8b52abc2a79589a5f9bde160e43f4c1f40469ef8927736da7b",
+      "observed_bytes": 5361824,
+      "resolved_path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama.so.0.8.0"
+    },
+    {
+      "role": "specialist_literal_protection.py",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py",
+      "sha256": "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561",
+      "bytes": 8886,
+      "observed_sha256": "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561",
+      "observed_bytes": 8886,
+      "resolved_path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py"
+    },
+    {
+      "role": "literal_protection.py",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/literal_protection.py",
+      "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+      "bytes": 3976,
+      "observed_sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+      "observed_bytes": 3976,
+      "resolved_path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/literal_protection.py"
+    },
+    {
+      "role": "specialist_literal_word_ranges.py",
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_word_ranges.py",
+      "sha256": "8d3e4b053be74326530914610c5e592d8a00d5870eba68a65da403845b70c42e",
+      "bytes": 13994,
+      "observed_sha256": "8d3e4b053be74326530914610c5e592d8a00d5870eba68a65da403845b70c42e",
+      "observed_bytes": 13994,
+      "resolved_path": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_word_ranges.py"
+    },
+    {
+      "role": "gguf/quants.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/gguf/quants.py",
+      "sha256": "db403c3b2292d3f2c5cfef4109d4b5745f437b5599c7afc94d4b97feca7e9247",
+      "bytes": 64919,
+      "observed_sha256": "db403c3b2292d3f2c5cfef4109d4b5745f437b5599c7afc94d4b97feca7e9247",
+      "observed_bytes": 64919,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/gguf/quants.py"
+    },
+    {
+      "role": "gguf/tensor_mapping.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/gguf/tensor_mapping.py",
+      "sha256": "64c24cf3560015d8faf30be5d801fe7b511349f9ba2d96fa33782b3a2efbc624",
+      "bytes": 104406,
+      "observed_sha256": "64c24cf3560015d8faf30be5d801fe7b511349f9ba2d96fa33782b3a2efbc624",
+      "observed_bytes": 104406,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/gguf/tensor_mapping.py"
+    },
+    {
+      "role": "transformers/models/lfm2/modeling_lfm2.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/models/lfm2/modeling_lfm2.py",
+      "sha256": "8bb414ac677a00fe8fade1655c66ad0af7111822d629cbbc12c31c2db779421e",
+      "bytes": 32195,
+      "observed_sha256": "8bb414ac677a00fe8fade1655c66ad0af7111822d629cbbc12c31c2db779421e",
+      "observed_bytes": 32195,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/models/lfm2/modeling_lfm2.py"
+    },
+    {
+      "role": "transformers/modeling_layers.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_layers.py",
+      "sha256": "bd262f364af26b99381db23583ca6e1a9741d8c3894bc3aa08f204fe6a7f68ee",
+      "bytes": 11566,
+      "observed_sha256": "bd262f364af26b99381db23583ca6e1a9741d8c3894bc3aa08f204fe6a7f68ee",
+      "observed_bytes": 11566,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_layers.py"
+    },
+    {
+      "role": "transformers/modeling_utils.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_utils.py",
+      "sha256": "bf1c6b2a43cf7c36fb79f37c981424dd6ae78eb863fcaa5d2a37e76c9828611d",
+      "bytes": 308964,
+      "observed_sha256": "bf1c6b2a43cf7c36fb79f37c981424dd6ae78eb863fcaa5d2a37e76c9828611d",
+      "observed_bytes": 308964,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/transformers/modeling_utils.py"
+    },
+    {
+      "role": "torch/utils/checkpoint.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/utils/checkpoint.py",
+      "sha256": "bce92715ec3c0d3941dd74c939396686632457a2c7cf98247f3f67b351e97309",
+      "bytes": 72873,
+      "observed_sha256": "bce92715ec3c0d3941dd74c939396686632457a2c7cf98247f3f67b351e97309",
+      "observed_bytes": 72873,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/utils/checkpoint.py"
+    },
+    {
+      "role": "torch/nn/utils/clip_grad.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/nn/utils/clip_grad.py",
+      "sha256": "d3df2a8ff98f579529b95a3863ad3e8f471ea82531c906a4a30b7dc2a30e8e67",
+      "bytes": 11516,
+      "observed_sha256": "d3df2a8ff98f579529b95a3863ad3e8f471ea82531c906a4a30b7dc2a30e8e67",
+      "observed_bytes": 11516,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/nn/utils/clip_grad.py"
+    },
+    {
+      "role": "torch/optim/adamw.py",
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/optim/adamw.py",
+      "sha256": "54299056b7745c162192132bb6028f3387c05ff4203518ff0240058584968312",
+      "bytes": 7388,
+      "observed_sha256": "54299056b7745c162192132bb6028f3387c05ff4203518ff0240058584968312",
+      "observed_bytes": 7388,
+      "resolved_path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/lib/python3.12/site-packages/torch/optim/adamw.py"
+    },
+    {
+      "role": "profile-datasets.json",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-datasets.json",
+      "sha256": "104363c86527239de439c943e5b6b86904c6ead83aad59bd36fcf29d85911c61",
+      "bytes": 1991,
+      "observed_sha256": "104363c86527239de439c943e5b6b86904c6ead83aad59bd36fcf29d85911c61",
+      "observed_bytes": 1991,
+      "resolved_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-datasets.json"
+    },
+    {
+      "role": "profile-recipes.json",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-recipes.json",
+      "sha256": "747845a9e4353384467b618283521309c71d6033fc52ce52e292a5ce4b4bc2c1",
+      "bytes": 5628,
+      "observed_sha256": "747845a9e4353384467b618283521309c71d6033fc52ce52e292a5ce4b4bc2c1",
+      "observed_bytes": 5628,
+      "resolved_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-recipes.json"
+    },
+    {
+      "role": "expected-adapter-schema.json",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/expected-adapter-schema.json",
+      "sha256": "596639db7fcc5d89c390e96d731b3ed5a83e0dd1a7326d34af6e258a91b993a4",
+      "bytes": 13768,
+      "observed_sha256": "596639db7fcc5d89c390e96d731b3ed5a83e0dd1a7326d34af6e258a91b993a4",
+      "observed_bytes": 13768,
+      "resolved_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/expected-adapter-schema.json"
+    },
+    {
+      "role": "selected_profile_dataset",
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/datasets/worst239-eight-v1.jsonl",
+      "sha256": "5943bd0bed7b064bf07308c3e37668f42c0e13fd219b4c3ab80c4e0af9ed313e",
+      "bytes": 21304,
+      "canonical_source_id": "scribe-scope-copy-v10-b-088",
+      "input_sha256": "0fe3e67641b1fddc25f0c5c02eb098a622c888f383ab5ee0e33ee74a681d65b7",
+      "target_sha256": "0fe3e67641b1fddc25f0c5c02eb098a622c888f383ab5ee0e33ee74a681d65b7",
+      "complete_tokens": 239,
+      "assistant_tokens_per_copy": 106,
+      "rows": 8,
+      "controlled_repeats_not_new_training_data": true,
+      "observed_sha256": "5943bd0bed7b064bf07308c3e37668f42c0e13fd219b4c3ab80c4e0af9ed313e",
+      "observed_bytes": 21304,
+      "resolved_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/datasets/worst239-eight-v1.jsonl"
+    }
+  ],
+  "qualification": {
+    "profile_only": true,
+    "candidate_eligible": false,
+    "actual_updates": 1,
+    "actual_microbatches": 8,
+    "all184_warmstart_exact": true,
+    "all184_gradients_and_moments_observed_finite": true,
+    "saved_adapter_audit": {
+      "path": "/dev/shm/freehand-v10-worst239-profile-02/training/adapter.safetensors",
+      "file_size_bytes": 12012752,
+      "header_size_bytes": 19656,
+      "payload_size_bytes": 11993088,
+      "file_sha256": "d66e74ff2f41f0d546935d7f52a3d989cbc7168597ed6c0c18d5916aa095a3dc",
+      "header_sha256": "f31a6a56593782e5f6c54efda72fa0d41c1d6ceabc9d062af186451c8a873b4a",
+      "payload_sha256": "2304d64590790556aaa5f6312585c515fbe8af7e6b1fd505973d0145ce2d0413",
+      "metadata": {
+        "base_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a"
+      },
+      "tensor_count": 184,
+      "every_tensor_finite": true,
+      "value_count": 2998272,
+      "finite_value_count": 2998272,
+      "nonfinite_value_count": 0,
+      "finite_nonzero_value_count": 2998272,
+      "zero_value_count": 0,
+      "tensors": {
+        "model.layers.0.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            0,
+            32768
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "df1678438253e8ae2f5260a19e31fd2bbb83a5d14e66b3eb00b2e500f8dbda7b",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038318097591400146,
+          "all_finite": true
+        },
+        "model.layers.0.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            32768,
+            131072
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "1a6277a439e539c81e65f6c58d9060e08852772dbcc5746d52026fde92868679",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005928416736423969,
+          "all_finite": true
+        },
+        "model.layers.0.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            131072,
+            163840
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "693cedd800aaee6508b1a3f81e4ff31f30768c3f0955b98cf1f36cfb842ad2ad",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03639655187726021,
+          "all_finite": true
+        },
+        "model.layers.0.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            163840,
+            196608
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "8c85febbf45aaad81959d0b4b4205d269bd8439af91d6d2454ac9f78629d380e",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.004678295459598303,
+          "all_finite": true
+        },
+        "model.layers.0.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            196608,
+            229376
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "e9de9bb4e2c07a728f054084ec72f4fd60c23d1c9701f49f73f4339c91638ac0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03793817386031151,
+          "all_finite": true
+        },
+        "model.layers.0.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            229376,
+            376832
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "2473d66fb014260d60944f855050d087b5541560dd287626539ffdfe98bcc074",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005409681238234043,
+          "all_finite": true
+        },
+        "model.layers.0.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            376832,
+            524288
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "b31f7fdc2b56928934a28ba52ed2e8e7c1467baac472f6cd054d06efaec63214",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.023127419874072075,
+          "all_finite": true
+        },
+        "model.layers.0.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            524288,
+            557056
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "8e88f183540e50b2e872fc1288dd6e83341509b2227531454cb9441de16b4c96",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.00545035395771265,
+          "all_finite": true
+        },
+        "model.layers.0.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            557056,
+            589824
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "07ab593b0378a7cd5842264aeb84571a8693919c0e384415c7e785007d8c6b59",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03822482377290726,
+          "all_finite": true
+        },
+        "model.layers.0.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            589824,
+            737280
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "a00865f247261dd64f73a267ab20ac643990b26df9d4aa9916e780eea4f081fc",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005627977661788464,
+          "all_finite": true
+        },
+        "model.layers.1.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            737280,
+            770048
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "1c96ffae520b665c43d98c77632cfbcc04b37da3b592bdf6afbfd2d7ded564cb",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0377863310277462,
+          "all_finite": true
+        },
+        "model.layers.1.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            770048,
+            868352
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "e3a3140422bcd376ac4c569589b4002893ea162878d6b941c15d8489c7205fbe",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0057113938964903355,
+          "all_finite": true
+        },
+        "model.layers.1.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            868352,
+            901120
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "763fa5731e1d7e3d0326df37952733a74dbdacac0a457f2883f5bb484b720737",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03775586560368538,
+          "all_finite": true
+        },
+        "model.layers.1.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            901120,
+            933888
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "9d60c43f3d051d1380a20bb1f08551d16963d11cf0ca05ee4d1f218cbe9480c1",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005085228476673365,
+          "all_finite": true
+        },
+        "model.layers.1.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            933888,
+            966656
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "52e422a4d0181196450336b5831ceb8d9a299d1f1d06bb2bd78b4b2ef665c687",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038328059017658234,
+          "all_finite": true
+        },
+        "model.layers.1.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            966656,
+            1114112
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "62c4588879831630bb1707d3ea054dbfe5f65af8d95da7626f69decf793dfef0",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005690344609320164,
+          "all_finite": true
+        },
+        "model.layers.1.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1114112,
+            1261568
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "fcfcec5d7f143b30989158729d64511cb9e54ebc3d8dffca145946d655efcf48",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021111436188220978,
+          "all_finite": true
+        },
+        "model.layers.1.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1261568,
+            1294336
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "7df69fdfb368c7c3dca9e2907a1a07199a53444b78039b5888f46565c3ee0abe",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005437926854938269,
+          "all_finite": true
+        },
+        "model.layers.1.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1294336,
+            1327104
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "ab860c2d900cf79fce0257f00b000f402a27a680f52b05b70e8f1ece7c6bf7d0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.037653226405382156,
+          "all_finite": true
+        },
+        "model.layers.1.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1327104,
+            1474560
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "4c5a9dfdf02f95f1c140fa079c3f79788de06fd57e9d109173592f4b3a6a42cc",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005947072524577379,
+          "all_finite": true
+        },
+        "model.layers.10.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1474560,
+            1507328
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f29cf0243fa1b4e443e06ce025ca1ac60c3d1f84d9c24ca44bac60eae0dca36b",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03780899941921234,
+          "all_finite": true
+        },
+        "model.layers.10.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1507328,
+            1654784
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "da4ba136b69e995249c3c39e33ba50e7ce90db98dcdc50d74977af83e3fbb9de",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006504983175545931,
+          "all_finite": true
+        },
+        "model.layers.10.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1654784,
+            1802240
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "846179a71be1e864b3eea9123aa6acad52998e8ea61b787e8cd1e4767914fbab",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.02116357907652855,
+          "all_finite": true
+        },
+        "model.layers.10.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1802240,
+            1835008
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c00a41dacb960b19a9dc05824bd62081b2bb765f9b968ec8c4ace6cd1b121796",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0053704287856817245,
+          "all_finite": true
+        },
+        "model.layers.10.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1835008,
+            1867776
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "11f8f0fef329c1ff44a6136a868940c0ddc2a0fdddbf5e5aa100a74dc1b1871f",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.036803726106882095,
+          "all_finite": true
+        },
+        "model.layers.10.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            1867776,
+            2015232
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "1ef218e1548dd9cdccd963b1b6ae79f4664dec1ed1c23b3577543f3deba5de4f",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006103447172790766,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.k_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2015232,
+            2048000
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f7b176936e23fb99b2d80da3714cbe5d58c1b53195516b8b1c33a0989f584f3c",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.035127751529216766,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.k_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2048000,
+            2064384
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "33e198fcd6b45824a0d16fdd6adf05407e93d45d26286cdfe8e90efb81f23b41",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005522728897631168,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2064384,
+            2097152
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "bccde30963d4527e3574e5bfce90a0286a1883544dac513d25bf7303b4b51593",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03709626570343971,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2097152,
+            2129920
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "55fba05b2a33055f103a9d8f933f26cfbd410527e59af2bff28a8473f9403ee3",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006164140533655882,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.q_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2129920,
+            2162688
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "7a9f5ba852c0c98007532de03b10c2ab9efb26dae6ec021b3895c2ee2edd38b2",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03719804063439369,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.q_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2162688,
+            2195456
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "20aa26c0eae1b959db80392d08ab11611717daf8b94756e5dae0723d8307892a",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005925500765442848,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.v_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2195456,
+            2228224
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "0caac89015544f1214cf6d02fa9f670265683f1f95c95fb587b0af7e99c8e45a",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03649144619703293,
+          "all_finite": true
+        },
+        "model.layers.10.self_attn.v_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2228224,
+            2244608
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "efb0f56e67c1faf3cbf6e70f9a75486452c78fa6d538118cdceecede07fbd16f",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005697272717952728,
+          "all_finite": true
+        },
+        "model.layers.11.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2244608,
+            2277376
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "84b196041ec70f0ef46aea327d80c92982b3fa806db07651c4f6199484dc9aba",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03734329342842102,
+          "all_finite": true
+        },
+        "model.layers.11.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2277376,
+            2375680
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "0c98ab20d48b5ea379fcf71e7e11c5bd457ee0054cfdafe168fc00a74c121f66",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006852248217910528,
+          "all_finite": true
+        },
+        "model.layers.11.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2375680,
+            2408448
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "965c95132eebfdefb98449eca35001ffad4bdbe3bc1c34fcd26345d7b3b8c19d",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03790777176618576,
+          "all_finite": true
+        },
+        "model.layers.11.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2408448,
+            2441216
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "01a961c3217a52d043185184302a7d39c67b4b0749740bd4f648b44ab2174261",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006619238760322332,
+          "all_finite": true
+        },
+        "model.layers.11.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2441216,
+            2473984
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "e40600c4efd77ab6dc2494303c6527d6f455223e55f80cdd33e5070a2da86334",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038647715002298355,
+          "all_finite": true
+        },
+        "model.layers.11.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2473984,
+            2621440
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "3a847dbe6ab8a6922f99b3dbe9dbedb008d9498f490f0a0ad79fe0fcde9f1a40",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006602405104786158,
+          "all_finite": true
+        },
+        "model.layers.11.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2621440,
+            2768896
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "4e96619afcd9f8fbee9eff2de60285fd98d4fec2458c18f20e0f1a7b24d5ba53",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.020467538386583328,
+          "all_finite": true
+        },
+        "model.layers.11.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2768896,
+            2801664
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "467818d1bdf0b00989c132820d8c82676bfba18e86b121ad7acf810d988df5a5",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007228091359138489,
+          "all_finite": true
+        },
+        "model.layers.11.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2801664,
+            2834432
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "08f8fbab81425f9cb3b2ca334858f420eceac5477c8b61aeb00824175c0538fd",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03844854608178139,
+          "all_finite": true
+        },
+        "model.layers.11.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2834432,
+            2981888
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "6c23e62b1af7bfd27a3e36a4b0f993bee91e7566ea19eda3698208860c2f3098",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.00753142312169075,
+          "all_finite": true
+        },
+        "model.layers.12.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            2981888,
+            3014656
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "a10ec45720eca01e6ef62032af89952081444438f1d0d8662ac97f541a684bb2",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03954560309648514,
+          "all_finite": true
+        },
+        "model.layers.12.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3014656,
+            3162112
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "f7bfbba41b84583fe05a9ed89722cb0f52a6ac5e237fa3b2787e01bd6ad1fdbd",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007217069622129202,
+          "all_finite": true
+        },
+        "model.layers.12.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3162112,
+            3309568
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "142120a0dfa4202f6da7987804776bf0d9fb06953d343371d140869d65107761",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.023522088304162025,
+          "all_finite": true
+        },
+        "model.layers.12.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3309568,
+            3342336
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "765ab39f2eee51a4c76a2618655961e4c0cdbf506e0f47b8d7f4b7f63ecc9615",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006143391598016024,
+          "all_finite": true
+        },
+        "model.layers.12.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3342336,
+            3375104
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "dba609552193bbff9fa686b2140b3c768f8b367906fc45fe9c0cddbac012feb4",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038995228707790375,
+          "all_finite": true
+        },
+        "model.layers.12.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3375104,
+            3522560
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "11647be4263d49e7983eac630b7aa55f70b12b79dba6028d97cd16ff6a451582",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006169157102704048,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.k_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3522560,
+            3555328
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "90e6f6b1303d1dbbe821a644e5b6f9909dc7387cc6e0cc41937d1c5330e54a6b",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0350894071161747,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.k_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3555328,
+            3571712
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "a466ec2ce0fd7d9d5cc23c13c71ef9bb2369e87f917216e8e9c0f87ceeca9fdf",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005370049737393856,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3571712,
+            3604480
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "036ae568f9c2c6e59e8a57a999ba60f5fc4a66d06767a2c4e368aa48dedc91fe",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03814375773072243,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3604480,
+            3637248
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "73f1b07cc8f35d7356b50ce73e8f5090973f55b0a59a73957328354514567a82",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005724890157580376,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.q_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3637248,
+            3670016
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "28dad8dba61c432e172db87010a58e23df70c833d6645d9e93ac89f0aa693137",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03558628261089325,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.q_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3670016,
+            3702784
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "bafc7c488d126bc15b806aa9514f70c53c7b16dea035cf163bad456f41161613",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007195841055363417,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.v_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3702784,
+            3735552
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "dcce3cb4d7e90ec12d9c4e2a249ad69af739b5cea5dddec8e4524888ed9abdc8",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03604572266340256,
+          "all_finite": true
+        },
+        "model.layers.12.self_attn.v_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3735552,
+            3751936
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "ea463f297aee25fbd7afa055f3afe947fefc51ffa2cfe69d328ecf19ca2fb3c7",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005934685003012419,
+          "all_finite": true
+        },
+        "model.layers.13.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3751936,
+            3784704
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "a2c3953a53904feeb72d35c9b8f831358a7261daebb0f3a053211ebf4c084f4f",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03792522847652435,
+          "all_finite": true
+        },
+        "model.layers.13.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3784704,
+            3883008
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "44667b2f211c02c7388f056ae10bddb599a8f9f1500a21289a3d1b42f2020432",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.008545143529772758,
+          "all_finite": true
+        },
+        "model.layers.13.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3883008,
+            3915776
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "97abe15ea6d4575f3ea717c30b7481964a9ef7f7043a28b844fc868e054c9c01",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.035779841244220734,
+          "all_finite": true
+        },
+        "model.layers.13.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3915776,
+            3948544
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "0cfa176cfd8ca18df1f226b0962e7784a8d34d0c9db24972fb59e53350d3175e",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0068372152745723724,
+          "all_finite": true
+        },
+        "model.layers.13.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3948544,
+            3981312
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "5f411af9a908c8169341055892b3dba1e9113165b631f47cbfa22b1f7c7d96d0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03899262100458145,
+          "all_finite": true
+        },
+        "model.layers.13.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            3981312,
+            4128768
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "5d66f2f5210d6996220725b9fe91485666a1ee79c06bd4aec254c0ed63a4655f",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006758539471775293,
+          "all_finite": true
+        },
+        "model.layers.13.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4128768,
+            4276224
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "28bfdb97361fc18392eb57279c0eaf548eb60496dcec56149ac3259ebc44eb9a",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.02063569612801075,
+          "all_finite": true
+        },
+        "model.layers.13.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4276224,
+            4308992
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "7db161711fcca089d9bfc86e3315405bc55572f81c9fee0e0d477176e41f8545",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005882355850189924,
+          "all_finite": true
+        },
+        "model.layers.13.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4308992,
+            4341760
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "ed712967c5b5f3993be466776f04e682f79d0b21e28dc3448b420ed4b6f1326a",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038199879229068756,
+          "all_finite": true
+        },
+        "model.layers.13.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4341760,
+            4489216
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "b4108096a7e6f9b71150c18f9c306fb5724e2e426fd88fe33a06838336adf8d3",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006339258514344692,
+          "all_finite": true
+        },
+        "model.layers.14.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4489216,
+            4521984
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "be3cc2ae03b290dc8f9af4eb1f6170d2193ba143a04dd188c3bc2ff1ddadc905",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038338158279657364,
+          "all_finite": true
+        },
+        "model.layers.14.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4521984,
+            4669440
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "bcefa966b3bf8ca45755cfe01b448dbced90f51b3bccbc31c33ef20d844cd6d7",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007248075678944588,
+          "all_finite": true
+        },
+        "model.layers.14.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4669440,
+            4816896
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "4503d7e33e31ba4184fcea5d7e6d61a9056ca8f60213bfe96b014e6461aa1480",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021369844675064087,
+          "all_finite": true
+        },
+        "model.layers.14.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4816896,
+            4849664
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "01d6e2bd530f920f3ad2ffee81baab518fca572d025a62ddd7efadc8a245280d",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0057041700929403305,
+          "all_finite": true
+        },
+        "model.layers.14.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4849664,
+            4882432
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "0acb0c83ec7a08ce09d6125caf7272df657928ace2a23f73a2d77ba27647743b",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03782486915588379,
+          "all_finite": true
+        },
+        "model.layers.14.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            4882432,
+            5029888
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "49f72836f6acde62ce48e4168f3e022aef155a75a01ed9634bd0c20731bf01f7",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006769935600459576,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.k_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5029888,
+            5062656
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "49160e04ff71f7448ff34ad716f06bf9cb454f8d3ad03090a29f887ded7ec4d5",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03557945415377617,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.k_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5062656,
+            5079040
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "ee47e8a8f3bd229e99940f8f61e5c4aefa9f8acf0f1eac6abf22694ee82892c7",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0056561375968158245,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5079040,
+            5111808
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "922c3db1b4233c8c3d6f0d1aa5aa6e4708752b826d5dcb8e16ea3d5687d33edc",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03730817139148712,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5111808,
+            5144576
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "e3d6643996b5406a96d315dbed09179f6fe17344c371aebb40b3c3b6f0a602a5",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005371469538658857,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.q_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5144576,
+            5177344
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "126243066ed9c2f752816f4630bdd8230fa5d17e9b64a11a1e31e4c09362879f",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0362076498568058,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.q_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5177344,
+            5210112
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "4b481bfef9ea38708c35bf08307d55cb832bc95f3d306c168ff0e2855b7194fc",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006244942080229521,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.v_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5210112,
+            5242880
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "0025a17ad849f5860bcce1158b351ca8166b7a7f8facb4ff2258e5ce5bb26bff",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0366964228451252,
+          "all_finite": true
+        },
+        "model.layers.14.self_attn.v_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5242880,
+            5259264
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "8660f0ecdb122b80fa670592de755c7e8c46bbf5a5d9a29f678357f46c2a2802",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005509054753929377,
+          "all_finite": true
+        },
+        "model.layers.15.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5259264,
+            5292032
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "d9ad73d986eadf9f6cd23646309e5c244d5a12ed44392e8876f9c57a73b5c4cc",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03720203787088394,
+          "all_finite": true
+        },
+        "model.layers.15.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5292032,
+            5390336
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "5dbfe1260239b99a9d970dafa58fc8ea886ac6b9ee613a441a46efd97ac5991d",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007258600555360317,
+          "all_finite": true
+        },
+        "model.layers.15.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5390336,
+            5423104
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "a35b579fb95931f15d9891aba69686a4378ac54950d592a42aadad5ab90e397c",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03876596689224243,
+          "all_finite": true
+        },
+        "model.layers.15.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5423104,
+            5455872
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "5eb90224feab0a613c6edafd4049ab381233a9d8fc9f45a334889111218129b0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006454951595515013,
+          "all_finite": true
+        },
+        "model.layers.15.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5455872,
+            5488640
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "0edaeb5b7c4a4daed90befaa4728592886a039d4c29377c0cb0f94054db43bc6",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038721948862075806,
+          "all_finite": true
+        },
+        "model.layers.15.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5488640,
+            5636096
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "8c4d34caea650c922b5829cc745c0ef319b4e317a62a881d90ffee185d270008",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007145973388105631,
+          "all_finite": true
+        },
+        "model.layers.15.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5636096,
+            5783552
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "2901b56d72f0482213a911dbfb51f255121a05993ede0315eb828d9cf1a4117b",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.020587187260389328,
+          "all_finite": true
+        },
+        "model.layers.15.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5783552,
+            5816320
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "7fafe640f1b4afac685c5992c7b5a13012c007c2349b3fa8c33e1eb14e6e093d",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006576014216989279,
+          "all_finite": true
+        },
+        "model.layers.15.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5816320,
+            5849088
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "8baae528d84f2de285f5ff1bd0a6c2d19f242f3d6a73517afbaf544cbb26ce42",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03608427196741104,
+          "all_finite": true
+        },
+        "model.layers.15.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5849088,
+            5996544
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "4625c23cd0277caf4ad0bf98cadbef7bbb5a806f737f6a0318f71586c63b33b7",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006027014460414648,
+          "all_finite": true
+        },
+        "model.layers.2.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            5996544,
+            6029312
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c39b3cd96b573b1baffea406bca85097e714a52417421ef5da6e971adf6f492e",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.04008076339960098,
+          "all_finite": true
+        },
+        "model.layers.2.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6029312,
+            6176768
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "e2806487a170693ab5762539955504414c0ea67ab059f2e8063767b6ff5e2fed",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005868891254067421,
+          "all_finite": true
+        },
+        "model.layers.2.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6176768,
+            6324224
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "4d5723fb678fc5d41c594a770774127b237d814997d17a7dbb4825d58f7c0c74",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021328004077076912,
+          "all_finite": true
+        },
+        "model.layers.2.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6324224,
+            6356992
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f4689a105b7970a2e9c93b3d7ea43bb8162f61c43dd4b4936f3b20e34ab0e305",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0057961586862802505,
+          "all_finite": true
+        },
+        "model.layers.2.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6356992,
+            6389760
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c4274739e56a1582c46006e11686024dc2a76fb94712819959f0012892f0101d",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038221828639507294,
+          "all_finite": true
+        },
+        "model.layers.2.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6389760,
+            6537216
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "7d26858a8077f15ccbc3be8870ae4b3663eaab6e8205526bf554e6b7f1cef0c9",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005809143651276827,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.k_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6537216,
+            6569984
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "8f0235069de03d2c54ae0eb151cfd816908ef7b0427c9bf431686cc3e3055267",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03775756061077118,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.k_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6569984,
+            6586368
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "7b82f15b80f42fb5cc285a47e89063a9a34888f925c4b92bd24ea54b29117e9d",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.004324157256633043,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6586368,
+            6619136
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "5ba0cc16d0d3ff834674cdb889031dccecc842cc4185c16838c2b7de6d822dee",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038335949182510376,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6619136,
+            6651904
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "04e619d57d697653ce710302d57e0866f7f4fdbebe19f805f09486b182028c92",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0052865045145154,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.q_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6651904,
+            6684672
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "3db0b3b6ea84d1777c4d12916b81778929aa8df1d4bce9d8aec5d0364dce78c3",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.035472214221954346,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.q_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6684672,
+            6717440
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "47a57d974c47aa1dab14189def250b49c569d617048b749af700e625b7b6da08",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.004985423758625984,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.v_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6717440,
+            6750208
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "9e75696f3b6c548a2a53564d9df914de383542bc2ce17b9a47b7b08a4852c605",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.037954941391944885,
+          "all_finite": true
+        },
+        "model.layers.2.self_attn.v_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6750208,
+            6766592
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "cf6f15ca282a1579e9c81c01bce90a657c7b8069a3fb3932861e988b205f0ff5",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005662364885210991,
+          "all_finite": true
+        },
+        "model.layers.3.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6766592,
+            6799360
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "e6426736685ed04d3f852cdd61928fba8a7656a917430bdabde103819d2e8471",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.039636678993701935,
+          "all_finite": true
+        },
+        "model.layers.3.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6799360,
+            6897664
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "415cac40f223cd408d09995a38b591bec572381753945f1b2623e2b24ff9d4fa",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006157522089779377,
+          "all_finite": true
+        },
+        "model.layers.3.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6897664,
+            6930432
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "027e74f3dd14eaa37ff85f75913e25ea8e3779d24cd24f0957511015a10e500e",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03640446439385414,
+          "all_finite": true
+        },
+        "model.layers.3.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6930432,
+            6963200
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "dbcbea59b6f165395d112ea14af56e32d13fa8ce373b616104117ed9ea3af9a7",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005117104854434729,
+          "all_finite": true
+        },
+        "model.layers.3.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6963200,
+            6995968
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c45c5b80ffcb9c60e057a785467f4d51d32b665c25e6d5d989db60e95e6a9ee6",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.040906425565481186,
+          "all_finite": true
+        },
+        "model.layers.3.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            6995968,
+            7143424
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "ada86bcf187434290b47a27cd9b9d976908de8694c58b93b937f0e584ce2234f",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006026389542967081,
+          "all_finite": true
+        },
+        "model.layers.3.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7143424,
+            7290880
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "179bb5959905cf9b2d223e67d550027f3aeb413f0d1a5db3b4b82202059b719b",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021817412227392197,
+          "all_finite": true
+        },
+        "model.layers.3.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7290880,
+            7323648
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c2df4abea95c1b8a4a78bb1843d85986685d3ebffe14551577082619b9596f87",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006761712953448296,
+          "all_finite": true
+        },
+        "model.layers.3.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7323648,
+            7356416
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "81c91f41e44cc8a462f43e3dcb2b6de35164eb2676fd91c2a7aef0148f41147c",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.038990654051303864,
+          "all_finite": true
+        },
+        "model.layers.3.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7356416,
+            7503872
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "df442cc2aec11a51352ded6cd65192ecebddee751aab347157b6b30317a9b10a",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006009673234075308,
+          "all_finite": true
+        },
+        "model.layers.4.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7503872,
+            7536640
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "458df0937b04b8c605c7849d0afff500ec9265529fa21bb0cf07b4f93fcf579b",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.04021374508738518,
+          "all_finite": true
+        },
+        "model.layers.4.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7536640,
+            7634944
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "0a7960fd8047caae8b5b57ff2d283ec011496e59210d32185a5dce71ed2c18ff",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006218355614691973,
+          "all_finite": true
+        },
+        "model.layers.4.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7634944,
+            7667712
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "49a6c387bf06a51fad04069b6289784b8f8a359ba7bd1b670a38279572a5be59",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03899826109409332,
+          "all_finite": true
+        },
+        "model.layers.4.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7667712,
+            7700480
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "1f82131e202f060070500d4b71b8270d4d17ba04c79d9b4ee1184c1b8e7871bc",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0056387437507510185,
+          "all_finite": true
+        },
+        "model.layers.4.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7700480,
+            7733248
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "2ec693430fb3e909bb28e1d28f779d24fc1282ea7bcbf85c5d53a6c892f1fb5c",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.04082242026925087,
+          "all_finite": true
+        },
+        "model.layers.4.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7733248,
+            7880704
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "b46c1686984133a82f88678eb7f07bc1635a315eb59a67d148e070d52ee38aa4",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0065964278765022755,
+          "all_finite": true
+        },
+        "model.layers.4.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            7880704,
+            8028160
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "ece0499dc9ca8eb014cd2728c5e79ce182b443342277611bddb78f21a37a32ac",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.02255665697157383,
+          "all_finite": true
+        },
+        "model.layers.4.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8028160,
+            8060928
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "7dabd03c624bc7a22b77690548ab9f340c68cb99216d2df7c1d96320666b17fc",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005222026724368334,
+          "all_finite": true
+        },
+        "model.layers.4.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8060928,
+            8093696
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "a2626076df1140971738a35ee3b53b3dc4be8aa04d900d5b100df36401b06ce8",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03958699852228165,
+          "all_finite": true
+        },
+        "model.layers.4.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8093696,
+            8241152
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "0091f2f200ec151cf7818df82e3347c867642d59e4822281606e84f1d97b6c8c",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006550365127623081,
+          "all_finite": true
+        },
+        "model.layers.5.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8241152,
+            8273920
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c242a81d38e1d9b64d5be9943aa75e32cd78c8729070ae0ce622a8d38b5f7c75",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.039688050746917725,
+          "all_finite": true
+        },
+        "model.layers.5.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8273920,
+            8421376
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "7cc19c3f062c3eb592dca8448254430c0b8f61c074adbed5f79bb9e6104831a9",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006456171628087759,
+          "all_finite": true
+        },
+        "model.layers.5.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8421376,
+            8568832
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "bb56f3a2be56c569b2ca520ddd398cebead9656641a6fcb79f06e55d377909fa",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.02098214067518711,
+          "all_finite": true
+        },
+        "model.layers.5.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8568832,
+            8601600
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "dbbb71cd77d3fc174687dcfc000bfb97d0a22ce39996ba1aec77eb59476eb9d0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006294182036072016,
+          "all_finite": true
+        },
+        "model.layers.5.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8601600,
+            8634368
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "2c14695536363e596a7ea69157cc2297d4cf2e67042b8e453809ea5ae0dbe525",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03775329887866974,
+          "all_finite": true
+        },
+        "model.layers.5.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8634368,
+            8781824
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "dceeabb3c5239fe8c43afd4c3add273df00f006e1f288eb364e590adddba6ae6",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006105151027441025,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.k_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8781824,
+            8814592
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f55bb7481b6e083b078a1448e3a1d05ba3f43dab35c7b660c94fe664c9322fa0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03657630831003189,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.k_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8814592,
+            8830976
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "6034c39ff6423c0605aaa7802a74be4bca40a121de75a0ca767dc982dba9c837",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0061563365161418915,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8830976,
+            8863744
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "393c9139411b5926d89a9c6de046289c7e367a6365c95428f82928970c6b65cc",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.036317210644483566,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8863744,
+            8896512
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c2ea3e1e97911c301e3bbde9fe482c671aa4adc0974f5ac1e030adefce2c3cc3",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005628941114991903,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.q_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8896512,
+            8929280
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "142909ab922cff4af93862832e5d3693955f17501dc17801c2184c99a54e9ca7",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03672374039888382,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.q_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8929280,
+            8962048
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "34fbf1fd6a235127b8b97700269968aa7a463aacb6cd569f9d25eecea18e32f5",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006009801756590605,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.v_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8962048,
+            8994816
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "4412a3c7e511ef3981e4d75bb06b1e82a01043ba91aba3a6fc574ebb040bded3",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.036322180181741714,
+          "all_finite": true
+        },
+        "model.layers.5.self_attn.v_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            8994816,
+            9011200
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "44cc9b20a87fb50f50bf7d3d8a1ffb1c62f7444c8b512b3f49ea2af116d95250",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006036899983882904,
+          "all_finite": true
+        },
+        "model.layers.6.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9011200,
+            9043968
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "4ec42f0e47b40f4efac12f46f3e62cd64d8ce21549ffe81538072b69fafa5935",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.037724949419498444,
+          "all_finite": true
+        },
+        "model.layers.6.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9043968,
+            9142272
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "aa0591c730696589ef33451083af508ad48ba8806c594d98cb848629240e100a",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005814425181597471,
+          "all_finite": true
+        },
+        "model.layers.6.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9142272,
+            9175040
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "80396e5b1223590407f41f908bd5264b6c9080fe81ef3b004d97fe6be69abc45",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0372559055685997,
+          "all_finite": true
+        },
+        "model.layers.6.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9175040,
+            9207808
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "25f2cc31ceb6451240cb69c1de2750953ab9a83017aebf041a472615b596710e",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006287312600761652,
+          "all_finite": true
+        },
+        "model.layers.6.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9207808,
+            9240576
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "ba6cd724d3959ce816695827e9d4bc66f70129a034422e720f7b2e93dbecede8",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.041048355400562286,
+          "all_finite": true
+        },
+        "model.layers.6.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9240576,
+            9388032
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "8da79e47c6d48285171164c9374ee0d53e818b52778d4497bcf8f3c82dafa6f0",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006982556078583002,
+          "all_finite": true
+        },
+        "model.layers.6.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9388032,
+            9535488
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "eb5acaea7baa6981b92aba96c99292bd805bad479b70bbda29af79c281ad6313",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021359901875257492,
+          "all_finite": true
+        },
+        "model.layers.6.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9535488,
+            9568256
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "9e129be17683a4f3cefc54ccf887bf9c0f931a2e3cc6bd22a236c546e4f1e09d",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006414624396711588,
+          "all_finite": true
+        },
+        "model.layers.6.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9568256,
+            9601024
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "9608e87c43bf3a0717a4f2d7496c1b42ffa04fe95dfe9622988932642d9a676e",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03808397799730301,
+          "all_finite": true
+        },
+        "model.layers.6.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9601024,
+            9748480
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "7fefe5ecd8482b1be5d026e8e214d89ee3b93159531616245bdcbb48c90b3af0",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0062620737589895725,
+          "all_finite": true
+        },
+        "model.layers.7.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9748480,
+            9781248
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f1d3444bb5a556d5544bb0e6c83d46887a68637573047d3ca7b483880c1fa60a",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03949170932173729,
+          "all_finite": true
+        },
+        "model.layers.7.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9781248,
+            9879552
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "ef5c0ce9735d08fa6baf1ba14192c10ada9f9505499b4d5fa68eee23c71abadd",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006545179057866335,
+          "all_finite": true
+        },
+        "model.layers.7.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9879552,
+            9912320
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f8941c75e05c94bddac6f89dd478841cb3f49f7d4bb263a65874b39e32b9fd66",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.037206683307886124,
+          "all_finite": true
+        },
+        "model.layers.7.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9912320,
+            9945088
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "c044efe6fd0635c6ee6cdb7a0c949ce0caeaddd4bd9231b8967dd8a09d3e1996",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005095112137496471,
+          "all_finite": true
+        },
+        "model.layers.7.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9945088,
+            9977856
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "dd7f53b074748357b17d363ab56eecaebada312d8d99c14389aada5be9cd4bb0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03839947283267975,
+          "all_finite": true
+        },
+        "model.layers.7.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            9977856,
+            10125312
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "8d529b58b6fca3462459415517ad1f5b728e8743a99ea4ea2d51a89f409c5eea",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006340415682643652,
+          "all_finite": true
+        },
+        "model.layers.7.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10125312,
+            10272768
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "7b905671c16f61301ed06d44d9895bdd2c830be828c9820512bd60536875a84b",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021503018215298653,
+          "all_finite": true
+        },
+        "model.layers.7.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10272768,
+            10305536
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "d4bfec1c11d4cb0ee5a1b9623a9769190f23098b2e434cd59399cb82c706f5d4",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0071366820484399796,
+          "all_finite": true
+        },
+        "model.layers.7.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10305536,
+            10338304
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "4117a371b7e07119f9df5f75661e68a7a8e81f4c9c4ad89969cf17436e718f4b",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03729478269815445,
+          "all_finite": true
+        },
+        "model.layers.7.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10338304,
+            10485760
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "2dc919481b0f8aea9afb416c91a9ad77aa84c28744b82cfb5aed9f838cdc9689",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.00640717102214694,
+          "all_finite": true
+        },
+        "model.layers.8.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10485760,
+            10518528
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "97c9d1f22d0acf5a30c2fd8aff2b30b3d26ce3cddea5c4e48edd86b2ee3fe66f",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0392608605325222,
+          "all_finite": true
+        },
+        "model.layers.8.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10518528,
+            10665984
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "a7a89abba19bfb1327caa78dc0cd36e58288acdf17fcbfc4da4990400861022b",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006540665403008461,
+          "all_finite": true
+        },
+        "model.layers.8.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10665984,
+            10813440
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "789b5ac1a456beda6dbc483a1bd5569e520dd633570e757e82b739beaa04871d",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.021122705191373825,
+          "all_finite": true
+        },
+        "model.layers.8.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10813440,
+            10846208
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "bd6fe290e9b34afdc1fc52053de646729b7e2924bcaa4a89fcc528dc99853c20",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.00565347308292985,
+          "all_finite": true
+        },
+        "model.layers.8.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10846208,
+            10878976
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "3fa19c21deb820293ec4f3bd13028738d1cfdf7eee3a13ba56a4a83cf734ea1d",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03885776549577713,
+          "all_finite": true
+        },
+        "model.layers.8.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            10878976,
+            11026432
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "4b81e39271cf67b05c51a1c3805971c5e39cdae6104c5261237e7f5a6acca3ae",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006372343748807907,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.k_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11026432,
+            11059200
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "41ec2905b89657e8b120124cc1697064d742ce7112d564cac9fcffedf4ca9037",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.035620126873254776,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.k_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11059200,
+            11075584
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "313a7a0f941b64e4121b866cd87fc395dc8c0921440b1a1eeb3e825afdc75b98",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005310212727636099,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11075584,
+            11108352
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "f11fadc2063406c424b873dd7ef4c123b333e16075d3bc8efe591c83e927ded2",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03730938583612442,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11108352,
+            11141120
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "27f9fbad7c78bf63868f1d987180367b6e75a25ae7ba3b8a70ca0b50c5fea930",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005360535811632872,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.q_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11141120,
+            11173888
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "1484b0541adbc2e09050e40865e799ed114ce0f597c74a6bbefe8e3aebd27919",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03761380538344383,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.q_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11173888,
+            11206656
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "1998e9e8bea5d18edc9e6b151f1a3f6f173fcb30ccfc4f0cf09b0ac5344e33c0",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005658658687025309,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.v_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11206656,
+            11239424
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "dc63915de09947898ff45e8647a41717e610c4989e597edb3912cb1dd750f073",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03642013669013977,
+          "all_finite": true
+        },
+        "model.layers.8.self_attn.v_proj.lora_B": {
+          "shape": [
+            512,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11239424,
+            11255808
+          ],
+          "byte_count": 16384,
+          "payload_sha256": "6ac4366841605bc2f252497beed1486ed315a3fbc697906d65d8a0acf92628a6",
+          "value_count": 4096,
+          "finite_value_count": 4096,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 4096,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.004572329111397266,
+          "all_finite": true
+        },
+        "model.layers.9.conv.in_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11255808,
+            11288576
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "5c870703453202ff092d20d8fa9a7b62604155ceb5e90eca77f0c7d8cf507608",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03771434351801872,
+          "all_finite": true
+        },
+        "model.layers.9.conv.in_proj.lora_B": {
+          "shape": [
+            3072,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11288576,
+            11386880
+          ],
+          "byte_count": 98304,
+          "payload_sha256": "d1960a28fca53ab4ecab0ab767d1037acab150cb1a3de65de72f64f2d2a811ea",
+          "value_count": 24576,
+          "finite_value_count": 24576,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 24576,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.007181406952440739,
+          "all_finite": true
+        },
+        "model.layers.9.conv.out_proj.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11386880,
+            11419648
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "cc10e188b00d8ae8edeccafcbf572ddf6a4a4d76e216967e6ea1f0b1d156baea",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03622134029865265,
+          "all_finite": true
+        },
+        "model.layers.9.conv.out_proj.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11419648,
+            11452416
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "8fcf455f16b073a6b6a8ca5ec0485535791be059030e7d3581897191d945fcf1",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.005343334283679724,
+          "all_finite": true
+        },
+        "model.layers.9.feed_forward.w1.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11452416,
+            11485184
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "5fd37045e585a0f5fdda6691533e7b1b3cfc2332e10a379e64c9838c0b785328",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.03970980644226074,
+          "all_finite": true
+        },
+        "model.layers.9.feed_forward.w1.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11485184,
+            11632640
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "bd9ae0ae2c3ed1ab2a5a1d06c8498d446978966f7b8ebf6d5638618ea344b6c6",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006561593152582645,
+          "all_finite": true
+        },
+        "model.layers.9.feed_forward.w2.lora_A": {
+          "shape": [
+            8,
+            4608
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11632640,
+            11780096
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "d11e5267063690db05c0fc9edbe007aa28083174324592f3ea502fcc521a3015",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.020851682871580124,
+          "all_finite": true
+        },
+        "model.layers.9.feed_forward.w2.lora_B": {
+          "shape": [
+            1024,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11780096,
+            11812864
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "e44a9d60d42764ce11842929b82bdc5d52ea23e431333dc363cdad24192e6911",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006925778929144144,
+          "all_finite": true
+        },
+        "model.layers.9.feed_forward.w3.lora_A": {
+          "shape": [
+            8,
+            1024
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11812864,
+            11845632
+          ],
+          "byte_count": 32768,
+          "payload_sha256": "427e6ed847779354b18cbf9f13bde6f7c5d411dfb6f793a97eb5cf6bbc74c0b2",
+          "value_count": 8192,
+          "finite_value_count": 8192,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 8192,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.0373590812087059,
+          "all_finite": true
+        },
+        "model.layers.9.feed_forward.w3.lora_B": {
+          "shape": [
+            4608,
+            8
+          ],
+          "dtype": "F32",
+          "data_offsets": [
+            11845632,
+            11993088
+          ],
+          "byte_count": 147456,
+          "payload_sha256": "dd7fc0c821f6ac92801060b0a1b11c994e9e58b0eba61c5b7984678404ef52d1",
+          "value_count": 36864,
+          "finite_value_count": 36864,
+          "nonfinite_value_count": 0,
+          "finite_nonzero_value_count": 36864,
+          "zero_value_count": 0,
+          "finite_max_abs": 0.006255653686821461,
+          "all_finite": true
+        }
+      }
+    },
+    "adapter_result": {
+      "steps": 1,
+      "microbatches": 8,
+      "assistant_tokens": 848,
+      "seconds": 23.97478889199556,
+      "session_seconds": 23.974790313994163,
+      "adapter_sha256": "d66e74ff2f41f0d546935d7f52a3d989cbc7168597ed6c0c18d5916aa095a3dc",
+      "completed": true,
+      "max_steps_limited": true,
+      "whole_app_sla_verified": false
+    },
+    "matched_configuration": {
+      "training_base_mode": "original-iq4-dequantized-fp32-v1",
+      "frozen_base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+      "rank": 8,
+      "alpha": 16.0,
+      "scaling": 2.0,
+      "dtype": "float32",
+      "threads": 4,
+      "activation_quantization_mode": "native-q8-k-ste-v1",
+      "kv_roundtrip_mode": "none",
+      "literal_protocol": "specialist-compact-v4",
+      "gradient_checkpointing": true,
+      "train_rows": 8,
+      "epochs": 1,
+      "batch_size": 1,
+      "gradient_accumulation": 8,
+      "schedule_total_optimizer_steps": 1,
+      "effective_warmup_steps": 0,
+      "checkpoint_every_steps": 0,
+      "train_sha256": "5943bd0bed7b064bf07308c3e37668f42c0e13fd219b4c3ab80c4e0af9ed313e",
+      "training_source_sha256": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+      "parent_adapter_sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993",
+      "parent_adapter_config_sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660",
+      "resume_optimizer": false
+    },
+    "profile_schedule_is_not150_schedule": true,
+    "quality_or_SLA_claim": false
+  }
+}

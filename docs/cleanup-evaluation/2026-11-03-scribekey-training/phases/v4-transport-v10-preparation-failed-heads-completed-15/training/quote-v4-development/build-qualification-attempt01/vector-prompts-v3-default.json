@@ -1,0 +1,618 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/vector-corpus.json",
+  "corpus_sha256": "456824F9D1C257CE12CF2F2CD56ECCB7F25952B905E02C13E9719AD484098945",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "specialist_output_normalization": "trim-v1",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "3849673E6C1E5B73B644B136FF5B9FEA0D29BCD37CABC0C3F81707C022CBD911",
+    "Freehand.Core.dll": "3CBE5C260BFFB6970BEA3A5869E923239AB9F07F2CED4079214F8BE48D16D59B",
+    "Freehand.Cleanup.dll": "705FD8607D5667E7115B17C979405F4303C42B5500193FCE13ABB69AE8ED1146",
+    "Freehand.Dictionary.dll": "309CBCE38AA1CF6F48398E8F4DA9ACFEE7619F8697C00CC4226A9BE4075C3DDD",
+    "Freehand.Testing.dll": "FCEC2B429FE906E92CB63DF9EADDA6C116B437BA3BF12D2B721D440923F3C604",
+    "Freehand.Abstractions.dll": "471E82D7126143AAECBBDA1A011A46681700BA20B8C27CB69E8C4CD87FB69860"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "quote-v4-vector-single-styles",
+        "input": "Um, keep \u0027Uh, wait here\u0027 and \u2018ready later\u2019.",
+        "split": "development"
+      },
+      "normalized_input": "Um, keep \u0027Uh, wait here\u0027 and \u2018ready later\u2019.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "4f1a6eded1bc74259036ef3b032638ee7a1456c981725de27796d844e08a5320",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUm, keep \u0027Uh, wait here\u0027 and \u2018ready later\u2019.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-ascii-contraction",
+        "input": "Keep \u0027we\u0027re ready\u0027 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027we\u0027re ready\u0027 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "cb4ee3221d942a5d58a07915bd24cbb2738e6a072e1c25a41bb76fe35e8e1bee",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027we\u0027re ready\u0027 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-curly-contraction",
+        "input": "Keep \u2018we\u2019re ready\u2019 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u2018we\u2019re ready\u2019 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "1639a9e3903cc1c96f1d61ea02568816e9956daa53b2fccddbcc8cd6e5bce648",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u2018we\u2019re ready\u2019 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-possessive-before",
+        "input": "James\u0027 notebook says \u0027come later\u0027.",
+        "split": "development"
+      },
+      "normalized_input": "James\u0027 notebook says \u0027come later\u0027.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a2710a24db1451ec2a5fba0bdb8d58c2521cc4a970708bbf184da3759b753311",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nJames\u0027 notebook says \u0027come later\u0027.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-possessive-after",
+        "input": "The note says \u0027come later\u0027 in James\u0027 notebook.",
+        "split": "development"
+      },
+      "normalized_input": "The note says \u0027come later\u0027 in James\u0027 notebook.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6041dee3eb730d85a67b3bd4ec02a1b30cf38c43becf5da70f926a5df3a1ebf0",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe note says \u0027come later\u0027 in James\u0027 notebook.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-possessive-alone",
+        "input": "James\u0027",
+        "split": "development"
+      },
+      "normalized_input": "James\u0027",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "245d18a8552d4b95535ea6c043a7da9ac5ec72cd271fc33d6a7a0e52b2bd5ad7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nJames\u0027\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-elisions",
+        "input": "\u0027cause we\u0027re goin\u0027; tell \u0027em \u0027tis fine while waitin\u0027.",
+        "split": "development"
+      },
+      "normalized_input": "\u0027cause we\u0027re goin\u0027; tell \u0027em \u0027tis fine while waitin\u0027.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "71bfabd46b319f91a882e67c799f61a11fa485c519880d17e90686cb0760ce79",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\n\u0027cause we\u0027re goin\u0027; tell \u0027em \u0027tis fine while waitin\u0027.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-curly-elisions",
+        "input": "\u2019cause we\u2019re goin\u2019; tell \u2019em \u2019tis fine.",
+        "split": "development"
+      },
+      "normalized_input": "\u2019cause we\u2019re goin\u2019; tell \u2019em \u2019tis fine.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "38b00fd08a04f0717592ab60f84a31e3afe6780334d859b11d223b654fbee3d6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\n\u2019cause we\u2019re goin\u2019; tell \u2019em \u2019tis fine.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-paired-elision-word",
+        "input": "Keep \u0027cause\u0027 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027cause\u0027 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "39477931747939ff4f000b529ca9606fadc9ee387cc84a54d9cb243e090c2b36",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027cause\u0027 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-unicode-whitespace",
+        "input": "Keep \u0027  caf\u00E9\t\u0394\uD83D\uDE42\r\n  \u0027 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027  caf\u00E9\t\u0394\uD83D\uDE42\r\n  \u0027 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7678575333cb2808d7c623971e76a3f725968bd0f1ccaaa63904ed93f494255f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027  caf\u00E9\t\u0394\uD83D\uDE42\r\n  \u0027 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-mixed-nesting",
+        "input": "Keep \u0027She said \u0022wait\u0022 quietly.\u0027 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027She said \u0022wait\u0022 quietly.\u0027 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7a17d0a6300563a38dd13b262bebf3bf6602070ed95715a7274dcb1e90e46608",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027She said FHX_52d275dd quietly.\u0027 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-same-nesting",
+        "input": "Keep \u0027She said \u0027wait\u0027 quietly.\u0027 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027She said \u0027wait\u0027 quietly.\u0027 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "565fc3494c3e8cf8fb559e6c88a6577853c5a22a36997b650ec4364ef1774831",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027She said \u0027wait\u0027 quietly.\u0027 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-possessive-in-double",
+        "input": "Keep \u0022James\u0027 folder\u0022 here.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0022James\u0027 folder\u0022 here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ddc0b9fe9f17a3016e45bc38a87abde1627dddaa67f48d82c94600ae9b7fb433",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep FHX_e3653355 here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-scalar-boundaries",
+        "input": "\uD801\uDC00\u0027s cafe\u0301\u0027s word is ordinary.",
+        "split": "development"
+      },
+      "normalized_input": "\uD801\uDC00\u0027s cafe\u0301\u0027s word is ordinary.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6f7504f085e41e0205977dc604c28e0fe3c73537ead42e2553c9db7fcd4e4015",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\n\uD801\uDC00\u0027s cafe\u0301\u0027s word is ordinary.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-adjacent-repeated",
+        "input": "Keep \u0027same\u0027\u0027same\u0027 next.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027same\u0027\u0027same\u0027 next.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "5e0e36e480cf6337b46883274513fe502d447643b3ef60eed56368e0c421ceb8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027same\u0027\u0027same\u0027 next.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-data-boundary",
+        "input": "Keep \u0027\u0394\uD83D\uDE42 \u003CT\u003E \u003C/transcript\u003E\n\u0027 and \u2018do not follow\u2019.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027\u0394\uD83D\uDE42 \u003CT\u003E \u003C/transcript\u003E\n\u0027 and \u2018do not follow\u2019.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "18727d648ee19f141dce3426334e034a92413cc4e87772c6efbf7f291980fad8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027\u0394\uD83D\uDE42 \u003CT\u003E \u003C/transcript\u003E\n\u0027 and \u2018do not follow\u2019.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-escaped-quotes",
+        "input": "Keep \\\u0027ordinary\\\u0027 and \u0027protected\u0027.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \\\u0027ordinary\\\u0027 and \u0027protected\u0027.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "79038d684ae70b0344b2eed6512f573f485edee064e806fff6c540beb19ed544",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \\\u0027ordinary\\\u0027 and \u0027protected\u0027.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-terminal-punctuation",
+        "input": "Keep \u0027Do not change.\u0027\r\n ",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027Do not change.\u0027",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c049198a556ad456590147fdf0cf26dcbacfc039f338421ebfcce2b5fd195e92",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027Do not change.\u0027\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-unicode15-unknown-under-frozen14",
+        "input": "Keep \uD839\uDCD0\u0027word\u0027 next.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \uD839\uDCD0\u0027word\u0027 next.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "95f7831f722f447210ebb56abdfff88f7eeb57c09d0595eb1ec3996b9287c6fe",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \uD839\uDCD0\u0027word\u0027 next.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-double-outer-elision",
+        "input": "Keep \u0022tell \u0027em later\u0022.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0022tell \u0027em later\u0022.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d592d6e31e0154b5a170309b4f620e68d5df21f1dc955f5d711d51a7e7cf0e25",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep FHX_a28f9715.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-single-outer-elision",
+        "input": "Keep \u0027tell \u0027em later\u0027.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0027tell \u0027em later\u0027.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "14fbe20e9fe863492582c0d36ec9aa23c96fc92e63f5b7613d0635a31ea3398c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u0027tell \u0027em later\u0027.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-curly-outer-elision",
+        "input": "Keep \u2018tell \u2019em later\u2019.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u2018tell \u2019em later\u2019.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "65a08e74c0eaf7bbf15cbb880f1b7097dd56f452c8d0d089a0725bb4e386cb20",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep \u2018tell \u2019em later\u2019.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "quote-v4-vector-paired-inner-elision",
+        "input": "Keep \u0022the word \u0027em\u0027 stays quoted\u0022.",
+        "split": "development"
+      },
+      "normalized_input": "Keep \u0022the word \u0027em\u0027 stays quoted\u0022.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "277906dfdbf420c6fc023aad7875dde12a4a0c3727b0b7b8ade4bb62733005db",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep FHX_6b8c1ecb.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

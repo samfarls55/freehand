@@ -1,0 +1,884 @@
+{
+  "scope": "New source-tag architecture pilot; no heldout/manual quality or whole-app SLA claim",
+  "all_cases": 64,
+  "train_denominator": 48,
+  "development_denominator": 16,
+  "train_ce_eligible_cases": 48,
+  "train_ce_cases": 48,
+  "train_without_ce": 0,
+  "steps": 300,
+  "stop_reason": "max_steps",
+  "history": [
+    {
+      "step": 1,
+      "loss": 5.532525539398193,
+      "components": {
+        "count": 1.143863320350647,
+        "case": 0.3822932839393616,
+        "form": 0.1875651329755783,
+        "repair": 0.00033539862488396466,
+        "pointer": 0.0,
+        "insert_count": 0.34916695952415466,
+        "insert": 8.048774719238281
+      }
+    },
+    {
+      "step": 20,
+      "loss": 0.4959374666213989,
+      "components": {
+        "count": 0.33523914217948914,
+        "case": 0.02381071448326111,
+        "form": 0.0023401430808007717,
+        "repair": 0.0008938329410739243,
+        "pointer": 0.0,
+        "insert_count": 0.08194033801555634,
+        "insert": 0.22342312335968018
+      }
+    },
+    {
+      "step": 40,
+      "loss": 0.38551202416419983,
+      "components": {
+        "count": 0.3142065107822418,
+        "case": 0.09246128797531128,
+        "form": 0.0016157784266397357,
+        "repair": 0.0010669947369024158,
+        "pointer": 0.0,
+        "insert_count": 0.09065121412277222,
+        "insert": 0.001979476772248745
+      }
+    },
+    {
+      "step": 60,
+      "loss": 0.07398352771997452,
+      "components": {
+        "count": 0.05633130297064781,
+        "case": 0.007606359198689461,
+        "form": 0.003684250870719552,
+        "repair": 0.0004940073704347014,
+        "pointer": 0.0,
+        "insert_count": 0.020268475636839867,
+        "insert": 0.006560536567121744
+      }
+    },
+    {
+      "step": 80,
+      "loss": 0.07680682837963104,
+      "components": {
+        "count": 0.06599001586437225,
+        "case": 0.00548497773706913,
+        "form": 0.0006813742802478373,
+        "repair": 0.0012415290111675858,
+        "pointer": 0.0,
+        "insert_count": 0.013404122553765774,
+        "insert": 0.0023225971963256598
+      }
+    },
+    {
+      "step": 100,
+      "loss": 0.16019690036773682,
+      "components": {
+        "count": 0.12767328321933746,
+        "case": 0.019939733669161797,
+        "form": 3.3508720662212e-05,
+        "repair": 0.004389091394841671,
+        "pointer": 0.0,
+        "insert_count": 0.04428178444504738,
+        "insert": 0.001983904978260398
+      }
+    },
+    {
+      "step": 120,
+      "loss": 0.03411635383963585,
+      "components": {
+        "count": 0.024473583325743675,
+        "case": 0.006372933275997639,
+        "form": 0.0001654188963584602,
+        "repair": 0.0016532085137441754,
+        "pointer": 0.0,
+        "insert_count": 0.007959205657243729,
+        "insert": 0.004668032750487328
+      }
+    },
+    {
+      "step": 140,
+      "loss": 0.030326124280691147,
+      "components": {
+        "count": 0.02341538481414318,
+        "case": 0.002328426344320178,
+        "form": 0.00024790456518530846,
+        "repair": 0.004557977896183729,
+        "pointer": 0.0,
+        "insert_count": 0.0012754425406455994,
+        "insert": 0.0020179639104753733
+      }
+    },
+    {
+      "step": 160,
+      "loss": 0.02004457637667656,
+      "components": {
+        "count": 0.012236458249390125,
+        "case": 0.006370390299707651,
+        "form": 0.00010872503480641171,
+        "repair": 0.003750558476895094,
+        "pointer": 0.0,
+        "insert_count": 0.0026166352909058332,
+        "insert": 0.0022045632358640432
+      }
+    },
+    {
+      "step": 180,
+      "loss": 0.018616732209920883,
+      "components": {
+        "count": 0.01539042592048645,
+        "case": 0.0051815686747431755,
+        "form": 6.887659401400015e-05,
+        "repair": 0.0006606442620977759,
+        "pointer": 0.0,
+        "insert_count": 0.0015542933251708746,
+        "insert": 0.0009173707221634686
+      }
+    },
+    {
+      "step": 200,
+      "loss": 0.017775095999240875,
+      "components": {
+        "count": 0.009986646473407745,
+        "case": 0.0039442540146410465,
+        "form": 6.732355541316792e-05,
+        "repair": 0.004949389491230249,
+        "pointer": 0.0,
+        "insert_count": 0.0026001809164881706,
+        "insert": 0.0010384886991232634
+      }
+    },
+    {
+      "step": 220,
+      "loss": 0.005051625892519951,
+      "components": {
+        "count": 0.0013067706022411585,
+        "case": 0.0036752084270119667,
+        "form": 5.800058715976775e-05,
+        "repair": 0.0016213103663176298,
+        "pointer": 0.0,
+        "insert_count": 0.0012716064229607582,
+        "insert": 0.0010798792354762554
+      }
+    },
+    {
+      "step": 240,
+      "loss": 0.0015191719867289066,
+      "components": {
+        "count": 0.0004481784417293966,
+        "case": 0.000866079528350383,
+        "form": 5.6651970226084813e-05,
+        "repair": 0.0001012906213873066,
+        "pointer": 0.0,
+        "insert_count": 0.0005827886634506285,
+        "insert": 0.0008669252274557948
+      }
+    },
+    {
+      "step": 260,
+      "loss": 0.0018124994821846485,
+      "components": {
+        "count": 0.0009131873957812786,
+        "case": 0.0005183072062209249,
+        "form": 5.8039600844495e-05,
+        "repair": 0.00021960052254144102,
+        "pointer": 0.0,
+        "insert_count": 0.0004810311656910926,
+        "insert": 0.0005611990345641971
+      }
+    },
+    {
+      "step": 280,
+      "loss": 0.002364368876442313,
+      "components": {
+        "count": 0.0011686161160469055,
+        "case": 0.001464448170736432,
+        "form": 5.2971128752687946e-05,
+        "repair": 0.00011536967213032767,
+        "pointer": 0.0,
+        "insert_count": 0.0006187553517520428,
+        "insert": 0.0007568157161585987
+      }
+    },
+    {
+      "step": 300,
+      "loss": 0.0009368328610435128,
+      "components": {
+        "count": 0.0001971464662346989,
+        "case": 0.000714899564627558,
+        "form": 3.722868859767914e-05,
+        "repair": 7.714857201790437e-05,
+        "pointer": 0.0,
+        "insert_count": 0.0003361367271281779,
+        "insert": 0.0005942604038864374
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "pilot64-001",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-002",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-003",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-004",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-005",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-006",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-007",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-008",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-009",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-010",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-011",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-012",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-013",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-014",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-015",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-016",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-017",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-018",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-019",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-020",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-021",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-022",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-023",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-024",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-025",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-026",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-027",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-028",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-029",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-030",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-031",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-032",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-033",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-034",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-035",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-036",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-037",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-038",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-039",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-040",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-041",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-042",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-043",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-044",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-045",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-046",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-047",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-048",
+      "split": "train",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": true,
+      "used_for_ce": true
+    },
+    {
+      "id": "pilot64-049",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-050",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-051",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-052",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-053",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-054",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-055",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-056",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-057",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-058",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-059",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-060",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-061",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-062",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-063",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    },
+    {
+      "id": "pilot64-064",
+      "split": "development",
+      "features_available": true,
+      "feature_status": "ok",
+      "label_supported": true,
+      "label_reasons": [],
+      "eligible_for_ce": false,
+      "used_for_ce": false
+    }
+  ],
+  "settings": {
+    "steps": 300,
+    "batch_size": 4,
+    "learning_rate": 0.001,
+    "seed": 20261104,
+    "worker_seconds": 110.0,
+    "architecture": "source-tag-graph-defaults-source-pinned",
+    "max_visits": 3,
+    "max_insertions": 4,
+    "model_forward_input": "source_features_and_source_padding_only"
+  },
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "torch_threads": 2,
+  "torch_interop_threads": 1,
+  "elapsed_seconds": 9.277349244002835,
+  "parameters": 597006,
+  "rss_max_bytes": 413667328,
+  "source_only_forward": true,
+  "native_calls": 0,
+  "fallback_success_credit": false
+}

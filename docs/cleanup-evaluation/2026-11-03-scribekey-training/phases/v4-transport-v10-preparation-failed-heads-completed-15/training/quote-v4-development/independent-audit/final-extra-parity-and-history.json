@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T08:22:46Z",
+  "scope": "Synthetic Python execution + read-only managed/Core source analysis, no managed execution or private inputs",
+  "root_counterexample_cases": [
+    {
+      "scalar": "U+001C",
+      "input": "James'\u001cnote says 'come later'.",
+      "python_isspace": true,
+      "v4_space_predicate": false,
+      "managed_char_IsWhiteSpace_expected": false,
+      "observed_python": {
+        "status": "explicit_rejection",
+        "error": "Specialist literal v4 found an unmatched or ambiguous quote boundary"
+      }
+    },
+    {
+      "scalar": "U+001D",
+      "input": "James'\u001dnote says 'come later'.",
+      "python_isspace": true,
+      "v4_space_predicate": false,
+      "managed_char_IsWhiteSpace_expected": false,
+      "observed_python": {
+        "status": "explicit_rejection",
+        "error": "Specialist literal v4 found an unmatched or ambiguous quote boundary"
+      }
+    },
+    {
+      "scalar": "U+001E",
+      "input": "James'\u001enote says 'come later'.",
+      "python_isspace": true,
+      "v4_space_predicate": false,
+      "managed_char_IsWhiteSpace_expected": false,
+      "observed_python": {
+        "status": "explicit_rejection",
+        "error": "Specialist literal v4 found an unmatched or ambiguous quote boundary"
+      }
+    },
+    {
+      "scalar": "U+001F",
+      "input": "James'\u001fnote says 'come later'.",
+      "python_isspace": true,
+      "v4_space_predicate": false,
+      "managed_char_IsWhiteSpace_expected": false,
+      "observed_python": {
+        "status": "explicit_rejection",
+        "error": "Specialist literal v4 found an unmatched or ambiguous quote boundary"
+      }
+    }
+  ],
+  "python_isspace_not_used_by_v4_ambiguity_predicate": true,
+  "managed_branch_analysis": "C# char.IsWhiteSpace excludes U+001C..U+001F. WordAt sees nonword controls, marks bare possessive family, then later paired single quote creates the same explicit ambiguity rejection as Python.",
+  "core_boundary_analysis": "Internal C0 controls are not generally normalized away: DictationEngine dictionary correction then EnglishTextNormalizer only replaces matched number spans. With no matching dictionary entry, this number-free synthetic text can reach the provider unchanged. No claim of C0 sanitization is needed for parity.",
+  "core_sources": [
+    "src/Freehand.Core/DictationEngine.cs:345",
+    "src/Freehand.Core/EnglishTextNormalizer.cs:55"
+  ],
+  "current_shared_accepted_payloads_and_utf8_roundtrips": 23,
+  "all_old_v2_23_source_files_preserved": true,
+  "preserved_source_paths": [
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/src/Freehand.Cleanup/SpecialistLiteralProtocol.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/src/Freehand.Cleanup/SpecialistLiteralMask.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/src/Freehand.Cleanup/SpecialistLiteralWordRanges.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/src/Freehand.Cleanup/CleanupAssetInstaller.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Evaluation/specialist_literal_word_ranges.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Evaluation/generate_specialist_word_ranges.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Evaluation/small_models.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Evaluation/test_specialist_literal_v4.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Evaluation/test_small_models.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Training/evaluate.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Training/test_evaluate.py",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Probe/Program.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tests/Freehand.Cleanup.Tests/SpecialistLiteralV4Tests.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tests/Freehand.Cleanup.Tests/ProviderTests.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tests/Freehand.Cleanup.Tests/ManifestTests.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tests/Freehand.Cleanup.Tests/AssetInstallerTests.cs",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tests/Freehand.Cleanup.Tests/Freehand.Cleanup.Tests.csproj",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/shared/specialist-literal-v4-vectors.json",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/tools/Freehand.Cleanup.Training/LITERAL-PROTOCOL-V4.md",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/historical/source-ready-v2/docs/UNICODE-DATA-LICENSE.txt"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T10:08:28.005823+00:00",
+  "reproduce_tests": {
+    "cwd": "tools/Freehand.Cleanup.Training",
+    "argv": [
+      "python3",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "test_training_modes"
+    ],
+    "additional_instrumentation": "In-process unittest runner asserted Torch and Transformers absent from sys.modules after all tests."
+  },
+  "tests_run": 10,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "no_torch_or_transformers_import": true,
+  "production_pins_before": {
+    "tools/Freehand.Cleanup.Training/pipeline.py": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+    "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561"
+  },
+  "production_pins_after": {
+    "tools/Freehand.Cleanup.Training/pipeline.py": "27a2cd8de2ec90c3d78d50487d95f72d11537f61339f00b1e3fc33d7ebd619fb",
+    "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": "9ee736685aab7decc213937ced67f7e37df65d4f5cad0240dd6e266002073561"
+  },
+  "production_unchanged": true,
+  "test_source": {
+    "path": "tools/Freehand.Cleanup.Training/test_training_modes.py",
+    "sha256": "2fe3d747b6b5e3ded1eb8c7c2113e27b9456be164266a2ef9ef40ae5e1601475"
+  },
+  "readme": {
+    "path": "tools/Freehand.Cleanup.Training/README.md",
+    "sha256": "447c3df645f13f0ff3cf2dfacf05cfba31a9b0eb2ab54a50ec8bf3826b88d040"
+  },
+  "scope": "Pure actual pipeline CLI/transport/resume tests; train mocked; no models, Torch, training, profile, native, or builds.",
+  "peer_review": "review_trim_parity read-only review found no blocker; separate Torch/Transformers package drift and disabled-GC nullable metadata coverage incorporated before this final run.",
+  "prior_evidence_preserved": "tracked-mode-tests-v1",
+  "committed": false
+}

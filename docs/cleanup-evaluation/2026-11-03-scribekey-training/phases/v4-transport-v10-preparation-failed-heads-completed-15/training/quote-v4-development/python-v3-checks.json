@@ -1,0 +1,48 @@
+[
+  {
+    "tag": "evaluation-v3",
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-v",
+      "-p",
+      "test_*.py"
+    ],
+    "cwd": "/workspace/freehand/tools/Freehand.Cleanup.Evaluation",
+    "exit_code": 0,
+    "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/python-evaluation-v3.log",
+    "sha256": "1f593927d7cff3fc9dc45438bacc7ba01e93576089693033572bd1989e418de3"
+  },
+  {
+    "tag": "training-evaluator-v3",
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "test_evaluate"
+    ],
+    "cwd": "/workspace/freehand/tools/Freehand.Cleanup.Training",
+    "exit_code": 0,
+    "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/python-training-evaluator-v3.log",
+    "sha256": "5e0d9363a00391b72a179d0aec4c3f6ea15fd081880e97d713f30155ff83c9d3"
+  },
+  {
+    "tag": "unicode14-v3",
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "tools/Freehand.Cleanup.Evaluation/generate_specialist_word_ranges.py",
+      "--unicode-data",
+      "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/unicode14/UnicodeData.txt"
+    ],
+    "cwd": "/workspace/freehand",
+    "exit_code": 0,
+    "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/python-unicode14-v3.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "status": "WORST239_SOURCE_READY_NOT_EXECUTED",
+  "created_utc": "2026-11-04T09:59:36.786481+00:00",
+  "source_pins": {
+    "profile_common.py": "ed9fa1333fc66871113f2e2d0c1a1860518a57a8087c3670dacb268d1dca1d24",
+    "profile_controller.py": "b8e7d87a362628a54f32e4875a915bbcf1da72b3e464ea761a12ee5187f91fb7",
+    "profile_worker.py": "04908002da0ecb5d6480bba2e3bd4a3457f525597f6626262c9f48b424cfd93e",
+    "profile_supervisor.py": "3d7545eeaa0191e435b967c170e007ee4b8a89dba424491c917300c3b261328a",
+    "safetensor_audit.py": "68036c9de844428ac884a655c59e8ec3394fb8da9a50031c5039e17e2401abb7"
+  },
+  "files": {
+    "profile-recipes.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-recipes.json",
+      "bytes": 5628,
+      "sha256": "747845a9e4353384467b618283521309c71d6033fc52ce52e292a5ce4b4bc2c1"
+    },
+    "profile-datasets.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile-datasets.json",
+      "bytes": 1991,
+      "sha256": "104363c86527239de439c943e5b6b86904c6ead83aad59bd36fcf29d85911c61"
+    },
+    "essential-inputs.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/essential-inputs.json",
+      "bytes": 8510,
+      "sha256": "45654a072bd512e181d1d14cb26e2068bcba06f9595f0bc3e731894d4e3cb3d1"
+    },
+    "expected-adapter-schema.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/expected-adapter-schema.json",
+      "bytes": 13768,
+      "sha256": "596639db7fcc5d89c390e96d731b3ed5a83e0dd1a7326d34af6e258a91b993a4"
+    },
+    "root-grant-PENDING.example.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/root-grant-PENDING.example.json",
+      "bytes": 1141,
+      "sha256": "5bbc89439c45bfade538bbdc3b33454aa0533d698dff93441aaaece75f369a12"
+    },
+    "source-only-guards.log": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/source-only-guards.log",
+      "bytes": 5485,
+      "sha256": "f719392a20d1c9022452a0c33785e3a257e37a2a25c1875455f4bf7d6e173d2e"
+    }
+  },
+  "dataset": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/datasets/worst239-eight-v1.jsonl",
+    "sha256": "5943bd0bed7b064bf07308c3e37668f42c0e13fd219b4c3ab80c4e0af9ed313e",
+    "bytes": 21304,
+    "canonical_source_id": "scribe-scope-copy-v10-b-088",
+    "input_sha256": "0fe3e67641b1fddc25f0c5c02eb098a622c888f383ab5ee0e33ee74a681d65b7",
+    "target_sha256": "0fe3e67641b1fddc25f0c5c02eb098a622c888f383ab5ee0e33ee74a681d65b7",
+    "complete_tokens": 239,
+    "assistant_tokens_per_copy": 106,
+    "rows": 8,
+    "controlled_repeats_not_new_training_data": true
+  },
+  "actual_command_after_ROOT_grant": [
+    "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/profile_controller.py",
+    "--profile",
+    "worst239_gc_on",
+    "--grant",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/root-grant-ACTUAL.json",
+    "--output",
+    "/dev/shm/freehand-v10-worst239-profile-01"
+  ],
+  "effective_train_argv": [
+    "train",
+    "--base",
+    "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model",
+    "--training-base-mode",
+    "original-iq4-dequantized-fp32-v1",
+    "--gguf-base",
+    "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf",
+    "--activation-quantization",
+    "native-q8-k",
+    "--native-runtime",
+    "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015",
+    "--kv-roundtrip",
+    "none",
+    "--specialist-literal-protocol",
+    "specialist-compact-v4",
+    "--parent-adapter-sha256",
+    "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993",
+    "--train",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v10-lora-memory-profile-preparation/datasets/worst239-eight-v1.jsonl",
+    "--threads",
+    "4",
+    "--seed",
+    "42",
+    "--rank",
+    "8",
+    "--alpha",
+    "16",
+    "--learning-rate",
+    "0.00002",
+    "--epochs",
+    "1",
+    "--batch-size",
+    "1",
+    "--gradient-accumulation",
+    "8",
+    "--warmup-steps",
+    "0",
+    "--checkpoint-every",
+    "0",
+    "--max-tokens",
+    "256",
+    "--resume-adapter",
+    "/tmp/freehand-v8-v9-factor-izdqupmr/t050",
+    "--max-steps",
+    "1",
+    "--output",
+    "/dev/shm/freehand-v10-worst239-profile-01/training",
+    "--gradient-checkpointing"
+  ],
+  "profile_only": true,
+  "candidate_eligible": false,
+  "no_Torch_model_native_or_actual_profile_executed": true,
+  "guard_tests": "34 stdlib/mock tests; see log",
+  "sampled_memory_guard_bytes": 16500000000,
+  "sampled_guard_cannot_guarantee_avoid_allocation_jump_OOM": true,
+  "observer_added_forwards_source_assertion": 0,
+  "actual_total_forward_calls_not_instrumented": true,
+  "all184_preupdate_parent_hash_comparison_after_reap": true,
+  "all184_gradients_and_AdamW_states_observed_finite_in_actual_worker_only_when_run": true,
+  "fresh_optimizer_schedule_updates": 1,
+  "future150_schedule_not_inherited": true,
+  "closure_large_pins_from_prior_receipts_actual_prepost_rehash_deferred_until_grant": true,
+  "old_files_preserved": true
+}

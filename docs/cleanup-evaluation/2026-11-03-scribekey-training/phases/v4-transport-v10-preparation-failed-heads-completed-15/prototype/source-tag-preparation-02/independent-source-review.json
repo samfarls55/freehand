@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "author": "benchmark_harness independent source reviewer",
+  "created_utc": "2026-11-04T09:39:42Z",
+  "decision": "PASS_SOURCE_AND_IDENTITY_DELTA_NO_REMAINING_BLOCKER",
+  "source_packet": {
+    "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source-tag-preparation-02/source-held-02.json",
+    "bytes": 3235,
+    "sha256": "202343f35a36c985001923de92549dfafa0bb5a4d13caa453b1ec5771586f4d8"
+  },
+  "source_file_count": 13,
+  "source_pins_verified_before_and_after_independent_tests": true,
+  "source_pins": {
+    "source_tag_contract.py": "24195cdcecad7ee32d054c2d2963d2408a1203586d3299513843c38c5a09985e",
+    "source_tag_model.py": "5af20ad0977466d715a15794d201c5e44db22f1079fafdd4907c162fe31e74f9",
+    "source_tag_train.py": "45db0262dba99151e4f110f54c985ec2109a85c10e82d8ee975ccfcb09c9d84f",
+    "source_tag_unit.py": "56838120fa89f6ca0e562a152c8f8f5b768463bc7b0f9955fab54cc95f853589",
+    "source_tag_runtime.py": "981baaff26ad12648c1973efa711c512ca987cfecd4e3bc3aa0ff6230ade8491",
+    "editor_core/__init__.py": "a105664ebc907d08bfacf2b873d2479391b423c45e7660c229eae1709aa9b15e",
+    "editor_core/core.py": "cf56a846e75edd09e62ea82a3e6e5310cedec7ed9c736995a09ed65793ffee7d",
+    "editor_core/head_contract.py": "2c7fdf966b07990512102da947c0c78061eea575e8bee1568f970b3782ef32be",
+    "test_source_tag_contract.py": "7f34924bc18ef0013bffb236cfb418e2936d92d3d76ba8439dfb6523e0374af1",
+    "test_source_tag_model_static.py": "e2937fdcbb01b4e5ff826a18ba9db305ce3fd9658e8561de7c60ee49e31afed0",
+    "test_source_tag_train.py": "937951df9827b97219bba26ae61bec93a7077946958a2788543fe3a591261b06",
+    "test_source_tag_runtime.py": "2cb72b8ebbe957f955142cc6e2bffb980aa926c0f96edb7e0f9f52ece79479ff",
+    "audit_source_tags.py": "72ff1cf2a629000c8d5bdee067ba555272f840742ca64b91feeb42a985f13ab9"
+  },
+  "all_previous_held01_13_source_bytes_verified_preserved": true,
+  "only_changed_files": [
+    "source_tag_contract.py",
+    "test_source_tag_contract.py"
+  ],
+  "reviewed_checks": {
+    "source_only_forward": "CopySourceTagHead.forward accepts source features + source right-padding only. Model creates BEGIN/source/occurrence embeddings, not target prefixes or global output queries. Target/alignment data is used only to compile CE labels or compare alreadydecoded diagnostics.",
+    "graph_alignment_and_execution": "Source graph labels are derived from previously executable canonical programs, then rerendered source gaps/finite punctuation and verified exact target execution. BEGIN0/counts/occurrence indexing and repair pointer masks agree. Identity delta is restricted to exact source==target, retains renderer/executor validation, and does not alter edited gold.",
+    "traversal_and_caps": "Counts0..3, max4 finite inserts per visit, sumcounts+1 transition bound, exhausted-node/cycle and earlyEND rejection. Protected count is forced1 at decode; original strict executor still enforces exact protected bytes/order/once and forbids fabricated lexical/numeric joins.",
+    "default_identity": "Zero output-head weights + keep/count1/formcopy/repairoff/noinsert biases provide identity for valid source controls; pointer scores are inactive with repairOFF. Actual model execution belongs to a separate unit gate.",
+    "loss_masks": "Typed long target tensors, right-padding masks and active-visit/repair/insertion branch masks. CE selects supervised rows before crossentropy. Fully ignored components use empty-slice differentiable zero, avoiding0*infinity/NaN from ignored pointer entries.",
+    "fixed_denominators": "Fixed64 rows and48/16 split retained in label inventory, evaluation and metrics; feature-unavailable/deadline cases remain failures/unattempted entries. Unsupported labels skipCE only and still receive source-only inference. Actual usedCE IDs update after completed optimizer.step.",
+    "owned_workers": "Explicit operation/source/input/settings/output grant; exact interpreter spelling; source/cache native-release checks before Torch; independent process session/group; finite supervisor timeout +TERM/KILL/reap; create-only output and explicit release status. No native model is called by head unit/train workers.",
+    "historical_scope": "New modules are work-only; oldcore/dependency pins are unchanged and held01 source/unit history remains distinct. Structural executability/static coverage and exact-canonical diagnostics do not establish semantic quality or app SLA."
+  },
+  "finding_closed": {
+    "id": "SOURCE-TAG-IDENTITY-001",
+    "original_reproducer": "Ada report.\u2192Ada report. previously labelled originalperiodcount0+INSERTperiod.",
+    "resolution": "Only exactidentity target labels now canonicalize to validated all-source-copy programs. Broader editedpunctuation realignment was not introduced.",
+    "independent_delta_checks": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source-tag-preparation-02/independent-review/identity-delta-checks.json",
+      "bytes": 349,
+      "sha256": "0125cf1eb8f0542593ed3407d000215a5597222540503ca256d5a3307f389630"
+    },
+    "six_synthetic_identity_controls_counts1_noinsert": true,
+    "eight_edited_or_unsupported_examples_exact_old_label_objects_preserved": true
+  },
+  "tests": {
+    "stdlib_AST_mock_tests_passed": 48,
+    "failed": 0,
+    "test_log": {
+      "path": "/workspace/freehand/work/scribekey-copy-editor-prototype/source-tag-preparation-02/independent-review/stdlib-tests.log",
+      "bytes": 7433,
+      "sha256": "926b99360e266a298d6d0fe96ff813b7998e92a9c8fc058cf8cfedce2a30488b"
+    },
+    "real_Torch_model_imported": false
+  },
+  "owner_metadata_not_independently_reexecuted": {
+    "all64_label_roundtrips": true,
+    "changed_label_controls": 22,
+    "other_label_objects_unchanged": 42,
+    "static_coverage_new_supported": 399,
+    "static_coverage_new_denominator": 400,
+    "static_coverage_old_supported": 2702,
+    "static_coverage_old_denominator": 2724,
+    "note": "These are heldpacket owner facts. Reviewer did not open actualplan/features/datasets/labelinventory or run coverage against them."
+  },
+  "not_performed": [
+    "Torch import/model construction/gradient/checkpoint execution",
+    "native model or server execution",
+    "training or cachedfeature loading",
+    "actual64plan/400training/old2724/corpus/fresh3 reads",
+    "shipping/default/install/source-repository changes"
+  ],
+  "remaining_gate": "Root-authorized actual unit02 on held02 source before training; current source review is not a Torch runtime, modelquality, latency/memory or Windows qualification."
+}

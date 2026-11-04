@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T09:46:53.757674+00:00",
+  "reviewer": "prototype author; root independent adjudication pending",
+  "scope": "Actual input/output read for all16 training-derived dev cases; no fresh evaluation",
+  "joined_artifact_sha256": "3cbf725cf777842b6c42ce1c34a0bd90dee45b45fe9b3882dfdb38127969f04e",
+  "all16_actual_pairs_read": true,
+  "faithful": 8,
+  "clean": 3,
+  "joint": 3,
+  "critical_error_severity": "Not separately adjudicated here",
+  "cases": [
+    {
+      "id": "pilot64-049",
+      "source_id": "scribe-scope-copy-v10-b-054",
+      "input_sha256": "e24552caca1785bac930de5bddd2b877e3ce66934ff45ebc3b364d2b597fc445",
+      "output_sha256": "f0ce599554bab8d514ebbb470e40884771c41e6c129e6716cc0e9405bc9b452d",
+      "faithful": true,
+      "clean": false,
+      "joint": false,
+      "reason": "Filler removed; surviving sentence starts lowercase."
+    },
+    {
+      "id": "pilot64-050",
+      "source_id": "scribe-scope-copy-v10-a-041",
+      "input_sha256": "d797e9500baf3341885b1429fa95e849c39138255ab52f9017cdff1c8aee6e45",
+      "output_sha256": "b9dca96811b2f202865b1901a832cb42eec81cdb41c445e6c80011d946176eea",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Both old waist-height and final shoulder-height attributes survive without resolved scope."
+    },
+    {
+      "id": "pilot64-051",
+      "source_id": "scribe-scope-copy-v10-a-080",
+      "input_sha256": "9bd0f56fa39eae9971601d4b17d21aa8f3173ca387b73834b527323344fdfc74",
+      "output_sha256": "ca59969eed452b9df23aba44007f9ccd59ca161346759b6b9159b5304ca6db9d",
+      "faithful": true,
+      "clean": false,
+      "joint": false,
+      "reason": "Independent facts survive, but doubled comma remains after filler deletion."
+    },
+    {
+      "id": "pilot64-052",
+      "source_id": "scribe-scope-copy-v10-c-091",
+      "input_sha256": "fa645f1a0de326e6324b27526cc61fb83a850ddee4d059c801b60c06dd7b6d67",
+      "output_sha256": "36bc84644f484e6fe82d1ee1b65efe49732353c1f4ca6cf02025a6ff9b45e6c5",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Canceled quoted choice remains the active Put object; replacement is unresolved."
+    },
+    {
+      "id": "pilot64-053",
+      "source_id": "scribe-scope-copy-v10-a-023",
+      "input_sha256": "fb667193166654ea40e78207e64f3080a90fad4cc1b104b06166e168230260a1",
+      "output_sha256": "fb667193166654ea40e78207e64f3080a90fad4cc1b104b06166e168230260a1",
+      "faithful": true,
+      "clean": true,
+      "joint": true,
+      "reason": "Already-clean comparison preserved exactly."
+    },
+    {
+      "id": "pilot64-054",
+      "source_id": "scribe-scope-copy-v10-b-016",
+      "input_sha256": "fa9726216a51957db2eaca0419e1d04fa91de38f9fbe0965545d285c853272af",
+      "output_sha256": "fa9726216a51957db2eaca0419e1d04fa91de38f9fbe0965545d285c853272af",
+      "faithful": true,
+      "clean": true,
+      "joint": true,
+      "reason": "Already-clean conditional and modality preserved exactly."
+    },
+    {
+      "id": "pilot64-055",
+      "source_id": "scribe-scope-copy-v10-owner-047",
+      "input_sha256": "f505714c369142a8934970615431cb1fec24b486e3489ce46c3b1f96d271f2a5",
+      "output_sha256": "40d59f7c79fa53a883b287bb43c181003d775e563ec30ce9a7cf1038341b3f36",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Canceled call frame and truncated ferry phrase survive before replacement action."
+    },
+    {
+      "id": "pilot64-056",
+      "source_id": "scribe-scope-copy-v10-owner-092",
+      "input_sha256": "9bb7d7ed175746c0a0f168c851c68e74b9e03d3f6b74c65b072f4d6ebbd7f4df",
+      "output_sha256": "9bb7d7ed175746c0a0f168c851c68e74b9e03d3f6b74c65b072f4d6ebbd7f4df",
+      "faithful": true,
+      "clean": false,
+      "joint": false,
+      "reason": "Meaning preserved but accidental extra repetition is unchanged."
+    },
+    {
+      "id": "pilot64-057",
+      "source_id": "scribe-scope-copy-v10-c-100",
+      "input_sha256": "fc4e0fe8b7679ca0514b6026935eee0b281efa930291f85ac46880ecf4e44a41",
+      "output_sha256": "f954fffcf8e5be49875fe8fd21d2a45621554d0a8ab3e75062357b0363ef34b1",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Canceled quoted wording remains active and the card referent is dropped."
+    },
+    {
+      "id": "pilot64-058",
+      "source_id": "scribe-scope-copy-v10-a-056",
+      "input_sha256": "dda1d19c77ae06eb89e3d299e3211e3fa08f8213a913f56c60bde274a6144d25",
+      "output_sha256": "9fdacc538cf041bbfdab72c9778429e1909139dc51c4fccd8bc4f68b786e3fd3",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Canceled replace action remains alongside final clean action."
+    },
+    {
+      "id": "pilot64-059",
+      "source_id": "scribe-scope-copy-v10-a-069",
+      "input_sha256": "d2c7d7d9874d9a7d1437ff40c16184adbf0e76fa32cd9e596e34be5e99dcb7f3",
+      "output_sha256": "3d79dc49cca4b9bc49cb124f34d5d255d080bdef0f34c3f9318601d78a4b8cb6",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Canceled identifier remains, its surface is broken by punctuation, and replacement binding is malformed."
+    },
+    {
+      "id": "pilot64-060",
+      "source_id": "scribe-scope-copy-v10-a-045",
+      "input_sha256": "d4e67bfa2f84aa9dfa1f70c5206bd5841720b8168bf422ddf6747bbbad470adf",
+      "output_sha256": "2f29faaab46f64523b5aec6edf58ab9056ea165c25229e4ead4aa98026987453",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Canceled booking survives with malformed request binding and doubled period."
+    },
+    {
+      "id": "pilot64-061",
+      "source_id": "scribe-scope-copy-v10-c-058",
+      "input_sha256": "14389f776b8115bb2b692a08d77958749ae280adadc8c1fd17d8d0038b4937ff",
+      "output_sha256": "b3ec68256dc0c9f9a504e2b46fb2fbcb216614ec2d69f9f22bfe2c5f96416e89",
+      "faithful": true,
+      "clean": false,
+      "joint": false,
+      "reason": "Filler removed; initial elision remains lowercase."
+    },
+    {
+      "id": "pilot64-062",
+      "source_id": "scribe-scope-copy-v10-c-090",
+      "input_sha256": "6240fb51c9554713715d014785a36a2fe1814e4e6dfc8fdc297949a1ec0d8301",
+      "output_sha256": "6240fb51c9554713715d014785a36a2fe1814e4e6dfc8fdc297949a1ec0d8301",
+      "faithful": true,
+      "clean": false,
+      "joint": false,
+      "reason": "All independent facts survive, but leading pronoun stutter remains."
+    },
+    {
+      "id": "pilot64-063",
+      "source_id": "scribe-scope-copy-v10-a-017",
+      "input_sha256": "f944eb798c2f9ca44af9a230bb8d645f97a59b2ff5bd81f8f0d3c23603ac6028",
+      "output_sha256": "f944eb798c2f9ca44af9a230bb8d645f97a59b2ff5bd81f8f0d3c23603ac6028",
+      "faithful": true,
+      "clean": true,
+      "joint": true,
+      "reason": "Already-clean grammatical can/can sequence preserved exactly."
+    },
+    {
+      "id": "pilot64-064",
+      "source_id": "scribe-scope-copy-v10-owner-094",
+      "input_sha256": "6cfc72b0851abe9fc8ade9754c14c7ad22e78d59badb17e5b5767e1af47935de",
+      "output_sha256": "b2ee3840606aad448f5c2dd6720bb7a110aa0a7935d40a3228ca91beeef61dc8",
+      "faithful": false,
+      "clean": false,
+      "joint": false,
+      "reason": "Old jug destination remains and replacement instruction becomes a fragment."
+    }
+  ],
+  "no_fallback_credit": true
+}

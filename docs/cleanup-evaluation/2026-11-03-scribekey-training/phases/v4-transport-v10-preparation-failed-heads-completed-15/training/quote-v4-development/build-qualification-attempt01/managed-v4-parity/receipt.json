@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "status": "MANAGED_V4_TRANSPORT_PARITY_PASS_NO_MODEL_QUALITY_CLAIM",
+  "source_ready": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/source-ready-v3.json",
+    "bytes": 15920,
+    "sha256": "7960f93db6de4e55a90277dac62a52ce4c9c60a75906e69006c317d18b5a9472"
+  },
+  "cohorts": [
+    {
+      "label": "vectors",
+      "export": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/vector-prompts-v4.json",
+        "bytes": 23771,
+        "sha256": "b89de40c307855e05af2b64a9074d6cd2c913d8752ee31efd5a07eacf59727e6"
+      },
+      "cases": 23,
+      "all_parity": true,
+      "casewise": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/managed-v4-parity/vectors-casewise.json",
+        "bytes": 12792,
+        "sha256": "44c5771ebb0329721dfc110db4ffd578015ced1ffb9f5026b0bb897bd906cc8c"
+      }
+    },
+    {
+      "label": "training800",
+      "export": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/training800-prompts-v4.json",
+        "bytes": 976448,
+        "sha256": "15dd240f5f375ed55425087b26e7fa28643b7bb08a670846e5a4bf8c6879f4f1"
+      },
+      "cases": 800,
+      "all_parity": true,
+      "casewise": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/managed-v4-parity/training800-casewise.json",
+        "bytes": 446138,
+        "sha256": "6a0684d26ebbb09a2f64fd0738dfb1854a75577159b464c2f2a7d8f1377c61fe"
+      }
+    }
+  ],
+  "training_pairs": 400,
+  "all_800_actual_Core_texts_equal_approved_normalized_pair_sides": true,
+  "all_source_target_literal_roundtrips_exact": true,
+  "quoted_source_rows": 70,
+  "source_protected_spans": 97,
+  "maximum_complete_teacher_forced_tokens": 239,
+  "official_tokenizer": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/original-model/tokenizer.json",
+    "bytes": 4733389,
+    "sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd"
+  },
+  "training_dataset": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/scope-copy-v10-training/core-normalization-v1/train-400-core-normalized-v1.jsonl",
+    "bytes": 786586,
+    "sha256": "caa3695b10055e28766f19f75df0652170bc9957a9e7e086e208374d79326f25"
+  },
+  "unchanged_pipeline_source_used_only_for_prefix_suffix": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+    "bytes": 79171,
+    "sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
+  },
+  "checker_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/check-managed-v4-parity.py",
+    "bytes": 6967,
+    "sha256": "ce7c8b3a3de25aa600f80c42800e955a3fbb66ca7c1b9bb2bc631087bdb69ddc"
+  },
+  "targets": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quote-v4-development/build-qualification-attempt01/managed-v4-parity/training400-target-roundtrips.json",
+    "bytes": 188484,
+    "sha256": "b062774a308e3b5e361e1597dc3965550a9c1f1afdc6318eef3a6edae05bb18c"
+  },
+  "default_v3_export_parity": true,
+  "source_data_prepost_verified": true,
+  "no_model_native_runtime_tokenization_inference_Torch_training_or_fresh_read": true,
+  "limitations": "Official tokenizer IDs compare actual managed exported prompt to independent Python prompt. No native runtime tokenization request or inference performed; this qualifies transport bytes, not editing accuracy."
+}
