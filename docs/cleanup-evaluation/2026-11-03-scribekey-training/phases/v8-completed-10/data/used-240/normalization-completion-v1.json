@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T02:31:32.507676+00:00",
+  "status": "RESERVED AND UNUSED; actual Core preprocessing complete, training activation not authorized.",
+  "raw_dataset": {
+    "path": "train-240-v1.jsonl",
+    "sha256": "922af3f8564703815e69eb7a3c49dbeb870cd560556485107ad4e14d45466829",
+    "rows": 240,
+    "cleanup_pairs": 168,
+    "unchanged_controls": 72
+  },
+  "raw_independent_review_rollup": {
+    "path": "independent-review-rollup-v1.json",
+    "sha256": "db384700ad69d0993708b876c1abcf77def989305de561966e5260a54bacfdaf",
+    "approved": 240,
+    "remaining_issues": 0
+  },
+  "historical_raw_manifest": {
+    "path": "manifest-v1.json",
+    "sha256": "7961683cc3d2ce2ca28ac044218dd48f2604914acd9b7e781bbc321bb82e8095",
+    "note": "This immutable pre-normalization manifest accurately records fixture preparation at its creation; completed normalization is recorded separately here."
+  },
+  "actual_core_export": {
+    "path": "core-normalization-v1/core-export.json",
+    "sha256": "33591c19195329e9d0f1fb5ffae7ecbb6e8ba9580e86d185e637ea9c9199462b",
+    "fixtures": 480,
+    "mode": "export-prompts only, no model/native/training/build",
+    "nice": 19,
+    "DOTNET_PROCESSOR_COUNT": 1,
+    "execution_receipt_sha256": "5c80daedc78dc876e696fbe865423a676571c5dbeef9049d2e17d6234471dff0"
+  },
+  "normalized_dataset": {
+    "path": "core-normalization-v1/train-240-core-normalized-v1.jsonl",
+    "sha256": "0dfc50fe433bda477666fcad5a91bb3a4356e1ded50543c6ff818db9a4e645dc",
+    "rows": 240,
+    "cleanup_pairs": 168,
+    "unchanged_controls": 72
+  },
+  "normalization_manifest": {
+    "path": "core-normalization-v1/manifest.json",
+    "sha256": "a9c60faab4208eb5d40ba7cfff7d5ef85302837899680ba9918d8f6c8f3c51a1"
+  },
+  "one_actual_delta": {
+    "path": "core-normalization-v1/normalization-changes.json",
+    "sha256": "57d1d424612e77f5b170b7ce1a04597fcf24939e20633813776b5e24cb40c397",
+    "id": "scribe-v8-reserved-153",
+    "input_and_target_change": "buying twelve batteries -> buying 12 batteries",
+    "semantics": "Both sides remain identical; two batteries per lamp and six lamps unchanged.",
+    "independent_review_status": "Requested from root and cleanup_pipeline_review; bind their separate final receipt without rewriting this historical pending annotation."
+  },
+  "validation": {
+    "source_prompt_and_mask_agreements": 240,
+    "target_prompt_and_mask_agreements": 240,
+    "loader_rows_passed": 240,
+    "literal_roundtrips": 240,
+    "protected_payloads": 10,
+    "exact_duplicate_pair_groups": 0,
+    "same_input_different_target_conflicts": 0
+  },
+  "opaque_overlap_index": {
+    "path": "core-normalization-v1/training-content-hashes.json",
+    "sha256": "5968e93c32c4b9e389985fd7a4502f8307c31fc77e64a48e7f7d72b9c3ffa2e1",
+    "fresh_data_status": "Root-owned opaque intersection remains pending; no fresh content opened."
+  },
+  "preservation": "All drafts, overlays, original raw source, six final family files and independent reviews are preserved; no active2754/UL32 data or app/pipeline source changes."
+}

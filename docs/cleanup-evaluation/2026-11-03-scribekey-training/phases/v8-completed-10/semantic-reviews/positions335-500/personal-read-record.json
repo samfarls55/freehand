@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "results_sha256": "7d492ecb55fb7dc1ef537f1b7c575fece3aad838ac5fff7ca17a2214ed6c3a70",
+  "cases": [
+    {
+      "position_one_based": 371,
+      "case_id": "blind-c-021",
+      "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+      "candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+      "output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "prior_output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "judgment": {
+        "case_id": "blind-c-021",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact quoted refund sentence and full-sentence clarification survive; following standalone sentence still starts lowercase after Uh removal, so capitalization needs repair.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 379,
+      "case_id": "blind-c-029",
+      "normalized_input": "I, I want the response to begin with “Thanks for checking.”",
+      "candidate_text": "I, I want the response to begin with “Thanks for checking.”",
+      "output": "I, I want the response to begin with “Thanks for checking.”",
+      "prior_output": "I want the response to begin with “Thanks for checking.”",
+      "judgment": {
+        "case_id": "blind-c-029",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact quoted response opening and request survive, but the accidental initial I, I remains. This is a new cleanup regression.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 381,
+      "case_id": "blind-c-031",
+      "normalized_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+      "candidate_text": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\".",
+      "output": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\".",
+      "prior_output": "Do not change the status to \"on hold\"; leave it \"awaiting parts\" instead.",
+      "judgment": {
+        "case_id": "blind-c-031",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Instead of changing status to on hold, leave it awaiting parts unambiguously rejects the canceled change and preserves both exact quoted status values. Clean faithful alternate wording.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 384,
+      "case_id": "blind-c-034",
+      "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "prior_output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "judgment": {
+        "case_id": "blind-c-034",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact regex and speaker uncertainty survive; accidental I, I remains uncleaned.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 422,
+      "case_id": "blind-c-072",
+      "normalized_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+      "candidate_text": "Cancel the upstairs room request; I will join remotely.",
+      "output": "Cancel the upstairs room request; I will join remotely.",
+      "prior_output": "Cancel that request; I will join remotely.",
+      "judgment": {
+        "case_id": "blind-c-072",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Cancellation now retains the upstairs-room request object, and remote attendance remains. The canceled reservation is not activated.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 426,
+      "case_id": "blind-c-076",
+      "normalized_input": "I left the parcel by the back door. No, correction, it is inside the porch cupboard.",
+      "candidate_text": "The parcel is inside the porch cupboard.",
+      "output": "The parcel is inside the porch cupboard.",
+      "prior_output": "I left the parcel inside the porch cupboard.",
+      "judgment": {
+        "case_id": "blind-c-076",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "The explicit No, correction is followed by a complete replacement present-tense assertion. Copying the parcel noun into that final location assertion is a reasonable faithful correction; the earlier I-left assertion need not survive under this scope reading. Independent target-free reviewer agrees, with moderate confidence and the narrower location-only reading disclosed.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 434,
+      "case_id": "blind-c-084",
+      "normalized_input": "I need the receipt emailed to me. Actually, just print it; the email address on file is wrong.",
+      "candidate_text": "Just print the receipt; the email address on file is wrong.",
+      "output": "Just print the receipt; the email address on file is wrong.",
+      "prior_output": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "judgment": {
+        "case_id": "blind-c-084",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Print the receipt is now the surviving instruction; the wrong email-address fact remains and the superseded email-delivery phrase is removed.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 454,
+      "case_id": "blind-c-104",
+      "normalized_input": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, uh, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "candidate_text": "I spoke to the nurse about the appointment. She said I could bring the forms on the day provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "prior_output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "judgment": {
+        "case_id": "blind-c-104",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removing the optional comma preserves nurse attribution, the early-registration condition, absence of a normal-results claim, and the family-update limitation.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 458,
+      "case_id": "blind-c-108",
+      "normalized_input": "Please publish the draft agenda today. Actually, wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "candidate_text": "Please publish the draft agenda after the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "output": "Please publish the draft agenda after the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "prior_output": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "judgment": {
+        "case_id": "blind-c-108",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Restores publishing the draft agenda subject to chair approval, with confidentiality, unchanged rest, reminder timing and no incomplete circulation preserved. The original today timing is explicitly deferred by the approval condition.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    },
+    {
+      "position_one_based": 462,
+      "case_id": "blind-c-112",
+      "normalized_input": "I would put the photographs at the end of the report. On second thought, place them immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "candidate_text": "Place the photographs immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "output": "Place the photographs immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "prior_output": "I would place the photographs immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "judgment": {
+        "case_id": "blind-c-112",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "On second thought, place them is an explicit final imperative replacing the earlier I-would placement recommendation. New output retains that imperative, immediate placement after site description, reader rationale, unnamed residents and required face blurring. Independent target-free reviewer agrees.",
+        "review_mode": "root_personally_read_actual_input_candidate_final_and_prior_output"
+      }
+    }
+  ]
+}

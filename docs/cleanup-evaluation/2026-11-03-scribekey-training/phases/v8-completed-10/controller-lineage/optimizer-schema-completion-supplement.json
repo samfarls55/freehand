@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "stage": "completed_export_after_source_schema_compatibility_fix",
+  "original_failed_preflight": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-01-native-export-controller.log",
+    "bytes": 827,
+    "sha256": "e34910e0656985fe29e918bfcb319972eebea1eae8d9311dd0b147b6f965c3d1"
+  },
+  "failed_preflight_started_Torch_converter_native_or_inference": false,
+  "first_failed_reader_and_original_audit_preserved_under": "historical/prelaunch-a75d72c8",
+  "reason": "Pinned final verifier records all_optimizer_counters405 but contains no optimizer_sha256 key.",
+  "correction": "Capture actual optimizer file digest after training release/before export; keep direct184-state405 counter inspection and pre/posthash checks. Original training outputs were not edited.",
+  "executed_sources": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/run.py",
+      "bytes": 28188,
+      "sha256": "8ad3f4553e9c730c83e00b8e3926de6bd8632eed68b1017d6926e0937579f576"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/v8_lineage.py",
+      "bytes": 18166,
+      "sha256": "01e86d392be10a73eb56bda55c13d8dc5fbb4d0705ecad404980fd245177348b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/owned_execution.py",
+      "bytes": 10537,
+      "sha256": "6fe025eec3fa093c77b81fdeca871fa7b1eabdf54cea53aecfd35690399c23f4"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/test_controller.py",
+      "bytes": 9980,
+      "sha256": "cdfde65091a802a7c04e36c32bbac7a4a7a9cf3edbc28efe3f0817dffb90590a"
+    }
+  ],
+  "independent_delta_review": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/independent-optimizer-capture-delta-review.json",
+    "bytes": 3714,
+    "sha256": "7cd1444f9d159288ea4523ffa0293f0181153b90d64286198134d16457ec09f4"
+  },
+  "corrected_preflight_and_run_log": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-01-native-export-controller-retry1.log",
+    "bytes": 3194,
+    "sha256": "978c32e548ab0b0e07c1c27f7d0092ceacac545a9e6a9989fd2716195a3117d7"
+  },
+  "actual_optimizer_pin": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/optimizer.pt",
+    "bytes": 24135819,
+    "sha256": "1edba751cbae803bc49166a8cb3c40cbb49e0b801bd706538d33177af3682166"
+  },
+  "full500_handoff": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v8-01-export/retired500-handoff-integrity.json",
+    "bytes": 2077,
+    "sha256": "8f2c8072a0c7f4638e499e54e4ad5c1722bdb47882587103aa32076abbddefe8"
+  },
+  "no_training_data_weight_runtime_profile_or_repo_source_change": true,
+  "fresh_round2_opened": false
+}

@@ -1,0 +1,54 @@
+{
+  "case_count": 500,
+  "structural_success": 500,
+  "faithful": 498,
+  "clean_usable": 493,
+  "faithful_and_clean_usable": 492,
+  "joint_accuracy": 0.984,
+  "critical_errors": 1,
+  "minimum_joint_accuracy": 0.99,
+  "required_pass_count": 495,
+  "failed_or_unusable_cases": 8,
+  "quality_gate_passed": false,
+  "zero_observed_critical_errors": false,
+  "exact_target_matches_diagnostic_only": 455,
+  "reviewer": "Three named assistant reviewers: training_audit positions1\u2013167, cleanup_pipeline_review168\u2013334, root335\u2013500. Root cross-read all23 changed outputs and five unchanged prior failures (28 unique actual pairs), covering all eight new joint failures. Successful exact13-field prior joint passes retain inheritance proofs.",
+  "limitations": "Finite assistant-authored synthetic diagnostic corpus and named semantic reviewer; no population accuracy or Windows SLA claim.",
+  "schema_version": 1,
+  "results_sha256": "7d492ecb55fb7dc1ef537f1b7c575fece3aad838ac5fff7ca17a2214ed6c3a70",
+  "canonical_review_sha256": "fe07736284eda5a8b8425c90b537f217e7c984d94b7e2420d375c8c5e1bfdae7",
+  "qualification": "retired development only",
+  "fresh_qualification_claimed": false,
+  "provider_failures": 0,
+  "all500_delivered_once": true,
+  "review_sources": [
+    {
+      "path": "reviews-v8-01-native-LoRA-retired500/positions001-167/reviewed.json",
+      "sha256": "219479b91fbdc00c1574e0a1b0e5d9df048bb934037605855439dc1649ff28ae",
+      "reviewer": "/root/training_audit",
+      "positions_one_based": [
+        1,
+        167
+      ]
+    },
+    {
+      "path": "reviews-v8-01-native-LoRA-retired500/positions168-334/casewise-reviewed.json",
+      "sha256": "40544baef37b371fce0e7b9cc5985e1c22b207b8635187361464c0edef4a3efe",
+      "reviewer": "Codex assistant /root/cleanup_pipeline_review",
+      "positions_one_based": [
+        168,
+        334
+      ]
+    },
+    {
+      "path": "reviews-v8-01-native-LoRA-retired500/positions335-500/casewise-reviewed.json",
+      "sha256": "e3de7ea53bcda91366cfdab9d4b1b3706b12d1da8ca80b5cebf4b47f8a3b5ff9",
+      "reviewer": "Codex assistant /root;156 strict13-field successful prior joint passes inherited with casewise proofs; all10 changed/prior-failed actual pairs personally read. C076/C112 also independently reviewed without targets.",
+      "positions_one_based": [
+        335,
+        500
+      ]
+    }
+  ],
+  "utc": "2026-11-04T04:00:35.261535+00:00"
+}

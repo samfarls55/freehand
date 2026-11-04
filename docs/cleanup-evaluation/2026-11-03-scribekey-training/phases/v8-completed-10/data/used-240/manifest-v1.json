@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T02:27:34.620506+00:00",
+  "status": "RESERVED and UNUSED; conditional future curriculum, not an active training input or evidence of model improvement.",
+  "dataset": {
+    "path": "train-240-v1.jsonl",
+    "sha256": "922af3f8564703815e69eb7a3c49dbeb870cd560556485107ad4e14d45466829",
+    "bytes": 126193,
+    "rows": 240,
+    "edits": 168,
+    "clean_controls": 72,
+    "clean_fraction": 0.3
+  },
+  "families": {
+    "deferred_action_vs_canceled_action": {
+      "rows": 40,
+      "edit": 28,
+      "clean": 12
+    },
+    "descriptive_participle_vs_canceled_requested_status": {
+      "rows": 40,
+      "edit": 28,
+      "clean": 12
+    },
+    "embedded_causal_explanatory_fact_preservation": {
+      "rows": 40,
+      "edit": 28,
+      "clean": 12
+    },
+    "multiword_restart_vs_intentional_grammatical_repeat": {
+      "rows": 40,
+      "edit": 28,
+      "clean": 12
+    },
+    "quantifier_scope_per_unit_group_total": {
+      "rows": 40,
+      "edit": 28,
+      "clean": 12
+    },
+    "referent_binding_multi_actor_authority_roles": {
+      "rows": 40,
+      "edit": 28,
+      "clean": 12
+    }
+  },
+  "input_word_range": [
+    9,
+    51
+  ],
+  "sources_40_to80_words": 28,
+  "provenance": "All examples individually authored from the supplied failure taxonomy only. No retired, development or fresh evaluation case text/output was read or copied. Synthetic structural patterns are controlled expansions, not independent natural dictations.",
+  "controlled_expansions": [
+    "Six balanced structural families, 40 cases each. Action-delay and true-cancellation cases are deliberately contrasted, with explicit operative cancellation retained when source requests it.",
+    "Independent causal explanations appear inside corrections and survive with their recipients, timing, history and uncertainty.",
+    "Referent/multi-actor cases include noun anchors from canceled clauses and authority sources that do not become object possessors.",
+    "Quantifier cases vary per-item/per-group/total scope, bounds, extras and six additional idiomatic correction cues; compatible unit-plus-total controls are not repaired.",
+    "Multiword false starts have no um/uh crutch; grammatical/metalinguistic and intentional phrase repetition stays. The deliberate scope of saying please twice is explicit.",
+    "Participles distinguish completed descriptive state from unperformed requested work; three first-check cases explicitly retract the old request, avoiding deferral ambiguity.",
+    "Twenty-eight sources are 40–51 words; remaining sources are short. Longer cases are hand-authored interacting statements rather than copied benchmark fragments."
+  ],
+  "independent_review": {
+    "path": "independent-review-rollup-v1.json",
+    "sha256": "db384700ad69d0993708b876c1abcf77def989305de561966e5260a54bacfdaf",
+    "approved": 240,
+    "rejected": 0,
+    "reviewers": [
+      "/root",
+      "/root/training_audit",
+      "/root/cleanup_pipeline_review"
+    ],
+    "human_review": false,
+    "part_bindings": [
+      {
+        "source_part": "part-01-defer-vs-cancel-40-v2.jsonl",
+        "source_sha256": "6e079f5b68a81c13a2cd3702f57f3b9898c7b739a52e89ef548c5692c3a37a32",
+        "review": "root-part01-v2-independent-review.json",
+        "review_sha256": "708815062db69b3603d5e1c29951dea3c6180eb6ef50dbb72dd97f6c83a533ee",
+        "reviewer": "root independent ofauthor",
+        "approved": 40,
+        "rejected": 0
+      },
+      {
+        "source_part": "part-02-causal-explanatory-facts-40-v2.jsonl",
+        "source_sha256": "ab0c7ff7ba2c4f9827dc41156519dc2f3538fcef8029296c68aad6c83fe1482a",
+        "review": "part-02-independent-review-v2.json",
+        "review_sha256": "f8642dafb28f9fb88081b855daae18e8ed8a5e3832882e33fed44e75f3f951c0",
+        "reviewer": "/root/training_audit (independent assistant semantic reviewer)",
+        "approved": 40,
+        "rejected": 0
+      },
+      {
+        "source_part": "part-03-referents-actors-40-v2.jsonl",
+        "source_sha256": "f2148d8c85646a24e20630b32e335475c0a8783e33364d480f324f5bd53ae52c",
+        "review": "family-03-v2-cleanup-pipeline-review.json",
+        "review_sha256": "e51ab56fcf195f77cc69fb87ee8fbef65cdc03ac98b995e9d647f246d8a6f6b1",
+        "reviewer": "cleanup_pipeline_review",
+        "approved": 40,
+        "rejected": 0
+      },
+      {
+        "source_part": "part-04-quantifier-scope-40-v2.jsonl",
+        "source_sha256": "8398e0caf14d4a2bece0ebe3f5c6fdca73befb5306564930706a6a1a0a9dbcf9",
+        "review": "root-part04-v2-independent-review.json",
+        "review_sha256": "ded21f3370c6771b47cdd6e5f5f288ddbe80ecbb211c01937ed55deb0cf52bf0",
+        "reviewer": "root independent ofauthor",
+        "approved": 40,
+        "rejected": 0
+      },
+      {
+        "source_part": "part-05-multiword-restarts-40-v2.jsonl",
+        "source_sha256": "0b541d56f6102957a549286fe80fc120ff152f0de9346526d0efd47105931856",
+        "review": "part-05-independent-review-v2.json",
+        "review_sha256": "82e27ec4f73f0d59c7abcfe77e456ad28c1b755351c29ed84d21bddb7fac6fb2",
+        "reviewer": "/root/training_audit (independent assistant semantic reviewer)",
+        "approved": 40,
+        "rejected": 0
+      },
+      {
+        "source_part": "part-06-participle-status-40-v3.jsonl",
+        "source_sha256": "29c37a50c76ba064078372c7b2ee2520a2c9f1389e6d07fff7f9ec3a4afaf801",
+        "review": "family-06-v3-cleanup-pipeline-review.json",
+        "review_sha256": "d4aa8cb99ae9035705e390b60462879b743346c2a6c5216769bce16f3ef03b47",
+        "reviewer": "cleanup_pipeline_review",
+        "approved": 40,
+        "rejected": 0
+      }
+    ]
+  },
+  "literal_validation": {
+    "path": "raw-literal-validation-v1.json",
+    "sha256": "4d9f9a9bc8d26c0d469aba05eacaecd5c9ed5f4524941181fcd782dfd42864d2",
+    "rows_passed": 240,
+    "source_derived_quoted_payload_roundtrips": 10,
+    "protocol": "specialist-compact-v3",
+    "scope": "Existing source-derived literal mask create/restore validation, not a model, native or full Core execution."
+  },
+  "post_authoring_duplicate_check": {
+    "sources": [
+      {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-future-contrasts/train-270-v1.jsonl",
+        "sha256": "24f20b6c3ef27b8831ee92ca8006d0129079c59a7e9e85512d62161dbed4074d"
+      },
+      {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v7-additional-100/train-100-v1.jsonl",
+        "sha256": "0412b2be08ad44275c8787ae6c355c50c43ffadc6304a3d2c2069e7153f3119e"
+      }
+    ],
+    "normalization": "NFC,casefold,whitespace collapse; automated post-authoring fingerprints only, not production Core normalization.",
+    "overlap_counts": {
+      "input": 0,
+      "target": 0,
+      "pair": 0
+    }
+  },
+  "Core_fixture": {
+    "path": "core-normalization-input-target-480.json",
+    "sha256": "249947c2ac938835c0fcd6ebe6328aac7d6d838a01b00aa17bdf842ef5ef7c30",
+    "rows": 480,
+    "executed": false,
+    "scope": "Prepared input+target no-manifest Core replay. Run only if root selects this conditional curriculum."
+  },
+  "overlays_preserved": [
+    {
+      "path": "part-01-cancellation-action-overlay-v2.json",
+      "sha256": "964307369654b260e2c33c6016ca3f932b446845dc916b69f7c9c0afd623497d"
+    },
+    {
+      "path": "part-02-recipient-time-overlay-v2.json",
+      "sha256": "a95b8f90a74475ac99ebf3f04b841535615f726b5ddee2060310823d5c6ab9cc"
+    },
+    {
+      "path": "part-03-author-clarity-overlay-v2.json",
+      "sha256": "27f9654a8813ae05974cba4d248c72e33395ef2d3c8fe18a1f7cec81d8814952"
+    },
+    {
+      "path": "part-04-input-cue-overlay-v2.json",
+      "sha256": "7a3355e4413fc6df54d8caed70d6a423d08d758a1d8810b052c623146577b689"
+    },
+    {
+      "path": "part-05-deliberate-scope-overlay-v2.json",
+      "sha256": "fe11964e52cf268bfbe11b231438b99e5686c97a4933b670a0cd94e2a12dba3c"
+    },
+    {
+      "path": "part-06-author-clarity-overlay-v2.json",
+      "sha256": "dad7411ae22015353d068ba473d27dc1281302ec4c5f6f8032304e3ba3806044"
+    },
+    {
+      "path": "part-06-explicit-retraction-overlay-v3.json",
+      "sha256": "ed4deb7eedea2164dbab592ec7e8a6ebf0c7abac5439e79246289634a07dcec7"
+    }
+  ],
+  "separation": {
+    "retired_dev_fresh_data_reads": false,
+    "Torch_or_model_imports": false,
+    "model_native_build_training_jobs": 0,
+    "source_implementation_edits": false,
+    "active_2754_or_UL32_modified_by_author": false,
+    "curated_as_used_or_trained": false,
+    "actual_Core_normalization": "pending root selection",
+    "full_history_and_opaque_fresh_overlap_checks": "pending root after any normalization"
+  },
+  "integration_instruction": "Only train-240-v1.jsonl is the complete raw component. Do not add part versions, overlays, reviews or discarded drafts as extra rows. Independent review approves data semantics, not training activation. Preserve raw and any Core-normalized derivative separately."
+}

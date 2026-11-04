@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/run.py", line 402, in <module>
+    main()
+  File "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/run.py", line 130, in main
+    training_lineage = lineage.verify_lineage(args, config, result, art)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/v8_lineage.py", line 209, in verify_lineage
+    'actual_final_optimizer_expected_sha256':verification['optimizer_sha256'],'actual_final_optimizer_counters_expected':405,
+                                             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+KeyError: 'optimizer_sha256'

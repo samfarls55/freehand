@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "created_utc": "2026-11-04T03:40:17.898020+00:00",
+  "decision": "PASS_BOUNDED_PREEXECUTION_SOURCE_REVIEW_NO_BLOCKER",
+  "audited_source": {
+    "run.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/run.py",
+      "bytes": 28188,
+      "sha256": "a75d72c8c13f919dabe064849f970b5328d85ecc5ecb4f7be5366ae08c0cf9e2"
+    },
+    "v8_lineage.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/v8_lineage.py",
+      "bytes": 17415,
+      "sha256": "bb935a92b46421420177259c7fe9b87a8db7158887487ef102d578bba441d438"
+    },
+    "owned_execution.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/owned_execution.py",
+      "bytes": 10537,
+      "sha256": "6fe025eec3fa093c77b81fdeca871fa7b1eabdf54cea53aecfd35690399c23f4"
+    },
+    "test_controller.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/test_controller.py",
+      "bytes": 9384,
+      "sha256": "9cdf089b10e349e8b4fc2f93929b6ef5c74818dff623ebf4b7535052f4787356"
+    }
+  },
+  "pinned_evaluator_source": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/evaluate.py",
+    "bytes": 48573,
+    "sha256": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec"
+  },
+  "pinned_trainer_source": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+    "bytes": 79171,
+    "sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
+  },
+  "verified_small_activation_artifacts": {
+    "prelaunch": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01-prelaunch.json",
+      "bytes": 4559,
+      "sha256": "68ba1460e3a1af18c3412844403c13444a16321bdf9e80f5952f51bbe174010a"
+    },
+    "activation": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01-activation.json",
+      "bytes": 1319,
+      "sha256": "15ee805cf51668e5f7d4c7688a3522a48a96199efe3c701848aa8f663e9a8c38"
+    }
+  },
+  "synthetic_tests": {
+    "passed": 10,
+    "failed": 0,
+    "log": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/independent-synthetic-tests.log",
+      "bytes": 1461,
+      "sha256": "4664bfdf48a4acab15b7873b38bd4869654018ee69cc1dfdb46ecfb26a319863"
+    },
+    "scope": "Fake state, fake optimizer tensors/counters, pure argument and recovery checks, one owned Python sleep child bounded and terminated. Controller main not executed."
+  },
+  "findings": [],
+  "reviewed_contracts": [
+    {
+      "contract": "V8 identity and activation",
+      "evidence": "verify_config/verify_lineage pin selected V7 UL parent8855/configb862, originalIQ4 numerical base82ab versus BF16 provenance1a9a, source8c609, approved3234 data2fdab, canonical32 events/reviews, exposed64 mapping, activation and independent data/binding reviews; actual supplied dataset path/hash and all pre/post artifact refs."
+    },
+    {
+      "contract": "Full logical training/objective and recovery",
+      "evidence": "405 ordered logical steps/809 objective microbatches; eta1 CE+UL losses recomputed with explicit FP32 tolerance; source-validated64 exposure mapping plus logged total64, with no direct exposure-ID logging claim. Fresh initialization or actual scheduled checkpoint recovery bound to exact prior config/source/data/state; canonical log exact selected raw segments and all discarded overlapping nonelapsed values exact."
+    },
+    {
+      "contract": "Actual optimizer and durable RNG inventory",
+      "evidence": "Execution uses weights_only Torch load for184 unique optimizer parameter states, each counter405 and decay0. Latest durable400 config/source/adapter/optimizer/RNG inventory hashes checked; no final405 RNG serialization claim."
+    },
+    {
+      "contract": "Native LoRA conversion",
+      "evidence": "Exactly92 modules/184 finite F32 tensors map custom\u2192PEFT\u2192GGUF with shape and raw value-byte equality, pinned converter/runtime inventory, base dimension check, alpha16/rank8 internal2 and unit external1. No merge/requantization. Notices preserved and output paths create-only."
+    },
+    {
+      "contract": "New managed cache/deployment profile",
+      "evidence": "Pinned Probe6de0 and exact d720 receipt requires six exact DLL names/paths. Freeze uses explicit F16 K/V, evaluator131d profile checks, typed actual Core cache metadata, manifest hash/config and effective base+adapter identity, observed owned native argv; no FA override so requested runtime auto retained."
+    },
+    {
+      "contract": "Owned execution and durable evidence",
+      "evidence": "Dedicated process group/session, Z/X-aware live ownership, verify executable/full arguments only for owned worker, detect unexpected concurrent worker, PID/start-tick/argv records immediately fsynced; cleanup targets owned group, reaps immediate child and preserves logs/partial reports on interruption."
+    },
+    {
+      "contract": "Retired500 complete denominator and postchecks",
+      "evidence": "Pinned retired def0 SHA before loading exact500 unique ordered IDs; development/core only, full ordered report/incompletefalse plus postverification command/deployment artifacts. Ordinary provider failures stay in500; no semantic score claimed. Conversion/freeze/model/source/data/inventory postpins required before completion."
+    }
+  ],
+  "limits": {
+    "source_review_only": true,
+    "actual_adapter_and_final_training_artifacts_not_read": true,
+    "models_native_converters_controller_main_or_builds_not_executed": true,
+    "Torch_tokenizer_not_imported": true,
+    "no_fresh_retired_dev_or_training_text_corpus_read": true,
+    "no_source_or_data_edit": true,
+    "does_not_establish_actual_deployment_or_quality": true,
+    "requires_explicit_training_CPU_release_and_final_root_artifact_release_before_execution": true,
+    "readme_and_preparation_metadata_not_yet_supplied_not_in_code_review_hash": true
+  }
+}

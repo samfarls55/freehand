@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "created_utc": "2026-11-04T03:48:59.630339+00:00",
+  "decision": "PASS_NARROW_OPTIMIZER_HASH_CAPTURE_DELTA",
+  "prior_review": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/independent-preexecution-review.json",
+    "bytes": 6181,
+    "sha256": "1469ba9f8a20b1cc3b05aab48be4c9c15b67e7d36fcfcdca8022a30cc94b6c42"
+  },
+  "audited_source": {
+    "run.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/run.py",
+      "bytes": 28188,
+      "sha256": "8ad3f4553e9c730c83e00b8e3926de6bd8632eed68b1017d6926e0937579f576"
+    },
+    "v8_lineage.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/v8_lineage.py",
+      "bytes": 18166,
+      "sha256": "01e86d392be10a73eb56bda55c13d8dc5fbb4d0705ecad404980fd245177348b"
+    },
+    "test_controller.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/test_controller.py",
+      "bytes": 9980,
+      "sha256": "cdfde65091a802a7c04e36c32bbac7a4a7a9cf3edbc28efe3f0817dffb90590a"
+    },
+    "owned_execution.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/owned_execution.py",
+      "bytes": 10537,
+      "sha256": "6fe025eec3fa093c77b81fdeca871fa7b1eabdf54cea53aecfd35690399c23f4"
+    }
+  },
+  "preserved_prior_source": {
+    "run.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/historical/prelaunch-a75d72c8/run.py",
+      "bytes": 28188,
+      "sha256": "a75d72c8c13f919dabe064849f970b5328d85ecc5ecb4f7be5366ae08c0cf9e2"
+    },
+    "v8_lineage.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/historical/prelaunch-a75d72c8/v8_lineage.py",
+      "bytes": 17415,
+      "sha256": "bb935a92b46421420177259c7fe9b87a8db7158887487ef102d578bba441d438"
+    },
+    "test_controller.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/historical/prelaunch-a75d72c8/test_controller.py",
+      "bytes": 9384,
+      "sha256": "9cdf089b10e349e8b4fc2f93929b6ef5c74818dff623ebf4b7535052f4787356"
+    }
+  },
+  "source_delta": "Main only updates embedded lineage SHA. Lineage accepts absent final-verifier optimizer digest by capturing actual file after completed training release and before export, stores stage truthfully, and adds artifact to verified pre/post inventory; supplied digest, if present, must match. Actual184 unique final AdamW counters405 validation remains unchanged and mandatory before export.",
+  "checks": {
+    "supplied_wrong_digest_rejected": true,
+    "missing_digest_not_misattributed_to_final_verifier": true,
+    "actual_optimizer_artifact_pre_post_hash_bound": true,
+    "actual184_AdamW405_counter_verification_unchanged": true,
+    "no_adapter_data_runtime_profile_or_model_semantics_change": true
+  },
+  "synthetic_tests": {
+    "passed": 11,
+    "failed": 0,
+    "log": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/independent-optimizer-delta-tests.log",
+      "bytes": 1620,
+      "sha256": "6f7fc3f0e155c5e0e5dc739314bf6cfb5bb7a0f208e9c6f35915ac198327b869"
+    },
+    "no_controller_main_Torch_tokenizer_model_native_or_build": true
+  },
+  "limits": "Pre-execution source qualification only. Actual final artifacts and deployment are verified by execution; no actual optimizer/model weights were read in this review."
+}

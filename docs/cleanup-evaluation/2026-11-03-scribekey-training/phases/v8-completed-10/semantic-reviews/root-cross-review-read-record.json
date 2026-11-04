@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex assistant /root actual28 pair cross-review",
+  "results_sha256": "7d492ecb55fb7dc1ef537f1b7c575fece3aad838ac5fff7ca17a2214ed6c3a70",
+  "canonical_review_sha256": "fe07736284eda5a8b8425c90b537f217e7c984d94b7e2420d375c8c5e1bfdae7",
+  "cases": [
+    {
+      "case_id": "blind-a-008",
+      "normalized_input": "I left my glasses on the kitchen, on the kitchen counter.",
+      "candidate_text": "I left my glasses on the kitchen counter.",
+      "output": "I left my glasses on the kitchen counter.",
+      "prior_output": "I left my glasses on the kitchen, on the kitchen counter.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes the incomplete on-the-kitchen restart while preserving the past glasses placement and the complete kitchen-counter location."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-a-026",
+      "normalized_input": "I, I really enjoyed the last chapter, especially the ending.",
+      "candidate_text": "I, I really enjoyed the last chapter, especially the ending.",
+      "output": "I, I really enjoyed the last chapter, especially the ending.",
+      "prior_output": "I, I really enjoyed the last chapter, especially the ending.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Preserves enjoyment of the chapter and emphasis on the ending, but still leaves the accidental I, I stutter; faithful content, unclean output."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-013",
+      "normalized_input": "Um, don't send the reminder to everyone, just the people who haven't replied.",
+      "candidate_text": "Don't send the reminder to everyone; just the people who haven't replied.",
+      "output": "Don't send the reminder to everyone; just the people who haven't replied.",
+      "prior_output": "Don't send the reminder to everyone, just the people who haven't replied.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes opening Um and punctuates the elliptical restriction with a semicolon. Do-not-send-to-everyone scope and the permitted not-yet-replied recipients are preserved."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-023",
+      "normalized_input": "I don't want less testing, I mean, I want fewer redundant copies of the same test.",
+      "candidate_text": "I don't want less testing; I mean, I want fewer redundant copies of the same test.",
+      "output": "I don't want less testing; I mean, I want fewer redundant copies of the same test.",
+      "prior_output": "I want fewer redundant copies of the same test.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Preserves both the independent negated intention not to reduce testing and the clarifying preference for fewer redundant copies. The semicolon cleanly separates them; I mean remains an intelligible clarification connective rather than deleting a constraint."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-026",
+      "normalized_input": "We didn't miss the deadline because the printer broke, um, we missed it because the approval arrived late.",
+      "candidate_text": "We didn't miss the deadline because the printer broke; we missed it because the approval arrived late.",
+      "output": "We didn't miss the deadline because the printer broke; we missed it because the approval arrived late.",
+      "prior_output": "We didn't miss the deadline because the printer broke, we missed it because the approval arrived late.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes um and replaces the contrast-clause comma with a semicolon. Rejected printer-failure cause and actual late-approval cause remain exact, without changing whether the deadline was missed."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-054",
+      "normalized_input": "I would tentatively put the repair at around two days, um, rather than committing to that as a deadline.",
+      "candidate_text": "I would tentatively put the repair at around two days rather than committing to that as a deadline.",
+      "output": "I would tentatively put the repair at around two days rather than committing to that as a deadline.",
+      "prior_output": "I would tentatively put the repair at around two days, rather than committing to that as a deadline.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes um and the associated optional comma. Would, tentatively, around two days and the explicit refusal to commit to that deadline all remain."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-071",
+      "normalized_input": "I want the report printed, actually don't print it; email me the accessible PDF.",
+      "candidate_text": "Do not print the report; email me the accessible PDF.",
+      "output": "Do not print the report; email me the accessible PDF.",
+      "prior_output": "I want the report not printed; email me the accessible PDF.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Applies the explicit do-not-print correction and retains the accessible-PDF email request. The obsolete printing intention is retracted; no canceled printing action is revived."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-073",
+      "normalized_input": "Ask Leena to sign, no wait, Leena is away; ask Mateo to sign on her behalf.",
+      "candidate_text": "Leena is away; ask Mateo to sign on her behalf.",
+      "output": "Leena is away; ask Mateo to sign on her behalf.",
+      "prior_output": "Ask Leena to sign on her behalf; ask Mateo to sign the document.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Retracts asking Leena to sign, retains the independent explanation that Leena is away, and asks Mateo to sign on her behalf. Actor, authority and availability relationships are now faithful and usable."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-079",
+      "normalized_input": "Put the medicine in the cupboard, no, the label says refrigerate it; put it in the fridge.",
+      "candidate_text": "The label says refrigerate the medicine; put it in the fridge.",
+      "output": "The label says refrigerate the medicine; put it in the fridge.",
+      "prior_output": "Put the medicine in the label's fridge.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes canceled cupboard placement while retaining the label as the source of the refrigeration instruction and the final fridge-placement request. The medicine referent is explicit; no label-owned fridge is invented."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-087",
+      "normalized_input": "Turn left at the chapel, wait, the road is blocked; continue straight to the roundabout.",
+      "candidate_text": "The road is blocked; continue straight to the roundabout.",
+      "output": "The road is blocked; continue straight to the roundabout.",
+      "prior_output": "Turn right at the road, not the chapel; continue straight to the roundabout.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes the superseded chapel turn and correction cue, preserves the blocked-road explanation and final instruction to continue straight to the roundabout. No new turn or direction is invented."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-090",
+      "normalized_input": "Ask for a copy of her passport, scratch that, ask which identity documents she can provide.",
+      "candidate_text": "Ask which identity documents she can provide.",
+      "output": "Ask which identity documents she can provide.",
+      "prior_output": "Ask for a copy of her passport and ask which identity documents she can provide.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Honors scratch that by removing the passport-copy request. The final inquiry about which identity documents she can provide remains complete; no canceled request is retained."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-091",
+      "normalized_input": "We need to tighten the bolt clockwise, sorry, counterclockwise on this reverse thread.",
+      "candidate_text": "We need to counterclockwise on this reverse thread.",
+      "output": "We need to counterclockwise on this reverse thread.",
+      "prior_output": "We need to tighten the bolt counterclockwise on this reverse thread.",
+      "judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Deletes tighten the bolt and leaves We need to counterclockwise, an ungrammatical and incomplete action instruction. Counterclockwise/reverse-thread fragments survive but do not preserve the governing action or object; this is a critical semantic regression."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-092",
+      "normalized_input": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "candidate_text": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "output": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "prior_output": "I read the wrong line; the inspection is still pending.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Returns the complete source unchanged, so the wrong-line explanation and final still-pending status remain faithful within an explicit self-correction. The superseded inspection-passed assertion and no cue remain uncleaned; accepted Unchanged output earns no cleanup credit."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-093",
+      "normalized_input": "Send five samples to each office, make that five samples total, divided between the offices.",
+      "candidate_text": "Send five samples total, divided between the offices.",
+      "output": "Send five samples total, divided between the offices.",
+      "prior_output": "Send five samples to each office, made into five samples total, divided between the offices.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Applies make that to the quantity scope: five samples total divided between the offices, replacing five for each office. Send action, total and distribution relation are intact and clean."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-096",
+      "normalized_input": "Give the witness my home number, no, give her the office number and don't share my home number.",
+      "candidate_text": "Give the witness my office number and don't share my home number.",
+      "output": "Give the witness my office number and don't share my home number.",
+      "prior_output": "Give the office number of the witness and don't share my home number.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Makes the witness the recipient of the office number, replacing the retracted home-number disclosure, and retains the explicit do-not-share-my-home-number prohibition. My office number is the same speaker-contact frame as the contrasted home number; the prior witness-as-owner corruption is repaired."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-098",
+      "normalized_input": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "candidate_text": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "output": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "prior_output": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Still returns the source unchanged. Restricted is explicitly the correction to confidential and the legal-request explanation remains, so fidelity is preserved; obsolete category and actually repair cue remain uncleaned."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-099",
+      "normalized_input": "Replace both filters, wait, the second one was changed yesterday; replace only the first filter.",
+      "candidate_text": "The second filter was changed yesterday; replace only the first filter.",
+      "output": "The second filter was changed yesterday; replace only the first filter.",
+      "prior_output": "Replace only the first filter.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Preserves the independent fact that the second filter was changed yesterday and the corrected request to replace only the first filter. The obsolete both-filters instruction is removed without deleting chronology."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-101",
+      "normalized_input": "I need the original, the original, not another photocopy.",
+      "candidate_text": "I need the original, not another photocopy.",
+      "output": "I need the original, not another photocopy.",
+      "prior_output": "I need the original, not another photocopy.",
+      "judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Still deletes deliberate the original, the original emphasis. The negative photocopy contrast is fluent and usable in presentation, but the exact intentional repetition is part of the speaker voice and is not preserved."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-021",
+      "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+      "candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+      "output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "prior_output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact quoted refund sentence and full-sentence clarification survive; following standalone sentence still starts lowercase after Uh removal, so capitalization needs repair."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-029",
+      "normalized_input": "I, I want the response to begin with “Thanks for checking.”",
+      "candidate_text": "I, I want the response to begin with “Thanks for checking.”",
+      "output": "I, I want the response to begin with “Thanks for checking.”",
+      "prior_output": "I want the response to begin with “Thanks for checking.”",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact quoted response opening and request survive, but the accidental initial I, I remains. This is a new cleanup regression."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-031",
+      "normalized_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+      "candidate_text": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\".",
+      "output": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\".",
+      "prior_output": "Do not change the status to \"on hold\"; leave it \"awaiting parts\" instead.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Instead of changing status to on hold, leave it awaiting parts unambiguously rejects the canceled change and preserves both exact quoted status values. Clean faithful alternate wording."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-034",
+      "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "prior_output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact regex and speaker uncertainty survive; accidental I, I remains uncleaned."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-072",
+      "normalized_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+      "candidate_text": "Cancel the upstairs room request; I will join remotely.",
+      "output": "Cancel the upstairs room request; I will join remotely.",
+      "prior_output": "Cancel that request; I will join remotely.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Cancellation now retains the upstairs-room request object, and remote attendance remains. The canceled reservation is not activated."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-076",
+      "normalized_input": "I left the parcel by the back door. No, correction, it is inside the porch cupboard.",
+      "candidate_text": "The parcel is inside the porch cupboard.",
+      "output": "The parcel is inside the porch cupboard.",
+      "prior_output": "I left the parcel inside the porch cupboard.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "The explicit No, correction is followed by a complete replacement present-tense assertion. Copying the parcel noun into that final location assertion is a reasonable faithful correction; the earlier I-left assertion need not survive under this scope reading. Independent target-free reviewer agrees, with moderate confidence and the narrower location-only reading disclosed."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-084",
+      "normalized_input": "I need the receipt emailed to me. Actually, just print it; the email address on file is wrong.",
+      "candidate_text": "Just print the receipt; the email address on file is wrong.",
+      "output": "Just print the receipt; the email address on file is wrong.",
+      "prior_output": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Print the receipt is now the surviving instruction; the wrong email-address fact remains and the superseded email-delivery phrase is removed."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-104",
+      "normalized_input": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, uh, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "candidate_text": "I spoke to the nurse about the appointment. She said I could bring the forms on the day provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "prior_output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removing the optional comma preserves nurse attribution, the early-registration condition, absence of a normal-results claim, and the family-update limitation."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-108",
+      "normalized_input": "Please publish the draft agenda today. Actually, wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "candidate_text": "Please publish the draft agenda after the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "output": "Please publish the draft agenda after the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "prior_output": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Restores publishing the draft agenda subject to chair approval, with confidentiality, unchanged rest, reminder timing and no incomplete circulation preserved. The original today timing is explicitly deferred by the approval condition."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-112",
+      "normalized_input": "I would put the photographs at the end of the report. On second thought, place them immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "candidate_text": "Place the photographs immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "output": "Place the photographs immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "prior_output": "I would place the photographs immediately after the site description so the reader can see what we are referring to. The captions should identify the location without naming the residents, and any image showing a face needs to be blurred before circulation.",
+      "judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "On second thought, place them is an explicit final imperative replacing the earlier I-would placement recommendation. New output retains that imperative, immediate placement after site description, reader rationale, unnamed residents and required face blurring. Independent target-free reviewer agrees."
+      },
+      "root_actually_read_and_agrees": true
+    }
+  ]
+}

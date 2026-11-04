@@ -1,0 +1,73 @@
+{
+  "completed_verified": true,
+  "steps": 405,
+  "microbatches": 809,
+  "eta": 1,
+  "adapter_sha256": "0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c",
+  "config_sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9",
+  "training_result_sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927",
+  "source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+  "dataset_sha256": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c",
+  "parent_adapter_sha256": "8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643",
+  "frozen_base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+  "unlikelihood_identity": {
+    "unlikelihood_schema": "freehand-unlikelihood-token-events-v1",
+    "unlikelihood_events_sha256": "a1d385c91f3dc6d8e53ac1f04f19d7d23a0e5caeea932caa7d858cc3539eeaf8",
+    "unlikelihood_positive_sha256": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c",
+    "unlikelihood_tokenizer_sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+    "unlikelihood_mapping_sha256": "ff9dbea1548375046c2665468ca6ad0dd7991a085ed1f3b79ec046b79e854668",
+    "unlikelihood_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
+  },
+  "unlikelihood_provenance_sha256": "13b0530c226d9650770178d2b54c92710065cdd04763c343a09eb1a8b1176156",
+  "canonical_event_count": 32,
+  "mapped_event_exposures_observed": 64,
+  "assistant_microbatches_observed": 809,
+  "all184_adapter_tensors_finite": true,
+  "all_optimizer_counters": 405,
+  "canonical_log_includes_recovery_parent_prefix": false,
+  "canonical_training_log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/canonical-training-log.jsonl",
+  "canonical_training_log_sha256": "4977dae0b49f54108d89c7a30577a3d81ae31fb408ba4138baae2a9c9dbc2923",
+  "raw_log_lineage": [
+    {
+      "run": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01",
+      "raw_log_sha256": "4977dae0b49f54108d89c7a30577a3d81ae31fb408ba4138baae2a9c9dbc2923",
+      "selected_from_step": 1,
+      "selected_through_step": 405,
+      "cutoff_applied": null,
+      "config_sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9",
+      "source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+      "data_sha256": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c",
+      "eta": 1.0,
+      "event_artifact_sha256": "a1d385c91f3dc6d8e53ac1f04f19d7d23a0e5caeea932caa7d858cc3539eeaf8"
+    }
+  ],
+  "verifier_source_sha256": "ca6043b692697cdb9b93d1ac0e45bcd0edef4a047efba681e903d09e5faf3cbf",
+  "last_durable_checkpoint": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/checkpoints/step-000400",
+  "last_durable_step": 400,
+  "last_durable_resume_state_sha256": "dc899a10b6db00b19e60fa69aa89111c23711e5a484de27ea8a20a99e5ccdfdf",
+  "last_durable_rng_sha256": "2ef9bbb47829cb14e1d4ed6e7125c0a3e646f3ce7222da378aa7f260839d2401",
+  "final405_rng_capture_claimed": false,
+  "last_training_event": {
+    "epoch": 1,
+    "step": 405,
+    "microbatch": 809,
+    "loss": 0.005626150406897068,
+    "lr": 3e-06,
+    "gradient_norm": 0.7517876029014587,
+    "assistant_tokens": 55612,
+    "seconds": 1750.4564290209964,
+    "objective_microbatches": [
+      {
+        "assistant_tokens": 72,
+        "event_count": 0,
+        "eta": 1.0,
+        "ce_mean": 0.005626150406897068,
+        "ul_sum": 0.0,
+        "ul_evaluated": false
+      }
+    ],
+    "unlikelihood_eta": 1.0
+  },
+  "full_model_inference_performed": false,
+  "accuracy_claimed": false
+}

@@ -10,10 +10,12 @@ below the required 495. Its complete result is preserved and the set is now
 retired as development material. Subsequent V5 candidates score 94.8–96.2% on
 that consumed set; V6 scores **475/500 (95.0%)**, and the V7 supervised control
 scores **482/500 (96.4%)**. Its matched semantic-loss arm scores
-**483/500 (96.6%)**. These development results remain below the gate. The new
+**483/500 (96.6%)**, and expanded V8 reaches **492/500 (98.4%)** with one
+critical error. These development results remain below the gate. The new
 independent test remains unconsumed. V6 passes the measured Linux partial-pipeline
-resource limits; the V7 weights have not been remeasured. Windows qualification
-remains unavailable. The expanded V8 training run is in progress.
+resource limits; the V7/V8 weights have not been remeasured. Windows qualification
+remains unavailable. Three fixed parent–child weight interpolations were tested
+and did not improve V8; further supervised training is being prepared.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -298,6 +300,7 @@ All results below use actual Core outputs and independent semantic reviews.
 | Original IQ4 plus unmerged V6 F32 adapter | **475/500 — 95.0%** | **9** | **1** |
 | Original IQ4 plus unmerged V7 supervised F32 adapter | **482/500 — 96.4%** | **10** | **0** |
 | Original IQ4 plus unmerged V7 semantic-loss F32 adapter | **483/500 — 96.6%** | **10** | **0** |
+| Original IQ4 plus unmerged V8 F32 adapter | **492/500 — 98.4%** | **1** | **0** |
 
 The higher-precision model is a quality diagnostic, not a memory-qualified
 candidate. V5 merged IQ4 also scored 537/546 on broad development and 76/80 on
@@ -404,9 +407,42 @@ clean controls**. Core normalization, all source/gold prompt and mask identities
 source lineage, duplicate disclosures and the 32-event rebind have separate
 reviews. The positive-file SHA-256 is
 `2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c`.
-It uses one epoch, rank 8, learning rate 0.00003, a fresh optimizer and unchanged
-semantic-loss weight one: 405 updates over 809 microbatches. Training is active;
-no V8 output-accuracy or resource claim is made.
+It completes one epoch, rank 8, learning rate 0.00003, a fresh optimizer and
+unchanged semantic-loss weight one: 405 updates over 809 microbatches and 55,612
+assistant tokens in 1,750.46 active seconds. There is no interruption. The final
+adapter SHA-256 is
+`0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c`;
+its unmerged 12,006,240-byte native F32 GGUF SHA-256 is
+`11ec6ac65c06205cabf8ed1fd41c3163658112f8f44a5062b9133c0e29ecf8e8`.
+All 184 tensor payloads match through conversion. An initial export preflight
+stops before model work on a verifier-schema mismatch; the corrected reader
+captures the actual optimizer digest explicitly at export preflight and retains
+all real optimizer-state checks. The failed log and independent delta review
+remain preserved.
+
+All 500 Core cases complete and deliver once without provider failure. Three
+casewise reviews yield **492 jointly faithful and clean**, 498 faithful, 493
+clean and one critical error. Root additionally reads all 23 changed outputs and
+five unchanged prior failures. An independent target-free review supports two
+correction-scope judgments, with one moderate-confidence alternative reading
+explicitly recorded. V8 fixes 12 parent failures but regresses three cases:
+an omitted bolt-tightening action, an unresolved inspection correction and a
+pronoun stutter. Eight joint failures remain, three above the permitted five.
+No 99% or V8 resource qualification is claimed.
+
+The next development comparison fixes child-weight fractions 0.5, 0.75 and
+0.875 before inference and runs the full retired 500 cases for each. It
+interpolates corresponding LoRA factors between V7 UL and V8; it is not an
+exact average of their weight deltas or functions. Derived metadata records
+zero optimizer steps for this operation and both actual training histories.
+This keeps rank and adapter storage fixed but does not establish improved
+quality or unchanged application performance. All three full cohorts complete
+with one delivery per case and no provider failures. Casewise review scores
+them **487, 489 and 490 of 500**, with **7, 4 and 2 critical errors** respectively.
+The predeclared selection rule retains V8 at 492; no further coefficient search
+is used. Three regressions were not recovered without losing other corrections.
+A separately reviewed 80-pair curriculum and 20 additional attribute-fragment
+repairs/controls remain reserved while the next training pass is prepared.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe
