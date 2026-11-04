@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "dataset_sha256": "fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6",
+  "raw_effective_rows": 2754,
+  "raw_exact_unique_pairs": 2384,
+  "opaque_normalization": "Unicode NFC, whitespace collapse and strip, casefold",
+  "normalized_hash_unique_pairs": 2380,
+  "normalization_collision_groups": 4,
+  "normalized_input_label_conflicts": 0,
+  "exact_input_label_conflicts": 0,
+  "collision_groups": [
+    {
+      "raw_pair_count": 2,
+      "variants": [
+        {
+          "source_id": "full-history-v6-78f47d8563d2678c9f5a5c84",
+          "input": "The original author should receive credit in the revised edition",
+          "target": "The original author should receive credit in the revised edition."
+        },
+        {
+          "source_id": "full-history-v6-34407b28f705d61764f47530",
+          "input": "the original author should receive credit in the revised edition",
+          "target": "The original author should receive credit in the revised edition."
+        }
+      ],
+      "exact_target_count": 1,
+      "difference": "Initial source-letter casing only; exact gold target identical."
+    },
+    {
+      "raw_pair_count": 2,
+      "variants": [
+        {
+          "source_id": "full-history-v6-d9a380220a9a20c22d29a883",
+          "input": "The technician recommends replacing the seal during the next service",
+          "target": "The technician recommends replacing the seal during the next service."
+        },
+        {
+          "source_id": "full-history-v6-5fb328245c748cd3b4c0c03d",
+          "input": "the technician recommends replacing the seal during the next service",
+          "target": "The technician recommends replacing the seal during the next service."
+        }
+      ],
+      "exact_target_count": 1,
+      "difference": "Initial source-letter casing only; exact gold target identical."
+    },
+    {
+      "raw_pair_count": 2,
+      "variants": [
+        {
+          "source_id": "full-history-v6-92111ba80861a90b294b45c2",
+          "input": "Um, What does the cancellation fee cover?",
+          "target": "What does the cancellation fee cover?"
+        },
+        {
+          "source_id": "full-history-v6-65db340d2d1b5c824c97261e",
+          "input": "Um, what does the cancellation fee cover?",
+          "target": "What does the cancellation fee cover?"
+        }
+      ],
+      "exact_target_count": 1,
+      "difference": "Initial source-letter casing only; exact gold target identical."
+    },
+    {
+      "raw_pair_count": 2,
+      "variants": [
+        {
+          "source_id": "full-history-v6-607e487428c0065e4dc809e4",
+          "input": "Please do not replace the original photograph",
+          "target": "Please do not replace the original photograph."
+        },
+        {
+          "source_id": "full-history-v6-1a1f7c0e5d28e66e61223775",
+          "input": "please do not replace the original photograph",
+          "target": "Please do not replace the original photograph."
+        }
+      ],
+      "exact_target_count": 1,
+      "difference": "Initial source-letter casing only; exact gold target identical."
+    }
+  ],
+  "interpretation": "Four initial-casing contrast pairs from the preserved history collapse under the opaque casefold hash. Their exact targets are identical. Keep every raw training instance; no deduplication or data/source change was made.",
+  "opaque_index_row_count": 2384,
+  "opaque_index_unique_pairs_field_scope": "The existing index unique_pairs field2384 counts exact raw source pairs represented by rows, not normalized hash-pair uniqueness. This receipt explicitly supplies the normalized count2380.",
+  "fresh_material_opened": false
+}

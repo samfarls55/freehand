@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T01:02:43.024271+00:00",
+  "status": "RESERVED training curriculum; no activation or current training change",
+  "dataset": {
+    "path": "train-100-v1.jsonl",
+    "sha256": "0412b2be08ad44275c8787ae6c355c50c43ffadc6304a3d2c2069e7153f3119e",
+    "bytes": 50249,
+    "rows": 100,
+    "edits": 72,
+    "clean_controls": 28
+  },
+  "family_counts": {
+    "clarification_vs_actual_cancellation_scope": {
+      "rows": 25,
+      "edits": 18,
+      "clean_controls": 7
+    },
+    "fragment_correction_governing_predicate_binding": {
+      "rows": 25,
+      "edits": 18,
+      "clean_controls": 7
+    },
+    "full_speech_act_switch_after_modal_frame": {
+      "rows": 25,
+      "edits": 18,
+      "clean_controls": 7
+    },
+    "pronoun_aux_stutter_vs_grammatical_mention": {
+      "rows": 25,
+      "edits": 18,
+      "clean_controls": 7
+    }
+  },
+  "authorship": "Individually authored assistant synthetic positive pairs from the supplied residual taxonomy. No retired/fresh case text or real model output was opened or copied for this authoring task. Approved prior270 used only for exact-duplicate avoidance.",
+  "controlled_expansions": [
+    "Four deliberately structured families, 25 pairs each, 18 edits and 7 clean controls; contexts and sentences individually authored, not 100 independent natural dictations.",
+    "Repeated-word family contains 6 pronoun stutters, 6 genuine auxiliary stutters, 6 hesitation-only repairs preserving grammatical/metalinguistic repeats, 7 clean controls. Inputs001–003 strengthened to plain comma stutters by an explicit input-only overlay.",
+    "Clarification family contrasts 9 compatible negated constraints/explanations with 9 actual cancellations plus 7 clean controls; I mean/actually are not treated as blanket cancellation rules.",
+    "Predicate-binding family contains 6 attribute/NP, 6 direction, 6 number corrections, 7 controls; all governing verbs/objects and independent facts retained.",
+    "Speech-act family contains 18 full switches after modal/periphrastic frames and 7 controls. Target 077 keeps the clay-course fee anchor; 081 keeps the mural-border pigment anchor.",
+    "Meaningful courtesy/emphasis is preserved. No dictionary metadata, literal wrappers, or source implementation changes."
+  ],
+  "independent_review": {
+    "path": "root-independent-rollup-v1.json",
+    "sha256": "87f91d8d4b77a353850ef4120627529a4d5f07b16fb2668e4f9d32758812c606",
+    "approved": 100,
+    "rejected": 0,
+    "human_review": false
+  },
+  "raw_loader_validation": {
+    "path": "raw-loader-validation-v1.json",
+    "sha256": "fd13e43585a3358e9163884712db3289dcc17a93f695f51c3ceb1f8626a4b30c",
+    "rows_passed": 100,
+    "quoted_payload_count": 0,
+    "literal_protocol": "specialist-compact-v3",
+    "model_packages_imported": false
+  },
+  "prior270_duplicate_check": {
+    "source_sha256": "24f20b6c3ef27b8831ee92ca8006d0129079c59a7e9e85512d62161dbed4074d",
+    "normalization": "NFC, casefold, whitespace collapse; not production Core normalization.",
+    "overlap_counts": {
+      "pair_overlap": 0,
+      "input_overlap": 0,
+      "target_overlap": 0
+    }
+  },
+  "Core_normalization_fixture": {
+    "path": "core-normalization-input-target-200.json",
+    "sha256": "a9066c8b9969098ff4e5f1f2b63e7012b99574b8849cac3fa79bb49aec45cc19",
+    "rows": 200,
+    "status": "Prepared only; not executed by author. Use preserved no-manifest Probe after root scheduling."
+  },
+  "source_parts": [
+    {
+      "source_part": "part-01-repeated-words-25-v2.jsonl",
+      "source_sha256": "a2ebe8c02d645c9adb5a0472645d25821bded1e18397cf61e1ebfb21b2c142f7",
+      "root_review": "root-part01-v2-independent-review.json",
+      "root_review_sha256": "ca819ca2852364e6a30230b90a4691ea5ae79853207f4519f2e7623931b60205",
+      "approved": 25,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-02-clarification-negation-25.jsonl",
+      "source_sha256": "e7ab17468552beadf5a68bef2b5535464d69f8ecb86644d819e81bcc6ab49154",
+      "root_review": "root-part02-independent-review.json",
+      "root_review_sha256": "3a5041384fe5ac53ca4dbeaa693c15b08cd1243858f7ff0b5cc3ff91190a567c",
+      "approved": 25,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-03-governing-verb-binding-25.jsonl",
+      "source_sha256": "a9efc4f98418f15b7baf74fd2aee5d73b3f6cadb0a54e1c5b35d96d4c1ca0200",
+      "root_review": "root-part03-independent-review.json",
+      "root_review_sha256": "940b0ae9bbb739b4b5d4aadf43fc1d5018c4c95ba6ae4b64678e85e9249b16d3",
+      "approved": 25,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-04-speech-act-switch-25-v2.jsonl",
+      "source_sha256": "fb0eb49a2b8aba5779dbe48d89edf2e86868d961faee7add3274dd04ad11f846",
+      "root_review": "root-part04-v2-independent-review.json",
+      "root_review_sha256": "694382898fbba020c32606242ca58f75e12652fc387f03c3f2810e9562a2ee56",
+      "approved": 25,
+      "rejected": 0
+    }
+  ],
+  "preserved_authoring_overlays": [
+    {
+      "path": "part-01-input-hardness-overlay-v2.json",
+      "sha256": "6b69febf53b24b5c3a2c31302afb685e3711b5240cd9c5103d89570a477160b0"
+    },
+    {
+      "path": "part-04-target-binding-overlay-v2.json",
+      "sha256": "ab12f184ec3f6fb86e3df2a7384347a8cbd3fb8cb0661295755afed2c62f6f03"
+    }
+  ],
+  "separation": {
+    "retired_or_fresh_case_contents_read": false,
+    "model_runs": 0,
+    "native_runs": 0,
+    "builds": 0,
+    "Torch_imports": 0,
+    "source_edits": false,
+    "active_training_data_changes": false,
+    "actual_Core_normalization": "pending",
+    "root_hash_only_overlap_checks": "pending after normalization"
+  },
+  "integration_instruction": "Use only train-100-v1.jsonl as this 100-pair raw component. Preserve raw and Core-normalized derivatives separately. Do not concatenate old part versions or overlays as additional training rows."
+}

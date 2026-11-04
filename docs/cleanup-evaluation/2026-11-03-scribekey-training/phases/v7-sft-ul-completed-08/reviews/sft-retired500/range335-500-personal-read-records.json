@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex assistant /root/blind_evaluation; CONTROL V7-sft-02 native original IQ4 base plus unmerged F32 adapter actual-Core evaluation. Positions335–500 only:156 strict13-field byte-identical successful-provider cases inherited from full V6 root canonical with per-case proof; all10 changed/status-changed/prior-failed pairs independently read. C072/C084 additionally independently checked by /root/blind_evaluation/author_b using only those retired input/output pairs. Fixed conservative fidelity AND clean policy; no fallback success credit.",
+  "results_sha256": "4700963b733ea1bf9239d1a463b1d9fa230b96a48705bea87737bca87369cb8f",
+  "range_one_based": [
+    335,
+    500
+  ],
+  "records": [
+    {
+      "position_one_based": 371,
+      "case_id": "blind-c-021",
+      "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+      "candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+      "final_output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "Write \"No refunds after opening.\" That is the full sentence."
+      ],
+      "previous_candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+      "previous_final_output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "previous_cleanup_status": "Applied",
+      "previous_judgment": {
+        "case_id": "blind-c-021",
+        "output_sha256": "6ddedef451829047e6781090d025d702a96151b6c970a5c62da2bd55d84b8a3a",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Preserves the quoted refund sentence and full-sentence clarification while removing Uh, but leaves lowercase that at the next sentence boundary; capitalization repair is needed for direct use.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 371,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-021",
+        "output_sha256": "6ddedef451829047e6781090d025d702a96151b6c970a5c62da2bd55d84b8a3a",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Removes Uh and preserves exact quoted refund sentence plus full-sentence clarification, but the following sentence begins with lowercase that. This unchanged prior failure still requires capitalization repair for direct use."
+      },
+      "changed_fields": []
+    },
+    {
+      "position_one_based": 379,
+      "case_id": "blind-c-029",
+      "normalized_input": "I, I want the response to begin with “Thanks for checking.”",
+      "candidate_text": "I want the response to begin with “Thanks for checking.”",
+      "final_output": "I want the response to begin with “Thanks for checking.”",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "I want the response to begin with “Thanks for checking.”"
+      ],
+      "previous_candidate_text": "I, I want the response to begin with “Thanks for checking.”",
+      "previous_final_output": "I, I want the response to begin with “Thanks for checking.”",
+      "previous_cleanup_status": "Unchanged",
+      "previous_judgment": {
+        "case_id": "blind-c-029",
+        "output_sha256": "b372c9817e9fc2935f6f8ff261cf9906af15e91b5782b125c0839a70def2f96a",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Leaves the accidental I, I restart unchanged. The requested response opening and its exact quoted bytes remain faithful, but cleanup is incomplete.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 379,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-029",
+        "output_sha256": "4ae54f7ecd70d6a61821506fea19c68b9436de986d76db7e2ed1b605232959cf",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes only the accidental opening I, I restart. The request to begin the response with the exact quoted Thanks for checking sentence remains complete and clean."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output",
+        "cleanup_status"
+      ]
+    },
+    {
+      "position_one_based": 381,
+      "case_id": "blind-c-031",
+      "normalized_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+      "candidate_text": "Do not change the status to \"on hold\"; leave it \"awaiting parts\" instead.",
+      "final_output": "Do not change the status to \"on hold\"; leave it \"awaiting parts\" instead.",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "Leave the status \"awaiting parts\" instead."
+      ],
+      "previous_candidate_text": null,
+      "previous_final_output": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+      "previous_cleanup_status": "Failed",
+      "previous_judgment": {
+        "case_id": "blind-c-031",
+        "output_sha256": "a87138b73741a225940090d2b19672ef51a16a2fe9978eb5ee8bae65a9747be4",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Provider Failed with null candidate and Processor:InvalidDataException. The final delivered original retains the correction meaning but also the superseded on hold phrase and sorry cue. This is an uncredited provider failure and unclean fallback, never a model-cleanup success.",
+        "provider_success": false,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 381,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-031",
+        "output_sha256": "cd9726814ac81510ad3f28b9927e5069a776aaf88ee16fb4dd40aab0e8583ee7",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Successful candidate explicitly prohibits changing the status to on hold and instructs leaving it awaiting parts instead. Both protected literals survive, the canceled choice is unambiguously negated, and no spoken correction cue remains. This is clean faithful wording despite retaining the old name in a prohibition."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output",
+        "cleanup_status",
+        "error"
+      ]
+    },
+    {
+      "position_one_based": 384,
+      "case_id": "blind-c-034",
+      "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "final_output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "cleanup_status": "Unchanged",
+      "error": null,
+      "normalized_targets": [
+        "The matching pattern is \"^temp_[a-z]+$\", I think."
+      ],
+      "previous_candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "previous_final_output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "previous_cleanup_status": "Unchanged",
+      "previous_judgment": {
+        "case_id": "blind-c-034",
+        "output_sha256": "21dcf428adfbe878578d0c93f99ba6cd0291dc8ff86ed4b8d861e07841043aea",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Preserves exact regex and the speaker uncertainty but leaves accidental I, I duplication unchanged, so it is not fully cleaned.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 384,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-034",
+        "output_sha256": "21dcf428adfbe878578d0c93f99ba6cd0291dc8ff86ed4b8d861e07841043aea",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact regex and speaker uncertainty remain faithful, but the accidental I, I think restart remains unchanged; cleanup is incomplete."
+      },
+      "changed_fields": []
+    },
+    {
+      "position_one_based": 408,
+      "case_id": "blind-c-058",
+      "normalized_input": "Please, please remove that duplicate request ID from the sample.",
+      "candidate_text": "Please, please remove that duplicate request ID from the sample.",
+      "final_output": "Please, please remove that duplicate request ID from the sample.",
+      "cleanup_status": "Unchanged",
+      "error": null,
+      "normalized_targets": [
+        "Please, please remove that duplicate request ID from the sample."
+      ],
+      "previous_candidate_text": "Please remove that duplicate request ID from the sample.",
+      "previous_final_output": "Please remove that duplicate request ID from the sample.",
+      "previous_cleanup_status": "Applied",
+      "previous_judgment": {
+        "case_id": "blind-c-058",
+        "output_sha256": "507e1ccaadabe313fd733c73f28b2aba42b9c3f2645a465cd67711fd5b5907fe",
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Deletes the deliberately emphatic repeated Please from an already-usable request. The underlying identifier-removal instruction remains, but the frozen conservative voice/emphasis requirement is not preserved.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 408,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-058",
+        "output_sha256": "ead56d773e08aa147351011d77c677e4ba78df81d9ea0ead0497303d7c4d8274",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Correctly returns the original already-clean emphatic Please, please request unchanged, preserving both intentional repetitions and the duplicate-request-ID removal instruction."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output",
+        "cleanup_status"
+      ]
+    },
+    {
+      "position_one_based": 422,
+      "case_id": "blind-c-072",
+      "normalized_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+      "candidate_text": "Cancel that request; I will join remotely.",
+      "final_output": "Cancel that request; I will join remotely.",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "Cancel the room reservation request; I will join remotely."
+      ],
+      "previous_candidate_text": "Could you cancel the upstairs room request? I will join remotely.",
+      "previous_final_output": "Could you cancel the upstairs room request? I will join remotely.",
+      "previous_cleanup_status": "Applied",
+      "previous_judgment": {
+        "case_id": "blind-c-072",
+        "output_sha256": "a31069da2f47eca9bd8d7113732ab3a6f7b3b2aef631b549f97a7bf768bb9261",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Polite Could you cancellation rewrite retains upstairs-room request cancellation and remote attendance without reactivating reservation.",
+        "provider_success": true,
+        "review_provenance": "strict_exact_successful_provider_pair_inheritance",
+        "position_one_based": 422,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-072",
+        "output_sha256": "defdd65aab2950ae46033739e28ccd33e0fedf25df0afc3f05795acf931862b9",
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Cancel that request has no remaining antecedent identifying the upstairs-room reservation. Cancellation and remote attendance remain, but the explicit request object and location are omitted, leaving an incomplete standalone instruction. Independent retired-only pair review agrees: fidelity and clean usability fail; this referent omission is not a definite reversed action or invented fact."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output"
+      ]
+    },
+    {
+      "position_one_based": 423,
+      "case_id": "blind-c-073",
+      "normalized_input": "I, I have already fed the cat. Please only refill the water bowl.",
+      "candidate_text": "I have already fed the cat. Please only refill the water bowl.",
+      "final_output": "I have already fed the cat. Please only refill the water bowl.",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "I have already fed the cat. Please only refill the water bowl."
+      ],
+      "previous_candidate_text": "I, I have already fed the cat. Please only refill the water bowl.",
+      "previous_final_output": "I, I have already fed the cat. Please only refill the water bowl.",
+      "previous_cleanup_status": "Unchanged",
+      "previous_judgment": {
+        "case_id": "blind-c-073",
+        "output_sha256": "a6b6abb4a0252aedf3750f6d1c1c46c2899609f465cd074017150e3c23438252",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Retains the already-fed-cat statement and only-refill-the-water restriction, but leaves the accidental opening I, I restart; cleanup is incomplete.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 423,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-073",
+        "output_sha256": "79f2bab594a3f6892a7d9b11eb9c373d2eb5dbeda64fb20b17e22810a519b9ab",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes accidental opening I, I while preserving that the cat has already been fed and only the water bowl should be refilled."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output",
+        "cleanup_status"
+      ]
+    },
+    {
+      "position_one_based": 434,
+      "case_id": "blind-c-084",
+      "normalized_input": "I need the receipt emailed to me. Actually, just print it; the email address on file is wrong.",
+      "candidate_text": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "final_output": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "Just print the receipt; the email address on file is wrong."
+      ],
+      "previous_candidate_text": "I need just print the receipt; the email address on file is wrong.",
+      "previous_final_output": "I need just print the receipt; the email address on file is wrong.",
+      "previous_cleanup_status": "Applied",
+      "previous_judgment": {
+        "case_id": "blind-c-084",
+        "output_sha256": "b8c9004606e40fc743cd7b7a4fb5b25946b0fa7b57b3777838a98ef5a7b0f14b",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Selects printing rather than the canceled emailing and preserves the wrong-address explanation. I need just print the receipt lacks the required infinitive to or another grammatical repair, so the final instruction is not directly usable.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 434,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-084",
+        "output_sha256": "ea4cdd0325f7470f5454f3bcca9eca68f82a46267b2f1b6f07fa41329286300e",
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Just print the receipt emailed to me retains the superseded email concept as an unresolved restrictive phrase and implies unsupported email delivery, despite the source explicitly replacing emailing with printing because the address is wrong. The stale phrase requires repair and materially distorts the correction. An independent retired-only reviewer agrees this is a critical factual/canceled-action error."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output"
+      ]
+    },
+    {
+      "position_one_based": 458,
+      "case_id": "blind-c-108",
+      "normalized_input": "Please publish the draft agenda today. Actually, wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "candidate_text": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "final_output": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "cleanup_status": "Applied",
+      "error": null,
+      "normalized_targets": [
+        "Wait until the chair has approved the final item before publishing the draft agenda. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version."
+      ],
+      "previous_candidate_text": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "previous_final_output": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "previous_cleanup_status": "Applied",
+      "previous_judgment": {
+        "case_id": "blind-c-108",
+        "output_sha256": "e918e1e11407bdc3ef2dcc4f7738b1840979c1bba359802184e9115f05a8f9a6",
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "The output preserves waiting for chair approval, staffing confidentiality and reminder conditions but removes the affirmative instruction to publish the draft agenda. Remaining agenda/circulation context does not explicitly preserve what must happen after approval. This is a critical primary-action omission, consistent with the prior independent cross-adjudication of the identical pair.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 458,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-108",
+        "output_sha256": "e918e1e11407bdc3ef2dcc4f7738b1840979c1bba359802184e9115f05a8f9a6",
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "The output retains waiting for chair approval, staffing confidentiality and reminder conditions but removes the affirmative instruction to publish the draft agenda after approval. Agenda/circulation context does not explicitly preserve that primary action. The byte-identical pair remains a critical omission under the fixed prior canonical adjudication."
+      },
+      "changed_fields": []
+    },
+    {
+      "position_one_based": 460,
+      "case_id": "blind-c-110",
+      "normalized_input": "I have reviewed the recording, and I cannot, I absolutely cannot hear the last name clearly. Please leave that field blank rather than guessing from the attendance list. We can ask the speaker to confirm it when we send the follow-up message. The company name is clear, so that part can be included.",
+      "candidate_text": "I have reviewed the recording, and I cannot, I absolutely cannot hear the last name clearly. Please leave that field blank rather than guessing from the attendance list. We can ask the speaker to confirm it when we send the follow-up message. The company name is clear, so that part can be included.",
+      "final_output": "I have reviewed the recording, and I cannot, I absolutely cannot hear the last name clearly. Please leave that field blank rather than guessing from the attendance list. We can ask the speaker to confirm it when we send the follow-up message. The company name is clear, so that part can be included.",
+      "cleanup_status": "Unchanged",
+      "error": null,
+      "normalized_targets": [
+        "I have reviewed the recording, and I cannot, I absolutely cannot hear the last name clearly. Please leave that field blank rather than guessing from the attendance list. We can ask the speaker to confirm it when we send the follow-up message. The company name is clear, so that part can be included."
+      ],
+      "previous_candidate_text": "I have reviewed the recording, and I absolutely cannot hear the last name clearly. Please leave that field blank rather than guessing from the attendance list. We can ask the speaker to confirm it when we send the follow-up message. The company name is clear, so that part can be included.",
+      "previous_final_output": "I have reviewed the recording, and I absolutely cannot hear the last name clearly. Please leave that field blank rather than guessing from the attendance list. We can ask the speaker to confirm it when we send the follow-up message. The company name is clear, so that part can be included.",
+      "previous_cleanup_status": "Applied",
+      "previous_judgment": {
+        "case_id": "blind-c-110",
+        "output_sha256": "ebfe4274adac14dd0430b6b71d077ab3236a95d25d9c4f722ce86c9091800153",
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Collapses the explicitly intentional I cannot, I absolutely cannot emphasis into only I absolutely cannot. The uncertainty, blank-name instruction, follow-up and clear-company distinction remain, but deliberate repetition is lost.",
+        "provider_success": true,
+        "review_provenance": "independent_personal_read_of_current_source_candidate_final_and_old_pair",
+        "position_one_based": 460,
+        "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+      },
+      "current_judgment": {
+        "case_id": "blind-c-110",
+        "output_sha256": "3c6f7e62b4122f3f598918e52c197cb3a7be725c02568eebc0795c9f39b88324",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Correctly preserves the explicitly intentional I cannot, I absolutely cannot repetition unchanged, together with the blank-name instruction, follow-up plan and clear-company-name distinction."
+      },
+      "changed_fields": [
+        "candidate_text",
+        "output",
+        "cleanup_status"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "case_count": 500,
+  "structural_success": 500,
+  "faithful": 488,
+  "clean_usable": 491,
+  "faithful_and_clean_usable": 483,
+  "joint_accuracy": 0.966,
+  "critical_errors": 10,
+  "minimum_joint_accuracy": 0.99,
+  "required_pass_count": 495,
+  "failed_or_unusable_cases": 17,
+  "quality_gate_passed": false,
+  "zero_observed_critical_errors": false,
+  "exact_target_matches_diagnostic_only": 453,
+  "reviewer": "Three named assistant reviewers: /root/training_audit positions1\u2013167, /root/cleanup_pipeline_review positions168\u2013334, /root positions335\u2013500. Strict13-field successful prior joint passes inherited with per-case proofs; every changed/status-changed/prior-failed pair personally read. Root additionally read all5 changed output pairs across the complete corpus.",
+  "limitations": "Finite assistant-authored synthetic diagnostic corpus and named semantic reviewer; no population accuracy or Windows SLA claim.",
+  "schema_version": 1,
+  "results_sha256": "a17350154d4553514b3e67d14df6f7f7e3e1af49c890e682edc872699fa34b82",
+  "canonical_review_sha256": "6cdcec55744876c87d2dbc6fba613dee848a6c7d476eb36c98503b83401dd0d9",
+  "review_sources": [
+    {
+      "path": "reviews-v7-ul-02-native-LoRA-retired500/positions001-167-reviewed.json",
+      "sha256": "47cbc17c0d99a157ea74e6ed344496b23648e4fe5fad5de6bf637a0e425b0b68",
+      "reviewer": "/root/training_audit",
+      "positions_one_based": [
+        1,
+        167
+      ]
+    },
+    {
+      "path": "reviews-v7-ul-02-native-LoRA-retired500/positions168-334/casewise-reviewed.json",
+      "sha256": "bc135e1c6337e23f934bad41a83104e478bcf168f09f355e76b579ab1aadf139",
+      "reviewer": "Codex assistant /root/cleanup_pipeline_review",
+      "positions_one_based": [
+        168,
+        334
+      ]
+    },
+    {
+      "path": "reviews-v7-ul-02-native-LoRA-retired500/positions335-500/casewise-reviewed.json",
+      "sha256": "93747b62bee3c5725047386045d7e9000734e9399111cb559c0ba6ff339612b5",
+      "reviewer": "Codex assistant /root: retired development positions335\u2013500;160 strict13-field successful control joint passes inherited with proofs; all6 changed or prior-failed actual pairs personally read.",
+      "positions_one_based": [
+        335,
+        500
+      ]
+    }
+  ],
+  "qualification": "retired development only",
+  "fresh_qualification_claimed": false,
+  "provider_failures": 0,
+  "all500_delivered_once": true,
+  "utc": "2026-11-04T02:38:43.518532+00:00"
+}

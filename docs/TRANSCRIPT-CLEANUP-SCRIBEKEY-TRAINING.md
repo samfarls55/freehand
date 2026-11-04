@@ -8,10 +8,12 @@ to complete delivery. **No new trained model is qualified yet.** The first
 independent 500-case test scored **471/500 (94.2%)** jointly faithful and clean,
 below the required 495. Its complete result is preserved and the set is now
 retired as development material. Subsequent V5 candidates score 94.8–96.2% on
-that consumed set; V6 scores **475/500 (95.0%)**. These development results remain
-below the gate. Further training is in preparation and the new independent test remains
-unconsumed. The selected Linux runtime configuration passes the measured
-partial-pipeline resource limits; Windows qualification remains unavailable.
+that consumed set; V6 scores **475/500 (95.0%)**, and the V7 supervised control
+scores **482/500 (96.4%)**. Its matched semantic-loss arm scores
+**483/500 (96.6%)**. These development results remain below the gate. The new
+independent test remains unconsumed. V6 passes the measured Linux partial-pipeline
+resource limits; the V7 weights have not been remeasured. Windows qualification
+remains unavailable.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -279,7 +281,7 @@ The earlier rubric requested a paired baseline on this final set; only the
 pre-frozen selected derivative ran here, so no paired 500-case improvement claim
 is made. Paired baseline evidence remains confined to development sets.
 
-## V5/V6 continuation and numerical checks
+## V5–V7 continuation and numerical checks
 
 V5 completed 330 optimizer steps with 1,320 training exposures representing 900
 unique pairs. It resumed a saved optimizer/RNG checkpoint after a workspace
@@ -294,6 +296,8 @@ All results below use actual Core outputs and independent semantic reviews.
 | V5 merged F16 diagnostic | 481/500 — 96.2% | 6 | 1 |
 | Original IQ4 plus unmerged V5 F32 adapter | 474/500 — 94.8% | 9 | 2 |
 | Original IQ4 plus unmerged V6 F32 adapter | **475/500 — 95.0%** | **9** | **1** |
+| Original IQ4 plus unmerged V7 supervised F32 adapter | **482/500 — 96.4%** | **10** | **0** |
+| Original IQ4 plus unmerged V7 semantic-loss F32 adapter | **483/500 — 96.6%** | **10** | **0** |
 
 The higher-precision model is a quality diagnostic, not a memory-qualified
 candidate. V5 merged IQ4 also scored 537/546 on broad development and 76/80 on
@@ -334,10 +338,46 @@ casewise decisions; root read all 54 non-reference/failure pairs outside the 20
 dictionary cases independently read by the reviewers. Exact successful
 inheritances retain per-case proofs. Fallback receives no model-quality credit.
 
-The next preparation adds independently reviewed contrasts and a controlled
-semantic unlikelihood objective. It keeps the same positive examples and
-exposures in the supervised control and weighted arm. New examples and objective
-prototypes are not evidence of an accuracy improvement before actual evaluation.
+The V7 comparison adds independently reviewed contrasts and a controlled
+semantic unlikelihood objective. Both arms start from the same V6 adapter and
+use the same 2,754 positive exposures: the complete 2,014-pair history once,
+270 new pairs twice and another 100 new pairs twice. This represents 2,384
+distinct raw pairs; four case-only input variants collapse under the separately
+reported normalized comparison. Both arms use rank 8, learning rate 0.00003,
+one epoch, seed 42 and 345 optimizer updates. The only objective difference is
+the semantic-loss weight, zero versus one, applied to 32 reviewed error branches
+covering 64 scheduled exposures. The positive-data SHA-256 is
+`fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6`.
+
+The supervised control completed through exact optimizer/RNG recovery after an
+environment restart. All 15 replayed updates match bit for bit. Its final
+adapter SHA-256 is
+`5d4feeda03dffcb3edd9e532f3a3eff307424c8b51e667c5bca308bb5233c777`;
+the unmerged native F32 adapter is 12,006,240 bytes, SHA-256
+`e8800d752907471ca746d371a71111ad4083325870d70b08f933c63a06fc485c`.
+Actual Core replay of the retired 500-case set yields **482/500 jointly faithful
+and clean**, 488 faithful, 490 clean, ten critical errors and no provider
+failures. All 500 cases deliver once. Three hash-bound casewise reviews and
+root's review of all non-reference pairs outside the separately reviewed
+dictionary cases support the score. Compared with V6 it fixes nine cases and
+regresses two, leaving 18 joint failures and a 13-case gap to 495. This consumed
+set cannot establish the fresh acceptance gate. No final-test inference has run.
+
+The matched semantic-loss arm also completes 345 updates, with verified exact
+recovery after an unexplained SIGKILL. There are no recorded OOM events; its
+cause is unknown. The 15 replayed updates match bit for bit. Its final adapter
+SHA-256 is
+`8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643`;
+the unmerged 12,006,240-byte F32 GGUF SHA-256 is
+`eadaaa0a515b915e4cfbbe8ef6ec54fae1bc73e45c1e3adfd54eafa80c4069ac`.
+It scores **483/500 jointly faithful and clean**, 488 faithful, 491 clean,
+ten critical errors and no provider failures. All 500 deliver once. It fixes
+one correction-cleanup failure relative to the supervised control and introduces
+no new joint failures. All changed or previously failed pairs receive direct
+semantic review; inherited successful judgments require equality in 13 recorded
+fields and retain per-case proofs. This leaves 17 joint failures and a 12-case
+gap to 495. The higher-precision cache comparison and an independently reviewed
+240-pair curriculum remain further experiments, not evidence of qualification.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe

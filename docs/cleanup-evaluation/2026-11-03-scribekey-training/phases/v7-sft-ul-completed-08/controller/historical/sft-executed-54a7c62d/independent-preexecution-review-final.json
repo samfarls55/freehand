@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "reviewed_at_utc": "2026-11-04T01:48:34.094961+00:00",
+  "status": "BOUNDED_CONTROLLER_SOURCE_AUDIT_PASS_ACTUAL_OUTPUT_VERIFICATION_SEPARATE",
+  "reviewed_files": {
+    "run.py": {
+      "path": "work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/run.py",
+      "bytes": 42607,
+      "sha256": "54a7c62d8026f12d9aa8139108e0017e64cb43fa4386f7fe2c2ad5b6a632a24c"
+    },
+    "test_controller.py": {
+      "path": "work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/test_controller.py",
+      "bytes": 10896,
+      "sha256": "c5fe0e4d997a6b4aa88191f3aeb86b640bf0c83912cffd74a409a0e91a663f75"
+    },
+    "README.md": {
+      "path": "work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/README.md",
+      "bytes": 4688,
+      "sha256": "1ac0ded3af1375a131068d6daff12bd1f37d986bc8f7d8fad605cb70d759b466"
+    }
+  },
+  "author_stable_source_receipt": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/recovery-preparation-status.json",
+    "bytes": 1255,
+    "sha256": "9db0b96ac4fb651fca9b10cff868426ba4c2b1069aef066f3aed6bb5f1d20fd1"
+  },
+  "preserved_v6_controller": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/v6-native-export-preparation/run.py",
+    "bytes": 22770,
+    "sha256": "9746eca1bda5edc48ab32a448d32b9d9671fb59e8489624fcbf42682a3332026"
+  },
+  "scope": "Read-only independent review of prepared work-only V7 SFT eta0/UL eta1 native export, authorized SFT192 recovery lineage, exact source/data/event/root-review bindings, numeric log checks and first retired500 Core handoff. No actual trainer/controller main, weights, tokenizer, corpus or native process executed by reviewer.",
+  "resolved_findings": [
+    {
+      "finding": "resume_optimizer accepted truthy non-boolean values.",
+      "resolution": "Exact JSON boolean type now required before fresh/recovery branch; independently exercised in synthetic guard suite."
+    },
+    {
+      "finding": "Aggregate event counts did not substantiate direct per-exposure-ID log coverage and objective checks omitted numeric recomputation.",
+      "resolution": "Claims now explicitly source-validated64 mappings plus logged total64, with no per-exposure-ID log claim. All345 logged step losses are recomputed from existing CE/UL microbatch metrics, with finite typed counts/eta and FP32 tolerances2e-5relative/2e-7absolute."
+    }
+  ],
+  "reviewed_invariants": {
+    "only_sft_eta0_or_ul_eta1_with_same_preregistered_recipe": true,
+    "v6_initialization_parent157af_and_config1a159": true,
+    "positivefa18_events515947_mappingff9d_source8c609_bound": true,
+    "canonical32_root_review_exposures64_binding_and_independent_data_review_pins_retained": true,
+    "actual_positive_file_and_source_result_config_checked_before_conversion": true,
+    "fresh_optimizer_initialization_checked_for_initial_arm": true,
+    "sft_recovery192_anchored_exact_state_sha": "9c18597d0186c5d95ee0d760297e7a55d165a99d5e31418a247fea94ab30bd9f",
+    "recovery192_exact_five_file_adapter_optimizer_rng_config_source_inventory_verified": true,
+    "initial_fresh_config_binds_same_v6_parent_and_recipe": true,
+    "canonical_log_exactly_initial_steps1_to192_plus_resumed193_to345": true,
+    "all15_preserved_old193_to207_nonelapsed_records_equal_replayed_records": true,
+    "canonical_raw_logs_initial_config_recovery_state_overlap_proof_and_final_verifier_artifacts_rehashed_before_after_conversion_and_core": true,
+    "full345_updates689_microbatches_logged_total64_and_assistant_token_sum_checked": true,
+    "eta0_historical_mean_ce_and_eta1_marked_chosen_token_ce_plus_ul_branches_checked": true,
+    "numeric_fp32_tolerance_explicit": true,
+    "direct_per_exposure_ids_not_claimed_logged": true,
+    "actual_latest_rng_checkpoint336_checked_not_claimed_final345_rng": true,
+    "all184_custom_to_peft_to_native_f32_tensor_names_shapes_dtypes_values_checked": true,
+    "original_iq4_base82ab_internal_alpha_rank2_external_scale1_no_merge_or_requantization": true,
+    "exact_probe9295_and_receipt7ed1_six_expected_dll_paths_and_hashes": true,
+    "retireddef0_hash_checked_before_text_parse_exact500orderedids_after": true,
+    "strict_base_adapter_scale_deployment_and_source_postchecks": true,
+    "ordinary_provider_failures_remain_in_complete_cohort_no_fallback_quality_credit": true,
+    "no_automatic_broad546_hard80_or_training_arm_launch": true,
+    "create_only_output_and_post500_explicit_cpu_handoff_receipt": true,
+    "no_previous_v6_controller_or_metadata_changed": true
+  },
+  "unchanged_v6_ast_profile_checks": {
+    "argv": true,
+    "env": true,
+    "freeze_argv": true,
+    "eval_argv": true,
+    "expected": true,
+    "renamed": true
+  },
+  "independent_synthetic_tests": {
+    "passed": 12,
+    "failed": 0,
+    "log": {
+      "path": "/tmp/freehand-v7-export-controller-independent-recovery-tests.log",
+      "bytes": 1775,
+      "sha256": "4549088f0a3f8b0d865240303b5a8167bd7b032b27061c3cd3d149754cc73aa7"
+    },
+    "scope": "Synthetic dictionaries and tiny fake checkpoint/log files only; standard library imports, no Torch or actual data/weight files."
+  },
+  "remaining_scoped_blockers": [],
+  "limitations": [
+    "This is a controller source audit, not an actual V7 adapter/output/deployment or semantic quality verification.",
+    "All actual execution artifacts must pass the controller guards after explicit training process exit and CPU handoff.",
+    "Expected exposure identity is source/mapping validated; actual log directly records only count64, not individual exposure IDs.",
+    "No fresh/blind/status data or training corpus semantics were read; no real model/source payload was heavily hashed."
+  ],
+  "source_data_or_recipe_edits": false,
+  "torch_model_native_converter_build_or_training_jobs": false
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit",
+  "status": "PASS_NO_FINAL_EVENT_BINDING_OR_EXPOSURE_FAIRNESS_BLOCKER",
+  "canonical_events_sha256": "5994352434684c3811305d2a63397cf177d42266c68a1b0332138d657d4ecb69",
+  "bound_events_sha256": "51594710dd5807b50d73817157ead41dd7e244b70beaad55a5d286d4867d07d5",
+  "binding_receipt_sha256": "0d1393eb1a7dd0fcc420d777f1ed0a958c275d51ec3fcfea5d75d3eeabd9579a",
+  "final_positive_sha256": "fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6",
+  "source_exposure_map_sha256": "7b725c3763843580c6246f5fb1a4a513e5fbab8283c9cab3e17bb2f07e7eebff",
+  "active_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+  "canonical_records": 32,
+  "all_input_gold_bad_event_and_other_nonbinding_fields_identical": true,
+  "only_allowed_changed_fields": [
+    "positive_artifact_sha256",
+    "positive_row_id",
+    "positive_row_ids"
+  ],
+  "all_positive_instance_bindings_match_full_exposure_map": true,
+  "positive_rows_before_after_loader": 2754,
+  "canonical_event_count": 32,
+  "actual_event_exposures": 64,
+  "copies_each_selected_source": 2,
+  "actual_tokenizer_and_loader_identity": {
+    "unlikelihood_schema": "freehand-unlikelihood-token-events-v1",
+    "unlikelihood_events_sha256": "51594710dd5807b50d73817157ead41dd7e244b70beaad55a5d286d4867d07d5",
+    "unlikelihood_positive_sha256": "fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6",
+    "unlikelihood_tokenizer_sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+    "unlikelihood_mapping_sha256": "ff9dbea1548375046c2665468ca6ad0dd7991a085ed1f3b79ec046b79e854668",
+    "unlikelihood_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
+  },
+  "gold_bad_prefix_index_mask_checks": "Recomputed by actual reviewed loader for all32 canonical events/all64 exposures",
+  "raw270_core270_chain": {
+    "raw_sha256": "24f20b6c3ef27b8831ee92ca8006d0129079c59a7e9e85512d62161dbed4074d",
+    "derivative_sha256": "39facec9907b15c7ea82319728c22701182a70769017dba6124324532fb05f12",
+    "all270_id_input_target_triples_byte_equal": true
+  },
+  "eta0_eta1_fairness": "Both arms must use these same positive/event bytes and all64 mappings; eta is the intended loss difference.",
+  "no_torch_imported": true,
+  "model_native_or_training_runs_by_reviewer": false,
+  "fresh_round2_material_accessed": false,
+  "training_authorization": "Still requires root explicit arm/hyperparameter/storage/CPU authorization; this audit launches nothing."
+}

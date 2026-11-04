@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T00:15:36.576195+00:00",
+  "status": "RESERVED for a later curriculum ablation; not added to the active full-history SFT control.",
+  "dataset_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-future-contrasts/train-270-v1.jsonl",
+  "dataset_sha256": "24f20b6c3ef27b8831ee92ca8006d0129079c59a7e9e85512d62161dbed4074d",
+  "dataset_bytes": 130532,
+  "case_count": 270,
+  "cleanup_pairs": 180,
+  "unchanged_controls": 90,
+  "unchanged_fraction": 0.3333333333333333,
+  "family_counts": {
+    "action_polarity_correction": {
+      "count": 54,
+      "cleanup": 36,
+      "unchanged": 18
+    },
+    "deliberate_emphasis_vs_accidental_repeat": {
+      "count": 54,
+      "cleanup": 36,
+      "unchanged": 18
+    },
+    "independent_facts_tails_actors": {
+      "count": 54,
+      "cleanup": 36,
+      "unchanged": 18
+    },
+    "noun_phrase_tense_minimal_cleanup": {
+      "count": 54,
+      "cleanup": 36,
+      "unchanged": 18
+    },
+    "protected_cancelled_id_negative_context": {
+      "count": 54,
+      "cleanup": 36,
+      "unchanged": 18
+    }
+  },
+  "authoring": "All 270 pairs individually authored and personally audited by /root/editing_architectures using only the supplied residual taxonomy. No retired500 or fresh2 source text opened or copied for this curriculum.",
+  "independent_review": {
+    "path": "independent-review-rollup-v1.json",
+    "sha256": "547f4703b083e9aa88f8ae690d8caa36b10240428fc51970addefd998dbe3361",
+    "approved": 270,
+    "rejected": 0,
+    "reviewer": "/root",
+    "human_review": false
+  },
+  "loader_validation": {
+    "path": "loader-validation-v1.json",
+    "sha256": "38af4d0c0cb9f2f3d4e9100e185bc580c8eeb25b48c5042e2d213f20e77add54",
+    "rows_passed": 270,
+    "quoted_payloads_round_tripped": 95,
+    "literal_protocol": "specialist-compact-v3"
+  },
+  "normalization_fixture": {
+    "path": "core-normalization-input-target-540.json",
+    "sha256": "a542b550f0b667155007b33ce3747535c5f43323a8d86d76249ac9c7225fc40c",
+    "cases": 540,
+    "execution_status": "Prepared only; no C# process run. Root to authorize/run with preserved Probe after C# CPU release, nice19 and DOTNET_PROCESSOR_COUNT1, without a model manifest."
+  },
+  "controlled_expansions": [
+    "Five deliberately balanced structural families, 54 pairs each, with 36 cleanup examples and 18 meaningful unchanged controls; contexts/phrasing are manually authored rather than a Cartesian generator.",
+    "Polarity family includes 18 affirmative-to-negative and 18 negative-to-affirmative corrections; controls preserve unresolved questions, modality, and already-clean boundaries.",
+    "Facts/actors family includes local correction, independent preceding/tail statements, nested communication roles, and unaffected conjuncts.",
+    "Repetition family includes 18 preserve-emphasis/grammatical-repeat hesitation cleanups, 18 accidental verb-stutter repairs,18 unchanged controls; no blanket courtesy deletion.",
+    "NP/tense family includes 12 unfinished-word restarts, 12 interrupted NP restarts, 12 tense/aspect/voice hesitation cleanups, 18 unchanged controls.",
+    "Protected-ID family includes 12 both-old/new quoted corrections, 12 old-quoted/new-plain corrections, 12 mixed additional-context literal corrections, 18 unchanged exact-literal controls.",
+    "These are controlled synthetic TRAINING contrasts, not 270 naturally occurring independent dictations or proof of 99% accuracy."
+  ],
+  "part_bindings": [
+    {
+      "source_part": "part-01-action-54.jsonl",
+      "source_sha256": "1b79f6eb5459700e2cae052c5012e20c644e61dc9ada29f0bf84aca23f162a66",
+      "independent_review": "part-01-root-independent-review.json",
+      "review_sha256": "f92d07b0d4c7bbfdd9b120d0f476484c458e81d2cbc2659cc0286af9dfe5baab",
+      "approved": 54,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-02-facts-actors-54.jsonl",
+      "source_sha256": "48e73dead2baf008e9cc4e6e4051235d79e22498e65692cb45b1b3916cf4f9cb",
+      "independent_review": "part-02-root-independent-review.json",
+      "review_sha256": "7a0817a313c10d8c3c53bd820920b85b20566c83e1e21d5145cd86f95b5a9f86",
+      "approved": 54,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-03-emphasis-repeat-54.jsonl",
+      "source_sha256": "da39460724a85af0985fa81422671d24e96259470dc17fa5c432715f7723be0a",
+      "independent_review": "part-03-root-independent-review.json",
+      "review_sha256": "73ffa6d4312109647cc6ebef042d405d83838487b1dca37f7c440d88303ee191",
+      "approved": 54,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-04-np-tense-54.jsonl",
+      "source_sha256": "a1f12c7143d921aa6db978bf9ea39334c9f0c5fa53e8bfc2e5212e01765b883b",
+      "independent_review": "part-04-root-independent-review.json",
+      "review_sha256": "dcc421ff2a11217ac40e3f6886a1c266bdc1905d7fbc497c7eec8db9c21a0db0",
+      "approved": 54,
+      "rejected": 0
+    },
+    {
+      "source_part": "part-05-protected-ids-54.jsonl",
+      "source_sha256": "18db5686f1bef8e2332f057de46666f7a74f2bbfabbadded79cc3dbb9ba7c138",
+      "independent_review": "part-05-root-independent-review.json",
+      "review_sha256": "ab55b2fff49cab2f8b117e5625b22526a1cbfc4de606e9aea34d1de10ce3caeb",
+      "approved": 54,
+      "rejected": 0
+    }
+  ],
+  "pre_freeze_author_refinements": [
+    "214 clarification-control nouns diversified before part04 review.",
+    "240 routing source/target clarified before part05 review.",
+    "257 draft Python escape corrected to literal backslashes before part05 review; final input/target have no control characters."
+  ],
+  "separation": {
+    "retired500_source_text_read": false,
+    "fresh2_data_or_author_artifacts_read": false,
+    "model_runs": 0,
+    "training_runs": 0,
+    "application_source_changes": false,
+    "active_full_history_data_changes": false,
+    "production_Core_normalization": "Pending root-controlled540-case no-inference replay.",
+    "hash_only_overlap_checks": "Pending root after normalization."
+  },
+  "integration_instruction": "Use only train-270-v1.jsonl as the 270-row raw curriculum input. Parts are authoring/review artifacts, not additional rows. Preserve raw and any normalized derivative separately."
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "reviewed_at_utc": "2026-11-04T01:16:48.409952+00:00",
+  "status": "INDEPENDENT_FINAL_CANDIDATE_STRUCTURE_PASS_ROOT_TRAINING_APPROVAL_SEPARATE",
+  "dataset": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-final.jsonl",
+    "bytes": 4503793,
+    "sha256": "fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6"
+  },
+  "preserved_prefix": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2554-provisional.jsonl",
+    "bytes": 4138815,
+    "sha256": "8e31598f65e695001b37d8920e44b93f6e6fb2a24ae6d0cf8e8387dd1b4a51a9"
+  },
+  "source_datasets": {
+    "history2014": {
+      "path": "work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/full-history-candidate.jsonl",
+      "bytes": 2127473,
+      "sha256": "919b5b5ecfe2878edf7075b800a7d39392fe5be215d23d1fb8cbd984c78a4015"
+    },
+    "contrasts270": {
+      "path": "work/cleanup-scribekey-training-2026-11-03/audit/v6-future-contrasts/core-normalization-v1/train-270-core-normalized-v1.jsonl",
+      "bytes": 340322,
+      "sha256": "39facec9907b15c7ea82319728c22701182a70769017dba6124324532fb05f12"
+    },
+    "additional100": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v7-additional-100/core-normalization-v1/train-100-core-normalized-v1.jsonl",
+      "bytes": 128749,
+      "sha256": "b6d6bd277febb06125c3b49851c24d813d1efb4a7cdc98820ee4508c946366dc"
+    }
+  },
+  "exposure_map": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-source-exposures.json",
+    "bytes": 1132169,
+    "sha256": "7b725c3763843580c6246f5fb1a4a513e5fbab8283c9cab3e17bb2f07e7eebff"
+  },
+  "manifest": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-final-manifest.json",
+    "bytes": 8024,
+    "sha256": "9c69d5e6bc778a0f89be83dfb72bed836e10ecbb6edb5154aa8a75f0bc7454af"
+  },
+  "provenance_ledger": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-provenance.jsonl",
+    "bytes": 1482012,
+    "sha256": "f36b8939143ceac321fde28c0015d7cd2262dfc062e6d397dfae2f093f86325a"
+  },
+  "opaque_content_index": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-content-hashes.json",
+    "bytes": 742265,
+    "sha256": "f640f4b9a825a60294dbfb00f163c6d5301ecaeb18759c6a54aaa7f702f7a0a3"
+  },
+  "disclosed_duplicates": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-disclosed-duplicates.json",
+    "bytes": 84348,
+    "sha256": "e70e96088e980d26f669164a6956ddd2e464d22ec104ad8afa7afc00f7cee349"
+  },
+  "collision_clarification": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-normalized-hash-collision-clarification.json",
+    "bytes": 3673,
+    "sha256": "3f8426b84706473e4cb3bf119608892142033ee676df492da2b82549ce6d18c0"
+  },
+  "token_ledger": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-positive-curriculum/positive-2754-token-checks.jsonl",
+    "bytes": 1242716,
+    "sha256": "ff153332e99ddee768c7166e79e5ef4878d4bdbfc14d317a4b796021c3847cab"
+  },
+  "additional100_zero_delta_review": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/audit/v7-additional-100/core-normalization-v1/normalization-cleanup-pipeline-independent-zero-delta-review.json",
+    "bytes": 67541,
+    "sha256": "87ca6b22348428a39dbcfb0fb9009c1f0105c179f2e44b82b82288c199d5de6e"
+  },
+  "counts": {
+    "effective_rows": 2754,
+    "raw_exact_unique_pairs": 2384,
+    "normalized_nfc_whitespace_casefold_unique_hash_pairs": 2380,
+    "case_only_collision_groups_with_identical_targets": 4,
+    "preserved_prefix_rows_exact_bytes": 2554,
+    "added100_exact_copies": 200,
+    "unique_instance_ids": 2754,
+    "unchanged_effective_rows": 904,
+    "unchanged_raw_unique_pairs": 786,
+    "deliberate_duplicate_groups": 370,
+    "legacy57_rows_exactly_once": 57,
+    "exact_input_label_conflicts": 0,
+    "normalized_input_label_conflicts": 0,
+    "all_original_fields_and_copy_provenance_reconstructed": 2754,
+    "source_exposure_entries_exact": 2384,
+    "opaque_content_hash_entries_recomputed": 2384,
+    "issues": 0
+  },
+  "order": "Exact entire2554 provisional byte prefix, then normalized100 copy1 in source order, then copy2 in source order; all original source fields preserved except instance id and added disclosed copy provenance.",
+  "checks": {
+    "entire_provisional_file_is_exact_byte_prefix": true,
+    "all2754_original_fields_and_exposure_provenance_exact": true,
+    "all_source_and_dataset_hashes_bound_and_unchanged": true,
+    "each_normalized_collision_differs_only_by_one_source_letter_case_and_has_identical_exact_target": true,
+    "no_deduplication_or_relabeling": true,
+    "all_manifest_available_counts_family_provenance_and_exposure_bindings_recomputed": true,
+    "token_ledger_ids_arithmetic_caps_literal_bos_eos_flags_structurally_consistent": true
+  },
+  "ordered_instance_ids_sha256": "cfe0563b710599d02c248daebd0c764b823da93228d1a0d34ff64580938a4b7a",
+  "scope_limits": [
+    "Independent structural and text-equality review only; not a new semantic approval or training authorization.",
+    "No tokenizer/loader/literal execution was repeated; existing complete ledger checked structurally only.",
+    "No controller opaque overlap receipt or fresh material opened; root owns those checks."
+  ],
+  "data_source_or_labels_edited": false,
+  "torch_model_native_build_jobs": false,
+  "fresh_or_status_accessed": false,
+  "issues": []
+}

@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T02:40:48.031557+00:00",
+  "reviewer": "Codex assistant /root",
+  "scope": "Root personally read all17 current joint failures and all5 changed output pairs:20 unique actual source/candidate/final pairs. No canonical decision override. Retired development only.",
+  "results_sha256": "a17350154d4553514b3e67d14df6f7f7e3e1af49c890e682edc872699fa34b82",
+  "canonical_review_sha256": "6cdcec55744876c87d2dbc6fba613dee848a6c7d476eb36c98503b83401dd0d9",
+  "cases": [
+    {
+      "case_id": "blind-a-008",
+      "normalized_input": "I left my glasses on the kitchen, on the kitchen counter.",
+      "candidate_text": "I left my glasses on the kitchen, on the kitchen counter.",
+      "output": "I left my glasses on the kitchen, on the kitchen counter.",
+      "control_output": "I left my glasses on the kitchen, on the kitchen counter.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Preserves the past glasses placement and final kitchen-counter location but still leaves the unfinished on-the-kitchen restart; faithful content, unclean delivery."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-a-026",
+      "normalized_input": "I, I really enjoyed the last chapter, especially the ending.",
+      "candidate_text": "I, I really enjoyed the last chapter, especially the ending.",
+      "output": "I, I really enjoyed the last chapter, especially the ending.",
+      "control_output": "I, I really enjoyed the last chapter, especially the ending.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Preserves enjoyment of the chapter and emphasis on the ending, but still leaves the accidental I, I stutter."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-a-079",
+      "normalized_input": "I would call it a warning, um, rather than a formal rejection.",
+      "candidate_text": "I would call it a warning, rather than a formal rejection.",
+      "output": "I would call it a warning, rather than a formal rejection.",
+      "control_output": "I would call it a warning rather than a formal rejection.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes um and retains would, the warning characterization and formal-rejection contrast; the optional pause comma is valid and usable."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-023",
+      "normalized_input": "I don't want less testing, I mean, I want fewer redundant copies of the same test.",
+      "candidate_text": "I want fewer redundant copies of the same test.",
+      "output": "I want fewer redundant copies of the same test.",
+      "control_output": "I want fewer redundant copies of the same test.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Still omits the independent negated intention I do not want less testing. The preference for fewer redundant copies clarifies rather than retracts that constraint; fluent output critically changes the intention."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-073",
+      "normalized_input": "Ask Leena to sign, no wait, Leena is away; ask Mateo to sign on her behalf.",
+      "candidate_text": "Ask Leena to sign on her behalf; ask Mateo to sign the document.",
+      "output": "Ask Leena to sign on her behalf; ask Mateo to sign the document.",
+      "control_output": "Ask Leena to sign on her behalf.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Still revives Leena as a signer despite the source saying she is away. It now also asks Mateo to sign a document, but loses that he should sign on Leena's behalf and deletes the availability explanation. Wrong actors/authority and an extra signing instruction remain critical."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-079",
+      "normalized_input": "Put the medicine in the cupboard, no, the label says refrigerate it; put it in the fridge.",
+      "candidate_text": "Put the medicine in the label's fridge.",
+      "output": "Put the medicine in the label's fridge.",
+      "control_output": "Put the medicine in the label's fridge.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Still invents a label-owned fridge and deletes the label-says-refrigerate explanation. The resulting medicine-placement relationship is corrupted and unusable."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-087",
+      "normalized_input": "Turn left at the chapel, wait, the road is blocked; continue straight to the roundabout.",
+      "candidate_text": "Turn right at the road, not the chapel; continue straight to the roundabout.",
+      "output": "Turn right at the road, not the chapel; continue straight to the roundabout.",
+      "control_output": "Turn left at the road, not the chapel; continue straight to the roundabout.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Invents a right turn and road-versus-chapel contrast, while omitting the blocked-road fact. The final requested correction is to continue straight; the new turn remains a critical wrong-direction instruction."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-090",
+      "normalized_input": "Ask for a copy of her passport, scratch that, ask which identity documents she can provide.",
+      "candidate_text": "Ask for a copy of her passport and ask which identity documents she can provide.",
+      "output": "Ask for a copy of her passport and ask which identity documents she can provide.",
+      "control_output": "Ask for a copy of her passport and ask which identity documents she can provide.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Still replaces scratch that with and, reviving the canceled passport-copy request alongside the identity-document inquiry. Fluent presentation does not repair the critical action change."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-092",
+      "normalized_input": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "candidate_text": "I read the wrong line; the inspection is still pending.",
+      "output": "I read the wrong line; the inspection is still pending.",
+      "control_output": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Correctly removes the superseded inspection-passed statement and correction cue while retaining I read the wrong line and the still-pending status. This is now faithful, clean and usable."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-093",
+      "normalized_input": "Send five samples to each office, make that five samples total, divided between the offices.",
+      "candidate_text": "Send five samples to each office, made into five samples total, divided between the offices.",
+      "output": "Send five samples to each office, made into five samples total, divided between the offices.",
+      "control_output": "Send five samples to each office, made into five samples total, divided between the offices.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Still replaces make that with made into while retaining the obsolete five-per-office instruction. The contradictory per-office/total quantity construction loses the explicit five-total repair and is not usable."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-096",
+      "normalized_input": "Give the witness my home number, no, give her the office number and don't share my home number.",
+      "candidate_text": "Give the office number of the witness and don't share my home number.",
+      "output": "Give the office number of the witness and don't share my home number.",
+      "control_output": "Give the office number of the witness and don't share my home number.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Still changes giving the office number TO the witness into giving the office number OF the witness. The recipient-to-owner relationship corruption critically changes the intended contact instruction, despite retaining the home-number prohibition."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-098",
+      "normalized_input": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "candidate_text": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "output": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "control_output": "Please mark this confidential, actually mark it restricted; that's the category legal requested.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Unchanged source preserves actually as the restricted-category correction and keeps the legal-request explanation. The obsolete confidential instruction and repair cue remain uncleaned."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-099",
+      "normalized_input": "Replace both filters, wait, the second one was changed yesterday; replace only the first filter.",
+      "candidate_text": "Replace only the first filter.",
+      "output": "Replace only the first filter.",
+      "control_output": "Replace only the first filter.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Still drops the independent unretracted fact that the second filter was changed yesterday. Only-first-filter replacement survives, but the prior strict critical maintenance-status/chronology failure remains on this identical pair."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-b-101",
+      "normalized_input": "I need the original, the original, not another photocopy.",
+      "candidate_text": "I need the original, not another photocopy.",
+      "output": "I need the original, not another photocopy.",
+      "control_output": "I need the original, not another photocopy.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Still deletes deliberate the original, the original emphasis. The photocopy contrast remains fluent but intentional repetition required by the source is lost."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-021",
+      "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+      "candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+      "output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "control_output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "The quoted refund sentence and full-sentence clarification survive and Uh is removed, but the following sentence still starts with lowercase that. This needs capitalization repair before direct use."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-034",
+      "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "control_output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "The exact regex and uncertainty survive; accidental I, I think is still present, so cleanup remains incomplete."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-072",
+      "normalized_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+      "candidate_text": "Cancel that request; I will join remotely.",
+      "output": "Cancel that request; I will join remotely.",
+      "control_output": "Cancel that request; I will join remotely.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Cancel that request no longer identifies the upstairs-room reservation. Cancellation and remote attendance survive, but the only object/location anchor was dropped, leaving an unresolved request reference."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-084",
+      "normalized_input": "I need the receipt emailed to me. Actually, just print it; the email address on file is wrong.",
+      "candidate_text": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "output": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "control_output": "Just print the receipt emailed to me. The email address on file is wrong.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "The stale restrictive phrase receipt emailed to me implies unsupported email delivery and fails to resolve the explicit replacement of emailing with printing because the address is wrong. The remaining wording materially distorts the correction."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-104",
+      "normalized_input": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, uh, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "candidate_text": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "control_output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "The optional comma before provided is valid. Nurse attribution, early-registration condition, explicit absence of a normal-results claim, and the limitation on the family update all survive; the hesitation is removed."
+      },
+      "root_actually_read_and_agrees": true
+    },
+    {
+      "case_id": "blind-c-108",
+      "normalized_input": "Please publish the draft agenda today. Actually, wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "candidate_text": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "output": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "control_output": "Please wait until the chair has approved the final item. The rest of the agenda can stay as it is, but the proposed discussion of staffing is confidential. If approval does not arrive by this afternoon, send a reminder rather than circulating an incomplete version.",
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Waiting for chair approval survives, along with confidentiality, reminder and circulation conditions, but the unretracted affirmative instruction to publish the draft agenda after approval is omitted. This remains the same critical action loss as the control."
+      },
+      "root_actually_read_and_agrees": true
+    }
+  ]
+}

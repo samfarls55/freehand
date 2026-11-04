@@ -195,3 +195,10 @@ six-case 2x2 comparisons, 18 source unit tests, 2 legacy checks and the root 74-
 suite. Exact inverse tensors and native activation emulation do not establish
 identical full-model forward arithmetic. Reserved/future curricula, all fresh
 round2 content, weights, binaries, optimizer/RNG tensors and archives are absent.
+
+
+## Completed V7 two-arm comparison
+
+The V7 SFT control and UL arm used the same actual2754-row positive data and exact source8c609 recipe, with eta0 versus eta1. Both completed345 updates/689 microbatches with preserved recovery prefix/suffix and15 exact replay records. Retired500 semantic results are482/500 (96.4%) for SFT and483/500 (96.6%) for UL; both retain10 critical errors and fail the required495/500 gate. All500 inputs/outputs, range reviews and inheritance/read proofs remain included. These are development results, not fresh/population accuracy, Windows, or whole-app qualification.
+
+See [phases/v7-sft-ul-completed-08/README.md](phases/v7-sft-ul-completed-08/README.md) for actual used2754/32 raw and derived lineage, source/adapter/runtime pins, full completed training/recovery history, original frozen source archives and missing text bodies. The existing2014 history and exact2554 prefix are reused without losing raw bytes. Unused reserved240, fresh2 contents, weights and optimizer/RNG binaries are excluded. The prior940-file derived README/manifest/index epoch is retained under the new phase historical directory; prior raw evidence is unchanged.

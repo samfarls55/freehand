@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T00:59:27.352983+00:00",
+  "status": "RESERVED; two hardness replacements pending root review; no implementation or activation",
+  "source_270_sha256": "24f20b6c3ef27b8831ee92ca8006d0129079c59a7e9e85512d62161dbed4074d",
+  "contrast": {
+    "path": "contrast-32-v4.jsonl",
+    "sha256": "5994352434684c3811305d2a63397cf177d42266c68a1b0332138d657d4ecb69",
+    "pairs": 32
+  },
+  "positive_artifact": {
+    "path": "positive-32-v3.jsonl",
+    "sha256": "69aafb96f128953cdbc5204db18ffa68b0dcd4e65d8f145f97d16084a32fae14",
+    "rows": 32,
+    "unique_input_target_pairs": 32,
+    "gold_exact_approved270": true
+  },
+  "overlay": {
+    "path": "hardness-overlay-v4.json",
+    "sha256": "f8025319d80be29313af583533eabdbe845815e36d054ab5c3060b6a3759a808"
+  },
+  "tokenizer_validation": {
+    "path": "tokenizer-validation-v4.json",
+    "sha256": "840f426a79683dc3a4bc6b53cfd4c3998f7cd882cdd3be12d54cc405a2ef49ac",
+    "events": 32,
+    "EOS_events": 5,
+    "raw_stage_only": true
+  },
+  "plan": {
+    "path": "OBJECTIVE-AND-ABLATION-PLAN-v4.md",
+    "sha256": "cd6e301fc778eb7ab6cb3fb401496f10aa6802a173c4e6b0f4aa91defcad07bc",
+    "objective": "(sum CE_assistant + eta sum UL_events) / N_assistant",
+    "stable_UL": "LSE(all_logits) - LSE(all_logits_except_rejected_id)",
+    "eta_control": 0,
+    "eta_initial": 1,
+    "eta_cap": 2,
+    "identical_positive_exposure_parent_order_hparams": true
+  },
+  "prior_root_approval": {
+    "path": "root-independent-v3-review.json",
+    "sha256": "40e4de48ed1e197aa44b950a6122509c9e8053ef210ff35cb699e8de1e01dda9",
+    "approved": 32,
+    "current_inherited_cases": 30
+  },
+  "new_review_required": [
+    "scribe-v7-reserved-ul-011",
+    "scribe-v7-reserved-ul-012"
+  ],
+  "pipeline_unchanged": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+  "training_or_model_runs": 0,
+  "retired_or_fresh_source_reads": false,
+  "implementation_note": "Raw only. Core-normalized derivatives require event/prefix/hash recomputation and separate freeze; do not activate current files."
+}

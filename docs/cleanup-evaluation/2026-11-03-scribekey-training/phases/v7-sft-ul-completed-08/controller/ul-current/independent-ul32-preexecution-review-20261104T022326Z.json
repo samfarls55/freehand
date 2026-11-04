@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "reviewed_utc": "20261104T022326Z",
+  "reviewer": "benchmark_harness",
+  "status": "BOUNDED_UL32_RECOVERY_SOURCE_AUDIT_PASS_ACTUAL_EXPORT_VALIDATION_SEPARATE",
+  "scope": "Current work-only V7 controller, small synthetic fixtures and preserved prior-audit snapshots only. No controller main, converter, Torch, models, training, build, corpus/data hashing, or fresh2 access.",
+  "reviewed_files": {
+    "run.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/run.py",
+      "bytes": 43479,
+      "sha256": "63e81a1ba72ef27f2f1e5087f2860a9ba58a14cb52a15754d89827440520d784"
+    },
+    "test_controller.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/test_controller.py",
+      "bytes": 11847,
+      "sha256": "ade978a383bbf358a4783fbd76291e96d795b67b20f3b00c570997c606b250b9"
+    },
+    "README.md": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/README.md",
+      "bytes": 5466,
+      "sha256": "8a32a6fec6369f4e552a70c1824912f328ea85ec1c3d7de901d3dbfe3de63795"
+    }
+  },
+  "historical_sft_snapshot_files": {
+    "run.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/historical/sft-executed-54a7c62d/run.py",
+      "bytes": 42607,
+      "sha256": "54a7c62d8026f12d9aa8139108e0017e64cb43fa4386f7fe2c2ad5b6a632a24c"
+    },
+    "test_controller.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/historical/sft-executed-54a7c62d/test_controller.py",
+      "bytes": 10896,
+      "sha256": "c5fe0e4d997a6b4aa88191f3aeb86b640bf0c83912cffd74a409a0e91a663f75"
+    },
+    "README.md": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/historical/sft-executed-54a7c62d/README.md",
+      "bytes": 4688,
+      "sha256": "1ac0ded3af1375a131068d6daff12bd1f37d986bc8f7d8fad605cb70d759b466"
+    },
+    "independent-preexecution-review-final.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/historical/sft-executed-54a7c62d/independent-preexecution-review-final.json",
+      "bytes": 5872,
+      "sha256": "aaab43d039259aba48fe6bddc63ca779e20215f442d56d47ccb0a067436ee2a6"
+    },
+    "recovery-preparation-status.json": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/historical/sft-executed-54a7c62d/recovery-preparation-status.json",
+      "bytes": 1255,
+      "sha256": "9db0b96ac4fb651fca9b10cff868426ba4c2b1069aef066f3aed6bb5f1d20fd1"
+    }
+  },
+  "prior_snapshot_source_tests_docs_status_match_prior_audit": true,
+  "prior_sft_audit_sha256": "aaab43d039259aba48fe6bddc63ca779e20215f442d56d47ccb0a067436ee2a6",
+  "unchanged_function_ast": {
+    "require": true,
+    "read": true,
+    "write": true,
+    "verify_v7_config": true,
+    "finite_number": true,
+    "verify_objective_log": true,
+    "main": true
+  },
+  "verify_v7_lineage_ast_identical_except_registered_raw_log_ranges": true,
+  "registered_recoveries": {
+    "sft": {
+      "original_run": "v7-sft-01",
+      "cut": 192,
+      "discarded_through": 207,
+      "state_sha256": "9c18597d0186c5d95ee0d760297e7a55d165a99d5e31418a247fea94ab30bd9f"
+    },
+    "ul": {
+      "original_run": "v7-ul-01",
+      "cut": 32,
+      "discarded_through": 47,
+      "state_sha256": "7d1fa2a8c269d3892b6076ad973a9e93a009e13d11456b9d45215b8b831e897b"
+    }
+  },
+  "checked_new_recovery_invariants": {
+    "ul_prefix_steps": [
+      1,
+      32
+    ],
+    "ul_resumed_suffix_steps": [
+      33,
+      345
+    ],
+    "preserved_discarded_old_suffix": [
+      33,
+      47
+    ],
+    "all15_replayed_nonelapsed_records_checked_exact": true,
+    "saved_checkpoint_rng_optimizer_adapter_config_source_five_file_inventory_bound": true,
+    "recovered_cutoff_and_microbatch_are_strict_ints": true,
+    "resume_optimizer_is_strict_json_bool": true,
+    "canonical_log_is_exact_original_prefix_plus_current_suffix": true,
+    "logical345_steps689_microbatches_and64_event_total_counted_once": true,
+    "eta0_vs_eta1_and_finite_ce_ul_step_math_retained": true,
+    "fp32_objective_relative_tolerance": 2e-05,
+    "fp32_objective_absolute_tolerance": 2e-07,
+    "source_validated_mapping_is_not_mislabeled_direct_per_id_training_log": true,
+    "actual_durable_rng_step": 336,
+    "final345_rng_serialization_claimed": false
+  },
+  "unchanged_export_deployment_scope": {
+    "same184_f32_custom_peft_gguf_names_shapes_dtype_values_route": true,
+    "same_original_iq4_base82ab_and_v6_parent157af": true,
+    "same_internal_alpha_rank2_external_scale1_no_merge_requantization": true,
+    "same_probe9295_managed_receipt7ed1_and_exact6_dll_paths": true,
+    "same_retired_def0_hash_before_parse_and_exact500_ordered_ids_all_outcomes": true,
+    "same_post_source_model_adapter_deployment_checks": true,
+    "same_create_only_outputs_and_explicit_handoff_after500": true,
+    "automatic_broad546_hard80_ul_training_or_fresh2_spawn_added": false
+  },
+  "independent_guard_tests": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-native-export-preparation/independent-guard-tests-20261104T022113Z.json",
+    "bytes": 783,
+    "sha256": "8ec7d932307253cc877273f5f2623606d9b396484f0f3560b40e3346f5d9679d"
+  },
+  "synthetic_tests_passed": 13,
+  "synthetic_tests_failed": 0,
+  "torch_loaded": false,
+  "real_artifact_bytes_or_dataset_verified": false,
+  "no_model_quality_windows_or_whole_app_claim": true,
+  "remaining_scoped_blockers": []
+}
