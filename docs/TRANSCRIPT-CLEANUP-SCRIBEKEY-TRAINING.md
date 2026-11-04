@@ -1,5 +1,10 @@
 # ScribeKey training — active research checkpoint
 
+Training is stopped at the user's request. The V8/V9 50/50 blend is selected for
+an isolated development preview; neither proposed V11 training arm was started.
+See [the development testing instructions](SCRIBEKEY-DEV.md). The research results
+below remain preserved, including the failed independent accuracy test.
+
 The user authorized targeted training with ScribeKey as the base and raised
 acceptance to **99%: at least 495 of 500 complete outputs must preserve meaning
 and be directly usable cleaned text**. The full-app limits remain 747,500,000

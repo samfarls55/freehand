@@ -1,0 +1,43 @@
+name: ScribeKey development preview
+on:
+  push:
+    branches: [codex/scribekey-blend-dev]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: scribekey-dev-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    if: github.ref == 'refs/heads/codex/scribekey-blend-dev'
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Verify selected assets and profile
+        shell: pwsh
+        run: ./tests/Freehand.Scripts.Tests/Verify-ScribeKeyDev.ps1
+      - name: Strict build and regression tests
+        shell: pwsh
+        run: ./scripts/verify.ps1 -Dotnet (Get-Command dotnet).Source
+      - name: Publish and test the actual bundled worker
+        shell: pwsh
+        run: ./scripts/dev-scribekey.ps1 -Dotnet (Get-Command dotnet).Source -BuildOnly -OutputDirectory ./artifacts/scribekey-preview
+      - name: Upload portable development preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: Freehand-ScribeKey-Dev-win-x64
+          path: |
+            artifacts/scribekey-preview/app/**
+            artifacts/scribekey-preview/Start Freehand ScribeKey Dev.*
+            artifacts/scribekey-preview/README.md
+            artifacts/scribekey-preview/build-identity.json
+          compression-level: 1
+          if-no-files-found: error
+          retention-days: 30
