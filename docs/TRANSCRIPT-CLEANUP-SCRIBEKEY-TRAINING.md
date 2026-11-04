@@ -12,12 +12,12 @@ that consumed set; V6 scores **475/500 (95.0%)**, and the V7 supervised control
 scores **482/500 (96.4%)**. Its matched semantic-loss arm scores
 **483/500 (96.6%)**, expanded V8 reaches **492/500 (98.4%)** with one
 critical error, and V9 reaches **494/500 (98.8%)** with no critical errors.
-These development results remain below the gate. The new
-independent test remains unconsumed. V6 passes the measured Linux partial-pipeline
-resource limits; the V7/V8/V9 weights have not been remeasured. Windows qualification
-remains unavailable. Three fixed parent–child weight interpolations were tested
-and did not improve V8. A separate comparison now tests the same three fixed
-fractions between the completed V8 and V9 checkpoints.
+A subsequent 50/50 V8–V9 factor blend reaches **495/500 (99.0%)** on this retired
+development set, with all 500 faithful and no critical errors. The independent
+acceptance test remains unconsumed. The selected blend passes measured Linux
+partial-pipeline RAM at 695,144,448 bytes but narrowly misses latency at
+805.3532 ms against 805 ms; runtime optimizations are being tested. Windows
+qualification remains unavailable. No new default is qualified.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -483,9 +483,35 @@ and canonical review SHA-256
 
 A separate V8-to-V9 factor comparison fixes fractions 0.5, 0.75 and 0.875 before
 inference, using the same rank-8 representation and unchanged original helper
-guards. It is a development experiment, with cross terms explicitly disclosed;
-no improvement is assumed. V9 has no new resource result, and the independent
-acceptance corpus remains unopened.
+guards. All three adapters are exported and frozen before the first inference;
+all 1,500 development cases complete once without provider failures. Named
+semantic review scores the blends **495, 494 and 494 of 500** respectively,
+with **all 500 faithful and zero critical errors** in each run. The 50/50 blend
+is the unique highest-scoring candidate and fixes the malformed question that
+V9 introduced. Five cleanup failures remain in the denominator. This is factor
+interpolation with disclosed cross terms, not exact averaging of weight deltas
+or a new optimizer-trained checkpoint.
+
+The selected native adapter is
+`4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1`;
+its canonical development review is
+`e5ba522f3c0cad1548a3e529fe8c35d4f4713fe2e4405ebbc8898fed63f10b72`.
+The complete selection receipt is
+`cc71309432587593b53e24dc2092d4c54a4f7de7bc27b5f178b2e2fa9ef81ca8`.
+No independent final-test or population accuracy is claimed.
+
+Ten first-retained real-ASR/Core/cleanup trials preserve the complete public
+transcript and deliver once without fallback. At the original lookup16,
+batch64/micro32 profile, simultaneous RSS is **695,144,448 bytes**; complete
+delivery p50 is **654.37 ms**, and p95/maximum is **805.3532 ms**. The strict
+805 ms cap therefore fails by 0.3532 ms; the first trial is retained. No repeat
+or rounding is used to turn it into a pass. A separately frozen lookup31
+configuration is slower: p50 **736.02 ms**, p95/maximum **929.63 ms**, with two
+of ten over the limit and RSS **684,072,960 bytes**. Its text quality has not
+been independently requalified. The next configuration restores lookup16 and
+changes only micro-batch size to 64 to reduce prompt-processing passes. The same
+compiled source and immutable build are reused; no performance result is assumed.
+The acceptance corpus remains unopened pending both quality and resource gates.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe

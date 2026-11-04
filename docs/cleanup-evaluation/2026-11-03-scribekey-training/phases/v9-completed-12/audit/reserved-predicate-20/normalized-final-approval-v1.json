@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T04:38:46.291734+00:00",
+  "status": "ALL20_RAW_SEMANTIC_AND_ACTUAL_CORE_ALIGNMENT_APPROVED_RESERVED_NOT_TRAINED",
+  "raw_dataset": {
+    "path": "train-20-v1.jsonl",
+    "sha256": "112939ee9c522fca720652c489138d5cda24eeccec2c7b1ca8bd6028cc9f88bc"
+  },
+  "raw_semantic_rollup": {
+    "path": "independent-review-rollup-v1.json",
+    "sha256": "40aad999e47973581f315dff2f198d9d653edd4b9d77b3aca6f3d0cffdca2d0f",
+    "reviewers": 2,
+    "approved": 20
+  },
+  "normalized_dataset": {
+    "path": "core-normalization-v1/train-20-core-normalized-v1.jsonl",
+    "sha256": "734af14303b01bd5d671e6050d47faa054484245b9eec1bc980fd8b37b88bde3"
+  },
+  "independent_normalized_approval": {
+    "path": "core-normalization-v1/independent-normalized-approval-v1.json",
+    "sha256": "6d7003f6a85b37ce0a35f8cb55af1247ebbb01b0fa36eb6daee4ea5b3d545591",
+    "decision": "PASS",
+    "rows": 20,
+    "fixtures": 40,
+    "text_deltas": 0,
+    "cleanup_pairs": 12,
+    "clean_controls": 8
+  },
+  "Core_execution": {
+    "Probe_sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66",
+    "execution_receipt_sha256": "b6c1b8a078371882ca64edded16be1662494153341356793301056b369111c48",
+    "explicit_CPU_release_receipt_sha256": "92d997bafbf1170c8f0916cb7a165cb8ca40b086da436c181fa3434decdd2d51",
+    "nice": 19,
+    "DOTNET_PROCESSOR_COUNT": 1,
+    "no_model_native_build_training": true
+  },
+  "disposition": "No changes to3394. Source appears only in the separate proposed3634 file with four disclosed exposures; no training activation or negative events.",
+  "history": "All raw/author/semantic reviews and prepared-only historical manifests remain unchanged."
+}

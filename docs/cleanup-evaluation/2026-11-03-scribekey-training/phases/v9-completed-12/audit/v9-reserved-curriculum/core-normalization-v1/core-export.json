@@ -1,0 +1,4180 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-input-target-160.json",
+  "corpus_sha256": "CE545D00CE2BE4FF50D75373060ABAF9885BA93AB2ADF2BB193ECBB117F30B8D",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "specialist_output_normalization": "trim-v1",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "6DE0AB21B514990A2834C8AF48636FEDA695C78B616267F70AB602A2E1324A66",
+    "Freehand.Core.dll": "45E705A6FFC4E4BF1895C7EDF2E5E1C0FAB0BC12D31285234A5997C4315F6995",
+    "Freehand.Cleanup.dll": "5E2A173E17E2A72BC9348FB7D661F22279A2A02D24324F62AE25B1DD669FEF81",
+    "Freehand.Dictionary.dll": "B1E19C7B0645B5894D74C0F0DAAEB7D84C6E0655B6D3B588B779B80E9D04E742",
+    "Freehand.Testing.dll": "73942F681F2D5517269BCB8F5B2365599DE0A60997E2F6D713612412D949E5C5",
+    "Freehand.Abstractions.dll": "3F9B1CEFBF7D8AB86ABFB33DF45A0F1605F71758136B34AF8930619E1D2D88C4"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-001/input",
+        "input": "Don\u0027t oil the felt pad. I mean, keep the spindle turning freely with the dry sleeve.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t oil the felt pad. I mean, keep the spindle turning freely with the dry sleeve.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c2d79edf6f6796cae5784a329190bc6f3ddefcf43fa3837cc90643f19e93d1e8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t oil the felt pad. I mean, keep the spindle turning freely with the dry sleeve.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-001/target",
+        "input": "Don\u0027t oil the felt pad. Keep the spindle turning freely with the dry sleeve.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t oil the felt pad. Keep the spindle turning freely with the dry sleeve.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c5a4acffaf3429e5b1caae65723801353013a3f16f0916d1ef02a2f1d592b943",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t oil the felt pad. Keep the spindle turning freely with the dry sleeve.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-002/input",
+        "input": "We must not move the archive chest, I mean, the walkway still needs to be cleared.",
+        "split": "development"
+      },
+      "normalized_input": "We must not move the archive chest, I mean, the walkway still needs to be cleared.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "37cd311d0bb7f2534d2d579d8b65e708fcd2d5339e49279b0d147af9e26c0515",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe must not move the archive chest, I mean, the walkway still needs to be cleared.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-002/target",
+        "input": "We must not move the archive chest; the walkway still needs to be cleared.",
+        "split": "development"
+      },
+      "normalized_input": "We must not move the archive chest; the walkway still needs to be cleared.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d1b694a0aee6878b9b7f523bc0569efbcdb33f58d007fe7e88f011152fadc4ba",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe must not move the archive chest; the walkway still needs to be cleared.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-003/input",
+        "input": "Do not invite the press. Actually, uh, send the schedule to the volunteers as well.",
+        "split": "development"
+      },
+      "normalized_input": "Do not invite the press. Actually, uh, send the schedule to the volunteers as well.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9facdd6b56cfd31bdeff489acaf5b9bdebdca002adb8115938a0ed010c6ea211",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not invite the press. Actually, uh, send the schedule to the volunteers as well.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-003/target",
+        "input": "Do not invite the press. Actually, send the schedule to the volunteers as well.",
+        "split": "development"
+      },
+      "normalized_input": "Do not invite the press. Actually, send the schedule to the volunteers as well.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c67b6df7de12a7371bbca25212f0f672b2978ee389e60f3def1ab4e085974d7e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not invite the press. Actually, send the schedule to the volunteers as well.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-004/input",
+        "input": "I don\u0027t want the walnut stain, I mean, I want the grain to remain visible.",
+        "split": "development"
+      },
+      "normalized_input": "I don\u0027t want the walnut stain, I mean, I want the grain to remain visible.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0225efaa2c57b039eeea826a6822bcfaeb00ad9703d72806822a9ccbe345a2bb",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI don\u0027t want the walnut stain, I mean, I want the grain to remain visible.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-004/target",
+        "input": "I don\u0027t want the walnut stain; I want the grain to remain visible.",
+        "split": "development"
+      },
+      "normalized_input": "I don\u0027t want the walnut stain; I want the grain to remain visible.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "4518e26724d6579814ae1d71915ded7b662fd84d76aeea26fb8d90bf3726984c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI don\u0027t want the walnut stain; I want the grain to remain visible.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-005/input",
+        "input": "Don\u0027t lock the side window. I mean, give the seedlings some air.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t lock the side window. I mean, give the seedlings some air.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d4db4a46c46dc400a337bbeabe43c72566fd78271baf2f3f73d494d8cd9941fe",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t lock the side window. I mean, give the seedlings some air.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-005/target",
+        "input": "Don\u0027t lock the side window. Give the seedlings some air.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t lock the side window. Give the seedlings some air.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "2f85407531b954b1c4498aed4338f59e3bb710795f8ac0e84cb4262337e2190d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t lock the side window. Give the seedlings some air.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-006/input",
+        "input": "The map must not show private wells. Actually, it, it should show the public pumps clearly.",
+        "split": "development"
+      },
+      "normalized_input": "The map must not show private wells. Actually, it, it should show the public pumps clearly.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "50a919ff1f013eabfc640b581f953d4148ff1fc9158acf676a0a3f008600f5b3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe map must not show private wells. Actually, it, it should show the public pumps clearly.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-006/target",
+        "input": "The map must not show private wells. Actually, it should show the public pumps clearly.",
+        "split": "development"
+      },
+      "normalized_input": "The map must not show private wells. Actually, it should show the public pumps clearly.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9efeeff565192c1a10cbb8e6c495a94996e2f8fa44b9c7512b67a86fb31c565d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe map must not show private wells. Actually, it should show the public pumps clearly.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-007/input",
+        "input": "Please don\u0027t shorten the reading. I mean, make the pauses easier to hear.",
+        "split": "development"
+      },
+      "normalized_input": "Please don\u0027t shorten the reading. I mean, make the pauses easier to hear.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "8ffe4a59cac3137abedbdfe6204936ec3ab2d1fef949c881abd201d7887094e7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease don\u0027t shorten the reading. I mean, make the pauses easier to hear.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-007/target",
+        "input": "Please don\u0027t shorten the reading. Make the pauses easier to hear.",
+        "split": "development"
+      },
+      "normalized_input": "Please don\u0027t shorten the reading. Make the pauses easier to hear.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a716884670e041f3c2cf0d444aed148dbce6f3e4e40028190765ddc19471b36c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease don\u0027t shorten the reading. Make the pauses easier to hear.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-008/input",
+        "input": "I\u0027m not asking for a refund. Actually, I, I need an itemised receipt.",
+        "split": "development"
+      },
+      "normalized_input": "I\u0027m not asking for a refund. Actually, I, I need an itemised receipt.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "602c236bf2d780a29f7cc99836bbe8cb042e33139a0b3deedbd26fcda8bfd635",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI\u0027m not asking for a refund. Actually, I, I need an itemised receipt.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-008/target",
+        "input": "I\u0027m not asking for a refund. Actually, I need an itemised receipt.",
+        "split": "development"
+      },
+      "normalized_input": "I\u0027m not asking for a refund. Actually, I need an itemised receipt.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "effb432139949a932c1eb289c9dff3a25085ed9f80217c21bbcf28cec948f04b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI\u0027m not asking for a refund. Actually, I need an itemised receipt.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-009/input",
+        "input": "Do not switch off the cooling fan. I mean, reduce the glare from the inspection lamp.",
+        "split": "development"
+      },
+      "normalized_input": "Do not switch off the cooling fan. I mean, reduce the glare from the inspection lamp.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e8dd6a8aa38e93d4a18ee0d80f86e0755cae7e80e77628feceb30fbed8279789",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not switch off the cooling fan. I mean, reduce the glare from the inspection lamp.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-009/target",
+        "input": "Do not switch off the cooling fan. Reduce the glare from the inspection lamp.",
+        "split": "development"
+      },
+      "normalized_input": "Do not switch off the cooling fan. Reduce the glare from the inspection lamp.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b03b799c890bc7780fe09b3ee84caa3b56ff4b4417f533f9533920691f9be542",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not switch off the cooling fan. Reduce the glare from the inspection lamp.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-010/input",
+        "input": "I wouldn\u0027t change the tuning, I mean, I\u0027d raise the music stand a little.",
+        "split": "development"
+      },
+      "normalized_input": "I wouldn\u0027t change the tuning, I mean, I\u0027d raise the music stand a little.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d32256736cb56a702f686ef43b56921d9610255ca4bea6da24992ca6721595c7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI wouldn\u0027t change the tuning, I mean, I\u0027d raise the music stand a little.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-010/target",
+        "input": "I wouldn\u0027t change the tuning; I\u0027d raise the music stand a little.",
+        "split": "development"
+      },
+      "normalized_input": "I wouldn\u0027t change the tuning; I\u0027d raise the music stand a little.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "53e2fafba755e57982544194997904e2f569c80110b54060e371b8c762694a53",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI wouldn\u0027t change the tuning; I\u0027d raise the music stand a little.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-011/input",
+        "input": "Don\u0027t replace the river names. Actually, uh, add the missing footbridge symbol.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t replace the river names. Actually, uh, add the missing footbridge symbol.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c89d216ffd14e7e7b675f903bcb4143c0d82ca512fcb1f7e322f97d759999304",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t replace the river names. Actually, uh, add the missing footbridge symbol.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-011/target",
+        "input": "Don\u0027t replace the river names. Actually, add the missing footbridge symbol.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t replace the river names. Actually, add the missing footbridge symbol.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "11eb2bf71aa7525b3a2b6fc174068e0b12997593e7cbdcc9e2f4a47eb9e831d6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t replace the river names. Actually, add the missing footbridge symbol.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-012/input",
+        "input": "We should not hurry the glaze firing, I mean, we should make the temperature log legible.",
+        "split": "development"
+      },
+      "normalized_input": "We should not hurry the glaze firing, I mean, we should make the temperature log legible.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e0af4f82aa5ea65273ecae4b4a784751af940cb05a6b809a6703bc660bd17780",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe should not hurry the glaze firing, I mean, we should make the temperature log legible.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-012/target",
+        "input": "We should not hurry the glaze firing; we should make the temperature log legible.",
+        "split": "development"
+      },
+      "normalized_input": "We should not hurry the glaze firing; we should make the temperature log legible.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "834486c45f6cfb6bdd6cf9311c793199d206cd07fba66ab5521a9d91acc1f9f6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe should not hurry the glaze firing; we should make the temperature log legible.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-013/input",
+        "input": "Please don\u0027t put salt in the dough. I mean, place the salt bowl beside the serving board.",
+        "split": "development"
+      },
+      "normalized_input": "Please don\u0027t put salt in the dough. I mean, place the salt bowl beside the serving board.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ee1a42293c3bc5c74fd515f439aff281752847719c3b33debe2e5eb8a1ee5c5b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease don\u0027t put salt in the dough. I mean, place the salt bowl beside the serving board.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-013/target",
+        "input": "Please don\u0027t put salt in the dough. Place the salt bowl beside the serving board.",
+        "split": "development"
+      },
+      "normalized_input": "Please don\u0027t put salt in the dough. Place the salt bowl beside the serving board.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6958dd2002a6cdab2d304ad272e6ad0e789aad29cbb32cc33cb20ef7090664ef",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease don\u0027t put salt in the dough. Place the salt bowl beside the serving board.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-014/input",
+        "input": "I have not agreed to waive the fee. Actually, I, I can explain the fee to Laleh after lunch.",
+        "split": "development"
+      },
+      "normalized_input": "I have not agreed to waive the fee. Actually, I, I can explain the fee to Laleh after lunch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "63886e14ef26b0cc2e02746af673616bdd2617ce71ea565636df92ebb7332aa5",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI have not agreed to waive the fee. Actually, I, I can explain the fee to Laleh after lunch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-014/target",
+        "input": "I have not agreed to waive the fee. Actually, I can explain the fee to Laleh after lunch.",
+        "split": "development"
+      },
+      "normalized_input": "I have not agreed to waive the fee. Actually, I can explain the fee to Laleh after lunch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e8a4e8e6e8cc1914fecff1a45b6f8bb7c52ca0c54b9df6ad6ed8d419e3a7b73d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI have not agreed to waive the fee. Actually, I can explain the fee to Laleh after lunch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-015/input",
+        "input": "Don\u0027t varnish the cedar lid. No, reverse that instruction: varnish the cedar lid.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t varnish the cedar lid. No, reverse that instruction: varnish the cedar lid.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "79b48ee469ed3e1ce6c61a9361eb9dd042cf92beaee2dd379ed922db1790d79b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t varnish the cedar lid. No, reverse that instruction: varnish the cedar lid.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-015/target",
+        "input": "Varnish the cedar lid.",
+        "split": "development"
+      },
+      "normalized_input": "Varnish the cedar lid.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6389644147ced806cd0a07444aa3f6eed55572bbe141d6ff3b3038fb7c5c8173",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nVarnish the cedar lid.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-016/input",
+        "input": "Keep the shutter open. I mean, that was wrong: keep it closed.",
+        "split": "development"
+      },
+      "normalized_input": "Keep the shutter open. I mean, that was wrong: keep it closed.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "77e20e32ced3569b07349f1ed5cfaa278901b4f5c08b61138c4afd635529b1e3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep the shutter open. I mean, that was wrong: keep it closed.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-016/target",
+        "input": "Keep the shutter closed.",
+        "split": "development"
+      },
+      "normalized_input": "Keep the shutter closed.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "873ee6c5a3aa58442c38425d9538b9176c4c8d28ec7f597bbfbc0603519acba4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep the shutter closed.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-017/input",
+        "input": "Do not publish the herb list. Actually, cancel that restriction and publish the herb list.",
+        "split": "development"
+      },
+      "normalized_input": "Do not publish the herb list. Actually, cancel that restriction and publish the herb list.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c2d82bb5be5d66a01a3d5152ac3f5bea48f40476a470a8839f06b1d25cf925ea",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not publish the herb list. Actually, cancel that restriction and publish the herb list.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-017/target",
+        "input": "Publish the herb list.",
+        "split": "development"
+      },
+      "normalized_input": "Publish the herb list.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "16294bf4b7a4d97b8cb50cec0099d68d4ef2877ba9742c89b4a374a9bb4110e4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPublish the herb list.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-018/input",
+        "input": "Use the plastic scoop. No, I retract that choice; do not use the plastic scoop.",
+        "split": "development"
+      },
+      "normalized_input": "Use the plastic scoop. No, I retract that choice; do not use the plastic scoop.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "8e3e168319d0d0c0542e27bdc056d9d8eb92d36e134fd8a5b79dae636fb9ff55",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUse the plastic scoop. No, I retract that choice; do not use the plastic scoop.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-018/target",
+        "input": "Do not use the plastic scoop.",
+        "split": "development"
+      },
+      "normalized_input": "Do not use the plastic scoop.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "36beae09fe5cb8772e3bfb2789f0b0f972f644004b0f2f1cc39a54182bf71d2a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not use the plastic scoop.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-019/input",
+        "input": "Don\u0027t turn the room lights on. I mean, strike out that instruction: turn the room lights on.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t turn the room lights on. I mean, strike out that instruction: turn the room lights on.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "5a1a2c60acc2137f194ef77bd79d6464b84e8d490bfc335ecb8ad4f4790592ee",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t turn the room lights on. I mean, strike out that instruction: turn the room lights on.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-019/target",
+        "input": "Turn the room lights on.",
+        "split": "development"
+      },
+      "normalized_input": "Turn the room lights on.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "3315ccab065b59a18ecc13429714845e9774906e98fae9edcdfd1de57330276a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nTurn the room lights on.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-020/input",
+        "input": "Leave the sesame oil out. Actually, replace that instruction: add the sesame oil.",
+        "split": "development"
+      },
+      "normalized_input": "Leave the sesame oil out. Actually, replace that instruction: add the sesame oil.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "faef84f823a2f29ea657a58ac8bd0e204917d5cb8b56e5e8aea5eb37d4de80c9",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nLeave the sesame oil out. Actually, replace that instruction: add the sesame oil.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-020/target",
+        "input": "Add the sesame oil.",
+        "split": "development"
+      },
+      "normalized_input": "Add the sesame oil.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0e74f0b9eb38d1df973d183852f631c12b603a98b1505d5330cbed1e8ebefbf1",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAdd the sesame oil.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-021/input",
+        "input": "Do not paint over the hinge marks; make the surrounding frame neater.",
+        "split": "development"
+      },
+      "normalized_input": "Do not paint over the hinge marks; make the surrounding frame neater.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0bd4b5200fafb8ddc1df83f6e41d3e3b4c7b881949169bf180fe4532a36f643e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not paint over the hinge marks; make the surrounding frame neater.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-021/target",
+        "input": "Do not paint over the hinge marks; make the surrounding frame neater.",
+        "split": "development"
+      },
+      "normalized_input": "Do not paint over the hinge marks; make the surrounding frame neater.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0bd4b5200fafb8ddc1df83f6e41d3e3b4c7b881949169bf180fe4532a36f643e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not paint over the hinge marks; make the surrounding frame neater.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-022/input",
+        "input": "I don\u0027t need a larger basket. I need a softer lining in this one.",
+        "split": "development"
+      },
+      "normalized_input": "I don\u0027t need a larger basket. I need a softer lining in this one.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0066a25519989aa5992fe9bdff65a2bb8e914ed7f159c446526b9250d0a852f4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI don\u0027t need a larger basket. I need a softer lining in this one.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-022/target",
+        "input": "I don\u0027t need a larger basket. I need a softer lining in this one.",
+        "split": "development"
+      },
+      "normalized_input": "I don\u0027t need a larger basket. I need a softer lining in this one.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0066a25519989aa5992fe9bdff65a2bb8e914ed7f159c446526b9250d0a852f4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI don\u0027t need a larger basket. I need a softer lining in this one.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-023/input",
+        "input": "Please don\u0027t return the atlas. Add a note showing which pages are torn.",
+        "split": "development"
+      },
+      "normalized_input": "Please don\u0027t return the atlas. Add a note showing which pages are torn.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ee0ce40504fe6c426dc49983059a844d12fcc4370ff38e6b4fd08e3c8a3a8154",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease don\u0027t return the atlas. Add a note showing which pages are torn.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-023/target",
+        "input": "Please don\u0027t return the atlas. Add a note showing which pages are torn.",
+        "split": "development"
+      },
+      "normalized_input": "Please don\u0027t return the atlas. Add a note showing which pages are torn.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ee0ce40504fe6c426dc49983059a844d12fcc4370ff38e6b4fd08e3c8a3a8154",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease don\u0027t return the atlas. Add a note showing which pages are torn.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-024/input",
+        "input": "We must not promise overnight delivery; we can offer collection before noon.",
+        "split": "development"
+      },
+      "normalized_input": "We must not promise overnight delivery; we can offer collection before noon.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b2195f822522bfb1dca7b608fb3d48303870d9dd6bbfe4e9722feb721c099f14",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe must not promise overnight delivery; we can offer collection before noon.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-024/target",
+        "input": "We must not promise overnight delivery; we can offer collection before noon.",
+        "split": "development"
+      },
+      "normalized_input": "We must not promise overnight delivery; we can offer collection before noon.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b2195f822522bfb1dca7b608fb3d48303870d9dd6bbfe4e9722feb721c099f14",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe must not promise overnight delivery; we can offer collection before noon.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-025/input",
+        "input": "Don\u0027t lend the silver tongs. I mean the silver pair, because the wooden pair is available.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t lend the silver tongs. I mean the silver pair, because the wooden pair is available.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7622587d083335c0c8829a430802c26e20cbf5f826df81950f12d5672e6aa05e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t lend the silver tongs. I mean the silver pair, because the wooden pair is available.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-025/target",
+        "input": "Don\u0027t lend the silver tongs. I mean the silver pair, because the wooden pair is available.",
+        "split": "development"
+      },
+      "normalized_input": "Don\u0027t lend the silver tongs. I mean the silver pair, because the wooden pair is available.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7622587d083335c0c8829a430802c26e20cbf5f826df81950f12d5672e6aa05e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDon\u0027t lend the silver tongs. I mean the silver pair, because the wooden pair is available.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-026/input",
+        "input": "I don\u0027t want the transparent cover. What I mean is that the page should be easy to read.",
+        "split": "development"
+      },
+      "normalized_input": "I don\u0027t want the transparent cover. What I mean is that the page should be easy to read.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "851ba2ec8a8b10583e27f74878f30c8ef9827afd76c4fc23f4a76e40b7a15812",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI don\u0027t want the transparent cover. What I mean is that the page should be easy to read.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-026/target",
+        "input": "I don\u0027t want the transparent cover. What I mean is that the page should be easy to read.",
+        "split": "development"
+      },
+      "normalized_input": "I don\u0027t want the transparent cover. What I mean is that the page should be easy to read.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "851ba2ec8a8b10583e27f74878f30c8ef9827afd76c4fc23f4a76e40b7a15812",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI don\u0027t want the transparent cover. What I mean is that the page should be easy to read.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-027/input",
+        "input": "The sign must not mention the landlord; it should give the caretaker\u0027s number.",
+        "split": "development"
+      },
+      "normalized_input": "The sign must not mention the landlord; it should give the caretaker\u0027s number.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d6aeda509096ec10c3bec9b2bcbc1d2a82e2b8ff44a714c5b66dcf7d840f041e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe sign must not mention the landlord; it should give the caretaker\u0027s number.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-027/target",
+        "input": "The sign must not mention the landlord; it should give the caretaker\u0027s number.",
+        "split": "development"
+      },
+      "normalized_input": "The sign must not mention the landlord; it should give the caretaker\u0027s number.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d6aeda509096ec10c3bec9b2bcbc1d2a82e2b8ff44a714c5b66dcf7d840f041e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe sign must not mention the landlord; it should give the caretaker\u0027s number.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-028/input",
+        "input": "I am not canceling the rehearsal. I am clarifying that only the final song needs a new tempo.",
+        "split": "development"
+      },
+      "normalized_input": "I am not canceling the rehearsal. I am clarifying that only the final song needs a new tempo.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "33033cd5833cfd3622eceb59764cbca8952c2911ea3d34c39ae9f00772a0e41c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI am not canceling the rehearsal. I am clarifying that only the final song needs a new tempo.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-028/target",
+        "input": "I am not canceling the rehearsal. I am clarifying that only the final song needs a new tempo.",
+        "split": "development"
+      },
+      "normalized_input": "I am not canceling the rehearsal. I am clarifying that only the final song needs a new tempo.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "33033cd5833cfd3622eceb59764cbca8952c2911ea3d34c39ae9f00772a0e41c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI am not canceling the rehearsal. I am clarifying that only the final song needs a new tempo.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-029/input",
+        "input": "Do not tighten the lower clamp. Actually, the upper clamp is the loose one.",
+        "split": "development"
+      },
+      "normalized_input": "Do not tighten the lower clamp. Actually, the upper clamp is the loose one.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e408d45d27654afbc004d2631bbc0fe79ea4ed7038c361751dab07bd1fb2bee4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not tighten the lower clamp. Actually, the upper clamp is the loose one.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-029/target",
+        "input": "Do not tighten the lower clamp. Actually, the upper clamp is the loose one.",
+        "split": "development"
+      },
+      "normalized_input": "Do not tighten the lower clamp. Actually, the upper clamp is the loose one.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e408d45d27654afbc004d2631bbc0fe79ea4ed7038c361751dab07bd1fb2bee4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not tighten the lower clamp. Actually, the upper clamp is the loose one.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-030/input",
+        "input": "I mean exactly this: do not discard the blue envelope, and file the loose receipt.",
+        "split": "development"
+      },
+      "normalized_input": "I mean exactly this: do not discard the blue envelope, and file the loose receipt.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "dde49d6ae1bb9fb38b15da71ecd077cca97dab4434eef0d09d455032cecd9ea7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI mean exactly this: do not discard the blue envelope, and file the loose receipt.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-030/target",
+        "input": "I mean exactly this: do not discard the blue envelope, and file the loose receipt.",
+        "split": "development"
+      },
+      "normalized_input": "I mean exactly this: do not discard the blue envelope, and file the loose receipt.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "dde49d6ae1bb9fb38b15da71ecd077cca97dab4434eef0d09d455032cecd9ea7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI mean exactly this: do not discard the blue envelope, and file the loose receipt.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-031/input",
+        "input": "I, I left \u0022Luma-08\u0022 on the tag. the parcel is still on the bench.",
+        "split": "development"
+      },
+      "normalized_input": "I, I left \u0022Luma-08\u0022 on the tag. the parcel is still on the bench.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "1d24e1ff9eb5cf7c549c651b53bf11e052231e662227cb3d827c8a16e75ad8ca",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI, I left FHX_bf9a47c8 on the tag. the parcel is still on the bench.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-031/target",
+        "input": "I left \u0022Luma-08\u0022 on the tag. The parcel is still on the bench.",
+        "split": "development"
+      },
+      "normalized_input": "I left \u0022Luma-08\u0022 on the tag. The parcel is still on the bench.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "408173c45808088f2f5cd0f59f85ad6f8c8f8bdf48072ea7ca8f9cd124c9e326",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI left FHX_bf9a47c8 on the tag. The parcel is still on the bench.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-032/input",
+        "input": "We, we were told \u0022send nothing\u0022 by Oren. That is a quotation, not an instruction.",
+        "split": "development"
+      },
+      "normalized_input": "We, we were told \u0022send nothing\u0022 by Oren. That is a quotation, not an instruction.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "3d7158825582c4e73b1d52f7fa651453f1664b759e8cb0e3a01c8a5c36e961ec",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe, we were told FHX_971f9729 by Oren. That is a quotation, not an instruction.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-032/target",
+        "input": "We were told \u0022send nothing\u0022 by Oren. That is a quotation, not an instruction.",
+        "split": "development"
+      },
+      "normalized_input": "We were told \u0022send nothing\u0022 by Oren. That is a quotation, not an instruction.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c4f64f4d19dce51a4301082f5c0bdb46f6a3de05f6b0a781a70da3b21ae3b477",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe were told FHX_971f9729 by Oren. That is a quotation, not an instruction.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-033/input",
+        "input": "\u0022hold the south gate,\u0022 she, she said, \u0022until the bell.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022hold the south gate,\u0022 she, she said, \u0022until the bell.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e09b2e72f80c799083508c4a896229dc78052ce7ed054f06fa420146f6dbce53",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_d221b023 she, she said, FHX_d9c4f2bd\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-033/target",
+        "input": "\u0022hold the south gate,\u0022 she said, \u0022until the bell.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022hold the south gate,\u0022 she said, \u0022until the bell.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "000a835df058164a679e2e4c042364110fd8d87131cd4b98c864ebd6bcee3234",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_d221b023 she said, FHX_d9c4f2bd\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-034/input",
+        "input": "\u0022No spare keys,\u0022 he, he wrote in the ledger.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022No spare keys,\u0022 he, he wrote in the ledger.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "89864adaa30c572869682cf3f26760261a3e44b1c363dacbd792aa8e6a34b1eb",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_32fb9689 he, he wrote in the ledger.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-034/target",
+        "input": "\u0022No spare keys,\u0022 he wrote in the ledger.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022No spare keys,\u0022 he wrote in the ledger.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "fc1635975ccd5de58fe6b9cd732c17d0a727202de482b068d35c67d1f0cb5fa8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_32fb9689 he wrote in the ledger.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-035/input",
+        "input": "I, I copied \u0022x\u003C=9\u0022 into the notebook. it is an example, not a limit for this batch.",
+        "split": "development"
+      },
+      "normalized_input": "I, I copied \u0022x\u003C=9\u0022 into the notebook. it is an example, not a limit for this batch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ae8bd6f68cdf8fb1c5b921329ef6975d52ac0aaf7ebe13caa2345f957a2856c4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI, I copied FHX_8707c193 into the notebook. it is an example, not a limit for this batch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-035/target",
+        "input": "I copied \u0022x\u003C=9\u0022 into the notebook. It is an example, not a limit for this batch.",
+        "split": "development"
+      },
+      "normalized_input": "I copied \u0022x\u003C=9\u0022 into the notebook. It is an example, not a limit for this batch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "dbc9367489dc5523888c944117aa53ab407b24942d99106964730a0ede50f2ef",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI copied FHX_8707c193 into the notebook. It is an example, not a limit for this batch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-036/input",
+        "input": "They, they printed \u0022do not fold\u0022 on the sleeve. she checked the spelling afterward.",
+        "split": "development"
+      },
+      "normalized_input": "They, they printed \u0022do not fold\u0022 on the sleeve. she checked the spelling afterward.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a6489cf4875bb19f8caf1e3a2908d84415aef822b9363f61ec5d8ace9a9c355c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey, they printed FHX_d789ad1b on the sleeve. she checked the spelling afterward.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-036/target",
+        "input": "They printed \u0022do not fold\u0022 on the sleeve. She checked the spelling afterward.",
+        "split": "development"
+      },
+      "normalized_input": "They printed \u0022do not fold\u0022 on the sleeve. She checked the spelling afterward.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "51d30d46e038116cd6d7354306291087cdfb8f648a5255a319db41a02bc48fc5",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey printed FHX_d789ad1b on the sleeve. She checked the spelling afterward.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-037/input",
+        "input": "\u0022turn once,\u0022 we, we said to the dancer, \u0022then stop.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022turn once,\u0022 we, we said to the dancer, \u0022then stop.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "3f5aba168c8bc604614f7659ea7f177a4dd0effde9269d952cffeeb9d93600a2",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_f7270290 we, we said to the dancer, FHX_c5f84573\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-037/target",
+        "input": "\u0022turn once,\u0022 we said to the dancer, \u0022then stop.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022turn once,\u0022 we said to the dancer, \u0022then stop.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "736fd391a6fc79a958b0c81cfba45eeb1a43a3d10ef5b3c2900b844a02e6874e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_f7270290 we said to the dancer, FHX_c5f84573\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-038/input",
+        "input": "You, you should store \u0022quiet-mode\u0022 exactly as typed. the dash matters.",
+        "split": "development"
+      },
+      "normalized_input": "You, you should store \u0022quiet-mode\u0022 exactly as typed. the dash matters.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e35a90cf6c575c48b93c3ba91d8438dc8cc197d7c28b3f0d61d379f0e97458c0",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nYou, you should store FHX_253f9100 exactly as typed. the dash matters.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-038/target",
+        "input": "You should store \u0022quiet-mode\u0022 exactly as typed. The dash matters.",
+        "split": "development"
+      },
+      "normalized_input": "You should store \u0022quiet-mode\u0022 exactly as typed. The dash matters.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "58f59712c5d2fb24bf71467db23948d77f2b352d78c493cc84e9e4c495ac379c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nYou should store FHX_253f9100 exactly as typed. The dash matters.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-039/input",
+        "input": "\u0022green, green,\u0022 I, I read aloud. both colour words belong to the sample.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022green, green,\u0022 I, I read aloud. both colour words belong to the sample.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "36eff601b4e6d07779e060a40a37f6b13c4b051142262334f8ac944eb54bb5e3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_2a23fcab I, I read aloud. both colour words belong to the sample.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-039/target",
+        "input": "\u0022green, green,\u0022 I read aloud. Both colour words belong to the sample.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022green, green,\u0022 I read aloud. Both colour words belong to the sample.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0d772591e04eb71bea48f22af3536367a84fdbb3e3956ab6d277141d3c2fbc84",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_2a23fcab I read aloud. Both colour words belong to the sample.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-040/input",
+        "input": "She, she labelled the left tray \u0022A/a\u0022 and kept the right tray blank.",
+        "split": "development"
+      },
+      "normalized_input": "She, she labelled the left tray \u0022A/a\u0022 and kept the right tray blank.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7a312ee78490f07bc7979bad96fee39f97aaabf220b26a9d13ece53abfc0e7f9",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nShe, she labelled the left tray FHX_a7dd31d1 and kept the right tray blank.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-040/target",
+        "input": "She labelled the left tray \u0022A/a\u0022 and kept the right tray blank.",
+        "split": "development"
+      },
+      "normalized_input": "She labelled the left tray \u0022A/a\u0022 and kept the right tray blank.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "551dfdb9c912d388762833ba2c76b455f8706b70a2a5a01dd4e71971bde50648",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nShe labelled the left tray FHX_a7dd31d1 and kept the right tray blank.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-041/input",
+        "input": "\u0022north / east,\u0022 they, they answered when asked for the wording.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022north / east,\u0022 they, they answered when asked for the wording.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b2a32eb8dd9968d4907ea9b6886e6e3f4fe0d70d988de3bd9da0fb0d6f2289aa",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_8f91a36f they, they answered when asked for the wording.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-041/target",
+        "input": "\u0022north / east,\u0022 they answered when asked for the wording.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022north / east,\u0022 they answered when asked for the wording.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a426c56e511edafe455959cdb66d25a820013872b5d8d2d9be738dfdb3705f1d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_8f91a36f they answered when asked for the wording.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-042/input",
+        "input": "We, um, we received \u0022RE: kiln\u0022 from Suri before the workshop opened.",
+        "split": "development"
+      },
+      "normalized_input": "We, um, we received \u0022RE: kiln\u0022 from Suri before the workshop opened.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c0d2a4b66d75e68b36b355f1e2f305d873b52579883bc3f76ef73997b9a3d023",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe, um, we received FHX_fe3ca90b from Suri before the workshop opened.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-042/target",
+        "input": "We received \u0022RE: kiln\u0022 from Suri before the workshop opened.",
+        "split": "development"
+      },
+      "normalized_input": "We received \u0022RE: kiln\u0022 from Suri before the workshop opened.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "39bdbcedeb1ecb77668e66455d1ed3b927dc24d7e6bbaa4941775f8f33211770",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe received FHX_fe3ca90b from Suri before the workshop opened.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-043/input",
+        "input": "He, he asked me to copy \u0022zero, not O\u0022 into the form. i have not sent it yet.",
+        "split": "development"
+      },
+      "normalized_input": "He, he asked me to copy \u0022zero, not O\u0022 into the form. i have not sent it yet.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d324cadfe55c3e5b7fbd126d49b16ea0ac47ae5ba14c30ed206f4059c916bdc1",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHe, he asked me to copy FHX_672231e4 into the form. i have not sent it yet.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-043/target",
+        "input": "He asked me to copy \u0022zero, not O\u0022 into the form. I have not sent it yet.",
+        "split": "development"
+      },
+      "normalized_input": "He asked me to copy \u0022zero, not O\u0022 into the form. I have not sent it yet.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d8565338ae92410ca30dc6cd03bffcc5a178e8351eb05e40dc6ad76e0252822b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHe asked me to copy FHX_672231e4 into the form. I have not sent it yet.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-044/input",
+        "input": "\u0022wait here,\u0022 you, you told Enzo, \u0022beside the ferry ramp.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022wait here,\u0022 you, you told Enzo, \u0022beside the ferry ramp.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ba8a6e70aac00092373b1a0faf0a550d11a908c6cce0b6315fa0bfd54ec73663",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_1479af1c you, you told Enzo, FHX_12404f3a\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-044/target",
+        "input": "\u0022wait here,\u0022 you told Enzo, \u0022beside the ferry ramp.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022wait here,\u0022 you told Enzo, \u0022beside the ferry ramp.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6a54c010b3dae738916c1da08ebd716181e18d176161d81a43bac0dd2a64dcab",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_1479af1c you told Enzo, FHX_12404f3a\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-045/input",
+        "input": "I, I kept \u0022cobalt_3\u0022 beneath \u0022Batch\u0022 because both lines are part of the label.",
+        "split": "development"
+      },
+      "normalized_input": "I, I kept \u0022cobalt_3\u0022 beneath \u0022Batch\u0022 because both lines are part of the label.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "3d77fd46e2cef74d9cde59dd2809e078b957f0db466732272437bacdb5d6f215",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI, I kept FHX_077af386 beneath FHX_7781637d because both lines are part of the label.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-045/target",
+        "input": "I kept \u0022cobalt_3\u0022 beneath \u0022Batch\u0022 because both lines are part of the label.",
+        "split": "development"
+      },
+      "normalized_input": "I kept \u0022cobalt_3\u0022 beneath \u0022Batch\u0022 because both lines are part of the label.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9f6619940e4893c797ede926cb243b6a6c45fbce2e4edd765899a4fc94d1736c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI kept FHX_077af386 beneath FHX_7781637d because both lines are part of the label.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-046/input",
+        "input": "They, they said \u0022not canceled\u0022 was the label, not a new request.",
+        "split": "development"
+      },
+      "normalized_input": "They, they said \u0022not canceled\u0022 was the label, not a new request.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "31a7c54d7ddca1bb8d55b03d8b1b8b5a545c0c5dd3a7a840101a145756932022",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey, they said FHX_56900c98 was the label, not a new request.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-046/target",
+        "input": "They said \u0022not canceled\u0022 was the label, not a new request.",
+        "split": "development"
+      },
+      "normalized_input": "They said \u0022not canceled\u0022 was the label, not a new request.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "039c8229a11135b7571de8cf220846a512a31a2639659365d06d90e82f7b39fe",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey said FHX_56900c98 was the label, not a new request.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-047/input",
+        "input": "We, we recorded \u0022II-B\u0022 as the cabinet code, and the porter read it back.",
+        "split": "development"
+      },
+      "normalized_input": "We, we recorded \u0022II-B\u0022 as the cabinet code, and the porter read it back.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "624b7ea7b948fbdf3b10a95eafa2dd9d1f92d44e9bff809dab3f5d5e02a67814",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe, we recorded FHX_daeb0825 as the cabinet code, and the porter read it back.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-047/target",
+        "input": "We recorded \u0022II-B\u0022 as the cabinet code, and the porter read it back.",
+        "split": "development"
+      },
+      "normalized_input": "We recorded \u0022II-B\u0022 as the cabinet code, and the porter read it back.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f752461dba89467dd523cab13d0105559519e720512d7d2ba53129b1b168fc1e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe recorded FHX_daeb0825 as the cabinet code, and the porter read it back.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-048/input",
+        "input": "\u0022return to start,\u0022 she, she wrote beneath \u0022Reset\u0022 on the card.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022return to start,\u0022 she, she wrote beneath \u0022Reset\u0022 on the card.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d5365c6c00d74735e7eec284b4edc40c03940af2a1ca46d9baee7259c43807ad",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_ca447deb she, she wrote beneath FHX_ad56100d on the card.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-048/target",
+        "input": "\u0022return to start,\u0022 she wrote beneath \u0022Reset\u0022 on the card.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022return to start,\u0022 she wrote beneath \u0022Reset\u0022 on the card.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a4e57d5cff54b5f9d27fd43f5016800891a85ffe16ee5dd83d30a82fda7affa9",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_ca447deb she wrote beneath FHX_ad56100d on the card.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-049/input",
+        "input": "I, I saw \u0022late?\u0022 on the tag. that mark was already there yesterday.",
+        "split": "development"
+      },
+      "normalized_input": "I, I saw \u0022late?\u0022 on the tag. that mark was already there yesterday.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f2bb9d80e02d6f3c74f65ef3394f1d2bffaee185c8caea1db12974cf1e469ba6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI, I saw FHX_da3755ce on the tag. that mark was already there yesterday.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-049/target",
+        "input": "I saw \u0022late?\u0022 on the tag. That mark was already there yesterday.",
+        "split": "development"
+      },
+      "normalized_input": "I saw \u0022late?\u0022 on the tag. That mark was already there yesterday.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "79553c2ddc5b852273cc5a25f9eb1624768cba21d507e62dfd546f24094029f8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI saw FHX_da3755ce on the tag. That mark was already there yesterday.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-050/input",
+        "input": "He, he kept \u0022we, we agree\u0022 intact because those are the witness\u0027s exact words.",
+        "split": "development"
+      },
+      "normalized_input": "He, he kept \u0022we, we agree\u0022 intact because those are the witness\u0027s exact words.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a76164968725a6238a9d31f004684b898db2b571eebc51a37b294a6b65c1d909",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHe, he kept FHX_99118610 intact because those are the witness\u0027s exact words.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-050/target",
+        "input": "He kept \u0022we, we agree\u0022 intact because those are the witness\u0027s exact words.",
+        "split": "development"
+      },
+      "normalized_input": "He kept \u0022we, we agree\u0022 intact because those are the witness\u0027s exact words.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "acd7903df24195ddd97a47b76447bf24b874c1a956a99b2c12d64644ee87592b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHe kept FHX_99118610 intact because those are the witness\u0027s exact words.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-051/input",
+        "input": "\u0022Leave it shut,\u0022 she said to Pavel, \u0022until dawn.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022Leave it shut,\u0022 she said to Pavel, \u0022until dawn.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6359ddc49bfe7415396febcf6e347b3885c6ebeb461d1853afb99d3ae31619bc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_8d312fcc she said to Pavel, FHX_d92c237b\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-051/target",
+        "input": "\u0022Leave it shut,\u0022 she said to Pavel, \u0022until dawn.\u0022",
+        "split": "development"
+      },
+      "normalized_input": "\u0022Leave it shut,\u0022 she said to Pavel, \u0022until dawn.\u0022",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6359ddc49bfe7415396febcf6e347b3885c6ebeb461d1853afb99d3ae31619bc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_8d312fcc she said to Pavel, FHX_d92c237b\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-052/input",
+        "input": "Niko wrote \u0022hold\u0022. The next line is blank, and he wants it left blank.",
+        "split": "development"
+      },
+      "normalized_input": "Niko wrote \u0022hold\u0022. The next line is blank, and he wants it left blank.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "416adad33ba803a0bc56548663a2b7287972e8121b1f925ddf17986e2b2ac99f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nNiko wrote FHX_9057d9d4. The next line is blank, and he wants it left blank.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-052/target",
+        "input": "Niko wrote \u0022hold\u0022. The next line is blank, and he wants it left blank.",
+        "split": "development"
+      },
+      "normalized_input": "Niko wrote \u0022hold\u0022. The next line is blank, and he wants it left blank.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "416adad33ba803a0bc56548663a2b7287972e8121b1f925ddf17986e2b2ac99f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nNiko wrote FHX_9057d9d4. The next line is blank, and he wants it left blank.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-053/input",
+        "input": "The stencil reads \u0022glaze B2\u0022. I will copy it exactly onto the small tile.",
+        "split": "development"
+      },
+      "normalized_input": "The stencil reads \u0022glaze B2\u0022. I will copy it exactly onto the small tile.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a0b8a0e139bc8d0687874b732ef3b3cc8b1ca6edf5d0b35991c744f894b7b121",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe stencil reads FHX_72368985. I will copy it exactly onto the small tile.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-053/target",
+        "input": "The stencil reads \u0022glaze B2\u0022. I will copy it exactly onto the small tile.",
+        "split": "development"
+      },
+      "normalized_input": "The stencil reads \u0022glaze B2\u0022. I will copy it exactly onto the small tile.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a0b8a0e139bc8d0687874b732ef3b3cc8b1ca6edf5d0b35991c744f894b7b121",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe stencil reads FHX_72368985. I will copy it exactly onto the small tile.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-054/input",
+        "input": "\u0022no, no,\u0022 they replied, and the clerk recorded both words.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022no, no,\u0022 they replied, and the clerk recorded both words.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "10eb5ec09edc55796212d28c90712c7c67d2a7c50beff57e961ffe377b3ff559",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_4b501b13 they replied, and the clerk recorded both words.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-054/target",
+        "input": "\u0022no, no,\u0022 they replied, and the clerk recorded both words.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022no, no,\u0022 they replied, and the clerk recorded both words.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "10eb5ec09edc55796212d28c90712c7c67d2a7c50beff57e961ffe377b3ff559",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_4b501b13 they replied, and the clerk recorded both words.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-055/input",
+        "input": "She called the button \u0022cancel\u0022. It is a label, not an instruction.",
+        "split": "development"
+      },
+      "normalized_input": "She called the button \u0022cancel\u0022. It is a label, not an instruction.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d6f32c3b228e5c1bcd3ac3eb1c44bd4fafee014bf4a86be68b3be9d368353bc3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nShe called the button FHX_8c79bce2. It is a label, not an instruction.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-055/target",
+        "input": "She called the button \u0022cancel\u0022. It is a label, not an instruction.",
+        "split": "development"
+      },
+      "normalized_input": "She called the button \u0022cancel\u0022. It is a label, not an instruction.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d6f32c3b228e5c1bcd3ac3eb1c44bd4fafee014bf4a86be68b3be9d368353bc3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nShe called the button FHX_8c79bce2. It is a label, not an instruction.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-056/input",
+        "input": "I wrote \u0022i\u0022 in the sample and \u0022I\u0022 in the key, so the cases differ.",
+        "split": "development"
+      },
+      "normalized_input": "I wrote \u0022i\u0022 in the sample and \u0022I\u0022 in the key, so the cases differ.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9c004e66abaf06f73852b7b4ef4f230ae56cb7d389dd841a393aa8e09d74149d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI wrote FHX_6dd64966 in the sample and FHX_7653879b in the key, so the cases differ.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-056/target",
+        "input": "I wrote \u0022i\u0022 in the sample and \u0022I\u0022 in the key, so the cases differ.",
+        "split": "development"
+      },
+      "normalized_input": "I wrote \u0022i\u0022 in the sample and \u0022I\u0022 in the key, so the cases differ.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9c004e66abaf06f73852b7b4ef4f230ae56cb7d389dd841a393aa8e09d74149d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI wrote FHX_6dd64966 in the sample and FHX_7653879b in the key, so the cases differ.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-057/input",
+        "input": "\u0022close the rear flap,\u0022 he said. Then he pointed to the sketch.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022close the rear flap,\u0022 he said. Then he pointed to the sketch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "5b9838ec296203d496728ad646ed0623a9a1f96d861b62af45d4842bce40988f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_162aa348 he said. Then he pointed to the sketch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-057/target",
+        "input": "\u0022close the rear flap,\u0022 he said. Then he pointed to the sketch.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022close the rear flap,\u0022 he said. Then he pointed to the sketch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "5b9838ec296203d496728ad646ed0623a9a1f96d861b62af45d4842bce40988f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_162aa348 he said. Then he pointed to the sketch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-058/input",
+        "input": "The header is \u0022draft / revised\u0022. Its spacing is intentional, including the gaps around the slash.",
+        "split": "development"
+      },
+      "normalized_input": "The header is \u0022draft / revised\u0022. Its spacing is intentional, including the gaps around the slash.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "05475cfde86594e7036263fb38cffa7d42a6bc5aa5a1e3fea70fd804583e87a5",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe header is FHX_db834e09. Its spacing is intentional, including the gaps around the slash.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-058/target",
+        "input": "The header is \u0022draft / revised\u0022. Its spacing is intentional, including the gaps around the slash.",
+        "split": "development"
+      },
+      "normalized_input": "The header is \u0022draft / revised\u0022. Its spacing is intentional, including the gaps around the slash.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "05475cfde86594e7036263fb38cffa7d42a6bc5aa5a1e3fea70fd804583e87a5",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe header is FHX_db834e09. Its spacing is intentional, including the gaps around the slash.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-059/input",
+        "input": "\u0022Mira-05\u0022 belongs on the tag; the parcel belongs to Arun.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022Mira-05\u0022 belongs on the tag; the parcel belongs to Arun.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9cc3b71035f5876f8a2f2278120ede37df9e601049b39c9a9c3154f121d61d65",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_a6a03cfd belongs on the tag; the parcel belongs to Arun.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-059/target",
+        "input": "\u0022Mira-05\u0022 belongs on the tag; the parcel belongs to Arun.",
+        "split": "development"
+      },
+      "normalized_input": "\u0022Mira-05\u0022 belongs on the tag; the parcel belongs to Arun.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "9cc3b71035f5876f8a2f2278120ede37df9e601049b39c9a9c3154f121d61d65",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFHX_a6a03cfd belongs on the tag; the parcel belongs to Arun.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-060/input",
+        "input": "Do not change \u0022can\u0027t\u0022 to \u0022cannot\u0022; the quotation must stay exact.",
+        "split": "development"
+      },
+      "normalized_input": "Do not change \u0022can\u0027t\u0022 to \u0022cannot\u0022; the quotation must stay exact.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "56e0f7edf9b8a46ddda465c6ef76bd973d0025e701b27e728b6e6d046d4816a8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not change FHX_6ea369ea to FHX_6009e7e1; the quotation must stay exact.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-060/target",
+        "input": "Do not change \u0022can\u0027t\u0022 to \u0022cannot\u0022; the quotation must stay exact.",
+        "split": "development"
+      },
+      "normalized_input": "Do not change \u0022can\u0027t\u0022 to \u0022cannot\u0022; the quotation must stay exact.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "56e0f7edf9b8a46ddda465c6ef76bd973d0025e701b27e728b6e6d046d4816a8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nDo not change FHX_6ea369ea to FHX_6009e7e1; the quotation must stay exact.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-061/input",
+        "input": "I, I asked for rough linen, rough linen rather than satin; I am stressing the fabric phrase.",
+        "split": "development"
+      },
+      "normalized_input": "I, I asked for rough linen, rough linen rather than satin; I am stressing the fabric phrase.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "067089a46e5710eca58762f93215b162bad81f453ea773d2224fe8506a84d64f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI, I asked for rough linen, rough linen rather than satin; I am stressing the fabric phrase.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-061/target",
+        "input": "I asked for rough linen, rough linen rather than satin; I am stressing the fabric phrase.",
+        "split": "development"
+      },
+      "normalized_input": "I asked for rough linen, rough linen rather than satin; I am stressing the fabric phrase.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "96bbcd4c85af12e433cfa20419040a79b9437d37b40318169a32bfabff9ab3c4",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI asked for rough linen, rough linen rather than satin; I am stressing the fabric phrase.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-062/input",
+        "input": "We, we need the east entrance, the east entrance and not the alley; the entrance phrase is deliberate.",
+        "split": "development"
+      },
+      "normalized_input": "We, we need the east entrance, the east entrance and not the alley; the entrance phrase is deliberate.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f168ff86edc1facc9f94e23a9f1d4c10f2010ea5c6de696fb7cb906be31a6f85",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe, we need the east entrance, the east entrance and not the alley; the entrance phrase is deliberate.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-062/target",
+        "input": "We need the east entrance, the east entrance and not the alley; the entrance phrase is deliberate.",
+        "split": "development"
+      },
+      "normalized_input": "We need the east entrance, the east entrance and not the alley; the entrance phrase is deliberate.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "245a73d91b305b1603e7081bf7a6ea74f19e954528dd3aead91bbfff2c3f272f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe need the east entrance, the east entrance and not the alley; the entrance phrase is deliberate.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-063/input",
+        "input": "She, she requested green beads, green beads instead of amber ones; she intentionally repeated the bead phrase.",
+        "split": "development"
+      },
+      "normalized_input": "She, she requested green beads, green beads instead of amber ones; she intentionally repeated the bead phrase.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f9a8cf738d4663eae760e98b2b8ccc86de3ab4deebbadaefe305264eeca4ad5e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nShe, she requested green beads, green beads instead of amber ones; she intentionally repeated the bead phrase.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-063/target",
+        "input": "She requested green beads, green beads instead of amber ones; she intentionally repeated the bead phrase.",
+        "split": "development"
+      },
+      "normalized_input": "She requested green beads, green beads instead of amber ones; she intentionally repeated the bead phrase.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "968fcc4f045edd3ab9821e5b3f81db9ec07630ffb90e27ae39c39aaad4512651",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nShe requested green beads, green beads instead of amber ones; she intentionally repeated the bead phrase.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-064/input",
+        "input": "They, they chose the upper shelf, the upper shelf rather than the cupboard; the shelf phrase is intentional.",
+        "split": "development"
+      },
+      "normalized_input": "They, they chose the upper shelf, the upper shelf rather than the cupboard; the shelf phrase is intentional.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ead7587dfe2c0f5101e6a421a3093a53f671b178ffe0b1c7f9a950365906fd93",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey, they chose the upper shelf, the upper shelf rather than the cupboard; the shelf phrase is intentional.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-064/target",
+        "input": "They chose the upper shelf, the upper shelf rather than the cupboard; the shelf phrase is intentional.",
+        "split": "development"
+      },
+      "normalized_input": "They chose the upper shelf, the upper shelf rather than the cupboard; the shelf phrase is intentional.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "801fb526819abee5a6df8dea1e8acfc092c2e16cd37dd55675b68f260bc9305b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey chose the upper shelf, the upper shelf rather than the cupboard; the shelf phrase is intentional.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-065/input",
+        "input": "I asked for a copper bowl, a copper bowl rather than a steel one.",
+        "split": "development"
+      },
+      "normalized_input": "I asked for a copper bowl, a copper bowl rather than a steel one.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "bb33a8210dcd7e3ed7889f7e8d503f317d7e9cd6628515b96ba9786f3871e456",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI asked for a copper bowl, a copper bowl rather than a steel one.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-065/target",
+        "input": "I asked for a copper bowl, a copper bowl rather than a steel one.",
+        "split": "development"
+      },
+      "normalized_input": "I asked for a copper bowl, a copper bowl rather than a steel one.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "bb33a8210dcd7e3ed7889f7e8d503f317d7e9cd6628515b96ba9786f3871e456",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI asked for a copper bowl, a copper bowl rather than a steel one.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-066/input",
+        "input": "Bring the narrow ladder, the narrow ladder, because the wide one will not fit.",
+        "split": "development"
+      },
+      "normalized_input": "Bring the narrow ladder, the narrow ladder, because the wide one will not fit.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6c8e2981cb08e4213482de919a8c0935ff30ae1c6760be0cd5b845eb655d96fc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nBring the narrow ladder, the narrow ladder, because the wide one will not fit.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-066/target",
+        "input": "Bring the narrow ladder, the narrow ladder, because the wide one will not fit.",
+        "split": "development"
+      },
+      "normalized_input": "Bring the narrow ladder, the narrow ladder, because the wide one will not fit.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6c8e2981cb08e4213482de919a8c0935ff30ae1c6760be0cd5b845eb655d96fc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nBring the narrow ladder, the narrow ladder, because the wide one will not fit.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-067/input",
+        "input": "For the display we need pale reeds, pale reeds, not painted rushes.",
+        "split": "development"
+      },
+      "normalized_input": "For the display we need pale reeds, pale reeds, not painted rushes.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7b4a6b27608f6904e223019c4bc0e205d499d2b9480881e2475cf130be6a88f3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFor the display we need pale reeds, pale reeds, not painted rushes.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-067/target",
+        "input": "For the display we need pale reeds, pale reeds, not painted rushes.",
+        "split": "development"
+      },
+      "normalized_input": "For the display we need pale reeds, pale reeds, not painted rushes.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7b4a6b27608f6904e223019c4bc0e205d499d2b9480881e2475cf130be6a88f3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nFor the display we need pale reeds, pale reeds, not painted rushes.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-068/input",
+        "input": "Please reserve the old ferry, the old ferry, rather than either new launch.",
+        "split": "development"
+      },
+      "normalized_input": "Please reserve the old ferry, the old ferry, rather than either new launch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0a75922500a5c480ae1a726f2bdc4930ba4f58ed8ede2fcbf394573897e7992e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease reserve the old ferry, the old ferry, rather than either new launch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-068/target",
+        "input": "Please reserve the old ferry, the old ferry, rather than either new launch.",
+        "split": "development"
+      },
+      "normalized_input": "Please reserve the old ferry, the old ferry, rather than either new launch.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0a75922500a5c480ae1a726f2bdc4930ba4f58ed8ede2fcbf394573897e7992e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease reserve the old ferry, the old ferry, rather than either new launch.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-069/input",
+        "input": "He said the outer rim, the outer rim, to emphasize which edge must stay clean.",
+        "split": "development"
+      },
+      "normalized_input": "He said the outer rim, the outer rim, to emphasize which edge must stay clean.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ce12022fd36647e096fab834167b31d0af6632afab9b92d2ce3b07c98f36d5aa",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHe said the outer rim, the outer rim, to emphasize which edge must stay clean.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-069/target",
+        "input": "He said the outer rim, the outer rim, to emphasize which edge must stay clean.",
+        "split": "development"
+      },
+      "normalized_input": "He said the outer rim, the outer rim, to emphasize which edge must stay clean.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ce12022fd36647e096fab834167b31d0af6632afab9b92d2ce3b07c98f36d5aa",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHe said the outer rim, the outer rim, to emphasize which edge must stay clean.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-070/input",
+        "input": "We want two long shelves, two long shelves, and no short shelves.",
+        "split": "development"
+      },
+      "normalized_input": "We want two long shelves, two long shelves, and no short shelves.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ef3aa76a8d663e838757bd8578912fcadc911a63e5059c875f4dbb05611df9fd",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe want two long shelves, two long shelves, and no short shelves.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-070/target",
+        "input": "We want two long shelves, two long shelves, and no short shelves.",
+        "split": "development"
+      },
+      "normalized_input": "We want two long shelves, two long shelves, and no short shelves.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ef3aa76a8d663e838757bd8578912fcadc911a63e5059c875f4dbb05611df9fd",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe want two long shelves, two long shelves, and no short shelves.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-071/input",
+        "input": "Use natural wool, natural wool, because synthetic fibre irritates the actor.",
+        "split": "development"
+      },
+      "normalized_input": "Use natural wool, natural wool, because synthetic fibre irritates the actor.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "8f197749c74a7f6444b1d240f2107d81b049838477176677a946513c28e84610",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUse natural wool, natural wool, because synthetic fibre irritates the actor.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-071/target",
+        "input": "Use natural wool, natural wool, because synthetic fibre irritates the actor.",
+        "split": "development"
+      },
+      "normalized_input": "Use natural wool, natural wool, because synthetic fibre irritates the actor.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "8f197749c74a7f6444b1d240f2107d81b049838477176677a946513c28e84610",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUse natural wool, natural wool, because synthetic fibre irritates the actor.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-072/input",
+        "input": "I am stressing the red folder, the red folder, because the pink one contains a different agreement.",
+        "split": "development"
+      },
+      "normalized_input": "I am stressing the red folder, the red folder, because the pink one contains a different agreement.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ee43ecb6c8b5b67142694dac034e42c23d02f9d2701f231c7ca2a5a0ed34f0a7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI am stressing the red folder, the red folder, because the pink one contains a different agreement.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-072/target",
+        "input": "I am stressing the red folder, the red folder, because the pink one contains a different agreement.",
+        "split": "development"
+      },
+      "normalized_input": "I am stressing the red folder, the red folder, because the pink one contains a different agreement.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ee43ecb6c8b5b67142694dac034e42c23d02f9d2701f231c7ca2a5a0ed34f0a7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI am stressing the red folder, the red folder, because the pink one contains a different agreement.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-073/input",
+        "input": "They asked for cold broth, cold broth rather than a warm sauce.",
+        "split": "development"
+      },
+      "normalized_input": "They asked for cold broth, cold broth rather than a warm sauce.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c7f1be38ba10db842d11860aa4001a06e9573ff21bba573065347053e5e6cd7e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey asked for cold broth, cold broth rather than a warm sauce.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-073/target",
+        "input": "They asked for cold broth, cold broth rather than a warm sauce.",
+        "split": "development"
+      },
+      "normalized_input": "They asked for cold broth, cold broth rather than a warm sauce.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c7f1be38ba10db842d11860aa4001a06e9573ff21bba573065347053e5e6cd7e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThey asked for cold broth, cold broth rather than a warm sauce.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-074/input",
+        "input": "A broad brush, a broad brush: that is the tool I mean.",
+        "split": "development"
+      },
+      "normalized_input": "A broad brush, a broad brush: that is the tool I mean.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "009aafd64e320b103ea54d70d76eb71a9b077a780f44b3a5f2f601fd88032d91",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nA broad brush, a broad brush: that is the tool I mean.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-074/target",
+        "input": "A broad brush, a broad brush: that is the tool I mean.",
+        "split": "development"
+      },
+      "normalized_input": "A broad brush, a broad brush: that is the tool I mean.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "009aafd64e320b103ea54d70d76eb71a9b077a780f44b3a5f2f601fd88032d91",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nA broad brush, a broad brush: that is the tool I mean.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-075/input",
+        "input": "Keep the small stone, the small stone, on the lower ledge; the large stone goes upstairs.",
+        "split": "development"
+      },
+      "normalized_input": "Keep the small stone, the small stone, on the lower ledge; the large stone goes upstairs.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0b50c20b01159bdea305029458368a1d04f02a67b99e5720c9c6c0a0bb98f064",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep the small stone, the small stone, on the lower ledge; the large stone goes upstairs.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-075/target",
+        "input": "Keep the small stone, the small stone, on the lower ledge; the large stone goes upstairs.",
+        "split": "development"
+      },
+      "normalized_input": "Keep the small stone, the small stone, on the lower ledge; the large stone goes upstairs.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "0b50c20b01159bdea305029458368a1d04f02a67b99e5720c9c6c0a0bb98f064",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nKeep the small stone, the small stone, on the lower ledge; the large stone goes upstairs.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-076/input",
+        "input": "Please note the east aisle, the east aisle, because the west aisle is closed.",
+        "split": "development"
+      },
+      "normalized_input": "Please note the east aisle, the east aisle, because the west aisle is closed.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "697a212eaa4c7e238c3615fcc5946b0dc694be57148c3e0490619f5625df7569",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease note the east aisle, the east aisle, because the west aisle is closed.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-076/target",
+        "input": "Please note the east aisle, the east aisle, because the west aisle is closed.",
+        "split": "development"
+      },
+      "normalized_input": "Please note the east aisle, the east aisle, because the west aisle is closed.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "697a212eaa4c7e238c3615fcc5946b0dc694be57148c3e0490619f5625df7569",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease note the east aisle, the east aisle, because the west aisle is closed.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-077/input",
+        "input": "I want the second verse, the second verse, repeated exactly once.",
+        "split": "development"
+      },
+      "normalized_input": "I want the second verse, the second verse, repeated exactly once.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "89c407ece2de4f1bfbfdb58d1595de4af56d3ca4803fbcc1c52c186286171fbb",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI want the second verse, the second verse, repeated exactly once.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-077/target",
+        "input": "I want the second verse, the second verse, repeated exactly once.",
+        "split": "development"
+      },
+      "normalized_input": "I want the second verse, the second verse, repeated exactly once.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "89c407ece2de4f1bfbfdb58d1595de4af56d3ca4803fbcc1c52c186286171fbb",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI want the second verse, the second verse, repeated exactly once.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-078/input",
+        "input": "The instruction is dry clay, dry clay, not wet clay; the repeated phrase is deliberate.",
+        "split": "development"
+      },
+      "normalized_input": "The instruction is dry clay, dry clay, not wet clay; the repeated phrase is deliberate.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "609a109706a76c727b474bcba1471b49daa9919aec3b08ded062c3020bec61df",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe instruction is dry clay, dry clay, not wet clay; the repeated phrase is deliberate.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-078/target",
+        "input": "The instruction is dry clay, dry clay, not wet clay; the repeated phrase is deliberate.",
+        "split": "development"
+      },
+      "normalized_input": "The instruction is dry clay, dry clay, not wet clay; the repeated phrase is deliberate.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "609a109706a76c727b474bcba1471b49daa9919aec3b08ded062c3020bec61df",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe instruction is dry clay, dry clay, not wet clay; the repeated phrase is deliberate.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-079/input",
+        "input": "A sealed jar, a sealed jar, is what the conservator requested rather than an open dish.",
+        "split": "development"
+      },
+      "normalized_input": "A sealed jar, a sealed jar, is what the conservator requested rather than an open dish.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c13c0ab866a22963627c810d309ab8efef231713d7454ae341116e1267b3e857",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nA sealed jar, a sealed jar, is what the conservator requested rather than an open dish.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-079/target",
+        "input": "A sealed jar, a sealed jar, is what the conservator requested rather than an open dish.",
+        "split": "development"
+      },
+      "normalized_input": "A sealed jar, a sealed jar, is what the conservator requested rather than an open dish.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c13c0ab866a22963627c810d309ab8efef231713d7454ae341116e1267b3e857",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nA sealed jar, a sealed jar, is what the conservator requested rather than an open dish.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-080/input",
+        "input": "We need the paper original, the paper original, because a screen image will not show the embossed seal.",
+        "split": "development"
+      },
+      "normalized_input": "We need the paper original, the paper original, because a screen image will not show the embossed seal.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "bdb0f1f1c9220feb13c9a91280292bbb8eb4deb2bd475d9a850facba22f36074",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe need the paper original, the paper original, because a screen image will not show the embossed seal.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-v9-reserved-080/target",
+        "input": "We need the paper original, the paper original, because a screen image will not show the embossed seal.",
+        "split": "development"
+      },
+      "normalized_input": "We need the paper original, the paper original, because a screen image will not show the embossed seal.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "bdb0f1f1c9220feb13c9a91280292bbb8eb4deb2bd475d9a850facba22f36074",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe need the paper original, the paper original, because a screen image will not show the embossed seal.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

@@ -1,0 +1,613 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "created_utc": "2026-11-04T03:31:20.764056+00:00",
+  "source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/part-02-quoted-followup-reporting-30-v1.jsonl",
+    "bytes": 29168,
+    "sha256": "051cfad6bf09b53719373fdf2487c8f65f4fbb92a26f4f8ed3dd0e46cf0f8a3c"
+  },
+  "decision": "APPROVE_ALL30_RESERVED_SYNTHETIC_PAIRS_ONLY",
+  "summary": {
+    "personally_read": 30,
+    "approved": 30,
+    "changes_requested": 0,
+    "edit_examples": 20,
+    "clean_controls": 10,
+    "quoted_payloads": 38,
+    "quoted_payload_exactness_and_order_passes": 30,
+    "faithful": 30,
+    "minimal_clean": 30,
+    "remaining_issues": 0
+  },
+  "criteria": "Minimal faithful cleanup, exact protected quote content once in source order, reporting-clause versus independent-sentence capitalization, all actors/negations/modality/referents/fact tails preserved; no hidden quoted-content inference.",
+  "cases": [
+    {
+      "position_one_based": 1,
+      "id": "scribe-v9-reserved-031",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "2113a815294d1ee7cfd57b83b024da0577bd98e53c120d70383e0d5e64b5d351",
+      "target_sha256": "34129c89f0be32cb78cee2992466f158d923e200924855038ca1bfccd32df8ec",
+      "notes_sha256": "2b5319a0b3e69cb57f0c2e0434498b51d742880e56f739f35878304eb8a9cce5",
+      "source_row_sha256": "dd2a0b1566fd93e72e4f576863b36b4ff2cae68e466852737773766a6cdbae6e",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"Luma-08\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only the accidental external I repetition and the independent parcel sentence initial change; tag ID and still/on-bench fact remain exact."
+    },
+    {
+      "position_one_based": 2,
+      "id": "scribe-v9-reserved-032",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "40c3a3f5bef5ec6d755f2e778af30b75b044ca8a63369be3d1ab478af805d665",
+      "target_sha256": "c016bd9c965c6d0becf14b09cb98692e83694f4b0b3dd06bd892c45d2094f15a",
+      "notes_sha256": "bde54cf19efefc83aa563e9055afcaa672004c2b9211cb8e612900d8d64220ec",
+      "source_row_sha256": "2be0cbefe991c2bbbcca6e82b5a17a1f05312283b895bb5d5c43e97839abb263",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"send nothing\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only the external We repetition is removed. Oren remains the source of the reported words and the explicit not-an-instruction explanation survives."
+    },
+    {
+      "position_one_based": 3,
+      "id": "scribe-v9-reserved-033",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "2fb93ec571abcf6f029d48b20387f6976291342ea00c8dc439e898c22acc61db",
+      "target_sha256": "a6c4ccf23f379861eb69df012e98b62c0f62b7d703ffc4d564684d7ad3e1b68d",
+      "notes_sha256": "02fae61956f4706703b1c46e3cc7926bb83241c39771bd01813cb6b7acd5dc3b",
+      "source_row_sha256": "4c284b66ac740e5826cf698d8d2b96a06c6bdf0aeec685a29495d816cb9dd06e",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"hold the south gate,\"",
+        "\"until the bell.\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Reporting-clause she remains lowercase; only its accidental repetition is removed. Both quoted gate/timing segments retain exact punctuation and order."
+    },
+    {
+      "position_one_based": 4,
+      "id": "scribe-v9-reserved-034",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "f0eb9634e3e55fa427ca8fded5f19917cbb0f23e20376d4eb227d89389255b03",
+      "target_sha256": "27e64c926c29c1791fa80732e603168940b75df32f740fd64e892490fd356091",
+      "notes_sha256": "4bc1749dc990c5456e376aa285f4430dbcdf3730eaa5a6b320176d421cffbd29",
+      "source_row_sha256": "281b2bd0aacafe46852bd04a2041796966e2976a82f20830acad507a3b18f4a3",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"No spare keys,\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "The ledger reporting frame and negative spare-key quote remain intact; lowercase he correctly continues the quotation sentence after only stutter removal."
+    },
+    {
+      "position_one_based": 5,
+      "id": "scribe-v9-reserved-035",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "e66283a62d5006bb3e88de23f99c42a260f09ef7fe67d640ba68e646263eb00a",
+      "target_sha256": "5189f6fbfb4b9c7327a8d14097eff402462753f7db1a7739dc40c4032161fb95",
+      "notes_sha256": "82f6d13bf188770ea879e86cacacbd560c06ec319c47c941973df6d061fbad5d",
+      "source_row_sha256": "3774ac5c3e07189f0d7c79243a3b82cbf1874c6c1cbb4a90ba13080428eb09c2",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"x<=9\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "The outer I stutter and separate It initial are the only edits. Exact comparison string and explicit example/not-this-batch-limit distinction survive."
+    },
+    {
+      "position_one_based": 6,
+      "id": "scribe-v9-reserved-036",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "4cfe9a505e1042c909bb5f274d4ae99e5e9157020952599dbb5233f59d94f293",
+      "target_sha256": "63d1c655ab8e4a1ad2100990632d8779cb2240efd8f745339cf137aa5f6c2d55",
+      "notes_sha256": "fb73d2ff79959069f33be57d1917daf4081c4ac9f99d57daf80e514028823afc",
+      "source_row_sha256": "2fbc5035d5b7d1fb84d9cb800a84d035785f78563fc3f11e93c0a5aa0120e981",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"do not fold\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only accidental They repetition and separate She initial change; quoted negative instruction remains speech content, and later spelling check is retained."
+    },
+    {
+      "position_one_based": 7,
+      "id": "scribe-v9-reserved-037",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "182af7412152273355c2bf123d8cee574a4056afb118ba5ac9934f8293ff9695",
+      "target_sha256": "f3a0599987b1975cdb8b9f5c74032fc8da26b7c6dd3347ae31a196866589d384",
+      "notes_sha256": "1caf7ca7fe4fb3ef2afae3d636d24acd0ecb92fe9ab9575fc8ce37730c5d0fb8",
+      "source_row_sha256": "1c7ad9f3ac02fb247d364ec88f36dbed901dda391d821a661147d9a87ebd789b",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"turn once,\"",
+        "\"then stop.\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only external reporting we stutter is removed. Dancer recipient, lowercase reporting subject, and both sequential quoted instructions stay unchanged."
+    },
+    {
+      "position_one_based": 8,
+      "id": "scribe-v9-reserved-038",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "cf29c08afd93d2ef873d00a31348c2f799ccce44fc13d58355fc611e930f5a03",
+      "target_sha256": "7a145fcd3b304c19d737a8db951c9521ec176107e9b2dc80331230697c2546a7",
+      "notes_sha256": "2cea85925586e0d237f63adaabe36260cab8c8e1e19540042eb225e691177d07",
+      "source_row_sha256": "b3eed154ad3d5e357316678439958eca8cfd86134da94a6a4bf94aa3e2906101",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"quiet-mode\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "You repetition and independent The initial are corrected; should modality, exact dashed label, and dash-importance explanation remain."
+    },
+    {
+      "position_one_based": 9,
+      "id": "scribe-v9-reserved-039",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "5c1b988873c78833cdea69324708deec432ab19106a24735a537c761bbb1a3bf",
+      "target_sha256": "f07a16f7fe43050814c34016ddeb62986fc6ff9d27bdca2b8c10472531d451a9",
+      "notes_sha256": "98234af424b91e57754bbac2a1780b590d3b6b78f7b9dac8fada1ffe112816ea",
+      "source_row_sha256": "b9db184fa0fbc073960c311291caf45d65b5ebe870da990ec09994b075e2b030",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"green, green,\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "The repeated green words are deliberate exact quoted content. Only outside I repetition and separate Both initial change; read-aloud act and both-word explanation survive."
+    },
+    {
+      "position_one_based": 10,
+      "id": "scribe-v9-reserved-040",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "24208d038f262412da1f1a7dd75381305b6806b93385656ce24541f6f7287d08",
+      "target_sha256": "729f97b512b2b30cde7707103aba1e8ee7dc3440dce9c2600b2122623d9718c6",
+      "notes_sha256": "163c9075ddeb59f6a019703fccc3703e8fac96c7da501d6b830c2799454cde3c",
+      "source_row_sha256": "8bac9549d47d68cd1c518271a5f25708c7bcdb1879fb8e313f125c040c74be36",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"A/a\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only external She repetition is removed. Case-sensitive A/a label, left-tray location, and right-tray blank state all survive."
+    },
+    {
+      "position_one_based": 11,
+      "id": "scribe-v9-reserved-041",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "0c3e1a1856a5cfdc812aa3295e2adad4575b4d1486f1d8e5a4f4818d8d60d3cc",
+      "target_sha256": "63aea3b7155e511261cf09fc7864ed9a5a2a0c0e5b0a02cbc64d01cf52cb897a",
+      "notes_sha256": "5ec92d94f9731ac9e82ff3e97189915dfd23bb90d940c3ae6a9961781be36ea6",
+      "source_row_sha256": "50e3bdc3c1b4af1382fe7b7b1be627145e9a7844934580da5035436e7effc6e9",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"north / east,\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only reporting they repetition is removed. Lowercase subject is grammatical, slash spacing is byte-exact, and asked-for-wording frame remains."
+    },
+    {
+      "position_one_based": 12,
+      "id": "scribe-v9-reserved-042",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "1196a21712af8b874464c57a9e0eaac857a850c902123688876f1848d09d2597",
+      "target_sha256": "881c23d63a00d239fbc29bfcaed1cb693847828aa652be0e92ce28216bd985bd",
+      "notes_sha256": "d410c8b75e85992d2478760062ab6f910e44d97d67c9c7c73c7dc1f60885bcae",
+      "source_row_sha256": "a59f8f54d09407eb6b06f5784f59bf2fd91581a456666e95abd21198050b95d5",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"RE: kiln\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Overt um and resumed outer We are hesitation/stutter cleanup; sender Suri, exact title and before-opening timing remain unchanged."
+    },
+    {
+      "position_one_based": 13,
+      "id": "scribe-v9-reserved-043",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "4334133a5b9f4f0add0fb25cee9f1d771c10c6bf4e0335f309a00af29f7e1fe7",
+      "target_sha256": "75c39bca939889840a1b56a0ae41f91e8799deb8cc22518a6072a94b43bc4b40",
+      "notes_sha256": "35deb75dee23344d8226f87f977b4c3eb06e5df9cc29fca2f01e49fbb8898ecc",
+      "source_row_sha256": "51fd54948c793a5f48d20eaf8ad9069ef97d0280cd9b876711c599ba27dea96d",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"zero, not O\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only external He repetition and independent I capitalization change; reported request to me, exact quoted zero/O contrast, and not-yet-sent negation survive."
+    },
+    {
+      "position_one_based": 14,
+      "id": "scribe-v9-reserved-044",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "6352c6829859feb5decf4cc5280ce95a41459731804dc3cd853bfd3a48802565",
+      "target_sha256": "7da8cc940dd90e7163a61948ccb0afe3c7b8e32052ab88d771e064cf27274ad6",
+      "notes_sha256": "9dd23cdfa0efac54bbff5d5062f5434b96d88c63038bc1e9b4f116eb1a53541c",
+      "source_row_sha256": "15a25622ce1e4f2ccf0c00623fd967e7da04a5e026b40b7bfaf35ee4b86e8e5a",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"wait here,\"",
+        "\"beside the ferry ramp.\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only reporting you repetition is removed; lowercase reporting clause, Enzo recipient, and exact ordered location/instruction quote segments survive."
+    },
+    {
+      "position_one_based": 15,
+      "id": "scribe-v9-reserved-045",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "5904983597cc9cb6a078cb0a5fc8daba181fe0263867c0b0a71afe102b2674f5",
+      "target_sha256": "cd349a6cbd7ecaa4e857b4be9444a117219b10c19d0c97bbdd1577acebfac99e",
+      "notes_sha256": "2f552bf24cf40ce5c4bf401b5c70049a105a8517db51c80216bb3a086eb91ffb",
+      "source_row_sha256": "27ee98c3591ff9847ce95a0dd2e9d4d742bd070c7027094d4a3611976aa60b29",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"cobalt_3\"",
+        "\"Batch\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only accidental I repetition is removed; both case-sensitive labels, beneath relation and both-lines reason remain without inferred formatting."
+    },
+    {
+      "position_one_based": 16,
+      "id": "scribe-v9-reserved-046",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "8a98532d8abff32887aa6d48e89d6da8d5ba606e9144ec2e65cc627f297272bb",
+      "target_sha256": "43aa903297c99eb03940d8b033b33b6bcec256b796340285edf3573bb773956e",
+      "notes_sha256": "ee2d256346a52a3c9b68d1126aeea6a933b2627dedf18351e444ae41edabb710",
+      "source_row_sha256": "09885e08fd1e115ace012e6e6234740357e74a0ca2f6f3bc3a995f6bf663b59b",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"not canceled\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only outer They repetition is removed. Quoted negative label and explicit not-a-new-request explanation remain, with no cancellation inference."
+    },
+    {
+      "position_one_based": 17,
+      "id": "scribe-v9-reserved-047",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "f0b66ad9700fbf0f8b3e544b664b3934c0314cbbfa2b0d35bae58eab5de624a8",
+      "target_sha256": "2af915806c097206273f3da63717ca299020c0ee855c32c69ce3686b15273e3f",
+      "notes_sha256": "6c86c502758ced3f47f203acd872bdf139a78e943e5352b71457774bce1f9b94",
+      "source_row_sha256": "927e5a069f1f045df9e17583c9df93ae9759f491b83bd0ff358306d5c9e23326",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"II-B\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only external We repetition is removed; exact cabinet code, cabinet relation and porter read-back act survive."
+    },
+    {
+      "position_one_based": 18,
+      "id": "scribe-v9-reserved-048",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "b36b1d0f2415c4624873da076f42580338cd068131bbc4435c14248fed87ebda",
+      "target_sha256": "387ee8885bf7081564e21584cb09500ae8427cbbb8c87a839b74743320a3261b",
+      "notes_sha256": "70c00fe6aafe1e52a130b04cf88975a105c3e486bba2d2e36c23dc016bcbffed",
+      "source_row_sha256": "d9abbcbb7b7ea2a66072fdbc4a69faea0f856bbb0d45f88799ee4ccc76c1637b",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"return to start,\"",
+        "\"Reset\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only reporting she repetition is removed. Lowercase reporting subject, exact command and Reset label, beneath relation and card location remain."
+    },
+    {
+      "position_one_based": 19,
+      "id": "scribe-v9-reserved-049",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "00021cc81dfff8c8f320bde9c0a70dc443ac6b606306db317431455f164939f8",
+      "target_sha256": "a10add871a60725a66a0f31a9115b43ba9de4af4f9ed451eadf6e14ae27810fc",
+      "notes_sha256": "1eee10cdc7ec5b5b491de311d42d7dca841815d92b43dfacf8f63ceb2c53043e",
+      "source_row_sha256": "6f57fb30c78b37c47cb4c51485523ed69faea73d82c3de13b10550b8c5724a5f",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"late?\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only I repetition and separate That initial change. Quoted question mark is exact label content, and prior-yesterday history remains."
+    },
+    {
+      "position_one_based": 20,
+      "id": "scribe-v9-reserved-050",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "065580c9671543053e5f7ac3f9bb3e80eaa6184e91baf2eba8c527962c09b70a",
+      "target_sha256": "14eda0a3fffd5c3f7acb8c348bee93ec5aba5aa7ab1bbbe8cb4ff52a5623fbcf",
+      "notes_sha256": "65859735922b35b2436c1c3903a4c42c280fcb2d9a7ec326fd25771926089d7a",
+      "source_row_sha256": "491bf5f3f1e561a4e660b19cd372130711b1cce05394c839b08e2a14030013a5",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"we, we agree\""
+      ],
+      "needs_cleanup": true,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Only external He repetition is removed. Internal we repetition is protected witness wording, and attribution/reason is retained."
+    },
+    {
+      "position_one_based": 21,
+      "id": "scribe-v9-reserved-051",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "62201867e4d91a6f70bf986a7b3eb691cd3d1af9048c0af39e243829f15ebeaa",
+      "target_sha256": "62201867e4d91a6f70bf986a7b3eb691cd3d1af9048c0af39e243829f15ebeaa",
+      "notes_sha256": "23df63ae2fa6348b7188ae38f85a3cade9ec6fd8ecd6b3f8098b11b2bda30160",
+      "source_row_sha256": "4ff9d8dd1255b0db4c14d0445191a26b5327fa409339e77e9423c9104a45ef56",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"Leave it shut,\"",
+        "\"until dawn.\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: lowercase she is a reporting clause between two exact quote segments. Pavel recipient and until-dawn timing must remain."
+    },
+    {
+      "position_one_based": 22,
+      "id": "scribe-v9-reserved-052",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "dc7044d85a2017d28c694e3a85e012a35131452b0593ead5a2842cc3dc33ab7b",
+      "target_sha256": "dc7044d85a2017d28c694e3a85e012a35131452b0593ead5a2842cc3dc33ab7b",
+      "notes_sha256": "23cdea091d836560a0792c1d11b09167704755d5db860cae7456315544da8b36",
+      "source_row_sha256": "4bf8cae38bf0f6a93042f53987ad0e8cdd4e8b39a33e8f6ae931de04320eea4b",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"hold\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: separate next sentence is correctly capitalized; quoted word plus blank-line state and desire to leave it blank all remain."
+    },
+    {
+      "position_one_based": 23,
+      "id": "scribe-v9-reserved-053",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "b42d8bf6de82b4715b0d71faffa976267d2e069230e97e2a925ec8e1a69fdf86",
+      "target_sha256": "b42d8bf6de82b4715b0d71faffa976267d2e069230e97e2a925ec8e1a69fdf86",
+      "notes_sha256": "ed6687c9c1016b715cddabdd889a2a5bf51df667b1c0ec24d9a00bbf5f8fd141",
+      "source_row_sha256": "793b757c53f2b41d185b4b9370df5365243aab8a6cf60eda5a2cf0e967cc2578",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"glaze B2\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: exact lowercase glaze label and separate I sentence are preserved, including prospective copying and small-tile qualifier."
+    },
+    {
+      "position_one_based": 24,
+      "id": "scribe-v9-reserved-054",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "cf00a36f6804baf8d1578e79f5b4aa01ceba49e80bd0517fd64448bf4e6a952f",
+      "target_sha256": "cf00a36f6804baf8d1578e79f5b4aa01ceba49e80bd0517fd64448bf4e6a952f",
+      "notes_sha256": "6db29fd05d03d6b0e0e31fa741187abf67e3a1a5ef55ecc5b56f78236dfb50f4",
+      "source_row_sha256": "52f9fdb811b32999068c97be39fa6792dadf36b464ad8253bfb2c0fb704b4b41",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"no, no,\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: repeated quoted negation is intentional, lowercase reporting they is correct, and clerk recording both words confirms scope."
+    },
+    {
+      "position_one_based": 25,
+      "id": "scribe-v9-reserved-055",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "fb493fb4b68ea5fb859402cb0b7cd7d3d891137e85061cad4df60a54270ff8b9",
+      "target_sha256": "fb493fb4b68ea5fb859402cb0b7cd7d3d891137e85061cad4df60a54270ff8b9",
+      "notes_sha256": "20ebaaf66bd3fae9593bde96465eee355e144bf745d5d208f437523607aaae87",
+      "source_row_sha256": "427d572ee068bdef54bb50f178d38b6909675bf2c9671d5aab081163644a3c53",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"cancel\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: quoted cancel names a button; explicit label/not-instruction sentence blocks action or cancellation inference."
+    },
+    {
+      "position_one_based": 26,
+      "id": "scribe-v9-reserved-056",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "fa7896bb87af39bc3e4a7a40b1a4f27d6a63dcacf51d1a25f94d03c249f960de",
+      "target_sha256": "fa7896bb87af39bc3e4a7a40b1a4f27d6a63dcacf51d1a25f94d03c249f960de",
+      "notes_sha256": "b9c9657156533c32a26f832ba2af7dfbd5e7fa01367da917aad55ba45957815e",
+      "source_row_sha256": "b1feb7d81ab5314a38190264d5226d1086ca59d8784fabd634524c4498516ed4",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"i\"",
+        "\"I\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: case-distinct i/I payloads remain once in order with sample/key locations and case-difference explanation unchanged."
+    },
+    {
+      "position_one_based": 27,
+      "id": "scribe-v9-reserved-057",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "907056e501003d45241b1e4e489eb45b5ea14f9411d7ace8f7134891bc27410c",
+      "target_sha256": "907056e501003d45241b1e4e489eb45b5ea14f9411d7ace8f7134891bc27410c",
+      "notes_sha256": "ed7cecf690cf0480d41593a5a39548ad856c6e1be86a8e39e5adff6e3c16f831",
+      "source_row_sha256": "6c03dac664ab0d3ae10d394e72ed0512f0524d5cef107d779d686dcdcf632717",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"close the rear flap,\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: initial lowercase command is protected quoted content; he continues the reporting clause and Then starts the distinct sketch-pointing sentence."
+    },
+    {
+      "position_one_based": 28,
+      "id": "scribe-v9-reserved-058",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "4dad15ced7a5f909f5bd19c2e7920ad25a0a4ae6a0c3bca71100124cbc5e00a1",
+      "target_sha256": "4dad15ced7a5f909f5bd19c2e7920ad25a0a4ae6a0c3bca71100124cbc5e00a1",
+      "notes_sha256": "b0f550d2937ce07b4c2baaab8fc3eab68a805acfbf806f9538d144bd0b0fb587",
+      "source_row_sha256": "75ce6bcc465d870c8b6694654ec3cb4927f61e2e0709f641b3457e28d9ed60aa",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"draft / revised\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: exact slash spaces and lowercase header are intentional; separate explanation preserves both intentionality and gap scope."
+    },
+    {
+      "position_one_based": 29,
+      "id": "scribe-v9-reserved-059",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "09f91d9dbd6ab45e0da7bdc312ca6a90429f394ed1c064e62acd5e18f2fab153",
+      "target_sha256": "09f91d9dbd6ab45e0da7bdc312ca6a90429f394ed1c064e62acd5e18f2fab153",
+      "notes_sha256": "26a073d594f45d553b11e90795e4b7f9d12c5db64c903d53e4a9390d75061844",
+      "source_row_sha256": "e41914c5209a283f4d1f8e2fbb126ca26e61d01a5ebe20d0266925d5b6d6195f",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"Mira-05\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean: quoted tag value and Arun parcel ownership are distinct complete relations; no actor substitution or added identity inference."
+    },
+    {
+      "position_one_based": 30,
+      "id": "scribe-v9-reserved-060",
+      "personally_read_input_target_notes": true,
+      "input_sha256": "8e9c940211589344db6409fa1f479e17118c0b00f330134e7dd4a00459cbd9c4",
+      "target_sha256": "8e9c940211589344db6409fa1f479e17118c0b00f330134e7dd4a00459cbd9c4",
+      "notes_sha256": "c04df052a32b23915847110c1d96a248e66fcf3e5b13025f129f5ad60757306a",
+      "source_row_sha256": "b44c19f088658362364a06f285ef67b2a09b66ca8615f6c5b468c6ea87a488bc",
+      "faithful": true,
+      "minimal_clean": true,
+      "actors_negations_modality_and_tails_preserved": true,
+      "quoted_payloads_exact_once_in_source_order": true,
+      "quoted_spans": [
+        "\"can't\"",
+        "\"cannot\""
+      ],
+      "needs_cleanup": false,
+      "decision": "APPROVE_RESERVED_PAIR",
+      "review_note": "Already clean negative instruction: cannot is an alternative that must not replace can't; both ordered exact quotations and apostrophe remain."
+    }
+  ],
+  "scope": {
+    "reserved_unused": true,
+    "training_activation_not_approved": true,
+    "no_Core_export": true,
+    "no_model_native_build_Torch": true,
+    "no_source_or_dataset_edit": true,
+    "no_retired_dev_fresh_or_model_output_reads": true,
+    "source_posthash_exact": true
+  }
+}

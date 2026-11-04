@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T04:31:44.065397+00:00",
+  "source_dataset": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/train-20-v1.jsonl",
+    "sha256": "112939ee9c522fca720652c489138d5cda24eeccec2c7b1ca8bd6028cc9f88bc"
+  },
+  "fixtures": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/core-normalization-input-target-40.json",
+    "sha256": "6c7d55d562ce6027b75a6d57764d0174297805b0f752760a67545fd9b10468bd"
+  },
+  "frozen_probe_files": {
+    "Freehand.Cleanup.Probe.dll": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Cleanup.Probe.dll",
+      "bytes": 189952,
+      "sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66"
+    },
+    "Freehand.Core.dll": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Core.dll",
+      "bytes": 201216,
+      "sha256": "45e705a6ffc4e4bf1895c7edf2e5e1c0fab0bc12d31285234a5997c4315f6995"
+    },
+    "Freehand.Cleanup.dll": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Cleanup.dll",
+      "bytes": 166912,
+      "sha256": "5e2a173e17e2a72bc9348fb7d661f22279a2a02d24324f62ae25b1dd669fef81"
+    },
+    "Freehand.Dictionary.dll": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Dictionary.dll",
+      "bytes": 22016,
+      "sha256": "b1e19c7b0645b5894d74c0f0daaeb7d84c6e0655b6d3b588b779b80e9d04e742"
+    },
+    "Freehand.Testing.dll": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Testing.dll",
+      "bytes": 12800,
+      "sha256": "73942f681f2d5517269bcb8f5b2365599de0a60997e2f6d713612412d949e5c5"
+    },
+    "Freehand.Abstractions.dll": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Abstractions.dll",
+      "bytes": 18944,
+      "sha256": "3f9b1cefbf7d8ab86abfb33df45a0f1605f71758136b34af8930619e1d2d88c4"
+    },
+    "Freehand.Cleanup.Probe.runtimeconfig.json": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Cleanup.Probe.runtimeconfig.json",
+      "bytes": 377,
+      "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+    },
+    "Freehand.Cleanup.Probe.deps.json": {
+      "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/frozen-probe/Freehand.Cleanup.Probe.deps.json",
+      "bytes": 2445,
+      "sha256": "6927cd8464fa8975464de63e54624ca7ed23c7ada9875621e820dd675140e10b"
+    }
+  },
+  "normalizer_source_sha256": "b7a95c72e43ce2516887cabd84e003c4fbbd2a87b107614e7ddff8e50cde11e8",
+  "qualification_summary": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-reserved-curriculum/core-normalization-v1/pre-run-freeze.json",
+    "sha256": "349de923faae860367df51241f37cf90671c4e0f9e69b68a2f63f67e5fb2879b"
+  },
+  "source_body_commit_reported_by_root": "8b; build summary historical f84; existing outputs only, no rebuild.",
+  "argv": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/core-normalization-v1/frozen-probe/Freehand.Cleanup.Probe.dll",
+    "--export-prompts",
+    "--input",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/core-normalization-input-target-40.json",
+    "--output",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/core-normalization-v1/core-export.json",
+    "--prompt-style",
+    "ScribeKeyFast",
+    "--mask-specialist-literals",
+    "true"
+  ],
+  "nice": 19,
+  "DOTNET_PROCESSOR_COUNT": 1,
+  "mode": "Core export-prompts only; no model manifest, native worker, inference, training or build",
+  "root_grant": "Root approved all20; actual Core granted only after benchmark_assets explicit CPU release.",
+  "cpu_release_receipt": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/cpu-window-release.json",
+    "sha256": "92d997bafbf1170c8f0916cb7a165cb8ca40b086da436c181fa3434decdd2d51"
+  },
+  "upstream_probe_qualification_sha256": "d720b68c9004283061a73bc90844c391f788ff693589be753ab2b0e02b2187a6"
+}

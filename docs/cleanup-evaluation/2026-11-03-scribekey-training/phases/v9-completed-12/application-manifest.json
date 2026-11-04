@@ -1,0 +1,2047 @@
+{
+  "schema_version": 1,
+  "application_authorized": true,
+  "phase_id": "v9-completed-12",
+  "prior_index_sha256": "1e04945bebdf54f5a85affc1f25db5ce1aaa38ec63c95910834922b33a2c6ee7",
+  "prior_total_files": 1669,
+  "terminal_owner_facts": {
+    "training_complete": true,
+    "training_exit_code": 0,
+    "optimizer_updates": 455,
+    "microbatches": 909,
+    "saved_RNG_checkpoint": 448,
+    "finite_adapter_tensors": 184,
+    "actual_AdamW_step": 455,
+    "canonical_events": 32,
+    "mapped_event_exposures": 64,
+    "training_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+    "native_export_complete": true,
+    "retired500_inference_complete": true,
+    "semantic_review_complete": true,
+    "postrun_input_pins_verified": true,
+    "AdamW_states_at_step455": 184
+  },
+  "files": [
+    {
+      "key": "approved3634",
+      "source_relative": "audit/proposed-3634-curriculum/positive-3634-proposed.jsonl",
+      "destination_relative": "audit/proposed-3634-curriculum/positive-3634-proposed.jsonl",
+      "role": "actual_training_data",
+      "status": "complete",
+      "sha256": "50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451",
+      "bytes": 6318639,
+      "reuse_identical": true
+    },
+    {
+      "key": "data3634_manifest.json",
+      "source_relative": "audit/proposed-3634-curriculum/positive-3634-proposed-manifest.json",
+      "destination_relative": "audit/proposed-3634-curriculum/positive-3634-proposed-manifest.json",
+      "role": "approved_data_lineage_or_opaque_proof",
+      "status": "complete",
+      "sha256": "bd920da9b9df5b6bf7ccb7aa344db95392f5276b3ef95be6573460bb1d6b9928",
+      "bytes": 11849,
+      "reuse_identical": true
+    },
+    {
+      "key": "data3634_positive-3634-independent-structural-review.json",
+      "source_relative": "audit/proposed-3634-curriculum/positive-3634-independent-structural-review.json",
+      "destination_relative": "audit/proposed-3634-curriculum/positive-3634-independent-structural-review.json",
+      "role": "approved_data_lineage_or_opaque_proof",
+      "status": "complete",
+      "sha256": "9c709b000131926277793075cbdfb790e488111e74f24636d4c29295af34555b",
+      "bytes": 211946,
+      "reuse_identical": true
+    },
+    {
+      "key": "data3634_prelaunch-data-pins-v1.json",
+      "source_relative": "audit/proposed-3634-curriculum/prelaunch-data-pins-v1.json",
+      "destination_relative": "audit/proposed-3634-curriculum/prelaunch-data-pins-v1.json",
+      "role": "approved_data_lineage_or_opaque_proof",
+      "status": "complete",
+      "sha256": "46eed6842967e5805eb79aa8b1eb9142215fc9c0d44501aba51428803532d371",
+      "bytes": 3959,
+      "reuse_identical": true
+    },
+    {
+      "key": "data3634_positive-3634-lineage.json",
+      "source_relative": "audit/proposed-3634-curriculum/positive-3634-lineage.json",
+      "destination_relative": "audit/proposed-3634-curriculum/positive-3634-lineage.json",
+      "role": "approved_data_lineage_or_opaque_proof",
+      "status": "complete",
+      "sha256": "554c65ee2c050999b76b29207aa1a3d488cf5028671b5f656efeb3e6e6ad32b1",
+      "bytes": 3911,
+      "reuse_identical": true
+    },
+    {
+      "key": "data3634_root-exact-source-union-and-opaque-overlap-proof.json",
+      "source_relative": "audit/proposed-3634-curriculum/root-exact-source-union-and-opaque-overlap-proof.json",
+      "destination_relative": "audit/proposed-3634-curriculum/root-exact-source-union-and-opaque-overlap-proof.json",
+      "role": "approved_data_lineage_or_opaque_proof",
+      "status": "complete",
+      "sha256": "5dcdc9786a240aa4c08f4b7d576165623dffdfca893599faba9fdc5f2d6a09a1",
+      "bytes": 1830,
+      "reuse_identical": true
+    },
+    {
+      "key": "prefix3234",
+      "source_relative": "audit/v8-positive-curriculum/positive-3234-proposed.jsonl",
+      "destination_relative": "audit/v8-positive-curriculum/positive-3234-proposed.jsonl",
+      "role": "already_curated_prefix_reference",
+      "status": "complete",
+      "sha256": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c",
+      "bytes": 5391703,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80",
+      "source_relative": "audit/v9-reserved-curriculum/train-80-v1.jsonl",
+      "destination_relative": "audit/v9-reserved-curriculum/train-80-v1.jsonl",
+      "role": "used_raw_or_actual_Core_normalized_curriculum",
+      "status": "complete",
+      "sha256": "b684e53fe1dcfda124f1370309b7ee2141105407fd07f456f513507839b09820",
+      "bytes": 79073,
+      "reuse_identical": true
+    },
+    {
+      "key": "normalized80",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/train-80-core-normalized-v1.jsonl",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/train-80-core-normalized-v1.jsonl",
+      "role": "used_raw_or_actual_Core_normalized_curriculum",
+      "status": "complete",
+      "sha256": "a5b2963faf8bb5ad632dc5915c781bbf0c30aa3b3a37d032a7c1c640d6a076c4",
+      "bytes": 141553,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20",
+      "source_relative": "audit/reserved-predicate-20/train-20-v1.jsonl",
+      "destination_relative": "audit/reserved-predicate-20/train-20-v1.jsonl",
+      "role": "used_raw_or_actual_Core_normalized_curriculum",
+      "status": "complete",
+      "sha256": "112939ee9c522fca720652c489138d5cda24eeccec2c7b1ca8bd6028cc9f88bc",
+      "bytes": 20236,
+      "reuse_identical": true
+    },
+    {
+      "key": "normalized20",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/train-20-core-normalized-v1.jsonl",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/train-20-core-normalized-v1.jsonl",
+      "role": "used_raw_or_actual_Core_normalized_curriculum",
+      "status": "complete",
+      "sha256": "734af14303b01bd5d671e6050d47faa054484245b9eec1bc980fd8b37b88bde3",
+      "bytes": 36136,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_manifest-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/manifest-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/manifest-v1.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "8dce9359eee5dc91198e96fb60240964e137f79539c034861bcffbfd0f199ecc",
+      "bytes": 3530,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_root-part01-v2-independent-review.json",
+      "source_relative": "audit/v9-reserved-curriculum/root-part01-v2-independent-review.json",
+      "destination_relative": "audit/v9-reserved-curriculum/root-part01-v2-independent-review.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "e6d42647de567110bef664b8c6ce33a5e152875bd20f7d01edbfc7c4a653bb95",
+      "bytes": 14741,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_family-02-v1-cleanup-pipeline-independent-review.json",
+      "source_relative": "audit/v9-reserved-curriculum/family-02-v1-cleanup-pipeline-independent-review.json",
+      "destination_relative": "audit/v9-reserved-curriculum/family-02-v1-cleanup-pipeline-independent-review.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "d648ffd15a0aa08951c41e779f76ded23e570e6b29fc9ddca17c5dfe57f9be26",
+      "bytes": 30492,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_part-03-independent-audit-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/part-03-independent-audit-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/part-03-independent-audit-v1.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "6c102a9389aff6a449c387c6c05d4349e3e566452357e69dcc6f8cf802890503",
+      "bytes": 19275,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_independent-review-rollup-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/independent-review-rollup-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/independent-review-rollup-v1.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "ef6066a7df477f4a15d1045bd5cdfeafbb4566c1c98584cb4a9997f5ad597218",
+      "bytes": 113213,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_AUTHORING-NOTES.md",
+      "source_relative": "audit/v9-reserved-curriculum/AUTHORING-NOTES.md",
+      "destination_relative": "audit/v9-reserved-curriculum/AUTHORING-NOTES.md",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "a3dc3d019078c335b00dbed70b590858a39cb619e6f7e24f53f548d3bf8214d1",
+      "bytes": 2116,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_author-cross-part-preflight-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/author-cross-part-preflight-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/author-cross-part-preflight-v1.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "577115f10c28ec1c76281415dad43d2b18f91540995cef977800ecb005b9a17d",
+      "bytes": 1551,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_raw-literal-validation-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/raw-literal-validation-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/raw-literal-validation-v1.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "b299ad99867d73e97ee43850109b4e9fb75b79aa0003cf7a8ce8e8b607f617a9",
+      "bytes": 28449,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_normalization-final-approval-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/normalization-final-approval-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/normalization-final-approval-v1.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "5818621efcf04ca91280ff0c4203b19a73bde88eb0cab95f5f87fa20899ee4b8",
+      "bytes": 2060,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_FINAL-RESERVED-STATUS-V1.md",
+      "source_relative": "audit/v9-reserved-curriculum/FINAL-RESERVED-STATUS-V1.md",
+      "destination_relative": "audit/v9-reserved-curriculum/FINAL-RESERVED-STATUS-V1.md",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "d7718ae581336225824806279faedb4da7d6e6bd0726b19cd457c6e8ce681c5c",
+      "bytes": 1885,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_normalize_80.py",
+      "source_relative": "audit/v9-reserved-curriculum/normalize_80.py",
+      "destination_relative": "audit/v9-reserved-curriculum/normalize_80.py",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "7c5e6118b5491400b263e92edb9e6557c8c7482e601a465207e5cb7e0f103a17",
+      "bytes": 13812,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw80_core-normalization-input-target-160.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-input-target-160.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-input-target-160.json",
+      "role": "raw80_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "ce545d00ce2be4ff50d75373060abaf9885ba93ab2adf2bb193ecbb117f30b8d",
+      "bytes": 28940,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_manifest-v1.json",
+      "source_relative": "audit/reserved-predicate-20/manifest-v1.json",
+      "destination_relative": "audit/reserved-predicate-20/manifest-v1.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "fb766860907b0ff165e36918eaa49e4db7a9f50831f6e7f1d7c46a348ce7528c",
+      "bytes": 2089,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_root-independent-semantic-review.json",
+      "source_relative": "audit/reserved-predicate-20/root-independent-semantic-review.json",
+      "destination_relative": "audit/reserved-predicate-20/root-independent-semantic-review.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "cb25327ff572794f717bbb59592df0a642f814fbb682f7c50b90d6f0d819b463",
+      "bytes": 11993,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_independent-semantic-audit-v1.json",
+      "source_relative": "audit/reserved-predicate-20/independent-semantic-audit-v1.json",
+      "destination_relative": "audit/reserved-predicate-20/independent-semantic-audit-v1.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "cbf29477026ddb7a8c363eba61e165bb89b5af59c0d26f1a75cbaf5814325130",
+      "bytes": 16490,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_independent-review-rollup-v1.json",
+      "source_relative": "audit/reserved-predicate-20/independent-review-rollup-v1.json",
+      "destination_relative": "audit/reserved-predicate-20/independent-review-rollup-v1.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "40aad999e47973581f315dff2f198d9d653edd4b9d77b3aca6f3d0cffdca2d0f",
+      "bytes": 35459,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_author_v1.py",
+      "source_relative": "audit/reserved-predicate-20/author_v1.py",
+      "destination_relative": "audit/reserved-predicate-20/author_v1.py",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "47f58e7caead350e16e214443a759c3f7b39561ad970e8c6f7567fd10cfb4c6e",
+      "bytes": 11207,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_author-review-v1.json",
+      "source_relative": "audit/reserved-predicate-20/author-review-v1.json",
+      "destination_relative": "audit/reserved-predicate-20/author-review-v1.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "8a9b1dde98b1296751d742d1fa98be44e14b1492c898b8baebe5acb6a2c26e0c",
+      "bytes": 14164,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_normalized-final-approval-v1.json",
+      "source_relative": "audit/reserved-predicate-20/normalized-final-approval-v1.json",
+      "destination_relative": "audit/reserved-predicate-20/normalized-final-approval-v1.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "c632330068f3780ed81660eee0b4b4ecde6bc205688122984fc0292169bae02d",
+      "bytes": 1716,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_FINAL-RESERVED-STATUS-V1.md",
+      "source_relative": "audit/reserved-predicate-20/FINAL-RESERVED-STATUS-V1.md",
+      "destination_relative": "audit/reserved-predicate-20/FINAL-RESERVED-STATUS-V1.md",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "c1e2b2d7ac8f6ec7d0fd4bfceff54a8738d131c37ae44f6d889038dabf417ceb",
+      "bytes": 1258,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_cpu-window-release.json",
+      "source_relative": "audit/reserved-predicate-20/cpu-window-release.json",
+      "destination_relative": "audit/reserved-predicate-20/cpu-window-release.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "92d997bafbf1170c8f0916cb7a165cb8ca40b086da436c181fa3434decdd2d51",
+      "bytes": 581,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_normalize_20.py",
+      "source_relative": "audit/reserved-predicate-20/normalize_20.py",
+      "destination_relative": "audit/reserved-predicate-20/normalize_20.py",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "b7a95c72e43ce2516887cabd84e003c4fbbd2a87b107614e7ddff8e50cde11e8",
+      "bytes": 14202,
+      "reuse_identical": true
+    },
+    {
+      "key": "raw20_core-normalization-input-target-40.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-input-target-40.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-input-target-40.json",
+      "role": "raw20_full_review_author_and_normalization_provenance",
+      "status": "complete",
+      "sha256": "6c7d55d562ce6027b75a6d57764d0174297805b0f752760a67545fd9b10468bd",
+      "bytes": 8249,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_core-export.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/core-export.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/core-export.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "995cb9af38bb2869861dee876ec285aef354e227d5d79c160cc03c6ba0fc6907",
+      "bytes": 172573,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_manifest.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/manifest.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/manifest.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "c7d3f52af2f2d242f837ba78d5fe71674e46c3d73924ebc02de494cb95e10d46",
+      "bytes": 2379,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_pre-run-freeze.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/pre-run-freeze.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/pre-run-freeze.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "349de923faae860367df51241f37cf90671c4e0f9e69b68a2f63f67e5fb2879b",
+      "bytes": 3948,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_core-export-execution.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/core-export-execution.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/core-export-execution.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "dcea74c454a7682d8115f38ff256f32913f21c907e3d2b0eba6893f72a6547ec",
+      "bytes": 825,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_core-export-console.log",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/core-export-console.log",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/core-export-console.log",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "6714c3d4147b72a350951a896e3326e5c36a8db1aa25e23b34032918b626dd7b",
+      "bytes": 164,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_fixture-map.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/fixture-map.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/fixture-map.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "00d480c89c1b70935a661476a62fae203ac88fae3a18290565c754fa046e37bc",
+      "bytes": 16328,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_row-transforms.jsonl",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/row-transforms.jsonl",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/row-transforms.jsonl",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "96899742f282d6f9ad6fe47846554a4a8327f3c332551dd7327878fc872d0622",
+      "bytes": 85228,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_normalization-changes.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/normalization-changes.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/normalization-changes.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "bc549c3b8106859af66fab7cc0dcd025b2f7f56f941bf516d25a0b6c996dba3e",
+      "bytes": 214,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_normalization-changes-readable.md",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/normalization-changes-readable.md",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/normalization-changes-readable.md",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "f0a83a020918fc936500db72251b1b60c4ad95f3b58496775eac04495e312522",
+      "bytes": 58,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_training-content-hashes.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/training-content-hashes.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/training-content-hashes.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "66d1e1c648f00c0b62f4e37d995ed4b1572fe623fe0bd5cd274fbeeca4f94e07",
+      "bytes": 35555,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_exact-pair-duplicates.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/exact-pair-duplicates.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/exact-pair-duplicates.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "54b0aa393e681f2e0cc409ad88706d366a206189724792acd606eccbf32f168b",
+      "bytes": 128,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_same-input-different-target-conflicts.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/same-input-different-target-conflicts.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/same-input-different-target-conflicts.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "7d237fcc564e8b27b998fbe48411bf9e5c99004b0bcc0e974e22f59313f9b9cb",
+      "bytes": 22,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_normalization-delta-summary-v1.md",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/normalization-delta-summary-v1.md",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/normalization-delta-summary-v1.md",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "54166182722e1d9fd4ac22ba1d02516f031c90a188a048f97e20ad458723036e",
+      "bytes": 897,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core80_independent-zero-delta-alignment-review-v1.json",
+      "source_relative": "audit/v9-reserved-curriculum/core-normalization-v1/independent-zero-delta-alignment-review-v1.json",
+      "destination_relative": "audit/v9-reserved-curriculum/core-normalization-v1/independent-zero-delta-alignment-review-v1.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "7a3e57ac726bc64c413818e8c994060e214a02a9349765d84aaf02c49262055b",
+      "bytes": 163295,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_core-export.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/core-export.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/core-export.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "7cc9d45150f03f43c50488b9e6101a9d70eb0dfea64bb702b3cc235baa2c2ff0",
+      "bytes": 45444,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_manifest.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/manifest.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/manifest.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "2193e8f93ddf426b59b3182e0144640f9a51569d960ab91c12d5aea8f059d946",
+      "bytes": 2195,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_pre-run-freeze.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/pre-run-freeze.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/pre-run-freeze.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "ec9572fc6f670ed7e522dda4ebec8c4fe3e146dfdec16e3cb7201bf80f38e8b7",
+      "bytes": 4910,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_core-export-execution.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/core-export-execution.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/core-export-execution.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "b6c1b8a078371882ca64edded16be1662494153341356793301056b369111c48",
+      "bytes": 821,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_core-export-console.log",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/core-export-console.log",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/core-export-console.log",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "ab6bc63aeb765833f848044273ed5abf3af75c76a872746cc0e38eca5cf3f438",
+      "bytes": 162,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_fixture-map.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/fixture-map.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/fixture-map.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "bad712d826ded75ad8f57a73182f646fc8442608b4bdc6032f7d153655753e75",
+      "bytes": 4688,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_row-transforms.jsonl",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/row-transforms.jsonl",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/row-transforms.jsonl",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "4609db56bb6d592f9c15fdf8fca8a623a992ab5750dd37e0a17cfa7605f5fba8",
+      "bytes": 22806,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_normalization-changes.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/normalization-changes.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/normalization-changes.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "af485c9b17bc437e89dbe6fef04236cd3d9f7b263109b05766802ea4773b5245",
+      "bytes": 214,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_normalization-changes-readable.md",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/normalization-changes-readable.md",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/normalization-changes-readable.md",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "b4f2e8bdbcd564c46ff9cf1218003bab05886f587eedb5c4ede9d94f71c39013",
+      "bytes": 58,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_training-content-hashes.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/training-content-hashes.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/training-content-hashes.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "06e5e5814c2c4cca7a6624c57a271e268ccd2945cd27b3ce6ec6132f851835a7",
+      "bytes": 9175,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_exact-pair-duplicates.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/exact-pair-duplicates.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/exact-pair-duplicates.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "320b527ff93d4d64c1d66568a5c74e71f8f50760ae3ff4a7cf73bb273cb98d22",
+      "bytes": 128,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_same-input-different-target-conflicts.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/same-input-different-target-conflicts.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/same-input-different-target-conflicts.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "7d237fcc564e8b27b998fbe48411bf9e5c99004b0bcc0e974e22f59313f9b9cb",
+      "bytes": 22,
+      "reuse_identical": true
+    },
+    {
+      "key": "Core20_independent-normalized-approval-v1.json",
+      "source_relative": "audit/reserved-predicate-20/core-normalization-v1/independent-normalized-approval-v1.json",
+      "destination_relative": "audit/reserved-predicate-20/core-normalization-v1/independent-normalized-approval-v1.json",
+      "role": "actual_Core_export_normalization_and_source_DLL_metadata",
+      "status": "complete",
+      "sha256": "6d7003f6a85b37ce0a35f8cb55af1247ebbb01b0fa36eb6daee4ea5b3d545591",
+      "bytes": 16916,
+      "reuse_identical": true
+    },
+    {
+      "key": "opaque80",
+      "source_relative": "audit/v9-reserved-curriculum/root-opaque-fresh2-normalized80-overlap.json",
+      "destination_relative": "audit/v9-reserved-curriculum/root-opaque-fresh2-normalized80-overlap.json",
+      "role": "root_owned_opaque_aggregate_proof_only",
+      "status": "complete",
+      "sha256": "e09c6eeb1c76b6e9da58e46a042e0df5d5d7f1266bc2f2e6c9578a80f5e67c81",
+      "bytes": 801,
+      "reuse_identical": true
+    },
+    {
+      "key": "opaque20",
+      "source_relative": "audit/reserved-predicate-20/root-opaque-fresh2-normalized20-overlap.json",
+      "destination_relative": "audit/reserved-predicate-20/root-opaque-fresh2-normalized20-overlap.json",
+      "role": "root_owned_opaque_aggregate_proof_only",
+      "status": "complete",
+      "sha256": "c8f7d03d4ecf6fd30f93dca071e4b6d2fb8f215228bf75c27b017e334d32f51a",
+      "bytes": 753,
+      "reuse_identical": true
+    },
+    {
+      "key": "opaque3234",
+      "source_relative": "audit/v8-reserved-curriculum/root-opaque-fresh2-final-normalized-overlap.json",
+      "destination_relative": "audit/v8-reserved-curriculum/root-opaque-fresh2-final-normalized-overlap.json",
+      "role": "root_owned_opaque_aggregate_proof_only",
+      "status": "complete",
+      "sha256": "e0604102f43525b49fca57a3ab63d853dfe25dad32a5ce1398844bdd951b59f3",
+      "bytes": 1313,
+      "reuse_identical": true
+    },
+    {
+      "key": "events_events-32-reserved-3634.jsonl",
+      "source_relative": "audit/v9-unlikelihood-reserved/events-32-reserved-3634.jsonl",
+      "destination_relative": "audit/v9-unlikelihood-reserved/events-32-reserved-3634.jsonl",
+      "role": "actual_events",
+      "status": "complete",
+      "sha256": "9108faa29785326a27db341d3a267d832eab7b1edfe5c7398b6d668d91d77b08",
+      "bytes": 85873,
+      "reuse_identical": true
+    },
+    {
+      "key": "events_reserved-binding-receipt.json",
+      "source_relative": "audit/v9-unlikelihood-reserved/reserved-binding-receipt.json",
+      "destination_relative": "audit/v9-unlikelihood-reserved/reserved-binding-receipt.json",
+      "role": "event_rebind_receipt",
+      "status": "complete",
+      "sha256": "83f751b6760ce0e98c146dbd73d10619dbc058cd33343902c110cefa54bee3e0",
+      "bytes": 5308,
+      "reuse_identical": true
+    },
+    {
+      "key": "events_independent-binding-audit.json",
+      "source_relative": "audit/v9-unlikelihood-reserved/independent-binding-audit.json",
+      "destination_relative": "audit/v9-unlikelihood-reserved/independent-binding-audit.json",
+      "role": "actual_reserved_events_and_final_3634_rebinding",
+      "status": "complete",
+      "sha256": "046995461ec50ecc7ce287f4102373d3871963c3e99ba98471fc87bdf04ef38e",
+      "bytes": 2617,
+      "reuse_identical": true
+    },
+    {
+      "key": "launch_v9-01-prelaunch.json",
+      "source_relative": "pipeline/v9-01-prelaunch.json",
+      "destination_relative": "pipeline/v9-01-prelaunch.json",
+      "role": "actual_launch_preflight_activation_metadata",
+      "status": "complete",
+      "sha256": "c08fbb5534b69d84b42bfddf80f19081d4f7f1f455ff5233c1de66766700a838",
+      "bytes": 5423,
+      "reuse_identical": true
+    },
+    {
+      "key": "launch_v9-01-activation.json",
+      "source_relative": "pipeline/v9-01-activation.json",
+      "destination_relative": "pipeline/v9-01-activation.json",
+      "role": "actual_launch_preflight_activation_metadata",
+      "status": "complete",
+      "sha256": "a1dbcecd0f7916b179a58dbf789108f108742707e39b471f31d069a589f2f9f1",
+      "bytes": 1596,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_training-source.py",
+      "source_relative": "pipeline/v9-01/training-source.py",
+      "destination_relative": "pipeline/v9-01/training-source.py",
+      "role": "actual_training_source",
+      "status": "complete",
+      "sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+      "bytes": 79171,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_adapter-config.json",
+      "source_relative": "pipeline/v9-01/adapter-config.json",
+      "destination_relative": "pipeline/v9-01/adapter-config.json",
+      "role": "training_configuration",
+      "status": "complete",
+      "sha256": "0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8",
+      "bytes": 6967,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_training-result.json",
+      "source_relative": "pipeline/v9-01/training-result.json",
+      "destination_relative": "pipeline/v9-01/training-result.json",
+      "role": "training_result",
+      "status": "complete",
+      "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a",
+      "bytes": 319,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_training-log.jsonl",
+      "source_relative": "pipeline/v9-01/training-log.jsonl",
+      "destination_relative": "pipeline/v9-01/training-log.jsonl",
+      "role": "terminal_actual_executed_training_source_config_metrics_or_verifier",
+      "status": "complete",
+      "sha256": "907d2c17e9e40f43684b6070e2e1d78a5cc82638b735e1fa14fda821385b65fd",
+      "bytes": 230597,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_canonical-training-log.jsonl",
+      "source_relative": "pipeline/v9-01/canonical-training-log.jsonl",
+      "destination_relative": "pipeline/v9-01/canonical-training-log.jsonl",
+      "role": "canonical_training_log",
+      "status": "complete",
+      "sha256": "907d2c17e9e40f43684b6070e2e1d78a5cc82638b735e1fa14fda821385b65fd",
+      "bytes": 230597,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_final-verification.json",
+      "source_relative": "pipeline/v9-01/final-verification.json",
+      "destination_relative": "pipeline/v9-01/final-verification.json",
+      "role": "training_final_verifier",
+      "status": "complete",
+      "sha256": "ace3f4cf4da60f0fe227b4902acbb71bf36eb3fe910546b29bfa09671e584365",
+      "bytes": 3797,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_postrun-input-pin-verification.json",
+      "source_relative": "pipeline/v9-01/postrun-input-pin-verification.json",
+      "destination_relative": "pipeline/v9-01/postrun-input-pin-verification.json",
+      "role": "postrun_input_pin_verifier",
+      "status": "complete",
+      "sha256": "767649fc08437d6ad994c6ce5655fdee9779fedeb7b6e87b0081b84947f0ef70",
+      "bytes": 3425,
+      "reuse_identical": true
+    },
+    {
+      "key": "training_latest-checkpoint.json",
+      "source_relative": "pipeline/v9-01/latest-checkpoint.json",
+      "destination_relative": "pipeline/v9-01/latest-checkpoint.json",
+      "role": "terminal_actual_executed_training_source_config_metrics_or_verifier",
+      "status": "complete",
+      "sha256": "c25e37d6f0290a0b84aebd28f7a6dd29af9519f5b2f62264fbd50604884ca22c",
+      "bytes": 238,
+      "reuse_identical": true
+    },
+    {
+      "key": "checkpoint448_resume-state.json",
+      "source_relative": "pipeline/v9-01/checkpoints/step-000448/resume-state.json",
+      "destination_relative": "pipeline/v9-01/checkpoints/step-000448/resume-state.json",
+      "role": "saved_checkpoint448_metadata",
+      "status": "complete",
+      "sha256": "c77988be289f89b224da2d3c62b768f7412bbbad5ea6cfccfc0fd329f5542d02",
+      "bytes": 1137,
+      "reuse_identical": true
+    },
+    {
+      "key": "checkpoint448_adapter-config.json",
+      "source_relative": "pipeline/v9-01/checkpoints/step-000448/adapter-config.json",
+      "destination_relative": "pipeline/v9-01/checkpoints/step-000448/adapter-config.json",
+      "role": "saved_actual448_rng_optimizer_inventory_code_no_tensors",
+      "status": "complete",
+      "sha256": "0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8",
+      "bytes": 6967,
+      "reuse_identical": true
+    },
+    {
+      "key": "checkpoint448_training-source.py",
+      "source_relative": "pipeline/v9-01/checkpoints/step-000448/training-source.py",
+      "destination_relative": "pipeline/v9-01/checkpoints/step-000448/training-source.py",
+      "role": "saved_actual448_rng_optimizer_inventory_code_no_tensors",
+      "status": "complete",
+      "sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+      "bytes": 79171,
+      "reuse_identical": true
+    },
+    {
+      "key": "actual_final_verifier_source",
+      "source_relative": "pipeline/verify-v9-complete.py",
+      "destination_relative": "pipeline/verify-v9-complete.py",
+      "role": "actual_finite_AdamW_training_verifier_source",
+      "status": "complete",
+      "sha256": "da2be628bc602f960106093e25c7053f5cbccede4153c556d69054080075c995",
+      "bytes": 7739,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_retired-development-pre-run-pin.json",
+      "source_relative": "native-lora-v9-01-export/retired-development-pre-run-pin.json",
+      "destination_relative": "native-lora-v9-01-export/retired-development-pre-run-pin.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "032f8d9e11598914f9ba245527e3e0a60b256865bda641d1c5849af81bc12219",
+      "bytes": 9844,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_actual-pre-inference-freeze.json",
+      "source_relative": "native-lora-v9-01-export/actual-pre-inference-freeze.json",
+      "destination_relative": "native-lora-v9-01-export/actual-pre-inference-freeze.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "ef3ce4d23613424f6cc3e90279f170a47ec351e12e4c8f12b526281b2d766c43",
+      "bytes": 5594,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_v9_lineage.py",
+      "source_relative": "native-lora-v9-01-export/v9_lineage.py",
+      "destination_relative": "native-lora-v9-01-export/v9_lineage.py",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "64acbcb30fe11253210e5a9e92ce2cd4b21a16d909922430bd8c9ae11a8bad8e",
+      "bytes": 18239,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_conversion-report.json",
+      "source_relative": "native-lora-v9-01-export/conversion-report.json",
+      "destination_relative": "native-lora-v9-01-export/conversion-report.json",
+      "role": "native_export_receipt",
+      "status": "complete",
+      "sha256": "804b9a5c5132789a47d900dde8bff7a7c95efe70dd0bd0a0cc2543d4693a248e",
+      "bytes": 101197,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_conversion.observations.jsonl",
+      "source_relative": "native-lora-v9-01-export/conversion.observations.jsonl",
+      "destination_relative": "native-lora-v9-01-export/conversion.observations.jsonl",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "a4021303efec0e0b65efbbb79c8495c58a73e37c7e316ccb0dc687016eeb9966",
+      "bytes": 730,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_freeze.log",
+      "source_relative": "native-lora-v9-01-export/freeze.log",
+      "destination_relative": "native-lora-v9-01-export/freeze.log",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "e469781693d424b37528d1e04af6262a718654035589560f1ad8d5e091d0097b",
+      "bytes": 284,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_owned_execution.py",
+      "source_relative": "native-lora-v9-01-export/owned_execution.py",
+      "destination_relative": "native-lora-v9-01-export/owned_execution.py",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "6fe025eec3fa093c77b81fdeca871fa7b1eabdf54cea53aecfd35690399c23f4",
+      "bytes": 10537,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_retired500-core.observations.jsonl",
+      "source_relative": "native-lora-v9-01-export/retired500-core.observations.jsonl",
+      "destination_relative": "native-lora-v9-01-export/retired500-core.observations.jsonl",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "6700f74f56f669b6378bd691ef9524afe03e7f28b9e4cc564a954b0b445e36c3",
+      "bytes": 2062,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_conversion.log",
+      "source_relative": "native-lora-v9-01-export/conversion.log",
+      "destination_relative": "native-lora-v9-01-export/conversion.log",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "99cc665ea9b94aef05c14adf0f3a9e8664d6da4ef2184ccf10b99ba1052bc581",
+      "bytes": 17826,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_freeze.observations.jsonl",
+      "source_relative": "native-lora-v9-01-export/freeze.observations.jsonl",
+      "destination_relative": "native-lora-v9-01-export/freeze.observations.jsonl",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "909c470ecad3a8207e66aa654d6a8f19c1089a6a77452caa6e6e595328f1a9e2",
+      "bytes": 1432,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_conversion-pre-run.json",
+      "source_relative": "native-lora-v9-01-export/conversion-pre-run.json",
+      "destination_relative": "native-lora-v9-01-export/conversion-pre-run.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "535695eba50e894665630d75558ce5a2e8c837e6ee2fabce0e107c69d7098b34",
+      "bytes": 90559,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_retired500-core.command-receipt.json",
+      "source_relative": "native-lora-v9-01-export/retired500-core.command-receipt.json",
+      "destination_relative": "native-lora-v9-01-export/retired500-core.command-receipt.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "2dc61e874a28d552eba18e27abdfab7ac6b47be4f5a0b4786c5749d1133fe2d2",
+      "bytes": 2887,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_retired500-core.log",
+      "source_relative": "native-lora-v9-01-export/retired500-core.log",
+      "destination_relative": "native-lora-v9-01-export/retired500-core.log",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "46ae95c3bfc48ca619e79e4b90167b142723d9316e2e669d6f504f3f2cf3167f",
+      "bytes": 231,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_conversion.command-receipt.json",
+      "source_relative": "native-lora-v9-01-export/conversion.command-receipt.json",
+      "destination_relative": "native-lora-v9-01-export/conversion.command-receipt.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "06f58c7c59d04908b3a8a370f032e1e80b991ee0cd6292f6959f12120973413e",
+      "bytes": 1114,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_performance-input.json",
+      "source_relative": "native-lora-v9-01-export/performance-input.json",
+      "destination_relative": "native-lora-v9-01-export/performance-input.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "ee85dfc3227501c776866e49a472c38f7ebe2007d1216038d5908eff8ecf56e1",
+      "bytes": 1375,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_retired500-completion.json",
+      "source_relative": "native-lora-v9-01-export/retired500-completion.json",
+      "destination_relative": "native-lora-v9-01-export/retired500-completion.json",
+      "role": "retired500_completion",
+      "status": "complete",
+      "sha256": "be85bddda290d538cbbb2c6dbaae15ea832562db5eeed65a5da8e0d548b590e4",
+      "bytes": 1129,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_retired500-execution-command.json",
+      "source_relative": "native-lora-v9-01-export/retired500-execution-command.json",
+      "destination_relative": "native-lora-v9-01-export/retired500-execution-command.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "2dc61e874a28d552eba18e27abdfab7ac6b47be4f5a0b4786c5749d1133fe2d2",
+      "bytes": 2887,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_freeze.command-receipt.json",
+      "source_relative": "native-lora-v9-01-export/freeze.command-receipt.json",
+      "destination_relative": "native-lora-v9-01-export/freeze.command-receipt.json",
+      "role": "actual_terminal_export_execution_freeze_postverification",
+      "status": "complete",
+      "sha256": "0930bf7d6877cf6ea77c17f26e1425eaf773d6caa9b412ec3fd11dd27fe81632",
+      "bytes": 1883,
+      "reuse_identical": true
+    },
+    {
+      "key": "export_executed-export-controller.py",
+      "source_relative": "native-lora-v9-01-export/executed-export-controller.py",
+      "destination_relative": "native-lora-v9-01-export/executed-export-controller.py",
+      "role": "native_export_source",
+      "status": "complete",
+      "sha256": "09598f66c2be850e6370fa0cb45dcc7af0005265032276c8e5607f0e832562ba",
+      "bytes": 28185,
+      "reuse_identical": true
+    },
+    {
+      "key": "notice_ADDITIONAL_TERMS.md",
+      "source_relative": "native-lora-v9-01-export/notices/ADDITIONAL_TERMS.md",
+      "destination_relative": "native-lora-v9-01-export/notices/ADDITIONAL_TERMS.md",
+      "role": "exact_native_derivative_and_inherited_notices",
+      "status": "complete",
+      "sha256": "3778f7257e4a80126d5307179fbe9157db49e09fd091364df5dbc56628815bb1",
+      "bytes": 2015,
+      "reuse_identical": true
+    },
+    {
+      "key": "notice_FREEHAND-NATIVE-LORA-NOTICE.txt",
+      "source_relative": "native-lora-v9-01-export/notices/FREEHAND-NATIVE-LORA-NOTICE.txt",
+      "destination_relative": "native-lora-v9-01-export/notices/FREEHAND-NATIVE-LORA-NOTICE.txt",
+      "role": "exact_native_derivative_and_inherited_notices",
+      "status": "complete",
+      "sha256": "a8cbe3e92d3a5da158a13b29b42a2341206f4e676f919412e2e3b5d318d924a4",
+      "bytes": 581,
+      "reuse_identical": true
+    },
+    {
+      "key": "notice_LICENSE",
+      "source_relative": "native-lora-v9-01-export/notices/LICENSE",
+      "destination_relative": "native-lora-v9-01-export/notices/LICENSE",
+      "role": "exact_native_derivative_and_inherited_notices",
+      "status": "complete",
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+      "bytes": 10574,
+      "reuse_identical": true
+    },
+    {
+      "key": "notice_MODIFICATIONS.md",
+      "source_relative": "native-lora-v9-01-export/notices/MODIFICATIONS.md",
+      "destination_relative": "native-lora-v9-01-export/notices/MODIFICATIONS.md",
+      "role": "exact_native_derivative_and_inherited_notices",
+      "status": "complete",
+      "sha256": "1364f2c396d45a4ec000a972e1ca0599984b25990fb3e4dc2e42793ff8b73b95",
+      "bytes": 2532,
+      "reuse_identical": true
+    },
+    {
+      "key": "notice_NOTICE",
+      "source_relative": "native-lora-v9-01-export/notices/NOTICE",
+      "destination_relative": "native-lora-v9-01-export/notices/NOTICE",
+      "role": "exact_native_derivative_and_inherited_notices",
+      "status": "complete",
+      "sha256": "4d0d40d15ca51c17c0d9b61ed5a0f9c06ed3640a106ae20cfea4a8f36cd02b73",
+      "bytes": 5713,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_probe-corpus.json",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/probe-corpus.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/probe-corpus.json",
+      "role": "completed_retired500_Core_input_execution_runtime_metadata",
+      "status": "complete",
+      "sha256": "def0ae07b9e9fa922d2b11a90f0e981de12be499d5fdadaddcff3f0f6ef8a643",
+      "bytes": 366204,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_core.log",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/core.log",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/core.log",
+      "role": "completed_retired500_Core_input_execution_runtime_metadata",
+      "status": "complete",
+      "sha256": "5c7f4a4a56832af6363a367916da682f9be6f16be4629caec171e627c97fb638",
+      "bytes": 18038,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_command-results.json",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/command-results.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/command-results.json",
+      "role": "completed_retired500_Core_input_execution_runtime_metadata",
+      "status": "complete",
+      "sha256": "7d6297c77f0c5970c011e19a710cd245f0521dd00cb9366cd41a8f84d213ebae",
+      "bytes": 16,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_core-results.json",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/core-results.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/core-results.json",
+      "role": "retired500_native_outputs",
+      "status": "complete",
+      "sha256": "d59ff5167f5c1df224f060c62fea144403425503b9fc1b0ebe6b02dcc18e0089",
+      "bytes": 620105,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_evaluation-pre-run-freeze.json",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/evaluation-pre-run-freeze.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/evaluation-pre-run-freeze.json",
+      "role": "retired500_evaluation_freeze",
+      "status": "complete",
+      "sha256": "6aca38b9de0acb08a0133fca4d4a82b3f98ca386063445e61a2cff8b8a0deac4",
+      "bytes": 10857,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_cleanup-manifest.json",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/cleanup-manifest.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/cleanup-manifest.json",
+      "role": "completed_retired500_Core_input_execution_runtime_metadata",
+      "status": "complete",
+      "sha256": "6a59b39380362280f5617f23be8ff9d79eaf6569640d7211c56d80d0453c634c",
+      "bytes": 1093,
+      "reuse_identical": true
+    },
+    {
+      "key": "core_runtime-deployment-verification.json",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/runtime-deployment-verification.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core/runtime-deployment-verification.json",
+      "role": "completed_retired500_Core_input_execution_runtime_metadata",
+      "status": "complete",
+      "sha256": "412be704019a459c83fc1365288b895dd55a5953885b1b11719dfe69a5e5a8dc",
+      "bytes": 620,
+      "reuse_identical": true
+    },
+    {
+      "key": "candidate_freeze",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-freeze.json",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-freeze.json",
+      "role": "preinference_candidate_runtime_source_DLL_profile_freeze",
+      "status": "complete",
+      "sha256": "f3f7f2597c6c8d93c7a83172396827ac7b6ded5554e0982c4d3d56ea16ac1fd6",
+      "bytes": 10162,
+      "reuse_identical": true
+    },
+    {
+      "key": "source_archive",
+      "source_relative": "evaluation/v9-01-native-LoRA-F32-freeze.source-snapshot.tar.gz",
+      "destination_relative": "evaluation/v9-01-native-LoRA-F32-freeze.source-snapshot.tar.gz",
+      "role": "audited_source_archive",
+      "status": "complete",
+      "sha256": "eaa8030fa804fcf5d12b313901d71aa7d89832c1e33e8cec8fe71372fba0ea48",
+      "bytes": 157798,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_canonical-reviewed.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/canonical-reviewed.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/canonical-reviewed.json",
+      "role": "canonical_semantic_review",
+      "status": "complete",
+      "sha256": "9ec70b6b9dfa008b53e2ffd3bba13cee8298109703827cb72edb9d522f8a36e4",
+      "bytes": 309468,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_canonical-semantic-summary.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/canonical-semantic-summary.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/canonical-semantic-summary.json",
+      "role": "semantic_summary",
+      "status": "complete",
+      "sha256": "d2258b042f7405e08ffbc72b3d8c544f6a01ef580d69229a39b645766bb7ca2e",
+      "bytes": 508,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_comparison-and-inheritance-packet.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/comparison-and-inheritance-packet.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/comparison-and-inheritance-packet.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "d912d903b7702627676197c74afbc258145ed5c252cf8786f5f0a27e080ff5e5",
+      "bytes": 746180,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_comparison-vs-v8.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/comparison-vs-v8.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/comparison-vs-v8.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "2587dea2a874cc9ffdf4f770a9bd6a949812bb5f34724f76233c1f487834722a",
+      "bytes": 485,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_merge-canonical-review.py",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/merge-canonical-review.py",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/merge-canonical-review.py",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "fb26695d26627fb1267de79224fd80d3219029e166ff04e1725796f35ec603c7",
+      "bytes": 5243,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions001-167/inheritance-proof.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/inheritance-proof.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/inheritance-proof.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "45df00827b2888449c5beecd3203844c69c0b1a9009ab0c4146e4feb43023595",
+      "bytes": 151289,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions001-167/read-record.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/read-record.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/read-record.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "eb92c0635ed033f4a4997644b2836989ecb0135a81e2d3d44396e4db3146bc12",
+      "bytes": 35933,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions001-167/review-helper-source-audit.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/review-helper-source-audit.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/review-helper-source-audit.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "8b78d7a227d5a201f0f9fa552d69b94b8c8dee14c74a80e7c21c66242bb5788a",
+      "bytes": 923,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions001-167/reviewed.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/reviewed.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/reviewed.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "e78804272900801776740fb40f4a5049ce86ecf85b09e7cdfa944b529ec1b618",
+      "bytes": 94880,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions001-167/summary.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/summary.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions001-167/summary.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "5d1fa85310df6b32f5045626ddef8fb3d0ec01ada4e12abb728a756277a9e4ee",
+      "bytes": 1431,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions168-334/casewise-reviewed.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions168-334/casewise-reviewed.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions168-334/casewise-reviewed.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "cfdb66231210b5f5e1de4fb32a142396e189231e67fd682db53ab515073f19aa",
+      "bytes": 117157,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions168-334/read-record-and-inheritance-proof.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions168-334/read-record-and-inheritance-proof.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions168-334/read-record-and-inheritance-proof.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "4da2ad35418c120b749d40a5aeda31e986148d7f46fa4295d40dab5c7cb579b8",
+      "bytes": 244329,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions168-334/summary.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions168-334/summary.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions168-334/summary.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "e052b4a9edd380b6622f1fc7ad26fb8b4e0d575d9afe112d1747cc9a558d2fba",
+      "bytes": 6356,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions335-500/casewise-reviewed.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/casewise-reviewed.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/casewise-reviewed.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "8c660bd5faa27155a918a4924857aea7ff40095bfee5dfaaa23350941ec0d91d",
+      "bytes": 102279,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions335-500/inheritance-proof.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/inheritance-proof.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/inheritance-proof.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "3a70d861e6f26455f4a9ed7d2a8c46c3055e74a301ea4edc89b02bc9dfe31fd0",
+      "bytes": 127200,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions335-500/personal-read-record.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/personal-read-record.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/personal-read-record.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "2d679988ac7345c3d6e73d59643bc091af6e701e8ebc39ec55c48649cee00be8",
+      "bytes": 6740,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions335-500/save-personal-review.py",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/save-personal-review.py",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/save-personal-review.py",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "7e858cf1a8aa5a4f87a1b8bbe87a0363794d9f30a557905ff32f0e9b3ccddc8c",
+      "bytes": 4402,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_positions335-500/summary.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/summary.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/positions335-500/summary.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "bac64d1103339ff2516b99152591a4613a598ad39273531156aec75804f13eaa",
+      "bytes": 470,
+      "reuse_identical": true
+    },
+    {
+      "key": "review_root-cross-review-read-record.json",
+      "source_relative": "reviews-v9-01-native-LoRA-retired500/root-cross-review-read-record.json",
+      "destination_relative": "reviews-v9-01-native-LoRA-retired500/root-cross-review-read-record.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "b2fdb03b5a43035b6e8cf7bdad7df8c67f9c6b6451c5c02244ef75663ee31b2e",
+      "bytes": 8042,
+      "reuse_identical": true
+    },
+    {
+      "key": "helper_create_packet.py",
+      "source_relative": "v9-review-preparation/create_packet.py",
+      "destination_relative": "v9-review-preparation/create_packet.py",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "471772032b7d30d21de8119d1e6e1a8611307593e97964e2fe3a6cc1397f3b0a",
+      "bytes": 5280,
+      "reuse_identical": true
+    },
+    {
+      "key": "helper_historical/before-typed-equality-ca8388b219b8/create_packet.py",
+      "source_relative": "v9-review-preparation/historical/before-typed-equality-ca8388b219b8/create_packet.py",
+      "destination_relative": "v9-review-preparation/historical/before-typed-equality-ca8388b219b8/create_packet.py",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "ca8388b219b8bb980252d0a1c83932889187e3aa7cbd85d4e10b88fd826e0349",
+      "bytes": 5161,
+      "reuse_identical": true
+    },
+    {
+      "key": "helper_historical/before-typed-equality-ca8388b219b8/reason.json",
+      "source_relative": "v9-review-preparation/historical/before-typed-equality-ca8388b219b8/reason.json",
+      "destination_relative": "v9-review-preparation/historical/before-typed-equality-ca8388b219b8/reason.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "8101c0e38e2a4138c96a1a1dfd82b5e3b5cc41f2a6c4fd14abb5f609bd74700b",
+      "bytes": 246,
+      "reuse_identical": true
+    },
+    {
+      "key": "helper_review-first-shard.py",
+      "source_relative": "v9-review-preparation/review-first-shard.py",
+      "destination_relative": "v9-review-preparation/review-first-shard.py",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "7f3b835c9a346b5b691f693e74d81038a7f65507e5c364717e0aa96239e4f6c5",
+      "bytes": 14791,
+      "reuse_identical": true
+    },
+    {
+      "key": "helper_v8-self-comparison-smoke/comparison-and-inheritance-packet.json",
+      "source_relative": "v9-review-preparation/v8-self-comparison-smoke/comparison-and-inheritance-packet.json",
+      "destination_relative": "v9-review-preparation/v8-self-comparison-smoke/comparison-and-inheritance-packet.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "488d7b75be941a1c189a0f14d8f6371c2903a1adc138c860b40639280c0e1583",
+      "bytes": 719665,
+      "reuse_identical": true
+    },
+    {
+      "key": "helper_v8-self-comparison-typed-smoke/comparison-and-inheritance-packet.json",
+      "source_relative": "v9-review-preparation/v8-self-comparison-typed-smoke/comparison-and-inheritance-packet.json",
+      "destination_relative": "v9-review-preparation/v8-self-comparison-typed-smoke/comparison-and-inheritance-packet.json",
+      "role": "actual_named_casewise_review_or_helper_current_historical_source",
+      "status": "complete",
+      "sha256": "488d7b75be941a1c189a0f14d8f6371c2903a1adc138c860b40639280c0e1583",
+      "bytes": 719665,
+      "reuse_identical": true
+    }
+  ],
+  "json_checks": [
+    {
+      "name": "data3634_rows",
+      "file_key": "approved3634",
+      "pointer": "",
+      "operation": "jsonl_count",
+      "expected": 3634
+    },
+    {
+      "name": "training_config_source_data_events_binding",
+      "file_key": "training_adapter-config.json",
+      "pointer": "/train_sha256",
+      "operation": "equals",
+      "expected": "50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451"
+    },
+    {
+      "name": "actual_trainer_source_binding",
+      "file_key": "training_adapter-config.json",
+      "pointer": "/training_source_sha256",
+      "operation": "equals",
+      "expected": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad"
+    },
+    {
+      "name": "actual_event_binding",
+      "file_key": "training_adapter-config.json",
+      "pointer": "/unlikelihood_events_sha256",
+      "operation": "equals",
+      "expected": "9108faa29785326a27db341d3a267d832eab7b1edfe5c7398b6d668d91d77b08"
+    },
+    {
+      "name": "training455_microbatch909",
+      "file_key": "training_final-verification.json",
+      "pointer": "/steps",
+      "operation": "equals",
+      "expected": 455
+    },
+    {
+      "name": "actual_microbatch909",
+      "file_key": "training_final-verification.json",
+      "pointer": "/microbatches",
+      "operation": "equals",
+      "expected": 909
+    },
+    {
+      "name": "finite184_AdamW455",
+      "file_key": "training_final-verification.json",
+      "pointer": "/all184_adapter_tensors_finite",
+      "operation": "equals",
+      "expected": true
+    },
+    {
+      "name": "actual_AdamW455",
+      "file_key": "training_final-verification.json",
+      "pointer": "/all_optimizer_counters",
+      "operation": "equals",
+      "expected": 455
+    },
+    {
+      "name": "training_complete_verified",
+      "file_key": "training_final-verification.json",
+      "pointer": "/completed_verified",
+      "operation": "equals",
+      "expected": true
+    },
+    {
+      "name": "saved448_RNG_only",
+      "file_key": "training_final-verification.json",
+      "pointer": "/last_durable_step",
+      "operation": "equals",
+      "expected": 448
+    },
+    {
+      "name": "no_final455_RNG_claim",
+      "file_key": "training_final-verification.json",
+      "pointer": "/final455_rng_capture_claimed",
+      "operation": "equals",
+      "expected": false
+    },
+    {
+      "name": "canonical32_events",
+      "file_key": "training_final-verification.json",
+      "pointer": "/canonical_event_count",
+      "operation": "equals",
+      "expected": 32
+    },
+    {
+      "name": "mapped64_exposures",
+      "file_key": "training_final-verification.json",
+      "pointer": "/mapped_event_exposures_observed",
+      "operation": "equals",
+      "expected": 64
+    },
+    {
+      "name": "source_input_postverification",
+      "file_key": "training_postrun-input-pin-verification.json",
+      "pointer": "/all_prelaunch_inputs_rehashed_and_match",
+      "operation": "equals",
+      "expected": true
+    },
+    {
+      "name": "canonical_log_bound",
+      "file_key": "training_final-verification.json",
+      "pointer": "/canonical_training_log_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "training_canonical-training-log.jsonl"
+    },
+    {
+      "name": "config_bound",
+      "file_key": "training_final-verification.json",
+      "pointer": "/config_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "training_adapter-config.json"
+    },
+    {
+      "name": "training_result_bound",
+      "file_key": "training_final-verification.json",
+      "pointer": "/training_result_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "training_training-result.json"
+    },
+    {
+      "name": "final_verifier_bound",
+      "file_key": "training_postrun-input-pin-verification.json",
+      "pointer": "/final_verification_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "training_final-verification.json"
+    },
+    {
+      "name": "verifier_source_bound",
+      "file_key": "training_final-verification.json",
+      "pointer": "/verifier_source_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "actual_final_verifier_source"
+    },
+    {
+      "name": "native_unmerged184F32",
+      "file_key": "export_conversion-report.json",
+      "pointer": "/all184_custom_peft_gguf_bytes_identical",
+      "operation": "equals",
+      "expected": true
+    },
+    {
+      "name": "no_base_merge",
+      "file_key": "export_conversion-report.json",
+      "pointer": "/base_merge_performed",
+      "operation": "equals",
+      "expected": false
+    },
+    {
+      "name": "native_unit_scale",
+      "file_key": "export_conversion-report.json",
+      "pointer": "/external_native_scale",
+      "operation": "equals",
+      "expected": 1
+    },
+    {
+      "name": "native_actual_GGUF_pin",
+      "file_key": "export_conversion-report.json",
+      "pointer": "/gguf/sha256",
+      "operation": "equals",
+      "expected": "16b9f356f4e82a3af2b55bc061219b801285963ee5b02ebc1aa41d4c39b8ce1f"
+    },
+    {
+      "name": "native_optimizer184",
+      "file_key": "export_conversion-report.json",
+      "pointer": "/actual_optimizer_counters/actual_optimizer_states",
+      "operation": "equals",
+      "expected": 184
+    },
+    {
+      "name": "native_AdamW455",
+      "file_key": "export_conversion-report.json",
+      "pointer": "/actual_optimizer_counters/all_actual_AdamW_state_counters",
+      "operation": "equals",
+      "expected": 455
+    },
+    {
+      "name": "not_partial_report",
+      "file_key": "core_core-results.json",
+      "pointer": "/incomplete",
+      "operation": "equals",
+      "expected": false
+    },
+    {
+      "name": "postverified_identity",
+      "file_key": "export_retired500-completion.json",
+      "pointer": "/deployment_identity_verified",
+      "operation": "equals",
+      "expected": true
+    },
+    {
+      "name": "canonical494_joint",
+      "file_key": "review_canonical-semantic-summary.json",
+      "pointer": "/joint",
+      "operation": "equals",
+      "expected": 494
+    },
+    {
+      "name": "canonical500_faithful",
+      "file_key": "review_canonical-semantic-summary.json",
+      "pointer": "/semantic_faithful",
+      "operation": "equals",
+      "expected": 500
+    },
+    {
+      "name": "canonical494_clean",
+      "file_key": "review_canonical-semantic-summary.json",
+      "pointer": "/clean_usable",
+      "operation": "equals",
+      "expected": 494
+    },
+    {
+      "name": "canonical0critical",
+      "file_key": "review_canonical-semantic-summary.json",
+      "pointer": "/critical_error",
+      "operation": "equals",
+      "expected": 0
+    },
+    {
+      "name": "threshold_not_met",
+      "file_key": "review_canonical-semantic-summary.json",
+      "pointer": "/meets_development_gate",
+      "operation": "equals",
+      "expected": false
+    },
+    {
+      "name": "actual462_inheritances",
+      "file_key": "review_comparison-and-inheritance-packet.json",
+      "pointer": "/inheritance_count",
+      "operation": "equals",
+      "expected": 462
+    },
+    {
+      "name": "actual38_personal",
+      "file_key": "review_comparison-and-inheritance-packet.json",
+      "pointer": "/personal_read_required",
+      "operation": "equals",
+      "expected": 38
+    },
+    {
+      "name": "typed_helper_PASS",
+      "file_key": "review_positions001-167/review-helper-source-audit.json",
+      "pointer": "/strict_13_field_typed_canonical_JSON_equivalence",
+      "operation": "equals",
+      "expected": true
+    },
+    {
+      "name": "native500_complete",
+      "file_key": "core_core-results.json",
+      "pointer": "/cases",
+      "operation": "length",
+      "expected": 500
+    },
+    {
+      "name": "canonical500_decisions",
+      "file_key": "review_canonical-reviewed.json",
+      "pointer": "/cases",
+      "operation": "length",
+      "expected": 500
+    },
+    {
+      "name": "actual13_fields",
+      "file_key": "review_comparison-and-inheritance-packet.json",
+      "pointer": "/exact_fields",
+      "operation": "length",
+      "expected": 13
+    },
+    {
+      "name": "root_all38_cross",
+      "file_key": "review_root-cross-review-read-record.json",
+      "pointer": "/cases",
+      "operation": "length",
+      "expected": 38
+    },
+    {
+      "name": "semantic500_actual_output_binding",
+      "file_key": "review_canonical-reviewed.json",
+      "pointer": "/results_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "core_core-results.json"
+    },
+    {
+      "name": "actual_helper_source_audit_binding",
+      "file_key": "review_positions001-167/review-helper-source-audit.json",
+      "pointer": "/source_sha256",
+      "operation": "equals",
+      "expected_sha256_of_file_key": "helper_create_packet.py"
+    }
+  ],
+  "max_new_payload_bytes": 30000000,
+  "semantic_result": {
+    "retired_original500": true,
+    "faithful": 500,
+    "clean_usable": 494,
+    "joint": 494,
+    "critical": 0,
+    "joint_accuracy": 0.988,
+    "required_joint": 495,
+    "retired_development_threshold_met": false,
+    "strict_typed13_field_inherited_decisions": 462,
+    "new_personal_reads": 38,
+    "fresh_independent_qualification": false,
+    "Windows_or_resource_qualification": false
+  },
+  "qualification_statement": "V9 completed455/909 source8c and approved3634; original500 native has494joint/500faithful/494clean/0critical, below495. Typed13field transfer462 plus38personal/rootcross, not500newreads. Retired development only; no fresh/resource/Windows qualification.",
+  "README_appendix": "## Completed V9 phase12\n\nV9 actually used approved3634 and32canonical events with64mapped exposures. Exact8c source/config/log/verifier prove455updates/909microbatches,184finite adapter tensors and184AdamW counters455. Saved RNG is448, not455.\n\nOriginal500 completed304Applied/196Unchanged/0Failed:500faithful,494clean/joint(98.8%),0critical, stillbelow495. Three named shards used462strict typed13field prior successes and38personal pairs, all38cross-read by root. Actual helper source before its typed-equality fix is preserved as unused-on-V9 history alongside fixed source and independentPASS. This does not claim500new personal reads.\n\nOne small code snapshot archive contains39source files plus its internal index; all39source byte hashes match the freeze and existing curated sources. The38MB upstream llama tar is metadata-only. No weights/native binaries/fresh corpus/author/commitment contents/factor3unused experiments are included. No resource orWindows qualification is claimed.",
+  "pending_root_confirmed_directories": {
+    "native_export": "native-lora-v9-01-export",
+    "retired500_evaluation": "evaluation/v9-01-native-LoRA-F32-retired-primary500-core",
+    "actual_semantic_reviews": "reviews-v9-01-native-LoRA-retired500",
+    "review_helper": "v9-review-preparation",
+    "helper_instrumentation_smoke": "v9-review-preparation/v8-self-comparison-smoke"
+  },
+  "phase_prepared_utc": "2026-11-04T05:45:17.848468+00:00",
+  "source_archive_members": {
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847",
+    "src/Freehand.Cleanup/CleanupPrompt.cs": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6",
+    "src/Freehand.Cleanup/CleanupProtocol.cs": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256",
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a",
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "5cd8406a2010b1a9348e4e722ba8053e760a374cd67cd472691fc1db55c6d333",
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907",
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8",
+    "src/Freehand.Core/AppDataPaths.cs": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f",
+    "src/Freehand.Core/AppSettings.cs": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24",
+    "src/Freehand.Core/AudioSegmenter.cs": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9",
+    "src/Freehand.Core/DiagnosticLog.cs": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646",
+    "src/Freehand.Core/DictationEngine.cs": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9",
+    "src/Freehand.Core/DictionaryFile.cs": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8",
+    "src/Freehand.Core/EnglishTextNormalizer.cs": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96",
+    "src/Freehand.Core/RecordingBuffer.cs": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e",
+    "src/Freehand.Core/TranscriptStore.cs": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038",
+    "tools/Freehand.Cleanup.Evaluation/benchmark.py": "32fd8edd7896fc35c0845f81ac930e2639339323c9c9b80d83a02dc66c0839d9",
+    "tools/Freehand.Cleanup.Evaluation/literal_protection.py": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+    "tools/Freehand.Cleanup.Evaluation/score_probe.py": "06d80a89c0f4d13613940d75667f3924e428a8a2780a3b93dd8a174745693e55",
+    "tools/Freehand.Cleanup.Evaluation/small_models.py": "751e07747307cf3fb2779d0bc0ee0ea5e59532eb33ea75e014ffc7942d1fc79b",
+    "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+    "tools/Freehand.Cleanup.Evaluation/test_benchmark.py": "07b8bafa4fd4e5f5ddbcc29895e6b337f4fa9851937838dd41651449d2f03918",
+    "tools/Freehand.Cleanup.Evaluation/test_literal_protection.py": "5e262ebe7501d571d57c24516ccda3af111e9e34ae7ba37065622ccc39994d79",
+    "tools/Freehand.Cleanup.Evaluation/test_small_models.py": "2129b92dc6ee32b12dbb058bdf610e2e0b8696543a35e029fa1a03802cff40d5",
+    "tools/Freehand.Cleanup.Evaluation/test_specialist_literal_protection.py": "e6e9253b966c913d87369911bd56c3c90c233527bdc2632757b84b8cc3f443df",
+    "tools/Freehand.Cleanup.Probe/ProbeCleanupWorkerLauncher.cs": "1d32cc9fd748b9a9648794646813fd7211e96c7f03f7b735d0e740a21a8bc4dd",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "fca29a1e882e390dd5d8b7dcb91120d8f4d6a29d1d3dbf42d12712016294a6ee",
+    "tools/Freehand.Cleanup.Training/evaluate.py": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec",
+    "tools/Freehand.Cleanup.Training/export.py": "ccbc67f3a464fee0d329b2a8e92feab388a0002a67f19fb377e72aa8b6d742aa",
+    "tools/Freehand.Cleanup.Training/make_data.py": "dd6f58f97947e9f0f7e9c0337d1f4ebc3fb801eed4a06235c41be271eebe0bd0",
+    "tools/Freehand.Cleanup.Training/make_data_v2.py": "7353c2d0c99c855a2a11e5726ffe7c5c601925f911e574d881b8fab6f4d6393a",
+    "tools/Freehand.Cleanup.Training/make_pilot.py": "142d8130cf9e28671e76722abca7b3da7f9fdd46799cbd87c31ff97ca36d3200",
+    "tools/Freehand.Cleanup.Training/pipeline.py": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+    "tools/Freehand.Cleanup.Training/test_evaluate.py": "d986ea6f7dc3b6c95b31b05e12dbdc1eb6cfebbaeb78275206a843106832d2b3",
+    "tools/Freehand.Cleanup.Training/test_pipeline.py": "152ec7cba665d529f4fff80690c808b375b5974957f17330405c55ddffed8522",
+    "tools/Freehand.Cleanup.Training/test_quantized_training.py": "3573c307476f114b4e830bd5260a6025db99b6951eb2d76dba5d59a17c2a2a16",
+    "tools/Freehand.Cleanup.Training/test_resume.py": "0ab54f63c38c3b41b0b6d37fa88267430d1653ae1f427bf2035af43fb2721bf7",
+    "tools/Freehand.Cleanup.Training/test_training_resume_cli.py": "59800b3509c9f43cd6d92306170779b322049b3107817e6ea7b312045d25b2bf",
+    "tools/Freehand.Cleanup.Training/test_unlikelihood.py": "959fc94e8f31c09d49c9683d7d9f3582b7d85dd329e59e4dc6a2e05094d06ad2"
+  },
+  "source_closure_checks": {
+    "prior_payloads": 1669,
+    "entire3234_exact_byte_prefix_of3634": true,
+    "actual3634_SHA256": "50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451",
+    "canonical_events": 32,
+    "mapped_exposures": 64,
+    "455_model_optimizer_vs448_saved_RNG_distinguished": true,
+    "native_unmerged_rank8_F32_unit1": true,
+    "nativeGGUF_SHA256_metadata_only": "16b9f356f4e82a3af2b55bc061219b801285963ee5b02ebc1aa41d4c39b8ce1f",
+    "GGUF_or_tensor_files_read": false,
+    "all500_unique_ordered_report_review_output_bindings_verified": true,
+    "statuses": {
+      "Applied": 304,
+      "Unchanged": 196
+    },
+    "strict_typed13_field_inheritances_recomputed": 462,
+    "personally_reviewed_and_root_crossread": 38,
+    "shard_personal_read_counts": [
+      19,
+      13,
+      6
+    ],
+    "canonical": {
+      "faithful": 500,
+      "clean_usable": 494,
+      "joint": 494,
+      "critical": 0
+    },
+    "typed_helper_independent_PASS_sha256": "8b78d7a227d5a201f0f9fa552d69b94b8c8dee14c74a80e7c21c66242bb5788a",
+    "current_helper_SHA256": "471772032b7d30d21de8119d1e6e1a8611307593e97964e2fe3a6cc1397f3b0a",
+    "historical_before_typed_helper_SHA256": "ca8388b219b8bb980252d0a1c83932889187e3aa7cbd85d4e10b88fd826e0349",
+    "historical_bug_source_not_used_on_V9": true,
+    "source_archive_SHA256": "eaa8030fa804fcf5d12b313901d71aa7d89832c1e33e8cec8fe71372fba0ea48",
+    "source_archive_regular_code_members": 39,
+    "source_archive_internal_index_members": 1,
+    "all39_sources_match_freeze_and_existing_curated_bytes": true,
+    "source_archive_member_references": [
+      {
+        "path": "src/Freehand.Cleanup/CleanupAssetInstaller.cs",
+        "bytes": 32617,
+        "sha256": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Cleanup/CleanupAssetInstaller.cs"
+      },
+      {
+        "path": "src/Freehand.Cleanup/CleanupPrompt.cs",
+        "bytes": 7139,
+        "sha256": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Cleanup/CleanupPrompt.cs"
+      },
+      {
+        "path": "src/Freehand.Cleanup/CleanupProtocol.cs",
+        "bytes": 2374,
+        "sha256": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Cleanup/CleanupProtocol.cs"
+      },
+      {
+        "path": "src/Freehand.Cleanup/LiteralProtectionMask.cs",
+        "bytes": 7003,
+        "sha256": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Cleanup/LiteralProtectionMask.cs"
+      },
+      {
+        "path": "src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+        "bytes": 22237,
+        "sha256": "5cd8406a2010b1a9348e4e722ba8053e760a374cd67cd472691fc1db55c6d333",
+        "existing_curated_source": "phases/v7-cache-precision-completed-09/qualified-build/source-snapshots/src/Freehand.Cleanup/LlamaCleanupOptions.cs"
+      },
+      {
+        "path": "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+        "bytes": 20778,
+        "sha256": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs"
+      },
+      {
+        "path": "src/Freehand.Cleanup/SpecialistLiteralMask.cs",
+        "bytes": 7079,
+        "sha256": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Cleanup/SpecialistLiteralMask.cs"
+      },
+      {
+        "path": "src/Freehand.Core/AppDataPaths.cs",
+        "bytes": 523,
+        "sha256": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/AppDataPaths.cs"
+      },
+      {
+        "path": "src/Freehand.Core/AppSettings.cs",
+        "bytes": 7324,
+        "sha256": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/AppSettings.cs"
+      },
+      {
+        "path": "src/Freehand.Core/AudioSegmenter.cs",
+        "bytes": 3891,
+        "sha256": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/AudioSegmenter.cs"
+      },
+      {
+        "path": "src/Freehand.Core/DiagnosticLog.cs",
+        "bytes": 2098,
+        "sha256": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/DiagnosticLog.cs"
+      },
+      {
+        "path": "src/Freehand.Core/DictationEngine.cs",
+        "bytes": 32687,
+        "sha256": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/DictationEngine.cs"
+      },
+      {
+        "path": "src/Freehand.Core/DictionaryFile.cs",
+        "bytes": 6821,
+        "sha256": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/DictionaryFile.cs"
+      },
+      {
+        "path": "src/Freehand.Core/EnglishTextNormalizer.cs",
+        "bytes": 9905,
+        "sha256": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/EnglishTextNormalizer.cs"
+      },
+      {
+        "path": "src/Freehand.Core/RecordingBuffer.cs",
+        "bytes": 2548,
+        "sha256": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/RecordingBuffer.cs"
+      },
+      {
+        "path": "src/Freehand.Core/TranscriptStore.cs",
+        "bytes": 7549,
+        "sha256": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038",
+        "existing_curated_source": "phases/v6-completed-07/performance/source/src/Freehand.Core/TranscriptStore.cs"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/benchmark.py",
+        "bytes": 38082,
+        "sha256": "32fd8edd7896fc35c0845f81ac930e2639339323c9c9b80d83a02dc66c0839d9",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/benchmark.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/literal_protection.py",
+        "bytes": 3976,
+        "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+        "existing_curated_source": "phases/v5-active-prefix-05/data-v5/source-snapshots/3-literal_protection.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/score_probe.py",
+        "bytes": 5768,
+        "sha256": "06d80a89c0f4d13613940d75667f3924e428a8a2780a3b93dd8a174745693e55",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/score_probe.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/small_models.py",
+        "bytes": 20667,
+        "sha256": "751e07747307cf3fb2779d0bc0ee0ea5e59532eb33ea75e014ffc7942d1fc79b",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/small_models.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py",
+        "bytes": 5119,
+        "sha256": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+        "existing_curated_source": "phases/v5-active-prefix-05/data-v5/source-snapshots/2-specialist_literal_protection.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/test_benchmark.py",
+        "bytes": 15059,
+        "sha256": "07b8bafa4fd4e5f5ddbcc29895e6b337f4fa9851937838dd41651449d2f03918",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/test_benchmark.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/test_literal_protection.py",
+        "bytes": 3018,
+        "sha256": "5e262ebe7501d571d57c24516ccda3af111e9e34ae7ba37065622ccc39994d79",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/test_literal_protection.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/test_small_models.py",
+        "bytes": 16268,
+        "sha256": "2129b92dc6ee32b12dbb058bdf610e2e0b8696543a35e029fa1a03802cff40d5",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/test_small_models.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Evaluation/test_specialist_literal_protection.py",
+        "bytes": 8247,
+        "sha256": "e6e9253b966c913d87369911bd56c3c90c233527bdc2632757b84b8cc3f443df",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Evaluation/test_specialist_literal_protection.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Probe/ProbeCleanupWorkerLauncher.cs",
+        "bytes": 2621,
+        "sha256": "1d32cc9fd748b9a9648794646813fd7211e96c7f03f7b735d0e740a21a8bc4dd",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Probe/ProbeCleanupWorkerLauncher.cs"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Probe/Program.cs",
+        "bytes": 32980,
+        "sha256": "fca29a1e882e390dd5d8b7dcb91120d8f4d6a29d1d3dbf42d12712016294a6ee",
+        "existing_curated_source": "phases/v7-cache-precision-completed-09/qualified-build/source-snapshots/tools/Freehand.Cleanup.Probe/Program.cs"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/evaluate.py",
+        "bytes": 48573,
+        "sha256": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec",
+        "existing_curated_source": "phases/v7-cache-precision-completed-09/qualified-build/source-snapshots/tools/Freehand.Cleanup.Training/evaluate.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/export.py",
+        "bytes": 13194,
+        "sha256": "ccbc67f3a464fee0d329b2a8e92feab388a0002a67f19fb377e72aa8b6d742aa",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/export.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/make_data.py",
+        "bytes": 43170,
+        "sha256": "dd6f58f97947e9f0f7e9c0337d1f4ebc3fb801eed4a06235c41be271eebe0bd0",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/make_data.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/make_data_v2.py",
+        "bytes": 5003,
+        "sha256": "7353c2d0c99c855a2a11e5726ffe7c5c601925f911e574d881b8fab6f4d6393a",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/make_data_v2.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/make_pilot.py",
+        "bytes": 3137,
+        "sha256": "142d8130cf9e28671e76722abca7b3da7f9fdd46799cbd87c31ff97ca36d3200",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/make_pilot.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/pipeline.py",
+        "bytes": 79171,
+        "sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/ul-objective/pipeline.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/test_evaluate.py",
+        "bytes": 54830,
+        "sha256": "d986ea6f7dc3b6c95b31b05e12dbdc1eb6cfebbaeb78275206a843106832d2b3",
+        "existing_curated_source": "phases/v7-cache-precision-completed-09/qualified-build/source-snapshots/tools/Freehand.Cleanup.Training/test_evaluate.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/test_pipeline.py",
+        "bytes": 8309,
+        "sha256": "152ec7cba665d529f4fff80690c808b375b5974957f17330405c55ddffed8522",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/test_pipeline.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/test_quantized_training.py",
+        "bytes": 33091,
+        "sha256": "3573c307476f114b4e830bd5260a6025db99b6951eb2d76dba5d59a17c2a2a16",
+        "existing_curated_source": "phases/v6-completed-07/verification/test_quantized_training.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/test_resume.py",
+        "bytes": 8960,
+        "sha256": "0ab54f63c38c3b41b0b6d37fa88267430d1653ae1f427bf2035af43fb2721bf7",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/test_resume.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/test_training_resume_cli.py",
+        "bytes": 4494,
+        "sha256": "59800b3509c9f43cd6d92306170779b322049b3107817e6ea7b312045d25b2bf",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/frozen-missing-text/tools/Freehand.Cleanup.Training/test_training_resume_cli.py"
+      },
+      {
+        "path": "tools/Freehand.Cleanup.Training/test_unlikelihood.py",
+        "bytes": 24606,
+        "sha256": "959fc94e8f31c09d49c9683d7d9f3582b7d85dd329e59e4dc6a2e05094d06ad2",
+        "existing_curated_source": "phases/v7-sft-ul-completed-08/source/ul-objective/test_unlikelihood.py"
+      }
+    ],
+    "large38MB_llama_tar_metadata_only": true,
+    "factor3_and_unused_contingency_payloads_included": false,
+    "fresh_corpus_authors_or_commitment_contents_accessed": false
+  }
+}

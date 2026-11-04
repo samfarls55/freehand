@@ -1,0 +1,1060 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/reserved-predicate-20/core-normalization-input-target-40.json",
+  "corpus_sha256": "6C7D55D562CE6027B75A6D57764D0174297805B0F752760A67545FD9B10468BD",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "specialist_output_normalization": "trim-v1",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "6DE0AB21B514990A2834C8AF48636FEDA695C78B616267F70AB602A2E1324A66",
+    "Freehand.Core.dll": "45E705A6FFC4E4BF1895C7EDF2E5E1C0FAB0BC12D31285234A5997C4315F6995",
+    "Freehand.Cleanup.dll": "5E2A173E17E2A72BC9348FB7D661F22279A2A02D24324F62AE25B1DD669FEF81",
+    "Freehand.Dictionary.dll": "B1E19C7B0645B5894D74C0F0DAAEB7D84C6E0655B6D3B588B779B80E9D04E742",
+    "Freehand.Testing.dll": "73942F681F2D5517269BCB8F5B2365599DE0A60997E2F6D713612412D949E5C5",
+    "Freehand.Abstractions.dll": "3F9B1CEFBF7D8AB86ABFB33DF45A0F1605F71758136B34AF8930619E1D2D88C4"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-001/input",
+        "input": "Please lay the linen runner lengthways, no, crossways, so the embroidered edge stays visible.",
+        "split": "development"
+      },
+      "normalized_input": "Please lay the linen runner lengthways, no, crossways, so the embroidered edge stays visible.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ea0c2b1d2fc6f99532f30fbeb7e4c72f4bbcb61746abc0d41e0cc176694e5f6b",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease lay the linen runner lengthways, no, crossways, so the embroidered edge stays visible.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-001/target",
+        "input": "Please lay the linen runner crossways, so the embroidered edge stays visible.",
+        "split": "development"
+      },
+      "normalized_input": "Please lay the linen runner crossways, so the embroidered edge stays visible.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7290891b52e2c942757b612bb8a019a4a5787e47c79de93896dad8dc2fec16c3",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease lay the linen runner crossways, so the embroidered edge stays visible.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-002/input",
+        "input": "I would like the recipe read silently, no, aloud, because Deni cannot see the card.",
+        "split": "development"
+      },
+      "normalized_input": "I would like the recipe read silently, no, aloud, because Deni cannot see the card.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a071d01003eb8679b7784fedb3fc63404e2c94239c369d4b3718b834d29c1dbe",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI would like the recipe read silently, no, aloud, because Deni cannot see the card.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-002/target",
+        "input": "I would like the recipe read aloud, because Deni cannot see the card.",
+        "split": "development"
+      },
+      "normalized_input": "I would like the recipe read aloud, because Deni cannot see the card.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6133435ad411fc515ae40f4c86102462021590c6cc8db693218910e0add065cc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI would like the recipe read aloud, because Deni cannot see the card.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-003/input",
+        "input": "Can you display the itinerary as a grid, no, as a timeline, for the school secretary?",
+        "split": "development"
+      },
+      "normalized_input": "Can you display the itinerary as a grid, no, as a timeline, for the school secretary?",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ae6493009257fa96a35785170b6e170f36ae1a7fd73f506f4cc1a63fddf66cf6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nCan you display the itinerary as a grid, no, as a timeline, for the school secretary?\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-003/target",
+        "input": "Can you display the itinerary as a timeline for the school secretary?",
+        "split": "development"
+      },
+      "normalized_input": "Can you display the itinerary as a timeline for the school secretary?",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "35e99f3104ea95754190c8b4e1856c1a3b5e1081a9f58a81ec08c425ea25c416",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nCan you display the itinerary as a timeline for the school secretary?\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-004/input",
+        "input": "We should store the saffron in the cupboard, correction, in the freezer; the kitchen will be closed tomorrow.",
+        "split": "development"
+      },
+      "normalized_input": "We should store the saffron in the cupboard, correction, in the freezer; the kitchen will be closed tomorrow.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "adb60c41119d9eb80ce07a5c4c73d48a2ad3c7e18a38c8c4c6d21638666ecc2d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe should store the saffron in the cupboard, correction, in the freezer; the kitchen will be closed tomorrow.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-004/target",
+        "input": "We should store the saffron in the freezer; the kitchen will be closed tomorrow.",
+        "split": "development"
+      },
+      "normalized_input": "We should store the saffron in the freezer; the kitchen will be closed tomorrow.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b35b615dfdbf601c389aecb5dc9bbda1a92602e012a83c0332774610e4245141",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nWe should store the saffron in the freezer; the kitchen will be closed tomorrow.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-005/input",
+        "input": "Ask Elina to send the sketches by courier, I mean, by email; the originals must stay here.",
+        "split": "development"
+      },
+      "normalized_input": "Ask Elina to send the sketches by courier, I mean, by email; the originals must stay here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "eb9ae46ecb414d17374981cb578cfa2bedaa09d908da9259de79bdb67db3af26",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAsk Elina to send the sketches by courier, I mean, by email; the originals must stay here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-005/target",
+        "input": "Ask Elina to send the sketches by email; the originals must stay here.",
+        "split": "development"
+      },
+      "normalized_input": "Ask Elina to send the sketches by email; the originals must stay here.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e5e955ee2b45091c8ff78acafa2f7ba6530f96b3ab3aa9eda1f09a9c1691a355",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nAsk Elina to send the sketches by email; the originals must stay here.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-006/input",
+        "input": "The tiles need to be arranged in a circle, no, in straight rows, before the guests arrive.",
+        "split": "development"
+      },
+      "normalized_input": "The tiles need to be arranged in a circle, no, in straight rows, before the guests arrive.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c8fd103ba245e45ef71a08691aba3b2d7de3a50b648ce5e57a99d61a83dd2e0f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe tiles need to be arranged in a circle, no, in straight rows, before the guests arrive.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-006/target",
+        "input": "The tiles need to be arranged in straight rows before the guests arrive.",
+        "split": "development"
+      },
+      "normalized_input": "The tiles need to be arranged in straight rows before the guests arrive.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "81ff343d3e0ab60e080878faea68e0ce876fbe59a485c0311c8f5d312dbdef54",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe tiles need to be arranged in straight rows before the guests arrive.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-007/input",
+        "input": "I planned to trim the hedge from the street side, no, from the courtyard side, after the rain stops.",
+        "split": "development"
+      },
+      "normalized_input": "I planned to trim the hedge from the street side, no, from the courtyard side, after the rain stops.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "032db1c5701d83a4d0780a37d5389a28a3ee35afc0d66e980de0eac67512d263",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI planned to trim the hedge from the street side, no, from the courtyard side, after the rain stops.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-007/target",
+        "input": "I planned to trim the hedge from the courtyard side after the rain stops.",
+        "split": "development"
+      },
+      "normalized_input": "I planned to trim the hedge from the courtyard side after the rain stops.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "89f051ffa3b15d5f44d623c74415c1f84c5855b38f27fafa15eb13c9f807ec9c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI planned to trim the hedge from the courtyard side after the rain stops.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-008/input",
+        "input": "Please position the cello case upright, no, flat, because the shelf above it is low.",
+        "split": "development"
+      },
+      "normalized_input": "Please position the cello case upright, no, flat, because the shelf above it is low.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "ae34051642a32b2ec3576f7401ae59a461939cd75871464ae99fd5377706634a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease position the cello case upright, no, flat, because the shelf above it is low.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-008/target",
+        "input": "Please position the cello case flat, because the shelf above it is low.",
+        "split": "development"
+      },
+      "normalized_input": "Please position the cello case flat, because the shelf above it is low.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f905e3e27efef9757726e78271765e4b62042cf5a794d8396aabf70bdbc81a2f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease position the cello case flat, because the shelf above it is low.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-009/input",
+        "input": "Matan should have the portrait copied in charcoal, no, in ink; the frame is already paid for.",
+        "split": "development"
+      },
+      "normalized_input": "Matan should have the portrait copied in charcoal, no, in ink; the frame is already paid for.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "e96aaf03692bff5780620cbccaf82a80ffd07dd84bc05f43f9079cd0a4e4d5af",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nMatan should have the portrait copied in charcoal, no, in ink; the frame is already paid for.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-009/target",
+        "input": "Matan should have the portrait copied in ink; the frame is already paid for.",
+        "split": "development"
+      },
+      "normalized_input": "Matan should have the portrait copied in ink; the frame is already paid for.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "2f93948aeec01176622286b8dfe06413bf4ae8abab6b4a3beab526e096177e0f",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nMatan should have the portrait copied in ink; the frame is already paid for.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-010/input",
+        "input": "Could you seat the seminar group near the entrance, make that near the garden, without moving the lectern?",
+        "split": "development"
+      },
+      "normalized_input": "Could you seat the seminar group near the entrance, make that near the garden, without moving the lectern?",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b32851a5dcff1e63e78b7529afabecb55891cd9403894f03907196424d430e39",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nCould you seat the seminar group near the entrance, make that near the garden, without moving the lectern?\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-010/target",
+        "input": "Could you seat the seminar group near the garden without moving the lectern?",
+        "split": "development"
+      },
+      "normalized_input": "Could you seat the seminar group near the garden without moving the lectern?",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "3ef164256a52d4058e48680fc1714e4559b6f87a7f036861aa34a551f6146d9a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nCould you seat the seminar group near the garden without moving the lectern?\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-011/input",
+        "input": "I\u0027d rather rehearse the duet with a metronome, no, without a metronome, while Sefa checks the microphones.",
+        "split": "development"
+      },
+      "normalized_input": "I\u0027d rather rehearse the duet with a metronome, no, without a metronome, while Sefa checks the microphones.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "fe666b12962b96d934fa7ef0d574df6abdfe02547ea7d62907a1905f3002242c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI\u0027d rather rehearse the duet with a metronome, no, without a metronome, while Sefa checks the microphones.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-011/target",
+        "input": "I\u0027d rather rehearse the duet without a metronome while Sefa checks the microphones.",
+        "split": "development"
+      },
+      "normalized_input": "I\u0027d rather rehearse the duet without a metronome while Sefa checks the microphones.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "3e7e779e74d32953392b0b18df655587e93c2b7db72cb26d9e298ea2fc61aba1",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI\u0027d rather rehearse the duet without a metronome while Sefa checks the microphones.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-012/input",
+        "input": "Send the field summary on paper, sorry, as an audio note; Harun cannot use the printed copy.",
+        "split": "development"
+      },
+      "normalized_input": "Send the field summary on paper, sorry, as an audio note; Harun cannot use the printed copy.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6432b60df32b064794162f63992a2add85eacfbadd20ba348843c7a137d82ca8",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nSend the field summary on paper, sorry, as an audio note; Harun cannot use the printed copy.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-012/target",
+        "input": "Send the field summary as an audio note; Harun cannot use the printed copy.",
+        "split": "development"
+      },
+      "normalized_input": "Send the field summary as an audio note; Harun cannot use the printed copy.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6585de862d8ad59877dfb48657aad2269c0a8e2c72a2e817adce6f7ec59b87a1",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nSend the field summary as an audio note; Harun cannot use the printed copy.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-013/input",
+        "input": "Place one lamp low on the bookcase and the other high on the stair landing.",
+        "split": "development"
+      },
+      "normalized_input": "Place one lamp low on the bookcase and the other high on the stair landing.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "88dfa467fd070606b3645460ca3de6747cd9bd8937d1176d06ec7b2ca1746aba",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlace one lamp low on the bookcase and the other high on the stair landing.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-013/target",
+        "input": "Place one lamp low on the bookcase and the other high on the stair landing.",
+        "split": "development"
+      },
+      "normalized_input": "Place one lamp low on the bookcase and the other high on the stair landing.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "88dfa467fd070606b3645460ca3de6747cd9bd8937d1176d06ec7b2ca1746aba",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlace one lamp low on the bookcase and the other high on the stair landing.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-014/input",
+        "input": "I\u0027d prefer the lesson recorded indoors rather than outdoors, because the courtyard is noisy.",
+        "split": "development"
+      },
+      "normalized_input": "I\u0027d prefer the lesson recorded indoors rather than outdoors, because the courtyard is noisy.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "8191e7e92fcc6c842c874f7c1ee69078521a0f3ad3bd0c5bfc0618477b584d2a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI\u0027d prefer the lesson recorded indoors rather than outdoors, because the courtyard is noisy.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-014/target",
+        "input": "I\u0027d prefer the lesson recorded indoors rather than outdoors, because the courtyard is noisy.",
+        "split": "development"
+      },
+      "normalized_input": "I\u0027d prefer the lesson recorded indoors rather than outdoors, because the courtyard is noisy.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "8191e7e92fcc6c842c874f7c1ee69078521a0f3ad3bd0c5bfc0618477b584d2a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI\u0027d prefer the lesson recorded indoors rather than outdoors, because the courtyard is noisy.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-015/input",
+        "input": "Read the tide chart aloud to the crew but silently during your own check.",
+        "split": "development"
+      },
+      "normalized_input": "Read the tide chart aloud to the crew but silently during your own check.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "047cb1498230900b9c3e282f81270f6ea1292dbd48d1b73d3249cde67baf4c6e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nRead the tide chart aloud to the crew but silently during your own check.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-015/target",
+        "input": "Read the tide chart aloud to the crew but silently during your own check.",
+        "split": "development"
+      },
+      "normalized_input": "Read the tide chart aloud to the crew but silently during your own check.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "047cb1498230900b9c3e282f81270f6ea1292dbd48d1b73d3249cde67baf4c6e",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nRead the tide chart aloud to the crew but silently during your own check.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-016/input",
+        "input": "The folders belong beside the copier, not beneath it; the shelves underneath hold blank paper.",
+        "split": "development"
+      },
+      "normalized_input": "The folders belong beside the copier, not beneath it; the shelves underneath hold blank paper.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "17208fc58eef39ed3de05a979fd554ef4f8dda390074e00e4c20b24a93cc7ec7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe folders belong beside the copier, not beneath it; the shelves underneath hold blank paper.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-016/target",
+        "input": "The folders belong beside the copier, not beneath it; the shelves underneath hold blank paper.",
+        "split": "development"
+      },
+      "normalized_input": "The folders belong beside the copier, not beneath it; the shelves underneath hold blank paper.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "17208fc58eef39ed3de05a979fd554ef4f8dda390074e00e4c20b24a93cc7ec7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe folders belong beside the copier, not beneath it; the shelves underneath hold blank paper.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-017/input",
+        "input": "Please send the invitations electronically while keeping a paper copy for the ledger.",
+        "split": "development"
+      },
+      "normalized_input": "Please send the invitations electronically while keeping a paper copy for the ledger.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f18064686106ed6c7414e15d8dd61bad6e09ef23399f02c760fff152c1c4656c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease send the invitations electronically while keeping a paper copy for the ledger.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-017/target",
+        "input": "Please send the invitations electronically while keeping a paper copy for the ledger.",
+        "split": "development"
+      },
+      "normalized_input": "Please send the invitations electronically while keeping a paper copy for the ledger.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f18064686106ed6c7414e15d8dd61bad6e09ef23399f02c760fff152c1c4656c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease send the invitations electronically while keeping a paper copy for the ledger.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-018/input",
+        "input": "I expected the badges to face inward; Tova expected them to face outward.",
+        "split": "development"
+      },
+      "normalized_input": "I expected the badges to face inward; Tova expected them to face outward.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "66926cd4b2ddfb83c2e6c1be76b9382e1f7b44d8f84ce4b57cd054785ac9b4fc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI expected the badges to face inward; Tova expected them to face outward.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-018/target",
+        "input": "I expected the badges to face inward; Tova expected them to face outward.",
+        "split": "development"
+      },
+      "normalized_input": "I expected the badges to face inward; Tova expected them to face outward.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "66926cd4b2ddfb83c2e6c1be76b9382e1f7b44d8f84ce4b57cd054785ac9b4fc",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nI expected the badges to face inward; Tova expected them to face outward.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-019/input",
+        "input": "The solo sounds gentler with a mute than without one, and the conductor prefers that gentler sound.",
+        "split": "development"
+      },
+      "normalized_input": "The solo sounds gentler with a mute than without one, and the conductor prefers that gentler sound.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "37569c9239f6041277ee1bd5dbeab0d20b4402e3b0f162d7312b239be18b84d9",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe solo sounds gentler with a mute than without one, and the conductor prefers that gentler sound.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-019/target",
+        "input": "The solo sounds gentler with a mute than without one, and the conductor prefers that gentler sound.",
+        "split": "development"
+      },
+      "normalized_input": "The solo sounds gentler with a mute than without one, and the conductor prefers that gentler sound.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "37569c9239f6041277ee1bd5dbeab0d20b4402e3b0f162d7312b239be18b84d9",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe solo sounds gentler with a mute than without one, and the conductor prefers that gentler sound.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-020/input",
+        "input": "Arrange the lanterns along the path rather than across the steps, so visitors have a clear route.",
+        "split": "development"
+      },
+      "normalized_input": "Arrange the lanterns along the path rather than across the steps, so visitors have a clear route.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "eb688c658ef38bd40616b4282951d4eaf5e62256c1b472159819efcd5c25727a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nArrange the lanterns along the path rather than across the steps, so visitors have a clear route.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-reserved-predicate-020/target",
+        "input": "Arrange the lanterns along the path rather than across the steps, so visitors have a clear route.",
+        "split": "development"
+      },
+      "normalized_input": "Arrange the lanterns along the path rather than across the steps, so visitors have a clear route.",
+      "normalized_targets": [],
+      "normalized_checks": null,
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "eb688c658ef38bd40616b4282951d4eaf5e62256c1b472159819efcd5c25727a",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nArrange the lanterns along the path rather than across the steps, so visitors have a clear route.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T03:34:05.013209+00:00",
+  "status": "RESERVED_UNUSED_SEMANTICALLY_APPROVED_CORE_FIXTURE_PREPARED_ONLY",
+  "dataset": {
+    "path": "train-80-v1.jsonl",
+    "sha256": "b684e53fe1dcfda124f1370309b7ee2141105407fd07f456f513507839b09820",
+    "bytes": 79073,
+    "rows": 80,
+    "cleanup_pairs": 44,
+    "clean_controls": 36
+  },
+  "family_counts": {
+    "compatible_positive_clarification_vs_real_polarity_retraction": 30,
+    "exact_quotes_reporting_clauses_and_outer_pronoun_stutters": 30,
+    "deliberate_noun_phrase_emphasis_vs_outer_pronoun_restart": 20
+  },
+  "source_word_range": [
+    9,
+    19
+  ],
+  "source_parts_and_independent_reviews": [
+    {
+      "path": "part-01-compatible-negated-constraint-30-v2.jsonl",
+      "sha256": "549f639c2c41981167584f71d14a1d3a36a742c2c856c3db61eec721a362a924",
+      "rows": 30,
+      "review": "root-part01-v2-independent-review.json",
+      "review_sha256": "e6d42647de567110bef664b8c6ce33a5e152875bd20f7d01edbfc7c4a653bb95",
+      "approved": 30
+    },
+    {
+      "path": "part-02-quoted-followup-reporting-30-v1.jsonl",
+      "sha256": "051cfad6bf09b53719373fdf2487c8f65f4fbb92a26f4f8ed3dd0e46cf0f8a3c",
+      "rows": 30,
+      "review": "family-02-v1-cleanup-pipeline-independent-review.json",
+      "review_sha256": "d648ffd15a0aa08951c41e779f76ded23e570e6b29fc9ddca17c5dfe57f9be26",
+      "approved": 30
+    },
+    {
+      "path": "part-03-deliberate-noun-phrase-repetition-20-v1.jsonl",
+      "sha256": "5c8fb943efd827160dd4fc62b422e7c702b89244816763b04d3f17e604930f48",
+      "rows": 20,
+      "review": "part-03-independent-audit-v1.json",
+      "review_sha256": "6c102a9389aff6a449c387c6c05d4349e3e566452357e69dcc6f8cf802890503",
+      "approved": 20
+    }
+  ],
+  "independent_review_rollup": {
+    "path": "independent-review-rollup-v1.json",
+    "sha256": "ef6066a7df477f4a15d1045bd5cdfeafbb4566c1c98584cb4a9997f5ad597218",
+    "approved": 80,
+    "remaining_issues": 0
+  },
+  "literal_validation": {
+    "path": "raw-literal-validation-v1.json",
+    "sha256": "b299ad99867d73e97ee43850109b4e9fb75b79aa0003cf7a8ce8e8b607f617a9",
+    "rows": 80,
+    "protected_payloads": 38,
+    "all_once_order_roundtrip": true
+  },
+  "provenance": "Individually authored controlled synthetic contrasts from root taxonomy only, not copied from evaluation cases or model outputs; per-row rationale and author provenance retained. Part01V1 and its five-case author V2 overlay preserved.",
+  "training_duplicate_check": {
+    "training_artifact_sha256": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c",
+    "training_exposures": 3234,
+    "comparison": "NFC, whitespace collapse, casefold",
+    "input_overlap": 0,
+    "target_overlap": 0,
+    "pair_overlap": 0,
+    "within_new80_unique_inputs_targets_pairs_each": 80
+  },
+  "opaque_blind_overlap": "Pending root-owned opaque comparison; no blind content or outputs read by author.",
+  "Core_fixture": {
+    "path": "core-normalization-input-target-160.json",
+    "sha256": "ce545d00ce2be4ff50d75373060abaf9885ba93ab2adf2bb193ecbb117f30b8d",
+    "rows": 160,
+    "execution_status": "PREPARED ONLY; await root grant before actual preprocessing, no model/native/build."
+  },
+  "separation": {
+    "active_V8_not_modified": true,
+    "parent_configuration_trainer_and_UL_events_not_modified": true,
+    "all80_unused": true
+  },
+  "integration_instruction": "Do not activate. Root may select only after actual V8 results; these may remain unused if the goal is met."
+}

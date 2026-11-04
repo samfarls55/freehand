@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex assistant /root",
+  "results_sha256": "d59ff5167f5c1df224f060c62fea144403425503b9fc1b0ebe6b02dcc18e0089",
+  "prior_canonical_review_sha256": "fe07736284eda5a8b8425c90b537f217e7c984d94b7e2420d375c8c5e1bfdae7",
+  "packet_sha256": "d912d903b7702627676197c74afbc258145ed5c252cf8786f5f0a27e080ff5e5",
+  "scope": "Six actual original/normalized/cleanup-input/candidate/delivered pairs personally read; no target oracle. Remaining160 cases inherit prior successful judgments under exact typed13-field equality.",
+  "cases": [
+    {
+      "case_id": "blind-c-021",
+      "position_one_based": 371,
+      "actual_pair": {
+        "input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "cleanup_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "output": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "candidate_text": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "judgment": [
+        true,
+        false,
+        false,
+        "Returns the complete source including Uh unchanged. Exact refund quote and clarification are faithful, but the removable hesitation remains; no successful-cleanup credit."
+      ],
+      "personal_read": true
+    },
+    {
+      "case_id": "blind-c-029",
+      "position_one_based": 379,
+      "actual_pair": {
+        "input": "I, I want the response to begin with “Thanks for checking.”",
+        "normalized_input": "I, I want the response to begin with “Thanks for checking.”",
+        "cleanup_input": "I, I want the response to begin with “Thanks for checking.”",
+        "output": "I want the response to begin with “Thanks for checking.”",
+        "candidate_text": "I want the response to begin with “Thanks for checking.”",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "judgment": [
+        true,
+        true,
+        false,
+        "Removes the accidental initial I, I while preserving the request and exact quoted response opening."
+      ],
+      "personal_read": true
+    },
+    {
+      "case_id": "blind-c-031",
+      "position_one_based": 381,
+      "actual_pair": {
+        "input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+        "normalized_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+        "cleanup_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+        "output": "Instead of changing the status to \"on hold\", leave the status \"awaiting parts\" instead.",
+        "candidate_text": "Instead of changing the status to \"on hold\", leave the status \"awaiting parts\" instead.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "judgment": [
+        true,
+        true,
+        false,
+        "The instead-of frame preserves both exact status literals while clearly canceling on hold and retaining awaiting parts. Repeated instead is stylistically redundant but grammatical and directly usable; it does not reactivate the canceled change."
+      ],
+      "personal_read": true
+    },
+    {
+      "case_id": "blind-c-034",
+      "position_one_based": 384,
+      "actual_pair": {
+        "input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "cleanup_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "judgment": [
+        true,
+        false,
+        false,
+        "Exact regex and speaker uncertainty survive, but the accidental I, I remains unchanged and uncleaned."
+      ],
+      "personal_read": true
+    },
+    {
+      "case_id": "blind-c-064",
+      "position_one_based": 414,
+      "actual_pair": {
+        "input": "The prototype uses LoRa radio, uh, not LoRA model adapters.",
+        "normalized_input": "The prototype uses LoRa radio, uh, not LoRA model adapters.",
+        "cleanup_input": "The prototype uses LoRa radio, uh, not LoRA model adapters.",
+        "output": "The prototype uses LoRa radio not LoRA model adapters.",
+        "candidate_text": "The prototype uses LoRa radio not LoRA model adapters.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "judgment": [
+        true,
+        true,
+        false,
+        "Preserves the technical distinction LoRa radio versus LoRA model adapters and removes uh. The contrast is clear without an optional comma."
+      ],
+      "personal_read": true
+    },
+    {
+      "case_id": "blind-c-072",
+      "position_one_based": 422,
+      "actual_pair": {
+        "input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+        "normalized_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+        "cleanup_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+        "output": "Cancel the request for the upstairs room; I will join remotely.",
+        "candidate_text": "Cancel the request for the upstairs room; I will join remotely.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "judgment": [
+        true,
+        true,
+        false,
+        "Clearly cancels the upstairs-room request and preserves the plan to join remotely."
+      ],
+      "personal_read": true
+    }
+  ]
+}

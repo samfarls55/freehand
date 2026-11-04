@@ -221,3 +221,12 @@ The unmerged184-F32 native adapter11ec at external scale1 completed all500 origi
 ## Completed parent-child factor interpolation
 
 Three fixed child fractions0.5/0.75/0.875 derived both rank8 factors from the completed V7 UL parent and V8 child with zero new optimizer steps. All three were converted/frozen before their serial full original500 Core runs; the earlier subset and matched-arm proposals remain unused chronology. Semantic results are487/489/490 joint with7/4/2 critical errors, so the predeclared selection retains V8 at492/500, below495/500. Full derivation/conversion/legal/source, all1500 actual outcomes, owned argv/postchecks, shard reviews/inheritance proofs and root cross-read records are preserved. The independent math-guard PASS was reported only in collaborator messages/owner plan; the distinct formal saved wrapper audit is retained. No new resource, Windows, whole-app or fresh/population qualification is claimed. See [phases/parent-child-interpolation-completed-11/README.md](phases/parent-child-interpolation-completed-11/README.md).
+
+
+## Completed V9 phase12
+
+V9 actually used approved3634 and32canonical events with64mapped exposures. Exact8c source/config/log/verifier prove455updates/909microbatches,184finite adapter tensors and184AdamW counters455. Saved RNG is448, not455.
+
+Original500 completed304Applied/196Unchanged/0Failed:500faithful,494clean/joint(98.8%),0critical, stillbelow495. Three named shards used462strict typed13field prior successes and38personal pairs, all38cross-read by root. Actual helper source before its typed-equality fix is preserved as unused-on-V9 history alongside fixed source and independentPASS. This does not claim500new personal reads.
+
+One small code snapshot archive contains39source files plus its internal index; all39source byte hashes match the freeze and existing curated sources. The38MB upstream llama tar is metadata-only. No weights/native binaries/fresh corpus/author/commitment contents/factor3unused experiments are included. No resource orWindows qualification is claimed.

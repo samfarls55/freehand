@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "status": "DATA_READY_FOR_TRAINING_OWNER_PREFLIGHT_ONLY_NOT_LAUNCH_AUTHORIZATION",
+  "dataset": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/proposed-3634-curriculum/positive-3634-proposed.jsonl",
+    "sha256": "50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451",
+    "bytes": 6318639
+  },
+  "manifest_sha256": "bd920da9b9df5b6bf7ccb7aa344db95392f5276b3ef95be6573460bb1d6b9928",
+  "independent_structure_review_sha256": "9c709b000131926277793075cbdfb790e488111e74f24636d4c29295af34555b",
+  "preserved_prefix": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v9-positive-curriculum/positive-3394-proposed.jsonl",
+    "sha256": "a10667ecb58077b159542291a13cbe6c178896cb24edb7ce612a326247ebe98e",
+    "bytes": 5761109,
+    "exact_byte_prefix": true
+  },
+  "source_effective_exposures": {
+    "history2014": 2014,
+    "contrasts270": 540,
+    "additional100": 200,
+    "additional240": 480,
+    "additional80": 320,
+    "predicate20": 80
+  },
+  "counts": {
+    "exposures": 3634,
+    "raw_unique_pairs": 2724,
+    "folded_unique_pairs": 2720,
+    "clean_controls": 1224,
+    "cleanup_pairs": 2410,
+    "extra_repeat_exposures": 910,
+    "duplicate_groups": 710,
+    "groups_of2": 610,
+    "groups_of4": 100,
+    "inherited_casefold_collisions": 4,
+    "conflicting_labels_or_source_IDs": 0
+  },
+  "append_order": "80 copy3,80 copy4,20 copy1,20 copy2,20 copy3,20 copy4, each source order.",
+  "pipeline_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+  "tokenizer_sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+  "token_ledger": {
+    "path": "positive-3634-token-checks.jsonl",
+    "sha256": "e20bb968909dd3a4f2341a3314ca66a94de4a564617c4b4f6743ec65bf071e44",
+    "old3394_entries_exact": 3394,
+    "complete_token_cap": 1024,
+    "max_complete_tokens": 193,
+    "truncated": 0,
+    "BOS1_once_EOS7_all": true
+  },
+  "mask_and_prompt_checks": {
+    "literal_protocol": "specialist-compact-v3",
+    "loader_and_roundtrip_rows": 3634,
+    "protected_span_exposures": 639,
+    "legacy_dictionary_rows_once": 57,
+    "appended_exposures_checked": 240,
+    "source_prompt_mask_matches": 240,
+    "target_prompt_mask_matches": 240,
+    "saved_unique_Core_fixtures": 200
+  },
+  "source_exposure_map": {
+    "path": "positive-3634-source-exposures.json",
+    "sha256": "687686b0eaa01451cf2942811872726ff61afeeb0666b8e5e3df003be1c6a4a7",
+    "current_totals_authoritative": true
+  },
+  "provenance_ledger": {
+    "path": "positive-3634-provenance.jsonl",
+    "sha256": "5192c0f139a11bcae827cd7453f240363e3b6698808861e739975973137d886d",
+    "proposal_total_exposures_field_authoritative": true,
+    "historical_total2_context_rows_retained": 160
+  },
+  "content_hash_index": {
+    "path": "positive-3634-content-hashes.json",
+    "sha256": "d2da7554fbf9d34468448cd8c9b7c01b1d7275cf87ac02b4b128422935a43e54"
+  },
+  "normalized_source_pins": {
+    "80": "a5b2963faf8bb5ad632dc5915c781bbf0c30aa3b3a37d032a7c1c640d6a076c4",
+    "20": "734af14303b01bd5d671e6050d47faa054484245b9eec1bc980fd8b37b88bde3",
+    "20_independent_normalized_approval": "6d7003f6a85b37ce0a35f8cb55af1247ebbb01b0fa36eb6daee4ea5b3d545591"
+  },
+  "parent_root_selection": {
+    "name": "V8 raw",
+    "model_sha256_prefix": "0ad09445",
+    "config_sha256_prefix": "2637946e",
+    "full_parent_paths_hashes_and_resume_compatibility": "Training owner/root must pin in their prelaunch; this data task does not open model weights."
+  },
+  "opaque_overlap": "Root completing20 check separately; consume root receipt before launch. No fresh content or opaque receipts read by preparer.",
+  "UL_binding": "Unchanged/unselected by preparer. Any future binding must target this exact positive SHA and authoritative current exposure map; no new negative events.",
+  "activation": "None; no training/source/config/trainer changes."
+}
