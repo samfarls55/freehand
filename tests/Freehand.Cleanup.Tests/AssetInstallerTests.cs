@@ -141,6 +141,25 @@ public sealed class AssetInstallerTests
         fixture.Transport.RequestCount.ShouldBe(requests);
     }
 
+    [Fact]
+    public async Task Cached_setup_cannot_activate_an_adapter_absent_from_the_selected_acquisition_plan()
+    {
+        using var fixture = new Fixture();
+        var installer = fixture.Installer();
+        var installed = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        var manifest = System.Text.Json.Nodes.JsonNode.Parse(await File.ReadAllTextAsync(installed.ManifestPath))!.AsObject();
+        manifest["adapterPath"] = "model.gguf";
+        manifest["adapterSha256"] = Hash(fixture.ModelBytes);
+        await File.WriteAllTextAsync(installed.ManifestPath, manifest.ToJsonString());
+        LlamaCleanupOptions.LoadManifest(installed.ManifestPath).AdapterPath.ShouldNotBeNull();
+
+        var repaired = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+
+        repaired.DirectoryPath.ShouldNotBe(installed.DirectoryPath);
+        LlamaCleanupOptions.LoadManifest(repaired.ManifestPath).AdapterPath.ShouldBeNull();
+        File.Exists(installed.ManifestPath).ShouldBeTrue();
+    }
+
     [Theory]
     [InlineData("BatchSize", 0)]
     [InlineData("BatchSize", 8193)]

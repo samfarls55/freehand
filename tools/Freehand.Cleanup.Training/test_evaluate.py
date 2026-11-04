@@ -290,7 +290,181 @@ class PairedBlindTests(unittest.TestCase):
         return args, selected, control
 
     def patches(self):
-        return patch("evaluate.source_files", return_value={}), patch("evaluate.small_models.verify_runtime_inventory")
+        return patch("evaluate.source_files", return_value={}), patch("evaluate.small_models.verify_runtime_inventory", return_value={})
+
+    def deployed_fixture(self, root, selected, baseline):
+        path = root / "deployed-native.gguf"
+        path.write_text("native GGUF adapter fixture")
+        selected["model"] = copy.deepcopy(baseline["model"])
+        selected["runtime_adapter"] = evaluate.artifact(path)
+        selected["profile"] = evaluate.runtime_profile(16, selected["runtime_adapter"], 1)
+        return path
+
+    def test_same_base_with_pinned_deployed_adapter_has_distinct_effective_pair_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            _, selected, baseline = self.fixtures(root)
+            self.deployed_fixture(root, selected, baseline)
+            evaluate.verify_pair(selected, baseline)
+            self.assertNotEqual(evaluate.effective_model_identity(selected), evaluate.effective_model_identity(baseline))
+            baseline["runtime_adapter"] = selected["runtime_adapter"]
+            baseline["profile"] = selected["profile"]
+            with self.assertRaisesRegex(ValueError, "deployed runtime adapter"):
+                evaluate.verify_pair(selected, baseline)
+
+    def test_deployed_adapter_drift_is_rejected_before_test_open(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            args, selected, baseline = self.fixtures(root)
+            path = self.deployed_fixture(root, selected, baseline)
+            args.candidate_freeze.write_text(json.dumps(selected))
+            path.write_text("changed deployed adapter")
+            sources, runtime = self.patches()
+            with sources, runtime, patch("evaluate.load_corpus") as loader:
+                with self.assertRaisesRegex(ValueError, "Artifact drift"):
+                    evaluate.native(args)
+                loader.assert_not_called()
+            self.assertFalse(args.blind_commitment.with_suffix(".consumed.json").exists())
+
+    def test_runtime_scale_does_not_double_embedded_alpha_and_merged_base_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            _, selected, baseline = self.fixtures(root)
+            original_merged = selected["model"]
+            path = self.deployed_fixture(root, selected, baseline)
+            profile = selected["profile"]
+            self.assertEqual(1, profile["adapterScale"])
+            flags = evaluate.native_server_arguments(profile)
+            self.assertEqual(str(path), flags[flags.index("--lora") + 1])
+            self.assertNotIn("--lora-scaled", flags)
+            scaled = evaluate.native_server_arguments(evaluate.runtime_profile(16, selected["runtime_adapter"], .5))
+            self.assertEqual(str(path) + ":0.5", scaled[-1])
+            self.assertEqual("--lora-scaled", scaled[-2])
+            for name in ("adapter,comma.gguf", "adapter:colon.gguf"):
+                separator_adapter = {**selected["runtime_adapter"], "path": str(root / name)}
+                if "," in name:
+                    with self.assertRaisesRegex(ValueError, "commas"):
+                        evaluate.runtime_profile(16, separator_adapter)
+                    with self.assertRaisesRegex(ValueError, "commas"):
+                        evaluate.native_server_arguments({**profile, "adapterPath": separator_adapter["path"]})
+                else:
+                    self.assertEqual(separator_adapter["path"], evaluate.native_server_arguments(evaluate.runtime_profile(16, separator_adapter))[-1])
+                with self.assertRaisesRegex(ValueError, "commas.*colons"):
+                    evaluate.runtime_profile(16, separator_adapter, .5)
+                malformed_profile = {**profile, "adapterPath": separator_adapter["path"], "adapterScale": .5}
+                with self.assertRaisesRegex(ValueError, "commas|colons"):
+                    evaluate.native_server_arguments(malformed_profile)
+            for invalid in (0, -1, 2, float("nan"), float("inf"), True):
+                with self.subTest(scale=invalid), self.assertRaisesRegex(ValueError, "scale"):
+                    evaluate.runtime_profile(16, selected["runtime_adapter"], invalid)
+            selected["model"] = original_merged
+            with self.assertRaisesRegex(ValueError, "do not apply it twice"):
+                evaluate.verify_runtime_adapter(selected)
+
+    def test_freeze_keeps_training_lineage_separate_and_emits_exact_deployed_core_fields(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            args, selected, baseline = self.fixtures(root)
+            path = self.deployed_fixture(root, selected, baseline)
+            train = root / "training"
+            train.mkdir()
+            (train / "adapter-config.json").write_text("{}")
+            (train / "adapter.safetensors").write_text("training lineage, not deployed")
+            frozen = root / "deployed-freeze.json"
+            freeze_args = argparse.Namespace(model=Path(selected["model"]["path"]),
+                runtime=Path(selected["runtime"]["path"]), runtime_inventory=Path(selected["runtime_inventory"]["path"]),
+                probe=Path(selected["probe"]["path"]), output=frozen, adapter_config=train / "adapter-config.json",
+                runtime_adapter=path, runtime_adapter_sha256=selected["runtime_adapter"]["sha256"],
+                runtime_adapter_scale=1, prompt_lookup_tokens=16)
+            sources, runtime = self.patches()
+            with sources, runtime, patch("evaluate.managed_files", return_value=[]), patch("builtins.print"):
+                evaluate.freeze(freeze_args)
+                value = evaluate.verify_freeze(frozen)
+            self.assertNotEqual(value["adapter"]["sha256"], value["runtime_adapter"]["sha256"])
+            self.assertEqual(1, value["effective_model_identity"]["runtime_adapter_scale"])
+            output = root / "deployment-preview"
+            corpus = evaluate.load_corpus(args.dataset)
+            evaluate.prepare_evaluation(args, value, evaluate.artifact(frozen), corpus, output, "selected_primary", None)
+            manifest = json.loads((output / "cleanup-manifest.json").read_text())
+            self.assertEqual(str(path), manifest["adapterPath"])
+            self.assertEqual(selected["runtime_adapter"]["sha256"], manifest["adapterSha256"])
+            self.assertEqual(1, manifest["adapterScale"])
+            self.assertIn("native-lora-", manifest["modelId"])
+            freeze_args.output = root / "orphan-freeze.json"
+            freeze_args.runtime_adapter_sha256 = None
+            with self.assertRaisesRegex(ValueError, "both path"):
+                evaluate.freeze(freeze_args)
+
+    def test_core_report_must_confirm_deployed_hash_and_external_scale(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            _, selected, baseline = self.fixtures(root)
+            path = self.deployed_fixture(root, selected, baseline)
+            identity = evaluate.effective_model_identity(selected)
+            report = root / "core.json"
+            metadata = {"model": {"expected_sha256": identity["base_sha256"], "actual_sha256": identity["base_sha256"]},
+                "runtime_adapter": {"path": str(path),
+                "expected_sha256": selected["runtime_adapter"]["sha256"],
+                "actual_sha256": selected["runtime_adapter"]["sha256"].upper()}, "adapter_scale": 1}
+            report.write_text(json.dumps({"metadata": metadata}))
+            evaluate.verify_core_deployment(report, identity)
+            metadata["adapter_scale"] = 2
+            report.write_text(json.dumps({"metadata": metadata}))
+            with self.assertRaisesRegex(ValueError, "scale"):
+                evaluate.verify_core_deployment(report, identity)
+            report.write_text(json.dumps({"metadata": {}}))
+            with self.assertRaisesRegex(ValueError, "frozen base model"):
+                evaluate.verify_core_deployment(report, identity)
+
+    def test_core_report_requires_typed_matching_base_hashes_for_both_roles(self):
+        for with_adapter in (False, True):
+            with self.subTest(with_adapter=with_adapter), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                _, selected, baseline = self.fixtures(root)
+                if with_adapter:
+                    self.deployed_fixture(root, selected, baseline)
+                value = selected if with_adapter else baseline
+                identity = evaluate.effective_model_identity(value)
+                metadata = {"model": {"expected_sha256": identity["base_sha256"], "actual_sha256": identity["base_sha256"].upper()}}
+                if with_adapter:
+                    metadata.update(runtime_adapter={"expected_sha256": identity["runtime_adapter_sha256"],
+                        "actual_sha256": identity["runtime_adapter_sha256"]}, adapter_scale=1)
+                report = root / "core.json"
+                report.write_text(json.dumps({"metadata": metadata}))
+                evaluate.verify_core_deployment(report, identity)
+                for key in ("expected_sha256", "actual_sha256"):
+                    for invalid in ("0" * 64, None, True, 123):
+                        changed = copy.deepcopy(metadata)
+                        changed["model"][key] = invalid
+                        report.write_text(json.dumps({"metadata": changed}))
+                        with self.assertRaisesRegex(ValueError, "base model"):
+                            evaluate.verify_core_deployment(report, identity)
+                for invalid in (None, {}, {"expected_sha256": identity["base_sha256"]}):
+                    changed = {**metadata, "model": invalid}
+                    report.write_text(json.dumps({"metadata": changed}))
+                    with self.assertRaisesRegex(ValueError, "base model"):
+                        evaluate.verify_core_deployment(report, identity)
+                for key in ("bytes", "expected_bytes", "actual_bytes"):
+                    for invalid in (True, str(identity["base_bytes"]), float(identity["base_bytes"]), identity["base_bytes"] + 1):
+                        changed = copy.deepcopy(metadata)
+                        changed["model"][key] = invalid
+                        report.write_text(json.dumps({"metadata": changed}))
+                        with self.assertRaisesRegex(ValueError, "size"):
+                            evaluate.verify_core_deployment(report, identity)
+
+    def test_core_report_rejects_boolean_and_nonnumeric_external_scale(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            _, selected, baseline = self.fixtures(root)
+            self.deployed_fixture(root, selected, baseline)
+            identity = evaluate.effective_model_identity(selected)
+            metadata = {"model": {"expected_sha256": identity["base_sha256"], "actual_sha256": identity["base_sha256"]},
+                "runtime_adapter": {"expected_sha256": identity["runtime_adapter_sha256"], "actual_sha256": identity["runtime_adapter_sha256"]}}
+            report = root / "core.json"
+            for scale in (True, False, "1", None, float("nan"), float("inf"), 2):
+                report.write_text(json.dumps({"metadata": {**metadata, "adapter_scale": scale}}))
+                with self.subTest(scale=scale), self.assertRaisesRegex(ValueError, "scale"):
+                    evaluate.verify_core_deployment(report, identity)
 
     def test_pair_profile_source_and_runtime_mismatches_rejected_before_corpus_open(self):
         for mismatch in ("profile", "sources", "runtime", "managed_assemblies"):
@@ -373,7 +547,9 @@ class PairedBlindTests(unittest.TestCase):
                 calls.append("original_control" if is_baseline else "selected_primary")
                 cases = [{"id": str(index), "cleanup_status": "Failed" if index == 0 else "Applied"}
                          for index in range(500)]
-                output.write_text(json.dumps({"incomplete": False, "cases": cases}))
+                manifest = json.loads((output.parent / "cleanup-manifest.json").read_text())
+                metadata = {"model": {"expected_sha256": manifest["modelSha256"], "actual_sha256": manifest["modelSha256"]}}
+                output.write_text(json.dumps({"incomplete": False, "cases": cases, "metadata": metadata}))
                 return 1  # Provider failures must not skip the second complete500 run.
             sources, runtime = self.patches()
             with sources, runtime, patch("evaluate.load_corpus", side_effect=guarded_loader), \
@@ -408,8 +584,11 @@ class PairedBlindTests(unittest.TestCase):
                 self.assertEqual(500, inventory["expected_count"])
                 self.assertFalse(inventory["complete"])
 
-    def completed_pair(self, root, malformed_selected=False):
-        args, _, _ = self.fixtures(root)
+    def completed_pair(self, root, malformed_selected=False, deployed_selected=False, deployment_defect=None):
+        args, selected, baseline = self.fixtures(root)
+        if deployed_selected:
+            self.deployed_fixture(root, selected, baseline)
+            args.candidate_freeze.write_text(json.dumps(selected))
         calls = []
         def fake_probe(argv, log):
             output = Path(argv[argv.index("--output") + 1])
@@ -418,18 +597,37 @@ class PairedBlindTests(unittest.TestCase):
             if malformed_selected and not baseline:
                 output.write_text('{"incomplete":true,"cases":[')
                 return 1
+            if deployment_defect == "missing_report" and not baseline:
+                return 1
             text = "Keep that." if baseline else "Keep it."
             cases = [{"id": str(index), "input": "um keep it", "output": text,
                       "normalized_targets": ["Keep it."], "cleanup_status": "Applied",
                       "candidate_text": text, "insertion_count": 1, "delivered_count": 1, "error": None}
                      for index in range(500)]
-            output.write_text(json.dumps({"incomplete": False, "cases": cases}))
+            manifest = json.loads((output.parent / "cleanup-manifest.json").read_text())
+            metadata = {"model": {"expected_sha256": manifest["modelSha256"], "actual_sha256": manifest["modelSha256"]}}
+            if deployed_selected and not baseline:
+                sha = selected["runtime_adapter"]["sha256"]
+                metadata.update(runtime_adapter={"expected_sha256": sha, "actual_sha256": sha}, adapter_scale=1)
+                if deployment_defect == "missing_metadata":
+                    metadata = {}
+                elif deployment_defect == "wrong_hash":
+                    metadata["runtime_adapter"]["actual_sha256"] = "0" * 64
+                elif deployment_defect == "double_scale":
+                    metadata["adapter_scale"] = 2
+                elif deployment_defect == "bool_scale":
+                    metadata["adapter_scale"] = True
+            if deployment_defect == "wrong_base" and not baseline:
+                metadata["model"]["actual_sha256"] = "0" * 64
+            if deployment_defect == "wrong_control_base" and baseline:
+                metadata["model"]["actual_sha256"] = "0" * 64
+            output.write_text(json.dumps({"incomplete": False, "cases": cases, "metadata": metadata}))
             return 0
         sources, runtime = self.patches()
         with sources, runtime, patch("evaluate.invoke", side_effect=fake_probe), patch("builtins.print"):
             code = evaluate.native(args)
         self.assertEqual([False, True], calls)
-        self.assertEqual(int(malformed_selected), code)
+        self.assertEqual(int(malformed_selected or bool(deployment_defect)), code)
         return args
 
     def review_args(self, results):
@@ -467,6 +665,49 @@ class PairedBlindTests(unittest.TestCase):
             self.assertEqual(evaluate.artifact(args.output / "core-results.json"), selected["report"])
             self.assertIn("Unusable", selected["error"])
 
+    def test_deployed_malformed_selected_report_still_runs_full_registered_control(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = self.completed_pair(Path(directory), malformed_selected=True, deployed_selected=True)
+            summary = json.loads((args.output / "paired-completion.json").read_text())
+            deployment = json.loads((args.output / "runtime-deployment-verification.json").read_text())
+            self.assertFalse(deployment["verified"])
+            self.assertEqual(evaluate.artifact(args.output / "core-results.json"), deployment["report"])
+            self.assertFalse(summary["both_complete_denominators"])
+            self.assertFalse(summary["candidate_reports"]["selected_primary"]["runtime_deployment_verified"])
+            self.assertEqual(500, summary["candidate_reports"]["original_control"]["observed_count"])
+
+    def test_deployment_errors_preserve_counts_continue_control_and_forbid_pair_qualification(self):
+        for defect in ("missing_report", "missing_metadata", "wrong_hash", "double_scale", "bool_scale", "wrong_base"):
+            with self.subTest(defect=defect), tempfile.TemporaryDirectory() as directory:
+                args = self.completed_pair(Path(directory), deployed_selected=True, deployment_defect=defect)
+                summary = json.loads((args.output / "paired-completion.json").read_text())
+                deployment = json.loads((args.output / "runtime-deployment-verification.json").read_text())
+                self.assertFalse(deployment["verified"])
+                self.assertFalse(summary["both_complete_denominators"])
+                self.assertEqual(1, summary["commands"]["selected_primary"]["runtime_deployment"])
+                inventory = summary["candidate_reports"]["selected_primary"]
+                self.assertFalse(inventory["complete"])
+                if defect != "missing_report":
+                    self.assertEqual(500, inventory["observed_count"])
+                    self.assertTrue(inventory["case_inventory_complete"])
+                    self.assertEqual(evaluate.artifact(args.output / "core-results.json"), deployment["report"])
+                self.assertEqual(500, summary["candidate_reports"]["original_control"]["observed_count"])
+                review_args = self.review_args(args.output / "paired-baseline/core-results.json")
+                with self.assertRaisesRegex(ValueError, "Paired|frozen base model"):
+                    evaluate.review(review_args)
+
+    def test_wrong_base_receipts_unqualify_merged_selected_and_original_control(self):
+        for defect, role in (("wrong_base", "selected_primary"), ("wrong_control_base", "original_control")):
+            with self.subTest(role=role), tempfile.TemporaryDirectory() as directory:
+                args = self.completed_pair(Path(directory), deployment_defect=defect)
+                summary = json.loads((args.output / "paired-completion.json").read_text())
+                self.assertFalse(summary["both_complete_denominators"])
+                self.assertEqual(1, summary["commands"][role]["runtime_deployment"])
+                self.assertFalse(summary["candidate_reports"][role]["complete"])
+                self.assertTrue(summary["candidate_reports"][role]["case_inventory_complete"])
+                for inventory in summary["candidate_reports"].values():
+                    self.assertEqual(500, inventory["observed_count"])
+
     def test_paired_review_rejects_missing_failed_receipt_or_swapped_role_report(self):
         for defect in ("missing_completion", "post_run_failed", "control_incomplete", "swapped_report", "missing_control_metadata"):
             with self.subTest(defect=defect), tempfile.TemporaryDirectory() as directory:
@@ -488,7 +729,7 @@ class PairedBlindTests(unittest.TestCase):
                     results = args.output / "paired-baseline/core-results.json"
                     (results.parent / "evaluation-pre-run-freeze.json").unlink()
                 review_args = self.review_args(results)
-                with self.assertRaisesRegex(ValueError, "Paired"):
+                with self.assertRaisesRegex(ValueError, "Paired|frozen base model"):
                     evaluate.review(review_args)
                 self.assertFalse(review_args.output.exists())
 

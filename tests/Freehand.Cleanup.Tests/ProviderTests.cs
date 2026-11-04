@@ -1,4 +1,5 @@
 using System.Net;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -488,6 +489,119 @@ public sealed class ProviderTests
         using var fixture = new Fixture(CleanupPromptStyle.QuillChatMl);
         await using var provider = fixture.Provider(fixture.Options with { ModelSha256 = new string('0', 64) });
         await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync("dictated text", CancellationToken.None));
+        fixture.Launcher.Workers.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public async Task Default_cleanup_options_do_not_activate_a_native_adapter()
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        fixture.Options.AdapterPath.ShouldBeNull();
+        fixture.Options.AdapterSha256.ShouldBeNull();
+        fixture.Options.AdapterScale.ShouldBe(1);
+        await using var provider = fixture.Provider();
+
+        await provider.ProcessAsync("send it Friday", CancellationToken.None);
+
+        fixture.Launcher.Start!.Arguments.ShouldNotContain("--lora");
+        fixture.Launcher.Start.Arguments.ShouldNotContain("--lora-scaled");
+    }
+
+    [Theory]
+    [InlineData(1, "adapter with spaces Δ.gguf")]
+    [InlineData(0.375, "adapter with spaces Δ.gguf")]
+    public async Task Native_adapter_uses_one_native_value_argument_and_invariant_scale(double scale, string fileName)
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        var adapter = Path.Combine(Path.GetDirectoryName(fixture.Options.ModelPath)!, fileName);
+        await File.WriteAllTextAsync(adapter, "pinned adapter");
+        var hash = Convert.ToHexString(SHA256.HashData(await File.ReadAllBytesAsync(adapter)));
+        var options = fixture.Options with { AdapterPath = adapter, AdapterSha256 = hash, AdapterScale = scale };
+        if (scale != 1 && adapter.Contains(':'))
+        {
+            Should.Throw<ArgumentException>(() => fixture.Provider(options)).ParamName.ShouldBe(nameof(LlamaCleanupOptions.AdapterPath));
+            fixture.Launcher.Workers.ShouldBeEmpty();
+            return;
+        }
+        await using var provider = fixture.Provider(options);
+        var culture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("fr-FR");
+            (await provider.ProcessAsync("send it Friday", CancellationToken.None)).ShouldBe("Send it Friday.");
+        }
+        finally { CultureInfo.CurrentCulture = culture; }
+
+        var arguments = fixture.Launcher.Start!.Arguments.ToArray();
+        var flag = scale == 1 ? "--lora" : "--lora-scaled";
+        arguments.Count(argument => argument == flag).ShouldBe(1);
+        arguments.ShouldNotContain(scale == 1 ? "--lora-scaled" : "--lora");
+        var at = Array.IndexOf(arguments, flag);
+        arguments[at + 1].ShouldBe(scale == 1 ? adapter : adapter + ":0.375");
+        arguments[at + 2].ShouldBe("--no-jinja");
+    }
+
+    [Theory]
+    [InlineData("model")]
+    [InlineData("adapter")]
+    [InlineData("missing adapter")]
+    public async Task Native_adapter_and_base_model_are_both_verified_before_worker_launch(string corrupt)
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        var adapter = Path.Combine(Path.GetDirectoryName(fixture.Options.ModelPath)!, "adapter.gguf");
+        await File.WriteAllTextAsync(adapter, "pinned adapter");
+        var hash = Convert.ToHexString(SHA256.HashData(await File.ReadAllBytesAsync(adapter)));
+        await using var provider = fixture.Provider(fixture.Options with { AdapterPath = adapter, AdapterSha256 = hash });
+        if (corrupt == "missing adapter") File.Delete(adapter);
+        else await File.WriteAllTextAsync(corrupt == "model" ? fixture.Options.ModelPath : adapter, "changed contents");
+
+        if (corrupt == "missing adapter")
+            await Should.ThrowAsync<FileNotFoundException>(async () => await provider.ProcessAsync("send it Friday", CancellationToken.None));
+        else
+            await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync("send it Friday", CancellationToken.None));
+
+        fixture.Launcher.Workers.ShouldBeEmpty();
+        fixture.Transport.Paths.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public async Task Worker_restart_reverifies_the_configured_adapter()
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        var adapter = Path.Combine(Path.GetDirectoryName(fixture.Options.ModelPath)!, "adapter.gguf");
+        await File.WriteAllTextAsync(adapter, "pinned adapter");
+        var hash = Convert.ToHexString(SHA256.HashData(await File.ReadAllBytesAsync(adapter)));
+        await using var provider = fixture.Provider(fixture.Options with { AdapterPath = adapter, AdapterSha256 = hash });
+        await provider.ProcessAsync("first request", CancellationToken.None);
+        fixture.Launcher.Workers[0].Terminate();
+        await File.WriteAllTextAsync(adapter, "changed contents");
+
+        await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync("second request", CancellationToken.None));
+
+        fixture.Launcher.Workers.Count.ShouldBe(1);
+    }
+
+    [Fact]
+    public async Task Native_adapter_inventory_size_is_verified_before_worker_launch()
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        var directory = Path.GetDirectoryName(fixture.Options.ModelPath)!;
+        var adapter = Path.Combine(directory, "adapter.gguf");
+        await File.WriteAllTextAsync(adapter, "pinned adapter");
+        var hash = Convert.ToHexString(SHA256.HashData(await File.ReadAllBytesAsync(adapter)));
+        await using var provider = fixture.Provider(fixture.Options with
+        {
+            AdapterPath = adapter, AdapterSha256 = hash, BundleDirectory = directory,
+            Artifacts =
+            [
+                new(fixture.Options.RuntimePath, fixture.Options.RuntimeSha256),
+                new(fixture.Options.ModelPath, fixture.Options.ModelSha256), new(adapter, hash, 999),
+            ],
+        });
+
+        var error = await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync("send it Friday", CancellationToken.None));
+
+        error.Message.ShouldContain("manifest size");
         fixture.Launcher.Workers.ShouldBeEmpty();
     }
 

@@ -128,6 +128,8 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             {
                 await VerifyArtifactAsync(_options.RuntimePath, _options.RuntimeSha256, "runtime", null, deadline.Token).ConfigureAwait(false);
                 await VerifyArtifactAsync(_options.ModelPath, _options.ModelSha256, "model", null, deadline.Token).ConfigureAwait(false);
+                if (_options.AdapterPath is not null)
+                    await VerifyArtifactAsync(_options.AdapterPath, _options.AdapterSha256!, "adapter", null, deadline.Token).ConfigureAwait(false);
             }
             else
             {
@@ -158,6 +160,14 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
                 "--fit", "off", "--no-context-shift", "--no-webui", "--no-slots", "--no-mmproj", "--offline", "--log-disable",
             };
             arguments.Add(_options.Repack ? "--repack" : "--no-repack");
+            if (_options.AdapterPath is not null)
+            {
+                arguments.Add(_options.AdapterScale == 1 ? "--lora" : "--lora-scaled");
+                // b12015 parses CSV filenames and splits scaled entries at every
+                // colon. Validation rejects commas, and colons for nonunit scales.
+                arguments.Add(_options.AdapterScale == 1 ? _options.AdapterPath
+                    : _options.AdapterPath + ":" + _options.AdapterScale.ToString("R", CultureInfo.InvariantCulture));
+            }
             if (_options.PromptLookupTokens > 0)
             {
                 arguments.AddRange(["--spec-type", "ngram-map-k", "--spec-ngram-map-k-size-n",

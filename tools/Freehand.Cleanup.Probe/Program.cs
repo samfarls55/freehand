@@ -148,6 +148,8 @@ internal static class Program
             cleanupOptions?.ModelId, cleanupOptions?.PromptStyle.ToString(),
             cleanupOptions is null ? null : new Artifact(cleanupOptions.RuntimePath, cleanupOptions.RuntimeSha256, null),
             cleanupOptions is null ? null : new Artifact(cleanupOptions.ModelPath, cleanupOptions.ModelSha256, null),
+            cleanupOptions?.AdapterPath is null ? null : new Artifact(cleanupOptions.AdapterPath, cleanupOptions.AdapterSha256!, null),
+            cleanupOptions?.AdapterPath is null ? null : cleanupOptions.AdapterScale,
             cleanupOptions?.Threads, cleanupOptions?.ContextSize, cleanupOptions?.MaxOutputTokens, cleanupOptions?.GpuLayers,
             arguments.CleanupTimeout.TotalSeconds, arguments.Split,
             RuntimeInformation.OSDescription, RuntimeInformation.ProcessArchitecture.ToString(),
@@ -186,6 +188,8 @@ internal static class Program
                     await HashFileAsync(cleanupOptions.RuntimePath, CancellationToken.None).ConfigureAwait(false)),
                 Model = new Artifact(cleanupOptions.ModelPath, cleanupOptions.ModelSha256,
                     await HashFileAsync(cleanupOptions.ModelPath, CancellationToken.None).ConfigureAwait(false)),
+                RuntimeAdapter = cleanupOptions.AdapterPath is null ? null : new Artifact(cleanupOptions.AdapterPath, cleanupOptions.AdapterSha256!,
+                    await HashFileAsync(cleanupOptions.AdapterPath, CancellationToken.None).ConfigureAwait(false)),
             };
         }
         await WriteReportAsync(arguments.Output, report with { Metadata = metadata, Incomplete = interrupted }).ConfigureAwait(false);
@@ -460,7 +464,8 @@ internal static class Program
 internal sealed record Artifact(string Path, string ExpectedSha256, string? ActualSha256);
 internal sealed record ProbeMetadata(DateTimeOffset StartedAtUtc, string CorpusPath, string CorpusSha256,
     string? ManifestPath, string? ManifestSha256, string? ModelId, string? PromptStyle,
-    Artifact? Runtime, Artifact? Model, int? Threads, int? ContextSize, int? MaxOutputTokens, int? GpuLayers,
+    Artifact? Runtime, Artifact? Model, Artifact? RuntimeAdapter, double? AdapterScale,
+    int? Threads, int? ContextSize, int? MaxOutputTokens, int? GpuLayers,
     double CleanupTimeoutSeconds, string Split, string OperatingSystem, string Architecture,
     string Framework, int LogicalProcessorCount, long GcTotalAvailableMemoryBytes, string? ProbeVersion,
     IReadOnlyDictionary<string, string> ManagedAssemblySha256, string Limitations);

@@ -56,6 +56,13 @@ public sealed record LlamaCleanupOptions
     public required string ModelPath { get; init; }
     /// <summary>SHA-256 of the selected GGUF model.</summary>
     public required string ModelSha256 { get; init; }
+    /// <summary>Optional absolute path to one explicitly selected native GGUF LoRA adapter.</summary>
+    public string? AdapterPath { get; init; }
+    /// <summary>SHA-256 of the complete selected adapter; required together with its path.</summary>
+    public string? AdapterSha256 { get; init; }
+    /// <summary>Native adapter multiplier, independent of the alpha/rank scaling embedded in its GGUF.</summary>
+    /// <remarks>The pinned runtime cannot parse a nonunit adapter path containing a colon; Windows drive paths require scale 1.</remarks>
+    public double AdapterScale { get; init; } = 1;
     /// <summary>The pinned model identifier, also used as the local server alias.</summary>
     public required string ModelId { get; init; }
     /// <summary>The selected model's trained input contract.</summary>
@@ -121,12 +128,18 @@ public sealed record LlamaCleanupOptions
         var artifacts = ReadArtifacts(root, directory);
         if (!Enum.TryParse<CleanupPromptStyle>(Required(root, "promptStyle"), true, out var style) || !Enum.IsDefined(style))
             throw new InvalidDataException("Cleanup manifest promptStyle is unsupported.");
+        var adapterPath = OptionalArtifactPath(root, "adapterPath", directory);
+        if (adapterPath is null && Property(root, "adapterScale").ValueKind != JsonValueKind.Undefined)
+            throw new InvalidDataException("Cleanup manifest adapterScale requires an adapter.");
         var options = new LlamaCleanupOptions
         {
             RuntimePath = Path.GetFullPath(Required(root, "runtimePath"), directory),
             RuntimeSha256 = Required(root, "runtimeSha256"),
             ModelPath = Path.GetFullPath(Required(root, "modelPath"), directory),
             ModelSha256 = Required(root, "modelSha256"),
+            AdapterPath = adapterPath,
+            AdapterSha256 = Property(root, "adapterSha256").ValueKind == JsonValueKind.Undefined ? null : Required(root, "adapterSha256"),
+            AdapterScale = Number(root, "adapterScale", 1),
             ModelId = Required(root, "modelId"),
             PromptStyle = style,
             MaskSpecialistLiterals = Boolean(root, "maskSpecialistLiterals", false),
@@ -151,6 +164,8 @@ public sealed record LlamaCleanupOptions
         options.Validate();
         if (!File.Exists(options.RuntimePath)) throw new FileNotFoundException("Cleanup runtime is missing.", options.RuntimePath);
         if (!File.Exists(options.ModelPath)) throw new FileNotFoundException("Cleanup model is missing.", options.ModelPath);
+        if (options.AdapterPath is not null && !File.Exists(options.AdapterPath))
+            throw new FileNotFoundException("Cleanup adapter is missing.", options.AdapterPath);
         foreach (var artifact in artifacts)
             if (!File.Exists(artifact.Path)) throw new FileNotFoundException("A cleanup bundle artifact is missing.", artifact.Path);
         return options;
@@ -164,6 +179,17 @@ public sealed record LlamaCleanupOptions
         if (!Path.IsPathFullyQualified(RuntimePath) || !Path.IsPathFullyQualified(ModelPath))
             throw new ArgumentException("Cleanup artifact paths must be absolute.");
         if (!IsHash(RuntimeSha256) || !IsHash(ModelSha256)) throw new ArgumentException("Cleanup artifacts require SHA-256 hashes.");
+        if (!double.IsFinite(AdapterScale) || AdapterScale is <= 0 or > 16)
+            throw new ArgumentOutOfRangeException(nameof(AdapterScale));
+        if (AdapterPath is null)
+        {
+            if (AdapterSha256 is not null || AdapterScale != 1)
+                throw new ArgumentException("A cleanup adapter hash or scale requires its path.");
+        }
+        else if (string.IsNullOrWhiteSpace(AdapterPath) || !Path.IsPathFullyQualified(AdapterPath) || !IsHash(AdapterSha256))
+            throw new ArgumentException("A cleanup adapter requires its absolute path and SHA-256 hash.");
+        if (AdapterPath?.Contains(',') == true || (AdapterScale != 1 && AdapterPath?.Contains(':') == true))
+            throw new ArgumentException("The cleanup adapter path contains a separator unsupported by its native adapter option.", nameof(AdapterPath));
         if (!Enum.IsDefined(PromptStyle)) throw new ArgumentOutOfRangeException(nameof(PromptStyle));
         if (Threads is < 1 or > 256) throw new ArgumentOutOfRangeException(nameof(Threads));
         if (BatchSize is < 1 or > 8192) throw new ArgumentOutOfRangeException(nameof(BatchSize));
@@ -203,6 +229,10 @@ public sealed record LlamaCleanupOptions
             || !Artifacts.Any(file => file.Path.Equals(ModelPath, StringComparison.OrdinalIgnoreCase)
                 && file.Sha256.Equals(ModelSha256, StringComparison.OrdinalIgnoreCase)))
             throw new ArgumentException("The cleanup inventory must include the configured runtime and model with matching hashes.");
+        if (AdapterPath is not null && !Artifacts.Any(file => file.Path.Equals(AdapterPath,
+                OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal)
+                && file.Sha256.Equals(AdapterSha256, StringComparison.OrdinalIgnoreCase)))
+            throw new ArgumentException("The cleanup inventory must include the configured adapter with its matching hash.");
     }
 
     private static CleanupArtifactHash[] ReadArtifacts(JsonElement root, string directory)
@@ -243,6 +273,16 @@ public sealed record LlamaCleanupOptions
     }
 
     private static bool IsHash(string? value) => value is { Length: 64 } && value.All(char.IsAsciiHexDigit);
+    private static string? OptionalArtifactPath(JsonElement root, string name, string directory)
+    {
+        if (Property(root, name).ValueKind == JsonValueKind.Undefined) return null;
+        var path = Required(root, name);
+        if (Path.IsPathFullyQualified(path)) return Path.GetFullPath(path);
+        var relative = path.Replace('\\', '/');
+        if (relative.Contains(':') || Path.IsPathRooted(relative) || relative.Split('/').Any(part => part is "" or "." or ".."))
+            throw new InvalidDataException("Cleanup manifest adapter paths must be absolute or safe relative paths.");
+        return Path.GetFullPath(relative, directory);
+    }
     private static string Required(JsonElement root, string name)
     {
         var value = Property(root, name);
@@ -256,6 +296,14 @@ public sealed record LlamaCleanupOptions
         if (value.ValueKind == JsonValueKind.Undefined) return fallback;
         if (value.ValueKind != JsonValueKind.Number || !value.TryGetInt32(out var number))
             throw new InvalidDataException("Cleanup manifest contains an invalid integer: " + name + ".");
+        return number;
+    }
+    private static double Number(JsonElement root, string name, double fallback)
+    {
+        var value = Property(root, name);
+        if (value.ValueKind == JsonValueKind.Undefined) return fallback;
+        if (value.ValueKind != JsonValueKind.Number || !value.TryGetDouble(out var number))
+            throw new InvalidDataException("Cleanup manifest contains an invalid number: " + name + ".");
         return number;
     }
     private static string OptionalString(JsonElement root, string name, string fallback)

@@ -311,6 +311,7 @@ public sealed class CleanupAssetInstaller
                 ? configuredPlatform.ValueKind == JsonValueKind.String ? configuredPlatform.GetString() : null : "win-x64-cpu";
             if (platform != plan.RuntimePlatform) return false;
             if (options.ModelId != plan.ModelId || options.ModelSha256 != plan.Model.Sha256 || options.RuntimeSha256 != plan.ExecutableSha256
+                || options.AdapterPath is not null
                 || options.PromptStyle.ToString() != plan.PromptStyle
                 || options.Threads != plan.Inference["Threads"] || options.ContextSize != plan.Inference["ContextSize"]
                 || options.MaxOutputTokens != plan.Inference["MaxOutputTokens"] || options.GpuLayers != plan.Inference["GpuLayers"]

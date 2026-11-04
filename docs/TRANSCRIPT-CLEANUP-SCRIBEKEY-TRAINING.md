@@ -7,8 +7,10 @@ resource limits remain 747,500,000 host-memory bytes and 805 ms from ready relea
 to complete delivery. **No new trained model is qualified yet.** The first
 independent 500-case test scored **471/500 (94.2%)** jointly faithful and clean,
 below the required 495. Its complete result is preserved and the set is now
-retired as development material. Further training and a new independent test are
-in progress. The selected Linux runtime configuration passes the measured
+retired as development material. Subsequent V5 candidates score 94.8–96.2% on
+that consumed set; these are development results and remain below the gate.
+Further training is in preparation and the new independent test remains
+unconsumed. The selected Linux runtime configuration passes the measured
 partial-pipeline resource limits; Windows qualification remains unavailable.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
@@ -25,7 +27,9 @@ Training uses the original ScribeKey Fast v1.1 BF16 checkpoint at revision
 `1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a`.
 The original weights remain unchanged. Rank-8 LoRA exposes 2,998,272 trainable
 parameters across 92 linear modules; updates are merged into a separate
-checkpoint before native GGUF quantization.
+checkpoint before native GGUF quantization for the completed merged candidates.
+An optional unmerged F32 native adapter route is also implemented and tested;
+it preserves the original four-bit base and deploys updates separately.
 
 The trainer uses the production ScribeKey prompt, one BOS, the expected EOS,
 assistant-only next-token loss and input-derived literal masks on both sides.
@@ -274,6 +278,62 @@ The threshold, complete denominator and meaning of success remain unchanged.
 The earlier rubric requested a paired baseline on this final set; only the
 pre-frozen selected derivative ran here, so no paired 500-case improvement claim
 is made. Paired baseline evidence remains confined to development sets.
+
+## V5 continuation and numerical checks
+
+V5 completed 330 optimizer steps with 1,320 training exposures representing 900
+unique pairs. It resumed a saved optimizer/RNG checkpoint after a workspace
+restart; the overlapping step is bit-identical. Its final adapter SHA-256 is
+`741826d27bf20da1c59eebc5d397f0a7de972ef1f566ce7e04abbf8abc0cf961`.
+All results below use actual Core outputs and independent semantic reviews.
+
+| Candidate on the consumed 500-case development set | Faithful and clean | Critical errors | Provider failures |
+|---|---:|---:|---:|
+| V4 merged IQ4, original failed acceptance run | 471/500 — 94.2% | 7 | 2 |
+| V5 merged IQ4 | 477/500 — 95.4% | 8 | 2 |
+| V5 merged F16 diagnostic | 481/500 — 96.2% | 6 | 1 |
+| Original IQ4 plus unmerged V5 F32 adapter | 474/500 — 94.8% | 9 | 2 |
+
+The higher-precision model is a quality diagnostic, not a memory-qualified
+candidate. V5 merged IQ4 also scored 537/546 on broad development and 76/80 on
+hard development. Quantization changes some recipient-negation decisions, but
+omitted independent actions, actor changes and unresolved corrections also occur
+at higher precision. Precision alone does not close the accuracy gap.
+
+A byte-level inverse-conversion proof matches all 148 original F16 GGUF tensors
+to the prescribed original checkpoint casts and restores all convolution shapes
+and tied embeddings. Six already-consumed prompts then compare native and HF
+inference with identical prompt tokens. F16 outputs agree in all six cases both
+with and without the adapter. Original IQ4 agrees in six without the adapter and
+five with it. Changing only native adapter-run KV storage from F16 to F32 changes
+the remaining decision to match HF. Larger IQ4 probability differences also
+remain, so recovered weights do not establish identical forward arithmetic.
+
+V6 has started with the full 2,014-pair training history and trains against the
+original deployed IQ4 weights with native Q8_K activation rounding. It retains
+rank 8 and FP32 KV storage in training. The fixed six-case numerical comparison
+remains five-of-six even with activation/cache emulation, so this is an
+approximation to deployed inference. Hash-only comparison finds zero exact normalized input/target overlap
+with the newly frozen 500-case acceptance set. That set remains unopened by the
+training controller and trainer and has received no inference. No new candidate
+is qualified and no 99% accuracy claim is made.
+
+The optional native adapter integration passes a strict solution build with
+zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe
+checks. The Python evaluator retains separate selected/control deployment
+identities and continues the original control even after malformed selected
+metadata. All 74 training-tool tests and 63 evaluation-framework tests pass.
+These checks establish implementation integrity, not model accuracy.
+
+A separate V5 Q5_K_M diagnostic passes both measured Linux limits in ten trials:
+complete-delivery p50 is 611.20 ms, p95/maximum is 720.61 ms, and simultaneous
+host/speech/cleanup RSS peaks at 745,455,616 bytes. All first trials are retained,
+with complete text, one delivery and no fallback. Memory margin is only
+2,044,384 bytes; this does not establish a robust whole-app memory margin or
+Windows behavior. The run uses preserved compiled evaluator artifacts and
+discloses their source differences from the newer optional-adapter implementation.
+The comparison also changes trained weights, so it is not a quantization-only
+causal experiment. No Q5 model has passed the accuracy gate.
 
 A fresh isolated Windows App, Probe and platform-layer publish succeeds, and all
 eight default/frozen DLLs remain unchanged. Its 433,677,045-byte preview archive

@@ -112,7 +112,15 @@ def managed_files(probe: Path) -> list[dict]:
 def freeze(arguments) -> int:
     if arguments.output.exists():
         raise ValueError("Candidate freeze already exists; preserve it")
-    profile = runtime_profile(arguments.prompt_lookup_tokens)
+    deployed_path = getattr(arguments, "runtime_adapter", None)
+    deployed_hash = getattr(arguments, "runtime_adapter_sha256", None)
+    if bool(deployed_path) != bool(deployed_hash):
+        raise ValueError("Deployed runtime adapter requires both path and expected SHA256")
+    deployed = artifact(deployed_path) if deployed_path else None
+    if deployed is not None and deployed["sha256"] != deployed_hash.lower():
+        raise ValueError("Deployed runtime adapter does not match expected SHA256")
+    profile = runtime_profile(arguments.prompt_lookup_tokens, deployed,
+                              getattr(arguments, "runtime_adapter_scale", 1))
     runtime = artifact(arguments.runtime)
     inventory = small_models.verify_runtime_inventory(arguments.runtime_inventory, Path(runtime["path"]))
     value = {"schema_version": 1, "created_utc": utc(), "purpose": "candidate_frozen_before_final_test_opening",
@@ -123,6 +131,9 @@ def freeze(arguments) -> int:
                  ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
              "profile": profile, "quality_target": quality_target(500),
              "limitations": "A candidate freeze is identity evidence, not quality or performance qualification."}
+    if deployed is not None:
+        value["runtime_adapter"] = deployed
+        verify_runtime_adapter(value)
     if arguments.adapter_config:
         value["adapter_config"] = artifact(arguments.adapter_config)
         adapter = arguments.adapter_config.with_name("adapter.safetensors")
@@ -132,6 +143,7 @@ def freeze(arguments) -> int:
             raise ValueError("The original control cannot contain a trained adapter")
         value["original_control_provenance"] = artifact(arguments.original_control_provenance)
         verify_original_control(value)
+    value["effective_model_identity"] = effective_model_identity(value)
     arguments.output.parent.mkdir(parents=True, exist_ok=True)
     snapshot = arguments.output.with_name(arguments.output.stem + ".source-snapshot.tar.gz")
     value["source_snapshot"] = snapshot_sources(snapshot, value["sources"])
@@ -148,6 +160,9 @@ def verify_freeze(path: Path) -> dict:
     for key in ("adapter", "adapter_config"):
         if key in value:
             verify_artifact(value[key])
+    verify_runtime_adapter(value)
+    if "effective_model_identity" in value and value["effective_model_identity"] != effective_model_identity(value):
+        raise ValueError("Effective deployed model identity drift")
     if "original_control_provenance" in value:
         verify_original_control(value)
     for item in value["managed_assemblies"]:
@@ -158,7 +173,8 @@ def verify_freeze(path: Path) -> dict:
     if value["sources"] != source_files():
         raise ValueError("Evaluation/production source drift after candidate freeze")
     small_models.verify_runtime_inventory(Path(value["runtime_inventory"]["path"]), Path(value["runtime"]["path"]))
-    if value["profile"] != runtime_profile(value["profile"].get("promptLookupTokens")):
+    if value["profile"] != runtime_profile(value["profile"].get("promptLookupTokens"),
+                                          value.get("runtime_adapter"), value["profile"].get("adapterScale", 1)):
         raise ValueError("Runtime profile drift after candidate freeze")
     if value.get("quality_target") != quality_target(500):
         raise ValueError("Candidate freeze does not record the current 99 percent acceptance target")
@@ -169,6 +185,8 @@ def verify_original_control(value: dict) -> None:
     """Require an explicitly pinned direct-original-F16 control, never a trained derivative."""
     if "adapter" in value or "adapter_config" in value:
         raise ValueError("The original control cannot contain a trained adapter")
+    if "runtime_adapter" in value or any(key in value["profile"] for key in ("adapterPath", "adapterSha256", "adapterScale")):
+        raise ValueError("The original control cannot contain a deployed runtime adapter")
     entry = value.get("original_control_provenance")
     if entry is None:
         raise ValueError("Paired baseline needs pinned original-control export provenance")
@@ -191,9 +209,14 @@ def verify_original_control(value: dict) -> None:
 
 def verify_pair(selected: dict, baseline: dict) -> None:
     verify_original_control(baseline)
-    if selected["model"]["sha256"] == baseline["model"]["sha256"]:
-        raise ValueError("Paired control must have distinct original model weights")
-    for key in ("profile", "sources", "quality_target"):
+    verify_runtime_adapter(selected)
+    if effective_model_identity(selected) == effective_model_identity(baseline):
+        raise ValueError("Paired control must have a distinct effective model identity")
+    common_profile = lambda value: {key: item for key, item in value["profile"].items()
+                                   if key not in ("adapterPath", "adapterSha256", "adapterScale")}
+    if common_profile(selected) != common_profile(baseline):
+        raise ValueError("Paired baseline semantic profile mismatch")
+    for key in ("sources", "quality_target"):
         if selected[key] != baseline[key]:
             raise ValueError(f"Paired baseline semantic {key} mismatch")
     for key in ("runtime", "runtime_inventory", "probe"):
@@ -205,14 +228,76 @@ def verify_pair(selected: dict, baseline: dict) -> None:
         raise ValueError("Paired baseline managed assembly mismatch")
 
 
-def runtime_profile(prompt_lookup_tokens: int = 16) -> dict:
+def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None = None,
+                    adapter_scale: float = 1) -> dict:
     if type(prompt_lookup_tokens) is not int or not 0 <= prompt_lookup_tokens < 64:
         raise ValueError("Prompt lookup draft tokens must be an integer from 0 through 63, below batch64")
-    return {"promptStyle": "ScribeKeyFast", "threads": 4, "contextSize": 1024,
+    if type(adapter_scale) not in (int, float) or not math.isfinite(adapter_scale) or not 0 < adapter_scale <= 1:
+        raise ValueError("Deployed adapter scale must be finite and positive, at most1; embedded alpha/rank must not be applied twice")
+    if runtime_adapter is None and adapter_scale != 1:
+        raise ValueError("Runtime adapter scale requires a deployed adapter")
+    profile = {"promptStyle": "ScribeKeyFast", "threads": 4, "contextSize": 1024,
             "maxOutputTokens": 512, "batchSize": 64, "microBatchSize": 32,
             "promptCacheMiB": 0, "contextCheckpoints": 0, "cacheTypeK": "f16", "cacheTypeV": "f16",
             "repack": False, "gpuLayers": 0, "startupTimeoutSeconds": 60, "idleTimeoutSeconds": 60,
             "maskSpecialistLiterals": True, "promptLookupTokens": prompt_lookup_tokens, "promptLookupMatchTokens": 3}
+    if runtime_adapter is not None:
+        digest = runtime_adapter.get("sha256", "")
+        path = runtime_adapter.get("path", "")
+        if not isinstance(path, str) or not Path(path).is_absolute() or len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+            raise ValueError("Runtime adapter requires an absolute path and lowercase SHA256")
+        if "," in path or (adapter_scale != 1 and ":" in path):
+            raise ValueError("Native adapter paths cannot contain commas, or colons at nonunit scale")
+        profile.update(adapterPath=path, adapterSha256=digest, adapterScale=float(adapter_scale))
+    return profile
+
+
+def verify_runtime_adapter(value: dict) -> None:
+    deployed = value.get("runtime_adapter")
+    profile = value["profile"]
+    expected = runtime_profile(profile.get("promptLookupTokens"), deployed, profile.get("adapterScale", 1))
+    if any(profile.get(key) != expected.get(key) for key in ("adapterPath", "adapterSha256", "adapterScale")):
+        raise ValueError("Deployed runtime adapter/profile identity drift")
+    if deployed is not None:
+        verify_artifact(deployed)
+        if (value["model"]["sha256"] != ORIGINAL_SCRIBE_IQ4_XS_SHA256
+                or value["model"]["bytes"] != ORIGINAL_SCRIBE_IQ4_XS_BYTES):
+            raise ValueError("Deployed adapter route requires the original IQ4 base; do not apply it twice to merged weights")
+
+
+def effective_model_identity(value: dict) -> dict:
+    deployed = value.get("runtime_adapter")
+    return {"base_sha256": value["model"]["sha256"], "base_bytes": value["model"]["bytes"],
+            "runtime_adapter_sha256": deployed["sha256"] if deployed else None,
+            "runtime_adapter_bytes": deployed["bytes"] if deployed else None,
+            "runtime_adapter_scale": value["profile"].get("adapterScale") if deployed else None}
+
+
+def verify_core_deployment(results: Path, identity: dict) -> None:
+    report = json.loads(results.read_text(encoding="utf-8"))
+    if not isinstance(report, dict) or not isinstance(report.get("metadata", {}), dict):
+        raise ValueError("Core deployment metadata must be an object")
+    metadata = report.get("metadata", {})
+    def verify_report_artifact(entry: dict | None, expected_hash: str, expected_bytes: int, label: str) -> None:
+        if not isinstance(entry, dict) or any(not isinstance(entry.get(key), str)
+                or entry[key].lower() != expected_hash for key in ("expected_sha256", "actual_sha256")):
+            raise ValueError("Core report does not verify the frozen " + label)
+        # The current Probe exposes hashes only. Reject contradictory or untyped
+        # size fields if a later report also provides them.
+        for key in ("bytes", "expected_bytes", "actual_bytes"):
+            if key in entry and (type(entry[key]) is not int or entry[key] != expected_bytes):
+                raise ValueError("Core report " + label + " size differs from frozen bytes")
+    verify_report_artifact(metadata.get("model"), identity["base_sha256"], identity["base_bytes"], "base model")
+    deployed = metadata.get("runtime_adapter")
+    expected = identity["runtime_adapter_sha256"]
+    if expected is None:
+        if deployed is not None or metadata.get("adapter_scale") is not None:
+            raise ValueError("Core report unexpectedly used a deployed runtime adapter")
+        return
+    verify_report_artifact(deployed, expected, identity["runtime_adapter_bytes"], "deployed runtime adapter")
+    scale = metadata.get("adapter_scale")
+    if type(scale) not in (int, float) or not math.isfinite(scale) or scale != identity["runtime_adapter_scale"]:
+        raise ValueError("Core report runtime adapter scale differs from frozen external scale")
 
 
 def native_server_arguments(profile: dict) -> list[str]:
@@ -221,6 +306,15 @@ def native_server_arguments(profile: dict) -> list[str]:
         arguments.extend(["--spec-type", "ngram-map-k", "--spec-ngram-map-k-size-n",
                           str(profile["promptLookupMatchTokens"]), "--spec-ngram-map-k-size-m",
                           str(profile["promptLookupTokens"])])
+    if "adapterPath" in profile:
+        if "," in profile["adapterPath"]:
+            raise ValueError("Native adapter paths cannot contain commas")
+        if profile["adapterScale"] == 1:
+            arguments.extend(["--lora", profile["adapterPath"]])
+        else:
+            if ":" in profile["adapterPath"]:
+                raise ValueError("Nonunit native adapter paths cannot contain colons")
+            arguments.extend(["--lora-scaled", profile["adapterPath"] + ":" + format(profile["adapterScale"], ".17g")])
     return arguments
 
 
@@ -279,10 +373,12 @@ def phase_gate(arguments, freeze_value: dict, baseline: dict | None = None,
     record = {"created_utc": utc(), "dataset_sha256": commitment["corpus_sha256"],
               "candidate_freeze": frozen_identity or artifact(arguments.candidate_freeze),
               "model_sha256": freeze_value["model"]["sha256"],
+              "effective_model_identity": effective_model_identity(freeze_value),
               "purpose": "one-time blind qualification; preserve even if inference fails"}
     if baseline is not None:
         record.update({"paired_baseline_freeze": baseline_identity or artifact(arguments.paired_baseline_freeze),
                        "paired_baseline_model_sha256": baseline["model"]["sha256"],
+                       "paired_baseline_effective_model_identity": effective_model_identity(baseline),
                        "paired_roles": {"selected_primary": "candidate_freeze",
                                         "original_control": "paired_baseline_freeze"},
                        "run_order": ["selected_primary", "original_control"],
@@ -306,6 +402,7 @@ def prepare_evaluation(arguments, frozen: dict, frozen_identity: dict, corpus: d
     metadata = {
         "schema_version": 1, "created_utc": utc(), "phase": arguments.phase,
         "dataset": artifact(arguments.dataset), "candidate_freeze": frozen_identity,
+        "effective_model_identity": effective_model_identity(frozen),
         "blind_commitment": artifact(arguments.blind_commitment) if arguments.blind_commitment else None,
         "case_count": len(corpus["cases"]), "case_ids": [row["id"] for row in corpus["cases"]], "mode": arguments.mode,
         "quality_target": quality_target(len(corpus["cases"])),
@@ -317,8 +414,10 @@ def prepare_evaluation(arguments, frozen: dict, frozen_identity: dict, corpus: d
     profile = dict(frozen["profile"])
     manifest = {"runtimePath": frozen["runtime"]["path"], "runtimeSha256": frozen["runtime"]["sha256"],
                 "modelPath": frozen["model"]["path"], "modelSha256": frozen["model"]["sha256"],
-                "modelId": "ScribeKey-Freehand-" + ("trained-" if "adapter" in frozen else "baseline-")
-                + frozen["model"]["sha256"][:12], **profile}
+                "modelId": "ScribeKey-Freehand-" + ("native-lora-" if "runtime_adapter" in frozen
+                    else "trained-" if "adapter" in frozen else "baseline-") + frozen["model"]["sha256"][:12]
+                    + ("-" + frozen["runtime_adapter"]["sha256"][:12] + "-scale" + format(profile["adapterScale"], ".17g")
+                       if "runtime_adapter" in frozen else ""), **profile}
     write_new(output / "cleanup-manifest.json", manifest)
 
 
@@ -350,6 +449,21 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
         codes["core"] = invoke(probe_argv + ["--input", str(corpus_path), "--output",
             str(output / "core-results.json"), "--manifest", str(manifest_path),
             "--split", "all", "--cleanup-timeout-seconds", "120"], output / "core.log")
+        report_path = output / "core-results.json"
+        deployment = {"effective_model_identity": effective_model_identity(frozen), "verified": False}
+        try:
+            verify_core_deployment(report_path, deployment["effective_model_identity"])
+            deployment["verified"] = True
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            codes["runtime_deployment"] = 1
+            deployment["error"] = type(error).__name__ + ": " + str(error)
+        if report_path.is_file():
+            try:
+                deployment["report"] = artifact(report_path)
+            except OSError as error:
+                codes["runtime_deployment"] = 1
+                deployment.update(verified=False, report_error=type(error).__name__)
+        write_new(output / "runtime-deployment-verification.json", deployment)
     return codes
 
 
@@ -397,6 +511,8 @@ def native(arguments) -> int:
         raise ValueError("Blind corpus changed while opening the frozen cases; preserve consumed lock")
     pair = None if baseline is None else {
         "selected_primary": frozen_identity, "original_control": baseline_identity,
+        "effective_models": {"selected_primary": effective_model_identity(frozen),
+                             "original_control": effective_model_identity(baseline)},
         "run_order": ["selected_primary", "original_control"], "case_count_per_candidate": len(corpus["cases"]),
         "primary_score": "selected candidate only; baseline never replaces selected qualification"}
     runs = [("selected_primary", frozen, frozen_identity, arguments.candidate_freeze, arguments.output)]
@@ -411,6 +527,13 @@ def native(arguments) -> int:
         commands[role] = execute_evaluation(arguments, value, output)
         if baseline is not None:
             inventories[role] = complete_core_inventory(output / "core-results.json", [row["id"] for row in corpus["cases"]])
+            if "runtime_deployment" in commands[role] or "runtime_adapter" in value:
+                inventory = inventories[role]
+                inventory["case_inventory_complete"] = inventory["complete"]
+                inventory["runtime_deployment_verified"] = not commands[role].get("runtime_deployment", 0)
+                inventory["deployment_verification"] = artifact(output / "runtime-deployment-verification.json")
+                if not inventory["runtime_deployment_verified"]:
+                    inventory["complete"] = False
     # Retained provider failures do not skip the control, and both identities are rechecked after both runs.
     for role, _, identity, path, output in runs:
         verify_artifact(identity)
@@ -540,6 +663,8 @@ def review(arguments) -> int:
     if metadata_path is None:
         raise ValueError("Results need their pre-run evaluation metadata; partial denominators are forbidden")
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if "effective_model_identity" in metadata and arguments.results.suffix != ".jsonl":
+        verify_core_deployment(arguments.results, metadata["effective_model_identity"])
     paired_receipt = paired_review_receipt(arguments.results, metadata_path, metadata)
     if len(rows) != metadata["case_count"] or {row["case_id"] for row in rows} != set(metadata["case_ids"]):
         raise ValueError("Results do not cover the exact pre-run case inventory")
@@ -558,7 +683,7 @@ def review(arguments) -> int:
                             "targets": row["targets"], "output_sha256": output_sha(row["output"]),
                             "structural_success": row["structural_success"], "semantic_faithful": None,
                             "clean_usable": None, "critical_error": None, "reason": ""} for row in rows]}
-    for key in ("semantic_role", "primary_qualification_candidate", "paired_evaluation"):
+    for key in ("semantic_role", "primary_qualification_candidate", "paired_evaluation", "effective_model_identity"):
         if key in metadata:
             value[key] = metadata[key]
     if paired_receipt is not None:
@@ -580,6 +705,11 @@ def main() -> int:
     for name in ("model", "runtime", "runtime-inventory", "probe", "output"):
         frozen.add_argument("--" + name, type=Path, required=True)
     frozen.add_argument("--adapter-config", type=Path)
+    frozen.add_argument("--runtime-adapter", type=Path,
+                        help="Deployed native LoRA GGUF, distinct from training adapter.safetensors lineage")
+    frozen.add_argument("--runtime-adapter-sha256", help="Expected complete deployed GGUF SHA256; required with --runtime-adapter")
+    frozen.add_argument("--runtime-adapter-scale", type=float, default=1,
+                        help="External native LoRA multiplier: (0,1], default1; alpha/rank is already embedded")
     frozen.add_argument("--original-control-provenance", type=Path,
                         help="Pin the direct-original-F16 IQ4_XS control export report; incompatible with an adapter")
     frozen.add_argument("--prompt-lookup-tokens", type=int, default=16,

@@ -28,6 +28,10 @@ BOS = "<|startoftext|>"
 PREFIX = BOS + "### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\n"
 SUFFIX = "\n\n### Output:\n"
 SOURCE_WEIGHT_SHA = "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a"
+SOURCE_GGUF_SHA = "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174"
+TRAINING_MODE_GGUF = "original-iq4-dequantized-fp32-v1"
+SOURCE_Q8_CPU_SHA = "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5"
+SOURCE_Q8_BASE_SHA = "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb"
 
 
 def sha(path: Path) -> str:
@@ -114,6 +118,302 @@ def base_model(base: Path, threads: int):
     return torch, load_file, save_file, tokenizer, model
 
 
+def validate_gguf_base_identity(base: Path, path: Path):
+    """Verify both immutable sources before constructing or decoding a model."""
+    if sha(base / "model.safetensors") != SOURCE_WEIGHT_SHA:
+        raise ValueError("Quantized training requires the pinned original BF16 provenance")
+    if sha(path) != SOURCE_GGUF_SHA:
+        raise ValueError("Quantized training requires the exact original IQ4 control GGUF")
+    return {"training_base_mode": TRAINING_MODE_GGUF, "frozen_base_sha256": SOURCE_GGUF_SHA,
+            "original_bf16_sha256": SOURCE_WEIGHT_SHA, "base_config_sha256": sha(base / "config.json"),
+            "tokenizer_sha256": sha(base / "tokenizer.json"), "quantized_training_source_sha256": sha(Path(__file__))}
+
+
+def gguf_tensor_mapping(header, tensors, name_map, expected_count=148):
+    """Invert the pinned LFM2 name/conv transformation, with complete coverage."""
+    by_name = {tensor.name: tensor for tensor in tensors}
+    if len(by_name) != len(tensors) or len(header) != expected_count or len(tensors) != expected_count:
+        raise ValueError("GGUF/HF tensor inventory must be complete and unique")
+    mapped = {}
+    used = set()
+    for name, info in header.items():
+        other = name_map.get_name(name, try_suffixes=(".weight", ".bias"))
+        if not other or other not in by_name or other in used:
+            raise ValueError("GGUF tensor mapping is missing or not bijective: " + name)
+        shape = list(info["shape"])
+        if "conv.conv" in name:
+            if len(shape) != 3 or shape[1] != 1:
+                raise ValueError("Unexpected HF short-convolution shape")
+            shape.pop(1)
+        tensor = by_name[other]
+        if shape != list(reversed(tensor.shape.tolist())):
+            raise ValueError("GGUF tensor shape differs from original HF: " + name)
+        mapped[name] = tensor
+        used.add(other)
+    return mapped
+
+
+def inverse_gguf_tensor(name, tensor, dequantizer):
+    import numpy as np
+    # GGUFReader already presents row-major NumPy dimensions; do not transpose.
+    array = dequantizer(tensor.data, tensor.tensor_type)
+    array = array.reshape(tuple(reversed(tensor.shape.tolist())))
+    if "conv.conv" in name:
+        array = np.expand_dims(array, axis=1)
+    if array.dtype != np.float32 or not np.isfinite(array).all():
+        raise ValueError("GGUF decoding must produce finite FP32 values: " + name)
+    return array
+
+
+def quantized_base_model(base: Path, gguf_path: Path, threads: int):
+    """Decode the exact native base into FP32 RAM, without a base serialization."""
+    identity = validate_gguf_base_identity(base, gguf_path)
+    torch, load_file, save_file, AutoModel, Tokenizer = imports(threads)
+    import gguf
+    import numpy as np
+    from gguf.quants import dequantize
+    from transformers import AutoConfig
+    if importlib.metadata.version("gguf") != "0.19.0":
+        raise ValueError("This proved inverse requires the pinned gguf 0.19.0 implementation")
+    with (base / "model.safetensors").open("rb") as stream:
+        length = int.from_bytes(stream.read(8), "little")
+        header = {key: value for key, value in json.loads(stream.read(length)).items() if key != "__metadata__"}
+    if any(value["dtype"] != "BF16" for value in header.values()):
+        raise ValueError("Original HF tensor precision differs")
+    reader = gguf.GGUFReader(str(gguf_path), "r")
+    mapped = gguf_tensor_mapping(header, reader.tensors, gguf.get_tensor_name_map(gguf.MODEL_ARCH.LFM2, 16))
+    config = AutoConfig.from_pretrained(base, local_files_only=True, trust_remote_code=False)
+    config.rope_theta = float(config.rope_parameters["rope_theta"])
+    config._attn_implementation = "sdpa"
+    model = AutoModel.from_config(config, torch_dtype=torch.float32, trust_remote_code=False)
+    if set(dict(model.named_parameters())) != set(header):
+        raise ValueError("HF architecture does not match all original unique parameters")
+    types = {}
+    with torch.no_grad():
+        for name, tensor in mapped.items():
+            array = inverse_gguf_tensor(name, tensor, dequantize)
+            parameter = model.get_parameter(name)
+            if list(parameter.shape) != header[name]["shape"] or parameter.dtype != torch.float32:
+                raise ValueError("Recovered HF parameter shape/dtype mismatch")
+            parameter.copy_(torch.from_numpy(np.array(array, dtype=np.float32, copy=True)))
+            types[tensor.tensor_type.name] = types.get(tensor.tensor_type.name, 0) + 1
+    model.tie_weights()
+    if model.lm_head.weight.data_ptr() != model.model.embed_tokens.weight.data_ptr():
+        raise ValueError("Recovered HF output head is not tied to its embedding")
+    model.config.use_cache = False
+    identity.update(gguf_dequantizer_sha256=sha(Path(gguf.quants.__file__)),
+                    gguf_mapping_sha256=sha(Path(gguf.tensor_mapping.__file__)))
+    model._freehand_base_identity = identity
+    quantized_types = {gguf.GGMLQuantizationType.IQ4_XS, gguf.GGMLQuantizationType.Q5_K, gguf.GGMLQuantizationType.Q6_K}
+    model._freehand_quantized_linear_types = {name.removesuffix(".weight"): tensor.tensor_type.name
+        for name, tensor in mapped.items() if tensor.tensor_type in quantized_types and name.startswith("model.layers.")}
+    # The tied embedding is also the native quantized output matmul, not a lookup-only tensor.
+    if mapped["model.embed_tokens.weight"].tensor_type in quantized_types:
+        model._freehand_quantized_linear_types["lm_head"] = mapped["model.embed_tokens.weight"].tensor_type.name
+    model._freehand_base_receipt = {**identity, "tensor_count": len(mapped), "tensor_types": types,
+        "conv_singleton_restorations": sum("conv.conv" in name for name in mapped),
+        "all_base_parameters_dtype": "float32", "tied_head_verified": True,
+        "base_serialized": False, "native_forward_equivalence_claimed": False,
+        "known_numerical_differences": ["Native quantized matmul uses Q8_K activations",
+            "HF stores K/V in FP32; optional emulation rounds their values through F16"]}
+    tokenizer = Tokenizer(tokenizer_file=str(base / "tokenizer.json"), bos_token=BOS,
+                         eos_token="<|im_end|>", pad_token="<|pad|>", clean_up_tokenization_spaces=False)
+    return torch, load_file, save_file, tokenizer, model
+
+
+def expand_adapter_state(state, parent_rank, parent_alpha, new_rank, new_alpha, seed, torch):
+    """Preserve the old function while giving the additional rank a live gradient."""
+    if (type(parent_rank) is not int or type(new_rank) is not int or type(seed) is not int
+            or not 1 <= parent_rank < new_rank <= 64
+            or not math.isfinite(parent_alpha) or not math.isfinite(new_alpha) or min(parent_alpha, new_alpha) <= 0
+            or not math.isclose(parent_alpha / parent_rank, new_alpha / new_rank, rel_tol=0, abs_tol=1e-12)):
+        raise ValueError("Rank expansion requires increased rank and unchanged alpha/rank")
+    prefixes = {key.rsplit(".", 1)[0] for key in state}
+    expected = {prefix + suffix for prefix in prefixes for suffix in (".lora_A", ".lora_B")}
+    if not state or set(state) != expected:
+        raise ValueError("Rank expansion requires exact paired LoRA A/B tensors")
+    generator = torch.Generator(device="cpu").manual_seed(seed)
+    result = {}
+    maximum = 0.0
+    for prefix in sorted(prefixes):
+        a, b = state[prefix + ".lora_A"], state[prefix + ".lora_B"]
+        if (a.ndim != 2 or b.ndim != 2 or a.shape[0] != parent_rank or b.shape[1] != parent_rank
+                or a.dtype != torch.float32 or b.dtype != torch.float32
+                or not torch.isfinite(a).all() or not torch.isfinite(b).all()):
+            raise ValueError("Parent adapter shape/dtype/values differ")
+        expanded_a = torch.empty((new_rank, a.shape[1]), dtype=torch.float32)
+        torch.nn.init.kaiming_uniform_(expanded_a, a=math.sqrt(5), generator=generator)
+        expanded_b = torch.zeros((b.shape[0], new_rank), dtype=torch.float32)
+        expanded_a[:parent_rank].copy_(a)
+        expanded_b[:, :parent_rank].copy_(b)
+        old_delta = (b @ a) * (parent_alpha / parent_rank)
+        new_delta = (expanded_b @ expanded_a) * (new_alpha / new_rank)
+        difference = float((new_delta - old_delta).abs().max())
+        if not torch.allclose(old_delta, new_delta, atol=1e-6, rtol=1e-6):
+            raise ValueError("Expanded adapter delta exceeds FP32 tolerance")
+        maximum = max(maximum, difference)
+        result[prefix + ".lora_A"] = expanded_a
+        result[prefix + ".lora_B"] = expanded_b
+    return result, {"parent_rank": parent_rank, "parent_alpha": parent_alpha,
+                    "rank": new_rank, "alpha": new_alpha, "seed": seed,
+                    "new_a_initialization": "seeded_kaiming_uniform_local_generator", "new_b_initialization": "zero",
+                    "maximum_delta_absolute_difference": maximum, "delta_atol": 1e-6, "delta_rtol": 1e-6}
+
+
+def fp16_roundtrip_ste(tensor, torch):
+    class Roundtrip(torch.autograd.Function):
+        @staticmethod
+        def forward(ctx, value):
+            return value.to(torch.float16).to(value.dtype)
+
+        @staticmethod
+        def backward(ctx, gradient):
+            return gradient
+
+    return Roundtrip.apply(tensor)
+
+
+class NativeQ8KQuantizer:
+    """Pinned native 256-value Q8_K quantization/dequantization on CPU FP32."""
+    def __init__(self, runtime):
+        import ctypes
+        self.cpu_path = Path(runtime) / "libggml-cpu-haswell.so"
+        self.base_path = Path(runtime) / "libggml-base.so"
+        if sha(self.cpu_path) != SOURCE_Q8_CPU_SHA or sha(self.base_path) != SOURCE_Q8_BASE_SHA:
+            raise ValueError("Native activation quantizer libraries differ from the proved pinned backend")
+        self.cpu = ctypes.CDLL(str(self.cpu_path))
+        self.base = ctypes.CDLL(str(self.base_path))
+        self.quantize = self.cpu.quantize_row_q8_K
+        self.dequantize = self.base.dequantize_row_q8_K
+        for function in (self.quantize, self.dequantize):
+            function.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int64]
+            function.restype = None
+
+    def roundtrip(self, array):
+        import numpy as np
+        if (not isinstance(array, np.ndarray) or array.dtype != np.float32 or not array.flags.c_contiguous
+                or array.ndim < 1 or array.size == 0 or array.shape[-1] <= 0
+                or array.shape[-1] % 256 or not np.isfinite(array).all()):
+            raise ValueError("Native Q8_K requires finite contiguous CPU FP32 rows divisible by256")
+        packed = np.zeros((array.size // 256, 292), dtype=np.uint8)
+        output = np.empty_like(array)
+        self.quantize(array.ctypes.data, packed.ctypes.data, array.size)
+        self.dequantize(packed.ctypes.data, output.ctypes.data, array.size)
+        if not np.isfinite(output).all():
+            raise ValueError("Native Q8_K activation roundtrip became non-finite")
+        return output
+
+
+def native_q8_roundtrip_ste(tensor, torch, quantizer):
+    class Roundtrip(torch.autograd.Function):
+        @staticmethod
+        def forward(ctx, value):
+            if value.device.type != "cpu" or value.dtype != torch.float32:
+                raise ValueError("Native Q8_K activation emulation requires CPU FP32")
+            return torch.from_numpy(quantizer.roundtrip(value.detach().contiguous().numpy()))
+
+        @staticmethod
+        def backward(ctx, gradient):
+            return gradient
+
+    return Roundtrip.apply(tensor)
+
+
+def install_native_q8_activation(model, torch, runtime):
+    """Hook original frozen Linear inputs; LoRA's parallel path retains raw x."""
+    quantizer = NativeQ8KQuantizer(runtime)
+    inventory = []
+    types = getattr(model, "_freehand_quantized_linear_types", {})
+    if not types:
+        raise ValueError("Q8_K activation emulation requires the proved quantized-base tensor inventory")
+    for name, kind in sorted(types.items()):
+        linear = model.get_submodule(name)
+        if not isinstance(linear, torch.nn.Linear) or linear.in_features % 256 or getattr(linear, "_freehand_q8_input", False):
+            raise ValueError("Q8_K hooks must be installed on unwrapped original Linear modules")
+        def prehook(module, args):
+            return (native_q8_roundtrip_ste(args[0], torch, quantizer), *args[1:])
+        linear.register_forward_pre_hook(prehook)
+        linear._freehand_q8_input = True
+        inventory.append({"name": name, "weight_type": kind, "input_width": linear.in_features})
+    receipt = {"activation_quantization_mode": "native-q8-k-ste-v1",
+        "activation_cpu_library_sha256": sha(quantizer.cpu_path), "activation_base_library_sha256": sha(quantizer.base_path),
+        "activation_linear_inventory_sha256": hashlib.sha256(json.dumps(inventory, sort_keys=True).encode("utf-8")).hexdigest(),
+        "linears": inventory, "lora_input_rounded": False, "includes_tied_output_matmul": any(r["name"] == "lm_head" for r in inventory),
+        "quantizer_symbol": "quantize_row_q8_K", "dequantizer_symbol": "dequantize_row_q8_K",
+        "values_per_block": 256, "bytes_per_block": 292, "native_forward_equivalence_claimed": False}
+    return receipt
+
+
+def install_kv_roundtrip(model, torch):
+    """Round only post-RoPE K and projected V before cache/attention, with STE."""
+    import inspect
+    import types
+    from transformers.models.lfm2 import modeling_lfm2 as implementation
+    if importlib.metadata.version("transformers") != "4.57.6":
+        raise ValueError("KV emulation requires the pinned Transformers attention implementation")
+
+    def rounded_forward(self, hidden_states, position_embeddings, attention_mask,
+                        past_key_values=None, cache_position=None, **kwargs):
+        input_shape = hidden_states.shape[:-1]
+        hidden_shape = (*input_shape, -1, self.head_dim)
+        query = self.q_layernorm(self.q_proj(hidden_states).view(*hidden_shape)).transpose(1, 2)
+        key = self.k_layernorm(self.k_proj(hidden_states).view(*hidden_shape)).transpose(1, 2)
+        value = self.v_proj(hidden_states).view(*hidden_shape).transpose(1, 2)
+        cos, sin = position_embeddings
+        query, key = implementation.apply_rotary_pos_emb(query, key, cos, sin)
+        key = fp16_roundtrip_ste(key, torch)
+        value = fp16_roundtrip_ste(value, torch)
+        if past_key_values is not None:
+            key, value = past_key_values.update(key, value, self.layer_idx,
+                {"sin": sin, "cos": cos, "cache_position": cache_position})
+        interface = implementation.eager_attention_forward
+        if self.config._attn_implementation != "eager":
+            interface = implementation.ALL_ATTENTION_FUNCTIONS[self.config._attn_implementation]
+        output, weights = interface(self, query, key, value, attention_mask,
+            dropout=0.0, scaling=self.scaling, **kwargs)
+        return self.out_proj(output.reshape(*input_shape, -1).contiguous()), weights
+
+    count = 0
+    for layer in model.model.layers:
+        attention = getattr(layer, "self_attn", None)
+        if attention is not None:
+            if not isinstance(attention, implementation.Lfm2Attention) or getattr(attention, "_freehand_kv_roundtrip", False):
+                raise ValueError("KV emulation requires an unmodified LFM2 attention module")
+            attention.forward = types.MethodType(rounded_forward, attention)
+            attention._freehand_kv_roundtrip = True
+            count += 1
+    if not count:
+        raise ValueError("No LFM2 attention layers available for KV emulation")
+    implementation_hash = sha(Path(implementation.__file__))
+    wrapper_hash = hashlib.sha256(inspect.getsource(rounded_forward).encode("utf-8")).hexdigest()
+    return {"kv_roundtrip_mode": "post-rope-f16-ste-v1", "attention_layers": count,
+            "kv_attention_source_sha256": hashlib.sha256((implementation_hash + ":" + wrapper_hash).encode("ascii")).hexdigest(),
+            "kv_upstream_source_sha256": implementation_hash, "kv_wrapper_source_sha256": wrapper_hash,
+            "query_rounded": False, "lora_input_rounded": False, "native_forward_equivalence_claimed": False}
+
+
+def verify_expanded_logits(model, torch, input_ids, parent_state):
+    """Compare the actual parent-rank and expanded-rank functions on one input."""
+    replacements = []
+    try:
+        for key, value in parent_state.items():
+            name, child = key.rsplit(".", 1)
+            owner = model.get_submodule(name)
+            replacements.append((owner, child, getattr(owner, child)))
+            setattr(owner, child, torch.nn.Parameter(value, requires_grad=False))
+        with torch.inference_mode():
+            reference = model(torch.tensor([input_ids]), use_cache=False).logits.clone()
+    finally:
+        for owner, child, parameter in replacements:
+            setattr(owner, child, parameter)
+    with torch.inference_mode():
+        expanded = model(torch.tensor([input_ids]), use_cache=False).logits
+    maximum = float((reference - expanded).abs().max())
+    if not torch.allclose(reference, expanded, atol=5e-4, rtol=1e-5):
+        raise ValueError("Rank expansion changed initial logits beyond FP32 tolerance; maximum absolute difference=" + repr(maximum))
+    return {"maximum_logit_absolute_difference": maximum, "logit_atol": 5e-4, "logit_rtol": 1e-5}
+
+
 def install_lora(model, torch, rank: int, alpha: float, names=None):
     class LoRALinear(torch.nn.Module):
         def __init__(self, linear):
@@ -189,7 +489,12 @@ def packages():
 
 RESUME_CONFIG_KEYS = ("base_model_sha256", "rank", "alpha", "target_modules", "seed", "train_sha256",
     "train_rows", "epochs", "batch_size", "gradient_accumulation", "learning_rate", "max_tokens", "threads",
-    "warmup_steps", "effective_warmup_steps", "schedule_total_optimizer_steps")
+    "warmup_steps", "effective_warmup_steps", "schedule_total_optimizer_steps",
+    "training_base_mode", "frozen_base_sha256", "original_bf16_sha256", "base_config_sha256", "tokenizer_sha256",
+    "gguf_dequantizer_sha256", "gguf_mapping_sha256", "parent_adapter_sha256", "parent_adapter_config_sha256",
+    "rank_expansion", "kv_roundtrip_mode", "kv_attention_source_sha256", "quantized_training_source_sha256",
+    "activation_quantization_mode", "activation_cpu_library_sha256", "activation_base_library_sha256",
+    "activation_linear_inventory_sha256")
 
 
 def _fsync_directory(path):
@@ -344,7 +649,29 @@ def train(args):
     if any(row.get("split") not in (None, "train") for row in raw):
         raise ValueError("Training file contains a non-training split")
     random.seed(args.seed)
-    torch, _, save_file, tokenizer, model = base_model(args.base, args.threads)
+    quantized = args.training_base_mode == TRAINING_MODE_GGUF
+    if quantized:
+        torch, _, save_file, tokenizer, model = quantized_base_model(args.base, args.gguf_base, args.threads)
+    else:
+        torch, _, save_file, tokenizer, model = base_model(args.base, args.threads)
+    extra_config = dict(getattr(model, "_freehand_base_identity", {}))
+    activation_receipt = None
+    if args.activation_quantization == "native-q8-k":
+        activation_receipt = install_native_q8_activation(model, torch, args.native_runtime)
+        extra_config.update({key: activation_receipt[key] for key in ("activation_quantization_mode",
+            "activation_cpu_library_sha256", "activation_base_library_sha256", "activation_linear_inventory_sha256")})
+    elif quantized:
+        extra_config["activation_quantization_mode"] = "none"
+    kv_receipt = None
+    if args.kv_roundtrip == "f16":
+        kv_receipt = install_kv_roundtrip(model, torch)
+        extra_config.update({key: kv_receipt[key] for key in ("kv_roundtrip_mode", "kv_attention_source_sha256")})
+    elif quantized:
+        extra_config["kv_roundtrip_mode"] = "none"
+    if quantized:
+        write_json(args.output / "frozen-base-provenance.json", {**model._freehand_base_receipt,
+            "kv_roundtrip_mode": extra_config["kv_roundtrip_mode"], "kv_emulation_receipt": kv_receipt,
+            "activation_emulation_receipt": activation_receipt})
     torch.manual_seed(args.seed)
     rows = encode_rows(raw, tokenizer, args.max_tokens)
     model.eval()
@@ -357,21 +684,47 @@ def train(args):
         raise ValueError("Zero-initialized LoRA changed baseline logits")
     del before, after
     resume_sha = None
+    expansion = None
     if args.resume_adapter:
         old_config = json.loads((args.resume_adapter / "adapter-config.json").read_text())
-        if (old_config["base_model_sha256"] != SOURCE_WEIGHT_SHA or old_config["rank"] != args.rank
-                or old_config["alpha"] != args.alpha or old_config["target_modules"] != targets):
+        if (old_config["base_model_sha256"] != SOURCE_WEIGHT_SHA or old_config["target_modules"] != targets):
             raise ValueError("Resume adapter configuration differs from this run")
+        if not quantized and old_config.get("training_base_mode", "original-bf16") != "original-bf16":
+            raise ValueError("A quantized-base adapter cannot initialize the original BF16 training route")
+        if quantized and old_config.get("training_base_mode", "original-bf16") not in ("original-bf16", TRAINING_MODE_GGUF):
+            raise ValueError("Parent adapter training mode differs")
+        if old_config.get("training_base_mode") == TRAINING_MODE_GGUF and old_config.get("frozen_base_sha256") != SOURCE_GGUF_SHA:
+            raise ValueError("Parent adapter quantized base differs")
+        resume_sha = sha(args.resume_adapter / "adapter.safetensors")
+        if args.parent_adapter_sha256 and resume_sha != args.parent_adapter_sha256:
+            raise ValueError("Parent adapter SHA256 differs from the explicitly selected parent")
         from safetensors.torch import load_file
         state = load_file(str(args.resume_adapter / "adapter.safetensors"))
+        parent_state = state
+        if args.expand_adapter_rank:
+            state, expansion = expand_adapter_state(state, old_config["rank"], old_config["alpha"],
+                                                    args.rank, args.alpha, args.seed, torch)
+        elif old_config["rank"] != args.rank or old_config["alpha"] != args.alpha:
+            raise ValueError("Parent rank/alpha differ; explicit rank expansion is required")
         expected = set(adapter_state(model))
         if set(state) != expected:
             raise ValueError("Resume adapter tensor keys differ")
         parameters = dict(model.named_parameters())
         with torch.no_grad():
             for key, value in state.items():
+                if parameters[key].shape != value.shape or value.dtype != torch.float32 or not torch.isfinite(value).all():
+                    raise ValueError("Parent adapter tensor shape/dtype/value differs")
                 parameters[key].copy_(value)
-        resume_sha = sha(args.resume_adapter / "adapter.safetensors")
+        if expansion:
+            expansion.update(verify_expanded_logits(model, torch, rows[0]["input_ids"], parent_state))
+        if quantized:
+            extra_config.update(parent_adapter_sha256=resume_sha,
+                parent_adapter_config_sha256=sha(args.resume_adapter / "adapter-config.json"), rank_expansion=expansion)
+    elif quantized and args.resume_checkpoint:
+        saved_identity = json.loads((args.resume_checkpoint / "adapter-config.json").read_text())
+        extra_config.update(parent_adapter_sha256=args.parent_adapter_sha256,
+            parent_adapter_config_sha256=saved_identity.get("parent_adapter_config_sha256"),
+            rank_expansion=saved_identity.get("rank_expansion"))
     trainable = [parameter for parameter in model.parameters() if parameter.requires_grad]
     total_micro = args.epochs * math.ceil(len(rows) / args.batch_size)
     total_steps = math.ceil(total_micro / args.gradient_accumulation)
@@ -390,7 +743,7 @@ def train(args):
               "planned_execution_steps": min(total_steps, args.max_steps) if args.max_steps else total_steps,
               "learning_rate_schedule": "Linear warmup then linear decay, floored at0.1of initial learning rate; exact per-step values retained in log",
               "resume_adapter_sha256": resume_sha, "resume_optimizer": False,
-              "full_examples_truncated": 0, "blind_evaluation_read": False}
+              "full_examples_truncated": 0, "blind_evaluation_read": False, **extra_config}
     optimizer = torch.optim.AdamW(trainable, lr=args.learning_rate, weight_decay=0)
     resumed = None
     if args.resume_checkpoint:
@@ -468,11 +821,13 @@ def train(args):
 
 
 def merge(args):
+    config = json.loads((args.adapter / "adapter-config.json").read_text())
+    if config.get("training_base_mode", "original-bf16") != "original-bf16":
+        raise ValueError("Quantized-base adapters require their exact unmerged native base; BF16 merge is invalid")
     if args.output.exists():
         raise ValueError("Merged output must be fresh")
     args.output.mkdir(parents=True)
     torch, load_file, save_file, _, _ = imports(args.threads)
-    config = json.loads((args.adapter / "adapter-config.json").read_text())
     if sha(args.base / "model.safetensors") != config["base_model_sha256"] or config["base_model_sha256"] != SOURCE_WEIGHT_SHA:
         raise ValueError("Adapter base hash mismatch")
     adapters = load_file(str(args.adapter / "adapter.safetensors"))
@@ -590,6 +945,10 @@ def profile(args):
 
 def generate(args):
     """Diagnostic Transformers generation, separate from production Core replay."""
+    if args.adapter:
+        adapter_config = json.loads((args.adapter / "adapter-config.json").read_text())
+        if adapter_config.get("training_base_mode", "original-bf16") != "original-bf16":
+            raise ValueError("This legacy HF generation command cannot reconstruct a quantized adapter base")
     if args.output.exists():
         raise ValueError("Generation output must be fresh")
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -692,6 +1051,13 @@ def main(argv=None):
     training.add_argument("--max-steps", type=int, default=0)
     training.add_argument("--resume-adapter", type=Path)
     training.add_argument("--resume-checkpoint", type=Path)
+    training.add_argument("--training-base-mode", choices=["original-bf16", TRAINING_MODE_GGUF], default="original-bf16")
+    training.add_argument("--gguf-base", type=Path)
+    training.add_argument("--parent-adapter-sha256")
+    training.add_argument("--expand-adapter-rank", action="store_true")
+    training.add_argument("--kv-roundtrip", choices=["none", "f16"], default="none")
+    training.add_argument("--activation-quantization", choices=["none", "native-q8-k"], default="none")
+    training.add_argument("--native-runtime", type=Path)
     training.add_argument("--allow-deterministic-legacy-resume", action="store_true")
     training.add_argument("--checkpoint-every", type=int, default=100)
     training.set_defaults(handler=train)
@@ -729,6 +1095,21 @@ def main(argv=None):
         parser.error("Choose adapter initialization or exact checkpoint recovery, not both")
     if args.command == "train" and args.allow_deterministic_legacy_resume and not args.resume_checkpoint:
         parser.error("Legacy recovery requires --resume-checkpoint")
+    if args.command == "train":
+        quantized = args.training_base_mode == TRAINING_MODE_GGUF
+        if quantized and (not args.gguf_base or not args.parent_adapter_sha256
+                or not (args.resume_adapter or args.resume_checkpoint)):
+            parser.error("Quantized mode requires --gguf-base, explicit parent SHA256, and adapter initialization or exact recovery")
+        if args.parent_adapter_sha256 and (len(args.parent_adapter_sha256) != 64
+                or any(c not in "0123456789abcdef" for c in args.parent_adapter_sha256)):
+            parser.error("Parent SHA256 must be a complete lowercase SHA256")
+        if not quantized and (args.gguf_base or args.kv_roundtrip != "none" or args.expand_adapter_rank
+                or args.activation_quantization != "none" or args.native_runtime):
+            parser.error("GGUF, rank expansion and KV emulation require the explicit quantized training mode")
+        if (args.activation_quantization == "native-q8-k") != bool(args.native_runtime):
+            parser.error("Native Q8_K activation emulation requires its explicit pinned --native-runtime directory")
+        if args.expand_adapter_rank and not args.resume_adapter:
+            parser.error("Rank expansion applies only to an explicit parent adapter, not exact checkpoint recovery")
     if args.command == "generate" and not 1 <= args.max_output <= 512:
         parser.error("max-output must be 1..512")
     args.handler(args)

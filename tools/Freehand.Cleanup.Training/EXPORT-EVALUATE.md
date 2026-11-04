@@ -62,6 +62,36 @@ memory-backed mount indefinitely.
 
 ## Candidate identity and development replay
 
+The optional deployed native LoRA route uses `freeze --runtime-adapter ADAPTER.gguf
+--runtime-adapter-sha256 SHA256 --runtime-adapter-scale 1`. This pins a separate
+`runtime_adapter` GGUF artifact; `adapter`/`adapter_config` still describe the
+training safetensors lineage. The controlled native route requires the original
+IQ4_XS base82ab… and emits manifest fields `adapterPath`, `adapterSha256`,
+`adapterScale`. External scale1 preserves the GGUF's embedded alpha/rank factor;
+qualification tooling accepts only finite scales in(0,1], preventing accidental
+double scaling or applying the adapter again to already merged weights.
+
+Native replay emits `--lora PATH` at scale1, otherwise `--lora-scaled PATH:SCALE`
+as one argument, as required by pinned b12015. All adapter paths reject commas:
+both native options parse a comma-separated list. Nonunit paths also reject
+colons: that parser splits each item at every colon and requires exactly two
+parts. In particular,
+drive-qualified Windows paths cannot use a nonunit scale with this runtime pin.
+The default `--lora PATH` scale1 route retains those paths unchanged.
+Core reports must verify both expected and actual base/deployed hashes as typed
+strings, plus an explicit finite numeric external scale (a boolean is invalid).
+Optional reported byte counts must be integers matching the frozen artifacts.
+Semantic
+review checks those receipts. A paired original control has no deployed adapter;
+its base can equal the selected base because effective model identity includes
+the deployed adapter hash and scale. Other profile/source/runtime fields must
+still match. Absent deployed adapters keep existing merged-model behavior.
+Malformed or missing selected reports and wrong deployed hash/scale metadata
+create a failed `runtime-deployment-verification.json` receipt. The control
+still runs all500 cases; existing result bytes and case counts are preserved,
+while the selected inventory/pair remain ineligible for qualification. Review
+continues to require the exact deployed identity and complete verified pair.
+
 Freeze a candidate only after all evaluation/training source files are stable:
 
 ```sh
