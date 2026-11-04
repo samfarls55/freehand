@@ -7,6 +7,22 @@ namespace Freehand.Cleanup.Tests;
 public sealed class ResourceOptionsTests
 {
     [Fact]
+    public void Manifest_can_explicitly_select_f32_caches_without_changing_default_precision()
+    {
+        using var fixture = new Fixture();
+        fixture.Write([]);
+        var defaults = LlamaCleanupOptions.LoadManifest(fixture.ManifestPath);
+        defaults.CacheTypeK.ShouldBe("f16"); defaults.CacheTypeV.ShouldBe("f16");
+
+        fixture.Write(new Dictionary<string, object> { ["cacheTypeK"] = "f32", ["cacheTypeV"] = "f32" });
+        var selected = LlamaCleanupOptions.LoadManifest(fixture.ManifestPath);
+
+        selected.CacheTypeK.ShouldBe("f32"); selected.CacheTypeV.ShouldBe("f32");
+        selected.ContextSize.ShouldBe(defaults.ContextSize);
+        selected.MaxOutputTokens.ShouldBe(defaults.MaxOutputTokens);
+    }
+
+    [Fact]
     public void Manifest_preserves_the_explicit_bounded_resource_profile()
     {
         using var fixture = new Fixture();

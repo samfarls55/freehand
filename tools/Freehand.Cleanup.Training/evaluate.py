@@ -120,7 +120,9 @@ def freeze(arguments) -> int:
     if deployed is not None and deployed["sha256"] != deployed_hash.lower():
         raise ValueError("Deployed runtime adapter does not match expected SHA256")
     profile = runtime_profile(arguments.prompt_lookup_tokens, deployed,
-                              getattr(arguments, "runtime_adapter_scale", 1))
+                              getattr(arguments, "runtime_adapter_scale", 1),
+                              cache_type_k=getattr(arguments, "cache_type_k", "f16"),
+                              cache_type_v=getattr(arguments, "cache_type_v", "f16"))
     runtime = artifact(arguments.runtime)
     inventory = small_models.verify_runtime_inventory(arguments.runtime_inventory, Path(runtime["path"]))
     value = {"schema_version": 1, "created_utc": utc(), "purpose": "candidate_frozen_before_final_test_opening",
@@ -129,7 +131,9 @@ def freeze(arguments) -> int:
              "probe": artifact(arguments.probe), "managed_assemblies": managed_files(arguments.probe),
              "sources": source_files(), "git_head_historical": subprocess.check_output(
                  ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-             "profile": profile, "quality_target": quality_target(500),
+             "profile": profile,
+             "cache_configuration": {key: profile[key] for key in ("cacheTypeK", "cacheTypeV")},
+             "quality_target": quality_target(500),
              "limitations": "A candidate freeze is identity evidence, not quality or performance qualification."}
     if deployed is not None:
         value["runtime_adapter"] = deployed
@@ -155,6 +159,7 @@ def freeze(arguments) -> int:
 
 def verify_freeze(path: Path) -> dict:
     value = json.loads(path.read_text(encoding="utf-8"))
+    caches = frozen_cache_configuration(value)
     for key in ("model", "runtime", "runtime_inventory", "probe"):
         verify_artifact(value[key])
     for key in ("adapter", "adapter_config"):
@@ -174,7 +179,8 @@ def verify_freeze(path: Path) -> dict:
         raise ValueError("Evaluation/production source drift after candidate freeze")
     small_models.verify_runtime_inventory(Path(value["runtime_inventory"]["path"]), Path(value["runtime"]["path"]))
     if value["profile"] != runtime_profile(value["profile"].get("promptLookupTokens"),
-                                          value.get("runtime_adapter"), value["profile"].get("adapterScale", 1)):
+                                          value.get("runtime_adapter"), value["profile"].get("adapterScale", 1),
+                                          cache_type_k=caches["cacheTypeK"], cache_type_v=caches["cacheTypeV"]):
         raise ValueError("Runtime profile drift after candidate freeze")
     if value.get("quality_target") != quality_target(500):
         raise ValueError("Candidate freeze does not record the current 99 percent acceptance target")
@@ -228,8 +234,25 @@ def verify_pair(selected: dict, baseline: dict) -> None:
         raise ValueError("Paired baseline managed assembly mismatch")
 
 
+def cache_type(value: str) -> str:
+    if type(value) is not str or value not in ("f16", "f32"):
+        raise ValueError("Evaluation cache precision must be f16 or f32")
+    return value
+
+
+def frozen_cache_configuration(value: dict) -> dict:
+    """Legacy freezes retain f16; a different profile requires an explicit new cache record."""
+    configuration = value.get("cache_configuration", {"cacheTypeK": "f16", "cacheTypeV": "f16"})
+    if not isinstance(configuration, dict) or set(configuration) != {"cacheTypeK", "cacheTypeV"}:
+        raise ValueError("Frozen cache configuration must specify exactly key and value precision")
+    expected = {key: cache_type(item) for key, item in configuration.items()}
+    if any(value["profile"].get(key, "f16") != item for key, item in expected.items()):
+        raise ValueError("Runtime cache profile differs from its frozen cache configuration")
+    return expected
+
+
 def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None = None,
-                    adapter_scale: float = 1) -> dict:
+                    adapter_scale: float = 1, *, cache_type_k: str = "f16", cache_type_v: str = "f16") -> dict:
     if type(prompt_lookup_tokens) is not int or not 0 <= prompt_lookup_tokens < 64:
         raise ValueError("Prompt lookup draft tokens must be an integer from 0 through 63, below batch64")
     if type(adapter_scale) not in (int, float) or not math.isfinite(adapter_scale) or not 0 < adapter_scale <= 1:
@@ -238,7 +261,8 @@ def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None
         raise ValueError("Runtime adapter scale requires a deployed adapter")
     profile = {"promptStyle": "ScribeKeyFast", "threads": 4, "contextSize": 1024,
             "maxOutputTokens": 512, "batchSize": 64, "microBatchSize": 32,
-            "promptCacheMiB": 0, "contextCheckpoints": 0, "cacheTypeK": "f16", "cacheTypeV": "f16",
+            "promptCacheMiB": 0, "contextCheckpoints": 0,
+            "cacheTypeK": cache_type(cache_type_k), "cacheTypeV": cache_type(cache_type_v),
             "repack": False, "gpuLayers": 0, "startupTimeoutSeconds": 60, "idleTimeoutSeconds": 60,
             "maskSpecialistLiterals": True, "promptLookupTokens": prompt_lookup_tokens, "promptLookupMatchTokens": 3}
     if runtime_adapter is not None:
@@ -273,7 +297,7 @@ def effective_model_identity(value: dict) -> dict:
             "runtime_adapter_scale": value["profile"].get("adapterScale") if deployed else None}
 
 
-def verify_core_deployment(results: Path, identity: dict) -> None:
+def verify_core_deployment(results: Path, identity: dict, cache_configuration: dict | None = None) -> None:
     report = json.loads(results.read_text(encoding="utf-8"))
     if not isinstance(report, dict) or not isinstance(report.get("metadata", {}), dict):
         raise ValueError("Core deployment metadata must be an object")
@@ -288,6 +312,13 @@ def verify_core_deployment(results: Path, identity: dict) -> None:
             if key in entry and (type(entry[key]) is not int or entry[key] != expected_bytes):
                 raise ValueError("Core report " + label + " size differs from frozen bytes")
     verify_report_artifact(metadata.get("model"), identity["base_sha256"], identity["base_bytes"], "base model")
+    if cache_configuration is not None:
+        if not isinstance(cache_configuration, dict) or set(cache_configuration) != {"cacheTypeK", "cacheTypeV"}:
+            raise ValueError("Core cache configuration must specify exactly key and value precision")
+        for key, field in (("cacheTypeK", "cache_type_k"), ("cacheTypeV", "cache_type_v")):
+            expected_type = cache_type(cache_configuration[key])
+            if type(metadata.get(field)) is not str or metadata[field] != expected_type:
+                raise ValueError("Core report cache precision differs from frozen " + key)
     deployed = metadata.get("runtime_adapter")
     expected = identity["runtime_adapter_sha256"]
     if expected is None:
@@ -301,7 +332,8 @@ def verify_core_deployment(results: Path, identity: dict) -> None:
 
 
 def native_server_arguments(profile: dict) -> list[str]:
-    arguments = ["--cache-type-k", "f16", "--cache-type-v", "f16", "--no-repack"]
+    arguments = ["--cache-type-k", cache_type(profile.get("cacheTypeK", "f16")),
+                 "--cache-type-v", cache_type(profile.get("cacheTypeV", "f16")), "--no-repack"]
     if profile["promptLookupTokens"] > 0:
         arguments.extend(["--spec-type", "ngram-map-k", "--spec-ngram-map-k-size-n",
                           str(profile["promptLookupMatchTokens"]), "--spec-ngram-map-k-size-m",
@@ -410,6 +442,8 @@ def prepare_evaluation(arguments, frozen: dict, frozen_identity: dict, corpus: d
     if pair is not None:
         metadata.update({"semantic_role": role, "paired_evaluation": pair,
                          "primary_qualification_candidate": role == "selected_primary"})
+    if "cache_configuration" in frozen:
+        metadata["cache_configuration"] = frozen_cache_configuration(frozen)
     write_new(output / "evaluation-pre-run-freeze.json", metadata)
     profile = dict(frozen["profile"])
     manifest = {"runtimePath": frozen["runtime"]["path"], "runtimeSha256": frozen["runtime"]["sha256"],
@@ -426,6 +460,9 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
     manifest_path = output / "cleanup-manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     profile = frozen["profile"]
+    caches = frozen_cache_configuration(frozen)
+    if any(cache_type(manifest.get(key, "f16")) != expected for key, expected in caches.items()):
+        raise ValueError("Core manifest cache configuration differs from the frozen runtime profile")
     codes = {}
     probe_argv = [str(arguments.dotnet), frozen["probe"]["path"]]
     if arguments.mode in ("native", "both"):
@@ -452,7 +489,7 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
         report_path = output / "core-results.json"
         deployment = {"effective_model_identity": effective_model_identity(frozen), "verified": False}
         try:
-            verify_core_deployment(report_path, deployment["effective_model_identity"])
+            verify_core_deployment(report_path, deployment["effective_model_identity"], frozen.get("cache_configuration"))
             deployment["verified"] = True
         except (OSError, ValueError, KeyError, TypeError) as error:
             codes["runtime_deployment"] = 1
@@ -664,7 +701,7 @@ def review(arguments) -> int:
         raise ValueError("Results need their pre-run evaluation metadata; partial denominators are forbidden")
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     if "effective_model_identity" in metadata and arguments.results.suffix != ".jsonl":
-        verify_core_deployment(arguments.results, metadata["effective_model_identity"])
+        verify_core_deployment(arguments.results, metadata["effective_model_identity"], metadata.get("cache_configuration"))
     paired_receipt = paired_review_receipt(arguments.results, metadata_path, metadata)
     if len(rows) != metadata["case_count"] or {row["case_id"] for row in rows} != set(metadata["case_ids"]):
         raise ValueError("Results do not cover the exact pre-run case inventory")
@@ -714,6 +751,10 @@ def main() -> int:
                         help="Pin the direct-original-F16 IQ4_XS control export report; incompatible with an adapter")
     frozen.add_argument("--prompt-lookup-tokens", type=int, default=16,
                         help="Bounded prompt-lookup draft length: 0..63, default16; 0 disables lookup. Other profile fields stay fixed.")
+    frozen.add_argument("--cache-type-k", choices=("f16", "f32"), default="f16",
+                        help="Explicit key-cache precision for this new runtime freeze; default f16")
+    frozen.add_argument("--cache-type-v", choices=("f16", "f32"), default="f16",
+                        help="Explicit value-cache precision for this new runtime freeze; default f16")
     native_parser = sub.add_parser("native")
     for name in ("dataset", "candidate-freeze", "dotnet", "output"):
         native_parser.add_argument("--" + name, type=Path, required=True)

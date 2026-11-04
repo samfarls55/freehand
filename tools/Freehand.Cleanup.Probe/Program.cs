@@ -151,6 +151,7 @@ internal static class Program
             cleanupOptions?.AdapterPath is null ? null : new Artifact(cleanupOptions.AdapterPath, cleanupOptions.AdapterSha256!, null),
             cleanupOptions?.AdapterPath is null ? null : cleanupOptions.AdapterScale,
             cleanupOptions?.Threads, cleanupOptions?.ContextSize, cleanupOptions?.MaxOutputTokens, cleanupOptions?.GpuLayers,
+            cleanupOptions?.CacheTypeK, cleanupOptions?.CacheTypeV,
             arguments.CleanupTimeout.TotalSeconds, arguments.Split,
             RuntimeInformation.OSDescription, RuntimeInformation.ProcessArchitecture.ToString(),
             RuntimeInformation.FrameworkDescription, Environment.ProcessorCount, GC.GetGCMemoryInfo().TotalAvailableMemoryBytes,
@@ -466,6 +467,7 @@ internal sealed record ProbeMetadata(DateTimeOffset StartedAtUtc, string CorpusP
     string? ManifestPath, string? ManifestSha256, string? ModelId, string? PromptStyle,
     Artifact? Runtime, Artifact? Model, Artifact? RuntimeAdapter, double? AdapterScale,
     int? Threads, int? ContextSize, int? MaxOutputTokens, int? GpuLayers,
+    string? CacheTypeK, string? CacheTypeV,
     double CleanupTimeoutSeconds, string Split, string OperatingSystem, string Architecture,
     string Framework, int LogicalProcessorCount, long GcTotalAvailableMemoryBytes, string? ProbeVersion,
     IReadOnlyDictionary<string, string> ManagedAssemblySha256, string Limitations);

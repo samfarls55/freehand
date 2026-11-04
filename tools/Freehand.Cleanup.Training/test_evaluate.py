@@ -12,6 +12,136 @@ import evaluate
 
 
 class ProfileTests(unittest.TestCase):
+    def test_cache_precision_is_explicit_typed_and_defaults_to_f16(self):
+        baseline = evaluate.runtime_profile()
+        self.assertEqual(("f16", "f16"), (baseline["cacheTypeK"], baseline["cacheTypeV"]))
+        for key_type, value_type in (("f32", "f32"), ("f32", "f16"), ("f16", "f32")):
+            profile = evaluate.runtime_profile(cache_type_k=key_type, cache_type_v=value_type)
+            expected = {**baseline, "cacheTypeK": key_type, "cacheTypeV": value_type}
+            self.assertEqual(expected, profile)
+            flags = evaluate.native_server_arguments(profile)
+            self.assertEqual(1, flags.count("--cache-type-k"))
+            self.assertEqual(1, flags.count("--cache-type-v"))
+            self.assertEqual(key_type, flags[flags.index("--cache-type-k") + 1])
+            self.assertEqual(value_type, flags[flags.index("--cache-type-v") + 1])
+
+    def test_cache_precision_rejects_wrong_types_and_unsupported_native_options(self):
+        for invalid in (None, True, 32, "float32", "F32", "q8_0", "f32 --model another.gguf"):
+            for field, argument in (("cacheTypeK", "cache_type_k"), ("cacheTypeV", "cache_type_v")):
+                with self.subTest(invalid=invalid, field=field):
+                    with self.assertRaisesRegex(ValueError, "cache precision"):
+                        evaluate.runtime_profile(**{argument: invalid})
+                    with self.assertRaisesRegex(ValueError, "cache precision"):
+                        evaluate.native_server_arguments({**evaluate.runtime_profile(), field: invalid})
+
+    def test_new_f32_freeze_binds_profile_native_args_and_core_manifest(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            paths = {}
+            for name in ("model", "runtime", "runtime_inventory", "probe"):
+                paths[name] = root / name
+                paths[name].write_text("fixture " + name)
+            dataset = root / "dataset.json"
+            corpus = {"cases": [{"id": "fixture", "input": "um keep this", "targets": ["Keep this."]}]}
+            dataset.write_text(json.dumps(corpus))
+            args = argparse.Namespace(**paths, output=root / "freeze.json", adapter_config=None,
+                                      prompt_lookup_tokens=16, cache_type_k="f32", cache_type_v="f32",
+                                      dataset=dataset, phase="development", mode="core", blind_commitment=None)
+            with patch("evaluate.source_files", return_value={}), patch("evaluate.managed_files", return_value=[]), \
+                    patch("evaluate.small_models.verify_runtime_inventory", return_value={}), patch("builtins.print"):
+                evaluate.freeze(args)
+                frozen = evaluate.verify_freeze(args.output)
+                self.assertEqual({"cacheTypeK": "f32", "cacheTypeV": "f32"}, frozen["cache_configuration"])
+                output = root / "evaluation"
+                evaluate.prepare_evaluation(args, frozen, evaluate.artifact(args.output), corpus, output, "selected_primary", None)
+                preregistration = json.loads((output / "evaluation-pre-run-freeze.json").read_text())
+                self.assertEqual(frozen["cache_configuration"], preregistration["cache_configuration"])
+                manifest_path = output / "cleanup-manifest.json"
+                manifest = json.loads(manifest_path.read_text())
+                self.assertEqual(("f32", "f32"), (manifest["cacheTypeK"], manifest["cacheTypeV"]))
+                manifest["cacheTypeV"] = "f16"
+                manifest_path.write_text(json.dumps(manifest))
+                with patch("evaluate.invoke") as invoke, self.assertRaisesRegex(ValueError, "manifest cache"):
+                    evaluate.execute_evaluation(args, frozen, output)
+                invoke.assert_not_called()
+                edited = json.loads(args.output.read_text())
+                edited["profile"]["cacheTypeV"] = "f16"
+                args.output.write_text(json.dumps(edited))
+                with self.assertRaisesRegex(ValueError, "cache profile"):
+                    evaluate.verify_freeze(args.output)
+
+    def test_explicit_cache_freeze_requires_matching_typed_actual_core_metadata(self):
+        identity = {"base_sha256": "a" * 64, "base_bytes": 5, "runtime_adapter_sha256": None,
+                    "runtime_adapter_bytes": None, "runtime_adapter_scale": None}
+        metadata = {"model": {"expected_sha256": "a" * 64, "actual_sha256": "A" * 64},
+                    "cache_type_k": "f32", "cache_type_v": "f32"}
+        declared = {"cacheTypeK": "f32", "cacheTypeV": "f32"}
+        with tempfile.TemporaryDirectory() as temporary:
+            report = Path(temporary) / "report.json"
+            report.write_text(json.dumps({"metadata": metadata}))
+            evaluate.verify_core_deployment(report, identity, declared)
+            for field in ("cache_type_k", "cache_type_v"):
+                for invalid in ("f16", "F32", "unknown", None, True, 32):
+                    changed = {**metadata, field: invalid}
+                    report.write_text(json.dumps({"metadata": changed}))
+                    with self.subTest(field=field, value=invalid), self.assertRaisesRegex(ValueError, "cache precision"):
+                        evaluate.verify_core_deployment(report, identity, declared)
+                changed = {key: value for key, value in metadata.items() if key != field}
+                report.write_text(json.dumps({"metadata": changed}))
+                with self.assertRaisesRegex(ValueError, "cache precision"):
+                    evaluate.verify_core_deployment(report, identity, declared)
+            report.write_text(json.dumps({"metadata": {"model": metadata["model"]}}))
+            evaluate.verify_core_deployment(report, identity)  # Unmodified legacy report remains compatible.
+            with self.assertRaisesRegex(ValueError, "cache precision"):
+                evaluate.verify_core_deployment(report, identity, {"cacheTypeK": "f16", "cacheTypeV": "f16"})
+
+    def test_cache_metadata_failure_is_preserved_as_a_failed_deployment(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / "results"
+            output.mkdir()
+            profile = evaluate.runtime_profile(cache_type_k="f32", cache_type_v="f32")
+            frozen = {"profile": profile, "cache_configuration": {"cacheTypeK": "f32", "cacheTypeV": "f32"},
+                      "model": {"sha256": "a" * 64, "bytes": 5}, "probe": {"path": "fixture-probe.dll"}}
+            (output / "cleanup-manifest.json").write_text(json.dumps(profile))
+            def fake_probe(argv, log):
+                (output / "core-results.json").write_text(json.dumps({"incomplete": False, "cases": [{"id": "kept"}],
+                    "metadata": {"model": {"expected_sha256": "a" * 64, "actual_sha256": "a" * 64},
+                                 "cache_type_k": "f16", "cache_type_v": "f16"}}))
+                return 0
+            args = argparse.Namespace(mode="core", dotnet=Path("fixture-dotnet"))
+            with patch("evaluate.invoke", side_effect=fake_probe):
+                codes = evaluate.execute_evaluation(args, frozen, output)
+            self.assertEqual(1, codes["runtime_deployment"])
+            receipt = json.loads((output / "runtime-deployment-verification.json").read_text())
+            self.assertFalse(receipt["verified"])
+            self.assertEqual(evaluate.artifact(output / "core-results.json"), receipt["report"])
+            self.assertEqual([{"id": "kept"}], json.loads((output / "core-results.json").read_text())["cases"])
+
+    def test_legacy_f16_freezes_remain_f16_and_cannot_be_silently_promoted(self):
+        legacy = {"profile": evaluate.runtime_profile()}
+        self.assertEqual({"cacheTypeK": "f16", "cacheTypeV": "f16"}, evaluate.frozen_cache_configuration(legacy))
+        legacy["profile"]["cacheTypeK"] = "f32"
+        with self.assertRaisesRegex(ValueError, "cache profile"):
+            evaluate.frozen_cache_configuration(legacy)
+        for malformed in (None, [], {}, {"cacheTypeK": "f32"}, {"cacheTypeK": "f16", "cacheTypeV": True},
+                          {"cacheTypeK": "f16", "cacheTypeV": "f16", "extra": "f32"}):
+            with self.subTest(configuration=malformed), self.assertRaises(ValueError):
+                evaluate.frozen_cache_configuration({"profile": evaluate.runtime_profile(), "cache_configuration": malformed})
+
+    def test_freeze_cli_cache_choices_are_explicit_and_keep_the_f16_default(self):
+        arguments = ["evaluate.py", "freeze", "--model", "fixture.gguf", "--runtime", "fixture-server",
+                     "--runtime-inventory", "fixture-index.json", "--probe", "fixture-probe.dll", "--output", "fixture-freeze.json"]
+        for flags, expected in (([], "f16"), (["--cache-type-k", "f32", "--cache-type-v", "f32"], "f32")):
+            with patch("sys.argv", arguments + flags), patch("evaluate.freeze", return_value=0) as freeze:
+                self.assertEqual(0, evaluate.main())
+                parsed = freeze.call_args.args[0]
+                self.assertEqual((expected, expected), (parsed.cache_type_k, parsed.cache_type_v))
+        with patch("sys.argv", arguments + ["--cache-type-k", "arbitrary"]), patch("sys.stderr"), \
+                patch("evaluate.freeze") as freeze, self.assertRaises(SystemExit):
+            evaluate.main()
+        freeze.assert_not_called()
+
     def test_lookup24_changes_only_the_bounded_draft_length_and_native_flags(self):
         expected = evaluate.runtime_profile()
         expected["promptLookupTokens"] = 24

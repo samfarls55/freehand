@@ -130,6 +130,26 @@ public sealed class ProviderTests
         arguments.ShouldNotContain("--spec-type");
     }
 
+    [Theory]
+    [InlineData("f32", "f32")]
+    [InlineData("f32", "f16")]
+    [InlineData("f16", "f32")]
+    public async Task Worker_passes_each_explicit_cache_precision_once_without_altering_the_token_budget(string keyType, string valueType)
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        await using var provider = fixture.Provider(fixture.Options with { CacheTypeK = keyType, CacheTypeV = valueType });
+
+        await provider.ProcessAsync("keep this", CancellationToken.None);
+
+        var arguments = fixture.Launcher.Start!.Arguments.ToArray();
+        arguments.Count(value => value == "--cache-type-k").ShouldBe(1);
+        arguments.Count(value => value == "--cache-type-v").ShouldBe(1);
+        arguments[Array.IndexOf(arguments, "--cache-type-k") + 1].ShouldBe(keyType);
+        arguments[Array.IndexOf(arguments, "--cache-type-v") + 1].ShouldBe(valueType);
+        arguments[Array.IndexOf(arguments, "--ctx-size") + 1].ShouldBe(fixture.Options.ContextSize.ToString(CultureInfo.InvariantCulture));
+        arguments[Array.IndexOf(arguments, "--n-predict") + 1].ShouldBe(fixture.Options.MaxOutputTokens.ToString(CultureInfo.InvariantCulture));
+    }
+
     [Fact]
     public async Task Prompt_lookup_is_opt_in_and_passes_only_the_fixed_bounded_map_k_configuration()
     {

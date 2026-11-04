@@ -196,8 +196,8 @@ public sealed record LlamaCleanupOptions
         if (MicroBatchSize < 1 || MicroBatchSize > BatchSize) throw new ArgumentOutOfRangeException(nameof(MicroBatchSize));
         if (PromptCacheMiB is < 0 or > 8192) throw new ArgumentOutOfRangeException(nameof(PromptCacheMiB));
         if (ContextCheckpoints is < 0 or > 32) throw new ArgumentOutOfRangeException(nameof(ContextCheckpoints));
-        if (CacheTypeK is not ("f16" or "q8_0" or "q4_0")) throw new ArgumentException("Unsupported cleanup key-cache type.", nameof(CacheTypeK));
-        if (CacheTypeV is not ("f16" or "q8_0" or "q4_0")) throw new ArgumentException("Unsupported cleanup value-cache type.", nameof(CacheTypeV));
+        if (CacheTypeK is not ("f16" or "f32" or "q8_0" or "q4_0")) throw new ArgumentException("Unsupported cleanup key-cache type.", nameof(CacheTypeK));
+        if (CacheTypeV is not ("f16" or "f32" or "q8_0" or "q4_0")) throw new ArgumentException("Unsupported cleanup value-cache type.", nameof(CacheTypeV));
         if (PromptLookupTokens is < 0 or > 64) throw new ArgumentOutOfRangeException(nameof(PromptLookupTokens));
         if (PromptLookupMatchTokens is < 1 or > 12) throw new ArgumentOutOfRangeException(nameof(PromptLookupMatchTokens));
         if (PromptLookupTokens >= BatchSize) throw new ArgumentException("Prompt lookup plus its sampled token must fit the logical batch.", nameof(PromptLookupTokens));

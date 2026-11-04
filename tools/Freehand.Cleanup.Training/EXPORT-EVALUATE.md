@@ -123,6 +123,16 @@ from the frozen profile into both the Core manifest and native replay flags;
 all other runtime settings remain fixed. A new profile requires a new freeze
 and output-equivalence/performance checks. Choosing24 does not establish any
 99% accuracy or whole-app SLA claim by itself.
+
+`freeze --cache-type-k f32 --cache-type-v f32` records a separate cache-precision
+experiment; both defaults remain `f16`. The typed cache declaration is bound to
+the frozen profile, generated manifest, native arguments and actual validated
+Probe options. New declarations require matching `cache_type_k` and
+`cache_type_v` report metadata before quality review. Historical freezes without
+that declaration retain their original f16 interpretation. Changing cache
+precision keeps model weights fixed but can change native arithmetic, automatic
+kernel selection, outputs, memory and latency; measure the resulting profile.
+
 `--mode core` runs only the integrated Core provider and single-delivery probe;
 `--mode native` runs only the raw native replay; `both` preserves both reports.
 Native execution refuses concurrent native servers. Coordinate all training,
