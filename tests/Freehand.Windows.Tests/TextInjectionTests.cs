@@ -16,11 +16,11 @@ public sealed class TextInjectionTests
         var injector = new SendInputTextInjector(_ => true, () => false, inputs =>
         {
             calls.Add(inputs);
-            return calls.Count == 1 ? 3u : (uint)inputs.Length;
+            return calls.Count == 1 ? 1u : (uint)inputs.Length;
         }, _ => { });
 
         Assert.Equal(DeliveryOutcome.PartialOrUncertain,
-            await injector.InjectAsync("a rest of the transcript", Target, CancellationToken.None));
+            await injector.InjectAsync(" rest of the transcript", Target, CancellationToken.None));
         Assert.Equal(2, calls.Count);
         var release = Assert.Single(calls[1]);
         Assert.Equal(' ', (char)release.Union.Keyboard.ScanCode);
@@ -99,6 +99,43 @@ public sealed class TextInjectionTests
     }
 
     [Fact]
+    public async Task Unicode_fallback_never_batches_distinct_scalars_into_one_SendInput_call()
+    {
+        var received = new List<Input>();
+        var text = "Testing, testing, testing, 🙂 café 日本語.";
+        var injector = new SendInputTextInjector(_ => true, () => false, inputs =>
+        {
+            var scalar = Decode(inputs);
+            Assert.True(scalar.Length == 1 || scalar.Length == 2 && char.IsSurrogatePair(scalar, 0));
+            received.AddRange(inputs); return (uint)inputs.Length;
+        }, _ => { });
+        Assert.Equal(DeliveryOutcome.Delivered, await injector.InjectAsync(text, Target, CancellationToken.None));
+        Assert.Equal(text, Decode(received));
+    }
+
+    [Theory]
+    [InlineData("Testing, testing, testing, this is an interesting thing and I really want to see if it works and I really hope that it's best.")]
+    [InlineData("Trying one more time, I know sometimes the first dictation might not always be perfect.")]
+    public async Task Reported_transcripts_use_mapped_key_events_in_order_without_Unicode_bursts(string text)
+    {
+        var received = new List<Input>();
+        var injector = new SendInputTextInjector(_ => true, () => false, inputs =>
+        {
+            Assert.All(inputs, input => Assert.Equal(0u, input.Union.Keyboard.Flags & 4));
+            received.AddRange(inputs); return (uint)inputs.Length;
+        }, _ => { }, (character, _) => new Input
+        {
+            Type = 1,
+            Union = new SendInputTextInjector.InputUnion
+            {
+                Keyboard = new SendInputTextInjector.KEYBDINPUT { ScanCode = character, Flags = 8 },
+            },
+        });
+        Assert.Equal(DeliveryOutcome.Delivered, await injector.InjectAsync(text, Target, CancellationToken.None));
+        Assert.Equal(text, Decode(received));
+    }
+
+    [Fact]
     public async Task Cancellation_between_batches_never_replays_or_sends_the_remainder()
     {
         using var cancellation = new CancellationTokenSource();
@@ -136,12 +173,12 @@ public sealed class TextInjectionTests
         var injector = new SendInputTextInjector(_ => true, () => false, inputs =>
         {
             calls.Add(inputs);
-            return calls.Count == 2 ? 1u : (uint)inputs.Length;
+            return inputs[0].Union.Keyboard.VirtualKey == 0x0D && (inputs[0].Union.Keyboard.Flags & 2) == 0
+                ? 1u : (uint)inputs.Length;
         }, _ => { });
         Assert.Equal(DeliveryOutcome.PartialOrUncertain,
             await injector.InjectAsync("first\nsecond", Target, CancellationToken.None));
-        Assert.Equal(3, calls.Count);
-        var release = Assert.Single(calls[2]);
+        var release = Assert.Single(Assert.Single(calls, inputs => inputs.Length == 1));
         Assert.Equal(0x0D, release.Union.Keyboard.VirtualKey);
         Assert.Equal(2u, release.Union.Keyboard.Flags & 2);
         Assert.Equal("first", Decode(calls.SelectMany(inputs => inputs)));
@@ -158,6 +195,20 @@ public sealed class NativeTextDeliveryGroup;
 [Collection("Native text delivery")]
 public sealed class NativeTextDeliveryTests
 {
+    [Theory]
+    [InlineData("Testing, testing, testing, this is an interesting thing and I really want to see if it works and I really hope that it's best.")]
+    [InlineData("Trying one more time, I know sometimes the first dictation might not always be perfect.")]
+    public async Task Real_SendInput_delivers_the_reported_examples_exactly(string text)
+    {
+        using var field = new WindowsDeliveryProbe();
+        var target = field.BeginTrial();
+        var injector = new SendInputTextInjector();
+        Assert.Equal(DeliveryOutcome.Delivered, await injector.InjectAsync(text, target, CancellationToken.None));
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+        while (field.ReadText() != text && !deadline.IsCancellationRequested) await Task.Delay(20);
+        Assert.Equal(text, field.ReadText());
+    }
+
     [Fact]
     public async Task Real_SendInput_preserves_complete_multiline_Unicode_text_in_a_Windows_edit_control()
     {
