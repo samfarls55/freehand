@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit",
+  "source_review_sha256": "5013e96edde8c1b4350bdc5358f8e67286594025467906223582b1e37ea1ac37",
+  "owner_build_summary_sha256": "d720b68c9004283061a73bc90844c391f788ff693589be753ab2b0e02b2187a6",
+  "source_hashes_and_six_small_managed_dlls_independently_reverified": true,
+  "new_probe": {
+    "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll",
+    "bytes": 189952,
+    "sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66"
+  },
+  "test_artifact_logs_and_TRX_hashes_verified": true,
+  "owner_results": {
+    "cleanup": {
+      "passed": 343,
+      "failed": 0
+    },
+    "core": {
+      "passed": 151,
+      "failed": 0
+    },
+    "python_evaluator": {
+      "passed": 49,
+      "failed": 0
+    },
+    "python_framework": {
+      "passed": 63,
+      "failed": 0
+    }
+  },
+  "strict_solution_build": {
+    "warnings": 0,
+    "errors": 0,
+    "exit_code": 0,
+    "command": "DOTNET_PROCESSOR_COUNT=4 .dotnet/dotnet build Freehand.sln -c Release --no-incremental -warnaserror -p:EnableWindowsTargeting=true --artifacts-path /tmp/freehand-f32-kv-build",
+    "log": {
+      "path": "/tmp/freehand-f32-kv-strict-build.log",
+      "bytes": 1770,
+      "sha256": "48e443ae8d434e994b9f57e564d558a99b1834f584d5ce1bc235b85a94c4a717"
+    },
+    "preserved_storage_failure_log": {
+      "path": "/tmp/freehand-f32-kv-strict-build-failed-nospace.log",
+      "bytes": 4096,
+      "sha256": "9f4870ec8f53c4b78f32ad4728525a55d13e07825c80fb63280f74998f8051f8"
+    }
+  },
+  "probe_checks": {
+    "path": "/tmp/freehand-f32-kv-probe-checks/verification-summary.json",
+    "bytes": 1045,
+    "sha256": "80f53faac2128fcfa9a38361cab683c90b6324a07044574f43ed94062351a4d8"
+  },
+  "old24_managed_dlls_preservation": "Owner receipt records exact preservation; reviewer did not repeat all prior-epoch DLL hashing.",
+  "status": "SOURCE_AND_OWNER_BUILD_TEST_EVIDENCE_PASS; NATIVE_DIAGNOSTICS_STILL_ROOT_GRANTED_ONLY",
+  "model_build_native_jobs_by_reviewer": false
+}

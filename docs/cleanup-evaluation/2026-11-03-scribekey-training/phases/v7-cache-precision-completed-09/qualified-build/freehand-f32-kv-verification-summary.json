@@ -1,0 +1,241 @@
+{
+  "completed_at_utc": "2026-11-04T02:57:01.881548+00:00",
+  "source_audit_receipt": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/f32-cache-source-review/source-review-131d2d.json",
+    "bytes": 4278,
+    "sha256": "5013e96edde8c1b4350bdc5358f8e67286594025467906223582b1e37ea1ac37"
+  },
+  "source_ready_receipt": {
+    "path": "/tmp/freehand-f32-kv-source-ready.json",
+    "bytes": 1040,
+    "sha256": "a073bcf438b13e8e4720b61f34456ee569c38f6a5e6fad192472dfd4a4cb9d8e"
+  },
+  "source_hashes_unchanged": true,
+  "new_probe": {
+    "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll",
+    "bytes": 189952,
+    "sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66"
+  },
+  "managed_assemblies": [
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Abstractions.dll",
+      "bytes": 18944,
+      "sha256": "3f9b1cefbf7d8ab86abfb33df45a0f1605f71758136b34af8930619e1d2d88c4"
+    },
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll",
+      "bytes": 189952,
+      "sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66"
+    },
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.dll",
+      "bytes": 166912,
+      "sha256": "5e2a173e17e2a72bc9348fb7d661f22279a2a02d24324f62ae25b1dd669fef81"
+    },
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Core.dll",
+      "bytes": 201216,
+      "sha256": "45e705a6ffc4e4bf1895c7edf2e5e1c0fab0bc12d31285234a5997c4315f6995"
+    },
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Dictionary.dll",
+      "bytes": 22016,
+      "sha256": "b1e19c7b0645b5894d74c0f0daaeb7d84c6e0655b6d3b588b779b80e9d04e742"
+    },
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Testing.dll",
+      "bytes": 12800,
+      "sha256": "73942f681f2d5517269bcb8f5b2365599de0a60997e2f6d713612412d949e5c5"
+    }
+  ],
+  "probe_runtime_files": [
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.deps.json",
+      "bytes": 2445,
+      "sha256": "6927cd8464fa8975464de63e54624ca7ed23c7ada9875621e820dd675140e10b"
+    },
+    {
+      "path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.runtimeconfig.json",
+      "bytes": 377,
+      "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+      "bytes": 22237,
+      "sha256": "5cd8406a2010b1a9348e4e722ba8053e760a374cd67cd472691fc1db55c6d333"
+    },
+    {
+      "path": "/workspace/freehand/tests/Freehand.Cleanup.Tests/ResourceOptionsTests.cs",
+      "bytes": 4780,
+      "sha256": "1890baebccccbf5ad0fe2a46eebd9edd4902b53da00a3e96d70d7dc7fa405465"
+    },
+    {
+      "path": "/workspace/freehand/tests/Freehand.Cleanup.Tests/ProviderTests.cs",
+      "bytes": 48171,
+      "sha256": "967141bdf8b26694b89a61d320aeff060ac99e7c53fac202e6c4120011d50630"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/Program.cs",
+      "bytes": 32980,
+      "sha256": "fca29a1e882e390dd5d8b7dcb91120d8f4d6a29d1d3dbf42d12712016294a6ee"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/evaluate.py",
+      "bytes": 48573,
+      "sha256": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec"
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/test_evaluate.py",
+      "bytes": 54830,
+      "sha256": "d986ea6f7dc3b6c95b31b05e12dbdc1eb6cfebbaeb78275206a843106832d2b3"
+    }
+  ],
+  "strict_solution_build": {
+    "warnings": 0,
+    "errors": 0,
+    "exit_code": 0,
+    "command": "DOTNET_PROCESSOR_COUNT=4 .dotnet/dotnet build Freehand.sln -c Release --no-incremental -warnaserror -p:EnableWindowsTargeting=true --artifacts-path /tmp/freehand-f32-kv-build",
+    "log": {
+      "path": "/tmp/freehand-f32-kv-strict-build.log",
+      "bytes": 1770,
+      "sha256": "48e443ae8d434e994b9f57e564d558a99b1834f584d5ce1bc235b85a94c4a717"
+    },
+    "preserved_storage_failure_log": {
+      "path": "/tmp/freehand-f32-kv-strict-build-failed-nospace.log",
+      "bytes": 4096,
+      "sha256": "9f4870ec8f53c4b78f32ad4728525a55d13e07825c80fb63280f74998f8051f8"
+    }
+  },
+  "tests": {
+    "cleanup": {
+      "passed": 343,
+      "failed": 0,
+      "skipped": 0,
+      "counters": {
+        "total": 343,
+        "executed": 343,
+        "passed": 343,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "result": {
+        "path": "/tmp/freehand-f32-kv-test-results/cleanup-f32-kv.trx",
+        "bytes": 498619,
+        "sha256": "651d24ee2b7c7e5c6d1ddfc8a93639472b7d30a52d5d54408ec535381675d6bb"
+      },
+      "log": {
+        "path": "/tmp/freehand-f32-kv-cleanup-tests.log",
+        "bytes": 449,
+        "sha256": "2686b458bba4c83a9be77b3932e623df920c0837a35c6e5e3fcf6d40d6cd3b05"
+      }
+    },
+    "core": {
+      "passed": 151,
+      "failed": 0,
+      "skipped": 0,
+      "counters": {
+        "total": 151,
+        "executed": 151,
+        "passed": 151,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "result": {
+        "path": "/tmp/freehand-f32-kv-test-results/core-f32-kv.trx",
+        "bytes": 206667,
+        "sha256": "3dc2b05c9176053d7b04dbd9e4e595ee382562448fd51827f715e595fef72c47"
+      },
+      "log": {
+        "path": "/tmp/freehand-f32-kv-core-tests.log",
+        "bytes": 435,
+        "sha256": "1c3d810608a09fbb19d09a51b14a7c43c2c39c9e22775fb0af359cb72d879b10"
+      }
+    },
+    "python_evaluator": {
+      "passed": 49,
+      "failed": 0,
+      "log": {
+        "path": "/tmp/freehand-f32-kv-python-evaluate-tests-retry.log",
+        "bytes": 8141,
+        "sha256": "3f71d5b731e713d9512108b78d13316ad1c9e15cf7f53ec19b0f1debd300ea14"
+      }
+    },
+    "python_framework": {
+      "passed": 63,
+      "failed": 0,
+      "log": {
+        "path": "/tmp/freehand-f32-kv-python-framework-tests-retry.log",
+        "bytes": 11415,
+        "sha256": "1512ddaebd235e022536c0406b84cd41e04786a7c78b0419534daa760682b2c2"
+      }
+    }
+  },
+  "probe_checks": {
+    "path": "/tmp/freehand-f32-kv-probe-checks/verification-summary.json",
+    "bytes": 1045,
+    "sha256": "80f53faac2128fcfa9a38361cab683c90b6324a07044574f43ed94062351a4d8"
+  },
+  "probe_check_log": {
+    "path": "/tmp/freehand-f32-kv-probe-checks.log",
+    "bytes": 1045,
+    "sha256": "80f53faac2128fcfa9a38361cab683c90b6324a07044574f43ed94062351a4d8"
+  },
+  "preservation_receipt": {
+    "path": "/tmp/freehand-f32-kv-prebuild-preservation.json",
+    "bytes": 3923,
+    "sha256": "f44061a2f7d9832ec32dd977af28399a653152ffabe6aab45cd27d0b8a49f4fe"
+  },
+  "all_twentyfour_prior_probe_dlls_unchanged": true,
+  "completed_build_inventory": {
+    "path": "/tmp/freehand-f32-kv-completed-build-inventory.json",
+    "bytes": 374777,
+    "sha256": "a6698ee049cbb396162950ee80adb031138af3412d9ef271378fd72b62db7831"
+  },
+  "build_files_frozen_without_further_rebuild": true,
+  "actual_native_or_model_jobs_run": false,
+  "windows_execution_run": false,
+  "default_or_profile_activation": false,
+  "cache_contract": {
+    "cli": [
+      "--cache-type-k",
+      "--cache-type-v"
+    ],
+    "allowed_evaluation_precisions": [
+      "f16",
+      "f32"
+    ],
+    "legacy_default": "f16",
+    "cache_configuration_keys": [
+      "cacheTypeK",
+      "cacheTypeV"
+    ],
+    "actual_probe_metadata": [
+      "cache_type_k",
+      "cache_type_v"
+    ]
+  }
+}

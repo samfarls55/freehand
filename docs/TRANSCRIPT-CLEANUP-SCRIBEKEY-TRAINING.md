@@ -13,7 +13,7 @@ scores **482/500 (96.4%)**. Its matched semantic-loss arm scores
 **483/500 (96.6%)**. These development results remain below the gate. The new
 independent test remains unconsumed. V6 passes the measured Linux partial-pipeline
 resource limits; the V7 weights have not been remeasured. Windows qualification
-remains unavailable.
+remains unavailable. The expanded V8 training run is in progress.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -281,7 +281,7 @@ The earlier rubric requested a paired baseline on this final set; only the
 pre-frozen selected derivative ran here, so no paired 500-case improvement claim
 is made. Paired baseline evidence remains confined to development sets.
 
-## V5–V7 continuation and numerical checks
+## V5–V8 continuation and numerical checks
 
 V5 completed 330 optimizer steps with 1,320 training exposures representing 900
 unique pairs. It resumed a saved optimizer/RNG checkpoint after a workspace
@@ -376,8 +376,37 @@ one correction-cleanup failure relative to the supervised control and introduces
 no new joint failures. All changed or previously failed pairs receive direct
 semantic review; inherited successful judgments require equality in 13 recorded
 fields and retain per-case proofs. This leaves 17 joint failures and a 12-case
-gap to 495. The higher-precision cache comparison and an independently reviewed
-240-pair curriculum remain further experiments, not evidence of qualification.
+gap to 495.
+
+A new qualified app/Probe build permits explicitly frozen f32 key/value caches
+while keeping f16 as the default. The supervised and semantic-loss candidates
+each completed another full 500-case Core run with f32 caches. Their delivered
+texts are **identical in all 500 cases** to their respective earlier f16 runs:
+scores remain 482 and 483, with no observed quality gain. Casewise proofs retain
+all 13 comparison fields, permitting only validated nonce changes inside Core's
+literal markers. Prior semantic judgments transfer through this equality;
+these are not another 1,000 independently read pairs. A preceding full f16
+bridge under the new DLLs changes one optional comma, independently read as
+faithful and clean, and preserves its quality score.
+
+All 1,500 cases deliver once without provider failure. During a workspace refresh,
+the outer controller exits in the last cohort, but its original model worker
+continues and completes all 500 cases without replay. The post-refresh verifier
+checks actual options, manifests, deployment identities and frozen artifacts and
+sources. The last cohort's original outer argv observation was lost; that gap is
+explicitly retained. F32 memory and latency have not been qualified. No fresh
+acceptance case was used in this comparison.
+
+V8 starts from the stronger V7 semantic-loss adapter and retains the f16
+deployment baseline. The approved 240 new pairs are appended twice to the
+complete V7 exposure file: **3,234 exposures, 2,624 distinct raw pairs and 1,048
+clean controls**. Core normalization, all source/gold prompt and mask identities,
+source lineage, duplicate disclosures and the 32-event rebind have separate
+reviews. The positive-file SHA-256 is
+`2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c`.
+It uses one epoch, rank 8, learning rate 0.00003, a fresh optimizer and unchanged
+semantic-loss weight one: 405 updates over 809 microbatches. Training is active;
+no V8 output-accuracy or resource claim is made.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe

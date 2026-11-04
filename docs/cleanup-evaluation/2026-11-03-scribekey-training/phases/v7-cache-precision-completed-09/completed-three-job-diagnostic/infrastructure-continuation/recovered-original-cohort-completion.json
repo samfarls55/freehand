@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "capture_stage": "post_infrastructure_reset_verification_of_original_completed_cohorts",
+  "verified_utc": "2026-11-04T03:14:28Z",
+  "no_new_inference_or_replay_performed": true,
+  "candidate_data_weights_runtime_profile_and_sources_changed": false,
+  "original_UL_evaluation_pid": 107678,
+  "original_UL_evaluation_start_ticks": 5470019,
+  "original_UL_evaluation_survived_outer_controller_exit_and_completed_same500": true,
+  "original_UL_outer_native_argv_receipt_lost_with_controller_memory": true,
+  "post_reset_native_capture_occurred_after_worker_exit": true,
+  "missing_UL_actual_argv_not_fabricated": true,
+  "actual_Probe_cache_configuration_still_verified": true,
+  "no_claim_of_reaping_PID1_owned_zombie": true,
+  "all_three500_complete": true,
+  "CPU_native_released": true,
+  "controller_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/executed-diagnostic-controller.py",
+    "bytes": 29828,
+    "sha256": "e7f6316f0d5a779a93ea155f7a52cb9e027d25acebf034628f733f67774a4c4b"
+  },
+  "post_reset_verifier_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-f32-kv-diagnostic-preparation/finish-original-continuation.py",
+    "bytes": 6563,
+    "sha256": "51b2497e821e7a198f252afe6dc4bfd858c4130542f9206a714a490c3a0efa60"
+  },
+  "corpus": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/validation-retired-primary500/corpus.json",
+    "bytes": 366204,
+    "sha256": "def0ae07b9e9fa922d2b11a90f0e981de12be499d5fdadaddcff3f0f6ef8a643"
+  },
+  "arms": {
+    "sft-f16-bridge": {
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f16-bridge/retired500-core/core-results.json",
+        "bytes": 620068,
+        "sha256": "d1a60ad4fba3a0f79855dc904195ba567a38c1810a177ba4b135f1e3dc915703"
+      },
+      "freeze": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f16-bridge/candidate-freeze.json",
+        "bytes": 10215,
+        "sha256": "2cbe174ef6c64ac048521649f40913d19f482deb770c782ad4a61f94e472208c"
+      },
+      "case_count": 500,
+      "incomplete": false,
+      "cache_type_k": "f16",
+      "cache_type_v": "f16",
+      "outcomes": {
+        "Applied": 304,
+        "Unchanged": 196
+      },
+      "insertion_counts": {
+        "1": 500
+      },
+      "delivered_counts": {
+        "1": 500
+      },
+      "actual_validated_Probe_cache_metadata_and_manifest_verified": true,
+      "source_model_adapter_runtime_managed_artifacts_verified_after_reset": true,
+      "deployment_receipt": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f16-bridge/retired500-core/runtime-deployment-verification.json",
+        "bytes": 637,
+        "sha256": "19ed14313b595975136d0dfb1ca151addf9bf904b23ac4d21d525c11c1ac8e6c"
+      },
+      "native_worker_argv_observation_retained": true,
+      "changed_restored_output_count_vs_old_f16": 1,
+      "changed_status_count_vs_old_f16": 0,
+      "full13_equal_after_nonce_adjustment_count_vs_old_f16": 499,
+      "semantic_quality": "not assigned by this verification script"
+    },
+    "sft-f32": {
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f32/retired500-core/core-results.json",
+        "bytes": 620091,
+        "sha256": "8d78d829d3833e757ce5f45241d7285839a168558f1a16176f5e7bc1a1f13c29"
+      },
+      "freeze": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f32/candidate-freeze.json",
+        "bytes": 10208,
+        "sha256": "a1a30ed46709a7451f8a7475a0d159fa066aa179a23789da2568a792e2c67a61"
+      },
+      "case_count": 500,
+      "incomplete": false,
+      "cache_type_k": "f32",
+      "cache_type_v": "f32",
+      "outcomes": {
+        "Applied": 304,
+        "Unchanged": 196
+      },
+      "insertion_counts": {
+        "1": 500
+      },
+      "delivered_counts": {
+        "1": 500
+      },
+      "actual_validated_Probe_cache_metadata_and_manifest_verified": true,
+      "source_model_adapter_runtime_managed_artifacts_verified_after_reset": true,
+      "deployment_receipt": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f32/retired500-core/runtime-deployment-verification.json",
+        "bytes": 630,
+        "sha256": "8c11b9db4d710be46d0b3241d8d8b4b9400eccd9e8c8d17fd18da0dba2899aa2"
+      },
+      "native_worker_argv_observation_retained": true,
+      "changed_restored_output_count_vs_old_f16": 0,
+      "changed_status_count_vs_old_f16": 0,
+      "full13_equal_after_nonce_adjustment_count_vs_old_f16": 500,
+      "semantic_quality": "not assigned by this verification script"
+    },
+    "ul-f32": {
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/ul-f32/retired500-core/core-results.json",
+        "bytes": 620081,
+        "sha256": "b965dd91df255a4970e57c86e9c66be0668394fdaafe6cd4ea6958e737b630f1"
+      },
+      "freeze": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/ul-f32/candidate-freeze.json",
+        "bytes": 10201,
+        "sha256": "ea499549fa6549f3d3fcdd6b1a5808eb9e7ea659d1b158f43886d3822dde09e6"
+      },
+      "case_count": 500,
+      "incomplete": false,
+      "cache_type_k": "f32",
+      "cache_type_v": "f32",
+      "outcomes": {
+        "Applied": 305,
+        "Unchanged": 195
+      },
+      "insertion_counts": {
+        "1": 500
+      },
+      "delivered_counts": {
+        "1": 500
+      },
+      "actual_validated_Probe_cache_metadata_and_manifest_verified": true,
+      "source_model_adapter_runtime_managed_artifacts_verified_after_reset": true,
+      "deployment_receipt": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/ul-f32/retired500-core/runtime-deployment-verification.json",
+        "bytes": 629,
+        "sha256": "a6cf1901364d9393cb8b6b5fefdc9e92b1a93f5311da234b7b4628e395c737fb"
+      },
+      "native_worker_argv_observation_retained": false,
+      "changed_restored_output_count_vs_old_f16": 0,
+      "changed_status_count_vs_old_f16": 0,
+      "full13_equal_after_nonce_adjustment_count_vs_old_f16": 500,
+      "semantic_quality": "not assigned by this verification script"
+    }
+  },
+  "fresh_round2_opened": false,
+  "limitation": "Original UL native argv capture was lost; actual validated Core options, manifest, frozen profile, source and all deployment artifacts are verified. No replay or equivalent pre-run observation is claimed."
+}

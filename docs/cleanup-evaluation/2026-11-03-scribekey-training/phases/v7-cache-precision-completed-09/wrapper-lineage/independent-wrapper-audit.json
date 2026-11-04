@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit",
+  "status": "NO_WRAPPER_CORRECTNESS_BLOCKER_AFTER_OWNERSHIP_AND_DEAD_STATE_FIXES",
+  "controller": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-f32-kv-diagnostic-preparation/run.py",
+    "sha256": "3fc2286c22c96bb9e502adc3f05d15bdfb328cbd3f9e7a96dcc0621ed4fb3c5b"
+  },
+  "test_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v7-f32-kv-diagnostic-preparation/test_controller.py",
+    "sha256": "bb97bac8972f5ad72b0568b091e71f83346bf603de020a7b2dcdeb67918b9a1c"
+  },
+  "owner_reported_synthetic_tests": {
+    "passed": 13,
+    "seconds": 0.298,
+    "scope": "Pure Python, including owned timeout child and synthetic process-group/dead-state cases; not model inference.",
+    "rerun_by_reviewer": false
+  },
+  "source_checks": [
+    "Fresh exact Probe/six-DLL receipt and evaluate.py hashes required; original base and each adapter/export/old report/freeze stay pinned.",
+    "Order is fresh-epoch SFT f16 bridge, SFT f32, UL f32; source/DLL inventories equal within the new epoch.",
+    "Freeze/profile/manifest/pre-run cache_configuration and actual typed Probe cache metadata must match requested f16/f32.",
+    "Actual native argv inspected only after comm/dead-state/group+session filtering; model/adapter/unit scale/lookup/context/batch/CPU flags checked.",
+    "Own new process session/group, bounded timeout, SIGINT/SIGTERM cleanup, immediate-child reap and no live owned members required; unrelated jobs never signaled.",
+    "Known dead Z/X processes ignored in observation and cleanup liveness, without weakening any live-worker check.",
+    "500 exact ordered IDs and complete reports retained, outcomes/deliveries recorded without filtering/provider-fallback credit.",
+    "Bridge proof changes only32-hex nonce within validated paired legacy literal markers in cleanup_input/candidate_text; payload/index/other fields and restored output remain strict. This proof assigns no semantic credit.",
+    "First startup failure/deadline can stop the run with partial report/receipts retained; unsupported cache is not inferred from generic failure.",
+    "Every arm postverifies deployment/freeze/source/artifacts; new source/DLL epoch and unchanged runtime-auto flash-attention setting disclosed."
+  ],
+  "resolved_findings": [
+    "Added timeout/cancellation process ownership and receipt preservation.",
+    "Filter owned process before full argv access.",
+    "Ignore only dead Z/X records and verify live exact-owned group/session members."
+  ],
+  "limitations": [
+    "No semantic accuracy, pure storage-only numerical causality, performance/Windows or whole-app qualification assigned by this controller.",
+    "Native auto kernel choice may depend on the selected cache format even with unchanged flags.",
+    "Actual jobs require root CPU/run authorization; reviewer ran no models/builds/native jobs."
+  ],
+  "source_evaluate_sha256": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec",
+  "new_probe_sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66",
+  "fresh_material_accessed": false
+}

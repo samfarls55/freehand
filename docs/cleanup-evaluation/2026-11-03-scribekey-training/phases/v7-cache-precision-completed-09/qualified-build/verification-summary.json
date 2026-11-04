@@ -1,0 +1,36 @@
+{
+  "probe_path": "/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll",
+  "probe_sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66",
+  "selftest_passed": true,
+  "checks": [
+    {
+      "case": "f32",
+      "cache_type_k": "f32",
+      "cache_type_v": "f32",
+      "exit_code": 1,
+      "no_native_launch": true,
+      "artifact_hash_failure_before_worker_start": true,
+      "single_fallback_insertion": true
+    },
+    {
+      "case": "default",
+      "cache_type_k": "f16",
+      "cache_type_v": "f16",
+      "exit_code": 1,
+      "no_native_launch": true,
+      "artifact_hash_failure_before_worker_start": true,
+      "single_fallback_insertion": true
+    },
+    {
+      "case": "mixed",
+      "cache_type_k": "f32",
+      "cache_type_v": "f16",
+      "exit_code": 1,
+      "no_native_launch": true,
+      "artifact_hash_failure_before_worker_start": true,
+      "single_fallback_insertion": true
+    }
+  ],
+  "actual_native_or_model_jobs_run": false,
+  "windows_run": false
+}

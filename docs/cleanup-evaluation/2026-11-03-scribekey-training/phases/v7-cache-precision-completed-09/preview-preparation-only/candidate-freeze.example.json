@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "selection_status": "EXAMPLE_ONLY_NO_SELECTED_OR_QUALIFIED_CANDIDATE",
+  "artifact_mode": "native_lora",
+  "display_name": "Derived from ScribeKey Fast by ScribeKey — FUTURE QUALIFIED ADAPTER",
+  "quantization": "IQ4_XS",
+  "specialist_output_normalization": "trim-v1",
+  "cpu_prompt_lookup_tokens": 16,
+  "prepared_cleanup_bundle": "/PARENT_NEW_MANUALLY_PREPARED_WIN_VULKAN_BASE_PLUS_ADAPTER_BUNDLE",
+  "prepared_manifest": {
+    "size": 0,
+    "sha256": "PARENT_FULL_PREPARED_MANIFEST_SHA256"
+  },
+  "model_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+  "adapter_sha256": "PARENT_FUTURE_QUALIFIED_F32_ADAPTER_WHOLE_FILE_SHA256",
+  "adapter_size": 12006240,
+  "adapter_format": "GGUF-LoRA-F32",
+  "adapter_rank": 8,
+  "adapter_scale": 1,
+  "quality_qualification": {
+    "passed": false,
+    "cases": 500,
+    "joint_successes": 0,
+    "required_joint_successes": 495
+  },
+  "required_notices": [
+    {
+      "role": "base_license",
+      "path": "licenses/model-LICENSE.txt"
+    },
+    {
+      "role": "base_notice",
+      "path": "licenses/model-NOTICE.txt"
+    },
+    {
+      "role": "base_additional_terms",
+      "path": "licenses/model-ADDITIONAL_TERMS.md"
+    },
+    {
+      "role": "base_modifications",
+      "path": "licenses/model-MODIFICATIONS.md"
+    },
+    {
+      "role": "adapter_training_notice",
+      "path": "licenses/adapter-FREEHAND-TRAINING-NOTICE.txt"
+    },
+    {
+      "role": "adapter_conversion_notice",
+      "path": "licenses/adapter-FREEHAND-NATIVE-LORA-NOTICE.txt"
+    },
+    {
+      "role": "runtime_license",
+      "path": "licenses/runtime-LICENSE.txt"
+    }
+  ],
+  "provenance_files": [
+    {
+      "role": "adapter_export_receipt",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/adapter_export_receipt.json",
+      "destination": "provenance/adapter_export_receipt.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "base_export_receipt",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/base_export_receipt.json",
+      "destination": "provenance/base_export_receipt.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "executed_export_source",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/executed_export_source.py",
+      "destination": "provenance/executed_export_source.py",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "executed_training_source",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/executed_training_source.py",
+      "destination": "provenance/executed_training_source.py",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "lineage",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/lineage.json",
+      "destination": "provenance/lineage.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "quality_qualification_summary",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/quality_qualification_summary.json",
+      "destination": "provenance/quality_qualification_summary.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "training_configuration",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/training_configuration.json",
+      "destination": "provenance/training_configuration.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    },
+    {
+      "role": "training_source_freeze",
+      "source": "/PARENT_FROZEN_SMALL_TEXT/training_source_freeze.json",
+      "destination": "provenance/training_source_freeze.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_SOURCE_RECEIPT_SHA256"
+    }
+  ],
+  "public_quality_fixtures": [
+    {
+      "filename": "public-quality.json",
+      "source": "/PARENT_EXPLICIT_PUBLIC_ALREADY_CONSUMED/public-quality.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_PUBLIC_FIXTURE_SHA256",
+      "public": true,
+      "consumed": true
+    },
+    {
+      "filename": "integration10.json",
+      "source": "/PARENT_EXPLICIT_PUBLIC_ALREADY_CONSUMED/integration10.json",
+      "size": 0,
+      "sha256": "PARENT_EXACT_PUBLIC_FIXTURE_SHA256",
+      "public": true,
+      "consumed": true
+    }
+  ],
+  "windows_execution_tested": false,
+  "default_model_promoted": false,
+  "cpu_profile": {
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 32,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "repack": false,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60,
+    "gpuLayers": 0
+  }
+}

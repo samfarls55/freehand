@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "captured_utc": "2026-11-04T03:03:47.157293+00:00",
+  "status": "source_only_preparation_no_qualified_candidate_no_actual_publish",
+  "source_head": "8b059f2ce2470b25429a93221c8763b8fdfe3eaf",
+  "native_adapter_feature_commit": "611c16c",
+  "cache_f32_feature_commit": "8b059f2",
+  "source_contract_pins": {
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": {
+      "bytes": 22237,
+      "sha256": "5cd8406a2010b1a9348e4e722ba8053e760a374cd67cd472691fc1db55c6d333"
+    },
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": {
+      "bytes": 20778,
+      "sha256": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907"
+    },
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": {
+      "bytes": 32617,
+      "sha256": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847"
+    },
+    "tools/Freehand.Cleanup.Probe/Program.cs": {
+      "bytes": 32980,
+      "sha256": "fca29a1e882e390dd5d8b7dcb91120d8f4d6a29d1d3dbf42d12712016294a6ee"
+    },
+    "src/Freehand.Speech/ParakeetTranscriber.cs": {
+      "bytes": 6258,
+      "sha256": "725e64e03234c8622f4a3b65e1dd654b74d2d386471621685bf8da4ae9530cd6"
+    },
+    "src/Freehand.Speech/speech-cpu.config": {
+      "bytes": 198,
+      "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+    },
+    "src/Freehand.App/Freehand.App.csproj": {
+      "bytes": 4868,
+      "sha256": "f91ea9d2645e439d142e16f7ece3a57b3f5f35cfce431f22b5b62516f52db3f3"
+    },
+    "packaging/cleanup-model-manifest.json": {
+      "bytes": 1392,
+      "sha256": "8a09c66d2ee10783afe63aa62ea63bdb1b8d95cd81968f75c62f96d106ea635b"
+    },
+    "packaging/model-manifest.json": {
+      "bytes": 1053,
+      "sha256": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545"
+    }
+  },
+  "original_builder_small_source_pins_unchanged": true,
+  "original_previews_and_archives_opened_copied_or_rehashed": false,
+  "builder_directory": "/workspace/freehand/work/v7-trained-scribe-preview-builder",
+  "base_model": {
+    "bytes": 211804448,
+    "sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174"
+  },
+  "adapter": {
+    "bytes": 12006240,
+    "sha256": null,
+    "rank": 8,
+    "parameter_type": "F32",
+    "native_scale": 1,
+    "merged": false,
+    "selected": false
+  },
+  "cpu_profile_example_only": {
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 32,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "repack": false,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60,
+    "gpuLayers": 0
+  },
+  "cache_profile_contract": "Candidate must explicitly freeze full typed cpu_profile; cacheTypeK and cacheTypeV each f16/f32. Prepared/staged/root/launcher must agree. No implicit cache selection.",
+  "provider_contract": {
+    "runtime_fields": [
+      "adapterPath",
+      "adapterSha256",
+      "adapterScale"
+    ],
+    "plain_inventory_required": true,
+    "unit_route": "--lora <path>",
+    "windows_nonunit_scale_rejected": true,
+    "settings_online_acquisition_support": false,
+    "manual_isolated_preview_only": true
+  },
+  "validation": {
+    "prior_python_tests_passed": 13,
+    "prior_python_log": "synthetic-tests-final.log",
+    "prior_powershell_function_checks_passed": 6,
+    "prior_powershell_log": "synthetic-powershell-tests.log",
+    "prior_logs_apply_to_previous_source_revision": true,
+    "latest_python_test_definitions": 16,
+    "latest_python_tests": [
+      "test_native_pair_schema_and_roles",
+      "test_unit_scale_and_orphan_adapter_rejected",
+      "test_adapter_missing_or_wrong_pin_rejected",
+      "test_base_and_native_profile_must_be_exact",
+      "test_qualification_and_complete_provenance_required",
+      "test_explicit_f32_profile_preserved_in_staged_pair_and_root",
+      "test_case_collision_unindexed_file_and_unsafe_adapter_paths",
+      "test_symlink_parent_rejected",
+      "test_stage_preserves_sources_and_embeds_pair_provenance",
+      "test_existing_and_source_tree_destinations_rejected",
+      "test_stage_rejects_tampered_adapter",
+      "test_dotdot_spelling_cannot_bypass_source_preservation",
+      "test_stage_rejects_unmatched_asr_pins",
+      "test_tiny_zip_crc_full_hashes_and_existing_archive_preserved",
+      "test_archive_rejects_unindexed_file",
+      "test_archive_output_cannot_be_inside_preview"
+    ],
+    "latest_python_ast_valid": true,
+    "latest_example_json_valid": true,
+    "latest_python_and_powershell_test_execution": "PASSED at nice19 under explicit cheap targeted-verification grant; tiny synthetic files only",
+    "actual_CSharp_loader_executed": false,
+    "latest_python_tests_passed": 16,
+    "latest_python_test_log": "synthetic-tests-cache-profiles-16.log",
+    "latest_powershell_function_checks_passed": 6,
+    "latest_powershell_test_log": "synthetic-powershell-cache-profiles-6.log",
+    "latest_execution_record": "latest-targeted-verification.json",
+    "tested_builder_source_sha256": {
+      "make_preview.py": "79ddb76063e064cf676a87b613714933da8af014fa3af3b3868daffcac1893b6",
+      "run-preview.ps1": "17c5be99824d1d4e84cf99634be308b13b9d86a954d612fe0342d8c870f67be8",
+      "test_make_preview.py": "d485a6947e1efd95ae5d2ff3482ab230a43c4d659db8dcb6e7bd3967b886b95e",
+      "test_bundle_clone.ps1": "a8199158576b190f1d483178934af9763ab4d47e0e29cb0086d2993163cafe24",
+      "candidate-freeze.example.json": "257501f4e0e9999ec216312c13d06063fe3e8dcf740854f129ae42d050a4c939"
+    },
+    "powershell_conservative_peak_RSS_bytes": 137310208
+  },
+  "readiness_gates": {
+    "parent_selected_qualified_candidate": false,
+    "pair_bound_at_least495_of500_aggregate_receipt": false,
+    "exact_final_adapter_pin_and_export_source_lineage_notices": false,
+    "matched_profile_resource_receipt_parent_owned": false,
+    "parent_CPU_release_for_build_stage_archive": false,
+    "new_current_source_matched_windows_App_Probe_publish": false,
+    "final_full_inventory_zip_CRC_member_and_whole_archive_hashes": false
+  },
+  "fresh_DLL_epoch_policy": "New publish producer native-lora-preview-publish-v2 plus exact current C#/Probe source fingerprint before/after publish; all six actual Probe assembly pins and new App recorded. Old receipt/source epoch cannot stage f32 candidate. Frozen default DLLs preserved. No inference/RTE build DLLs reused implicitly.",
+  "windows_execution_tested": false,
+  "gpu_execution_tested": false,
+  "whole_app_sla_qualified": false,
+  "default9B_or_settings_modified": false,
+  "model_native_build_download_jobs_by_task": false,
+  "quality_or_future_blind_corpora_accessed": false,
+  "latest_targeted_verification_utc": "2026-11-04T03:18:56.430831+00:00",
+  "app_source_unchanged_during_targeted_checks": true
+}

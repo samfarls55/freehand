@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit (independent assistant source reviewer)",
+  "status": "NO_SOURCE_CORRECTNESS_BLOCKER; OWNER_STRICT_BUILD_AND_TESTS_STILL_REQUIRED",
+  "readiness_inventory_sha256": "a073bcf438b13e8e4720b61f34456ee569c38f6a5e6fad192472dfd4a4cb9d8e",
+  "reviewed_files": {
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "5cd8406a2010b1a9348e4e722ba8053e760a374cd67cd472691fc1db55c6d333",
+    "tests/Freehand.Cleanup.Tests/ResourceOptionsTests.cs": "1890baebccccbf5ad0fe2a46eebd9edd4902b53da00a3e96d70d7dc7fa405465",
+    "tests/Freehand.Cleanup.Tests/ProviderTests.cs": "967141bdf8b26694b89a61d320aeff060ac99e7c53fac202e6c4120011d50630",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "fca29a1e882e390dd5d8b7dcb91120d8f4d6a29d1d3dbf42d12712016294a6ee",
+    "tools/Freehand.Cleanup.Training/evaluate.py": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec",
+    "tools/Freehand.Cleanup.Training/test_evaluate.py": "d986ea6f7dc3b6c95b31b05e12dbdc1eb6cfebbaeb78275206a843106832d2b3"
+  },
+  "unchanged_training_pipeline_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+  "scope": "Optional f32 K/V configuration plus evaluator/Probe declaration and verification; no model/profile activation by reviewer.",
+  "checks": [
+    {
+      "check": "Options validation adds only f32; preexisting f16/q8_0/q4_0 remain accepted and default f16 unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "Per-field f32/f16 choices preserve context/output budgets and become one exact native argument each",
+      "result": "pass"
+    },
+    {
+      "check": "Evaluation CLI permits only typed lower-case f16/f32, independent K/V selection, defaults f16, rejects malformed type/format",
+      "result": "pass"
+    },
+    {
+      "check": "New freeze carries exact cache_configuration matching full profile; missing declaration is legacy f16-only and cannot silently promote",
+      "result": "pass"
+    },
+    {
+      "check": "Core generated manifest must match frozen K/V before any invoke; native direct replay derives K/V from the profile",
+      "result": "pass"
+    },
+    {
+      "check": "Probe records cache_type_k/v from the same LoadManifest-validated options passed unchanged to LlamaTranscriptPostProcessor",
+      "result": "pass"
+    },
+    {
+      "check": "New explicit expected K/V requires exactly matching string metadata, rejecting missing/wrong-type/wrong-precision fields in execute/review",
+      "result": "pass"
+    },
+    {
+      "check": "Legacy report lacking cache declaration remains readable without reinterpreting its historical precision",
+      "result": "pass"
+    },
+    {
+      "check": "Deployment mismatch preserves report/denominator and records failure instead of granting qualification",
+      "result": "pass"
+    },
+    {
+      "check": "General/prompt/literal-normalizer/ASR defaults and trainer source unaffected by this patch",
+      "result": "pass"
+    }
+  ],
+  "tests_static_review": {
+    "meaningful_added_cases": [
+      "manifest default/f32 selection",
+      "one native K/V argument and unchanged token budgets",
+      "mixed f16/f32 propagation",
+      "typed invalid choices",
+      "new freeze/manifest/profile mismatch before invoke",
+      "actual cache metadata matching/missing/mismatch/type",
+      "legacy freeze cannot promote silently",
+      "deployment failure report retained"
+    ],
+    "tests_or_builds_executed_by_reviewer": false
+  },
+  "required_fresh_epoch_provenance": [
+    "Build and pin a fresh Probe plus its six exact managed dependencies; old pinned Probe9295/f16/controller63e8 artifacts remain immutable.",
+    "New wrapper must require the fresh evaluate.py and Probe/managed receipt hashes and compare actual cache metadata against explicit freeze cache_configuration.",
+    "Run the parent-approved fresh-epoch SFT f16 bridge before f32 arms to separate source/DLL changes from cache effects.",
+    "Model/base/adapter/runtime/prompt/literal protocol remain pinned; no isolated cache or performance claim until actual diagnostic evidence is complete."
+  ],
+  "reviewer_model_build_native_jobs": false,
+  "fresh_or_retired_evaluation_text_read_for_this_source_review": false,
+  "source_edits_by_reviewer": false
+}

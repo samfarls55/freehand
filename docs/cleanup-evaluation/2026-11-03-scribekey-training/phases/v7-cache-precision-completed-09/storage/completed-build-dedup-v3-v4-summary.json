@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T03:21:49.844269+00:00",
+  "scope": "Derived compact summary; full byte/mode/owner inventories and per-operation logs remain at the source paths. No work/model file was deleted; completed generated build files share byte-identical read-only leaders.",
+  "operations": [
+    {
+      "source": "work/cleanup-scribekey-training-2026-11-03/storage/completed-native-build-dedup-v3-completed.json",
+      "bytes": 2629383,
+      "sha256": "b9fcd860de18d728d8a7793c0124d36d0c74d8e6dbedf1da856d4ca4f96e38aa",
+      "scope": "Byte/mode/owner-identical immutable completed build files only. Active/partial f32 build EXCLUDED. Preserve all paths/content/modes/owners; inode/mtime may now follow identical leader and are recorded. Never rebuild these completed roots.",
+      "files_verified": 5526,
+      "replacements": 1023,
+      "tmp_free_before": 4096,
+      "tmp_free_after": 611201024,
+      "all_original_paths_bytes_modes_owners_preserved": true
+    },
+    {
+      "source": "work/cleanup-scribekey-training-2026-11-03/storage/completed-native-build-dedup-v4-completed.json",
+      "bytes": 3131368,
+      "sha256": "c6c6c0810671dadd980e0e2565d3c23f5935b5cd0b3b330b50a51054906022ca",
+      "scope": "All seven build roots now completed, frozen and inactive. Hardlink byte/mode/owner-identical generated files only; all original paths/content preserved; inode/mtime may follow leader and pre-values recorded. Never rebuild any of these immutable completed roots.",
+      "files_verified": 6800,
+      "replacements": 1094,
+      "tmp_free_before": 469536768,
+      "tmp_free_after": 1565876224,
+      "all_original_paths_bytes_modes_owners_preserved": true
+    }
+  ],
+  "f32_build_receipt": {
+    "path": "/tmp/freehand-f32-kv-verification-summary.json",
+    "sha256": "d720b68c9004283061a73bc90844c391f788ff693589be753ab2b0e02b2187a6"
+  },
+  "post_dedup_new_probe_sha256": "6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66",
+  "all14_qualification_artifact_references_including6_managed_dlls_rehashed_and_equal_after_v4": true,
+  "build_roots_immutable_no_further_rebuild": true
+}

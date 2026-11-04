@@ -1,0 +1,45 @@
+{
+  "phase": "development",
+  "arm": "sft",
+  "job": "sft-f16-bridge",
+  "cache_type_k": "f16",
+  "cache_type_v": "f16",
+  "report": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f16-bridge/retired500-core/core-results.json",
+    "bytes": 620068,
+    "sha256": "d1a60ad4fba3a0f79855dc904195ba567a38c1810a177ba4b135f1e3dc915703"
+  },
+  "freeze": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v7-cache-precision-new-epoch-01/sft-f16-bridge/candidate-freeze.json",
+    "bytes": 10215,
+    "sha256": "2cbe174ef6c64ac048521649f40913d19f482deb770c782ad4a61f94e472208c"
+  },
+  "count": 500,
+  "outcomes": {
+    "Applied": 304,
+    "Unchanged": 196
+  },
+  "insertion_counts": {
+    "1": 500
+  },
+  "delivery_counts": {
+    "1": 500
+  },
+  "changed_output_count_vs_previous_f16_epoch": 1,
+  "changed_status_count_vs_previous_f16_epoch": 0,
+  "all13_unchanged_after_validated_nonce_adjustment_vs_old_f16": false,
+  "flash_attention_requested": "unchanged runtime default auto; actual kernel may depend on cache configuration",
+  "source_epoch_changed": true,
+  "source_changed_paths": [
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+    "tools/Freehand.Cleanup.Probe/Program.cs",
+    "tools/Freehand.Cleanup.Training/evaluate.py",
+    "tools/Freehand.Cleanup.Training/test_evaluate.py"
+  ],
+  "manifest_Probe_metadata_and_observed_native_cache_precision_verified": true,
+  "complete_denominator_and_all_provider_failures_retained": true,
+  "semantic_quality": "unreviewed",
+  "pure_cache_causality_claimed": false,
+  "whole_app_or_windows_SLA_qualified": false,
+  "fresh_round2_opened": false
+}
