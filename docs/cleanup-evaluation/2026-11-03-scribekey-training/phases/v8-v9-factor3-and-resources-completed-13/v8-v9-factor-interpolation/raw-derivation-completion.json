@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "completed_utc": "2026-11-04T05:31:48.638213+00:00",
+  "source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-average-preparation/derive_parent_child.py",
+    "bytes": 9407,
+    "sha256": "0c2d9766035ab942940152190e541094affa29b3dc615db3110b5ad1d5cfc7cf"
+  },
+  "endpoints": [
+    {
+      "role": "parent",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/adapter-config.json",
+        "bytes": 6967,
+        "sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9"
+      },
+      "adapter": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/adapter.safetensors",
+        "bytes": 12012752,
+        "sha256": "0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c"
+      }
+    },
+    {
+      "role": "child",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/adapter-config.json",
+        "bytes": 6967,
+        "sha256": "0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8"
+      },
+      "adapter": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/adapter.safetensors",
+        "bytes": 12012752,
+        "sha256": "3de792128cce7469465ca8c42ebef5f769e868415db80198eb036e8cbec05787"
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "label": "t050",
+      "child_fraction": 0.5,
+      "adapter": {
+        "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter.safetensors",
+        "bytes": 12012656,
+        "sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993"
+      },
+      "config": {
+        "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter-config.json",
+        "bytes": 4453,
+        "sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660"
+      },
+      "derivation": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/DERIVATION.json",
+        "bytes": 43987,
+        "sha256": "187afb518ec4d43f1d812ebf9900e34ec6fe09a291ed8bfcc777ebae70ef624e"
+      },
+      "historical_training_results": {
+        "parent": {
+          "original": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/training-result.json",
+            "bytes": 319,
+            "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+          },
+          "copy": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/parent-historical-training-result.json",
+            "bytes": 319,
+            "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+          },
+          "steps_are_historical_not_derivation": true
+        },
+        "child": {
+          "original": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/training-result.json",
+            "bytes": 319,
+            "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+          },
+          "copy": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/child-historical-training-result.json",
+            "bytes": 319,
+            "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+          },
+          "steps_are_historical_not_derivation": true
+        }
+      }
+    },
+    {
+      "label": "t075",
+      "child_fraction": 0.75,
+      "adapter": {
+        "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t075/adapter.safetensors",
+        "bytes": 12012656,
+        "sha256": "294bac27fdf12842f664207e9f8246c64bfa44a040a8f31a5996a457bc3048fd"
+      },
+      "config": {
+        "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t075/adapter-config.json",
+        "bytes": 4453,
+        "sha256": "fbefbead6d1aec625b15e4cd9b1635ac3005309ac5f181fc0d8abc6e7a296359"
+      },
+      "derivation": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t075/derivation/DERIVATION.json",
+        "bytes": 43989,
+        "sha256": "c3257fe3d906f7a53efbf0a3c6476e0de2c623e90f1164bef332772d232948df"
+      },
+      "historical_training_results": {
+        "parent": {
+          "original": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/training-result.json",
+            "bytes": 319,
+            "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+          },
+          "copy": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t075/derivation/parent-historical-training-result.json",
+            "bytes": 319,
+            "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+          },
+          "steps_are_historical_not_derivation": true
+        },
+        "child": {
+          "original": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/training-result.json",
+            "bytes": 319,
+            "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+          },
+          "copy": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t075/derivation/child-historical-training-result.json",
+            "bytes": 319,
+            "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+          },
+          "steps_are_historical_not_derivation": true
+        }
+      }
+    },
+    {
+      "label": "t0875",
+      "child_fraction": 0.875,
+      "adapter": {
+        "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t0875/adapter.safetensors",
+        "bytes": 12012656,
+        "sha256": "44f352ea524eed98eeef64033485b87b247c8a67908d8fc6d5b13046ac9316f0"
+      },
+      "config": {
+        "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t0875/adapter-config.json",
+        "bytes": 4454,
+        "sha256": "cc6d4b2c2daec9661c8d60c23e14b107a2ac661ae7294dc755395e3d81e13ac0"
+      },
+      "derivation": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t0875/derivation/DERIVATION.json",
+        "bytes": 44001,
+        "sha256": "e2979ebafd23e22dc4d2cc1c265ba6cdb9da25bd5a11a4bdb40d8867be48126a"
+      },
+      "historical_training_results": {
+        "parent": {
+          "original": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/training-result.json",
+            "bytes": 319,
+            "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+          },
+          "copy": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t0875/derivation/parent-historical-training-result.json",
+            "bytes": 319,
+            "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+          },
+          "steps_are_historical_not_derivation": true
+        },
+        "child": {
+          "original": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/training-result.json",
+            "bytes": 319,
+            "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+          },
+          "copy": {
+            "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t0875/derivation/child-historical-training-result.json",
+            "bytes": 319,
+            "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+          },
+          "steps_are_historical_not_derivation": true
+        }
+      }
+    }
+  ],
+  "per_candidate_verification": [
+    {
+      "label": "t050",
+      "all184_F32_keys_shapes_finite_and_payload_hashes_match": true,
+      "parameter_count": 2998272,
+      "runtime_external_scale": 1,
+      "zero_derivation_optimizer_steps": true,
+      "sources_notices_histories_unchanged": true,
+      "seconds": 4.432737
+    },
+    {
+      "label": "t075",
+      "all184_F32_keys_shapes_finite_and_payload_hashes_match": true,
+      "parameter_count": 2998272,
+      "runtime_external_scale": 1,
+      "zero_derivation_optimizer_steps": true,
+      "sources_notices_histories_unchanged": true,
+      "seconds": 4.55748
+    },
+    {
+      "label": "t0875",
+      "all184_F32_keys_shapes_finite_and_payload_hashes_match": true,
+      "parameter_count": 2998272,
+      "runtime_external_scale": 1,
+      "zero_derivation_optimizer_steps": true,
+      "sources_notices_histories_unchanged": true,
+      "seconds": 4.369039
+    }
+  ],
+  "all_original_endpoints_unchanged": true,
+  "no_model_native_conversion_or_build": true,
+  "fresh2_opened": false
+}

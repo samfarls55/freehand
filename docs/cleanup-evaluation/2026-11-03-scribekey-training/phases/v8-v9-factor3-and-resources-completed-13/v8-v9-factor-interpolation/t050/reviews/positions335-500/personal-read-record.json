@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex assistant /root",
+  "results_sha256": "eba394d10e20921d3122fae4407551070fd361e9a94b58cb60dae08f11462e3a",
+  "prior_canonical_review_sha256": "9ec70b6b9dfa008b53e2ffd3bba13cee8298109703827cb72edb9d522f8a36e4",
+  "packet_sha256": "9257cd4b119dc97b22982d7220f5654b63a09d6a2f0f08f9390966bb56493fa2",
+  "personal_judgments_sha256": "37c3d6dba44acc780324c758e1dccdce8f16bc520d06c5a7919b1b9c8678b519",
+  "scope": "Actual original/normalized input, candidate and delivered pairs personally read without a target oracle; remaining cases inherit only proven identical successful judgments.",
+  "cases": [
+    {
+      "case_id": "blind-c-021",
+      "position_one_based": 371,
+      "actual_pair": {
+        "input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "cleanup_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+        "output": "Write \"No refunds after opening.\" that is the full sentence.",
+        "candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "personal_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact quoted refund sentence and clarification are preserved, but after removing Uh the following standalone sentence starts lowercase. Same unclean-output judgment as the previously identical V8 output."
+      }
+    },
+    {
+      "case_id": "blind-c-031",
+      "position_one_based": 381,
+      "actual_pair": {
+        "input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+        "normalized_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+        "cleanup_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+        "output": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\" instead.",
+        "candidate_text": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\" instead.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "personal_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Explicit instead-of framing cancels on hold and retains awaiting parts with both literals exact. Repeated instead is stylistically redundant but grammatical and directly usable, consistent with the V9 judgment."
+      }
+    },
+    {
+      "case_id": "blind-c-034",
+      "position_one_based": 384,
+      "actual_pair": {
+        "input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "cleanup_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "personal_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact regex and speaker uncertainty survive, but the accidental I, I remains unchanged and uncleaned."
+      }
+    },
+    {
+      "case_id": "blind-c-072",
+      "position_one_based": 422,
+      "actual_pair": {
+        "input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+        "normalized_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+        "cleanup_input": "Could you reserve the upstairs room? Actually, cancel that request; I will join remotely.",
+        "output": "Cancel the upstairs room request; I will join remotely.",
+        "candidate_text": "Cancel the upstairs room request; I will join remotely.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "personal_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Clearly cancels the upstairs room request and preserves the plan to join remotely."
+      }
+    }
+  ]
+}

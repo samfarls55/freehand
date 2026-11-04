@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T06:01:02.561480+00:00",
+  "status": "SOURCE_METADATA_PREPARATION_ONLY_NO_FREEZE_MODEL_HEAVY_HASH_OR_RUN",
+  "baseline_plan": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v8-selected-native-LoRA-no-pgo/plan.json",
+    "bytes": 34138,
+    "sha256": "9bb409d506f3c2f18c806091cec70eb1f1a2fdbd613c91a210373a3a6a4bbbc8"
+  },
+  "new_plan": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-micro64-native-LoRA-no-pgo/plan.json",
+    "bytes": 36737,
+    "sha256": "938bc157c0dd9f1cc6f2451c6e4e12bc5541fee4f7eb033f67f3d3632246543d"
+  },
+  "configuration_changed_fields": [
+    "microBatchSize"
+  ],
+  "before": 32,
+  "after": 64,
+  "promptLookupTokens_unchanged": 16,
+  "batchSize_unchanged": 64,
+  "all_other_configuration_fields_identical": true,
+  "all59_declared_source_pins_identical": true,
+  "all_old_nonconfiguration_fields_identical_before_additive_reuse_metadata": true,
+  "immutable_build_reused_without_rebuild": true,
+  "controller_old": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v8-selected-native-LoRA-no-pgo/controller.py",
+    "bytes": 28980,
+    "sha256": "03568424ddae757b341456d1848aaca8396262c0ba7a4c93c3aad21472151de6"
+  },
+  "controller_copy": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-micro64-native-LoRA-no-pgo/controller.py",
+    "bytes": 28980,
+    "sha256": "03568424ddae757b341456d1848aaca8396262c0ba7a4c93c3aad21472151de6"
+  },
+  "controller_bytes_identical": true,
+  "build_receipt_old": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v8-selected-native-LoRA-no-pgo/build-receipt.json",
+    "bytes": 43211,
+    "sha256": "1d9e05f9b28c40a8e8fc6e43390671ef5a1b68d8a7cfc1c4c09b755adf77d1b0"
+  },
+  "build_receipt_copy": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-micro64-native-LoRA-no-pgo/build-receipt.json",
+    "bytes": 43211,
+    "sha256": "1d9e05f9b28c40a8e8fc6e43390671ef5a1b68d8a7cfc1c4c09b755adf77d1b0"
+  },
+  "build_receipt_bytes_identical": true,
+  "new_input": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-micro64-native-LoRA-no-pgo/performance-input.json",
+    "bytes": 5583,
+    "sha256": "fe65ba85ed1491fb1f7f6f1ed3ba4b11af8a65a8388b05e9dcaa95a8ebaa1295"
+  },
+  "actual_source_worker_output_and_large_artifact_verification_deferred": true,
+  "micro64_quality_untested": true
+}

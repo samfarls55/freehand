@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "truthful_historical_display_label_limitation_no_record_rewrite",
+  "actual_lookup_tokens": 31,
+  "plan": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-lookup31-native-LoRA-no-pgo/plan.json",
+    "bytes": 36673,
+    "sha256": "4881efb44c206fbe78cc93a9500368f10fd3c37d7071242acf2b0ee77392d480"
+  },
+  "performance_input": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-lookup31-native-LoRA-no-pgo/performance-input.json",
+    "bytes": 5526,
+    "sha256": "34ea617d050995c844e1b3c8d961d005dc467e7d6e2fe643027f926fcb151c2c"
+  },
+  "actual_cleanup_manifest": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/t050-lookup31-native-LoRA-no-pgo/cleanup-manifest.json",
+    "bytes": 1082,
+    "sha256": "4cd2f4921cf40ad5294bd5fb6afd240f285d4369ce5d1c2886db8e6bf4c5404b"
+  },
+  "report_actual_cleanup_manifest_sha256": "4CD2F4921CF40AD5294BD5FB6AFD240F285D4369CE5D1C2886DB8E6BF4C5404B",
+  "runtime_report_manifest_hash_matches": true,
+  "frozen_condition_display_historical": "V8-V9-factor-t050-lookup31: originalIQ4/nativeF32-rank8-unit1/F16KV/lookup16/PGO0/noSpin",
+  "limitation": "Byte-identical historical controller hardcodes lookup16 in its human-readable condition suffix. Actual configuration/input/manifest and runtime-report manifest hash prove31. Existing records preserved; no source or result bytes rewritten. No actual native argv observation is newly claimed by this supplement.",
+  "quality31_untested": true
+}

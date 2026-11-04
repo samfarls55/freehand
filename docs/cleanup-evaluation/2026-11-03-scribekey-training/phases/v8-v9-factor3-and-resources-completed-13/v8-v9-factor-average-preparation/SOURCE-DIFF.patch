@@ -1,0 +1,24 @@
+--- unchanged-old-V7-V8/derive_parent_child.py
++++ new-V8-V9/derive_parent_child.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Separate bounded V7-parent/V8-child factor derivation; no optimizer updates."""
++"""Separate bounded V8-parent/V9-child factor derivation; no optimizer updates."""
+ import argparse
+ import hashlib
+ import json
+@@ -14,10 +14,10 @@
+     raise ValueError('Original matched-SFT/UL helper changed; preserve its frozen guards')
+ import derive as codec
+ 
+-PARENT_RAW = '8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643'
+-PARENT_CONFIG = 'b86205448c05f0948da0e59f0c59818e338fce50f2ef56e1a78d92a05f09bfb6'
+-CHILD_RAW = '0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c'
+-CHILD_CONFIG = '2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9'
++PARENT_RAW = '0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c'
++PARENT_CONFIG = '2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9'
++CHILD_RAW = '3de792128cce7469465ca8c42ebef5f769e868415db80198eb036e8cbec05787'
++CHILD_CONFIG = '0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8'
+ FRACTIONS = (.5, .75, .875)
+ COMPATIBILITY_KEYS = (
+     'base_model_sha256','frozen_base_sha256','base_path','rank','alpha','scaling',

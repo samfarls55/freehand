@@ -1,23 +1,36 @@
 # ScribeKey training — active research checkpoint
 
-The user authorized targeted training with ScribeKey as the base and subsequently
-raised acceptance to **99%**. The current gate requires **495 of 500 complete
-outputs to preserve meaning and be directly usable cleaned text**. The full-app
-resource limits remain 747,500,000 host-memory bytes and 805 ms from ready release
-to complete delivery. **No new trained model is qualified yet.** The first
-independent 500-case test scored **471/500 (94.2%)** jointly faithful and clean,
-below the required 495. Its complete result is preserved and the set is now
-retired as development material. Subsequent V5 candidates score 94.8–96.2% on
-that consumed set; V6 scores **475/500 (95.0%)**, and the V7 supervised control
-scores **482/500 (96.4%)**. Its matched semantic-loss arm scores
-**483/500 (96.6%)**, expanded V8 reaches **492/500 (98.4%)** with one
-critical error, and V9 reaches **494/500 (98.8%)** with no critical errors.
-A subsequent 50/50 V8–V9 factor blend reaches **495/500 (99.0%)** on this retired
-development set, with all 500 faithful and no critical errors. The independent
-acceptance test remains unconsumed. The selected blend passes measured Linux
-partial-pipeline RAM at 695,144,448 bytes but narrowly misses latency at
-805.3532 ms against 805 ms; runtime optimizations are being tested. Windows
-qualification remains unavailable. No new default is qualified.
+The user authorized targeted training with ScribeKey as the base and raised
+acceptance to **99%: at least 495 of 500 complete outputs must preserve meaning
+and be directly usable cleaned text**. The full-app limits remain 747,500,000
+host-memory bytes and 805 ms from ready release to complete delivery.
+**No new model is qualified.** The selected ScribeKey factor blend reached
+495/500 on the older development set, but the subsequent fresh 500-case test
+scored **462/500 (92.4%)**, with **482 faithful, 475 clean and 10 critical errors**.
+All 500 selected cases completed the actual Core path with one delivery and no
+provider fallback. Every fresh output was personally read by named assistant
+reviewers; no development judgment was inherited. Three overconstrained judgments
+about unquoted identifiers were independently adjudicated against the existing
+policy, with the original reviews and conflicting author notes preserved. This
+does not change the failed acceptance decision.
+
+The selected weights with microbatch64 pass the measured **Linux partial-pipeline
+N10** bounds: complete-delivery p95=max **780.6206 ms** and coherent simultaneous
+RSS **693,895,168 bytes**. All first ten trials remain counted. The same profile
+still scores 495/500 on the older development set; broad546 and hard80 regression
+results are 544/546 with one critical error and 78/80 with two critical errors.
+The earlier microbatch32 results—805.3532 ms with lookup16 and 929.6313 ms with
+lookup31—remain failures and are preserved. These measurements do not establish
+Windows or whole-app qualification; the user has no Windows machine available.
+
+The failed fresh test is now retired development material. Its paired original
+ScribeKey control also completed all 500 cases; three provider failures stay in
+the denominator and receive no successful-cleanup credit. Control semantic review
+is pending. A new independent corpus is committed and remains unseen by the
+training work. The next work is an actual ScribeKey source-copy/edit-head
+prototype, explicit opt-in single-quote protection, and 400 newly authored and
+independently reviewed training pairs. No new head has been trained or qualified
+yet. No app default, normal installation or release has been promoted.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.

@@ -1,0 +1,60 @@
+--- work/cleanup-scribekey-training-2026-11-03/parent-child-conversion-preparation/run.py
++++ work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/run.py
+@@ -17,9 +17,9 @@
+ 
+ ROOT=Path('/workspace/freehand');TASK=ROOT/'work/cleanup-scribekey-training-2026-11-03'
+ SOURCE=ROOT/'work/cleanup-small-models-2026-11-03/scribe-precision-source'
+-TOOLS=ROOT/'tools/Freehand.Cleanup.Training';EXPERIMENT=TASK/'parent-child-interpolation'
++TOOLS=ROOT/'tools/Freehand.Cleanup.Training';EXPERIMENT=TASK/'v8-v9-factor-interpolation'
+ RELEASE=EXPERIMENT/'derivation-release.json'
+-RELEASE_SHA='9774aad5ff40d30fccac4a8bb31eb3167ef1e55def12d712e76f5f9684f8a6ab'
++RELEASE_SHA='64b5a6c2c3ca8124296a4f69a227ac1bc32b0c8c49fee870b86d7875b44513fe'
+ BASE=Path('/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf')
+ BASE_SHA='82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174'
+ PROBE=Path('/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll')
+@@ -33,9 +33,9 @@
+ LABELS=[('t050',.5),('t075',.75),('t0875',.875)]
+ SELECTION_ORDER=['highest_joint_faithful_and_clean','fewest_critical_errors','highest_faithful','highest_clean','highest_child_fraction']
+ ENDPOINTS={
+- 'parent':{'adapter':'8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643','config':'b86205448c05f0948da0e59f0c59818e338fce50f2ef56e1a78d92a05f09bfb6','result':'d3b8a8a14239b3d11aa80178d0213daf6a1dacc1b638a11a1d111e0750293523','steps':345},
+- 'child':{'adapter':'0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c','config':'2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9','result':'5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927','steps':405}}
+-DERIVE_SHA='4baf070e1a2f2570a69bbd51285d732aeedde2f4eca3b2eee6d913cf737a46f7'
++ 'parent':{'adapter':'0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c','config':'2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9','result':'5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927','steps':405},
++ 'child':{'adapter':'3de792128cce7469465ca8c42ebef5f769e868415db80198eb036e8cbec05787','config':'0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8','result':'4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a','steps':455}}
++DERIVE_SHA='0c2d9766035ab942940152190e541094affa29b3dc615db3110b5ad1d5cfc7cf'
+ OLD_HELPER_SHA='57c5ff750aed2c5e11cf4a4509274e688084bf0fcd2afde0ca53b8841aecef8f'
+ 
+ 
+@@ -144,10 +144,10 @@
+   and all(Path(r['path']).resolve()==PROBE.parent/Path(r['path']).name for r in managed),'Exact six-DLL generation required')
+  pins.extend(managed)
+  for key in ('source_guard','original_matched_arm_helper','tests','test_log','execution_plan','raw_derivation_completion'):pins.append(release[key])
+- baseline_freeze_path=TASK/'evaluation/v8-01-native-LoRA-F32-freeze.json'
+- baseline_review_path=TASK/'reviews-v8-01-native-LoRA-retired500/canonical-reviewed.json'
+- pins.extend([exact(baseline_freeze_path,'635f3ca73fbfd9c52ecac70f10a7de85c0b6c7bddf3f0fa1f29b1b7e6aad2951'),
+-  exact(baseline_review_path,'fe07736284eda5a8b8425c90b537f217e7c984d94b7e2420d375c8c5e1bfdae7')])
++ baseline_freeze_path=TASK/'evaluation/v9-01-native-LoRA-F32-freeze.json'
++ baseline_review_path=TASK/'reviews-v9-01-native-LoRA-retired500/canonical-reviewed.json'
++ pins.extend([exact(baseline_freeze_path,'f3f7f2597c6c8d93c7a83172396827ac7b6ded5554e0982c4d3d56ea16ac1fd6'),
++  exact(baseline_review_path,'9ec70b6b9dfa008b53e2ffd3bba13cee8298109703827cb72edb9d522f8a36e4')])
+  baseline_freeze=read(baseline_freeze_path)
+  candidates=[]
+  for item in release['candidates']:
+@@ -190,7 +190,7 @@
+  write(args.output/'pre-run.json',{'phase':'development','kind':'factor-derived-zero-new-steps','release':release_pin,'pins':pins,
+   'controller':art(args.output/'executed-controller.py'),'owned_execution':art(args.output/'owned_execution.py'),
+   'coefficients':LABELS,'predeclared_selection_order':SELECTION_ORDER,
+-  'baseline_comparison':{'child_fraction':1,'joint_pass_count':492,'canonical_review':art(baseline_review_path)},
++  'baseline_comparison':{'child_fraction':1,'joint_pass_count':494,'canonical_review':art(baseline_review_path)},
+   'resource_qualification_separate_and_requires_actual_selected_artifact':True,'case_ids_each':ids,'case_count_each':500,'no_subset_or_tuning':True,'fresh2_opened':False})
+  import torch
+  from safetensors.torch import load_file,save_file
+@@ -212,7 +212,7 @@
+    '--adapter-config',item['config']['path'],'--runtime-adapter',result['native_adapter']['path'],'--runtime-adapter-sha256',result['native_adapter']['sha256'],
+    '--runtime-adapter-scale','1','--cache-type-k','f16','--cache-type-v','f16','--prompt-lookup-tokens','16','--output',str(frozen)]
+   run=safe.execute(command,root/'conversion/freeze.log',env,timeout_seconds=120);require(run['exit_code']==0 and run['owned_process_group_cleanup_completed'],'Derived freeze failed')
+-  value=evaluate.verify_freeze(frozen);require(value['sources']==baseline_freeze['sources'],'Semantic source epoch changed from V8 baseline')
++  value=evaluate.verify_freeze(frozen);require(value['sources']==baseline_freeze['sources'],'Semantic source epoch changed from V9 baseline')
+   require(value['cache_configuration']=={'cacheTypeK':'f16','cacheTypeV':'f16'},'F16 profile required')
+   prepared[item['label']]={'root':root,'freeze':frozen,'native':result['native_adapter'],'coefficient':item['child_fraction']}
+  write(args.output/'all-three-frozen-before-inference.json',{label:{'freeze':art(v['freeze']),'native':v['native'],'child_fraction':v['coefficient']} for label,v in prepared.items()})

@@ -1,0 +1,768 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T04:15:17.034227+00:00",
+  "status": "NeedsFreshEvaluationBuildAndFinalAdapterFreeze",
+  "repository": "/workspace/freehand",
+  "git_head_at_preparation": "bc89afda910d3f73bae1f35b3dc05905b69bc441",
+  "current_code_baseline_commit": "8b059f2ce2470b25429a93221c8763b8fdfe3eaf",
+  "condition": "UNSELECTED future V8/interpolation F32 native LoRA at unit scale1 on original IQ4_XS; f16KV; PGO0; ASR spinning0",
+  "actual_candidate_selected": false,
+  "comparator": null,
+  "previous_model_or_comparator_metadata_inherited": false,
+  "scope": "Linux partial pipeline only; evaluator+ASR+cleanup simultaneous RSS; no desktop UI, physical capture/hotkey, SendInput, Windows, GPU or whole-app qualification.",
+  "semantic_quality_unknown": true,
+  "native500_or_semantic_outputs_accessed": false,
+  "quality_or_resource_qualification_claimed": false,
+  "repetitions": 10,
+  "expected_audio_seconds": 100,
+  "first_trial_retained": true,
+  "statistics": "Nearest-rank N10 p95 is max; ten repetitions of one public clip are not independent quality observations or a stable tail estimate.",
+  "ready_state": "Initial ASR loading and synthetic cleanup warmup are separate; no extra warmup or forced GC; one-hour evaluation idle override disclosed.",
+  "limits": {
+    "host_ram_bytes": 747500000,
+    "counting_injector_complete_ms": 805,
+    "tolerance_percent": 15
+  },
+  "configuration": {
+    "promptStyle": "ScribeKeyFast",
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 32,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "repack": false,
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "gpuLayers": 0,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3,
+    "adapterScale": 1,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60
+  },
+  "base": {
+    "path": "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf",
+    "bytes": 211804448,
+    "sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174"
+  },
+  "adapter": null,
+  "external_adapter_scale": 1,
+  "tensor_precision_required": "F32",
+  "adapter_tensor_count_required": 184,
+  "adapter_size_required": 12006240,
+  "build": {
+    "status": "NotExecuted",
+    "artifact_root": "/tmp/freehand-v8-selected-resource-eval-20261104T041516Z",
+    "evaluation_directory": "/tmp/freehand-v8-selected-resource-eval-20261104T041516Z/bin/Freehand.Evaluation/release",
+    "command": [
+      "/workspace/freehand/.dotnet/dotnet",
+      "build",
+      "tools/Freehand.Evaluation/Freehand.Evaluation.csproj",
+      "-c",
+      "Release",
+      "--no-incremental",
+      "-warnaserror",
+      "-p:EnableWindowsTargeting=true",
+      "--artifacts-path",
+      "/tmp/freehand-v8-selected-resource-eval-20261104T041516Z"
+    ],
+    "standalone_project_not_in_solution": true,
+    "old_evaluator_reused": false,
+    "runtime_model_executed": false
+  },
+  "reference_app": {
+    "path": "/tmp/freehand-native-lora-parser-guard-build/bin/Freehand.App/release/Freehand.App",
+    "bytes": 76416,
+    "sha256": "23e5e35a7e6f48813ae364939614b08cd42c0a4ea82ca743b787e7804ec14261",
+    "role": "Historical positional APP reference identity only, never executed. Actual ASR/Core/Cleanup run in the newly built current-source Evaluation assembly."
+  },
+  "source_files": {
+    "Directory.Build.props": {
+      "path": "/workspace/freehand/Directory.Build.props",
+      "bytes": 2140,
+      "sha256": "72861bc6a2889f1ca763046051df9e2c3bb027702897fa328b5c3fd5abc0fbf8"
+    },
+    "Directory.Packages.props": {
+      "path": "/workspace/freehand/Directory.Packages.props",
+      "bytes": 2303,
+      "sha256": "c09bce2b106e739a13041690cc0f613b0ba8af9f35d7fc994a0e5f8a8b0eece5"
+    },
+    "Version.props": {
+      "path": "/workspace/freehand/Version.props",
+      "bytes": 186,
+      "sha256": "d9bfa834130288ffd85d5327d24233ae06bf5ddb832fbcad686a4b2bc049f2e0"
+    },
+    "global.json": {
+      "path": "/workspace/freehand/global.json",
+      "bytes": 81,
+      "sha256": "b48d6da8fa62c0da7cc8a2da4ea036ac55836660a448ba533135abb5b8451b73"
+    },
+    "packaging/model-manifest.json": {
+      "path": "/workspace/freehand/packaging/model-manifest.json",
+      "bytes": 1053,
+      "sha256": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545"
+    },
+    "shared/transcript-cleanup-prompt.txt": {
+      "path": "/workspace/freehand/shared/transcript-cleanup-prompt.txt",
+      "bytes": 1091,
+      "sha256": "c0f823a67a100b0656e2a818965a97d41d1e2a3da29b8952bdf1c0f3d81cf425"
+    },
+    "src/Freehand.Abstractions/CleanupWorker.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/CleanupWorker.cs",
+      "bytes": 915,
+      "sha256": "90cdb0dc2ae03694633584b826659706b50e7a909c55e229fa92512242f886f6"
+    },
+    "src/Freehand.Abstractions/DeliveryProbe.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/DeliveryProbe.cs",
+      "bytes": 640,
+      "sha256": "6e6801aee9ae2803c83abfc9d638e9f17de03723aed6be4d1d5fb730c1c149de"
+    },
+    "src/Freehand.Abstractions/DesktopServices.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/DesktopServices.cs",
+      "bytes": 4642,
+      "sha256": "9a5c41d233efc4bf3d11c8408883a341602afa90619d50fd4b0fc8505439b3e3"
+    },
+    "src/Freehand.Abstractions/Freehand.Abstractions.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/Freehand.Abstractions.csproj",
+      "bytes": 337,
+      "sha256": "3e019ab20aa591f3dda40caf825da1e008721d15860901fe145697555f830c00"
+    },
+    "src/Freehand.Abstractions/GpuMemory.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/GpuMemory.cs",
+      "bytes": 1499,
+      "sha256": "86ed003a4415468ce1110a8713df4eab9773588af1b50f9be8f8ecaaaf8dae3c"
+    },
+    "src/Freehand.Abstractions/IHotkeyRecorder.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/IHotkeyRecorder.cs",
+      "bytes": 475,
+      "sha256": "25d3ddaf07036c78c7957dd4c836a1b3f21ef74b666cb3d770c4cee85c145b10"
+    },
+    "src/Freehand.Abstractions/IKeyNameProvider.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/IKeyNameProvider.cs",
+      "bytes": 309,
+      "sha256": "cd34d326e9a907ad759abfa0c010e3d3d711a02d81e5281acb2f9afa9eca34d3"
+    },
+    "src/Freehand.Abstractions/ITextDeliveryHotkeySource.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/ITextDeliveryHotkeySource.cs",
+      "bytes": 515,
+      "sha256": "67d29760d08db619c705f8a18fc815d6d064f4a1f8b0b323bbda84386dcd9f63"
+    },
+    "src/Freehand.Abstractions/IUpdateInstaller.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/IUpdateInstaller.cs",
+      "bytes": 539,
+      "sha256": "a09a0e6f4dac71150dc7462ea30a94195eaecbba33928a1f5230f5590b28c471"
+    },
+    "src/Freehand.Abstractions/Interfaces.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/Interfaces.cs",
+      "bytes": 4590,
+      "sha256": "c200104fd9816fea82ad3e04c0689c5a5b2d5e5339f20b0868da2e1924977c16"
+    },
+    "src/Freehand.Abstractions/ModelAssets.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/ModelAssets.cs",
+      "bytes": 417,
+      "sha256": "141263c8d0c4dceb9cbcf9ae2b79d3738fd6b8d55ac785dd599aabb96233e430"
+    },
+    "src/Freehand.Abstractions/ProcessMemory.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/ProcessMemory.cs",
+      "bytes": 657,
+      "sha256": "048ce8f23e52bcce4b8235d96b0c1f2b27fcdecd0e1d302f21c998a8568a7d53"
+    },
+    "src/Freehand.Abstractions/TranscriptPostProcessing.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/TranscriptPostProcessing.cs",
+      "bytes": 924,
+      "sha256": "c0fc69acf142f7d16595dfdf5a998d9bba4da48464f8d017a7be7cf4f0b9b0aa"
+    },
+    "src/Freehand.App/Freehand.App.csproj": {
+      "path": "/workspace/freehand/src/Freehand.App/Freehand.App.csproj",
+      "bytes": 4868,
+      "sha256": "f91ea9d2645e439d142e16f7ece3a57b3f5f35cfce431f22b5b62516f52db3f3"
+    },
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/CleanupAssetInstaller.cs",
+      "bytes": 32617,
+      "sha256": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847"
+    },
+    "src/Freehand.Cleanup/CleanupPrompt.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/CleanupPrompt.cs",
+      "bytes": 7139,
+      "sha256": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6"
+    },
+    "src/Freehand.Cleanup/CleanupProtocol.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/CleanupProtocol.cs",
+      "bytes": 2374,
+      "sha256": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256"
+    },
+    "src/Freehand.Cleanup/Freehand.Cleanup.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/Freehand.Cleanup.csproj",
+      "bytes": 419,
+      "sha256": "7dacf700bdbe30ccd9edd454a37ad3741c0a5e1a56b71979adf842fa379c76bb"
+    },
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LiteralProtectionMask.cs",
+      "bytes": 7003,
+      "sha256": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a"
+    },
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+      "bytes": 22237,
+      "sha256": "5cd8406a2010b1a9348e4e722ba8053e760a374cd67cd472691fc1db55c6d333"
+    },
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+      "bytes": 20778,
+      "sha256": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907"
+    },
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/SpecialistLiteralMask.cs",
+      "bytes": 7079,
+      "sha256": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8"
+    },
+    "src/Freehand.Core/AppDataPaths.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/AppDataPaths.cs",
+      "bytes": 523,
+      "sha256": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f"
+    },
+    "src/Freehand.Core/AppSettings.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/AppSettings.cs",
+      "bytes": 7324,
+      "sha256": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24"
+    },
+    "src/Freehand.Core/AudioSegmenter.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/AudioSegmenter.cs",
+      "bytes": 3891,
+      "sha256": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9"
+    },
+    "src/Freehand.Core/DiagnosticLog.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/DiagnosticLog.cs",
+      "bytes": 2098,
+      "sha256": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646"
+    },
+    "src/Freehand.Core/DictationEngine.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/DictationEngine.cs",
+      "bytes": 32687,
+      "sha256": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9"
+    },
+    "src/Freehand.Core/DictionaryFile.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/DictionaryFile.cs",
+      "bytes": 6821,
+      "sha256": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8"
+    },
+    "src/Freehand.Core/EnglishTextNormalizer.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/EnglishTextNormalizer.cs",
+      "bytes": 9905,
+      "sha256": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96"
+    },
+    "src/Freehand.Core/Freehand.Core.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Core/Freehand.Core.csproj",
+      "bytes": 533,
+      "sha256": "aafe6ccb47fc67d3d1fb07a822bc3a44d59e641a5ea03cb635247dc8d657e97a"
+    },
+    "src/Freehand.Core/Properties/AssemblyInfo.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68"
+    },
+    "src/Freehand.Core/RecordingBuffer.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/RecordingBuffer.cs",
+      "bytes": 2548,
+      "sha256": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e"
+    },
+    "src/Freehand.Core/TranscriptStore.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/TranscriptStore.cs",
+      "bytes": 7549,
+      "sha256": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038"
+    },
+    "src/Freehand.Core/Updates/GitHubUpdateSource.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Updates/GitHubUpdateSource.cs",
+      "bytes": 7338,
+      "sha256": "dab4b4c6349d14f15aa1ae1bb98551ca581f8ef1c8206a18ed884f0248124416"
+    },
+    "src/Freehand.Core/Updates/UpdatePackage.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Updates/UpdatePackage.cs",
+      "bytes": 1377,
+      "sha256": "5153b4702ea6516bb4c68bca28b23248682e8f3397addcd2ce19fb2d48b7c0f8"
+    },
+    "src/Freehand.Core/Updates/UpdateService.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Updates/UpdateService.cs",
+      "bytes": 6898,
+      "sha256": "6d47c568921aa17aec868ae2518740949593108a283d353292f4ae52416f01fe"
+    },
+    "src/Freehand.Dictionary/DictionaryCorrector.cs": {
+      "path": "/workspace/freehand/src/Freehand.Dictionary/DictionaryCorrector.cs",
+      "bytes": 10333,
+      "sha256": "06c63333ad2499b678bd440c8376c294793e5afb04597323a9254746f2b06b57"
+    },
+    "src/Freehand.Dictionary/DictionaryEntry.cs": {
+      "path": "/workspace/freehand/src/Freehand.Dictionary/DictionaryEntry.cs",
+      "bytes": 6142,
+      "sha256": "629ef9794a98b94472e1e850142efc447466beb8213b0ed83cdb07d38ad00a15"
+    },
+    "src/Freehand.Dictionary/Freehand.Dictionary.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Dictionary/Freehand.Dictionary.csproj",
+      "bytes": 397,
+      "sha256": "07faff6f9c84a992507b8862ececaee658f82b5bfdb9c49d5587b3c5b375a68b"
+    },
+    "src/Freehand.Speech/Freehand.Speech.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Speech/Freehand.Speech.csproj",
+      "bytes": 1423,
+      "sha256": "432a02b6c4d88fcfe8bb9cc3efe6ede24be44e3e5329e33373fd9263022cca2f"
+    },
+    "src/Freehand.Speech/GgmlTranscriber.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/GgmlTranscriber.cs",
+      "bytes": 10550,
+      "sha256": "d40b8a55367022da3ded66b346b372354ce43b3e1673334ba841c66e7f04734d"
+    },
+    "src/Freehand.Speech/ModelResolver.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ModelResolver.cs",
+      "bytes": 8139,
+      "sha256": "66b3478442a6e4cb8b7bf4b5fe05202d67d2e9b67b693f9ce00f9372b3536bd6"
+    },
+    "src/Freehand.Speech/ParakeetHotwords.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ParakeetHotwords.cs",
+      "bytes": 2230,
+      "sha256": "d3445ca01810ebef9e2547e07768e221945e008148bc77c586578c74ed9e99bd"
+    },
+    "src/Freehand.Speech/ParakeetRecognizer.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ParakeetRecognizer.cs",
+      "bytes": 2773,
+      "sha256": "9c7b10b960aabeda5ba089d6f2858487596387cabf22002d0bb265aa6f58b37b"
+    },
+    "src/Freehand.Speech/ParakeetTranscriber.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ParakeetTranscriber.cs",
+      "bytes": 6258,
+      "sha256": "725e64e03234c8622f4a3b65e1dd654b74d2d386471621685bf8da4ae9530cd6"
+    },
+    "src/Freehand.Speech/Properties/AssemblyInfo.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68"
+    },
+    "src/Freehand.Speech/SpeechPresenceDetector.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/SpeechPresenceDetector.cs",
+      "bytes": 7817,
+      "sha256": "5cb1529bd7213f6e3e7e45fb1eea4692a227be934ccc92ca2ca857d6ec30bc3a"
+    },
+    "src/Freehand.Speech/SpeechWorker.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/SpeechWorker.cs",
+      "bytes": 4640,
+      "sha256": "104f6b4481c269830a12eec230eb03d95d778e37946f6698d9409d3865f019a0"
+    },
+    "src/Freehand.Speech/SpeechWorkerClient.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/SpeechWorkerClient.cs",
+      "bytes": 14524,
+      "sha256": "22e5c935ade76d5719ff0edb18bb3415f6f7106c7bc5944577da3248453ed0b2"
+    },
+    "src/Freehand.Speech/WorkerProtocol.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/WorkerProtocol.cs",
+      "bytes": 5078,
+      "sha256": "098ae0077b6e41e72e9eb50691d3c52284106182972ff021d8b64374f3ebd6f0"
+    },
+    "src/Freehand.Speech/speech-cpu.config": {
+      "path": "/workspace/freehand/src/Freehand.Speech/speech-cpu.config",
+      "bytes": 198,
+      "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+    },
+    "tools/Freehand.Evaluation/Freehand.Evaluation.csproj": {
+      "path": "/workspace/freehand/tools/Freehand.Evaluation/Freehand.Evaluation.csproj",
+      "bytes": 541,
+      "sha256": "1c288e6bb098c9f3a23ed997e1b127cbb684b87ec7094c1fa8216be7a5bfef34"
+    },
+    "tools/Freehand.Evaluation/Program.cs": {
+      "path": "/workspace/freehand/tools/Freehand.Evaluation/Program.cs",
+      "bytes": 48768,
+      "sha256": "81e91ff4b46c50cdc8e656c1e66dd68c811ada2e22d1e4ef98cf3252452bd33a"
+    }
+  },
+  "source_snapshot_directory": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v8-selected-native-LoRA-no-pgo/source",
+  "dotnet_host_expected": {
+    "path": "/workspace/freehand/.dotnet/dotnet",
+    "bytes": 70048,
+    "sha256": "b3e9698b9e5e68d716115f7cc3cc98c939f479f90977c158d67b1740353c334c"
+  },
+  "asr_production_manifest_expected": {
+    "path": "/workspace/freehand/packaging/model-manifest.json",
+    "bytes": 1053,
+    "sha256": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545"
+  },
+  "asr_files_expected": [
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m/encoder.int8.onnx",
+      "bytes": 131113202,
+      "sha256": "0f35509ddeb9b39002fb077d979a9fe74f06eb0bc4dd5c34f512f82e5111d657"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m/decoder.int8.onnx",
+      "bytes": 3955863,
+      "sha256": "f7c331c5504c2e593c76ed22b728e3f554af6c4a383dde862e719ced08b1da19"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m/joiner.int8.onnx",
+      "bytes": 1411403,
+      "sha256": "bf7dff69e9f2cdbe9943d70da358f38b361c115ba0105bae7e908e0d6ec782f6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m/tokens.txt",
+      "bytes": 9953,
+      "sha256": "450e56bd2f036fe5b6aa821865838cc5aa9d8b0106134ce9a9ba0664abe6cd10"
+    }
+  ],
+  "asr_native_files_expected": [
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/native/libonnxruntime.so",
+      "bytes": 27026609,
+      "sha256": "4b3607aebd1784b26b6f9b20e4bd974c7ab8287043e4d095cb7d2cb40b5e566e"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/native/libsherpa-onnx-c-api.so",
+      "bytes": 4838808,
+      "sha256": "e4ab80c332da6fdf634cc18cb6f4039b35d3fc47c8bd5fb21b74f16240a6e848"
+    }
+  ],
+  "audio_manifest_expected": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+    "bytes": 474,
+    "sha256": "81297543939948a3c29b85855558e0f71ef0ae0d34a878e8c23df30f5e535d92"
+  },
+  "audio_files_expected": [
+    {
+      "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/jfk-10s.wav",
+      "bytes": 320044,
+      "sha256": "cd3d359bf2c9c803cd9af596d5c458bfaa58ebd088c035cc1c51a02de9b05d56"
+    }
+  ],
+  "runtime_index_expected": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+    "bytes": 9010,
+    "sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85"
+  },
+  "runtime_files_expected": [
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/LICENSE",
+      "bytes": 1078,
+      "sha256": "94f29bbed6a22c35b992c5c6ebf0e7c92f13b836b90f36f461c9cf2f0f1d010d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/ggml-rpc-server",
+      "bytes": 195504,
+      "sha256": "eb3bd9306c62180098ed97c4a19bdca9eaba8dcb138ca1f2ca5d85ea548fa00a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-base.so",
+      "symlink_target": "libggml-base.so.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-base.so.0",
+      "symlink_target": "libggml-base.so.0.28.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-base.so.0.28.0",
+      "bytes": 929000,
+      "sha256": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-alderlake.so",
+      "bytes": 1438128,
+      "sha256": "ccab67ca95af59f7a5f72b7f83b90451957eb62ae4028b4bd2f5f78dd37c4740"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-cannonlake.so",
+      "bytes": 1583408,
+      "sha256": "762dd25dfbc288faf091e81cc97461e394de76875a63c6822acfa6244e499cca"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-cascadelake.so",
+      "bytes": 1599496,
+      "sha256": "2f98b02e9706475689a629d4e41813a2c1bf08b17f9655ab5a007e062a3c2d82"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-cooperlake.so",
+      "bytes": 1599568,
+      "sha256": "57a02f46141a7e42ddc8e5217f26be6c0579bb65661fd895110116c7e060b27b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-haswell.so",
+      "bytes": 1438128,
+      "sha256": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-icelake.so",
+      "bytes": 1599496,
+      "sha256": "15e9facf9c5731c3d744355bff4227a13bc88e9cd2d2ae44cf002afdc406e13d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-ivybridge.so",
+      "bytes": 1373752,
+      "sha256": "55687beb2005976403bb54f74f458bdc75ebc861a04a282b759f1a55b239ee78"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-piledriver.so",
+      "bytes": 1369656,
+      "sha256": "0bd26ddd7e20d727641200aafd6d7cef507812ed9593c3028840fd17da573f80"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-sandybridge.so",
+      "bytes": 1372800,
+      "sha256": "3bd522c900b58aa9700d35654a4d8111d8a083cca7eb6ad31115bdbb59a5f48d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-sapphirerapids.so",
+      "bytes": 1865872,
+      "sha256": "7922988ba01aa5e18f7a4e95574c494646cdeb4ac444c0f6f74ca36dc95e9905"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-skylakex.so",
+      "bytes": 1583408,
+      "sha256": "4f9a435bf223acc379617fb1619d25195ea3222efde4802b841970a535b0ddb8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-sse42.so",
+      "bytes": 980440,
+      "sha256": "2aaa8782f772b3d3374eedef14dc02049e8f6cec0dbb72cddfa3802fa6038c2b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-x64.so",
+      "bytes": 976464,
+      "sha256": "601c9bfe22723f56f9fb14aaef210ffe27caced7d8359db0dc879f5c1a31a0a8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-cpu-zen4.so",
+      "bytes": 1599568,
+      "sha256": "8a34f2f5ab19db4556a785bcd5e6ef64a6f186a48b3f20138c25683b57986b31"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml-rpc.so",
+      "bytes": 319896,
+      "sha256": "39d3e844f1985afd722007641cd28a2161e86981835474ee406278edf6588620"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml.so",
+      "symlink_target": "libggml.so.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml.so.0",
+      "symlink_target": "libggml.so.0.28.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libggml.so.0.28.0",
+      "bytes": 51040,
+      "sha256": "8643a58bb37af6fb153e2ea98b48efa227855725ee51c05f4ca76b9867956463"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-batched-bench-impl.so",
+      "bytes": 48904,
+      "sha256": "5d46f2b7f9c63e6e23c47ee606dcbffb25a851cef9b785f9d35337a2fcf5cc8b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-bench-impl.so",
+      "bytes": 490560,
+      "sha256": "f8cc87e84ff172c58389e7786257c87156c160bbc0970b8ac24803a46d708859"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-cli-impl.so",
+      "bytes": 276960,
+      "sha256": "3edb1ebbbfb38c77bb30c2bfeee3af879ff95961fa28a02742156c6927b9cc71"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-common.so",
+      "symlink_target": "libllama-common.so.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-common.so.0",
+      "symlink_target": "libllama-common.so.0.8.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-common.so.0.8.0",
+      "bytes": 6758616,
+      "sha256": "d54634b12e99da239333588d01c80b7714df8dc416ebd71e19204e64ee26465f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-completion-impl.so",
+      "bytes": 144864,
+      "sha256": "117ad8cb0be526532f545c7c12623b49c4c38d6365188dbdcdb4989ec3fd9173"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-fit-params-impl.so",
+      "bytes": 39760,
+      "sha256": "60ff3c3a7c6e98eada0a78495a6ee2f06c953e018ac3b3bee22b681ba70511fd"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-perplexity-impl.so",
+      "bytes": 171912,
+      "sha256": "87ac1151e1e459916de71c8a8f02c7824ed42b67b8be29094ddf83558ae5d6d3"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-quantize-impl.so",
+      "bytes": 81840,
+      "sha256": "79d821e4e88ebc408f52a1b3d7d13f44aeb6f71bba13574e7d395608b671775a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama-server-impl.so",
+      "bytes": 8281320,
+      "sha256": "e9708c1c53e02db7f565d292d80dd754eaaadeb6ff159a2f6473a7518703287a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama.so",
+      "symlink_target": "libllama.so.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama.so.0",
+      "symlink_target": "libllama.so.0.8.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libllama.so.0.8.0",
+      "bytes": 5361824,
+      "sha256": "da1e126ab98e2a8b52abc2a79589a5f9bde160e43f4c1f40469ef8927736da7b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libmtmd.so",
+      "symlink_target": "libmtmd.so.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libmtmd.so.0",
+      "symlink_target": "libmtmd.so.0.8.0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/libmtmd.so.0.8.0",
+      "bytes": 2211264,
+      "sha256": "285a3848388e4da4eaedba4fb179aa9e65202ce6754ff49f6bceeda21358a75a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama",
+      "bytes": 62376,
+      "sha256": "e6b491dda0ea7d85a93a1102c58b4a70b860afcab172a46ff050d5c62ed76aaf"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-batched-bench",
+      "bytes": 15976,
+      "sha256": "3b70e62c5c5cf43c8c436622a845ad4b80c01837d6ba3a10c90e39b219bbd2ab"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-bench",
+      "bytes": 17864,
+      "sha256": "47d044eab1d3b4efb272d666ec8680c45961231bf69cc97efa0e7c365dab6233"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-cli",
+      "bytes": 1510816,
+      "sha256": "094d4c5499543584e8d253cb1c8b9a2e4bc6d15b71b299befd54184210db5bc0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-completion",
+      "bytes": 15968,
+      "sha256": "7119bef261611b26f326f7c4da4dc3fdeb7bb28e2faf1ec392bda7b21215ef52"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-connect",
+      "bytes": 9729072,
+      "sha256": "0f57652dee1df5a5d69dfb11a8775f864345cfb881b2bd34c6ca6c409ce73d25"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-fit-params",
+      "bytes": 15968,
+      "sha256": "b2ad073a0c093706e5dfdfe2c9864d199ed921e49ea0383a7d0013e2ad8a81c8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-gemma3-cli",
+      "bytes": 16952,
+      "sha256": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-gguf-split",
+      "bytes": 48224,
+      "sha256": "ccdee1d8de5c04274d3802b27502f518904b93a3579a2dfa8a3d178c63389839"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-imatrix",
+      "bytes": 221232,
+      "sha256": "a7b79f50ffb67e44d5785eb7b5989b4d078ccb385f04e96bf41c6ed7a507d2e6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-llava-cli",
+      "bytes": 16952,
+      "sha256": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-minicpmv-cli",
+      "bytes": 16952,
+      "sha256": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-mtmd-cli",
+      "bytes": 101376,
+      "sha256": "d838e90c56b3acfc4a14d9615010546eaba61394aca3e8a861cffc0971274502"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-mtmd-debug",
+      "bytes": 54376,
+      "sha256": "35408d2c6cafdddfe61d48cb85a4a7f411cb8ceb29119d38e34854513c815c9d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-perplexity",
+      "bytes": 15968,
+      "sha256": "1c06240ed8594fd377d655aef2dab0865431e3e779c06638474c96b38e6d74a0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-quantize",
+      "bytes": 17864,
+      "sha256": "e13e535eb25f87161d20906251388e2021024e66fa859562eaad3a8e0aef963d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-qwen2vl-cli",
+      "bytes": 16952,
+      "sha256": "053ff1b820407b8a1836b0b05d1ffcc91e56b6531f08d9b00b8dfb97a41de294"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-results",
+      "bytes": 50264,
+      "sha256": "1e9a44fe50533d0b8cbf634dc77a73b1996eaa68b4246d5a52f3e83e0671cade"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+      "bytes": 17864,
+      "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-tokenize",
+      "bytes": 45168,
+      "sha256": "712076edf65a35a84188df933912d9e735758fa7bdffb9796287adfadf4263a3"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-tts",
+      "bytes": 49720,
+      "sha256": "106ccf8da2a83deb1de31162e73ea148a2c576014f43497030b8eba9afaab85f"
+    }
+  ],
+  "runtime_executable": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+  "asr_directory": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m",
+  "environment_overrides": {
+    "DOTNET_ROOT": "/workspace/freehand/.dotnet",
+    "DOTNET_TieredPGO": "0",
+    "LLAMA_ARG_DEVICE": "none",
+    "LD_LIBRARY_PATH": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/native"
+  },
+  "environment_removals": [
+    "DOTNET_TieredCompilation",
+    "COMPlus_TieredCompilation",
+    "COMPlus_TieredPGO",
+    "FREEHAND_MODEL_PROFILE",
+    "GGML_VK_VISIBLE_DEVICES",
+    "CUDA_VISIBLE_DEVICES",
+    "HIP_VISIBLE_DEVICES",
+    "ROCR_VISIBLE_DEVICES"
+  ],
+  "execution_order": [
+    "RTE completes all fixed V8/interpolation comparisons and releases its native model workers",
+    "Parent explicitly selects the resource candidate; semantic quality remains a separate recorded result",
+    "Fresh Evaluation build in an explicitly granted CPU gap",
+    "Final adapter export pin freeze",
+    "Explicit CPU slot for N10; no competing native/training workload"
+  ],
+  "preparation_reuse_metadata_only": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v4-01-IQ4_XS-no-pgo/plan.json",
+    "bytes": 45554,
+    "sha256": "781e91246b5a85fd9dc5fd3748f611eb1168ae3535038e0504aa8a0a194409e3"
+  }
+}

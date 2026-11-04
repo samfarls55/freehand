@@ -1,0 +1,121 @@
+{
+  "selection_status": "parent_selected_for_resource_trial",
+  "candidate_id": "V8-V9-factor-t050-micro64",
+  "base": {
+    "path": "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf",
+    "bytes": 211804448,
+    "sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174"
+  },
+  "adapter": {
+    "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/native-F32.gguf",
+    "bytes": 12006240,
+    "sha256": "4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1"
+  },
+  "external_scale": 1,
+  "tensor_precision": "F32",
+  "tensor_count": 184,
+  "rank": 8,
+  "profile": {
+    "promptStyle": "ScribeKeyFast",
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 64,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "repack": false,
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "gpuLayers": 0,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3,
+    "adapterScale": 1,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60
+  },
+  "export_receipt": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/conversion/conversion-report.json",
+    "bytes": 85914,
+    "sha256": "1d3533cb4ce71742f296e56db713338a281e047d8d9df07c78267e9213645560"
+  },
+  "training_receipt": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/DERIVATION.json",
+    "bytes": 43987,
+    "sha256": "187afb518ec4d43f1d812ebf9900e34ec6fe09a291ed8bfcc777ebae70ef624e"
+  },
+  "training_receipt_scope": "Derivation and both actual endpoint config histories; zero new optimizer steps. This derived adapter is not a newly trained checkpoint.",
+  "artifact_kind": "parent-child-factor-derivation-not-training",
+  "optimizer_steps_performed": 0,
+  "child_fraction": 0.5,
+  "actual_endpoint_training_results": {
+    "parent": {
+      "original": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/training-result.json",
+        "bytes": 319,
+        "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+      },
+      "copy": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/parent-historical-training-result.json",
+        "bytes": 319,
+        "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+      },
+      "steps_are_historical_not_derivation": true
+    },
+    "child": {
+      "original": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/training-result.json",
+        "bytes": 319,
+        "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+      },
+      "copy": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/derivation/child-historical-training-result.json",
+        "bytes": 319,
+        "sha256": "4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a"
+      },
+      "steps_are_historical_not_derivation": true
+    }
+  },
+  "derived_config": {
+    "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter-config.json",
+    "bytes": 4453,
+    "sha256": "41fbbef51f05142696ff8c3d8d764d5c787207dada7eaeca3de620780d2c5660"
+  },
+  "raw_derived_adapter": {
+    "path": "/tmp/freehand-v8-v9-factor-izdqupmr/t050/adapter.safetensors",
+    "bytes": 12012656,
+    "sha256": "5a525200352df9dd65a025d81f4988d7edb1694f3ef70d86fe7d88ceed8d9993"
+  },
+  "derivation_release": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/derivation-release.json",
+    "bytes": 9893,
+    "sha256": "64b5a6c2c3ca8124296a4f69a227ac1bc32b0c8c49fee870b86d7875b44513fe"
+  },
+  "development_freeze": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/candidate-freeze.json",
+    "bytes": 10081,
+    "sha256": "92f97a1555794e4deca9c39b2855e916327e58c4edb2a94032c9e3c8f5b7988f"
+  },
+  "development_completion": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/t050/full500-completion.json",
+    "bytes": 1075,
+    "sha256": "f6d736ce7e718103e03cd7f2270702101f888dbca319982c01341d1fb39b3d24"
+  },
+  "quality_status_parent_reported": "Same selected t050 weights. Micro32/lookup16 retired-development495/500,500faithful,0critical. MICRO64 QUALITY UNTESTED: full500+626 requalification required before any fresh qualification; no inherited99% claim.",
+  "selection_receipt": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/reviewed-selection.json",
+    "bytes": 5764,
+    "sha256": "cc71309432587593b53e24dc2092d4c54a4f7de7bc27b5f178b2e2fa9ef81ca8"
+  },
+  "development_canonical_review": {
+    "sha256": "e5ba522f3c0cad1548a3e529fe8c35d4f4713fe2e4405ebbc8898fed63f10b72",
+    "scope": "root supplied selected canonical hash; source path preserved in selection receipt"
+  },
+  "preparation_status_at_creation": "PENDING_ROOT_METADATA_REVIEW_AND_ACTUAL_CPU_GRANT",
+  "historical_lookup16_micro32_input": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v8-selected-native-LoRA-no-pgo/t050-performance-input.json",
+    "bytes": 5141,
+    "sha256": "be2ca9d337990a7a9a3cbb902f9008380e12ffb054bf07327acde4ab08d40c0e"
+  }
+}

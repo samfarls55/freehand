@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "created_utc": "2026-11-04T05:35:10.326701+00:00",
+  "decision": "PASS_BOUNDED_PREEXECUTION_SOURCE_AND_RELEASE_METADATA",
+  "audited_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/run.py",
+    "bytes": 22004,
+    "sha256": "53fe05803d347ee1dfd3474dede19caa2e21a5d92a9a25f2cc5f6f1847205c4d"
+  },
+  "audited_test_source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/test_controller.py",
+    "bytes": 4243,
+    "sha256": "d5e8c0a1ee1b75dc2634182ed0be997396989e836dd35b5851f5e5975fbca60d"
+  },
+  "audited_readme": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/README.md",
+    "bytes": 2529,
+    "sha256": "233f9a4f2caf63a73e125f7e226ed7ea61db21b42d154e67356d950f2f6cf9ac"
+  },
+  "concrete_diff": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/SOURCE-DIFF.patch",
+    "bytes": 5724,
+    "sha256": "ca197a7c045e16340043f8a1330f4cafad8b0bfde20ac62bc90c63fc6ed278d4"
+  },
+  "preparation_status": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/preparation-status.json",
+    "bytes": 2215,
+    "sha256": "cbf6e2661b9741cc01a8c2044b3d960c1dede719e870cefe7add47cbef2a9b44"
+  },
+  "derivation_release": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-interpolation/derivation-release.json",
+    "bytes": 9893,
+    "sha256": "64b5a6c2c3ca8124296a4f69a227ac1bc32b0c8c49fee870b86d7875b44513fe"
+  },
+  "root_independent_endpoint_review": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-average-preparation/root-independent-endpoint-diff-review.json",
+    "bytes": 1280,
+    "sha256": "1075ac941348e10a54ffad80d4e5788737ed7511524922df1557c9f7a60c063f"
+  },
+  "owned_helper": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-native-export-preparation/owned_execution.py",
+    "bytes": 10537,
+    "sha256": "6fe025eec3fa093c77b81fdeca871fa7b1eabdf54cea53aecfd35690399c23f4"
+  },
+  "prior_approved_controller": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-conversion-preparation/run.py",
+    "bytes": 22004,
+    "sha256": "6770caf2f386eb296e19be44bcff37fdca626e7651ff3ac300879112b80c7948"
+  },
+  "prior_controller_audit": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-conversion-preparation/independent-preexecution-review.json",
+    "bytes": 5284,
+    "sha256": "30bcbdcd7362381490d3d42b0a71ccb0813e79e9a64e183f49755eb686ed16fd"
+  },
+  "all_five_preparation_file_references_and_small_release_review_rehashed": true,
+  "independent_tests": {
+    "passed": 9,
+    "failed": 0,
+    "log": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-conversion-preparation/independent-synthetic-tests.log",
+      "bytes": 1235,
+      "sha256": "93b6c6b860e02b5a94c3446b1ffdbb5a354b0656df733ea2400094e9d3962a36"
+    },
+    "actual_all_three_metadata_validators_passed": true
+  },
+  "actual_metadata_checks": {
+    "labels_and_child_fractions": [
+      [
+        "t050",
+        0.5
+      ],
+      [
+        "t075",
+        0.75
+      ],
+      [
+        "t0875",
+        0.875
+      ]
+    ],
+    "new_optimizer_steps_each": 0,
+    "parent_historical_steps": 405,
+    "child_historical_steps": 455,
+    "both_original_and_copied_config_result_history_hashes_verified": true,
+    "declared_full_histories_equal_actual_copied_configs": true,
+    "all_derivation_source_helper_schema_and_legal_notice_hashes_verified": true,
+    "all184_tensor_hash_keys_match_config_module_A_B_names": true,
+    "raw_weight_tensor_payloads_not_read_by_reviewer": true
+  },
+  "reviewed_contracts": [
+    {
+      "contract": "Bounded delta and preserved history",
+      "evidence": "Actualdiff from old6770 changes only separate experiment path/release64b5, realV8raw0ad/config263/result5a0 and V9raw3de/config0b6/result4884 historical405/455 identities, derive0c2d, V9freeze f3f7/canonical9ec70 baseline494 and corresponding label. Old controller/artifacts remain intact. Zero-step derivative configs cannot invent optimizer/training fields; both full actual endpoint histories/legal notices retained, explicit factor formula is not functional/delta averaging."
+    },
+    {
+      "contract": "All184 F32 conversion guards retained",
+      "evidence": "Exactly92 modules/184 finite F32 custom tensors match pinned DERIVATION hashes and known base shapes; custom\u2192PEFT raw bytes then nativeGGUF type/name/shape/value SHA equality required; rank8alpha16/internal2/external1, exact native12006240B, originalIQ4base82 versus upstreamBF16 provenance preserved. Converter archive/source/dependencies/schema/runtime/notices pinned; no merge/requantization."
+    },
+    {
+      "contract": "Freeze all3 before serial full500",
+      "evidence": "Release exactly lists .5/.75/.875 in fixed order, no extra coefficient or CLI override. Allthree conversions and create-only freezes precede all-three-frozen-before-inference record and any model request. Shared source epoch must equal V9baseline; Probe6de0/d720/exact6DLL/eval131d/F16KV/lookup16/defaultFAauto/unit1 unchanged. Only pinned retireddef0 development/Core exact500 ordered unique IDs, serially once per fraction; no subset/fresh/retry/tuning path."
+    },
+    {
+      "contract": "Postguards and complete outcome preservation",
+      "evidence": "Each full report requires incompletefalse/exact500IDs, pre-run corpus identity, actual typed cache and manifest SHA, effective deployed base+adapter+scale, completed deployment command evidence, observed correct owned native arguments and group cleanup. Source/model/runtime/managed/optimizer-independent derivation/history/data pins reverified and all3 freezes checked at completion; a failed check raises before success-completion fields. Ordinary provider failures remain full500 diagnostic outcomes without fallback credit; outputs never substitute control/othercandidate quality."
+    },
+    {
+      "contract": "Sources, ownership and selection policy",
+      "evidence": "Executedcontroller/helper copies plus evaluator-created pre-inference source archives and every supplied input/source/notice/receipt ref preserved. Durable owned PID/start/argv journals and native idle boundaries remain audited6fe, Z/X ignored, only ownedgroup cleanup; existing/partial outputs rejected, no unrelated worker kill or auto retry. Preregistered joint\u2192critical\u2192faithful\u2192clean\u2192highestchildfraction order and rawV9 fraction1 baseline494 persisted before inference. No99/resource/Windows/default qualification asserted."
+    }
+  ],
+  "findings": [],
+  "authorization_timeline": {
+    "source_ACK_PASS_sent_before_launch": true,
+    "root_standing_grant_and_deriver_CPU_release_reported_by_owners": true,
+    "formal_receipt_written_after_owner_reported_launch": true,
+    "reviewer_did_not_read_worker_or_corpus_status": true
+  },
+  "scope": {
+    "no_actual_conversion_derivation_controller_main_Torch_tokenizer_model_native_or_build_execution_by_reviewer": true,
+    "no_weight_binary_payload_hash_or_fresh_access_by_reviewer": true,
+    "no_repo_source_or_data_edit": true,
+    "actual_runtime_conversion_and_postverification_are_owner_execution_requirements": true
+  }
+}

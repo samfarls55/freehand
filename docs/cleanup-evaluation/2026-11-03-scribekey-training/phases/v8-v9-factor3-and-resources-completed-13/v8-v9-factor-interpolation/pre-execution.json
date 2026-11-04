@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T05:31:35.257364+00:00",
+  "kind": "V8-parent-V9-child-fixed-factor-derivation",
+  "owned_temporary_root": "/tmp/freehand-v8-v9-factor-izdqupmr",
+  "source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v8-v9-factor-average-preparation/derive_parent_child.py",
+    "bytes": 9407,
+    "sha256": "0c2d9766035ab942940152190e541094affa29b3dc615db3110b5ad1d5cfc7cf"
+  },
+  "endpoints": [
+    {
+      "role": "parent",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/adapter-config.json",
+        "bytes": 6967,
+        "sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9"
+      },
+      "adapter": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/adapter.safetensors",
+        "bytes": 12012752,
+        "sha256": "0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c"
+      }
+    },
+    {
+      "role": "child",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/adapter-config.json",
+        "bytes": 6967,
+        "sha256": "0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8"
+      },
+      "adapter": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01/adapter.safetensors",
+        "bytes": 12012752,
+        "sha256": "3de792128cce7469465ca8c42ebef5f769e868415db80198eb036e8cbec05787"
+      }
+    }
+  ],
+  "fixed_child_fractions": [
+    0.5,
+    0.75,
+    0.875
+  ],
+  "optimizer_steps_per_derivation": 0,
+  "conversion_or_native_run": false
+}

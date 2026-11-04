@@ -1,0 +1,613 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/benchmark_harness (Codex assistant semantic reviewer)",
+  "results_sha256": "9067505bd5003db91fb044587442e77b0f4fec1f7c9e5355a634b7c9614b636f",
+  "targets_shown_or_used": false,
+  "personal_read_count": 18,
+  "cases": [
+    {
+      "position_one_based": 26,
+      "case_id": "blind-a-026",
+      "actual_pair": {
+        "input": "I, I really enjoyed the last chapter, especially the ending.",
+        "normalized_input": "I, I really enjoyed the last chapter, especially the ending.",
+        "cleanup_input": "I, I really enjoyed the last chapter, especially the ending.",
+        "candidate_text": "I, I really enjoyed the last chapter, especially the ending.",
+        "output": "I, I really enjoyed the last chapter, especially the ending.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "52434844e9a4b5a3ba4f3b9b03e4c68dd05b2bedf6de104f1433729464decb1d",
+      "case_structural_sha256": "3ccaacf2af5a3bc0f348fcff7994f561eb99e29c0f49982f33819b4974d4e721",
+      "previous_output_for_comparison": "I, I really enjoyed the last chapter, especially the ending.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "The complete enjoyment statement and especially-the-ending emphasis remain, but the unchanged I, I is still an accidental pronoun stutter. Faithful content; not fully cleaned."
+    },
+    {
+      "position_one_based": 151,
+      "case_id": "blind-a-151",
+      "actual_pair": {
+        "input": "Um, send the photograph to harbor desk after lunch.",
+        "normalized_input": "Um, send the photograph to HarborDesk after lunch.",
+        "cleanup_input": "Um, send the photograph to [[FREEHAND_LITERAL_6742a3c3f681443599baebfeadcec5b0_0_START]]HarborDesk[[FREEHAND_LITERAL_6742a3c3f681443599baebfeadcec5b0_0_END]] after lunch.",
+        "candidate_text": "Send the photograph to [[FREEHAND_LITERAL_6742a3c3f681443599baebfeadcec5b0_0_START]]HarborDesk[[FREEHAND_LITERAL_6742a3c3f681443599baebfeadcec5b0_0_END]] after lunch.",
+        "output": "Send the photograph to HarborDesk after lunch.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "9df3eca9033762561520a5f851673942d861a0f66b9dc33b628c3e7b866784d6",
+      "case_structural_sha256": "79da07cf2a8f2432e74891f6f5c4060558afdcac367dbf97790afa2a374b8188",
+      "previous_output_for_comparison": "Send the photograph to HarborDesk after lunch.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops leading Um and preserves sending the photograph to the actual Core-normalized HarborDesk destination after lunch. Candidate protected block restores to that exact delivered name once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "HarborDesk"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 152,
+      "case_id": "blind-a-152",
+      "actual_pair": {
+        "input": "Please ask northvale support, uh, whether the cable is covered.",
+        "normalized_input": "Please ask NorthVale Support, uh, whether the cable is covered.",
+        "cleanup_input": "Please ask [[FREEHAND_LITERAL_f623bd03997f438e9d8dcf1a9e83db96_0_START]]NorthVale Support[[FREEHAND_LITERAL_f623bd03997f438e9d8dcf1a9e83db96_0_END]], uh, whether the cable is covered.",
+        "candidate_text": "Please ask [[FREEHAND_LITERAL_f623bd03997f438e9d8dcf1a9e83db96_0_START]]NorthVale Support[[FREEHAND_LITERAL_f623bd03997f438e9d8dcf1a9e83db96_0_END]] whether the cable is covered.",
+        "output": "Please ask NorthVale Support whether the cable is covered.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "be16c7f39bef064e59b49951071d5f4c94bf42c152c7043ceca95af2c2503e85",
+      "case_structural_sha256": "bc59883f2bd962d8817adfbc5a4c611259ba240c14dc40e3a1aa26e1e21bbc57",
+      "previous_output_for_comparison": "Please ask NorthVale Support whether the cable is covered.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops uh and its pause comma while keeping Please, the inquiry to NorthVale Support, and whether this cable is covered. The protected organization name is restored exactly once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "NorthVale Support"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 153,
+      "case_id": "blind-a-153",
+      "actual_pair": {
+        "input": "I saved the notes under garden archive, um, on the shared drive.",
+        "normalized_input": "I saved the notes under Garden_Archive, um, on the shared drive.",
+        "cleanup_input": "I saved the notes under [[FREEHAND_LITERAL_faa273c73e6143cdaa2f94a3048356c8_0_START]]Garden_Archive[[FREEHAND_LITERAL_faa273c73e6143cdaa2f94a3048356c8_0_END]], um, on the shared drive.",
+        "candidate_text": "I saved the notes under [[FREEHAND_LITERAL_faa273c73e6143cdaa2f94a3048356c8_0_START]]Garden_Archive[[FREEHAND_LITERAL_faa273c73e6143cdaa2f94a3048356c8_0_END]] on the shared drive.",
+        "output": "I saved the notes under Garden_Archive on the shared drive.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "2a9ad55606c22f0c7c209bd290425c4db4418c1fb42c9adcb5a985ab2efabbed",
+      "case_structural_sha256": "5cccae74a55c40b35a6be2a95a8c81e82ef5fe5c1fcf524f24d4985694ca0ab9",
+      "previous_output_for_comparison": "I saved the notes under Garden_Archive on the shared drive.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops um and preserves the first-person past saved-notes statement, exact Garden_Archive spelling, and shared-drive location. No outside content or literal bytes change.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Garden_Archive"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 154,
+      "case_id": "blind-a-154",
+      "actual_pair": {
+        "input": "The replacement is, uh, listed as item cedar on the receipt.",
+        "normalized_input": "The replacement is, uh, listed as CEDAR-X on the receipt.",
+        "cleanup_input": "The replacement is, uh, listed as [[FREEHAND_LITERAL_b7333366494f4d008ce89f828dd097d9_0_START]]CEDAR-X[[FREEHAND_LITERAL_b7333366494f4d008ce89f828dd097d9_0_END]] on the receipt.",
+        "candidate_text": "The replacement is listed as [[FREEHAND_LITERAL_b7333366494f4d008ce89f828dd097d9_0_START]]CEDAR-X[[FREEHAND_LITERAL_b7333366494f4d008ce89f828dd097d9_0_END]] on the receipt.",
+        "output": "The replacement is listed as CEDAR-X on the receipt.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "5182dccde6f818a7ada29db9973e435eb778f85888faed7577ad2c46da055ca1",
+      "case_structural_sha256": "d1681e7d67709b737b0c6619e8733c2e569e8d083c0ca7bbb06624f5c2193f9e",
+      "previous_output_for_comparison": "The replacement is listed as CEDAR-X on the receipt.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops uh and its interruption punctuation; the replacement remains listed as exact CEDAR-X on the receipt. The hyphenated protected code is restored intact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "CEDAR-X"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 155,
+      "case_id": "blind-a-155",
+      "actual_pair": {
+        "input": "Please attach copper diagram and, um, the inspection summary.",
+        "normalized_input": "Please attach copper.diagram.svg and, um, the inspection summary.",
+        "cleanup_input": "Please attach [[FREEHAND_LITERAL_e55a5bba48124686b723d5b8dd591aa5_0_START]]copper.diagram.svg[[FREEHAND_LITERAL_e55a5bba48124686b723d5b8dd591aa5_0_END]] and, um, the inspection summary.",
+        "candidate_text": "Please attach [[FREEHAND_LITERAL_e55a5bba48124686b723d5b8dd591aa5_0_START]]copper.diagram.svg[[FREEHAND_LITERAL_e55a5bba48124686b723d5b8dd591aa5_0_END]] and the inspection summary.",
+        "output": "Please attach copper.diagram.svg and the inspection summary.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "04f1ad4e868a2ed731d836f260520bf9ec1cf52232dbe0110b603e40f7c47f6b",
+      "case_structural_sha256": "413a1930dc943a52aff940aaa8db93ad9ce697631d7ebaa9c0e34de187ea1a0c",
+      "previous_output_for_comparison": "Please attach copper.diagram.svg and the inspection summary.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops um and keeps the polite request for both attachments: exact copper.diagram.svg and the inspection summary. The conjunction and filename dots/extension are retained.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "copper.diagram.svg"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 156,
+      "case_id": "blind-a-156",
+      "actual_pair": {
+        "input": "Could you put the package beside the, the print room?",
+        "normalized_input": "Could you put the package beside the, the PrintRoom?",
+        "cleanup_input": "Could you put the package beside the, the [[FREEHAND_LITERAL_2584cffa814f4baa8c947e4cff9634c0_0_START]]PrintRoom[[FREEHAND_LITERAL_2584cffa814f4baa8c947e4cff9634c0_0_END]]?",
+        "candidate_text": "Could you put the package beside the [[FREEHAND_LITERAL_2584cffa814f4baa8c947e4cff9634c0_0_START]]PrintRoom[[FREEHAND_LITERAL_2584cffa814f4baa8c947e4cff9634c0_0_END]]?",
+        "output": "Could you put the package beside the PrintRoom?",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "113571c73ed3f88e3c9f8748c54f5f25c6b7ddeae864c75aa872623276acc0b9",
+      "case_structural_sha256": "8fec0f7b83030db64c1d1d16f598d2641bf9f85745276bf6e6cd07c5c3ddffde",
+      "previous_output_for_comparison": "Could you put the package beside the PrintRoom?",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes the accidental repeated the while preserving the Could you package-placement question and beside-the-PrintRoom relation. The protected destination is exact.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "PrintRoom"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 157,
+      "case_id": "blind-a-157",
+      "actual_pair": {
+        "input": "Um, I spoke with leona ward about the workshop venue.",
+        "normalized_input": "Um, I spoke with Léona Ward about the workshop venue.",
+        "cleanup_input": "Um, I spoke with [[FREEHAND_LITERAL_a705916146b842a8a100a905f1ceddcf_0_START]]Léona Ward[[FREEHAND_LITERAL_a705916146b842a8a100a905f1ceddcf_0_END]] about the workshop venue.",
+        "candidate_text": "I spoke with [[FREEHAND_LITERAL_a705916146b842a8a100a905f1ceddcf_0_START]]Léona Ward[[FREEHAND_LITERAL_a705916146b842a8a100a905f1ceddcf_0_END]] about the workshop venue.",
+        "output": "I spoke with Léona Ward about the workshop venue.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "b1e293f95e6692c47b1331ee42f754294b9af470deadfae4a0926adb893c3dd4",
+      "case_structural_sha256": "a5c845cd982a0368baf74d784b55d426a140a4236a00084ede72aefa7fc0ab7c",
+      "previous_output_for_comparison": "I spoke with Léona Ward about the workshop venue.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops leading Um while preserving the first-person past conversation with exact accented Léona Ward and its workshop-venue topic.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Léona Ward"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 158,
+      "case_id": "blind-a-158",
+      "actual_pair": {
+        "input": "The label should say maple phrase, uh, followed by the date.",
+        "normalized_input": "The label should say Keep  Upright, uh, followed by the date.",
+        "cleanup_input": "The label should say [[FREEHAND_LITERAL_3d273acd52e84e478fa54d8de0f69706_0_START]]Keep  Upright[[FREEHAND_LITERAL_3d273acd52e84e478fa54d8de0f69706_0_END]], uh, followed by the date.",
+        "candidate_text": "The label should say [[FREEHAND_LITERAL_3d273acd52e84e478fa54d8de0f69706_0_START]]Keep  Upright[[FREEHAND_LITERAL_3d273acd52e84e478fa54d8de0f69706_0_END]], followed by the date.",
+        "output": "The label should say Keep  Upright, followed by the date.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "d4c392ca514b4f551897687910a9d874fc79c5668bdc895032c0f11a2577fe98",
+      "case_structural_sha256": "3540b95d6c248564b031f61b2b8f4ffb7b697e3856dca970a6a261569fd8416e",
+      "previous_output_for_comparison": "The label should say Keep  Upright, followed by the date.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops uh and preserves the label instruction and following-date order. Exact protected Keep  Upright retains its two interior spaces; the comma before followed by is usable optional pause punctuation.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Keep  Upright"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 159,
+      "case_id": "blind-a-159",
+      "actual_pair": {
+        "input": "We should contact fern services, um, before scheduling the visit.",
+        "normalized_input": "We should contact Fern & Co., um, before scheduling the visit.",
+        "cleanup_input": "We should contact [[FREEHAND_LITERAL_b6c10b15706948bd872cd8346d30a2bf_0_START]]Fern & Co.[[FREEHAND_LITERAL_b6c10b15706948bd872cd8346d30a2bf_0_END]], um, before scheduling the visit.",
+        "candidate_text": "We should contact [[FREEHAND_LITERAL_b6c10b15706948bd872cd8346d30a2bf_0_START]]Fern & Co.[[FREEHAND_LITERAL_b6c10b15706948bd872cd8346d30a2bf_0_END]] before scheduling the visit.",
+        "output": "We should contact Fern & Co. before scheduling the visit.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "ec0559a770560aa31954d41fcd80f31d2a74921cdb4d1704aa125d2636e7c3e9",
+      "case_structural_sha256": "472b41e5a2cdca5da3f647dbfec2ba6e80c50fa60068f221ad3c0b1a74d4538b",
+      "previous_output_for_comparison": "We should contact Fern & Co. before scheduling the visit.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops um and its pause comma while retaining We should contact, exact Fern & Co., and the before-scheduling-the-visit restriction. The name ampersand and final period remain protected.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Fern & Co."
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 160,
+      "case_id": "blind-a-160",
+      "actual_pair": {
+        "input": "I used the, the drawing from oak specification for the mock-up.",
+        "normalized_input": "I used the, the drawing from OAK_spec_revB for the mock-up.",
+        "cleanup_input": "I used the, the drawing from [[FREEHAND_LITERAL_2d3f4d8ecdbc45c39b973660fb9f718e_0_START]]OAK_spec_revB[[FREEHAND_LITERAL_2d3f4d8ecdbc45c39b973660fb9f718e_0_END]] for the mock-up.",
+        "candidate_text": "I used the drawing from [[FREEHAND_LITERAL_2d3f4d8ecdbc45c39b973660fb9f718e_0_START]]OAK_spec_revB[[FREEHAND_LITERAL_2d3f4d8ecdbc45c39b973660fb9f718e_0_END]] for the mock-up.",
+        "output": "I used the drawing from OAK_spec_revB for the mock-up.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "f4cc17995e50d6554c6f32f8c8f2cad6e3174994059c15ec51650a943d6b5e93",
+      "case_structural_sha256": "e3ede202e34f9ce66b1480827bc2d0cad440e3a65ed02d11ed1f96952d430849",
+      "previous_output_for_comparison": "I used the drawing from OAK_spec_revB for the mock-up.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes accidental the, the and preserves the first-person past use of the drawing from exact OAK_spec_revB for the mock-up. Source name case and underscores are intact.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "OAK_spec_revB"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 161,
+      "case_id": "blind-a-161",
+      "actual_pair": {
+        "input": "Please send reed greeting to the volunteer team.",
+        "normalized_input": "Please send Thanks, everyone! to the volunteer team.",
+        "cleanup_input": "Please send [[FREEHAND_LITERAL_e40be9906dfc496994e7b336f5e3789b_0_START]]Thanks, everyone![[FREEHAND_LITERAL_e40be9906dfc496994e7b336f5e3789b_0_END]] to the volunteer team.",
+        "candidate_text": "Please send [[FREEHAND_LITERAL_e40be9906dfc496994e7b336f5e3789b_0_START]]Thanks, everyone![[FREEHAND_LITERAL_e40be9906dfc496994e7b336f5e3789b_0_END]] to the volunteer team.",
+        "output": "Please send Thanks, everyone! to the volunteer team.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "dc95a352e3887aa0a67670d396f2672fd3aa247fe466cc9c5a0af6cd28c36dfc",
+      "case_structural_sha256": "58bb3ea93cd593c349c5df381c6c50d406be0afcd2f76d01c875440d56f3c264",
+      "previous_output_for_comparison": "Please send Thanks, everyone! to the volunteer team.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean polite request to send exact Thanks, everyone! to the volunteer team. That internal punctuation belongs to the protected supplied payload and is preserved once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Thanks, everyone!"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 162,
+      "case_id": "blind-a-162",
+      "actual_pair": {
+        "input": "Um, the shortcut opens pine location on this machine.",
+        "normalized_input": "Um, the shortcut opens C:\\Pine\\Drafts on this machine.",
+        "cleanup_input": "Um, the shortcut opens [[FREEHAND_LITERAL_fe232050a3f149e3bd3b57b7669bdac5_0_START]]C:\\Pine\\Drafts[[FREEHAND_LITERAL_fe232050a3f149e3bd3b57b7669bdac5_0_END]] on this machine.",
+        "candidate_text": "The shortcut opens [[FREEHAND_LITERAL_fe232050a3f149e3bd3b57b7669bdac5_0_START]]C:\\Pine\\Drafts[[FREEHAND_LITERAL_fe232050a3f149e3bd3b57b7669bdac5_0_END]] on this machine.",
+        "output": "The shortcut opens C:\\Pine\\Drafts on this machine.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "5de622cbe6bbe433ddde8d99073beadec03f87c00bb53db1e5b24098692a02be",
+      "case_structural_sha256": "9b9a68c69d5231074decbd8cda4f0dfbb23d3a406304220c4c209896057eed65",
+      "previous_output_for_comparison": "The shortcut opens C:\\Pine\\Drafts on this machine.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops leading Um while preserving that this shortcut opens exact C:\\Pine\\Drafts on this machine. The protected path separators and case remain unchanged.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "C:\\Pine\\Drafts"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 163,
+      "case_id": "blind-a-163",
+      "actual_pair": {
+        "input": "Could you include spruce code, uh, in the footer?",
+        "normalized_input": "Could you include SPRUCE::view, uh, in the footer?",
+        "cleanup_input": "Could you include [[FREEHAND_LITERAL_ad6430a6568e4612ab4d146e3b1b56f3_0_START]]SPRUCE::view[[FREEHAND_LITERAL_ad6430a6568e4612ab4d146e3b1b56f3_0_END]], uh, in the footer?",
+        "candidate_text": "Could you include [[FREEHAND_LITERAL_ad6430a6568e4612ab4d146e3b1b56f3_0_START]]SPRUCE::view[[FREEHAND_LITERAL_ad6430a6568e4612ab4d146e3b1b56f3_0_END]] in the footer?",
+        "output": "Could you include SPRUCE::view in the footer?",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "54c813cf011e192fedd94a761ecfb10b0114acf66a7cd93f44da3c5dbca777ff",
+      "case_structural_sha256": "68722d9dd444db9645d6d68ecc3926c7730c88beef5c5aed9a674e37437bce33",
+      "previous_output_for_comparison": "Could you include SPRUCE::view in the footer?",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops uh and its pause comma while keeping the Could you footer-inclusion question and exact SPRUCE::view, including its case and double colon.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "SPRUCE::view"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 164,
+      "case_id": "blind-a-164",
+      "actual_pair": {
+        "input": "The file is called willow version, um, rather than the older title.",
+        "normalized_input": "The file is called Willow.vNext, um, rather than the older title.",
+        "cleanup_input": "The file is called [[FREEHAND_LITERAL_fc88d81c64114359aa8f1f1cb90e0dba_0_START]]Willow.vNext[[FREEHAND_LITERAL_fc88d81c64114359aa8f1f1cb90e0dba_0_END]], um, rather than the older title.",
+        "candidate_text": "The file is called [[FREEHAND_LITERAL_fc88d81c64114359aa8f1f1cb90e0dba_0_START]]Willow.vNext[[FREEHAND_LITERAL_fc88d81c64114359aa8f1f1cb90e0dba_0_END]], rather than the older title.",
+        "output": "The file is called Willow.vNext, rather than the older title.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "31b038089274c01c2932bfed6533bd01f258d5c8a63a8485c9a2c8c105e8e42a",
+      "case_structural_sha256": "8978f51ad2eaca8c695080077f5cda34874dfa201b52f4415036ce6c48e2f1b1",
+      "previous_output_for_comparison": "The file is called Willow.vNext, rather than the older title.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops um while preserving the file name Willow.vNext and the contrast with the older title. The retained optional pause comma does not impair the sentence.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Willow.vNext"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 165,
+      "case_id": "blind-a-165",
+      "actual_pair": {
+        "input": "I need the, the service address for brook mail.",
+        "normalized_input": "I need the, the service address for help@brook.example.",
+        "cleanup_input": "I need the, the service address for [[FREEHAND_LITERAL_bd7bd5f6779f455e912712515469eeb9_0_START]]help@brook.example[[FREEHAND_LITERAL_bd7bd5f6779f455e912712515469eeb9_0_END]].",
+        "candidate_text": "I need the service address for [[FREEHAND_LITERAL_bd7bd5f6779f455e912712515469eeb9_0_START]]help@brook.example[[FREEHAND_LITERAL_bd7bd5f6779f455e912712515469eeb9_0_END]].",
+        "output": "I need the service address for help@brook.example.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "db35c7912cc9bc79795b59516e16b2f65ac2e68ce55b1840f3d2ba61099b435a",
+      "case_structural_sha256": "009e4d6de906be52e34535a0ef1dc412432b112ef7c773ae71c0a3ed605d348d",
+      "previous_output_for_comparison": "I need the service address for help@brook.example.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes the repeated the while preserving the need for the service address associated with exact help@brook.example. The email punctuation and final sentence period are retained.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "help@brook.example"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 166,
+      "case_id": "blind-a-166",
+      "actual_pair": {
+        "input": "Please put birch note, uh, after the diagram.",
+        "normalized_input": "Please put  internal only , uh, after the diagram.",
+        "cleanup_input": "Please put [[FREEHAND_LITERAL_5fc7891afd1347879316d2675258e8e7_0_START]] internal only [[FREEHAND_LITERAL_5fc7891afd1347879316d2675258e8e7_0_END]], uh, after the diagram.",
+        "candidate_text": "Please put [[FREEHAND_LITERAL_5fc7891afd1347879316d2675258e8e7_0_START]] internal only [[FREEHAND_LITERAL_5fc7891afd1347879316d2675258e8e7_0_END]] after the diagram.",
+        "output": "Please put  internal only  after the diagram.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "10b7117dd9396893819e0be788afd531b359a93a367a45c2e0b2fbaa9654d4d5",
+      "case_structural_sha256": "a86d27775afbb492bae65ea40da81126c3650b1ea29a6306d209b04c94d21512",
+      "previous_output_for_comparison": "Please put  internal only  after the diagram.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops uh and preserves the polite instruction to place the exact protected internal only note after the diagram. The payload has one leading and trailing space; the delivered double outside spaces arise from exact payload restoration and are not a new cleanup error.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          " internal only "
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    },
+    {
+      "position_one_based": 167,
+      "case_id": "blind-a-167",
+      "actual_pair": {
+        "input": "Um, book the small room for juniper group.",
+        "normalized_input": "Um, book the small room for Juniper / West.",
+        "cleanup_input": "Um, book the small room for [[FREEHAND_LITERAL_42415cebf0f84932b89357d5c492e637_0_START]]Juniper / West[[FREEHAND_LITERAL_42415cebf0f84932b89357d5c492e637_0_END]].",
+        "candidate_text": "Book the small room for [[FREEHAND_LITERAL_42415cebf0f84932b89357d5c492e637_0_START]]Juniper / West[[FREEHAND_LITERAL_42415cebf0f84932b89357d5c492e637_0_END]].",
+        "output": "Book the small room for Juniper / West.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "1d04519f3eba40c612589e12cbb894ff9f663aa27eabeb7c778181113c389a8f",
+      "case_structural_sha256": "038c57368871939c18f82ff05541096f3e8eed627c6e4c34d9de4feed75cebea",
+      "previous_output_for_comparison": "Book the small room for Juniper / West.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Drops leading Um while preserving the small-room booking request for exact Juniper / West, including the slash and its spaces.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Juniper / West"
+        ],
+        "candidate_Core_block_payloads_exact_once": true,
+        "Core_marker_removal_matches_delivered_bytes": true,
+        "scope": "Actual Core candidate and dictionary-delivered output; no raw pretrim/native emission claim"
+      }
+    }
+  ]
+}

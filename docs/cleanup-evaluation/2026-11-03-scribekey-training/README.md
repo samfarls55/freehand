@@ -230,3 +230,12 @@ V9 actually used approved3634 and32canonical events with64mapped exposures. Exac
 Original500 completed304Applied/196Unchanged/0Failed:500faithful,494clean/joint(98.8%),0critical, stillbelow495. Three named shards used462strict typed13field prior successes and38personal pairs, all38cross-read by root. Actual helper source before its typed-equality fix is preserved as unused-on-V9 history alongside fixed source and independentPASS. This does not claim500new personal reads.
 
 One small code snapshot archive contains39source files plus its internal index; all39source byte hashes match the freeze and existing curated sources. The38MB upstream llama tar is metadata-only. No weights/native binaries/fresh corpus/author/commitment contents/factor3unused experiments are included. No resource orWindows qualification is claimed.
+
+
+## Completed factor3 and three resource comparisons (phase13)
+
+Fixed fractions t050/t075/t0875 were all frozen before the first of1500 total retired-case replays. Canonical joint results495/494/494, each500faithful and0critical, use strict typed13field inheritance plus31/32/30 personal pairs cross-read by root. Actual zero-update derivation/source/legal and both historical405/455 training endpoints are retained.
+
+The same t050 native weights and immutable99da evaluator build produced three first10-retained complete-delivery cohorts: lookup16/micro32 805.3532ms,695144448B (latencyFAIL);lookup31/micro32 929.6313ms,684072960B (latencyFAIL);lookup16/micro64 780.6206ms,693895168B (Linuxpartial resourcePASS). All caps are805ms/747500000B. No trial was dropped or rerun.
+
+The lookup31 historical condition label still says lookup16; actual manifests/input/reportidentity prove31, with the explicit clarification preserved. This does not claim a newly observed nativeargv. Profile32 alone met the retired99percent text threshold and failed latency. Micro64 passed resources but its full500 text quality was untested at that postcheck. These results cannot be combined into same-profile qualification. Active1126/new quality and unusedR16/intermediate/sanitation/fresh data are excluded. No Windows/whole-app/fresh-population qualification is claimed.

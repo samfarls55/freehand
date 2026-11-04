@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T05:27:35.397350+00:00",
+  "status": "PREPARATION_ONLY_V9_REVIEW_PENDING_ROOT_SELECTION",
+  "derivation_kind": "same-rank8 parent-child factor interpolation, not exact delta averaging",
+  "fixed_child_fractions": [
+    0.5,
+    0.75,
+    0.875
+  ],
+  "endpoints": [
+    {
+      "role": "parent",
+      "folder": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01",
+      "declared_adapter_sha256": "0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c",
+      "raw_adapter_or_header_read": false,
+      "config_sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9",
+      "historical_metadata": {
+        "rank": 8,
+        "alpha": 16.0,
+        "scaling": 2.0,
+        "train_rows": 3234,
+        "train_sha256": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c",
+        "unlikelihood_events_sha256": "a1d385c91f3dc6d8e53ac1f04f19d7d23a0e5caeea932caa7d858cc3539eeaf8",
+        "schedule_total_optimizer_steps": 405,
+        "training_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+        "kv_roundtrip_mode": "none",
+        "activation_quantization_mode": "native-q8-k-ste-v1"
+      }
+    },
+    {
+      "role": "child",
+      "folder": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v9-01",
+      "declared_adapter_sha256": "3de792128cce7469465ca8c42ebef5f769e868415db80198eb036e8cbec05787",
+      "raw_adapter_or_header_read": false,
+      "config_sha256": "0b6a1e75f9ab4d2c2ecec1d09dffb254264981316e34f8609542649c78bc3ab8",
+      "historical_metadata": {
+        "rank": 8,
+        "alpha": 16.0,
+        "scaling": 2.0,
+        "train_rows": 3634,
+        "train_sha256": "50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451",
+        "unlikelihood_events_sha256": "9108faa29785326a27db341d3a267d832eab7b1edfe5c7398b6d668d91d77b08",
+        "schedule_total_optimizer_steps": 455,
+        "training_source_sha256": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+        "kv_roundtrip_mode": "none",
+        "activation_quantization_mode": "native-q8-k-ste-v1"
+      }
+    }
+  ],
+  "all23_real_small_config_compatibility_and_child_parent_link_pass": true,
+  "compatible_fields": [
+    "base_model_sha256",
+    "frozen_base_sha256",
+    "base_path",
+    "rank",
+    "alpha",
+    "scaling",
+    "target_modules",
+    "trainable_parameters",
+    "dtype",
+    "literal_protocol",
+    "training_base_mode",
+    "base_config_sha256",
+    "tokenizer_sha256",
+    "activation_quantization_mode",
+    "activation_cpu_library_sha256",
+    "activation_base_library_sha256",
+    "activation_linear_inventory_sha256",
+    "gguf_dequantizer_sha256",
+    "gguf_mapping_sha256",
+    "kv_roundtrip_mode",
+    "quantized_training_source_sha256",
+    "training_source_sha256"
+  ],
+  "source_diff": {
+    "original_script_sha256": "4baf070e1a2f2570a69bbd51285d732aeedde2f4eca3b2eee6d913cf737a46f7",
+    "new_script_sha256": "0c2d9766035ab942940152190e541094affa29b3dc615db3110b5ad1d5cfc7cf",
+    "only_changes": [
+      "Four exact endpoint pin assignments",
+      "Descriptive V7-parent/V8-child docstring to V8-parent/V9-child"
+    ],
+    "inverse_changes_restore_old_source_byte_exactly": true,
+    "AST_after_removing_docstring_and_normalizing_four_pins_identical": true,
+    "diff_sha256": "a7e714695b248309320c082de954b8047ce67d4c01add9283531d4ec53bd6e5b"
+  },
+  "unchanged_copies": {
+    "derive.py": "57c5ff750aed2c5e11cf4a4509274e688084bf0fcd2afde0ca53b8841aecef8f",
+    "test_parent_child.py": "3d31365be22fe57be5af8ce490fc78cb36d624a18b28450f6329da44d5aeeae3",
+    "expected-schema.json": "596639db7fcc5d89c390e96d731b3ed5a83e0dd1a7326d34af6e258a91b993a4",
+    "legal-notice-sources.json": "a79735edf788d4272671451a9bc7bb0fcccf4b6031b00e2ffbc7e3c2be36708d"
+  },
+  "all_inherited_small_notices_hash_verified": true,
+  "tests": {
+    "passed": 9,
+    "seconds": 0.002,
+    "log_sha256": "c667a88aba850fe9576baee200008a16ea99125e644f22d9ae48d4ebef3fc3c3",
+    "only_synthetic_microtensors": true,
+    "real_adapter_reads": false
+  },
+  "cross_term": "-2t(1-t)(B8-B9)(A8-A9)",
+  "cross_term_or_F32_rounding_hidden": false,
+  "raw_payload_bytes_each": 11993088,
+  "parameter_count": 2998272,
+  "rank": 8,
+  "alpha": 16,
+  "external_scale": 1,
+  "optimizer_steps_performed_in_preparation": 0,
+  "fake_training_or_RNG_resume_identity_created": false,
+  "real_derivation_export_or_native_execution": false,
+  "old_tools_or_prior_artifacts_modified": false,
+  "repository_trainer_or_active_run_modified": false,
+  "fresh_corpus_accessed": false,
+  "readme_sha256": "b01d0e6fa4648a33c76c7daaf15bb140491d23f8f60f290dd3b2d1a3e80ee937",
+  "future_gate": "Root actual candidate selection and independent delta/source review before real derivation/native; full quality and resource qualification remain separate."
+}
