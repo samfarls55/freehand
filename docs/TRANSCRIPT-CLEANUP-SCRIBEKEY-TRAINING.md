@@ -31,14 +31,18 @@ denominator and receive no successful-cleanup credit. The paired comparison has
 the original control and 19 failing both. Control review uses 348 exact typed
 same-fresh successful selected judgments and 152 personally read control pairs;
 it inherits no development judgments. A new independent corpus is committed and
-remains unseen by the training work. The next model experiment is a ScribeKey
-source-copy/edit head using 400 newly authored and independently reviewed training
-pairs. A first parallel-head pilot trained successfully but scored **0/16** on
+remains unseen by the training work. ScribeKey source-copy/edit heads were tested
+using 400 newly authored and independently reviewed training pairs. A first
+parallel-head pilot trained successfully but scored **0/16** on
 its predetermined training-derived development split: four malformed outputs
 passed the executor and twelve were rejected. Low training loss did not transfer
-to cleanup quality. The next experiment uses source-position edits with a copy
-default; complementary ScribeKey adapter training is also being prepared. No
-head is qualified and no app default, normal installation or release has been
+to cleanup quality. A source-position edit head with a copy default scored
+**3/16** in its small pilot. Scaling that head to 319 supported training examples
+and 1,000 updates produced **40/80** jointly faithful and clean development
+outputs. Two assistant reviewers independently read all 80 actual pairs without
+using target strings as a scoring oracle. All four rejected outputs remain in
+the denominator. These training-derived development splits are diagnostic;
+neither head qualifies. No app default, normal installation or release has been
 promoted.
 
 Opt-in `specialist-compact-v4` quote protection is now implemented in C#, Python,
@@ -53,6 +57,18 @@ are preserved, and all 151 Core tests pass using a short directory without a
 source change. Actual Windows execution remains unverified. These checks qualify
 transport behavior; the new code generation has no model-quality or resource
 qualification yet.
+
+The trainer now supports opt-in v4 literal protection and nonreentrant gradient
+checkpointing, with strict resume identities and 53 affected training tests
+passing. An actual longest-example memory trial completed eight microbatches and
+one AdamW update: all 184 adapter gradients and optimizer states were finite.
+Worker peak RSS was 2,779,525,120 bytes and sampled cgroup memory peaked at
+14,613,848,064 bytes. This required evicting unused disk-file cache through
+read-only file advice; an earlier guarded attempt stopped for memory and remains
+preserved. These are training measurements, separate from the app's RAM budget.
+The next ScribeKey adapter experiment uses 600 reviewed examples, including all
+400 new pairs and 200 older replay examples, with fixed checkpoints at 50 and
+150 optimizer updates. Training is in progress; no accuracy result is implied.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.

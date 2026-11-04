@@ -11,11 +11,18 @@ line and `### Input`/`### Output` sections. EOS is ID 7. Only answer tokens and 
 receive loss. Complete examples exceeding the configured token cap are rejected;
 there is no input or target truncation.
 
-`pipeline.py` imports the existing specialist literal protocol v3. It builds
+`pipeline.py` defaults to the existing specialist literal protocol v3. It builds
 opaque identifiers from the input, maps the same identifiers into the target and
 proves an exact restoration round-trip before tokenization. Targets that remove,
 modify or reorder protected quotes/dictionary blocks are rejected. The training
 data supplies the intended edit; the trainer does not generate its own targets.
+
+Research training can explicitly select `--specialist-literal-protocol
+specialist-compact-v4` for paired single-quote protection, and
+`--gradient-checkpointing` for nonreentrant activation checkpointing. Both are
+opt-in; their identities are recorded and checked on resume. Use the matched
+runtime/export protocol and a separately verified memory profile for either new
+mode. See [the v4 transport contract](LITERAL-PROTOCOL-V4.md).
 
 ## Environment and source
 
