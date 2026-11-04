@@ -1,5 +1,8 @@
 # Test the selected ScribeKey blend
 
+Text delivery is still failing on the user's machine despite passing CI. A local
+agent should start with [the unresolved delivery handoff](WINDOWS-TEXT-DELIVERY-HANDOFF.md).
+
 Training is stopped. The development candidate is the V8/V9 50/50 factor blend,
 using the exact original IQ4_XS base and separate F32 adapter. Release defaults
 remain unchanged.
