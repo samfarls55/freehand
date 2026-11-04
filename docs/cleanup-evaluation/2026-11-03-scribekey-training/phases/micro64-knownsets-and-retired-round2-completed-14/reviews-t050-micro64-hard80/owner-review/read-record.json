@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_pipeline (Codex assistant semantic reviewer)",
+  "results_sha256": "9441d00099b24df72416b4f542e7a974d0f35148056eed2c3d9590539868d83d",
+  "targets_or_checks_shown_or_used": false,
+  "cases": [
+    {
+      "position_one_based": 52,
+      "case_id": "scribe-harddev-052",
+      "actual_pair": {
+        "input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+        "normalized_input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+        "cleanup_input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+        "candidate_text": "Leave March alone and archive April.",
+        "output": "Leave March alone and archive April.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "b339221464fd15b4766183303a6cc3557cea82f886feccf1c4b17b4fb7adfe5d",
+      "case_structural_sha256": "9766d8d190b429bbeeb8222a92ebe113518a6d4498e093b8c6750731481c861d",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Correctly keeps March untouched and switches archiving to April, but deletes the separate still-active instruction then update the index. Omitting that requested action is a critical meaning loss; the delivered action list is not faithful or directly usable."
+    },
+    {
+      "position_one_based": 55,
+      "case_id": "scribe-harddev-055",
+      "actual_pair": {
+        "input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+        "normalized_input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+        "cleanup_input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+        "candidate_text": "Do not send the invoice and the receipt until I approve the wording.",
+        "output": "Do not send the invoice and the receipt until I approve the wording.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "10736d4c39a75664230941c4d4840e689ac45dc8776589fcfed7cba3402bdc1d",
+      "case_structural_sha256": "63174d3036a2ca2f473f15c16dd90a5baea8e1d29597310f452d73e0f1f84f80",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "The source keeps sending the invoice active and revises only the receipt action to withholding it until wording approval. The output instead withholds both invoice and receipt, incorrectly widening the approval condition to the invoice and reversing that active instruction. This is a critical scope/action error."
+    }
+  ]
+}

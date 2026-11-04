@@ -1,0 +1,79 @@
+--- work/cleanup-scribekey-training-2026-11-03/selected-knownsets-factor-preparation/run.py
++++ work/cleanup-scribekey-training-2026-11-03/micro64-qualification-preparation/run.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""After CPU release: selected V8/V9 or one fixed V8-to-V9 factor, full546 then80.
++"""After CPU release: selected V8/V9 or one fixed V8-to-V9 factor, full retired500 then546 then80 at microbatch64.
+ 
+ Preparation/import is stdlib-only. No default candidate and no execution without
+ --execute. These already consumed development cohorts never establish fresh,
+@@ -18,10 +18,10 @@
+ ROOT = Path('/workspace/freehand')
+ TASK = ROOT / 'work/cleanup-scribekey-training-2026-11-03'
+ HERE = Path(__file__).resolve().parent
+-EVALUATOR = ROOT / 'tools/Freehand.Cleanup.Training/evaluate.py'
+-EVALUATOR_SHA = '131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec'
+-HELPER_SHA = '6fe025eec3fa093c77b81fdeca871fa7b1eabdf54cea53aecfd35690399c23f4'
+-REFERENCE_SHA = 'a9c449e08697731c3b7633e9872137025efa04444a5c31aa7963ea7410eeabed'
++EVALUATOR = HERE / 'evaluate_micro64.py'
++EVALUATOR_SHA = '5e14b82b546ebbb23220476b69ff6fe30fafc68f293cd16f81f9208ecceb450a'
++HELPER_SHA = '51c2d0a68cb6175ce89aa2cef4634f596f9f13b1a4ce1858e284a5e0666d5cdb'
++REFERENCE_SHA = '9249b0a32cea44d00d80aaf09043714520bffc0b1e98c9951035bb39c1e623a8'
+ FACTORS = {'V8-V9-t050': ('t050', .5), 'V8-V9-t075': ('t075', .75), 'V8-V9-t0875': ('t0875', .875)}
+ CANDIDATES = ('V8', 'V9', *FACTORS)
+ FACTOR_RELEASE = TASK / 'v8-v9-factor-interpolation/derivation-release.json'
+@@ -35,6 +35,8 @@
+         'result': '4884d57bc92abc1190c423e367a104a81a6535d259853057b1590a4735d0231a', 'steps': 455}}
+ CACHES = {'cacheTypeK': 'f16', 'cacheTypeV': 'f16'}
+ COHORTS = (
++    {'label': 'retired500', 'path': str(TASK / 'validation-retired-primary500/corpus.json'), 'bytes': 366204,
++     'sha256': 'def0ae07b9e9fa922d2b11a90f0e981de12be499d5fdadaddcff3f0f6ef8a643', 'count': 500, 'dictionary_count': 20},
+     {'label': 'development546', 'path': str(TASK / 'data/development-core-corpus.json'), 'bytes': 243432,
+      'sha256': '1e2a438ffdb3fae025d3450eb7b223eca7dbb91936e4627f22e682f560c4edaa', 'count': 546, 'dictionary_count': 30},
+     {'label': 'hard80', 'path': str(TASK / 'data/development-hard-80.json'), 'bytes': 43027,
+@@ -88,8 +90,14 @@
+     return type(actual) is type(expected) and actual == expected
+ 
+ 
++def expected_source_epoch(reference):
++    value = dict(reference['sources'])
++    value[str(Path(__file__).resolve().relative_to(ROOT))] = artifact(Path(__file__))['sha256']
++    return value
++
+ def validate_candidate(frozen, performance, reference, *, factor=False):
+-    for key in ('model', 'runtime', 'runtime_inventory', 'probe', 'managed_assemblies', 'sources'):
++    require(frozen.get('sources') == expected_source_epoch(reference), 'Explicit micro64 wrapper/controller/helper source epoch differs')
++    for key in ('model', 'runtime', 'runtime_inventory', 'probe', 'managed_assemblies'):
+         require(frozen.get(key) == reference[key], 'Fixed source/managed/runtime epoch differs: ' + key)
+     require(frozen.get('cache_configuration') == CACHES, 'Explicit F16 K/V record required')
+     adapter = frozen.get('runtime_adapter')
+@@ -312,11 +320,17 @@
+         corpus_bytes[original['label']] = Path(original['path']).read_bytes()
+         require(hashlib.sha256(corpus_bytes[original['label']]).hexdigest() == original['sha256'], 'Corpus changed before snapshot')
+         specifications.append({**original, 'original_source_path': original['path'], 'path': str(output / 'corpora' / (original['label'] + '.json'))})
+-    # Both complete cohort inventories, exact raw corpus bytes, source/profile and
++    # All three complete cohort inventories, exact raw corpus bytes, source/profile and
+     # candidate receipts are fixed before the first child process is started.
+     output.mkdir()
+     completed = {}
+     try:
++        (output / 'executed-source').mkdir()
++        for label, source in [('controller.py', Path(__file__)), ('evaluator.py', EVALUATOR), ('owned_execution.py', HERE / 'owned_execution.py'), ('reference.json', HERE / 'source-reference.json')]:
++            copy = output / 'executed-source' / label
++            with copy.open('xb') as stream:
++                stream.write(source.read_bytes())
++            pins.append(artifact(copy))
+         (output / 'corpora').mkdir()
+         for spec in specifications:
+             with Path(spec['path']).open('xb') as stream:
+@@ -347,8 +361,8 @@
+             # A complete cohort containing ordinary provider failures retains its
+             # denominator and does not prevent the other declared cohort running.
+         aggregate = {'schema_version': 1, 'candidate_label': arguments.candidate,
+-            'candidate_freeze': freeze_pin, 'cohorts': completed, 'all626_full_ordered_denominators_verified': True,
+-            'all626_delivered_once': True, 'fresh_round2_opened': False, 'quality_gate_passed': None,
++            'candidate_freeze': freeze_pin, 'cohorts': completed, 'all1126_full_ordered_denominators_verified': True,
++            'all1126_delivered_once': True, 'fresh_round2_opened': False, 'quality_gate_passed': None,
+             'semantic_accuracy': 'pending named output-bound reviews; Failed/fallback rows receive no credit',
+             'perfect_hard80_is_not_an_extra_primary_gate': True, 'resource_windows_whole_app_qualified': False}
+         write(output / 'completion.json', aggregate)

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-03T22:23:32.258055+00:00",
+  "assembly_agent": "assistant:/root/holdout2_author_a",
+  "original_parts": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a.json",
+      "bytes": 79317,
+      "sha256": "fc4ad9766c86bf341b153570616190486c2b3d08ad3d0e17238bed20b1718142",
+      "author": "assistant:/root/holdout2_author_a",
+      "counts": {
+        "case_count": 167,
+        "clean_count": 62,
+        "cleanup_count": 105,
+        "critical_count": 156,
+        "long_count": 10,
+        "dictionary_case_count": 7,
+        "dictionary_mapping_count": 7,
+        "long_word_count_min": 54,
+        "long_word_count_max": 62
+      }
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.json",
+      "bytes": 79262,
+      "sha256": "aba6d9a31d03a3b2542965e6cb5fd441e9efd446e04ea9922a0a0c7cae1f37c7",
+      "author": "assistant:/root/holdout2_author_b",
+      "counts": {
+        "case_count": 167,
+        "clean_count": 62,
+        "cleanup_count": 105,
+        "critical_count": 167,
+        "long_count": 10,
+        "dictionary_case_count": 7,
+        "dictionary_mapping_count": 8,
+        "long_word_count_min": 48,
+        "long_word_count_max": 57
+      }
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.json",
+      "bytes": 79379,
+      "sha256": "d401d9582b7cae03b6aa0b45f03d96a23b69cfa50afcb3706247e8798d968566",
+      "author": "assistant:/root/holdout2_author_c",
+      "counts": {
+        "case_count": 166,
+        "clean_count": 62,
+        "cleanup_count": 104,
+        "critical_count": 166,
+        "long_count": 10,
+        "dictionary_case_count": 6,
+        "dictionary_mapping_count": 6,
+        "long_word_count_min": 54,
+        "long_word_count_max": 66
+      }
+    }
+  ],
+  "original_bytes_preserved": true,
+  "record_creation_mode": "exclusive_create",
+  "model_outputs_accessed": false,
+  "source_clarification_count": 1,
+  "gold_correction_count": 1,
+  "non_scoring_rationale_clarification_count": 1,
+  "changed_case_count": 3,
+  "label_correction_count": 0,
+  "unresolved_count": 0,
+  "changes": [
+    {
+      "id": "r2-a-090",
+      "updates": {
+        "input": "Do n-, do not water it again unless the topsoil is dry.",
+        "notes": "The cut-off first attempt is an unmistakable false start. Remove it while preserving the prohibition and the dry-soil exception."
+      },
+      "decision": "accept_source_clarification",
+      "basis_paths": [
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a-review-by-b.json",
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a-090.adjudication-by-c.json"
+      ],
+      "adjudicator": "assistant:/root/holdout2_author_a; independently verified by assistant:/root/holdout2_author_c",
+      "reason": "The original repetition could be deliberate. The approved cut-off source makes cleanup necessary without changing the intended prohibition, condition, target or labels.",
+      "before": {
+        "input": "Do not, do not water it again unless the topsoil is dry.",
+        "notes": "The accidental repeat is removed and the dry-soil exception retained."
+      }
+    },
+    {
+      "id": "r2-b-166",
+      "updates": {
+        "targets": [
+          "Do not send the folder at all. Read out the maintenance dates at the meeting instead, and keep the contractor's phone number private. I still want the committee to see the cost summary, provided that you remove the individual apartment numbers first."
+        ]
+      },
+      "decision": "accept_gold_semantic_scope_correction",
+      "basis_paths": [
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.c-review-overlay.json",
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.c-review-summary.json"
+      ],
+      "adjudicator": "assistant:/root/holdout2_author_a",
+      "reason": "Independent assembly review confirms that the final correction prohibits sending the folder at all. The accepted reference preserves that full scope and the separate presentation, privacy and conditional summary-disclosure instructions.",
+      "before": {
+        "targets": [
+          "Do not send the whole folder to the residents' group. Read out the maintenance dates at the meeting instead, and keep the contractor's phone number private. I still want the committee to see the cost summary, provided that you remove the individual apartment numbers first."
+        ]
+      }
+    },
+    {
+      "id": "r2-c-043",
+      "updates": {
+        "notes": "Pain began before the run and worsened afterward. Preserve that chronology without inferring that the run caused the worsening."
+      },
+      "decision": "accept_non_scoring_rationale_clarification",
+      "basis_paths": [
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.cross-review-by-a.json",
+        "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.corrections-by-a.json"
+      ],
+      "adjudicator": "assistant:/root/holdout2_author_a",
+      "reason": "The unchanged source and target establish temporal order without establishing causation. Clarify the rationale only; no source, target, label or scoring criterion changes.",
+      "before": {
+        "notes": "The run worsened an existing symptom rather than starting it."
+      }
+    }
+  ]
+}

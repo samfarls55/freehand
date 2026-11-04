@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "old_controller": {
+    "sha256": "1bb8ef7911457675b7a68f5cc54e3cc6725e90a6815cb1cab03cc49e71e774e5",
+    "bytes": 17086
+  },
+  "new_controller": {
+    "sha256": "6b6344eb207aa99b68fb78baddb50680ea9c179f90f2fa76840cf42997974e00",
+    "bytes": 20815
+  },
+  "old_independent_source_audit_sha256": "f0c5124f549360bac7ddf775ef693d7591cb3d73b238001d25244df113af8dcd",
+  "old_audit_does_not_cover_new_copy": true,
+  "unchanged_controller_functions": [
+    {
+      "function": "require",
+      "sha256": "d15eff849bc6d1fa4154d72dba40c5a69e65458f3ba3b7fdd794f68e72e030cf"
+    },
+    {
+      "function": "read",
+      "sha256": "98d8c11dd51113db731d9a063f1539c76e755721803e04e716e5ecbe9b4c0432"
+    },
+    {
+      "function": "write",
+      "sha256": "6cf5948cc275ed1e5c7cb90225ced6ee505c41e765cd93998b3d3d3ed7c7dd64"
+    },
+    {
+      "function": "artifact",
+      "sha256": "8a09fa5de9dfb55f92bec8ab4b92791d6e52a9052b8d35449081a462f3f56cd2"
+    },
+    {
+      "function": "pin",
+      "sha256": "e84c96974eae400eea45c95a1c6d43d74f4951f1421202cd77a16c26da85861a"
+    },
+    {
+      "function": "preparation_path",
+      "sha256": "bc9c984fd6914afe394294263c9b761b53be19d9c9ec31f5dfab87e7de96fc27"
+    },
+    {
+      "function": "environment",
+      "sha256": "dc0c59c6c0dfde02d6cfb2423a70c42154f0f2abbefaf16adf72b61c6ad0954f"
+    },
+    {
+      "function": "frozen_roles",
+      "sha256": "543de7298ff591cda7f4e8ad07afbde941d962b46c22f45015a7a681dd04118c"
+    },
+    {
+      "function": "authorized_private_pins",
+      "sha256": "0c72e7bf718c499226b64991c05e3543aa8afd03e807f32cafc0c4f00b3dca2f"
+    },
+    {
+      "function": "paired_post_evidence",
+      "sha256": "c2db57250ba7255f6d7efd715ff969b71e19ed012025c036c84a00dea3aca8d9"
+    },
+    {
+      "function": "paired_report_bindings",
+      "sha256": "77249c78230eef772a551667da5fbf554fcfed1edbea7763e455be16c78f33e9"
+    },
+    {
+      "function": "strict_postchecks",
+      "sha256": "031fd760f8e51248030afcb54fefd33322cb6e7846f9f9b7a33334e1019c849b"
+    },
+    {
+      "function": "main",
+      "sha256": "987bdd89bef9874c0ee19da5926ea0d7bb8cdd86c5de9949721159f17faa5205"
+    }
+  ],
+  "phase_and_lock_role_continuation_postguard_critical_functions_byte_identical": [
+    "preparation_path",
+    "authorized_private_pins",
+    "paired_post_evidence",
+    "paired_report_bindings",
+    "strict_postchecks",
+    "frozen_roles",
+    "environment",
+    "main"
+  ],
+  "helper_delta": "Exactly ubatch-size32 to64; every other role/argv/group/timeout/continuation/cleanup byte identical",
+  "helper_old_sha256": "10552f6e7cb9ac104d308606582cdffe652595c2528416fc33cb5cda3a773f57",
+  "helper_new_sha256": "abfebe93968c0b1639313839127740b3c4b6d562493c3699339f9776d0983109",
+  "unchanged_upstream_evaluator_sha256": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec",
+  "held_qualification_wrapper_sha256": "5e14b82b546ebbb23220476b69ff6fe30fafc68f293cd16f81f9208ecceb450a",
+  "source_epoch_route": "Verify original selected qualification freeze in independent42-source context; new common pair source context adds exactly3 held source files to45 with every old hash unchanged; no old freeze rewrite",
+  "added_sources": [
+    "evaluate_pair_micro64.py",
+    "run.py",
+    "paired_owned_execution.py"
+  ],
+  "real_freeze_pair_or_private_model_material_accessed": false
+}

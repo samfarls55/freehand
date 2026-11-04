@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "phase": "blind-final",
+  "paired_evaluation": {
+    "selected_primary": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-qualification/freeze-pair-01/selected-freeze.json",
+      "bytes": 11138,
+      "sha256": "ed65f0e84ce2df677d67d0a5bba4555c2365b94a61e4bc259b3b7b31be295f27"
+    },
+    "original_control": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-qualification/freeze-pair-01/original-control-freeze.json",
+      "bytes": 10560,
+      "sha256": "3768c1855dfdaf6fe45af59997200aca4c125e15d075783478422c99bde7ae28"
+    },
+    "effective_models": {
+      "selected_primary": {
+        "base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+        "base_bytes": 211804448,
+        "runtime_adapter_sha256": "4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1",
+        "runtime_adapter_bytes": 12006240,
+        "runtime_adapter_scale": 1.0
+      },
+      "original_control": {
+        "base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+        "base_bytes": 211804448,
+        "runtime_adapter_sha256": null,
+        "runtime_adapter_bytes": null,
+        "runtime_adapter_scale": null
+      }
+    },
+    "run_order": [
+      "selected_primary",
+      "original_control"
+    ],
+    "case_count_per_candidate": 500,
+    "primary_score": "selected candidate only; baseline never replaces selected qualification"
+  },
+  "candidate_reports": {
+    "selected_primary": {
+      "expected_count": 500,
+      "observed_count": 500,
+      "unique_case_count": 500,
+      "incomplete": false,
+      "complete": true,
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-qualification/paired-primary500-01/core-results.json",
+        "bytes": 619098,
+        "sha256": "6131fb7b6be2acb53b08f9da5a4a3a2fa2285edd5bdde1c3f45e02bab5847584"
+      },
+      "case_inventory_complete": true,
+      "runtime_deployment_verified": true,
+      "deployment_verification": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-qualification/paired-primary500-01/runtime-deployment-verification.json",
+        "bytes": 604,
+        "sha256": "1cac978b27c646e459142a21be3880649ea63f2c0278b6fee4067a655771b186"
+      }
+    },
+    "original_control": {
+      "expected_count": 500,
+      "observed_count": 500,
+      "unique_case_count": 500,
+      "incomplete": false,
+      "complete": true,
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-qualification/paired-primary500-01/paired-baseline/core-results.json",
+        "bytes": 619042,
+        "sha256": "bcf172dc16d50e461f026617ced47bfea9817805cadc553776e6c4aa8bb48933"
+      }
+    }
+  },
+  "commands": {
+    "selected_primary": {
+      "core": 0
+    },
+    "original_control": {
+      "core": 1
+    }
+  },
+  "post_run_identities_verified": true,
+  "both_complete_denominators": true,
+  "quality_target_each": {
+    "semantic_metric": "faithful_and_clean_usable",
+    "minimum_joint_accuracy": 0.99,
+    "case_count": 500,
+    "required_pass_count": 495
+  },
+  "semantic_accuracy": "unreviewed; each complete report needs its own output-bound review"
+}

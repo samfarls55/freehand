@@ -1,0 +1,427 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/benchmark_harness (Codex assistant semantic reviewer)",
+  "results_sha256": "c29d3a46e442abed06c7d0c33241bf064a167e084e7f733cdd0afc01472faa1c",
+  "targets_shown_or_used": false,
+  "personally_read": 13,
+  "cases": [
+    {
+      "position_one_based": 2,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-50247893d9f984aa",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to   exact spacing   003.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_8e6a0815ee2a4939a0c10e6112f33c0e_0_START]]  exact spacing   003[[FREEHAND_LITERAL_8e6a0815ee2a4939a0c10e6112f33c0e_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_8e6a0815ee2a4939a0c10e6112f33c0e_0_START]]  exact spacing   003[[FREEHAND_LITERAL_8e6a0815ee2a4939a0c10e6112f33c0e_0_END]].",
+        "output": "Please send the document to   exact spacing   003.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "5628b0c45c64196f44b91736f1503106832c2d99d8981309904d7c67d7754f95",
+      "case_structural_sha256": "ea6c348b9a759cca23453579f18e534f62873702cec6c7d0560cc20503511cdf",
+      "previous_output_for_comparison": "Please send the document to   exact spacing   003.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes leading Um and retains Please, document sending and the exact Core dictionary destination. The payload has two leading spaces and internal triple spacing before003; the delivered triple spacing after to is protected-origin formatting, not a new cleanup defect.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "  exact spacing   003"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 19,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-874058024580651d",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to CTRL+SHIFT+K 022.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_da5d6696fc8040a3b1904133d449ca8d_0_START]]CTRL+SHIFT+K 022[[FREEHAND_LITERAL_da5d6696fc8040a3b1904133d449ca8d_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_da5d6696fc8040a3b1904133d449ca8d_0_START]]CTRL+SHIFT+K 022[[FREEHAND_LITERAL_da5d6696fc8040a3b1904133d449ca8d_0_END]].",
+        "output": "Please send the document to CTRL+SHIFT+K 022.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "6f09c628d6f88f495992704ac8539c3180b79584d38be2203e6e5242d806a2d5",
+      "case_structural_sha256": "007c7e630fd14bbbb2408a60e9c051b69388aae0714b03bd18c325c8d3550862",
+      "previous_output_for_comparison": "Please send the document to CTRL+SHIFT+K 022.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean request to send the document to exact protected CTRL+SHIFT+K 022. No instruction or literal punctuation/case is lost.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "CTRL+SHIFT+K 022"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 40,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8cb1be2636bab123",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to support@example.invalid 016.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_7102511a1fe94487b609ab8543e5e21d_0_START]]support@example.invalid 016[[FREEHAND_LITERAL_7102511a1fe94487b609ab8543e5e21d_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_7102511a1fe94487b609ab8543e5e21d_0_START]]support@example.invalid 016[[FREEHAND_LITERAL_7102511a1fe94487b609ab8543e5e21d_0_END]].",
+        "output": "Please send the document to support@example.invalid 016.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "bbaccbde44fe420d5e46ec1d98f70191b7af3140d25e69285447dac685a52f7a",
+      "case_structural_sha256": "b8724a024f5fde4182eb557af8f7424ff1c7a37a3838e3db75855370ce18f475",
+      "previous_output_for_comparison": "Please send the document to support@example.invalid 016.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean polite sending request and exact protected support@example.invalid 016 destination, with its punctuation and numeric suffix intact.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "support@example.invalid 016"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 54,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-78dc34098bdc2c23",
+      "actual_pair": {
+        "input": "Is is a verb in this sentence.",
+        "normalized_input": "Is is a verb in this sentence.",
+        "cleanup_input": "Is is a verb in this sentence.",
+        "candidate_text": "Is a verb in this sentence.",
+        "output": "Is a verb in this sentence.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "1290ea6f43311db8e1457dfcc594060ada5be38472a24aece76432ec67b06f76",
+      "case_structural_sha256": "47e13ac4e39a44368184eda7e58ebd9619467780482b8b1cb4c39f8e87bb6e8f",
+      "previous_output_for_comparison": "Is a verb in this sentence.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "The source Is is a verb in this sentence grammatically names the word Is and predicates is a verb of it. Collapsing the two tokens leaves subjectless Is a verb in this sentence and loses that metalinguistic content. It is not clean usable text."
+    },
+    {
+      "position_one_based": 56,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-f56c27bff2fd44b1",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to SKU-00 017.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_3d015cd7d3844139b428dab40a6a82a6_0_START]]SKU-00 017[[FREEHAND_LITERAL_3d015cd7d3844139b428dab40a6a82a6_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_3d015cd7d3844139b428dab40a6a82a6_0_START]]SKU-00 017[[FREEHAND_LITERAL_3d015cd7d3844139b428dab40a6a82a6_0_END]].",
+        "output": "Please send the document to SKU-00 017.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "778cce332b2012ac485e54c5340ed50c582b3edbb9b2ace14cd8e75f4ed39f3e",
+      "case_structural_sha256": "dfc6438a1dc8bca8fa484e5e1ce29301efb8abddab2b01d36c93e4e965a15af9",
+      "previous_output_for_comparison": "Please send the document to SKU-00 017.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes leading Um while preserving Please, sending the document and exact protected SKU-00 017. The internal hyphen, zeros and suffix remain intact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "SKU-00 017"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 63,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+      "actual_pair": {
+        "input": "Please inspect the hinge and replace the lock, scratch that, lubricate the lock.",
+        "normalized_input": "Please inspect the hinge and replace the lock, scratch that, lubricate the lock.",
+        "cleanup_input": "Please inspect the hinge and replace the lock, scratch that, lubricate the lock.",
+        "candidate_text": "Please lubricate the hinge.",
+        "output": "Please lubricate the hinge.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "e06f6f4b1d5f1d160e425bb3bc59c171e6daa9e773ad4c0b8b5503056c32d1cf",
+      "case_structural_sha256": "b008457957f049e8f052700d0ec4014ec6bfb6aa593f1cfbfd4e4527ddfa07d1",
+      "previous_output_for_comparison": "Please inspect the hinge and lubricate the lock.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "The final explicit action is lubricate the lock; inspect the hinge is an earlier independent instruction. Please lubricate the hinge both changes the lubrication target from lock to hinge and drops inspection. This is a material wrong-object/action error. The delivered sentence is surface-grammatical and clean, but semantically unfaithful and critical."
+    },
+    {
+      "position_one_based": 78,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-8936c7863f1f5827",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to release_candidate 014.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_dd60921bfc0a420e87ce8748a7f68897_0_START]]release_candidate 014[[FREEHAND_LITERAL_dd60921bfc0a420e87ce8748a7f68897_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_dd60921bfc0a420e87ce8748a7f68897_0_START]]release_candidate 014[[FREEHAND_LITERAL_dd60921bfc0a420e87ce8748a7f68897_0_END]].",
+        "output": "Please send the document to release_candidate 014.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "c2bceed458f2f55a87c5d234ec0e00f0738f8dcb9aa8fae53c3c3abc3fa52439",
+      "case_structural_sha256": "c232b8030752a83834f838ac7a397a68dea3e9985d632898d017035049100cc6",
+      "previous_output_for_comparison": "Please send the document to release_candidate 014.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean sending request with exact release_candidate 014, including underscore and suffix. No gratuitous change is introduced.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "release_candidate 014"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 110,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1b0b8a56f267c349",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to ACME & Co. 010.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_1cc9a4f1c1684306b5039a54963b1500_0_START]]ACME & Co. 010[[FREEHAND_LITERAL_1cc9a4f1c1684306b5039a54963b1500_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_1cc9a4f1c1684306b5039a54963b1500_0_START]]ACME & Co. 010[[FREEHAND_LITERAL_1cc9a4f1c1684306b5039a54963b1500_0_END]].",
+        "output": "Please send the document to ACME & Co. 010.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "d62e0822378821b5b6e3eb44bff68d801e6e52b12b62fd1bd9d8d53c9c505776",
+      "case_structural_sha256": "24fccfce23cfe02562e50bf71c922d252d744f8fc5d2209ed3a7f86fb2e963e3",
+      "previous_output_for_comparison": "Please send the document to ACME & Co. 010.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the entire already-clean polite sending request and exact protected ACME & Co. 010 destination, including ampersand, abbreviation period and suffix.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "ACME & Co. 010"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 131,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-7eebf071adab29e9",
+      "actual_pair": {
+        "input": "The report that that reviewer requested is ready.",
+        "normalized_input": "The report that that reviewer requested is ready.",
+        "cleanup_input": "The report that that reviewer requested is ready.",
+        "candidate_text": "The report that that reviewer requested is ready.",
+        "output": "The report that that reviewer requested is ready.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "c468f9d6cf85544ee8320890ab4a236a629d9837477e953f3a251d30ecb9d3e6",
+      "case_structural_sha256": "d22600d6607865972355441c921d67538cbcf3f33613d7ad2fabbb4266abea6e",
+      "previous_output_for_comparison": "The report that reviewer requested is ready.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "The report that that reviewer requested is ready is grammatical: relative that followed by demonstrative that reviewer. Keeping both preserves the report, the specified reviewer and readiness. No active repair or filler remains. The prior optional-relative-pronoun alternate was also usable; this is not scored as a new semantic gain."
+    },
+    {
+      "position_one_based": 137,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3548fe48c43a672a",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to   exact spacing   013.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_cd05ea1f7b36457385529bbdb16d57d2_0_START]]  exact spacing   013[[FREEHAND_LITERAL_cd05ea1f7b36457385529bbdb16d57d2_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_cd05ea1f7b36457385529bbdb16d57d2_0_START]]  exact spacing   013[[FREEHAND_LITERAL_cd05ea1f7b36457385529bbdb16d57d2_0_END]].",
+        "output": "Please send the document to   exact spacing   013.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "2f5ac4326fe7379c41daecb02277a774bf1fa26f91bc65bfa88a3e48087bb403",
+      "case_structural_sha256": "9f9fb8900911a1ce6480cdc2afde70b16d2cf681a0a710240074087598b06438",
+      "previous_output_for_comparison": "Please send the document to   exact spacing   013.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes leading Um and keeps Please, document sending and exact dictionary payload with two leading spaces, internal triple spacing and013 suffix. Extra-looking spacing is explicitly protected payload content, retained once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "  exact spacing   013"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 143,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-21577a6b625f2b8e",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to CTRL+SHIFT+K 012.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_20ae1631a83040b29a8c776c9971a0ad_0_START]]CTRL+SHIFT+K 012[[FREEHAND_LITERAL_20ae1631a83040b29a8c776c9971a0ad_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_20ae1631a83040b29a8c776c9971a0ad_0_START]]CTRL+SHIFT+K 012[[FREEHAND_LITERAL_20ae1631a83040b29a8c776c9971a0ad_0_END]].",
+        "output": "Please send the document to CTRL+SHIFT+K 012.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "e62d9e0a47fc941f06a3d28c92fb1d3c8616f595d7a04b8a99a7f1f12dde4f64",
+      "case_structural_sha256": "d59a868b722cc3d3f38cf92d4d3777b92b00a1e7744c1283dae47fdd73ec4575",
+      "previous_output_for_comparison": "Please send the document to CTRL+SHIFT+K 012.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean polite document-sending request and exact protected CTRL+SHIFT+K 012 destination, preserving plus signs, case and suffix.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "CTRL+SHIFT+K 012"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 157,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-c7eec40700784abd",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to HTTP 429 009.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_f213a002cfff49bc9757f5bf818fcd8a_0_START]]HTTP 429 009[[FREEHAND_LITERAL_f213a002cfff49bc9757f5bf818fcd8a_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_f213a002cfff49bc9757f5bf818fcd8a_0_START]]HTTP 429 009[[FREEHAND_LITERAL_f213a002cfff49bc9757f5bf818fcd8a_0_END]].",
+        "output": "Please send the document to HTTP 429 009.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "c3297381016c880db99104b1d4b2adf628655d76b319845775edcabacaaa5ac5",
+      "case_structural_sha256": "bc374e155315e9d27c22036fb65af6290d17e17873825bf264506dd0ba40829c",
+      "previous_output_for_comparison": "Please send the document to HTTP 429 009.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes leading Um while retaining Please and sending the document to exact protected HTTP 429 009. Both numbers and their spaces remain unchanged once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "HTTP 429 009"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    },
+    {
+      "position_one_based": 178,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-47745a59234d92a1",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to Saoirse 011.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_17a00f1e13854117ad9daba058420876_0_START]]Saoirse 011[[FREEHAND_LITERAL_17a00f1e13854117ad9daba058420876_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_17a00f1e13854117ad9daba058420876_0_START]]Saoirse 011[[FREEHAND_LITERAL_17a00f1e13854117ad9daba058420876_0_END]].",
+        "output": "Please send the document to Saoirse 011.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "ef3843d9c9af8c140234a9f055e1608d4c4ca91136609f9bf1daef9cc281c58b",
+      "case_structural_sha256": "803a4e6f74528a4ff929effcf10d6df94340298f27682de3fef2eb02119c4545",
+      "previous_output_for_comparison": "Please send the document to Saoirse 011.",
+      "personally_read": true,
+      "targets_shown_or_used": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes leading Um while preserving Please, document sending and exact protected Saoirse 011. The name and numeric suffix are intact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Saoirse 011"
+        ],
+        "candidate_block_payload_exact_once": true,
+        "Core_marker_removal_exact_delivered_bytes": true,
+        "scope": "Core candidate/dictionary-delivered fidelity; no pretrim raw model preservation claim"
+      }
+    }
+  ]
+}

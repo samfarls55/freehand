@@ -33,8 +33,13 @@ same-fresh successful selected judgments and 152 personally read control pairs;
 it inherits no development judgments. A new independent corpus is committed and
 remains unseen by the training work. The next model experiment is a ScribeKey
 source-copy/edit head using 400 newly authored and independently reviewed training
-pairs. No head has been trained or qualified yet. No app default, normal
-installation or release has been promoted.
+pairs. A first parallel-head pilot trained successfully but scored **0/16** on
+its predetermined training-derived development split: four malformed outputs
+passed the executor and twelve were rejected. Low training loss did not transfer
+to cleanup quality. The next experiment uses source-position edits with a copy
+default; complementary ScribeKey adapter training is also being prepared. No
+head is qualified and no app default, normal installation or release has been
+promoted.
 
 Opt-in `specialist-compact-v4` quote protection is now implemented in C#, Python,
 asset preparation and the probe. It protects balanced single and double quotes,

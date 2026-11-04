@@ -1,0 +1,416 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_pipeline (Codex assistant semantic reviewer)",
+  "results_sha256": "c29d3a46e442abed06c7d0c33241bf064a167e084e7f733cdd0afc01472faa1c",
+  "targets_or_checks_shown_or_used": false,
+  "cases": [
+    {
+      "position_one_based": 195,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-548298aab6c4ad1c",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to support@example.invalid 006.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_bfcdf068faf641b79beef8040b3d463f_0_START]]support@example.invalid 006[[FREEHAND_LITERAL_bfcdf068faf641b79beef8040b3d463f_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_bfcdf068faf641b79beef8040b3d463f_0_START]]support@example.invalid 006[[FREEHAND_LITERAL_bfcdf068faf641b79beef8040b3d463f_0_END]].",
+        "output": "Please send the document to support@example.invalid 006.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "8e0e0077d5725580ee77c7d6c59e77257f1ca0ca2c45b3e10604cbf913245aea",
+      "case_structural_sha256": "c8c23cbfc66c48e931e1082918847dad6a46189d29d1cf93973ba6cb172eceb2",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean polite document-sending request and the normalized destination support@example.invalid 006. The protected email-like payload, its digits and punctuation remain exact once; no source content is removed.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "support@example.invalid 006"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 215,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-96c245380538736f",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to SKU-00 027.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_fbb6afc6a7f24b549a25e00dc1ecc3d1_0_START]]SKU-00 027[[FREEHAND_LITERAL_fbb6afc6a7f24b549a25e00dc1ecc3d1_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_fbb6afc6a7f24b549a25e00dc1ecc3d1_0_START]]SKU-00 027[[FREEHAND_LITERAL_fbb6afc6a7f24b549a25e00dc1ecc3d1_0_END]].",
+        "output": "Please send the document to SKU-00 027.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "a5c7aae8364fd57e1452de0bfc24979005a8f89c1f0792965845ba731d1300c8",
+      "case_structural_sha256": "b15eb928d14367291be32c725ef342f34df875607f31d530d7688164924ab573",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only the opening Um and adjusts sentence case while retaining Please and the document-sending instruction to exact SKU-00 027. Protected code case, hyphen, space and digits remain intact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "SKU-00 027"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 225,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-3bf569c6349625f2",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to J. R. Patel 015.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_17c3863e09f84cfba8b22168ee32fe8d_0_START]]J. R. Patel 015[[FREEHAND_LITERAL_17c3863e09f84cfba8b22168ee32fe8d_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_17c3863e09f84cfba8b22168ee32fe8d_0_START]]J. R. Patel 015[[FREEHAND_LITERAL_17c3863e09f84cfba8b22168ee32fe8d_0_END]].",
+        "output": "Please send the document to J. R. Patel 015.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "c7164c2bbca2669ae6950e69b881ab4fd8d3806c6a197d204e5af508da45053f",
+      "case_structural_sha256": "e03f68451c49a0f57103eca1ed0604b14dac42800489b5d2a7e9396eb30e5ed7",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes the opening hesitation while preserving the polite document-sending request to J. R. Patel 015. The initials, internal periods, spaces and digits are restored exactly once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "J. R. Patel 015"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 231,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ec9a3c7c22659a23",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to Saoirse 021.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_58abffbfd84e4e908cdb4eade2dee5e6_0_START]]Saoirse 021[[FREEHAND_LITERAL_58abffbfd84e4e908cdb4eade2dee5e6_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_58abffbfd84e4e908cdb4eade2dee5e6_0_START]]Saoirse 021[[FREEHAND_LITERAL_58abffbfd84e4e908cdb4eade2dee5e6_0_END]].",
+        "output": "Please send the document to Saoirse 021.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "e778a90b10f506e977dc83c768c17ba99c3f028bce81302be580130b59fac542",
+      "case_structural_sha256": "4fe51f735131dc5a0129fe795735e1fd00d8cd4ada09d91077f2c175fdceab63",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only the opening Um and preserves the Please/document-send request to exact Saoirse 021. The protected name, space and suffix digits are unchanged once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Saoirse 021"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 250,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-dfffa67675200aaf",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to CTRL+SHIFT+K 002.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_07d9e92a2bd64c2884dee47afc59e1c9_0_START]]CTRL+SHIFT+K 002[[FREEHAND_LITERAL_07d9e92a2bd64c2884dee47afc59e1c9_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_07d9e92a2bd64c2884dee47afc59e1c9_0_START]]CTRL+SHIFT+K 002[[FREEHAND_LITERAL_07d9e92a2bd64c2884dee47afc59e1c9_0_END]].",
+        "output": "Please send the document to CTRL+SHIFT+K 002.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "f94fb8f210e7823b290588957a403aba899faee70dc9077819b29c8e6e6f0286",
+      "case_structural_sha256": "b873d7ab7d339f21cc7179818c4ecadb1b2674f44f34203cf103d489a97613fd",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the already-clean Please/document-send request to CTRL+SHIFT+K 002, including the plus signs, case, space and digits. No requested action or protected bytes are lost.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "CTRL+SHIFT+K 002"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 257,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-cbfc1607de5726f7",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to ACME & Co. 000.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_45775e655d534780bcefe6d8470d882f_0_START]]ACME & Co. 000[[FREEHAND_LITERAL_45775e655d534780bcefe6d8470d882f_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_45775e655d534780bcefe6d8470d882f_0_START]]ACME & Co. 000[[FREEHAND_LITERAL_45775e655d534780bcefe6d8470d882f_0_END]].",
+        "output": "Please send the document to ACME & Co. 000.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "74e00e700fa4955926782abde4ef8eac25614b0f128bc26690667a5b572dd3f3",
+      "case_structural_sha256": "a624bc773a1bfc924e57f43072e5757d1326cb75e717a4a2e4b798acd38b8714",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the clean polite document-sending instruction and exact ACME & Co. 000 destination. The ampersand, abbreviation period, spacing and digits remain intact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "ACME & Co. 000"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 259,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-0d2fbaab174abdc1",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to Málaga 018.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_62b9aedc69244631ad8026d071e72ac6_0_START]]Málaga 018[[FREEHAND_LITERAL_62b9aedc69244631ad8026d071e72ac6_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_62b9aedc69244631ad8026d071e72ac6_0_START]]Málaga 018[[FREEHAND_LITERAL_62b9aedc69244631ad8026d071e72ac6_0_END]].",
+        "output": "Please send the document to Málaga 018.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "900f5666097c792c0bf85cb193137c55f10377d169171f71fae6e69601d2761a",
+      "case_structural_sha256": "f1b5268d190dff80fa2f223ab3ca3d6660b83174d4f3231195882cf582ca950b",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the already-clean Please/document-send request to Málaga 018. The accented name, space and digits are restored exactly once without unrelated edits.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Málaga 018"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 295,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-2a3d0bf1ce7eddf2",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to support@example.invalid 026.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_910202ec61da43c497360722fac3d53a_0_START]]support@example.invalid 026[[FREEHAND_LITERAL_910202ec61da43c497360722fac3d53a_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_910202ec61da43c497360722fac3d53a_0_START]]support@example.invalid 026[[FREEHAND_LITERAL_910202ec61da43c497360722fac3d53a_0_END]].",
+        "output": "Please send the document to support@example.invalid 026.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "4b2d53745ff3b7adb837de85256c5a8f167236b37569b9e7a84f6b09d6cb9a8d",
+      "case_structural_sha256": "0a414b050a195057279645d34c73edb6b7c711211a4003f9d7cce975ed2d604c",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Preserves the clean document-sending request and exact support@example.invalid 026 destination. The email-like punctuation and numeric suffix remain intact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "support@example.invalid 026"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 316,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ca23ef713c62ef7e",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to ACME & Co. 020.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_499c5c341b534e9c97fa6c5c32da3b6c_0_START]]ACME & Co. 020[[FREEHAND_LITERAL_499c5c341b534e9c97fa6c5c32da3b6c_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_499c5c341b534e9c97fa6c5c32da3b6c_0_START]]ACME & Co. 020[[FREEHAND_LITERAL_499c5c341b534e9c97fa6c5c32da3b6c_0_END]].",
+        "output": "Please send the document to ACME & Co. 020.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "8f7070dffaaa819b5b4d2c47661246e496b101e1cd161df9ad4f20cd410a6f73",
+      "case_structural_sha256": "018c8a4bc57b49467362c9dc21ddd26f785b90c2768b6167233625835c96071e",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean polite document-sending request to ACME & Co. 020, retaining the ampersand, abbreviation punctuation, spaces and digits exactly once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "ACME & Co. 020"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 319,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ac77d1df5280ac66",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to SKU-00 007.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_50470435d1654b75ba2c537550b22690_0_START]]SKU-00 007[[FREEHAND_LITERAL_50470435d1654b75ba2c537550b22690_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_50470435d1654b75ba2c537550b22690_0_START]]SKU-00 007[[FREEHAND_LITERAL_50470435d1654b75ba2c537550b22690_0_END]].",
+        "output": "Please send the document to SKU-00 007.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "2706e1fb066621bfda0d73e983dc01aea5a8a5b14794673d62eb27b7d28049a9",
+      "case_structural_sha256": "30b5dfc3da6f4fd6af71e99ffae01cb58695ebc7efeb316d8c1cd4d23365eeab",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes the opening Um while preserving Please and the complete document-sending request to SKU-00 007. Protected code case, hyphen, space and suffix digits remain exact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "SKU-00 007"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 344,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-4de5d49c082c0b99",
+      "actual_pair": {
+        "input": "Please send the document to custom replacement.",
+        "normalized_input": "Please send the document to Málaga 028.",
+        "cleanup_input": "Please send the document to [[FREEHAND_LITERAL_f63780976af14882833e6c1384102f1c_0_START]]Málaga 028[[FREEHAND_LITERAL_f63780976af14882833e6c1384102f1c_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_f63780976af14882833e6c1384102f1c_0_START]]Málaga 028[[FREEHAND_LITERAL_f63780976af14882833e6c1384102f1c_0_END]].",
+        "output": "Please send the document to Málaga 028.",
+        "cleanup_status": "Unchanged",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "fefd63ca2cb0fb8c4c858f74fddf5900d6077fa5801f3352aac711ed043d4c4a",
+      "case_structural_sha256": "59379177d17963aa48b3636869a90a63a039d0ff365b53cfd0ea5219cd716d24",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Keeps the already-clean Please/document-send request to Málaga 028. The accented protected destination and suffix digits remain exact once.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "Málaga 028"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    },
+    {
+      "position_one_based": 353,
+      "case_id": "scribekey-minimal-edit-synthetic-v1-ed2aa09aaf41caa6",
+      "actual_pair": {
+        "input": "Um, please send the document to custom replacement.",
+        "normalized_input": "Um, please send the document to   exact spacing   023.",
+        "cleanup_input": "Um, please send the document to [[FREEHAND_LITERAL_8dcd93093f1844f1afb37a0362503301_0_START]]  exact spacing   023[[FREEHAND_LITERAL_8dcd93093f1844f1afb37a0362503301_0_END]].",
+        "candidate_text": "Please send the document to [[FREEHAND_LITERAL_8dcd93093f1844f1afb37a0362503301_0_START]]  exact spacing   023[[FREEHAND_LITERAL_8dcd93093f1844f1afb37a0362503301_0_END]].",
+        "output": "Please send the document to   exact spacing   023.",
+        "cleanup_status": "Applied",
+        "error": null,
+        "insertion_count": 1,
+        "delivered_count": 1,
+        "delivery_outcome": "Delivered",
+        "dictation_outcome": "Success"
+      },
+      "output_sha256": "55f9a3a0a27bbb5a015ec86283030621d5f3cd8dafc6a353e3d6008e54c54fa0",
+      "case_structural_sha256": "019ae9c3e2aca66e351cf3c70c361b44dd2e99a0a1855301258ccb82f5702461",
+      "personally_read": true,
+      "targets_or_checks_shown_or_used_for_semantic_judgment": false,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes only the opening Um and preserves the polite document-sending request. The protected payload has two leading spaces and three spaces between spacing and 023; all are preserved exactly. The resulting outside spacing follows literal restoration rather than a newly introduced semantic or cleanup error.",
+      "literal_fidelity": {
+        "protected_payloads": [
+          "  exact spacing   023"
+        ],
+        "source_candidate_same_nonce_and_payload_once_in_order": true,
+        "Core_marker_restoration_matches_delivered_bytes": true,
+        "outside_request_semantics_and_cleanup_personally_reviewed": true,
+        "pretrim_raw_native_completion_claimed": false
+      }
+    }
+  ]
+}

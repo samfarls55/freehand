@@ -1,0 +1,139 @@
+--- final-paired-qualification-preparation/run.py
++++ final-paired-micro64-qualification-preparation/run.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""File-only preparation until explicitly invoked after model qualification.
++"""Source-only micro64 paired preparation until explicit post-qualification use.
+ 
+ freeze-pair never opens fresh inputs. run-authorized-pair is the explicit final
+ invocation and delegates all one-use/phase/role/continuation gates to evaluate.py.
+@@ -16,7 +16,12 @@
+ ROOT=Path('/workspace/freehand');TASK=ROOT/'work/cleanup-scribekey-training-2026-11-03'
+ TOOLS=ROOT/'tools/Freehand.Cleanup.Training'
+ EVALUATE_SHA='131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec'
+-HELPER_SHA='10552f6e7cb9ac104d308606582cdffe652595c2528416fc33cb5cda3a773f57'
++HELPER_SHA='abfebe93968c0b1639313839127740b3c4b6d562493c3699339f9776d0983109'
++ENTRY=Path(__file__).with_name('evaluate_pair_micro64.py').resolve()
++ENTRY_SHA='1bf961288836e1acc4a3502db3eff4d5fa810e1d236b256499cb9e831b0f2327'
++QUALIFICATION_ENTRY=TASK/'micro64-qualification-preparation/evaluate_micro64.py'
++QUALIFICATION_ENTRY_SHA='5e14b82b546ebbb23220476b69ff6fe30fafc68f293cd16f81f9208ecceb450a'
++SELECTED_ADAPTER_SHA='4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1'
+ PROBE=Path('/tmp/freehand-f32-kv-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll')
+ PROBE_SHA='6de0ab21b514990a2834c8af48636feda695c78b616267f70ab602a2e1324a66'
+ MANAGED=Path('/tmp/freehand-f32-kv-verification-summary.json');MANAGED_SHA='d720b68c9004283061a73bc90844c391f788ff693589be753ab2b0e02b2187a6'
+@@ -55,9 +60,12 @@
+  for name in ('DOTNET_TieredCompilation','COMPlus_TieredCompilation'):env.pop(name,None)
+  return env
+ 
+-def modules(helper_path):
++def modules(helper_path,qualification_only=False):
+  pin(TOOLS/'evaluate.py',EVALUATE_SHA);pin(helper_path,HELPER_SHA)
+- sys.path.insert(0,str(TOOLS));import evaluate
++ pin(ENTRY,ENTRY_SHA);pin(QUALIFICATION_ENTRY,QUALIFICATION_ENTRY_SHA)
++ spec=importlib.util.spec_from_file_location('final_pair_micro64_evaluation_entry',ENTRY)
++ wrapper=importlib.util.module_from_spec(spec);spec.loader.exec_module(wrapper)
++ evaluate=wrapper.qualification_evaluator() if qualification_only else wrapper.configure_evaluator()
+  spec=importlib.util.spec_from_file_location('final_pair_owned',helper_path);owned=importlib.util.module_from_spec(spec);spec.loader.exec_module(owned)
+  return evaluate,owned
+ 
+@@ -65,11 +73,37 @@
+  p=value['profile']
+  require(p['cacheTypeK']==p['cacheTypeV']=='f16' and p['promptLookupTokens']==16,
+          'Qualification must preserve the qualified F16/lookup16 profile')
++ require(type(p.get('batchSize')) is int and p['batchSize']==64 and type(p.get('microBatchSize')) is int and p['microBatchSize']==64,
++         'Qualification must preserve exact batch64/micro64')
+  require(value['probe']['sha256']==PROBE_SHA,'Use the exact qualified Probe generation')
+ 
+ 
++def validate_model_roles(selected,control):
++ require(selected['model']['sha256']==control['model']['sha256']==CONTROL_SHA
++  and selected['model']['bytes']==control['model']['bytes']==211804448,'Both roles require original IQ4 base82')
++ deployed=selected.get('runtime_adapter',{})
++ require(deployed.get('sha256')==SELECTED_ADAPTER_SHA and deployed.get('bytes')==12006240,
++         'Selected role must retain exact t0504d14 native F32 adapter')
++ scale=selected['profile'].get('adapterScale')
++ require(type(scale) in (int,float) and scale==1,'Selected role requires unit external adapter scale')
++ require(not any(key in control for key in ('adapter','adapter_config','runtime_adapter'))
++  and not any(key in control['profile'] for key in ('adapterPath','adapterSha256','adapterScale')),
++         'Original control must be adapter-free')
++
++
++def verify_source_epoch_addition(qualified,final):
++ before=qualified['sources'];after=final['sources']
++ extras={str(path.relative_to(ROOT)) for path in (ENTRY,Path(__file__).resolve(),Path(__file__).with_name('paired_owned_execution.py').resolve())}
++ require(len(before)==42 and len(after)==45 and not (set(before)&extras)
++  and set(after)==set(before)|extras and all(after[key]==value for key,value in before.items()),
++         'Final pair epoch may only add its held controller/helper/CLI sources')
++ return {'qualified_source_count':len(before),'final_source_count':len(after),
++  'all_qualified_source_hashes_unchanged':True,'added_sources':{key:after[key] for key in sorted(set(after)-set(before))},
++  'qualified_freeze_not_modified_or_retroactively_extended':True}
++
++
+ def paired_command(selected,control,dataset,commitment,output):
+- return [sys.executable,str(TOOLS/'evaluate.py'),'native','--dataset',str(dataset),
++ return [sys.executable,str(ENTRY),'native','--dataset',str(dataset),
+   '--candidate-freeze',str(selected),'--paired-baseline-freeze',str(control),
+   '--blind-commitment',str(commitment),'--dotnet',str(ROOT/'.dotnet/dotnet'),
+   '--phase','blind-final','--mode','core','--output',str(output)]
+@@ -87,7 +121,10 @@
+  selected=plan['selected_primary'];control=plan['original_control']
+  evaluate.verify_artifact(selected);evaluate.verify_artifact(control)
+  left=evaluate.verify_freeze(Path(selected['path']));right=evaluate.verify_freeze(Path(control['path']))
+- evaluate.verify_pair(left,right);validate_semantic_profile(left);validate_semantic_profile(right)
++ evaluate.verify_pair(left,right);validate_semantic_profile(left);validate_semantic_profile(right);validate_model_roles(left,right)
++ require(left['sources']==right['sources']==plan['final_common_source_epoch']
++  and verify_source_epoch_addition({'sources':plan['qualified_input_source_epoch']},left)==plan['source_epoch_addition'],
++         'Recorded42-to45 source epoch differs from frozen pair')
+  require(left['effective_model_identity']==plan['effective_models']['selected_primary']
+   and right['effective_model_identity']==plan['effective_models']['original_control'],'Frozen model role identities changed')
+  return left,right
+@@ -176,18 +213,20 @@
+ def freeze_pair(args):
+  preparation_path(args.selected_freeze);preparation_path(args.output)
+  require(not args.output.exists(),'Use fresh freeze/plan paths')
+- helper=Path(__file__).with_name('paired_owned_execution.py');evaluate,owned=modules(helper)
++ helper=Path(__file__).with_name('paired_owned_execution.py');qualified,owned=modules(helper,qualification_only=True)
+  pin(PROBE,PROBE_SHA);pin(MANAGED,MANAGED_SHA);pin(CONTROL_PROVENANCE,CONTROL_PROVENANCE_SHA)
+- selected=evaluate.verify_freeze(args.selected_freeze);validate_semantic_profile(selected)
++ selected=qualified.verify_freeze(args.selected_freeze);validate_semantic_profile(selected)
+  # The root supplies this actual artifact only after full development review and
+  # actual resource checks. This runner does not invent replacement phase gates.
+  original_selected=artifact(args.selected_freeze)
+  require(selected['runtime']['path']==str(RUNTIME) and selected['runtime_inventory']['path']==str(INVENTORY),
+          'Selected model must use the same qualified pinned native runtime')
++ evaluate,owned=modules(helper)
+  args.output.mkdir(parents=True);shutil.copyfile(__file__,args.output/'executed-plan-runner.py');shutil.copyfile(helper,args.output/'paired_owned_execution.py')
++ shutil.copyfile(ENTRY,args.output/'executed-evaluation-entry.py');shutil.copyfile(QUALIFICATION_ENTRY,args.output/'qualified-evaluation-entry.py')
+  paths={'selected_primary':args.output/'selected-freeze.json','original_control':args.output/'original-control-freeze.json'}
+  for role in ('selected_primary','original_control'):
+-  command=[sys.executable,str(TOOLS/'evaluate.py'),'freeze','--model',selected['model']['path'] if role=='selected_primary' else str(CONTROL),
++  command=[sys.executable,str(ENTRY),'freeze','--model',selected['model']['path'] if role=='selected_primary' else str(CONTROL),
+    '--runtime',str(RUNTIME),'--runtime-inventory',str(INVENTORY),'--probe',str(PROBE),
+    '--cache-type-k','f16','--cache-type-v','f16','--prompt-lookup-tokens','16','--output',str(paths[role])]
+   if role=='selected_primary':
+@@ -201,10 +240,14 @@
+  left=evaluate.verify_freeze(paths['selected_primary']);right=evaluate.verify_freeze(paths['original_control']);evaluate.verify_pair(left,right)
+  require(left['effective_model_identity']==selected['effective_model_identity'] and left['profile']==selected['profile'],
+          'Final selected freeze must preserve the qualified actual artifact/profile')
++ validate_model_roles(left,right)
++ epoch_addition=verify_source_epoch_addition(selected,left)
+  plan={'schema_version':1,'stage':'both_models_frozen_no_fresh_material_read','run_order':['selected_primary','original_control'],
+   'selected_primary':artifact(paths['selected_primary']),'original_control':artifact(paths['original_control']),
+   'qualified_selected_input_freeze':original_selected,'effective_models':{'selected_primary':left['effective_model_identity'],'original_control':right['effective_model_identity']},
+   'runner_source':artifact(args.output/'executed-plan-runner.py'),'paired_owned_execution':artifact(args.output/'paired_owned_execution.py'),
++  'evaluation_entry':artifact(ENTRY),'qualification_entry':artifact(QUALIFICATION_ENTRY),
++  'qualified_input_source_epoch':selected['sources'],'final_common_source_epoch':left['sources'],'source_epoch_addition':epoch_addition,
+   'private_inputs':PRIVATE_INPUTS,'case_count_each':500,'primary_score':'selected only; control cannot replace it',
+   'root_quality_and_actual_resource_checks_are_external_prerequisites':True,'real_fresh_inputs_read':False,
+   'semantic_quality':'not yet measured','windows_whole_app_qualification_not_inferred':True}
+@@ -217,6 +260,10 @@
+  plan_pin=pin(args.plan,args.expected_plan_sha256);plan=read(args.plan)
+  evaluate,owned=modules(Path(plan['paired_owned_execution']['path']))
+  evaluate.verify_artifact(plan['paired_owned_execution']);evaluate.verify_artifact(plan['runner_source'])
++ evaluate.verify_artifact(plan['evaluation_entry']);evaluate.verify_artifact(plan['qualification_entry'])
++ require(plan['evaluation_entry']['path']==str(ENTRY) and plan['evaluation_entry']['sha256']==ENTRY_SHA
++  and plan['qualification_entry']['path']==str(QUALIFICATION_ENTRY) and plan['qualification_entry']['sha256']==QUALIFICATION_ENTRY_SHA,
++         'Final paired source entry epoch differs')
+  left,right,private=authorized_private_pins(plan,evaluate)
+  command=paired_command(plan['selected_primary']['path'],plan['original_control']['path'],
+   PRIVATE_INPUTS['dataset']['path'],PRIVATE_INPUTS['commitment']['path'],args.output)

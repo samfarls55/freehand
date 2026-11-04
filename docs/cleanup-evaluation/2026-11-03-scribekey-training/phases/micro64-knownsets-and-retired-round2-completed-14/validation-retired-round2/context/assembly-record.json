@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-03T22:23:32.258055+00:00",
+  "assembly_agent": "assistant:/root/holdout2_author_a",
+  "record_creation_mode": "exclusive_create",
+  "corpus": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/corpus.json",
+    "bytes": 238053,
+    "sha256": "34fb221cb85c40932e199c4ee7598eb125e27954b59f1513cc573e4ba8a29867"
+  },
+  "order": "Stable concatenation: original A order, then original B order, then original C order. Identifiers are unchanged.",
+  "case_count": 500,
+  "unique_id_count": 500,
+  "clean_count": 186,
+  "cleanup_count": 314,
+  "critical_count": 489,
+  "long_count": 30,
+  "dictionary_case_count": 20,
+  "dictionary_mapping_count": 21,
+  "parts": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a.json",
+      "bytes": 79317,
+      "sha256": "fc4ad9766c86bf341b153570616190486c2b3d08ad3d0e17238bed20b1718142",
+      "author": "assistant:/root/holdout2_author_a",
+      "counts": {
+        "case_count": 167,
+        "clean_count": 62,
+        "cleanup_count": 105,
+        "critical_count": 156,
+        "long_count": 10,
+        "dictionary_case_count": 7,
+        "dictionary_mapping_count": 7,
+        "long_word_count_min": 54,
+        "long_word_count_max": 62
+      }
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.json",
+      "bytes": 79262,
+      "sha256": "aba6d9a31d03a3b2542965e6cb5fd441e9efd446e04ea9922a0a0c7cae1f37c7",
+      "author": "assistant:/root/holdout2_author_b",
+      "counts": {
+        "case_count": 167,
+        "clean_count": 62,
+        "cleanup_count": 105,
+        "critical_count": 167,
+        "long_count": 10,
+        "dictionary_case_count": 7,
+        "dictionary_mapping_count": 8,
+        "long_word_count_min": 48,
+        "long_word_count_max": 57
+      }
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.json",
+      "bytes": 79379,
+      "sha256": "d401d9582b7cae03b6aa0b45f03d96a23b69cfa50afcb3706247e8798d968566",
+      "author": "assistant:/root/holdout2_author_c",
+      "counts": {
+        "case_count": 166,
+        "clean_count": 62,
+        "cleanup_count": 104,
+        "critical_count": 166,
+        "long_count": 10,
+        "dictionary_case_count": 6,
+        "dictionary_mapping_count": 6,
+        "long_word_count_min": 54,
+        "long_word_count_max": 66
+      }
+    }
+  ],
+  "peer_artifacts": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a-review-by-b.json",
+      "bytes": 13193,
+      "sha256": "ca5e67e24d960ba4b55caaf2399aaa99ccbb0f9677fa93eb70c61fc3e2b05275"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a-090.adjudication-by-c.json",
+      "bytes": 2006,
+      "sha256": "7aa99ee42cf81ccd19b85eeca75fcb993d5ddcf5bba9132bc50a2bce42502f9f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.c-review-overlay.json",
+      "bytes": 1174,
+      "sha256": "75c6be2615e92a61fbc9eb07d4301a8bd797d60b8491a9c2b01bace21e5e29b4"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.c-review-summary.json",
+      "bytes": 11440,
+      "sha256": "3abc552812dcdd7fc7e82e50552e043991cfce90788dac88bf1c6708531f6716"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.cross-review-by-a.json",
+      "bytes": 67745,
+      "sha256": "5cc17a1de23204020e64b9045484f522b236f4d93d8a3f1d691cfe28890d4b60"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.corrections-by-a.json",
+      "bytes": 788,
+      "sha256": "e290824cd65389c6a84e7a6b935bf3a479ddc86fd310d2b3baf43e7e53ac3057"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.cross-review-by-a.summary.json",
+      "bytes": 1444,
+      "sha256": "88e38d73f6eabdbf1baf59cdb9ffbf1a9712e9d5933f0b95ba1ae8a99d213066"
+    }
+  ],
+  "review_provenance": [
+    {
+      "part": "a",
+      "author": "assistant:/root/holdout2_author_a",
+      "peer_reviewer": "assistant:/root/holdout2_author_b",
+      "peer_reviewed_count": 167,
+      "peer_review_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a-review-by-b.json",
+      "source_clarification_adjudicator": "assistant:/root/holdout2_author_c",
+      "source_clarification_adjudication_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-a-090.adjudication-by-c.json"
+    },
+    {
+      "part": "b",
+      "author": "assistant:/root/holdout2_author_b",
+      "peer_reviewer": "assistant:/root/holdout2_author_c",
+      "peer_reviewed_count": 167,
+      "peer_review_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-b.c-review-summary.json",
+      "gold_correction_adjudicator": "assistant:/root/holdout2_author_a",
+      "assembly_agent_additional_reviewed_count": 167
+    },
+    {
+      "part": "c",
+      "author": "assistant:/root/holdout2_author_c",
+      "peer_reviewer": "assistant:/root/holdout2_author_a",
+      "peer_reviewed_count": 166,
+      "peer_review_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/part-c.cross-review-by-a.json"
+    }
+  ],
+  "applied_overlay": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/applied-overlay.json",
+    "bytes": 5594,
+    "sha256": "e72ee8afcd46986c110ebf871575defa91b6d009a99c7c106b07da2d0ff18747"
+  },
+  "similarity_audit": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/blind-round2/similarity-audit.json",
+    "bytes": 3877,
+    "sha256": "f5903dc422e12a3565f478b1ac9465058353395c2568b093d6aa30a45f086148"
+  },
+  "source_clarification_count": 1,
+  "gold_correction_count": 1,
+  "non_scoring_rationale_clarification_count": 1,
+  "label_correction_count": 0,
+  "unresolved_count": 0,
+  "original_part_and_peer_review_bytes_preserved": true,
+  "source_gold_audit": "All 500 cases were read by their author and an independent assistant peer. Assembly agent has personally reviewed A, B and C; the two substantive peer concerns were adjudicated before corpus creation.",
+  "audits": {
+    "schema_and_labels_passed": true,
+    "unique_ids_passed": true,
+    "within_corpus_normalized_uniqueness_passed": true,
+    "cross_row_normalized_input_target_overlap_count": 0,
+    "quote_spans_exact_and_ordered_passed": true,
+    "original_opaque_identifiers_exact_and_ordered_passed": true,
+    "dictionary_final_references_passed": true,
+    "dictionary_references_are_normalized_flags_passed": true,
+    "long_case_counts_and_lengths_passed": true,
+    "raw_fake_marker_count": 0
+  },
+  "no_inference_run": true,
+  "no_model_downloads_or_training": true,
+  "no_training_development_retired_test_or_model_output_access": true,
+  "external_corpus_overlap_check": "pending black-box audit by root; no unseen external source text was used in this assembly",
+  "accuracy_gate": {
+    "required": 495,
+    "denominator": 500,
+    "percent": 99
+  },
+  "execution_identity": {
+    "trained_candidate": "pending separate pre-inference execution freeze",
+    "original_base_control": "planned separate pre-frozen original-base control; execution identity pending",
+    "candidate_or_control_scores": null
+  },
+  "provenance_limit": "All authors and reviewers are assistant agents. This is not independent human review or a proof of independent template families."
+}

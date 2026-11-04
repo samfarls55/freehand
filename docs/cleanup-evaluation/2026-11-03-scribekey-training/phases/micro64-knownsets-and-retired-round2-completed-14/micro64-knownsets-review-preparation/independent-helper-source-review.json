@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/benchmark_harness (independent assistant source/helper audit)",
+  "created_utc": "2026-11-04T06:26:41.528476+00:00",
+  "decision": "PASS_NO_BLOCKER_FOR_COMPLETED_KNOWNSET_PACKET_GENERATION",
+  "source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/micro64-knownsets-review-preparation/create_packet.py",
+    "bytes": 8888,
+    "sha256": "b2b7adba6ae1160509fea4f5a2ac084ee5126802221274fa6724bae769f98497"
+  },
+  "independent_tests": {
+    "passed": 9,
+    "failed": 0,
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/micro64-knownsets-review-preparation",
+      "-p",
+      "test_create_packet.py",
+      "-v"
+    ],
+    "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/micro64-knownsets-review-preparation/independent-tests.log",
+    "log_sha256": "68a7ba2cce431437616617bbcc3611ad6fa129530eb833c68cea1c71d795b538"
+  },
+  "independent_old_only_selfcomparisons": {
+    "development546": {
+      "count": 546,
+      "inherited": 545,
+      "needs_actual_read": 1,
+      "critical": 0,
+      "prior_report_sha256": "ef31c0d71f0522f1dd0e2e2395c974691b85f5fd80a3d45802d658db452666a2",
+      "prior_review_sha256": "f1e45ade9327d8eef10a6c80f69aa51a9f288f93fecc9702f22222b69cdbe207",
+      "prior_review_case_keys": [
+        "case_id",
+        "case_structural_sha256",
+        "clean_usable",
+        "critical_error",
+        "inherited_source",
+        "output_sha256",
+        "position_one_based",
+        "reason",
+        "review_mode",
+        "semantic_faithful"
+      ],
+      "no_targets_or_checks_in_actual_pair": true
+    },
+    "hard80": {
+      "count": 80,
+      "inherited": 79,
+      "needs_actual_read": 1,
+      "critical": 1,
+      "prior_report_sha256": "f8de71c7f3fde2035dcda874a2c270046f2ef1030adfea6cf53abb448e3e99ae",
+      "prior_review_sha256": "10c93fbf1f375f945f0570bd82e96684096f0aa0409f8843e330e5022294cee8",
+      "prior_review_case_keys": [
+        "case_id",
+        "clean_usable",
+        "critical_error",
+        "output_sha256",
+        "prior_report_sha256",
+        "prior_review_sha256",
+        "reason",
+        "review_mode",
+        "semantic_faithful",
+        "structural_success"
+      ],
+      "no_targets_or_checks_in_actual_pair": true
+    }
+  },
+  "contracts": {
+    "pinned_old_report_review_and_explicit_new_report_whole_SHA": true,
+    "complete_ordered_unique546_or80_denominators": true,
+    "every_prior_output_SHA_binds_actual_old_output": true,
+    "all13_fields_required_nested_JSON_types_list_order_numeric_types_signedzero_strict": true,
+    "duplicate_JSON_keys_and_nonfinite_values_rejected": true,
+    "inherited_only_old_joint_success_critical_false_and_both_DeliveredSuccess_exact_integer_counts": true,
+    "every_changed_or_priorfailed_case_requires_actual_read": true,
+    "actual_manual_pairs_have_no_target_check_oracle": true,
+    "no_new_semantic_pass_assigned_by_helper": true,
+    "create_only_output_no_overwrites_or_retries": true
+  },
+  "findings_remaining": [],
+  "scope": "Source review,9 tiny synthetic tests and mechanical old-only consumed-cohort selfcomparison. No actual new semantic reading or scoring yet, no fresh/model/native/build/Torch."
+}

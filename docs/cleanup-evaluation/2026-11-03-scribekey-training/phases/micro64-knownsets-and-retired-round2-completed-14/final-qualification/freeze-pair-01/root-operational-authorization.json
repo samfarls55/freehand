@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T06:39:18.234227+00:00",
+  "authority": "User-authorized ScribeKey implementation/testing task; 99 percent acceptance supersedes98. Root authorizes the one-time paired final test, not installation/default promotion or release.",
+  "reviewer": "Codex assistant /root",
+  "paired_plan_sha256": "3af09ae0c76a4768b7d52d486b3ea972a24bcd39eff64fe53d4f63e9a46eea92",
+  "source_epoch42_to45_independently_verified": true,
+  "same45_source_profile_runtime_DLL_epoch_both_roles": true,
+  "selected_exact_t050_adapter_and_original_adapter_free_control": true,
+  "profile": {
+    "promptStyle": "ScribeKeyFast",
+    "threads": 4,
+    "contextSize": 1024,
+    "maxOutputTokens": 512,
+    "batchSize": 64,
+    "microBatchSize": 64,
+    "promptCacheMiB": 0,
+    "contextCheckpoints": 0,
+    "cacheTypeK": "f16",
+    "cacheTypeV": "f16",
+    "repack": false,
+    "gpuLayers": 0,
+    "startupTimeoutSeconds": 60,
+    "idleTimeoutSeconds": 60,
+    "maskSpecialistLiterals": true,
+    "promptLookupTokens": 16,
+    "promptLookupMatchTokens": 3
+  },
+  "development_quality": {
+    "schema_version": 1,
+    "results_sha256": "415fd27212e1d96945eb08e09cb377effabdd3ed76a8fd736232a157cf6331fc",
+    "total": 500,
+    "semantic_faithful": 500,
+    "clean_usable": 495,
+    "joint": 495,
+    "critical_error": 0,
+    "required_joint": 495,
+    "scope": "Retired development only; not fresh/population or resource qualification.",
+    "meets_development_gate": true,
+    "joint_failures": [
+      "blind-a-026",
+      "blind-b-092",
+      "blind-b-098",
+      "blind-c-021",
+      "blind-c-034"
+    ]
+  },
+  "resource_analysis_sha256": "6da5d947a235e36b82d3be05beb0c7e8cb059b7f5290d166358ce4d9660eff49",
+  "actual_linux_partial_latency_p95_ms": 780.6206,
+  "actual_linux_partial_host_RAM_bytes": 693895168,
+  "known_development_regressions": {
+    "broad546_joint": 544,
+    "broad546_critical": 1,
+    "hard80_joint": 78,
+    "hard80_critical": 2,
+    "preserved_and_disclosed": true,
+    "diagnostic_sets_not_redefined_as_a_perfect_gate": true
+  },
+  "fresh_corpus_or_commitment_opened_statted_or_hashed_by_this_review": false,
+  "stage2_one_time_consumption_authorized": true,
+  "fixed_run_order": [
+    "selected_primary",
+    "original_control"
+  ],
+  "required_selected_joint_success": 495,
+  "denominator_each": 500,
+  "control_continues_after_selected_report_or_model_failure": true,
+  "failed_missing_truncated_or_fallback_outputs_receive_no_joint_success_credit": true,
+  "no_postfreeze_behavior_or_rubric_changes": true,
+  "Windows_or_population_accuracy_qualified": false,
+  "if_new_test_feedback_informs_changes": "Retire this corpus and obtain a new independently authored frozen corpus. Preserve all existing locks/results/journals; no silent replay."
+}

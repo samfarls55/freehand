@@ -1,0 +1,54 @@
+{
+  "source_report_sha256": "bcf172dc16d50e461f026617ced47bfea9817805cadc553776e6c4aa8bb48933",
+  "independent_adjudication_sha256": "6d71ebb4383a4f22684fdccc6ea71447d14456f4bd0a4096adfb10f26abd4b54",
+  "original_shards_preserved": true,
+  "cases": [
+    {
+      "manual_position_one_based": 68,
+      "position_one_based": 246,
+      "case_id": "r2-b-079",
+      "output_sha256": "35c6222e3a16844684243165da5cf3027b23660d8d5c24ed7fd550c4b14b50a7",
+      "case_structural_sha256": "dd5e31e415924cb85a453d7ad4084b24631dd213c3953d7ff5449a47a6bc7f15",
+      "actual_pair_sha256": "e868a52d846bfafae00cefffed5cd2db01ce45bc13b98440712b519d74dadc59",
+      "structural_success": true,
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "joint_success": false,
+      "reason": "The walking-tour cancellation survives, but deleting the only museum reference leaves 'those tickets' without its in-transcript antecedent and loses the booking's identity. Root and independent supplement classify loss of the museum booking identity as critical, consistently with other sole actionable object/booking-identity omissions; joint remains false.",
+      "root_adjudication_note": "Anaphoric specificity is a real borderline: if external context makes 'those tickets' unambiguous, this could be a valid alternate. No such context is present in the packet.",
+      "provider_failure_with_delivered_fallback": false,
+      "review_mode": "personally_read_actual_control_normalized_candidate_delivered_and_notes_no_inheritance",
+      "original_manual_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": false,
+        "joint_success": false,
+        "reason": "The walking-tour cancellation survives, but deleting the only museum reference leaves 'those tickets' without its in-transcript antecedent and loses the booking's identity."
+      },
+      "canonical_overlay_source_sha256": "6d71ebb4383a4f22684fdccc6ea71447d14456f4bd0a4096adfb10f26abd4b54"
+    },
+    {
+      "position_one_based": 437,
+      "case_id": "r2-c-103",
+      "output_sha256": "f340da913de030e1d6753a37ce63f19fbd75c2f078bf192045f07dfd20497c8c",
+      "case_structural_sha256": "99d73be27c7d156e29be65c9cffea1bdf46baaf081ab25b85cbe6b88add4e027",
+      "structural_success": true,
+      "manual_ordinal": 130,
+      "semantic_faithful": true,
+      "clean_usable": true,
+      "critical_error": false,
+      "joint_success": true,
+      "reason": "Valid alternate: the retained clause \"it's only a book\" identifies the same mailing object. \"Leave it untracked\" preserves the corrected tracking choice and the book explanation; no substantive object identity is lost. Independently adjudicated against fixed policy, without target matching.",
+      "review_mode": "personally_read_actual_control_normalized_input_delivered_text_and_notes_no_development_inheritance",
+      "original_manual_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "joint_success": false,
+        "reason": "Deletes parcel, the sole explicit tracked/untracked shipment referent; it/only-a-book no longer retains that shipment context."
+      },
+      "canonical_overlay_source_sha256": "6d71ebb4383a4f22684fdccc6ea71447d14456f4bd0a4096adfb10f26abd4b54"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "reviewer": "cleanup_pipeline_review",
+  "created_utc": "2026-11-04T05:10:11.449201+00:00",
+  "decision": "PASS_FINAL_PREPARATION_SOURCE_ONLY_AFTER_POSTGUARD_FIX",
+  "audited_source": {
+    "run.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/run.py",
+      "bytes": 17086,
+      "sha256": "1bb8ef7911457675b7a68f5cc54e3cc6725e90a6815cb1cab03cc49e71e774e5"
+    },
+    "paired_owned_execution.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/paired_owned_execution.py",
+      "bytes": 11226,
+      "sha256": "10552f6e7cb9ac104d308606582cdffe652595c2528416fc33cb5cda3a773f57"
+    },
+    "test_runner.py": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/test_runner.py",
+      "bytes": 12067,
+      "sha256": "d797ccba83bf9006614e685cb50f741ac843137d7674c04a2fd7177b67746c06"
+    }
+  },
+  "pinned_unchanged_evaluator": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/evaluate.py",
+    "bytes": 48573,
+    "sha256": "131d2db2d5c04d7cca42ece2211c6c0606b6b9380eef15ae2216f3a37de6c7ec"
+  },
+  "readme": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/README.md",
+    "bytes": 5228,
+    "sha256": "ee7217bd5d2af34c3e8784278bbf00e0f00b9ae1a1dfdee7e0528c8118839552"
+  },
+  "final_source_status": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/final-source-status.json",
+    "bytes": 1836,
+    "sha256": "8f5d57bed1ab619bc9f55e13eb59ea283cb8a2393af92c49972ed902b368c773"
+  },
+  "all_five_final_status_file_references_independently_rehashed": true,
+  "initial_source_preserved": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/historical/pre-postguard-b848e1a1/run.py",
+    "bytes": 14621,
+    "sha256": "b848e1a13ea09a06a0ef32c70676107ce3ab20d332aa445c82be99cdef92785a"
+  },
+  "resolved_finding": {
+    "problem": "Initial b848 source returned evaluator exit0 even when required role/argv/cleanup/lock/inventory/completion evidence failed or was absent.",
+    "synthetic_counterexample": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/independent-initial-postguard-repro.json",
+      "bytes": 544,
+      "sha256": "983a0ad0b82e5ae6404d601f81213f72fafbe4eccb4630260167fb7a62c34234"
+    },
+    "resolution": "Final source computes strict_postchecks after both candidates complete and preserves the execution summary before returning nonzero on missing/false integrity evidence. Also binds paired-completion model/freeze roles and captured report artifacts to current role inventories. No selected-report early-abort/control skip was introduced.",
+    "regression_tests": "All missing integrity flags, incorrect500 counts, wrong role order, saved-summary failure exit and swapped report artifacts rejected."
+  },
+  "independent_tests": {
+    "passed": 11,
+    "failed": 0,
+    "log": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/final-paired-qualification-preparation/independent-final-synthetic-tests.log",
+      "bytes": 2723,
+      "sha256": "2c1a158676669ffc53eb1c04fa15131e0c631b2cb4bf56aa8eb2fdf120b9c340"
+    },
+    "scope": "Only synthetic500-case corpus/commitment/reports, fake argument/role metadata and mocked inference. Existing evaluate.native used with synthetic paths proves selected malformed-report continuation to full control500 and second-consumption refusal."
+  },
+  "reviewed_contracts": [
+    {
+      "contract": "Preparation has no real fresh I/O",
+      "evidence": "freeze-pair uses only a caller-supplied actually qualified selected freeze plus exact original-control provenance. Known private path roots rejected before file opens; CLI paths are checked lexically and after resolution. No actual selected model/freeze, fresh corpus/commitment/author/review, status or consumed lock was read/hashed/statted by this review. Actual semantic/resource qualification and any final consumption authorization remain external prerequisites."
+    },
+    {
+      "contract": "Both frozen model roles before private reads",
+      "evidence": "New selected/control freezes preserve selected effective identity/profile and common F16/lookup16 semantics; original control must be exact82ab with pinned direct-original provenance and no adapter. Same Probe6de0/d720/evaluator131d/runtime/source/managed epoch. verify_plan_pair checks both artifact files, complete freezes, paired semantics and registered effective role identities before authorized_private_pins hashes any registered private file."
+    },
+    {
+      "contract": "Existing one-use/continuation contract retained",
+      "evidence": "One evaluate.py invocation only: blind-final/Core with paired baseline. Existing source131d owns commitment validation, exclusive preserved consumed lock, both complete preregistered500 inventories before inference and selected\u2192control execution. The real evaluator synthetic test retains malformed-selected failures, runs all500 control IDs, marks selected non-primary failure honestly and rejects second consumption without a second inference call. No repo phase-gate modification."
+    },
+    {
+      "contract": "Owned native role evidence",
+      "evidence": "Role-aware helper requires exact executable/common fixed cache/lookup/context/batch profile and unique selected adapter versus no-adapter control identity. Rejects wrong adapter/cache/double-scaled adapter/FA override. Owned PID/session/start/native argv observations immediately fsynced; Z/X ignored, cleanup only owned live group. Main explicitly passes report_path=None so a selected first outcome cannot abort the control."
+    },
+    {
+      "contract": "Strict complete post-evidence",
+      "evidence": "After the single paired call, source verifies both freezes/private input pins, exact consumed-lock selected/control identities, role-specific metadata and same full500 inventory, each report complete/unique500, paired-completion postidentities and report artifact hash bindings, actual selected\u2192control observed role sequence, nativeargv and owned cleanup. Missing/false evidence preserves summaries/locks/reports then returns nonzero. No retry/lock deletion/relabeling/retuning implemented."
+    },
+    {
+      "contract": "Selected-only qualification and limits",
+      "evidence": "Control is explicitly comparison-only and cannot replace selected score. Preparation assigns no semantic score,99% pass, actual performance, Windows or whole-app claim. Complete output-bound reviews and actual selected-artifact resource qualification remain separate."
+    }
+  ],
+  "findings_remaining": [],
+  "scope": {
+    "source_and_synthetic_tests_only": true,
+    "no_actual_freeze_pair_or_authorized_pair_invoked": true,
+    "no_real_fresh_corpus_commitment_authors_reviews_or_consumed_lock_open_hash_stat": true,
+    "no_weights_Torch_tokenizer_model_native_or_build": true,
+    "no_repo_source_or_phasegate_edit": true,
+    "no_final_consumption_authorization_implied": true
+  }
+}

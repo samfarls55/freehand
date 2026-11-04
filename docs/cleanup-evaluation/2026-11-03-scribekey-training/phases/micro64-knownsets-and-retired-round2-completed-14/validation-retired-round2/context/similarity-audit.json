@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "corpus_sha256": "34fb221cb85c40932e199c4ee7598eb125e27954b59f1513cc573e4ba8a29867",
+  "case_count": 500,
+  "normalization": "Unicode NFKC, casefold, retain only alphanumeric code points; compare complete strings. Same-case input/target identity is expected for already-clean cases and is excluded from cross-row overlap.",
+  "normalized_input_collision_count": 0,
+  "normalized_target_collision_count": 0,
+  "cross_row_normalized_input_target_overlap_count": 0,
+  "input_collisions": [],
+  "target_collisions": [],
+  "cross_row_overlaps": [],
+  "expected_same_row_clean_input_target_matches": 186,
+  "fuzzy_screen": {
+    "scope": "all unordered case pairs, first nonexclusive target per case",
+    "minimum_tokens_per_target": 6,
+    "threshold": "token SequenceMatcher ratio >= 0.55 OR set four-gram Dice >= 0.24",
+    "flagged_pair_count": 5,
+    "pairs": [
+      {
+        "ids": [
+          "r2-a-005",
+          "r2-b-053"
+        ],
+        "target_token_sequence_ratio": 0.571429,
+        "target_fourgram_dice": 0.133333,
+        "shared_fourgram_count": 1
+      },
+      {
+        "ids": [
+          "r2-a-018",
+          "r2-c-006"
+        ],
+        "target_token_sequence_ratio": 0.6,
+        "target_fourgram_dice": 0.25,
+        "shared_fourgram_count": 3
+      },
+      {
+        "ids": [
+          "r2-a-066",
+          "r2-b-079"
+        ],
+        "target_token_sequence_ratio": 0.625,
+        "target_fourgram_dice": 0.0,
+        "shared_fourgram_count": 0
+      },
+      {
+        "ids": [
+          "r2-b-006",
+          "r2-c-005"
+        ],
+        "target_token_sequence_ratio": 0.551724,
+        "target_fourgram_dice": 0.26087,
+        "shared_fourgram_count": 3
+      },
+      {
+        "ids": [
+          "r2-b-009",
+          "r2-c-054"
+        ],
+        "target_token_sequence_ratio": 0.692308,
+        "target_fourgram_dice": 0.3,
+        "shared_fourgram_count": 3
+      }
+    ]
+  },
+  "manual_shared_family_disclosures": [
+    {
+      "ids": [
+        "r2-b-009",
+        "r2-c-054"
+      ],
+      "shared_family": "Deliberate adjective repetition elaborated by the audibility of a clock. One is a desired condition and the other an observation."
+    },
+    {
+      "ids": [
+        "r2-a-018",
+        "r2-c-006"
+      ],
+      "shared_family": "Repeated intensifier in a long-day complaint followed by a negative desire concerning recurrence."
+    },
+    {
+      "ids": [
+        "r2-a-066",
+        "r2-b-079"
+      ],
+      "shared_family": "Active correction from canceling one arrangement to keeping it while canceling another."
+    },
+    {
+      "ids": [
+        "r2-a-005",
+        "r2-b-053"
+      ],
+      "shared_family": "An event happens after another action has already taken place."
+    },
+    {
+      "ids": [
+        "r2-b-006",
+        "r2-c-005"
+      ],
+      "shared_family": "An unrealized transport intention contrasted with an alternative event."
+    },
+    {
+      "ids": [
+        "r2-a-008",
+        "r2-b-039"
+      ],
+      "shared_family": "Historical intention to sell a canoe with a later non-sale outcome."
+    },
+    {
+      "ids": [
+        "r2-b-031",
+        "r2-c-021"
+      ],
+      "shared_family": "Food dislike distinguished from allergy."
+    }
+  ],
+  "manual_disclosure_pair_count": 7,
+  "limitations": [
+    "Independently authored cases share ordinary correction, negation, chronology, quantity and narrative constructions. They are not independent template families.",
+    "The fuzzy screen is heuristic and does not enumerate every semantic or structural similarity.",
+    "No training, development, retired test or model-output artifacts were accessed. External overlap screening remains pending and is separate from the within-corpus audit.",
+    "This is an assistant-authored synthetic diagnostic corpus, not evidence of a population accuracy guarantee."
+  ]
+}
