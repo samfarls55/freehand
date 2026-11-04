@@ -209,3 +209,36 @@ rank8-to16 smoke exceeded the tight logit tolerance under F16-KV rounding and
 stopped correctly; rank16 is not a qualified continuation. The proposed first
 control keeps rank8/alpha16. A tiny-model test passing does not supersede that
 real-model failure. No accuracy or resource gate is relaxed by these options.
+
+## Optional token-unlikelihood ablation
+
+`--unlikelihood-events PATH --unlikelihood-eta ETA` adds penalties at reviewed
+gold-prefix token positions. The positive training file, source-derived masks,
+prompt/token fingerprints, gold/rejected IDs, EOS7, selected-logit positions,
+and every disclosed exposure of each selected source are verified before use.
+The event loader annotates existing rows and never adds positive examples.
+
+For marked logits, the stable penalty is
+`logsumexp(all_logits) - logsumexp(logits_except_rejected_id)`. The objective is
+`(sum CE_assistant + eta * sum UL_events) / N_assistant`. It reuses the existing
+chosen forward and output-head logits; no rejected-sequence/reference forward
+or inference change is introduced. Per-microbatch normalization and the existing
+gradient-accumulation divisor remain unchanged, and logs record each actual
+assistant-token denominator. Eta0 uses the exact historical mean-CE operation.
+
+Both comparison arms must use the **same frozen positive file and event artifact**,
+parent adapter, base, rank, seed, batch order, optimizer initialization, learning
+rate and stopping budget. Use fresh output directories with `--resume-adapter`
+for both arms; change only `--unlikelihood-eta 0` versus
+`--unlikelihood-eta 1`. The supported cap is2 for a separately approved follow-up,
+not an automatic sweep. Bind the event artifact to the final combined positive
+file and list all scheduled positive instance IDs; the raw32-pair proposal is
+not a substitute for that final binding.
+
+Event schema/file, positive file, tokenizer, exact per-row mapping, eta and source
+hashes are strict checkpoint identities. Exact recovery rejects a missing or
+changed objective artifact/configuration before restoring adapters or AdamW.
+Tiny tests prove high-confidence rejected-token stability/gradient direction,
+shift/padding/EOS mapping, one chosen forward/head call, varying-length token
+normalization, and exact eta0 adapter/optimizer/RNG identity, including the trainer
+CLI. No training run or accuracy claim follows automatically from these tests.

@@ -32,6 +32,7 @@ SOURCE_GGUF_SHA = "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b
 TRAINING_MODE_GGUF = "original-iq4-dequantized-fp32-v1"
 SOURCE_Q8_CPU_SHA = "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5"
 SOURCE_Q8_BASE_SHA = "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb"
+UNLIKELIHOOD_SCHEMA = "freehand-unlikelihood-token-events-v1"
 
 
 def sha(path: Path) -> str:
@@ -454,6 +455,115 @@ def encode_rows(rows, tokenizer, max_tokens):
     return prepared
 
 
+def value_sha(value):
+    return hashlib.sha256(json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def text_sha(value):
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def load_unlikelihood_events(path, positive_path, rows, tokenizer, tokenizer_path=None):
+    """Validate token events against the exact positive file; never add examples."""
+    positive_sha = sha(Path(positive_path))
+    by_id = {row["id"]: row for row in rows}
+    if len(by_id) != len(rows):
+        raise ValueError("Unlikelihood mapping requires unique positive instance IDs")
+    output = [{**row, "_unlikelihood_events": []} for row in rows]
+    annotated = {row["id"]: row for row in output}
+    identifiers = set()
+    source_ids = set()
+    mapping = []
+    records = [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
+    if not records:
+        raise ValueError("Unlikelihood event artifact is empty")
+    for record in records:
+        event_id = record.get("id")
+        if not isinstance(event_id, str) or not event_id or event_id in identifiers:
+            raise ValueError("Missing or duplicate unlikelihood event ID")
+        identifiers.add(event_id)
+        source_id = record.get("source_270_id")
+        if not isinstance(source_id, str) or not source_id or source_id in source_ids:
+            raise ValueError("Unlikelihood source IDs must be explicit and unique")
+        source_ids.add(source_id)
+        if record.get("positive_artifact_sha256") != positive_sha:
+            raise ValueError("Unlikelihood events are bound to a different positive artifact")
+        source, gold, bad = (record.get(key) for key in ("input", "gold", "bad"))
+        if any(not isinstance(value, str) or not value or any(control in value for control in ("<|", "###", "\x00"))
+               for value in (source, gold, bad)) or gold == bad:
+            raise ValueError("Unlikelihood source/gold/bad strings are empty, equal or contain reserved controls")
+        if record.get("source_input_sha256") != text_sha(source) or record.get("approved_gold_sha256") != text_sha(gold):
+            raise ValueError("Unlikelihood source/gold hash mismatch")
+        prompt, masked_gold, mask = protected_pair(source, gold)
+        other_prompt, masked_bad, other_mask = protected_pair(source, bad)
+        if prompt != other_prompt or mask.tokens != other_mask.tokens or mask.payloads != other_mask.payloads:
+            raise ValueError("Gold/bad do not share the same source-derived literal mask")
+        # Require the exact multiplicity of every protected payload, including repeated quotes.
+        payload_counts = {}
+        for payload in mask.payloads:
+            raw_payload = payload
+            for ordinal, block in enumerate(mask.legacy.blocks):
+                raw_payload = raw_payload.replace(mask.legacy.token_prefix + str(ordinal) + "_END", block)
+            payload_counts[raw_payload] = payload_counts.get(raw_payload, 0) + 1
+        if any(gold.count(payload) != count or bad.count(payload) != count for payload, count in payload_counts.items()):
+            raise ValueError("Gold/bad must retain each exact protected payload once per source occurrence")
+        prompt_ids = tokenizer.encode(prompt, add_special_tokens=False)
+        gold_ids = tokenizer.encode(masked_gold, add_special_tokens=False) + [7]
+        bad_ids = tokenizer.encode(masked_bad, add_special_tokens=False) + [7]
+        event = record.get("event")
+        if not isinstance(event, dict) or event.get("manual_semantic_branch_audited") is not True:
+            raise ValueError("Unlikelihood event has no audited semantic branch")
+        index = event.get("target_token_index_zero_based")
+        if type(index) is not int or not 0 <= index < min(len(gold_ids), len(bad_ids)):
+            raise ValueError("Unlikelihood target-token index is invalid")
+        gold_id, bad_id = gold_ids[index], bad_ids[index]
+        if (gold_ids[:index] != bad_ids[:index] or gold_id == bad_id
+                or event.get("gold_next_token_id") != gold_id or event.get("bad_next_token_id") != bad_id
+                or event.get("bad_id_differs_from_gold_id") is not True
+                or event.get("common_prefix_is_maximal_token_prefix") is not True):
+            raise ValueError("Unlikelihood prefix or gold/bad next token IDs differ")
+        if event.get("type") != ("premature_eos" if bad_id == 7 else "token"):
+            raise ValueError("Unlikelihood EOS/type mismatch")
+        expected = {"shared_masked_target_prefix_token_ids": gold_ids[:index],
+            "shared_prefix_token_ids_sha256": value_sha(gold_ids[:index]),
+            "prompt_token_count": len(prompt_ids), "chosen_forward_predictor_position_zero_based": len(prompt_ids) + index - 1,
+            "input_derived_literal_count": len(mask.tokens), "literal_mapping_sha256": value_sha(list(zip(mask.tokens, mask.payloads))),
+            "source_derived_prompt_sha256": text_sha(prompt), "masked_gold_sha256": text_sha(masked_gold),
+            "masked_bad_sha256": text_sha(masked_bad)}
+        if any(event.get(key) != value for key, value in expected.items()):
+            raise ValueError("Unlikelihood prompt/mask/prefix/index fingerprint differs")
+        row_ids = record.get("positive_row_ids", [record.get("positive_row_id")])
+        if (not isinstance(row_ids, list) or not row_ids
+                or any(not isinstance(identity, str) or identity not in by_id for identity in row_ids)
+                or len(set(row_ids)) != len(row_ids)):
+            raise ValueError("Unlikelihood positive instance IDs are missing, duplicate or unknown")
+        for identity in row_ids:
+            row = annotated[identity]
+            if row.get("positive_replay_instance", {}).get("source_id", source_id) != source_id:
+                raise ValueError("Unlikelihood positive instance has a different disclosed source ID")
+            if row["input"] != source or row["target"] != gold or row["prompt"] != prompt or row["masked_target"] != masked_gold:
+                raise ValueError("Unlikelihood event text differs from its positive instance")
+            if row["input_ids"] != prompt_ids + gold_ids or row["labels"] != [-100] * len(prompt_ids) + gold_ids:
+                raise ValueError("Unlikelihood event tokenization differs from its positive instance")
+            if row["_unlikelihood_events"]:
+                raise ValueError("Multiple unlikelihood events mapped to one positive instance")
+            mapped = {"target_token_index": index, "bad_token_id": bad_id, "gold_token_id": gold_id,
+                "predictor_position": len(prompt_ids) + index - 1, "event_id": event_id, "source_id": source_id}
+            row["_unlikelihood_events"].append(mapped)
+            mapping.append({"positive_row_id": identity, **mapped})
+    # All explicitly disclosed copies of a selected source must carry its event.
+    for row in output:
+        exposure = row.get("positive_replay_instance", {})
+        if exposure.get("source_id") in source_ids and not row["_unlikelihood_events"]:
+            raise ValueError("A scheduled exposure of a selected source lacks its unlikelihood event")
+    tokenizer_identity = sha(Path(tokenizer_path)) if tokenizer_path else value_sha(tokenizer.get_vocab())
+    identity = {"unlikelihood_schema": UNLIKELIHOOD_SCHEMA, "unlikelihood_events_sha256": sha(Path(path)),
+        "unlikelihood_positive_sha256": positive_sha, "unlikelihood_tokenizer_sha256": tokenizer_identity,
+        "unlikelihood_mapping_sha256": value_sha(sorted(mapping, key=lambda value: value["positive_row_id"])),
+        "unlikelihood_source_sha256": sha(Path(__file__))}
+    return output, identity
+
+
 def batch_tensors(rows, torch):
     size = max(len(row["input_ids"]) for row in rows)
     ids = torch.zeros((len(rows), size), dtype=torch.long)
@@ -467,14 +577,69 @@ def batch_tensors(rows, torch):
     return ids, labels, attention
 
 
-def assistant_loss(model, rows, torch):
+def assistant_event_indices(rows, labels, torch):
+    """Map target indices to the existing row-major selected-logit matrix."""
+    events = []
+    offset = 0
+    for ordinal, row in enumerate(rows):
+        positions = torch.nonzero(labels[ordinal, 1:] != -100, as_tuple=False).flatten().tolist()
+        targets = labels[ordinal, 1:][labels[ordinal, 1:] != -100]
+        for event in row.get("_unlikelihood_events", []):
+            index = event["target_token_index"]
+            if (type(index) is not int or not 0 <= index < len(positions)
+                    or positions[index] != event["predictor_position"]
+                    or int(targets[index]) != event["gold_token_id"]
+                    or event["bad_token_id"] == event["gold_token_id"]):
+                raise ValueError("Unlikelihood event does not point to its chosen assistant logit")
+            events.append((offset + index, event["bad_token_id"]))
+        offset += len(positions)
+    return events
+
+
+def chosen_token_loss(logits, targets, events, eta, torch, metrics=None):
+    if not math.isfinite(eta) or not 0 <= eta <= 2:
+        raise ValueError("Unlikelihood eta must be finite and between0and2")
+    if logits.ndim != 2 or targets.ndim != 1 or logits.shape[0] != targets.numel() or not targets.numel():
+        raise ValueError("Chosen assistant logits/targets have invalid shapes")
+    tokens = targets.numel()
+    # Keep this exact historical mean-CE operation for eta0 and unmarked batches.
+    if eta == 0 or not events:
+        loss = torch.nn.functional.cross_entropy(logits.float(), targets)
+        if metrics is not None:
+            metrics.update(assistant_tokens=tokens, event_count=len(events), eta=eta,
+                ce_mean=float(loss.detach()), ul_sum=0.0, ul_evaluated=False)
+        return loss
+    indices, bad_ids = zip(*events)
+    if (len(set(events)) != len(events) or any(type(i) is not int or not 0 <= i < tokens for i in indices)
+            or any(type(i) is not int or not 0 <= i < logits.shape[1] for i in bad_ids)
+            or any(int(targets[i]) == bad for i, bad in events)):
+        raise ValueError("Unlikelihood selected-logit index or rejected token is invalid")
+    marked = logits[list(indices)].float()
+    if not torch.isfinite(marked).all():
+        raise ValueError("Unlikelihood marked logits must be finite")
+    excluded = marked.clone()
+    excluded[torch.arange(len(events)), list(bad_ids)] = -torch.inf
+    penalties = torch.logsumexp(marked, dim=-1) - torch.logsumexp(excluded, dim=-1)
+    ce_sum = torch.nn.functional.cross_entropy(logits.float(), targets, reduction="sum")
+    ul_sum = penalties.sum()
+    loss = (ce_sum + eta * ul_sum) / tokens
+    if not torch.isfinite(loss) or not torch.isfinite(penalties).all():
+        raise ValueError("Unlikelihood objective is not finite")
+    if metrics is not None:
+        metrics.update(assistant_tokens=tokens, event_count=len(events), eta=eta,
+            ce_sum=float(ce_sum.detach()), ul_sum=float(ul_sum.detach()), ul_evaluated=True)
+    return loss
+
+
+def assistant_loss(model, rows, torch, unlikelihood_eta=0.0, metrics=None):
     ids, labels, attention = batch_tensors(rows, torch)
     hidden = model.model(input_ids=ids, attention_mask=attention, use_cache=False).last_hidden_state
     selected = labels[:, 1:] != -100
     # Avoid allocating vocabulary logits for masked prompt/padding positions.
     logits = model.lm_head(hidden[:, :-1, :][selected])
     targets = labels[:, 1:][selected]
-    loss = torch.nn.functional.cross_entropy(logits.float(), targets)
+    events = assistant_event_indices(rows, labels, torch) if (unlikelihood_eta or metrics is not None) else []
+    loss = chosen_token_loss(logits, targets, events, unlikelihood_eta, torch, metrics)
     return loss, int(selected.sum().item())
 
 
@@ -494,7 +659,9 @@ RESUME_CONFIG_KEYS = ("base_model_sha256", "rank", "alpha", "target_modules", "s
     "gguf_dequantizer_sha256", "gguf_mapping_sha256", "parent_adapter_sha256", "parent_adapter_config_sha256",
     "rank_expansion", "kv_roundtrip_mode", "kv_attention_source_sha256", "quantized_training_source_sha256",
     "activation_quantization_mode", "activation_cpu_library_sha256", "activation_base_library_sha256",
-    "activation_linear_inventory_sha256")
+    "activation_linear_inventory_sha256", "unlikelihood_schema", "unlikelihood_events_sha256",
+    "unlikelihood_positive_sha256", "unlikelihood_tokenizer_sha256", "unlikelihood_mapping_sha256",
+    "unlikelihood_eta", "unlikelihood_source_sha256")
 
 
 def _fsync_directory(path):
@@ -674,6 +841,17 @@ def train(args):
             "activation_emulation_receipt": activation_receipt})
     torch.manual_seed(args.seed)
     rows = encode_rows(raw, tokenizer, args.max_tokens)
+    unlikelihood_config = {}
+    if args.unlikelihood_events:
+        rows, unlikelihood_config = load_unlikelihood_events(args.unlikelihood_events, args.train, rows, tokenizer,
+                                                           args.base / "tokenizer.json")
+        unlikelihood_config["unlikelihood_eta"] = args.unlikelihood_eta
+        write_json(args.output / "unlikelihood-provenance.json", {**unlikelihood_config,
+            "canonical_event_count": len({event["event_id"] for row in rows for event in row["_unlikelihood_events"]}),
+            "positive_exposures_with_events": sum(bool(row["_unlikelihood_events"]) for row in rows),
+            "positive_rows_added": 0, "loss": "(sum CE_assistant + eta * sum UL_events) / N_assistant",
+            "same_chosen_forward": True, "extra_reference_or_rejected_forward": False,
+            "gradient_accumulation_scope": "Unchanged per-microbatch normalization then existing accumulation divisor"})
     model.eval()
     with torch.inference_mode():
         before = model(torch.tensor([rows[0]["input_ids"]]), use_cache=False).logits.clone()
@@ -743,7 +921,7 @@ def train(args):
               "planned_execution_steps": min(total_steps, args.max_steps) if args.max_steps else total_steps,
               "learning_rate_schedule": "Linear warmup then linear decay, floored at0.1of initial learning rate; exact per-step values retained in log",
               "resume_adapter_sha256": resume_sha, "resume_optimizer": False,
-              "full_examples_truncated": 0, "blind_evaluation_read": False, **extra_config}
+              "full_examples_truncated": 0, "blind_evaluation_read": False, **extra_config, **unlikelihood_config}
     optimizer = torch.optim.AdamW(trainable, lr=args.learning_rate, weight_decay=0)
     resumed = None
     if args.resume_checkpoint:
@@ -765,6 +943,7 @@ def train(args):
     resumed_micro = micro
     resumed_seconds = resumed["elapsed_seconds"] if resumed else 0
     step_loss_sum = step_micro_count = 0
+    step_objective_components = []
     model.train()
     with (args.output / "training-log.jsonl").open("x", encoding="utf-8", buffering=1) as log:
         for epoch in range(args.epochs):
@@ -779,7 +958,12 @@ def train(args):
                 if ordinal_micro < resumed_micro:
                     continue
                 batch = [rows[i] for i in bucketed[at:at + args.batch_size]]
-                loss, tokens = assistant_loss(model, batch, torch)
+                if args.unlikelihood_events:
+                    components = {}
+                    loss, tokens = assistant_loss(model, batch, torch, args.unlikelihood_eta, components)
+                    step_objective_components.append(components)
+                else:
+                    loss, tokens = assistant_loss(model, batch, torch)
                 if not torch.isfinite(loss):
                     raise ValueError("Non-finite training loss")
                 group_size = min(args.gradient_accumulation,
@@ -802,9 +986,13 @@ def train(args):
                     event = {"epoch": epoch + 1, "step": step, "microbatch": micro, "loss": step_loss_sum / step_micro_count,
                              "lr": optimizer.param_groups[0]["lr"], "gradient_norm": norm.item(),
                              "assistant_tokens": consumed_tokens, "seconds": resumed_seconds + time.monotonic() - start}
+                    if args.unlikelihood_events:
+                        event["objective_microbatches"] = step_objective_components
+                        event["unlikelihood_eta"] = args.unlikelihood_eta
                     log.write(json.dumps(event) + "\n")
                     print(json.dumps(event), flush=True)
                     step_loss_sum = step_micro_count = 0
+                    step_objective_components = []
                     if args.checkpoint_every and step % args.checkpoint_every == 0:
                         save_resume_checkpoint(model, optimizer, torch, args.output, config, event)
                     if args.max_steps and step >= args.max_steps:
@@ -1058,6 +1246,8 @@ def main(argv=None):
     training.add_argument("--kv-roundtrip", choices=["none", "f16"], default="none")
     training.add_argument("--activation-quantization", choices=["none", "native-q8-k"], default="none")
     training.add_argument("--native-runtime", type=Path)
+    training.add_argument("--unlikelihood-events", type=Path)
+    training.add_argument("--unlikelihood-eta", type=float, default=0.0)
     training.add_argument("--allow-deterministic-legacy-resume", action="store_true")
     training.add_argument("--checkpoint-every", type=int, default=100)
     training.set_defaults(handler=train)
@@ -1096,6 +1286,10 @@ def main(argv=None):
     if args.command == "train" and args.allow_deterministic_legacy_resume and not args.resume_checkpoint:
         parser.error("Legacy recovery requires --resume-checkpoint")
     if args.command == "train":
+        if not math.isfinite(args.unlikelihood_eta) or not 0 <= args.unlikelihood_eta <= 2:
+            parser.error("Unlikelihood eta must be finite and between0and2")
+        if args.unlikelihood_eta and not args.unlikelihood_events:
+            parser.error("A positive unlikelihood eta requires an explicit event artifact")
         quantized = args.training_base_mode == TRAINING_MODE_GGUF
         if quantized and (not args.gguf_base or not args.parent_adapter_sha256
                 or not (args.resume_adapter or args.resume_checkpoint)):
