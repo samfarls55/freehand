@@ -10,6 +10,7 @@ Use Windows x64, Git with Git LFS, and PowerShell7. Preserve any local changes
 before switching branches; a separate clone is also suitable.
 
 ```powershell
+git config core.longpaths true
 git fetch origin
 git switch --track origin/codex/scribekey-blend-dev
 git lfs install

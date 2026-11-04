@@ -14,6 +14,9 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 30
     steps:
+      - name: Allow preserved research evidence paths
+        shell: pwsh
+        run: git config --global core.longpaths true
       - uses: actions/checkout@v4
         with:
           lfs: true
