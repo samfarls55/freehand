@@ -195,6 +195,17 @@ public sealed class NativeTextDeliveryGroup;
 [Collection("Native text delivery")]
 public sealed class NativeTextDeliveryTests
 {
+    [Fact]
+    public void Ordinary_letters_take_the_real_target_layout_scan_code_route()
+    {
+        using var field = new WindowsDeliveryProbe();
+        var target = field.BeginTrial();
+        var mapped = Assert.IsType<SendInputTextInjector.INPUT>(SendInputTextInjector.MapTextKey('b', target));
+        Assert.NotEqual(0u, mapped.Union.Keyboard.Flags & 8);
+        Assert.Equal(0u, mapped.Union.Keyboard.Flags & 4);
+        Assert.Null(SendInputTextInjector.MapTextKey('日', target));
+    }
+
     [Theory]
     [InlineData("Testing, testing, testing, this is an interesting thing and I really want to see if it works and I really hope that it's best.")]
     [InlineData("Trying one more time, I know sometimes the first dictation might not always be perfect.")]

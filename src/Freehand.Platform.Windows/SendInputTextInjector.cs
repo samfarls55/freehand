@@ -126,7 +126,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     private static extern int ToUnicodeEx(uint virtualKey, uint scanCode, byte[] state,
         [Out] char[] characters, int capacity, uint flags, nint layout);
 
-    private static INPUT? MapTextKey(char character, ForegroundTarget target)
+    internal static INPUT? MapTextKey(char character, ForegroundTarget target)
     {
         // Do not synthesize Shift/AltGr chords or disturb a dead-key composition.
         // Control characters and non-ASCII text take the paced Unicode route.
