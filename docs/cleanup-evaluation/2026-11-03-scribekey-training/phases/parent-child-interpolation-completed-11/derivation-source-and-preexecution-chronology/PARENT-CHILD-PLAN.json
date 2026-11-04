@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "status": "source_microtests_and_independent_guards_ready_no_real_derivation",
+  "endpoint_artifacts": {
+    "parent": {
+      "directory": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v7-ul-02",
+      "raw_sha256": "8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v7-ul-02/adapter-config.json",
+        "bytes": 7374,
+        "sha256": "b86205448c05f0948da0e59f0c59818e338fce50f2ef56e1a78d92a05f09bfb6"
+      }
+    },
+    "child": {
+      "directory": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01",
+      "raw_sha256": "0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/adapter-config.json",
+        "bytes": 6967,
+        "sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9"
+      }
+    }
+  },
+  "raw_weight_identities_status": "Declared pins from root-provided identities and small existing training-result metadata; raw bytes deliberately not opened in preparation.",
+  "child_fractions": [
+    0.5,
+    0.75,
+    0.875
+  ],
+  "compatible_fields": [
+    "base_model_sha256",
+    "frozen_base_sha256",
+    "base_path",
+    "rank",
+    "alpha",
+    "scaling",
+    "target_modules",
+    "trainable_parameters",
+    "dtype",
+    "literal_protocol",
+    "training_base_mode",
+    "base_config_sha256",
+    "tokenizer_sha256",
+    "activation_quantization_mode",
+    "activation_cpu_library_sha256",
+    "activation_base_library_sha256",
+    "activation_linear_inventory_sha256",
+    "gguf_dequantizer_sha256",
+    "gguf_mapping_sha256",
+    "kv_roundtrip_mode",
+    "quantized_training_source_sha256",
+    "training_source_sha256"
+  ],
+  "differences_disclosed": {
+    "effective_warmup_steps": {
+      "parent": 34,
+      "child": 40
+    },
+    "parent_adapter_config_sha256": {
+      "parent": "1a159297809162e628c7b3b44079b832a10d78f63a881d2902777aaa5797c490",
+      "child": "b86205448c05f0948da0e59f0c59818e338fce50f2ef56e1a78d92a05f09bfb6"
+    },
+    "parent_adapter_sha256": {
+      "parent": "157af046d18471d2e87d6936208d629e129739746f2c807636915f955968f207",
+      "child": "8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643"
+    },
+    "planned_execution_steps": {
+      "parent": 345,
+      "child": 405
+    },
+    "resume_adapter_sha256": {
+      "parent": null,
+      "child": "8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643"
+    },
+    "resume_checkpoint": {
+      "parent": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v7-ul-01/checkpoints/step-000032",
+      "child": null
+    },
+    "resume_checkpoint_state_sha256": {
+      "parent": "7d1fa2a8c269d3892b6076ad973a9e93a009e13d11456b9d45215b8b831e897b",
+      "child": null
+    },
+    "resume_global_microbatch": {
+      "parent": 64,
+      "child": null
+    },
+    "resume_global_step": {
+      "parent": 32,
+      "child": null
+    },
+    "resume_optimizer": {
+      "parent": true,
+      "child": false
+    },
+    "resume_rng_restore_mode": {
+      "parent": "exact_saved_torch_cpu_and_python",
+      "child": null
+    },
+    "resume_source_training_code_sha256": {
+      "parent": "8c609cd04f058adb565dd489029e6daa3b1728d5ea57420541e5a8b990f59fad",
+      "child": null
+    },
+    "schedule_total_optimizer_steps": {
+      "parent": 345,
+      "child": 405
+    },
+    "train_rows": {
+      "parent": 2754,
+      "child": 3234
+    },
+    "train_sha256": {
+      "parent": "fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6",
+      "child": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c"
+    },
+    "unlikelihood_events_sha256": {
+      "parent": "51594710dd5807b50d73817157ead41dd7e244b70beaad55a5d286d4867d07d5",
+      "child": "a1d385c91f3dc6d8e53ac1f04f19d7d23a0e5caeea932caa7d858cc3539eeaf8"
+    },
+    "unlikelihood_positive_sha256": {
+      "parent": "fa18dfcd5faf4c5a7a20f8e9b669caaa2ec3c8e098b27b17a25128eda1d592a6",
+      "child": "2fdab6a16b7c47a7e2bffd2d60208ad0b5ea9804048d28f2f184468fe33e757c"
+    },
+    "warmup_steps": {
+      "parent": 34,
+      "child": 40
+    }
+  },
+  "base_IQ4_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+  "native_external_scale": 1,
+  "rank": 8,
+  "alpha": 16,
+  "F32_tensor_count": 184,
+  "F32_parameters": 2998272,
+  "F32_payload_bytes_per_adapter": 11993088,
+  "three_raw_plus_three_F32GGUF_payload_bytes_approx": 71958528,
+  "PEFT_staging_if_retained_additional_payload_bytes_approx": 35979264,
+  "large_files_location": "Fresh /tmp outputs after authorization; small evidence under work.",
+  "derivation_optimizer_steps": 0,
+  "functional_or_delta_average_equivalence_claimed": false,
+  "cross_term": "delta_t=(1-t)delta_parent+t delta_child-2t(1-t)(B_parent-B_child)(A_parent-A_child)",
+  "source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/derive_parent_child.py",
+    "bytes": 9407,
+    "sha256": "4baf070e1a2f2570a69bbd51285d732aeedde2f4eca3b2eee6d913cf737a46f7"
+  },
+  "tests": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/test_parent_child.py",
+    "bytes": 3991,
+    "sha256": "3d31365be22fe57be5af8ce490fc78cb36d624a18b28450f6329da44d5aeeae3"
+  },
+  "test_log": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/parent-child-micro-tests.log",
+    "bytes": 1319,
+    "sha256": "c667a88aba850fe9576baee200008a16ea99125e644f22d9ae48d4ebef3fc3c3"
+  },
+  "original_matched_SFT_UL_helper_unchanged": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/derive.py",
+    "bytes": 10716,
+    "sha256": "57c5ff750aed2c5e11cf4a4509274e688084bf0fcd2afde0ca53b8841aecef8f"
+  },
+  "independent_guard_review": {
+    "agent": "parent_child_guard_review",
+    "verdict": "No blocking math, compatibility or provenance issue found",
+    "reviewed_script_sha256": "4baf070e1a2f2570a69bbd51285d732aeedde2f4eca3b2eee6d913cf737a46f7",
+    "reviewed_test_sha256": "3d31365be22fe57be5af8ce490fc78cb36d624a18b28450f6329da44d5aeeae3",
+    "microtests_passed": 9,
+    "actual_small_config_pins_and_all23_fields_independently_checked": true,
+    "real_weights_or_headers_read": false
+  },
+  "selection_predeclaration": {
+    "scope": "Fixed old-development subset only, never fresh2",
+    "source_V8_review_sha256_declared_by_root": "fe07736284eda5a8b8425c90b537f217e7c984d94b7e2420d375c8c5e1bfdae7",
+    "root_reported_child_joint": 492,
+    "root_reported_parent_joint": 483,
+    "include_all_exact_parent_child_output_change_ids": 23,
+    "include_union_of_parent_and_child_failures": true,
+    "known_child_regressions": [
+      "b091",
+      "b092",
+      "c029"
+    ],
+    "known_unchanged_failures": [
+      "a026",
+      "b098",
+      "b101",
+      "c021",
+      "c034"
+    ],
+    "include_literal_and_clean_controls": true,
+    "freeze_exact_ID_inventory_and_source_output_hashes_before_screen": true,
+    "full500_required_for_selected_interpolation": true,
+    "fresh2_requires_final_frozen_candidate_and_authorization": true
+  },
+  "resource_targets": {
+    "whole_app_peak_bytes_cap": 747500000,
+    "latency_ms_cap": 805,
+    "fixed_shape_does_not_establish_resource_pass": true
+  },
+  "execution_gate": "No weights/conversion/native until explicit root serial CPU grant."
+}

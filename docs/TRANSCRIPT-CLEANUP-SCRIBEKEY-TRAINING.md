@@ -15,7 +15,7 @@ critical error. These development results remain below the gate. The new
 independent test remains unconsumed. V6 passes the measured Linux partial-pipeline
 resource limits; the V7/V8 weights have not been remeasured. Windows qualification
 remains unavailable. Three fixed parent–child weight interpolations were tested
-and did not improve V8; further supervised training is being prepared.
+and did not improve V8; the V9 supervised training run is active.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -442,7 +442,20 @@ them **487, 489 and 490 of 500**, with **7, 4 and 2 critical errors** respective
 The predeclared selection rule retains V8 at 492; no further coefficient search
 is used. Three regressions were not recovered without losing other corrections.
 A separately reviewed 80-pair curriculum and 20 additional attribute-fragment
-repairs/controls remain reserved while the next training pass is prepared.
+repairs/controls supply the next training pass. All 100 new pairs have independent
+semantic and Core-alignment approvals. Each is exposed four times, with all
+3,234 prior exposures retained: **3,634 exposures, 2,724 distinct raw pairs,
+1,224 clean controls and 2,410 editing examples**. All repetitions and inherited
+historical exposure annotations are explicitly disclosed. The maximum complete
+example remains 193 tokens; no example is truncated. Exact normalized source-pair
+union proofs inherit zero overlap with the unopened acceptance corpus.
+
+V9 starts from V8 with a fresh optimizer and the same rank, learning rate,
+numerical base, activation quantization and semantic-loss weight. The frozen
+positive-file SHA-256 is
+`50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451`.
+The one-epoch schedule is 455 updates over 909 microbatches, with 45 warmup
+updates. Training is active; no V9 accuracy or resource result is claimed.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe

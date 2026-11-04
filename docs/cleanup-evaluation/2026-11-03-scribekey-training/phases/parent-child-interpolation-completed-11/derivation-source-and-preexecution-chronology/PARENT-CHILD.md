@@ -1,0 +1,22 @@
+The new mode is separate: `derive_parent_child.py` and `test_parent_child.py`. The old matched-SFT/UL `derive.py` remains byte-identical (SHA `57c5ff750aed2c5e11cf4a4509274e688084bf0fcd2afde0ca53b8841aecef8f`); its original common-parent/data/eta guards are unchanged. The new file verifies that helper SHA before importing only its codec and artifact utilities.
+
+This bounded derivation pins the exact V7 UL parent (`8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643`, config `b86205448c05f0948da0e59f0c59818e338fce50f2ef56e1a78d92a05f09bfb6`) and V8 child (`0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c`, config `2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9`). The child's parent adapter/config fields must identify the exact verified parent file bytes. All 23 representation/architecture/source compatibility fields match, including original IQ4 base, rank 8, alpha 16, scaling 2, all 92 modules, 184 F32 tensors, Q8 activation mode, KV none and literal protocol.
+
+The histories intentionally differ: parent data `fa18…` / 2,754 rows / events `515947…` / 345 planned optimizer steps versus child data `2fdab6…` / 3,234 rows / events `a1d385…` / 405 planned steps. The new guard does **not** force these histories equal. Both full original config JSONs are copied and hash-pinned in future derivation evidence, with all differences disclosed. The new artifact records zero optimizer steps for its derivation; no optimizer, RNG or resumed-training identity is fabricated.
+
+Only child fractions **0.5, 0.75, 0.875** are allowed by the CLI. For child fraction t, both factors are interpolated in F32, retaining rank 8 and alpha/rank scaling 2. The effective update is
+
+    Δ_t = (1−t)Δ_parent + tΔ_child
+          − 2t(1−t)(B_parent−B_child)(A_parent−A_child).
+
+It is not exact update/function averaging. Parent–child ancestry provides a coherent initial factor basis but does not guarantee interpolation quality. The three observed child regressions motivate screening; recovering all three without losing any fixes is a hypothesis, not a promised 495/500 result or independent final-test pass.
+
+Nine tiny tests pass, and an independent agent reviewed the math, guards, provenance and actual small config hashes/compatibility/linkage without opening real weights or headers. Tested behavior includes allowed differing histories, mismatch rejection for every compatibility field and exact child-parent link, no rank expansion, the three coefficients, byte-exact endpoints in microchecks, deterministic F32 arithmetic, finite values, and omission of inherited training-counter claims. The unchanged codec checks exact keys/shapes/dtypes/offsets and output readback, and unchanged parent bytes are reverified after any future derivation.
+
+Storage/graph footprint stays 184 F32 tensors / 2,998,272 parameters / 11,993,088 tensor payload bytes per adapter. Three raw outputs plus three F32 GGUF adapters need roughly 72 MB of payload in `/tmp`; retaining three additional PEFT copies adds roughly 36 MB. Headers and small provenance files are extra. Native rank/storage remains unchanged; timing, output length and actual app memory still need measurement against 805 ms and 747,500,000 bytes.
+
+Future conversion must use an explicitly derived label, retain the original notices plus a derivation notice, preserve all 184 F32 payload hashes, keep the original IQ4 base unmodified/unmerged/unrequantized and use external native scale 1. `evaluate.py freeze` can honestly pin the minimal derived config/sidecar plus deployed GGUF identity, but the work-only `DERIVATION.json`, source/helper/schema, parent histories and notices require explicit verification/preservation because the generic helper does not recursively verify them.
+
+Before the first screen request, freeze a development-only ID inventory that includes the union of all parent/child failures, all 23 changed outputs and literal/clean controls. The known regressions are b091, b092 and c029; unchanged failures are a026, b098, b101, c021 and c034. The exact inventory must be derived from the pinned existing outputs; preparation has not opened or selected any fresh cases. Full500 remains required for any selected interpolation, followed by independently authorized final testing only after candidate/source/artifact freeze.
+
+No actual derivation, real adapter/header read, conversion or native run was performed in this preparation. Execution awaits the root's explicit serial CPU grant.

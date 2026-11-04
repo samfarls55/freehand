@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "status": "final_preexecution_plan_only_await_root_CPU_grant",
+  "decision": "Root replaced subset screening with full retired500 Core for EACH fixed interpolation; no further coefficient tuning.",
+  "supersedes_only_screen_execution_part_of": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/PARENT-CHILD-PLAN.json",
+    "bytes": 7611,
+    "sha256": "b49e41508038e995a62f7e3e5ecede9086e5a9a02b8cf46e67c6ff407dec2bb3"
+  },
+  "old_subset_plan_status": "preserved_unused_history",
+  "coefficients": [
+    {
+      "label": "t050",
+      "child_fraction": 0.5,
+      "parent_fraction": 0.5,
+      "derived_directory": "/tmp/freehand-v8-parent-child-t050",
+      "derived_adapter": "/tmp/freehand-v8-parent-child-t050/adapter.safetensors",
+      "derived_config": "/tmp/freehand-v8-parent-child-t050/adapter-config.json",
+      "proposed_native_F32GGUF": "/tmp/freehand-v8-parent-child-t050/native-F32.gguf",
+      "derivation_evidence": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-interpolation/t050/derivation",
+      "proposed_full500_Core_output": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-interpolation/t050/core",
+      "case_count": 500,
+      "split": "retired_development",
+      "runs": 1
+    },
+    {
+      "label": "t075",
+      "child_fraction": 0.75,
+      "parent_fraction": 0.25,
+      "derived_directory": "/tmp/freehand-v8-parent-child-t075",
+      "derived_adapter": "/tmp/freehand-v8-parent-child-t075/adapter.safetensors",
+      "derived_config": "/tmp/freehand-v8-parent-child-t075/adapter-config.json",
+      "proposed_native_F32GGUF": "/tmp/freehand-v8-parent-child-t075/native-F32.gguf",
+      "derivation_evidence": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-interpolation/t075/derivation",
+      "proposed_full500_Core_output": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-interpolation/t075/core",
+      "case_count": 500,
+      "split": "retired_development",
+      "runs": 1
+    },
+    {
+      "label": "t0875",
+      "child_fraction": 0.875,
+      "parent_fraction": 0.125,
+      "derived_directory": "/tmp/freehand-v8-parent-child-t0875",
+      "derived_adapter": "/tmp/freehand-v8-parent-child-t0875/adapter.safetensors",
+      "derived_config": "/tmp/freehand-v8-parent-child-t0875/adapter-config.json",
+      "proposed_native_F32GGUF": "/tmp/freehand-v8-parent-child-t0875/native-F32.gguf",
+      "derivation_evidence": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-interpolation/t0875/derivation",
+      "proposed_full500_Core_output": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/parent-child-interpolation/t0875/core",
+      "case_count": 500,
+      "split": "retired_development",
+      "runs": 1
+    }
+  ],
+  "run_order": [
+    "t050",
+    "t075",
+    "t0875"
+  ],
+  "no_concurrent_native_jobs": true,
+  "endpoints": {
+    "parent": {
+      "directory": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v7-ul-02",
+      "raw_sha256_from_historical_training_result": "8855c0db616fedd64d5b0fb9bba84a04a9e1bcfde8af33407b0c6f3721c2e643",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v7-ul-02/adapter-config.json",
+        "bytes": 7374,
+        "sha256": "b86205448c05f0948da0e59f0c59818e338fce50f2ef56e1a78d92a05f09bfb6"
+      },
+      "historical_training_result": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v7-ul-02/training-result.json",
+        "bytes": 319,
+        "sha256": "d3b8a8a14239b3d11aa80178d0213daf6a1dacc1b638a11a1d111e0750293523"
+      },
+      "historical_completed_optimizer_steps": 345,
+      "derivation_steps": 0
+    },
+    "child": {
+      "directory": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01",
+      "raw_sha256_from_historical_training_result": "0ad09445f70d2547696691511b4a7973bdfe1de4545b83cf76f2b62ca0a8306c",
+      "config": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/adapter-config.json",
+        "bytes": 6967,
+        "sha256": "2637946ed089eb5c1b53371def45af9b67380c7a2089d40f2bb29cca8ff1cdb9"
+      },
+      "historical_training_result": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v8-01/training-result.json",
+        "bytes": 319,
+        "sha256": "5a0a23a2c52b12f9913a64e4dd0e18544bd1b0a763f50e1ae610f52eaf4db927"
+      },
+      "historical_completed_optimizer_steps": 405,
+      "derivation_steps": 0
+    }
+  },
+  "source": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/derive_parent_child.py",
+    "bytes": 9407,
+    "sha256": "4baf070e1a2f2570a69bbd51285d732aeedde2f4eca3b2eee6d913cf737a46f7"
+  },
+  "tests": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/test_parent_child.py",
+    "bytes": 3991,
+    "sha256": "3d31365be22fe57be5af8ce490fc78cb36d624a18b28450f6329da44d5aeeae3"
+  },
+  "microtest_log": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/parent-child-micro-tests.log",
+    "bytes": 1319,
+    "sha256": "c667a88aba850fe9576baee200008a16ea99125e644f22d9ae48d4ebef3fc3c3"
+  },
+  "old_matched_arm_guard": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/derive.py",
+    "bytes": 10716,
+    "sha256": "57c5ff750aed2c5e11cf4a4509274e688084bf0fcd2afde0ca53b8841aecef8f"
+  },
+  "schema": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/expected-schema.json",
+    "bytes": 13768,
+    "sha256": "596639db7fcc5d89c390e96d731b3ed5a83e0dd1a7326d34af6e258a91b993a4"
+  },
+  "legal_notice_sources": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/adapter-average-preparation/legal-notice-sources.json",
+    "bytes": 932,
+    "sha256": "a79735edf788d4272671451a9bc7bb0fcccf4b6031b00e2ffbc7e3c2be36708d"
+  },
+  "independent_guard_review": {
+    "result": "PASS; no blocking guard/math/provenance issue",
+    "microtests": 9,
+    "both_config_pins_verified": true,
+    "all_compatibility_fields_verified": 23,
+    "exact_child_to_parent_raw_and_config_linkage_verified_from_config_metadata": true,
+    "actual_parent_weight_bytes_not_yet_opened": true
+  },
+  "deployment": {
+    "original_IQ4_base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+    "rank": 8,
+    "alpha": 16,
+    "scaling": 2,
+    "external_scale": 1,
+    "F32_tensor_count": 184,
+    "modules": 92,
+    "merge_or_requantize_base": false,
+    "conversion": "Pinned native LoRA F32; prove all derived tensor bytes unchanged"
+  },
+  "derivation_provenance": {
+    "steps": 0,
+    "not_new_optimizer_checkpoint": true,
+    "both_actual_histories_retained": true,
+    "no_fabricated345_or405_step_or_RNG_claim": true,
+    "histories_may_have_different_data_events_schedules": true,
+    "factor_cross_term": "-2t(1-t)(B_parent-B_child)(A_parent-A_child)",
+    "exact_delta_or_function_average_claimed": false
+  },
+  "footprint": {
+    "F32_payload_bytes_each": 11993088,
+    "three_raw_plus_three_GGUF_payload_bytes_approx": 71958528,
+    "optional_three_PEfT_staging_payload_bytes_approx": 35979264,
+    "large_files": "/tmp",
+    "memory_latency_requalification_required": true
+  },
+  "fresh2": "Never opened in preparation; only after final candidate/source/artifact freeze and independent root authorization",
+  "quality_target": {
+    "joint_passes_required": 495,
+    "case_count": 500
+  },
+  "resource_caps": {
+    "whole_app_peak_bytes": 747500000,
+    "latency_ms": 805
+  },
+  "actual_derived_or_converted_weights_created": false,
+  "actual_native_jobs_started": false
+}

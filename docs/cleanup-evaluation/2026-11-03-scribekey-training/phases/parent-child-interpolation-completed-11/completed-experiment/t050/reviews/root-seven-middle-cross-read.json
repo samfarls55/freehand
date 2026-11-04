@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "utc": "2026-11-04T04:52:13.660947+00:00",
+  "reviewer": "Codex assistant /root",
+  "results_sha256": "4dcf6c221f21599e2640e559ec1d9807ec4d0f86b81b591deff505afbb5e2273",
+  "canonical_review_sha256": "fc4830b9b947235d4e996c35a9ea9317d1172a28077d6e254ef627bbb871172e",
+  "scope": "Seven actual source/final pairs cross-read; candidate bytes verified equal to final. No canonical override. t0875b090 retains core information query but requires grammar repair; no definite passport revival.",
+  "cases": [
+    {
+      "case_id": "blind-b-023",
+      "normalized_input": "I don't want less testing, I mean, I want fewer redundant copies of the same test.",
+      "candidate_text_equals_final_output": true,
+      "output": "I want fewer redundant copies of the same test.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Deletes the independent I do not want less testing constraint. The preference for fewer redundant copies is a clarification, not a retraction; retaining only that preference critically loses the negated intention despite fluent wording."
+      }
+    },
+    {
+      "case_id": "blind-b-073",
+      "normalized_input": "Ask Leena to sign, no wait, Leena is away; ask Mateo to sign on her behalf.",
+      "candidate_text_equals_final_output": true,
+      "output": "Ask Leena to sign on her behalf; ask Mateo to sign the document.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Revives Leena as signer despite the explanation that she is away, moves on-her-behalf onto Leena, and separately asks Mateo to sign a document. Mateo acting on Leena's behalf and the availability fact are lost; critical actor/authority corruption remains fluent."
+      }
+    },
+    {
+      "case_id": "blind-b-090",
+      "normalized_input": "Ask for a copy of her passport, scratch that, ask which identity documents she can provide.",
+      "candidate_text_equals_final_output": true,
+      "output": "Ask for a copy of her passport and ask which identity documents she can provide.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Changes scratch that into and, retaining the canceled passport-copy request alongside the document inquiry. This critically revives an explicitly retracted action; fluent wording cannot earn fidelity credit."
+      }
+    },
+    {
+      "case_id": "blind-b-091",
+      "normalized_input": "We need to tighten the bolt clockwise, sorry, counterclockwise on this reverse thread.",
+      "candidate_text_equals_final_output": true,
+      "output": "We need to counterclockwise on this reverse thread.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Still deletes tighten the bolt and returns We need to counterclockwise, an incomplete ungrammatical instruction. Keeping the corrected direction and reverse-thread fragment does not preserve the primary action/object."
+      }
+    },
+    {
+      "case_id": "blind-b-092",
+      "normalized_input": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "candidate_text_equals_final_output": true,
+      "output": "The inspection passed, no, I read the wrong line; the inspection is still pending.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Source is accepted unchanged. The explicit correction and final pending status preserve meaning, including the wrong-line explanation, but the superseded passed assertion and no cue remain uncleaned; no cleanup credit."
+      }
+    },
+    {
+      "case_id": "blind-b-096",
+      "normalized_input": "Give the witness my home number, no, give her the office number and don't share my home number.",
+      "candidate_text_equals_final_output": true,
+      "output": "Give the office number of the witness and don't share my home number.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Changes giving the office number TO the witness into giving the office number OF the witness. The home-number prohibition survives, but the recipient-to-owner corruption critically changes the intended contact instruction."
+      }
+    },
+    {
+      "case_id": "blind-b-099",
+      "normalized_input": "Replace both filters, wait, the second one was changed yesterday; replace only the first filter.",
+      "candidate_text_equals_final_output": true,
+      "output": "Replace only the first filter.",
+      "root_actually_read_source_and_output": true,
+      "root_agrees_with_canonical": true,
+      "canonical_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": true,
+        "critical_error": true,
+        "reason": "Keeps the only-first-filter request but deletes the unretracted fact that the second filter was changed yesterday. This loses substantive maintenance status/chronology rather than only the canceled both-filters instruction."
+      }
+    }
+  ]
+}

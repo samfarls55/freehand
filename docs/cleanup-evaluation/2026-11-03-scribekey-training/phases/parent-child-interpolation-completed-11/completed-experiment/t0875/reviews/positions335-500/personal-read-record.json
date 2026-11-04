@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "results_sha256": "b04596ffaa100f695052a8616de89c61fd4830439346f5e20f6558ea25d2aaac",
+  "cases": [
+    {
+      "position_one_based": 371,
+      "case_id": "blind-c-021",
+      "normalized_input": "Write \"No refunds after opening.\" Uh, that is the full sentence.",
+      "candidate_text": "Write \"No refunds after opening.\" that is the full sentence.",
+      "output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "V8_output": "Write \"No refunds after opening.\" that is the full sentence.",
+      "judgment": {
+        "case_id": "blind-c-021",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact quoted sentence and explanatory content survive; following standalone sentence still needs initial capitalization after Uh removal.",
+        "review_mode": "root_personally_read_actual_source_candidate_final_and_V8_output"
+      }
+    },
+    {
+      "position_one_based": 379,
+      "case_id": "blind-c-029",
+      "normalized_input": "I, I want the response to begin with “Thanks for checking.”",
+      "candidate_text": "I, I want the response to begin with “Thanks for checking.”",
+      "output": "I, I want the response to begin with “Thanks for checking.”",
+      "V8_output": "I, I want the response to begin with “Thanks for checking.”",
+      "judgment": {
+        "case_id": "blind-c-029",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "The request and exact quoted response opening survive, but accidental I,I remains uncleaned.",
+        "review_mode": "root_personally_read_actual_source_candidate_final_and_V8_output"
+      }
+    },
+    {
+      "position_one_based": 381,
+      "case_id": "blind-c-031",
+      "normalized_input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+      "candidate_text": "Do not change the status to \"on hold\"; leave it \"awaiting parts\" instead.",
+      "output": "Do not change the status to \"on hold\"; leave it \"awaiting parts\" instead.",
+      "V8_output": "Instead of changing the status to \"on hold\", leave it \"awaiting parts\".",
+      "judgment": {
+        "case_id": "blind-c-031",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Explicitly prohibits the canceled on-hold change and instructs leaving awaiting parts instead. Both exact quoted values survive once in order and the correction is resolved.",
+        "review_mode": "root_personally_read_actual_source_candidate_final_and_V8_output"
+      }
+    },
+    {
+      "position_one_based": 384,
+      "case_id": "blind-c-034",
+      "normalized_input": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "candidate_text": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "V8_output": "The matching pattern is \"^temp_[a-z]+$\", I, I think.",
+      "judgment": {
+        "case_id": "blind-c-034",
+        "semantic_faithful": true,
+        "clean_usable": false,
+        "critical_error": false,
+        "reason": "Exact regex and uncertainty survive; accidental I,I remains and requires cleanup.",
+        "review_mode": "root_personally_read_actual_source_candidate_final_and_V8_output"
+      }
+    },
+    {
+      "position_one_based": 454,
+      "case_id": "blind-c-104",
+      "normalized_input": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, uh, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "candidate_text": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day, provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "V8_output": "I spoke to the nurse about the appointment. She said I could bring the forms on the day provided I arrive early enough to complete registration. She did not say that the test results were normal. Please tell the family only that the appointment is confirmed and that we are still waiting for the results.",
+      "judgment": {
+        "case_id": "blind-c-104",
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "The optional comma before provided is valid. All nurse attribution, registration condition, absence of a normal-results claim and family-update restriction remain intact.",
+        "review_mode": "root_personally_read_actual_source_candidate_final_and_V8_output"
+      }
+    }
+  ]
+}
