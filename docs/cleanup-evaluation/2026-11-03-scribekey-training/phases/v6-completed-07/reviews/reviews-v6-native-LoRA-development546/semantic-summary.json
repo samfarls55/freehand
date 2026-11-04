@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit (assistant semantic reviewer)",
+  "results_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-development546-core/core-results.json",
+  "results_sha256": "ef31c0d71f0522f1dd0e2e2395c974691b85f5fd80a3d45802d658db452666a2",
+  "scope": "Complete546 consumed synthetic development cases; not fresh final500/population evidence",
+  "prior_sources": {
+    "v5-02-IQ4_XS": {
+      "report_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v5-02-IQ4_XS-development546-core/core-results.json",
+      "report_sha256": "6fb093fac467133ead9e10d430230c3e1ad81dd270c8234fff440e9d6dc8be03",
+      "review_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/reviews-development/v5-02-IQ4_XS-canonical-reviewed.json",
+      "review_sha256": "19e534e8365deb73753c701dfb44d64b0bbec955cd78aeb79c42095301dfc77b"
+    },
+    "v4-01-IQ4_XS": {
+      "report_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v4-01-IQ4_XS-development546-core/core-results.json",
+      "report_sha256": "ba18c8405acc3fcd4e4a07957da6380abf13748e8057aca9d056b557a03823e4",
+      "review_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/reviews-development/v4-01-IQ4_XS-canonical-reviewed.json",
+      "review_sha256": "1dfc4e61419b0f255ced5fcfed6fd051a9a5c97f35991250624f4d6dbf89a024"
+    }
+  },
+  "case_count": 546,
+  "semantic_faithful": 545,
+  "clean_usable": 545,
+  "faithful_and_clean": 545,
+  "faithful_and_clean_fraction": 0.9981684981684982,
+  "critical_errors": 0,
+  "cleanup_status_counts": {
+    "Applied": 344,
+    "Unchanged": 202
+  },
+  "strict_inherited_count": 506,
+  "strict_inherited_sources": {
+    "v5-02-IQ4_XS": 501,
+    "v4-01-IQ4_XS": 5
+  },
+  "personally_read_count": 40,
+  "personally_read_positions": [
+    2,
+    19,
+    40,
+    54,
+    56,
+    62,
+    63,
+    78,
+    83,
+    110,
+    137,
+    143,
+    157,
+    176,
+    178,
+    182,
+    195,
+    198,
+    215,
+    225,
+    231,
+    250,
+    257,
+    259,
+    295,
+    316,
+    319,
+    341,
+    344,
+    353,
+    358,
+    429,
+    433,
+    441,
+    448,
+    455,
+    457,
+    474,
+    488,
+    543
+  ],
+  "all_prior_failures_from_both_sources_reread": true,
+  "failure_positions": [
+    54
+  ],
+  "failure_case_ids": [
+    "scribekey-minimal-edit-synthetic-v1-78dc34098bdc2c23"
+  ],
+  "failure_family": "Deletes grammatical/metalinguistic repeated Is as if it were an accidental stutter",
+  "prior_comparisons": {
+    "v5-02-IQ4_XS": {
+      "prior_failure_positions": [
+        54,
+        62,
+        63,
+        176,
+        182,
+        198,
+        341,
+        358,
+        474
+      ],
+      "recovered_positions": [
+        62,
+        63,
+        176,
+        182,
+        198,
+        341,
+        358,
+        474
+      ],
+      "regressed_positions": []
+    },
+    "v4-01-IQ4_XS": {
+      "prior_failure_positions": [
+        54,
+        83
+      ],
+      "recovered_positions": [
+        83
+      ],
+      "regressed_positions": []
+    }
+  },
+  "judgments": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/reviews-v6-native-LoRA-development546/canonical-reviewed.json",
+    "sha256": "f1e45ade9327d8eef10a6c80f69aa51a9f288f93fecc9702f22222b69cdbe207"
+  },
+  "read_record": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/reviews-v6-native-LoRA-development546/read-record.json",
+    "sha256": "f01023f12d6e876e24bc13c938a00528a9550c184ff563291041bfa5bfe5bb7d"
+  },
+  "qualification": "Development evidence only. These comparisons change training/precision/deployment path together; no isolated training-causality or fresh99% claim.",
+  "fresh_round2_content_or_status_accessed": false,
+  "model_build_source_jobs_by_reviewer": false
+}

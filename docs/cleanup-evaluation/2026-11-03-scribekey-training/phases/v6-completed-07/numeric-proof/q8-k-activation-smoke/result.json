@@ -1,0 +1,2850 @@
+{
+  "pipeline_sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+  "script_sha256": "7d82e9ba54935ec92f63f71c23d5e785ea25e2e240c97d7b618255d3aa432833",
+  "parent_adapter_sha256": "741826d27bf20da1c59eebc5d397f0a7de972ef1f566ce7e04abbf8abc0cf961",
+  "base_receipt": {
+    "training_base_mode": "original-iq4-dequantized-fp32-v1",
+    "frozen_base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+    "original_bf16_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+    "base_config_sha256": "13ab9863955d2016c32417ff97b1a9840951d2481b6d3095f7ae98d10611a7d2",
+    "tokenizer_sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+    "quantized_training_source_sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+    "gguf_dequantizer_sha256": "db403c3b2292d3f2c5cfef4109d4b5745f437b5599c7afc94d4b97feca7e9247",
+    "gguf_mapping_sha256": "64c24cf3560015d8faf30be5d801fe7b511349f9ba2d96fa33782b3a2efbc624",
+    "tensor_count": 148,
+    "tensor_types": {
+      "Q6_K": 1,
+      "F32": 55,
+      "IQ4_XS": 90,
+      "Q5_K": 2
+    },
+    "conv_singleton_restorations": 10,
+    "all_base_parameters_dtype": "float32",
+    "tied_head_verified": true,
+    "base_serialized": false,
+    "native_forward_equivalence_claimed": false,
+    "known_numerical_differences": [
+      "Native quantized matmul uses Q8_K activations",
+      "HF stores K/V in FP32; optional emulation rounds their values through F16"
+    ]
+  },
+  "activation_receipt": {
+    "activation_quantization_mode": "native-q8-k-ste-v1",
+    "activation_cpu_library_sha256": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5",
+    "activation_base_library_sha256": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb",
+    "activation_linear_inventory_sha256": "ed7364b7980bad82db0f61778cb0d5390968074edc367cbdf92730377af271ce",
+    "linears": [
+      {
+        "name": "lm_head",
+        "weight_type": "Q6_K",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.feed_forward.w2",
+        "weight_type": "Q5_K",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.0.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.feed_forward.w2",
+        "weight_type": "Q5_K",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.1.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.10.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.11.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.12.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.13.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.14.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.15.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.2.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.3.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.4.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.5.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.6.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.7.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.8.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.9.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      }
+    ],
+    "lora_input_rounded": false,
+    "includes_tied_output_matmul": true,
+    "quantizer_symbol": "quantize_row_q8_K",
+    "dequantizer_symbol": "dequantize_row_q8_K",
+    "values_per_block": 256,
+    "bytes_per_block": 292,
+    "native_forward_equivalence_claimed": false
+  },
+  "conditions": [
+    {
+      "activation_quantization": "none",
+      "kv_roundtrip": "none",
+      "agreement": 5,
+      "maximum_first_token_logprob_difference": 0.38571882247924805,
+      "rows": [
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Pavel.",
+          "native_output": "Hand the booking confirmation to Pavel.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.22655916213989258,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.9550543427467346
+            },
+            {
+              "id": 8108,
+              "logprob": -1.0390615463256836
+            },
+            {
+              "id": 38936,
+              "logprob": -2.233981132507324
+            },
+            {
+              "id": 22737,
+              "logprob": -3.1469717025756836
+            },
+            {
+              "id": 10127,
+              "logprob": -3.699395179748535
+            },
+            {
+              "id": 549,
+              "logprob": -4.136406898498535
+            },
+            {
+              "id": 38468,
+              "logprob": -4.513190269470215
+            },
+            {
+              "id": 35689,
+              "logprob": -5.245673179626465
+            },
+            {
+              "id": 32885,
+              "logprob": -5.384987831115723
+            },
+            {
+              "id": 52486,
+              "logprob": -5.413208961486816
+            },
+            {
+              "id": 49185,
+              "logprob": -5.457972526550293
+            },
+            {
+              "id": 16809,
+              "logprob": -5.590476036071777
+            },
+            {
+              "id": 17085,
+              "logprob": -5.693160057067871
+            },
+            {
+              "id": 50233,
+              "logprob": -6.291430473327637
+            },
+            {
+              "id": 3930,
+              "logprob": -6.364968299865723
+            },
+            {
+              "id": 56608,
+              "logprob": -6.742999076843262
+            },
+            {
+              "id": 52748,
+              "logprob": -6.747149467468262
+            },
+            {
+              "id": 31928,
+              "logprob": -6.838797569274902
+            },
+            {
+              "id": 20936,
+              "logprob": -6.941525459289551
+            },
+            {
+              "id": 1621,
+              "logprob": -6.996857643127441
+            }
+          ],
+          "seconds": 1.083682206000958
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": false,
+          "output_equal": false,
+          "hf_output": "Please lubricate the lock.",
+          "native_output": "Please inspect the hinge and lubricate the lock.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.26920604705810547,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 16809,
+              "logprob": -0.00018821375851985067
+            },
+            {
+              "id": 38936,
+              "logprob": -9.464400291442871
+            },
+            {
+              "id": 8108,
+              "logprob": -10.425995826721191
+            },
+            {
+              "id": 2584,
+              "logprob": -11.126801490783691
+            },
+            {
+              "id": 13831,
+              "logprob": -11.636200904846191
+            },
+            {
+              "id": 8173,
+              "logprob": -12.005953788757324
+            },
+            {
+              "id": 3111,
+              "logprob": -12.332179069519043
+            },
+            {
+              "id": 4083,
+              "logprob": -12.387131690979004
+            },
+            {
+              "id": 1621,
+              "logprob": -12.673136711120605
+            },
+            {
+              "id": 31928,
+              "logprob": -12.835417747497559
+            },
+            {
+              "id": 7367,
+              "logprob": -12.947422981262207
+            },
+            {
+              "id": 13912,
+              "logprob": -13.247591972351074
+            },
+            {
+              "id": 557,
+              "logprob": -13.331892967224121
+            },
+            {
+              "id": 8694,
+              "logprob": -13.447001457214355
+            },
+            {
+              "id": 10127,
+              "logprob": -13.789719581604004
+            },
+            {
+              "id": 17387,
+              "logprob": -13.794501304626465
+            },
+            {
+              "id": 8013,
+              "logprob": -13.910407066345215
+            },
+            {
+              "id": 52739,
+              "logprob": -13.988781929016113
+            },
+            {
+              "id": 3383,
+              "logprob": -14.206387519836426
+            },
+            {
+              "id": 33740,
+              "logprob": -14.23023509979248
+            }
+          ],
+          "seconds": 0.8652934540004935
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.17702293395996094,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.8752229809761047
+            },
+            {
+              "id": 8108,
+              "logprob": -1.1272103786468506
+            },
+            {
+              "id": 38936,
+              "logprob": -2.263770818710327
+            },
+            {
+              "id": 22737,
+              "logprob": -3.106008291244507
+            },
+            {
+              "id": 10127,
+              "logprob": -3.583892583847046
+            },
+            {
+              "id": 549,
+              "logprob": -4.165590286254883
+            },
+            {
+              "id": 38468,
+              "logprob": -4.6020965576171875
+            },
+            {
+              "id": 35689,
+              "logprob": -5.095056533813477
+            },
+            {
+              "id": 49185,
+              "logprob": -5.463212966918945
+            },
+            {
+              "id": 52486,
+              "logprob": -5.494955062866211
+            },
+            {
+              "id": 32885,
+              "logprob": -5.652111053466797
+            },
+            {
+              "id": 16809,
+              "logprob": -5.7685546875
+            },
+            {
+              "id": 17085,
+              "logprob": -5.941013336181641
+            },
+            {
+              "id": 3930,
+              "logprob": -6.092321395874023
+            },
+            {
+              "id": 50233,
+              "logprob": -6.254697799682617
+            },
+            {
+              "id": 560,
+              "logprob": -6.628000259399414
+            },
+            {
+              "id": 52748,
+              "logprob": -6.7765655517578125
+            },
+            {
+              "id": 31928,
+              "logprob": -6.8210296630859375
+            },
+            {
+              "id": 56608,
+              "logprob": -6.910478591918945
+            },
+            {
+              "id": 20936,
+              "logprob": -6.976594924926758
+            }
+          ],
+          "seconds": 1.130250894006167
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.20615649223327637,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.8637084364891052
+            },
+            {
+              "id": 8108,
+              "logprob": -1.1495742797851562
+            },
+            {
+              "id": 38936,
+              "logprob": -2.1420555114746094
+            },
+            {
+              "id": 22737,
+              "logprob": -3.1502132415771484
+            },
+            {
+              "id": 10127,
+              "logprob": -3.8082046508789062
+            },
+            {
+              "id": 549,
+              "logprob": -4.235378265380859
+            },
+            {
+              "id": 38468,
+              "logprob": -4.771308898925781
+            },
+            {
+              "id": 35689,
+              "logprob": -4.89918327331543
+            },
+            {
+              "id": 49185,
+              "logprob": -5.595500946044922
+            },
+            {
+              "id": 32885,
+              "logprob": -5.605052947998047
+            },
+            {
+              "id": 52486,
+              "logprob": -5.622446060180664
+            },
+            {
+              "id": 16809,
+              "logprob": -5.989767074584961
+            },
+            {
+              "id": 17085,
+              "logprob": -6.130413055419922
+            },
+            {
+              "id": 50233,
+              "logprob": -6.289470672607422
+            },
+            {
+              "id": 560,
+              "logprob": -6.3178558349609375
+            },
+            {
+              "id": 3930,
+              "logprob": -6.400585174560547
+            },
+            {
+              "id": 49634,
+              "logprob": -6.673404693603516
+            },
+            {
+              "id": 52748,
+              "logprob": -6.750484466552734
+            },
+            {
+              "id": 31928,
+              "logprob": -6.809938430786133
+            },
+            {
+              "id": 1621,
+              "logprob": -6.980474472045898
+            }
+          ],
+          "seconds": 1.0804814829971292
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Let the parking permit expire once the depot opens.",
+          "native_output": "Let the parking permit expire once the depot opens.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.38571882247924805,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 8232,
+              "logprob": -0.010474351234734058
+            },
+            {
+              "id": 38468,
+              "logprob": -6.035059928894043
+            },
+            {
+              "id": 8108,
+              "logprob": -6.700253486633301
+            },
+            {
+              "id": 10127,
+              "logprob": -6.917567253112793
+            },
+            {
+              "id": 38936,
+              "logprob": -7.002314567565918
+            },
+            {
+              "id": 3383,
+              "logprob": -7.267355918884277
+            },
+            {
+              "id": 3930,
+              "logprob": -7.55222225189209
+            },
+            {
+              "id": 1098,
+              "logprob": -7.862967491149902
+            },
+            {
+              "id": 20321,
+              "logprob": -7.98544979095459
+            },
+            {
+              "id": 2056,
+              "logprob": -8.146910667419434
+            },
+            {
+              "id": 14142,
+              "logprob": -8.302412986755371
+            },
+            {
+              "id": 4716,
+              "logprob": -8.522765159606934
+            },
+            {
+              "id": 16809,
+              "logprob": -8.77047061920166
+            },
+            {
+              "id": 553,
+              "logprob": -8.839762687683105
+            },
+            {
+              "id": 6635,
+              "logprob": -9.1423978805542
+            },
+            {
+              "id": 52486,
+              "logprob": -9.270806312561035
+            },
+            {
+              "id": 18789,
+              "logprob": -9.46275806427002
+            },
+            {
+              "id": 31829,
+              "logprob": -9.530169486999512
+            },
+            {
+              "id": 49185,
+              "logprob": -9.589573860168457
+            },
+            {
+              "id": 6626,
+              "logprob": -9.733746528625488
+            }
+          ],
+          "seconds": 1.3101019649984664
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "native_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.1954193115234375,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 1098,
+              "logprob": -3.0517112463712692e-05
+            },
+            {
+              "id": 38936,
+              "logprob": -12.157917022705078
+            },
+            {
+              "id": 3383,
+              "logprob": -12.906484603881836
+            },
+            {
+              "id": 1286,
+              "logprob": -12.932861328125
+            },
+            {
+              "id": 22948,
+              "logprob": -12.94059944152832
+            },
+            {
+              "id": 2584,
+              "logprob": -13.460905075073242
+            },
+            {
+              "id": 5098,
+              "logprob": -13.466896057128906
+            },
+            {
+              "id": 15780,
+              "logprob": -13.483015060424805
+            },
+            {
+              "id": 550,
+              "logprob": -13.515470504760742
+            },
+            {
+              "id": 9578,
+              "logprob": -13.744924545288086
+            },
+            {
+              "id": 4453,
+              "logprob": -14.48984146118164
+            },
+            {
+              "id": 2443,
+              "logprob": -14.494939804077148
+            },
+            {
+              "id": 6626,
+              "logprob": -14.619966506958008
+            },
+            {
+              "id": 3776,
+              "logprob": -14.88838005065918
+            },
+            {
+              "id": 18522,
+              "logprob": -14.930456161499023
+            },
+            {
+              "id": 31793,
+              "logprob": -15.090078353881836
+            },
+            {
+              "id": 38155,
+              "logprob": -15.126960754394531
+            },
+            {
+              "id": 18789,
+              "logprob": -15.183416366577148
+            },
+            {
+              "id": 7873,
+              "logprob": -15.3516845703125
+            },
+            {
+              "id": 1820,
+              "logprob": -15.484294891357422
+            }
+          ],
+          "seconds": 1.7968519470014144
+        }
+      ],
+      "kv_receipt": null
+    },
+    {
+      "activation_quantization": "none",
+      "kv_roundtrip": "f16",
+      "agreement": 5,
+      "maximum_first_token_logprob_difference": 0.3852100372314453,
+      "rows": [
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Pavel.",
+          "native_output": "Hand the booking confirmation to Pavel.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2268362045288086,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.9552923440933228
+            },
+            {
+              "id": 8108,
+              "logprob": -1.0387579202651978
+            },
+            {
+              "id": 38936,
+              "logprob": -2.2335991859436035
+            },
+            {
+              "id": 22737,
+              "logprob": -3.1472115516662598
+            },
+            {
+              "id": 10127,
+              "logprob": -3.70103120803833
+            },
+            {
+              "id": 549,
+              "logprob": -4.136768817901611
+            },
+            {
+              "id": 38468,
+              "logprob": -4.5129075050354
+            },
+            {
+              "id": 35689,
+              "logprob": -5.245291233062744
+            },
+            {
+              "id": 32885,
+              "logprob": -5.38457727432251
+            },
+            {
+              "id": 52486,
+              "logprob": -5.4125657081604
+            },
+            {
+              "id": 49185,
+              "logprob": -5.45811128616333
+            },
+            {
+              "id": 16809,
+              "logprob": -5.589491367340088
+            },
+            {
+              "id": 17085,
+              "logprob": -5.693636417388916
+            },
+            {
+              "id": 50233,
+              "logprob": -6.292660236358643
+            },
+            {
+              "id": 3930,
+              "logprob": -6.364691257476807
+            },
+            {
+              "id": 56608,
+              "logprob": -6.743015766143799
+            },
+            {
+              "id": 52748,
+              "logprob": -6.746750354766846
+            },
+            {
+              "id": 31928,
+              "logprob": -6.839172840118408
+            },
+            {
+              "id": 20936,
+              "logprob": -6.942026615142822
+            },
+            {
+              "id": 1621,
+              "logprob": -6.9960103034973145
+            }
+          ],
+          "seconds": 1.0971831880015088
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": false,
+          "output_equal": false,
+          "hf_output": "Please lubricate the lock.",
+          "native_output": "Please inspect the hinge and lubricate the lock.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2727060317993164,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 16809,
+              "logprob": -0.000188332938705571
+            },
+            {
+              "id": 38936,
+              "logprob": -9.463713645935059
+            },
+            {
+              "id": 8108,
+              "logprob": -10.425158500671387
+            },
+            {
+              "id": 2584,
+              "logprob": -11.12532901763916
+            },
+            {
+              "id": 13831,
+              "logprob": -11.63270092010498
+            },
+            {
+              "id": 8173,
+              "logprob": -12.006300926208496
+            },
+            {
+              "id": 3111,
+              "logprob": -12.330321311950684
+            },
+            {
+              "id": 4083,
+              "logprob": -12.385926246643066
+            },
+            {
+              "id": 1621,
+              "logprob": -12.67176342010498
+            },
+            {
+              "id": 31928,
+              "logprob": -12.836409568786621
+            },
+            {
+              "id": 7367,
+              "logprob": -12.947409629821777
+            },
+            {
+              "id": 13912,
+              "logprob": -13.246233940124512
+            },
+            {
+              "id": 557,
+              "logprob": -13.333718299865723
+            },
+            {
+              "id": 8694,
+              "logprob": -13.444476127624512
+            },
+            {
+              "id": 10127,
+              "logprob": -13.788483619689941
+            },
+            {
+              "id": 17387,
+              "logprob": -13.792866706848145
+            },
+            {
+              "id": 8013,
+              "logprob": -13.910244941711426
+            },
+            {
+              "id": 52739,
+              "logprob": -13.9885835647583
+            },
+            {
+              "id": 3383,
+              "logprob": -14.205784797668457
+            },
+            {
+              "id": 33740,
+              "logprob": -14.229674339294434
+            }
+          ],
+          "seconds": 0.8763582630053861
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.17551088333129883,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.8751111030578613
+            },
+            {
+              "id": 8108,
+              "logprob": -1.1274170875549316
+            },
+            {
+              "id": 38936,
+              "logprob": -2.263786792755127
+            },
+            {
+              "id": 22737,
+              "logprob": -3.105778217315674
+            },
+            {
+              "id": 10127,
+              "logprob": -3.5858101844787598
+            },
+            {
+              "id": 549,
+              "logprob": -4.16508150100708
+            },
+            {
+              "id": 38468,
+              "logprob": -4.600733280181885
+            },
+            {
+              "id": 35689,
+              "logprob": -5.093033313751221
+            },
+            {
+              "id": 49185,
+              "logprob": -5.462772846221924
+            },
+            {
+              "id": 52486,
+              "logprob": -5.4932541847229
+            },
+            {
+              "id": 32885,
+              "logprob": -5.651058673858643
+            },
+            {
+              "id": 16809,
+              "logprob": -5.767042636871338
+            },
+            {
+              "id": 17085,
+              "logprob": -5.941280841827393
+            },
+            {
+              "id": 3930,
+              "logprob": -6.09282922744751
+            },
+            {
+              "id": 50233,
+              "logprob": -6.255157947540283
+            },
+            {
+              "id": 560,
+              "logprob": -6.627073764801025
+            },
+            {
+              "id": 52748,
+              "logprob": -6.776760578155518
+            },
+            {
+              "id": 31928,
+              "logprob": -6.821171283721924
+            },
+            {
+              "id": 56608,
+              "logprob": -6.910496234893799
+            },
+            {
+              "id": 20936,
+              "logprob": -6.976473331451416
+            }
+          ],
+          "seconds": 1.102479791996302
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2058732509613037,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.8647488355636597
+            },
+            {
+              "id": 8108,
+              "logprob": -1.1480416059494019
+            },
+            {
+              "id": 38936,
+              "logprob": -2.142338752746582
+            },
+            {
+              "id": 22737,
+              "logprob": -3.1506776809692383
+            },
+            {
+              "id": 10127,
+              "logprob": -3.8094167709350586
+            },
+            {
+              "id": 549,
+              "logprob": -4.234999656677246
+            },
+            {
+              "id": 38468,
+              "logprob": -4.7704973220825195
+            },
+            {
+              "id": 35689,
+              "logprob": -4.898743629455566
+            },
+            {
+              "id": 49185,
+              "logprob": -5.595355033874512
+            },
+            {
+              "id": 32885,
+              "logprob": -5.603503227233887
+            },
+            {
+              "id": 52486,
+              "logprob": -5.62180233001709
+            },
+            {
+              "id": 16809,
+              "logprob": -5.988011360168457
+            },
+            {
+              "id": 17085,
+              "logprob": -6.132006645202637
+            },
+            {
+              "id": 50233,
+              "logprob": -6.29007625579834
+            },
+            {
+              "id": 560,
+              "logprob": -6.31826114654541
+            },
+            {
+              "id": 3930,
+              "logprob": -6.401640892028809
+            },
+            {
+              "id": 49634,
+              "logprob": -6.670868873596191
+            },
+            {
+              "id": 52748,
+              "logprob": -6.751601219177246
+            },
+            {
+              "id": 31928,
+              "logprob": -6.807860374450684
+            },
+            {
+              "id": 1621,
+              "logprob": -6.9784650802612305
+            }
+          ],
+          "seconds": 1.117128933998174
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Let the parking permit expire once the depot opens.",
+          "native_output": "Let the parking permit expire once the depot opens.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.3852100372314453,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 8232,
+              "logprob": -0.010472581721842289
+            },
+            {
+              "id": 38468,
+              "logprob": -6.035172939300537
+            },
+            {
+              "id": 8108,
+              "logprob": -6.702577114105225
+            },
+            {
+              "id": 10127,
+              "logprob": -6.918765544891357
+            },
+            {
+              "id": 38936,
+              "logprob": -7.0028395652771
+            },
+            {
+              "id": 3383,
+              "logprob": -7.265950679779053
+            },
+            {
+              "id": 3930,
+              "logprob": -7.552499294281006
+            },
+            {
+              "id": 1098,
+              "logprob": -7.8624587059021
+            },
+            {
+              "id": 20321,
+              "logprob": -7.985175609588623
+            },
+            {
+              "id": 2056,
+              "logprob": -8.146525382995605
+            },
+            {
+              "id": 14142,
+              "logprob": -8.296151161193848
+            },
+            {
+              "id": 4716,
+              "logprob": -8.524357795715332
+            },
+            {
+              "id": 16809,
+              "logprob": -8.769543647766113
+            },
+            {
+              "id": 553,
+              "logprob": -8.83986759185791
+            },
+            {
+              "id": 6635,
+              "logprob": -9.14177417755127
+            },
+            {
+              "id": 52486,
+              "logprob": -9.27004337310791
+            },
+            {
+              "id": 18789,
+              "logprob": -9.4623441696167
+            },
+            {
+              "id": 31829,
+              "logprob": -9.532076835632324
+            },
+            {
+              "id": 49185,
+              "logprob": -9.589316368103027
+            },
+            {
+              "id": 6626,
+              "logprob": -9.731255531311035
+            }
+          ],
+          "seconds": 1.3703608219948364
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "native_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.19585418701171875,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 1098,
+              "logprob": -3.0517112463712692e-05
+            },
+            {
+              "id": 38936,
+              "logprob": -12.15833854675293
+            },
+            {
+              "id": 3383,
+              "logprob": -12.906808853149414
+            },
+            {
+              "id": 1286,
+              "logprob": -12.933174133300781
+            },
+            {
+              "id": 22948,
+              "logprob": -12.943078994750977
+            },
+            {
+              "id": 2584,
+              "logprob": -13.462575912475586
+            },
+            {
+              "id": 5098,
+              "logprob": -13.467504501342773
+            },
+            {
+              "id": 15780,
+              "logprob": -13.48371696472168
+            },
+            {
+              "id": 550,
+              "logprob": -13.515165328979492
+            },
+            {
+              "id": 9578,
+              "logprob": -13.744731903076172
+            },
+            {
+              "id": 4453,
+              "logprob": -14.491434097290039
+            },
+            {
+              "id": 2443,
+              "logprob": -14.49452018737793
+            },
+            {
+              "id": 6626,
+              "logprob": -14.621829986572266
+            },
+            {
+              "id": 3776,
+              "logprob": -14.887964248657227
+            },
+            {
+              "id": 18522,
+              "logprob": -14.930021286010742
+            },
+            {
+              "id": 31793,
+              "logprob": -15.090959548950195
+            },
+            {
+              "id": 38155,
+              "logprob": -15.12835693359375
+            },
+            {
+              "id": 18789,
+              "logprob": -15.18454360961914
+            },
+            {
+              "id": 7873,
+              "logprob": -15.351892471313477
+            },
+            {
+              "id": 1820,
+              "logprob": -15.485225677490234
+            }
+          ],
+          "seconds": 1.8082849670026917
+        }
+      ],
+      "kv_receipt": {
+        "kv_roundtrip_mode": "post-rope-f16-ste-v1",
+        "attention_layers": 6,
+        "kv_attention_source_sha256": "7f214fdc03b78c75c5832ccea3b68c24d292a7ead2b616cbafa2a9e285105932",
+        "kv_upstream_source_sha256": "8bb414ac677a00fe8fade1655c66ad0af7111822d629cbbc12c31c2db779421e",
+        "kv_wrapper_source_sha256": "fcb58bbb4b33cefc2f90a4826fd069dd530728ee297657c9cc1bccdcc4ace7c4",
+        "query_rounded": false,
+        "lora_input_rounded": false,
+        "native_forward_equivalence_claimed": false
+      }
+    },
+    {
+      "activation_quantization": "native-q8-k",
+      "kv_roundtrip": "none",
+      "agreement": 5,
+      "maximum_first_token_logprob_difference": 0.2883291244506836,
+      "rows": [
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Pavel.",
+          "native_output": "Hand the booking confirmation to Pavel.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2221055030822754,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.9757594466209412
+            },
+            {
+              "id": 8108,
+              "logprob": -1.0455169677734375
+            },
+            {
+              "id": 38936,
+              "logprob": -2.2124195098876953
+            },
+            {
+              "id": 22737,
+              "logprob": -3.128141403198242
+            },
+            {
+              "id": 10127,
+              "logprob": -3.5966339111328125
+            },
+            {
+              "id": 549,
+              "logprob": -3.950286865234375
+            },
+            {
+              "id": 38468,
+              "logprob": -4.441732406616211
+            },
+            {
+              "id": 35689,
+              "logprob": -5.25166130065918
+            },
+            {
+              "id": 49185,
+              "logprob": -5.335031509399414
+            },
+            {
+              "id": 32885,
+              "logprob": -5.392036437988281
+            },
+            {
+              "id": 52486,
+              "logprob": -5.492826461791992
+            },
+            {
+              "id": 16809,
+              "logprob": -5.626073837280273
+            },
+            {
+              "id": 17085,
+              "logprob": -5.7497711181640625
+            },
+            {
+              "id": 50233,
+              "logprob": -6.374719619750977
+            },
+            {
+              "id": 3930,
+              "logprob": -6.53849983215332
+            },
+            {
+              "id": 56608,
+              "logprob": -6.732784271240234
+            },
+            {
+              "id": 31928,
+              "logprob": -6.831169128417969
+            },
+            {
+              "id": 52748,
+              "logprob": -6.853235244750977
+            },
+            {
+              "id": 1621,
+              "logprob": -6.869146347045898
+            },
+            {
+              "id": 20936,
+              "logprob": -6.878105163574219
+            }
+          ],
+          "seconds": 1.3013045890038484
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": false,
+          "output_equal": false,
+          "hf_output": "Please lubricate the lock.",
+          "native_output": "Please inspect the hinge and lubricate the lock.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.12900066375732422,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 16809,
+              "logprob": -0.00017832119192462415
+            },
+            {
+              "id": 38936,
+              "logprob": -9.533957481384277
+            },
+            {
+              "id": 8108,
+              "logprob": -10.403670310974121
+            },
+            {
+              "id": 2584,
+              "logprob": -11.15119457244873
+            },
+            {
+              "id": 13831,
+              "logprob": -11.916441917419434
+            },
+            {
+              "id": 8173,
+              "logprob": -11.961590766906738
+            },
+            {
+              "id": 3111,
+              "logprob": -12.392573356628418
+            },
+            {
+              "id": 4083,
+              "logprob": -12.406493186950684
+            },
+            {
+              "id": 1621,
+              "logprob": -12.820330619812012
+            },
+            {
+              "id": 31928,
+              "logprob": -13.06017017364502
+            },
+            {
+              "id": 7367,
+              "logprob": -13.106476783752441
+            },
+            {
+              "id": 557,
+              "logprob": -13.259909629821777
+            },
+            {
+              "id": 13912,
+              "logprob": -13.281989097595215
+            },
+            {
+              "id": 8694,
+              "logprob": -13.38515567779541
+            },
+            {
+              "id": 10127,
+              "logprob": -13.843167304992676
+            },
+            {
+              "id": 17387,
+              "logprob": -13.91165828704834
+            },
+            {
+              "id": 52739,
+              "logprob": -13.960915565490723
+            },
+            {
+              "id": 8013,
+              "logprob": -14.012133598327637
+            },
+            {
+              "id": 550,
+              "logprob": -14.205157279968262
+            },
+            {
+              "id": 3383,
+              "logprob": -14.25841236114502
+            }
+          ],
+          "seconds": 1.0068534559977707
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2613821029663086,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.8135271668434143
+            },
+            {
+              "id": 8108,
+              "logprob": -1.1670713424682617
+            },
+            {
+              "id": 38936,
+              "logprob": -2.4041032791137695
+            },
+            {
+              "id": 22737,
+              "logprob": -3.096014976501465
+            },
+            {
+              "id": 10127,
+              "logprob": -3.569991111755371
+            },
+            {
+              "id": 549,
+              "logprob": -4.19382381439209
+            },
+            {
+              "id": 38468,
+              "logprob": -4.601380348205566
+            },
+            {
+              "id": 35689,
+              "logprob": -5.059723854064941
+            },
+            {
+              "id": 49185,
+              "logprob": -5.35695743560791
+            },
+            {
+              "id": 52486,
+              "logprob": -5.449664115905762
+            },
+            {
+              "id": 32885,
+              "logprob": -5.827927589416504
+            },
+            {
+              "id": 16809,
+              "logprob": -5.835259437561035
+            },
+            {
+              "id": 17085,
+              "logprob": -5.9503374099731445
+            },
+            {
+              "id": 3930,
+              "logprob": -6.28470516204834
+            },
+            {
+              "id": 50233,
+              "logprob": -6.347041130065918
+            },
+            {
+              "id": 560,
+              "logprob": -6.6215410232543945
+            },
+            {
+              "id": 52748,
+              "logprob": -6.825982093811035
+            },
+            {
+              "id": 31928,
+              "logprob": -6.871119499206543
+            },
+            {
+              "id": 56608,
+              "logprob": -6.9152421951293945
+            },
+            {
+              "id": 49634,
+              "logprob": -6.922001838684082
+            }
+          ],
+          "seconds": 1.2601516880022245
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2883291244506836,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.9441238641738892
+            },
+            {
+              "id": 8108,
+              "logprob": -1.05327570438385
+            },
+            {
+              "id": 38936,
+              "logprob": -2.130307674407959
+            },
+            {
+              "id": 22737,
+              "logprob": -3.1414217948913574
+            },
+            {
+              "id": 10127,
+              "logprob": -3.7088961601257324
+            },
+            {
+              "id": 549,
+              "logprob": -4.2441840171813965
+            },
+            {
+              "id": 38468,
+              "logprob": -4.856936931610107
+            },
+            {
+              "id": 35689,
+              "logprob": -4.918237209320068
+            },
+            {
+              "id": 49185,
+              "logprob": -5.550902843475342
+            },
+            {
+              "id": 52486,
+              "logprob": -5.618264675140381
+            },
+            {
+              "id": 32885,
+              "logprob": -5.69379186630249
+            },
+            {
+              "id": 16809,
+              "logprob": -5.976043224334717
+            },
+            {
+              "id": 17085,
+              "logprob": -6.337510585784912
+            },
+            {
+              "id": 560,
+              "logprob": -6.355910778045654
+            },
+            {
+              "id": 50233,
+              "logprob": -6.396104335784912
+            },
+            {
+              "id": 3930,
+              "logprob": -6.662049770355225
+            },
+            {
+              "id": 49634,
+              "logprob": -6.762773036956787
+            },
+            {
+              "id": 31928,
+              "logprob": -6.925160884857178
+            },
+            {
+              "id": 1621,
+              "logprob": -6.983928203582764
+            },
+            {
+              "id": 52748,
+              "logprob": -7.027209758758545
+            }
+          ],
+          "seconds": 1.2775850429970887
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Let the parking permit expire once the depot opens.",
+          "native_output": "Let the parking permit expire once the depot opens.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.21169328689575195,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 8232,
+              "logprob": -0.011789409443736076
+            },
+            {
+              "id": 38468,
+              "logprob": -5.896467208862305
+            },
+            {
+              "id": 8108,
+              "logprob": -6.564266204833984
+            },
+            {
+              "id": 10127,
+              "logprob": -6.835432052612305
+            },
+            {
+              "id": 38936,
+              "logprob": -7.090173721313477
+            },
+            {
+              "id": 3383,
+              "logprob": -7.122648239135742
+            },
+            {
+              "id": 3930,
+              "logprob": -7.538051605224609
+            },
+            {
+              "id": 1098,
+              "logprob": -7.652748107910156
+            },
+            {
+              "id": 20321,
+              "logprob": -7.776411056518555
+            },
+            {
+              "id": 14142,
+              "logprob": -8.069232940673828
+            },
+            {
+              "id": 2056,
+              "logprob": -8.071773529052734
+            },
+            {
+              "id": 4716,
+              "logprob": -8.308406829833984
+            },
+            {
+              "id": 16809,
+              "logprob": -8.693265914916992
+            },
+            {
+              "id": 553,
+              "logprob": -8.730783462524414
+            },
+            {
+              "id": 52486,
+              "logprob": -9.006591796875
+            },
+            {
+              "id": 31829,
+              "logprob": -9.254997253417969
+            },
+            {
+              "id": 6635,
+              "logprob": -9.268926620483398
+            },
+            {
+              "id": 18789,
+              "logprob": -9.312505722045898
+            },
+            {
+              "id": 49185,
+              "logprob": -9.37790298461914
+            },
+            {
+              "id": 6626,
+              "logprob": -9.426961898803711
+            }
+          ],
+          "seconds": 1.5438170859997626
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "native_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2812213897705078,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 1098,
+              "logprob": -2.8490614567999728e-05
+            },
+            {
+              "id": 38936,
+              "logprob": -12.373903274536133
+            },
+            {
+              "id": 3383,
+              "logprob": -12.862215042114258
+            },
+            {
+              "id": 1286,
+              "logprob": -12.9835205078125
+            },
+            {
+              "id": 22948,
+              "logprob": -12.986249923706055
+            },
+            {
+              "id": 15780,
+              "logprob": -13.334012985229492
+            },
+            {
+              "id": 5098,
+              "logprob": -13.486328125
+            },
+            {
+              "id": 2584,
+              "logprob": -13.582576751708984
+            },
+            {
+              "id": 550,
+              "logprob": -13.627031326293945
+            },
+            {
+              "id": 9578,
+              "logprob": -13.868219375610352
+            },
+            {
+              "id": 4453,
+              "logprob": -14.629291534423828
+            },
+            {
+              "id": 2443,
+              "logprob": -14.676719665527344
+            },
+            {
+              "id": 6626,
+              "logprob": -14.68520736694336
+            },
+            {
+              "id": 31793,
+              "logprob": -15.042325973510742
+            },
+            {
+              "id": 3776,
+              "logprob": -15.081598281860352
+            },
+            {
+              "id": 18522,
+              "logprob": -15.085115432739258
+            },
+            {
+              "id": 38155,
+              "logprob": -15.202077865600586
+            },
+            {
+              "id": 18789,
+              "logprob": -15.215337753295898
+            },
+            {
+              "id": 1820,
+              "logprob": -15.422197341918945
+            },
+            {
+              "id": 7873,
+              "logprob": -15.460247039794922
+            }
+          ],
+          "seconds": 2.2766884520024178
+        }
+      ],
+      "kv_receipt": null
+    },
+    {
+      "activation_quantization": "native-q8-k",
+      "kv_roundtrip": "f16",
+      "agreement": 5,
+      "maximum_first_token_logprob_difference": 0.42047643661499023,
+      "rows": [
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Pavel.",
+          "native_output": "Hand the booking confirmation to Pavel.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.2362828254699707,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.9415473937988281
+            },
+            {
+              "id": 8108,
+              "logprob": -1.0476646423339844
+            },
+            {
+              "id": 38936,
+              "logprob": -2.1916732788085938
+            },
+            {
+              "id": 22737,
+              "logprob": -3.209043502807617
+            },
+            {
+              "id": 10127,
+              "logprob": -3.7447338104248047
+            },
+            {
+              "id": 549,
+              "logprob": -4.110237121582031
+            },
+            {
+              "id": 38468,
+              "logprob": -4.547304153442383
+            },
+            {
+              "id": 35689,
+              "logprob": -5.364524841308594
+            },
+            {
+              "id": 32885,
+              "logprob": -5.400356292724609
+            },
+            {
+              "id": 52486,
+              "logprob": -5.406026840209961
+            },
+            {
+              "id": 49185,
+              "logprob": -5.494117736816406
+            },
+            {
+              "id": 16809,
+              "logprob": -5.718393325805664
+            },
+            {
+              "id": 17085,
+              "logprob": -5.826629638671875
+            },
+            {
+              "id": 50233,
+              "logprob": -6.388896942138672
+            },
+            {
+              "id": 3930,
+              "logprob": -6.612062454223633
+            },
+            {
+              "id": 52748,
+              "logprob": -6.711872100830078
+            },
+            {
+              "id": 56608,
+              "logprob": -6.800363540649414
+            },
+            {
+              "id": 20936,
+              "logprob": -6.836187362670898
+            },
+            {
+              "id": 31928,
+              "logprob": -6.9850921630859375
+            },
+            {
+              "id": 1621,
+              "logprob": -7.002983093261719
+            }
+          ],
+          "seconds": 1.5430979970042245
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": false,
+          "output_equal": false,
+          "hf_output": "Please lubricate the lock.",
+          "native_output": "Please inspect the hinge and lubricate the lock.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.15108489990234375,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 16809,
+              "logprob": -0.00016008525562938303
+            },
+            {
+              "id": 38936,
+              "logprob": -9.687017440795898
+            },
+            {
+              "id": 8108,
+              "logprob": -10.574569702148438
+            },
+            {
+              "id": 2584,
+              "logprob": -11.184551239013672
+            },
+            {
+              "id": 8173,
+              "logprob": -11.998779296875
+            },
+            {
+              "id": 13831,
+              "logprob": -12.05649185180664
+            },
+            {
+              "id": 4083,
+              "logprob": -12.393077850341797
+            },
+            {
+              "id": 3111,
+              "logprob": -12.438602447509766
+            },
+            {
+              "id": 1621,
+              "logprob": -12.868009567260742
+            },
+            {
+              "id": 31928,
+              "logprob": -12.995054244995117
+            },
+            {
+              "id": 7367,
+              "logprob": -13.104043960571289
+            },
+            {
+              "id": 557,
+              "logprob": -13.276620864868164
+            },
+            {
+              "id": 13912,
+              "logprob": -13.31264877319336
+            },
+            {
+              "id": 8694,
+              "logprob": -13.553535461425781
+            },
+            {
+              "id": 10127,
+              "logprob": -13.845813751220703
+            },
+            {
+              "id": 8013,
+              "logprob": -13.893363952636719
+            },
+            {
+              "id": 17387,
+              "logprob": -13.944892883300781
+            },
+            {
+              "id": 52739,
+              "logprob": -14.004873275756836
+            },
+            {
+              "id": 550,
+              "logprob": -14.17404556274414
+            },
+            {
+              "id": 3383,
+              "logprob": -14.221658706665039
+            }
+          ],
+          "seconds": 1.0873103650010307
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.28263235092163086,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.8569369912147522
+            },
+            {
+              "id": 8108,
+              "logprob": -1.1492838859558105
+            },
+            {
+              "id": 38936,
+              "logprob": -2.266078472137451
+            },
+            {
+              "id": 22737,
+              "logprob": -3.155606746673584
+            },
+            {
+              "id": 10127,
+              "logprob": -3.5476393699645996
+            },
+            {
+              "id": 549,
+              "logprob": -4.0820536613464355
+            },
+            {
+              "id": 38468,
+              "logprob": -4.500396251678467
+            },
+            {
+              "id": 35689,
+              "logprob": -5.248755931854248
+            },
+            {
+              "id": 49185,
+              "logprob": -5.3909010887146
+            },
+            {
+              "id": 52486,
+              "logprob": -5.45271635055542
+            },
+            {
+              "id": 32885,
+              "logprob": -5.750543117523193
+            },
+            {
+              "id": 16809,
+              "logprob": -5.859530925750732
+            },
+            {
+              "id": 17085,
+              "logprob": -5.946908473968506
+            },
+            {
+              "id": 50233,
+              "logprob": -6.203004360198975
+            },
+            {
+              "id": 3930,
+              "logprob": -6.230132579803467
+            },
+            {
+              "id": 560,
+              "logprob": -6.776015758514404
+            },
+            {
+              "id": 31928,
+              "logprob": -6.799119472503662
+            },
+            {
+              "id": 20936,
+              "logprob": -6.841641902923584
+            },
+            {
+              "id": 52748,
+              "logprob": -6.8575968742370605
+            },
+            {
+              "id": 56608,
+              "logprob": -7.00610876083374
+            }
+          ],
+          "seconds": 1.3692924700008007
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Hand the booking confirmation to Soren.",
+          "native_output": "Hand the booking confirmation to Soren.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.25956010818481445,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 7674,
+              "logprob": -0.7613363862037659
+            },
+            {
+              "id": 8108,
+              "logprob": -1.3063383102416992
+            },
+            {
+              "id": 38936,
+              "logprob": -2.1167802810668945
+            },
+            {
+              "id": 22737,
+              "logprob": -3.1937856674194336
+            },
+            {
+              "id": 10127,
+              "logprob": -3.79122257232666
+            },
+            {
+              "id": 549,
+              "logprob": -4.174242973327637
+            },
+            {
+              "id": 38468,
+              "logprob": -4.7418718338012695
+            },
+            {
+              "id": 35689,
+              "logprob": -4.9463605880737305
+            },
+            {
+              "id": 49185,
+              "logprob": -5.572657585144043
+            },
+            {
+              "id": 32885,
+              "logprob": -5.589922904968262
+            },
+            {
+              "id": 52486,
+              "logprob": -5.731335639953613
+            },
+            {
+              "id": 16809,
+              "logprob": -6.062420845031738
+            },
+            {
+              "id": 17085,
+              "logprob": -6.218327522277832
+            },
+            {
+              "id": 50233,
+              "logprob": -6.367972373962402
+            },
+            {
+              "id": 560,
+              "logprob": -6.524493217468262
+            },
+            {
+              "id": 3930,
+              "logprob": -6.547772407531738
+            },
+            {
+              "id": 52748,
+              "logprob": -6.784819602966309
+            },
+            {
+              "id": 49634,
+              "logprob": -6.880928993225098
+            },
+            {
+              "id": 31928,
+              "logprob": -6.901837348937988
+            },
+            {
+              "id": 56608,
+              "logprob": -6.961661338806152
+            }
+          ],
+          "seconds": 1.2766638780012727
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "Let the parking permit expire once the depot opens.",
+          "native_output": "Let the parking permit expire once the depot opens.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.42047643661499023,
+          "first_token_top20_common": 19,
+          "hf_first_token_top20": [
+            {
+              "id": 8232,
+              "logprob": -0.011002586223185062
+            },
+            {
+              "id": 38468,
+              "logprob": -5.90354061126709
+            },
+            {
+              "id": 8108,
+              "logprob": -6.642806053161621
+            },
+            {
+              "id": 10127,
+              "logprob": -6.764031410217285
+            },
+            {
+              "id": 38936,
+              "logprob": -7.1564741134643555
+            },
+            {
+              "id": 3383,
+              "logprob": -7.322440147399902
+            },
+            {
+              "id": 3930,
+              "logprob": -7.625185966491699
+            },
+            {
+              "id": 20321,
+              "logprob": -7.7899885177612305
+            },
+            {
+              "id": 1098,
+              "logprob": -7.8977251052856445
+            },
+            {
+              "id": 14142,
+              "logprob": -8.092133522033691
+            },
+            {
+              "id": 2056,
+              "logprob": -8.15820026397705
+            },
+            {
+              "id": 4716,
+              "logprob": -8.397072792053223
+            },
+            {
+              "id": 16809,
+              "logprob": -8.669646263122559
+            },
+            {
+              "id": 553,
+              "logprob": -8.951607704162598
+            },
+            {
+              "id": 6635,
+              "logprob": -9.252490043640137
+            },
+            {
+              "id": 52486,
+              "logprob": -9.359881401062012
+            },
+            {
+              "id": 18789,
+              "logprob": -9.373669624328613
+            },
+            {
+              "id": 49185,
+              "logprob": -9.511860847473145
+            },
+            {
+              "id": 31829,
+              "logprob": -9.576748847961426
+            },
+            {
+              "id": 6626,
+              "logprob": -9.651473045349121
+            }
+          ],
+          "seconds": 1.4746157889967435
+        },
+        {
+          "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "prompt_tokens_equal": true,
+          "generated_tokens_equal": true,
+          "output_equal": true,
+          "hf_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "native_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+          "first_token_top20_max_common_abs_logprob_difference": 0.34708404541015625,
+          "first_token_top20_common": 20,
+          "hf_first_token_top20": [
+            {
+              "id": 1098,
+              "logprob": -2.658331868587993e-05
+            },
+            {
+              "id": 38936,
+              "logprob": -12.419319152832031
+            },
+            {
+              "id": 22948,
+              "logprob": -12.954673767089844
+            },
+            {
+              "id": 1286,
+              "logprob": -13.015056610107422
+            },
+            {
+              "id": 3383,
+              "logprob": -13.100481033325195
+            },
+            {
+              "id": 15780,
+              "logprob": -13.502355575561523
+            },
+            {
+              "id": 2584,
+              "logprob": -13.577615737915039
+            },
+            {
+              "id": 5098,
+              "logprob": -13.627731323242188
+            },
+            {
+              "id": 550,
+              "logprob": -13.676746368408203
+            },
+            {
+              "id": 9578,
+              "logprob": -13.893131256103516
+            },
+            {
+              "id": 2443,
+              "logprob": -14.62346076965332
+            },
+            {
+              "id": 4453,
+              "logprob": -14.675212860107422
+            },
+            {
+              "id": 6626,
+              "logprob": -14.851634979248047
+            },
+            {
+              "id": 3776,
+              "logprob": -14.919839859008789
+            },
+            {
+              "id": 18522,
+              "logprob": -15.176223754882812
+            },
+            {
+              "id": 31793,
+              "logprob": -15.344097137451172
+            },
+            {
+              "id": 18789,
+              "logprob": -15.394163131713867
+            },
+            {
+              "id": 38155,
+              "logprob": -15.445396423339844
+            },
+            {
+              "id": 1820,
+              "logprob": -15.521738052368164
+            },
+            {
+              "id": 7873,
+              "logprob": -15.61083984375
+            }
+          ],
+          "seconds": 1.9870356220053509
+        }
+      ],
+      "kv_receipt": {
+        "kv_roundtrip_mode": "post-rope-f16-ste-v1",
+        "attention_layers": 6,
+        "kv_attention_source_sha256": "7f214fdc03b78c75c5832ccea3b68c24d292a7ead2b616cbafa2a9e285105932",
+        "kv_upstream_source_sha256": "8bb414ac677a00fe8fade1655c66ad0af7111822d629cbbc12c31c2db779421e",
+        "kv_wrapper_source_sha256": "fcb58bbb4b33cefc2f90a4826fd069dd530728ee297657c9cc1bccdcc4ace7c4",
+        "query_rounded": false,
+        "lora_input_rounded": false,
+        "native_forward_equivalence_claimed": false
+      }
+    }
+  ],
+  "training_performed": false,
+  "fresh_blind_read": false,
+  "target_labels_used": false
+}

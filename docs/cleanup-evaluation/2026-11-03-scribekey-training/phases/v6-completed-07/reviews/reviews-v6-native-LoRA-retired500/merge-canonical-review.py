@@ -1,0 +1,15 @@
+import pathlib,json,hashlib,importlib.util,datetime
+r=pathlib.Path(__file__).resolve().parent.parent;repo=r.parent.parent;report=r/'evaluation/v6-01-native-LoRA-F32-retired-primary500-core/core-results.json';expected='22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+assert sha(report)==expected;raw=json.loads(report.read_text());assert raw['incomplete']is False and len(raw['cases'])==500
+spec=importlib.util.spec_from_file_location('training_evaluate',repo/'tools/Freehand.Cleanup.Training/evaluate.py');ev=importlib.util.module_from_spec(spec);spec.loader.exec_module(ev)
+inputs=[('reviews-v6-native-LoRA-retired500/positions001-167-reviewed.json','df93b3dd8f3b6533b72d9691a1810fcc64713e1d2591db99aac63e7125ce82db',1,167),('reviews-v6-01-native-LoRA-retired500/positions-168-334/casewise-reviewed.json','4ab7251a230de42e79a7329b91549429b8dec4ebb8154cddbab3b3055cc15075',168,334),('reviews-v6-01-native-LoRA-retired500/range335-500-reviewed.json','5fcbe8b66321432c7ff18c88d5c70116678fe19a6e3b8abe76ab8369330d549f',335,500)]
+merged=[];sources=[]
+for relative,pin,first,last in inputs:
+ p=r/relative;assert sha(p)==pin;v=json.loads(p.read_text());assert v['results_sha256']==expected
+ assert len(v['cases'])==last-first+1 and [x['position_one_based']for x in v['cases']]==list(range(first,last+1))
+ assert [x['case_id']for x in v['cases']]==[x['id']for x in raw['cases'][first-1:last]]
+ merged.extend(v['cases']);sources.append({'path':relative,'sha256':pin,'reviewer':v['reviewer'],'positions_one_based':[first,last]})
+assert len({x['case_id']for x in merged})==500
+canonical={'schema_version':1,'reviewer':'Three named assistant reviewers; root reviewed54 nonreference/failed actualpairs outside20dictionarynonce cases separatelyread byreviewers','results_sha256':expected,'qualification':'Consumed retired500 development only; nofresh99claim','review_sources':sources,'root_cross_review':{'personally_read_actual_nonreference_or_failed_pairs_excluding20_dictionary_nonce_pairs':54,'all35_changed_case_inventory':'root-diff-inventory.json','semantic_adjudication':'Nojointdecisionsoverridden. b021 comma style acceptedasdirectlyusable consistentminimalediting; failedprovidernevercredited.','human_review':False},'cases':merged}
+out=pathlib.Path(__file__).resolve().parent;p=out/'canonical-reviewed.json';assert not p.exists();p.write_text(json.dumps(canonical,indent=2,ensure_ascii=False)+'\n');rows=ev.result_rows(report);score=ev.score_review(rows,canonical,expected_ids={x['id']for x in raw['cases']});score.update(schema_version=1,results_sha256=expected,canonical_review_sha256=sha(p),qualification='retired development only',fresh_qualification_claimed=False,review_sources=sources,provider_failures=sum(x['cleanup_status']=='Failed'for x in raw['cases']),all500_delivered_once=all(x['insertion_count']==x['delivered_count']==1 for x in raw['cases']),utc=datetime.datetime.now(datetime.timezone.utc).isoformat());q=out/'canonical-semantic-summary.json';assert not q.exists();q.write_text(json.dumps(score,indent=2)+'\n');print(json.dumps(score,indent=2))

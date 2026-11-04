@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "status": "prepared_NO_MODEL_OR_TRAINING",
+  "argv": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/frozen-probe/Freehand.Cleanup.Probe.dll",
+    "--export-prompts",
+    "--input",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/older-unframed-core-fixtures.json",
+    "--output",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/older-unframed-core-export.json",
+    "--prompt-style",
+    "ScribeKeyFast",
+    "--mask-specialist-literals",
+    "true"
+  ],
+  "source_files": [
+    {
+      "path": "data-v3/combined-train-1364.jsonl",
+      "sha256": "502f7884a5b8be4db1a20a0154cfbc4b646168b4e1b812cddcad0fe6e7154b4d",
+      "rows": 1364
+    },
+    {
+      "path": "audit/anaphora-curriculum/train-120-v3.jsonl",
+      "sha256": "6bd8efb9da8b3362d6275ea7389a049523c94f6d865dc551d4db4d1c33744472",
+      "rows": 120
+    },
+    {
+      "path": "audit/development-repair-curriculum/train-90-v1.jsonl",
+      "sha256": "1f186a9dd5d796dbb4c61cd453f66669bfcb56ec09df6496ec020453167c981e",
+      "rows": 90
+    },
+    {
+      "path": "audit/protected-correction-curriculum/train-20.jsonl",
+      "sha256": "4d92f682b278300a9d5d1974a830d9c84d5c5a7be50fef7768fb53ec1bf5e34e",
+      "rows": 20
+    },
+    {
+      "path": "data-v5-candidate/new-420-core-normalized.jsonl",
+      "sha256": "c63757913c476f98d8ce3d62b37d2a2ea0ed233c2ea6a1921971da9dc19804ec",
+      "rows": 420
+    }
+  ],
+  "source_occurrences": 2014,
+  "new_core_export_rows": 1537,
+  "legacy_framed_rows_retained": 57,
+  "already_core_normalized_rows_retained": 420,
+  "frozen_probe_files": {
+    "Freehand.Cleanup.Probe.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+      "bytes": 184832,
+      "sha256": "ad479bec39e0cd5cd62ab7055b72885a1b96252a8be3abb31bfa33c8e76dbd76"
+    },
+    "Freehand.Core.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+      "bytes": 201216,
+      "sha256": "a4f46c6ef3519464ccd36b89546275626ba529f908b13584ab3d18c6472c9236"
+    },
+    "Freehand.Cleanup.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+      "bytes": 162816,
+      "sha256": "87d2171175e1a88a07ce1a5623089d6bd4bc3ef7c8ad720d4c992f1554970eb0"
+    },
+    "Freehand.Dictionary.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+      "bytes": 22528,
+      "sha256": "c948c62a1a001221920ee0fd07dda266cf94ba3191bebdeed1da9698a8bed9d3"
+    },
+    "Freehand.Testing.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+      "bytes": 12800,
+      "sha256": "bde45bb19dc4be966f1eadf5199321263226a257d230e18ea39ba1aef405fab5"
+    },
+    "Freehand.Abstractions.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+      "bytes": 18944,
+      "sha256": "e600a623d8ea9798294963eda89dfe6946da6bd1f9dde96981a9397068813bcd"
+    },
+    "Freehand.Cleanup.Probe.runtimeconfig.json": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.runtimeconfig.json",
+      "bytes": 377,
+      "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+    },
+    "Freehand.Cleanup.Probe.deps.json": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.deps.json",
+      "bytes": 2445,
+      "sha256": "6927cd8464fa8975464de63e54624ca7ed23c7ada9875621e820dd675140e10b"
+    }
+  },
+  "source_records_sha256": "c4dbcbf5c2d83149493970394b3dde48444b128c060258516b0bd0a51faf72e5",
+  "fixture_sha256": "68cfce193df5a45be89ff8b210808262ec0516a658182eafa56944fe95735f4d",
+  "provenance_occurrence_counts": {
+    "individually_authored_pair": 1052,
+    "controlled_derived_identity_or_filler": 206,
+    "controlled_surface_corruption": 161,
+    "controlled_prefix_augmentation": 244,
+    "controlled_template_instantiation": 202,
+    "authored_text_identity_control": 13,
+    "controlled_composition": 136
+  },
+  "builder_source_sha256": "5110cc3264858099952a2cdcedd3393fd82cb98c23f2236aba29199f2b26ef5e",
+  "blind_data_read": false
+}

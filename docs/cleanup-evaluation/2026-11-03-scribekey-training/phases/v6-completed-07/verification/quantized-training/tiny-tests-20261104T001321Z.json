@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "created_utc": "20261104T001321Z",
+  "pipeline_sha256_before": "ed4a922cd37633038e093c3d568daf033c399368811d8c1bad96f7e1e6537716",
+  "pipeline_sha256_after": "ed4a922cd37633038e093c3d568daf033c399368811d8c1bad96f7e1e6537716",
+  "test_file_sha256": "f58ac7e2051731fa063ea3a51b76f6562576245e440215a206d05c49186b1bba",
+  "log": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quantized-training-verification/tiny-tests-20261104T001321Z.log",
+  "log_sha256": "af9e2f2d288e4cf9697a2e8f02be93f0232feb769f3023ec40cbd3e3a1d64952",
+  "results": [
+    {
+      "command": [
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/Freehand.Cleanup.Training",
+        "-p",
+        "test_quantized_training.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.471614268004487
+    },
+    {
+      "command": [
+        "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/Freehand.Cleanup.Training",
+        "-p",
+        "test_resume.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.267252051999094
+    }
+  ],
+  "threads": 1,
+  "no_real_model_or_dataset_loaded": true,
+  "native_inference_run": false,
+  "all_passed": true
+}

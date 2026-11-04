@@ -1,0 +1,508 @@
+{
+  "training_base_mode": "original-iq4-dequantized-fp32-v1",
+  "frozen_base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+  "original_bf16_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+  "base_config_sha256": "13ab9863955d2016c32417ff97b1a9840951d2481b6d3095f7ae98d10611a7d2",
+  "tokenizer_sha256": "df1d8d5ec5d091b460562ffd545e4a5e91d17d4a0db7ebe733be34ed374377bd",
+  "quantized_training_source_sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+  "gguf_dequantizer_sha256": "db403c3b2292d3f2c5cfef4109d4b5745f437b5599c7afc94d4b97feca7e9247",
+  "gguf_mapping_sha256": "64c24cf3560015d8faf30be5d801fe7b511349f9ba2d96fa33782b3a2efbc624",
+  "tensor_count": 148,
+  "tensor_types": {
+    "Q6_K": 1,
+    "F32": 55,
+    "IQ4_XS": 90,
+    "Q5_K": 2
+  },
+  "conv_singleton_restorations": 10,
+  "all_base_parameters_dtype": "float32",
+  "tied_head_verified": true,
+  "base_serialized": false,
+  "native_forward_equivalence_claimed": false,
+  "known_numerical_differences": [
+    "Native quantized matmul uses Q8_K activations",
+    "HF stores K/V in FP32; optional emulation rounds their values through F16"
+  ],
+  "kv_roundtrip_mode": "none",
+  "kv_emulation_receipt": null,
+  "activation_emulation_receipt": {
+    "activation_quantization_mode": "native-q8-k-ste-v1",
+    "activation_cpu_library_sha256": "37c755982f13955f7b95c5521f1d1a3fa34f2f27568ba60b97351484007550a5",
+    "activation_base_library_sha256": "3b311170ea4a999a9d9dac18561eda8830a2c938398cb4bbed41d6a2af443abb",
+    "activation_linear_inventory_sha256": "ed7364b7980bad82db0f61778cb0d5390968074edc367cbdf92730377af271ce",
+    "linears": [
+      {
+        "name": "lm_head",
+        "weight_type": "Q6_K",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.0.feed_forward.w2",
+        "weight_type": "Q5_K",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.0.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.1.feed_forward.w2",
+        "weight_type": "Q5_K",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.1.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.10.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.10.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.11.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.11.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.12.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.12.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.13.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.13.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.14.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.14.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.15.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.15.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.2.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.2.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.3.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.3.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.4.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.4.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.5.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.5.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.6.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.6.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.7.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.7.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.8.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.k_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.q_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.8.self_attn.v_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.conv.in_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.conv.out_proj",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.feed_forward.w1",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      },
+      {
+        "name": "model.layers.9.feed_forward.w2",
+        "weight_type": "IQ4_XS",
+        "input_width": 4608
+      },
+      {
+        "name": "model.layers.9.feed_forward.w3",
+        "weight_type": "IQ4_XS",
+        "input_width": 1024
+      }
+    ],
+    "lora_input_rounded": false,
+    "includes_tied_output_matmul": true,
+    "quantizer_symbol": "quantize_row_q8_K",
+    "dequantizer_symbol": "dequantize_row_q8_K",
+    "values_per_block": 256,
+    "bytes_per_block": 292,
+    "native_forward_equivalence_claimed": false
+  }
+}

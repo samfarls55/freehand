@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "reviewer": "/root/training_audit",
+  "created_utc": "2026-11-04T00:20:02.937781+00:00",
+  "review_type": "Independent assistant source review plus examination of separately executed proof/test receipts; not a human review",
+  "status": "RANK8_CONTROL_SOURCE_REVIEW_APPROVED; RANK16_BLOCKED_BY_REAL_MODEL_INITIAL_LOGIT_CHECK",
+  "source": {
+    "path": "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py",
+    "sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa"
+  },
+  "selected_control": {
+    "training_base_mode": "original-iq4-dequantized-fp32-v1",
+    "rank": 8,
+    "alpha": 16,
+    "activation_quantization": "native-q8-k",
+    "kv_roundtrip": "none",
+    "selection_reason": "Root selected the lower measured first-token probability discrepancy; all four options retain the same 5/6 consumed-case output agreement. This is an approximate control, not proven native forward equivalence.",
+    "dataset_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/full-history-candidate.jsonl",
+    "dataset_sha256": "919b5b5ecfe2878edf7075b800a7d39392fe5be215d23d1fb8cbd984c78a4015",
+    "rows": 2014,
+    "epochs": 1,
+    "batch_size": 4,
+    "gradient_accumulation": 2,
+    "planned_optimizer_updates": 252,
+    "training_authorization": "Root decision; this review does not launch training.",
+    "learning_rate": 3e-05,
+    "warmup_steps": 25,
+    "seed": 42,
+    "threads": 4,
+    "checkpoint_every_steps": 16,
+    "max_tokens": 1024,
+    "optimizer": "fresh AdamW"
+  },
+  "source_checks": [
+    {
+      "check": "All148 original tensors mapped bijectively with exact shapes; conv singleton restoration only, no generic transpose",
+      "result": "pass"
+    },
+    {
+      "check": "Every recovered base parameter FP32 and finite; tied lm_head/embed_tokens pointer verified; no recovered base serialized",
+      "result": "pass"
+    },
+    {
+      "check": "Original BF16 provenance and ORIGINAL IQ4 GGUF SHA pinned before model allocation; trained merged GGUF cannot be silently substituted",
+      "result": "pass"
+    },
+    {
+      "check": "Parent adapter SHA/config/target modules/rank/alpha and state tensors checked; parent delta applied once to unmerged original IQ4 base",
+      "result": "pass"
+    },
+    {
+      "check": "Q8 inventory covers exactly92 quantized layer matmuls plus tied output matmul; embedding lookup excluded",
+      "result": "pass"
+    },
+    {
+      "check": "Native Q8_K calls exact pinned Haswell/base libraries, 256-value blocks,292-byte packed layout, zero scratch, finite contiguous CPU FP32 validation",
+      "result": "pass"
+    },
+    {
+      "check": "Base-only pre-hooks installed before LoRA; raw original FP32 input reaches LoRA path; STE backward is identity",
+      "result": "pass"
+    },
+    {
+      "check": "Optional K/V half-rounding occurs after key normalization/RoPE and value projection, before attention/cache; query/LoRA input unchanged",
+      "result": "pass"
+    },
+    {
+      "check": "Exact quantized resume binds pipeline source, GGUF/config/tokenizer/dequantizer/mapping, parent adapter/config, expansion, KV source/mode and Q8 library/inventory/mode",
+      "result": "pass"
+    },
+    {
+      "check": "Legacy BF16 merge/generation reject quantized-mode adapter before heavyweight imports; wrong-base merge/double application prevented",
+      "result": "pass"
+    },
+    {
+      "check": "Rank expansion preserves alpha/rank and old A/B slots; additional A seeded nonzero, B zero; delta and actual-logit guards enforce preservation",
+      "result": "source_math_pass_real_model_rank16_guard_failed"
+    }
+  ],
+  "resolved_during_review": [
+    {
+      "issue": "Quantized exact-resume initially did not bind our pipeline implementation",
+      "resolution": "Added quantized_training_source_sha256 strict resume key; KV digest also binds wrapper and upstream attention source."
+    },
+    {
+      "issue": "Initial Q8 probe included uninitialized unused zero-block bsum bytes",
+      "resolution": "Original failed receipt preserved; separate corrected proof zeros packed buffers and matches optimized/reference bytes plus native/manual dequantization."
+    },
+    {
+      "issue": "KV provenance distinguished dtype incompletely",
+      "resolution": "Full KV emulation receipt persisted and known-difference text distinguishes FP32 storage from optional F16-rounded values."
+    }
+  ],
+  "evidence": {
+    "actual_model_2x2": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/proof/native-hf-base-agreement/q8-k-activation-smoke/result.json",
+      "sha256": "511fb5bef3abdacf6609a62c7584e308229f71663c62e64e04f721c53123652f",
+      "all148_base_tensors_loaded": 148,
+      "tensor_types": {
+        "Q6_K": 1,
+        "F32": 55,
+        "IQ4_XS": 90,
+        "Q5_K": 2
+      },
+      "q8_quantized_matmuls": 93,
+      "conditions": [
+        {
+          "activation_quantization": "none",
+          "kv_roundtrip": "none",
+          "agreement": 5,
+          "maximum_first_token_logprob_difference": 0.38571882247924805
+        },
+        {
+          "activation_quantization": "none",
+          "kv_roundtrip": "f16",
+          "agreement": 5,
+          "maximum_first_token_logprob_difference": 0.3852100372314453
+        },
+        {
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "none",
+          "agreement": 5,
+          "maximum_first_token_logprob_difference": 0.2883291244506836
+        },
+        {
+          "activation_quantization": "native-q8-k",
+          "kv_roundtrip": "f16",
+          "agreement": 5,
+          "maximum_first_token_logprob_difference": 0.42047643661499023
+        }
+      ]
+    },
+    "tiny_tests": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quantized-training-verification/q8-tiny-tests-20261104T001835Z.json",
+      "sha256": "b027cc9ffea957f4ff4892a5f810d496a2b5d51fddcbc6a314f082131e2abab5",
+      "log_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/quantized-training-verification/q8-tiny-tests-20261104T001835Z.log",
+      "log_sha256": "a56201b94b2fea4f9bbdcd9dc14e26fca525b4d824ea4ff2ce9abd970c930ef6",
+      "focused_tests": 18,
+      "resume_compatibility_tests": 2,
+      "all_passed": true,
+      "independently_read_receipt": true
+    },
+    "root_full_suite": {
+      "reported_tests_passed": 74,
+      "reported_seconds": 1.036,
+      "reported_path": "/work/task/training-tools-full-quantized-precontrol.log",
+      "local_path_accessible_to_reviewer": false,
+      "evidence_scope": "Parent-reported additional result; not independently file-verified by this reviewer"
+    },
+    "rank16_failure": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/proof/native-hf-base-agreement/quantized-mode-smoke.log",
+      "sha256": "5a08a2caf282184fd226aef9041448913f8d89540d30cd453c2ee3ee50e69bc0",
+      "result": "Per-module matrix delta passed, but actual full-model F16-KV logits exceeded atol5e-4/rtol1e-5. Guard raised before optimizer/training; tiny-model pass does not override this."
+    }
+  },
+  "remaining_limitations": [
+    "All4 configurations agree with native on5/6 consumed diagnostic outputs; this does not prove model accuracy, native forward equivalence, or improved generation.",
+    "Q8 activation roundtrip is native, but dense FP32 dequantized-weight matmul need not match native quantized dot-product accumulation.",
+    "Rank16 is not approved for this first control because of the actual initial-logit preservation failure; its tolerance was not weakened.",
+    "Resume numerical reproducibility also depends on the frozen installed environment/hardware; source/library identities alone are not a proof across different numerical stacks.",
+    "Fresh independent495/500 faithful AND clean acceptance remains unestablished; no round-two text/results were opened for this audit.",
+    "No Windows whole-app speed or memory qualification is established."
+  ],
+  "reviewer_actions": {
+    "source_edits": false,
+    "new_data_authored": false,
+    "model_or_native_runs": false,
+    "training_runs": false,
+    "blind_round2_or_author_status_access": false
+  },
+  "supersedes_plan_metadata": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/quantized-trainer-independent-review/review-ef07d31-rank8.json",
+    "sha256": "e2089cd80e3f41d3812d68b63e5dc221b22cd62db74779a699e542726963c75c",
+    "reason": "Root-confirmed execution recipe is batch4/accum2; source findings and rank8 approval unchanged. Prior file preserved."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T00:44:08.240961+00:00",
+  "phase": "development",
+  "retired_corpus_sha256": "def0ae07b9e9fa922d2b11a90f0e981de12be499d5fdadaddcff3f0f6ef8a643",
+  "case_count": 500,
+  "exact_ordered_unique_inventory_preserved": true,
+  "report_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1",
+  "candidate_freeze": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-freeze.json",
+    "bytes": 10079,
+    "sha256": "486dc209ede4ae2b46d5885740a148dbe3602a9f1cb3a0c8efb87af72dc06ddf"
+  },
+  "effective_model_identity": {
+    "base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+    "base_bytes": 211804448,
+    "runtime_adapter_sha256": "d5b2bb684183a62fa8b5f2f86674f519bef6199d25ef85f94f99eb78b2e5f537",
+    "runtime_adapter_bytes": 12006240,
+    "runtime_adapter_scale": 1.0
+  },
+  "commands": {
+    "core": 1
+  },
+  "deployment_verification": {
+    "effective_model_identity": {
+      "base_sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+      "base_bytes": 211804448,
+      "runtime_adapter_sha256": "d5b2bb684183a62fa8b5f2f86674f519bef6199d25ef85f94f99eb78b2e5f537",
+      "runtime_adapter_bytes": 12006240,
+      "runtime_adapter_scale": 1.0
+    },
+    "verified": true,
+    "report": {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/core-results.json",
+      "bytes": 619891,
+      "sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1"
+    }
+  },
+  "statuses": {
+    "Applied": 301,
+    "Unchanged": 198,
+    "Failed": 1
+  },
+  "insertion_histogram": {
+    "1": 500
+  },
+  "delivery_histogram": {
+    "1": 500
+  },
+  "source_and_model_identities_postverified": true,
+  "independent_work_controller_four_fix_audit": "Passed by cleanup_pipeline_review for executed source9746eca1bda5edc48ab32a448d32b9d9671fb59e8489624fcbf42682a3332026",
+  "output_scope": "Core post-trim-v1/restored candidates and errors; no pretrim raw completion field",
+  "semantic_accuracy": "unreviewed; all failures remain in500-case denominator and fallback originals receive no model success credit",
+  "fresh_round2_opened": false,
+  "whole_app_sla_qualified": false
+}

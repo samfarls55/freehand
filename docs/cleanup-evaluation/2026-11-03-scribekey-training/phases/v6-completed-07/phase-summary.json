@@ -1,0 +1,632 @@
+{
+  "schema_version": 1,
+  "phase": "v6-completed-07",
+  "captured_utc": "2026-11-04T01:07:45.158918+00:00",
+  "status": "completed_V6_development_only_below99_target",
+  "training": {
+    "steps": 252,
+    "microbatches": 504,
+    "assistant_tokens": 32206,
+    "seconds": 1036.057369150003,
+    "session_seconds": 1036.0573709630044,
+    "adapter_sha256": "157af046d18471d2e87d6936208d629e129739746f2c807636915f955968f207",
+    "completed": true,
+    "max_steps_limited": false,
+    "whole_app_sla_verified": false
+  },
+  "training_config_sha256": "1a159297809162e628c7b3b44079b832a10d78f63a881d2902777aaa5797c490",
+  "training_source_sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+  "actual_dataset_sha256": "919b5b5ecfe2878edf7075b800a7d39392fe5be215d23d1fb8cbd984c78a4015",
+  "normalization_counts": {
+    "new_export_rows": 1537,
+    "prior_normalized_retained": 420,
+    "legacy_framed_verbatim_retained": 57,
+    "raw_input_changes": 62,
+    "raw_target_changes": 61,
+    "exact_prompt_mask_agreement_counts": {
+      "real_Core_export_prompt_and_model_input_hash_exact": 1957,
+      "legacy_framed_retained_verbatim_Python_literal_roundtrip_only_no_new_Core_export": 57
+    },
+    "all_2014_literal_roundtrips_exact": true,
+    "loader_unique_rows": 2014,
+    "frozen_probe_files": {
+      "Freehand.Cleanup.Probe.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+        "bytes": 184832,
+        "sha256": "ad479bec39e0cd5cd62ab7055b72885a1b96252a8be3abb31bfa33c8e76dbd76"
+      },
+      "Freehand.Core.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+        "bytes": 201216,
+        "sha256": "a4f46c6ef3519464ccd36b89546275626ba529f908b13584ab3d18c6472c9236"
+      },
+      "Freehand.Cleanup.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+        "bytes": 162816,
+        "sha256": "87d2171175e1a88a07ce1a5623089d6bd4bc3ef7c8ad720d4c992f1554970eb0"
+      },
+      "Freehand.Dictionary.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+        "bytes": 22528,
+        "sha256": "c948c62a1a001221920ee0fd07dda266cf94ba3191bebdeed1da9698a8bed9d3"
+      },
+      "Freehand.Testing.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+        "bytes": 12800,
+        "sha256": "bde45bb19dc4be966f1eadf5199321263226a257d230e18ea39ba1aef405fab5"
+      },
+      "Freehand.Abstractions.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+        "bytes": 18944,
+        "sha256": "e600a623d8ea9798294963eda89dfe6946da6bd1f9dde96981a9397068813bcd"
+      },
+      "Freehand.Cleanup.Probe.runtimeconfig.json": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.runtimeconfig.json",
+        "bytes": 377,
+        "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+      },
+      "Freehand.Cleanup.Probe.deps.json": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.deps.json",
+        "bytes": 2445,
+        "sha256": "6927cd8464fa8975464de63e54624ca7ed23c7ada9875621e820dd675140e10b"
+      }
+    },
+    "new_export_sha256": "644753e4bd62a64ff11f900249f8ed32cd809d96a5f884a281a4644b03008f06",
+    "prior420_export_sha256": "3a2ba40c19a25649e8d9df79f72785ad537d36b9e96c3f8b8c9730ecbab45caf",
+    "legacy_limitation": "Already Core-framed rows were deliberately not sent through Core again. Their bytes and exact literal roundtrips are retained; a new C# prompt-equivalence claim is not made for those57rows."
+  },
+  "quality": [
+    {
+      "corpus": "retired-primary500",
+      "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1",
+      "review_sha256": "fbc863111bac6874c2dae54d0477ba0b7eae5fca3925f435d008c23fe9fd450d",
+      "case_count": 500,
+      "faithful": 485,
+      "clean_usable": 485,
+      "joint": 475,
+      "critical": 9,
+      "provider_failed": 1
+    },
+    {
+      "corpus": "development546",
+      "results_sha256": "ef31c0d71f0522f1dd0e2e2395c974691b85f5fd80a3d45802d658db452666a2",
+      "review_sha256": "f1e45ade9327d8eef10a6c80f69aa51a9f288f93fecc9702f22222b69cdbe207",
+      "case_count": 546,
+      "faithful": 545,
+      "clean_usable": 545,
+      "joint": 545,
+      "critical": 0,
+      "provider_failed": 0
+    },
+    {
+      "corpus": "hard80",
+      "results_sha256": "f8de71c7f3fde2035dcda874a2c270046f2ef1030adfea6cf53abb448e3e99ae",
+      "review_sha256": "10c93fbf1f375f945f0570bd82e96684096f0aa0409f8843e330e5022294cee8",
+      "case_count": 80,
+      "faithful": 79,
+      "clean_usable": 79,
+      "joint": 79,
+      "critical": 1,
+      "provider_failed": 0
+    }
+  ],
+  "canonical500_summary": {
+    "case_count": 500,
+    "structural_success": 499,
+    "faithful": 485,
+    "clean_usable": 485,
+    "faithful_and_clean_usable": 475,
+    "joint_accuracy": 0.95,
+    "critical_errors": 9,
+    "minimum_joint_accuracy": 0.99,
+    "required_pass_count": 495,
+    "failed_or_unusable_cases": 25,
+    "quality_gate_passed": false,
+    "zero_observed_critical_errors": false,
+    "exact_target_matches_diagnostic_only": 444,
+    "reviewer": "Three named assistant reviewers; root reviewed54 nonreference/failed actualpairs outside20dictionarynonce cases separatelyread byreviewers",
+    "limitations": "Finite assistant-authored synthetic diagnostic corpus and named semantic reviewer; no population accuracy or Windows SLA claim.",
+    "schema_version": 1,
+    "results_sha256": "22df25173a6325424bc224cf2481ca224da75ca50b87661c8cf7f71e2a3177c1",
+    "canonical_review_sha256": "fbc863111bac6874c2dae54d0477ba0b7eae5fca3925f435d008c23fe9fd450d",
+    "qualification": "retired development only",
+    "fresh_qualification_claimed": false,
+    "review_sources": [
+      {
+        "path": "reviews-v6-native-LoRA-retired500/positions001-167-reviewed.json",
+        "sha256": "df93b3dd8f3b6533b72d9691a1810fcc64713e1d2591db99aac63e7125ce82db",
+        "reviewer": "/root/training_audit",
+        "positions_one_based": [
+          1,
+          167
+        ]
+      },
+      {
+        "path": "reviews-v6-01-native-LoRA-retired500/positions-168-334/casewise-reviewed.json",
+        "sha256": "4ab7251a230de42e79a7329b91549429b8dec4ebb8154cddbab3b3055cc15075",
+        "reviewer": "Codex assistant /root/cleanup_pipeline_review",
+        "positions_one_based": [
+          168,
+          334
+        ]
+      },
+      {
+        "path": "reviews-v6-01-native-LoRA-retired500/range335-500-reviewed.json",
+        "sha256": "5fcbe8b66321432c7ff18c88d5c70116678fe19a6e3b8abe76ab8369330d549f",
+        "reviewer": "Codex assistant /root/blind_evaluation; retired first500 V6 native IQ4 base plus unmerged F32 adapter actual-Core evaluation. Positions335\u2013500 only:155 strictly byte-identical successful-provider cases inherited from complete V5 native canonical with per-case proof; all11 changed/old-failed/status-changed pairs independently read, including the failed null-candidate fallback. Fixed conservative fidelity+clean policy; all failure judgments explicit.",
+        "positions_one_based": [
+          335,
+          500
+        ]
+      }
+    ],
+    "provider_failures": 1,
+    "all500_delivered_once": true,
+    "utc": "2026-11-04T00:48:31.938489+00:00"
+  },
+  "performance": {
+    "n": 10,
+    "first_trial_retained": true,
+    "counting_complete_p50_ms": 604.0863,
+    "counting_complete_p95_max_ms": 779.6414,
+    "simultaneous_peak_rss_bytes": 693297152,
+    "latency_cap_ms": 805,
+    "ram_cap_bytes": 747500000,
+    "scope": "Linux partial-pipeline only; not Windows or quality acceptance"
+  },
+  "exact_content_references": [
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/source-snapshots/literal_protection.py",
+      "intended_phase_path": "phases/v6-completed-07/data/full-history/source-snapshots/literal_protection.py",
+      "bytes": 3976,
+      "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+      "exact_public_paths": [
+        "phases/v5-active-prefix-05/data-v5/source-snapshots/3-literal_protection.py"
+      ],
+      "scope": "actual_used2014_training_Core1537_and_prior420_legacy57_raw_and_normalized_provenance_with62_reviewed_deltas",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/source-snapshots/pipeline-used.py",
+      "intended_phase_path": "phases/v6-completed-07/data/full-history/source-snapshots/pipeline-used.py",
+      "bytes": 41949,
+      "sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+      "exact_public_paths": [
+        "phases/v5-active-prefix-05/data-v5/source-snapshots/1-pipeline.py",
+        "phases/v5-active-prefix-05/training-runs/v5-01/checkpoints/step-000016/training-source.py",
+        "phases/v5-active-prefix-05/training-runs/v5-01/training-source.py",
+        "phases/v5-active-prefix-05/training-runs/v5-02/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-01/checkpoints/step-000016/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-01/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-02/checkpoints/step-000304/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-02/checkpoints/step-000320/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-02/snapshots/step-000128/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-02/snapshots/step-000256/training-source.py",
+        "phases/v5-completed-native-proof-06/training-runs/v5-02/training-source.py",
+        "training-runs/v3-03/checkpoints/step-000480/training-source.py",
+        "training-runs/v3-03/checkpoints/step-000512/training-source.py",
+        "training-runs/v3-03/training-source.py",
+        "training-runs/v4-01/training-source.py"
+      ],
+      "scope": "actual_used2014_training_Core1537_and_prior420_legacy57_raw_and_normalized_provenance_with62_reviewed_deltas",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v6-full-history-curriculum/source-snapshots/specialist_literal_protection.py",
+      "intended_phase_path": "phases/v6-completed-07/data/full-history/source-snapshots/specialist_literal_protection.py",
+      "bytes": 5119,
+      "sha256": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+      "exact_public_paths": [
+        "phases/v5-active-prefix-05/data-v5/source-snapshots/2-specialist_literal_protection.py"
+      ],
+      "scope": "actual_used2014_training_Core1537_and_prior420_legacy57_raw_and_normalized_provenance_with62_reviewed_deltas",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v3/combined-train-1364.jsonl",
+      "intended_phase_path": "phases/v6-completed-07/data/source-files/combined-train-1364.jsonl",
+      "bytes": 703370,
+      "sha256": "502f7884a5b8be4db1a20a0154cfbc4b646168b4e1b812cddcad0fe6e7154b4d",
+      "exact_public_paths": [
+        "data-v3/combined-train-1364.jsonl"
+      ],
+      "scope": "exact_raw_sources_of_the_used2014_history_only",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/anaphora-curriculum/train-120-v3.jsonl",
+      "intended_phase_path": "phases/v6-completed-07/data/source-files/train-120-v3.jsonl",
+      "bytes": 68958,
+      "sha256": "6bd8efb9da8b3362d6275ea7389a049523c94f6d865dc551d4db4d1c33744472",
+      "exact_public_paths": [
+        "data-v4/components/anaphora-curriculum/train-120-v3.jsonl"
+      ],
+      "scope": "exact_raw_sources_of_the_used2014_history_only",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/development-repair-curriculum/train-90-v1.jsonl",
+      "intended_phase_path": "phases/v6-completed-07/data/source-files/train-90-v1.jsonl",
+      "bytes": 83483,
+      "sha256": "1f186a9dd5d796dbb4c61cd453f66669bfcb56ec09df6496ec020453167c981e",
+      "exact_public_paths": [
+        "data-v4/components/development-repair-curriculum/train-90-v1.jsonl"
+      ],
+      "scope": "exact_raw_sources_of_the_used2014_history_only",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/protected-correction-curriculum/train-20.jsonl",
+      "intended_phase_path": "phases/v6-completed-07/data/source-files/train-20.jsonl",
+      "bytes": 18220,
+      "sha256": "4d92f682b278300a9d5d1974a830d9c84d5c5a7be50fef7768fb53ec1bf5e34e",
+      "exact_public_paths": [
+        "data-v4/components/protected-correction-curriculum/train-20.jsonl"
+      ],
+      "scope": "exact_raw_sources_of_the_used2014_history_only",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/new-420-core-normalized.jsonl",
+      "intended_phase_path": "phases/v6-completed-07/data/source-files/new-420-core-normalized.jsonl",
+      "bytes": 485517,
+      "sha256": "c63757913c476f98d8ce3d62b37d2a2ea0ed233c2ea6a1921971da9dc19804ec",
+      "exact_public_paths": [
+        "phases/v5-active-prefix-05/data-v5/new-420-core-normalized.jsonl"
+      ],
+      "scope": "exact_raw_sources_of_the_used2014_history_only",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v6-01/checkpoints/step-000224/adapter-config.json",
+      "intended_phase_path": "phases/v6-completed-07/training-run/checkpoints/step-000224/adapter-config.json",
+      "bytes": 6368,
+      "sha256": "1a159297809162e628c7b3b44079b832a10d78f63a881d2902777aaa5797c490",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/adapter-config.json"
+      ],
+      "scope": "completed252_step_V6_source_config_logs_checkpoint_metadata_no_weights_optimizer_or_rng_binary",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v6-01/checkpoints/step-000224/training-source.py",
+      "intended_phase_path": "phases/v6-completed-07/training-run/checkpoints/step-000224/training-source.py",
+      "bytes": 65907,
+      "sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/training-source.py"
+      ],
+      "scope": "completed252_step_V6_source_config_logs_checkpoint_metadata_no_weights_optimizer_or_rng_binary",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v6-01/checkpoints/step-000240/adapter-config.json",
+      "intended_phase_path": "phases/v6-completed-07/training-run/checkpoints/step-000240/adapter-config.json",
+      "bytes": 6368,
+      "sha256": "1a159297809162e628c7b3b44079b832a10d78f63a881d2902777aaa5797c490",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/adapter-config.json"
+      ],
+      "scope": "completed252_step_V6_source_config_logs_checkpoint_metadata_no_weights_optimizer_or_rng_binary",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v6-01/checkpoints/step-000240/training-source.py",
+      "intended_phase_path": "phases/v6-completed-07/training-run/checkpoints/step-000240/training-source.py",
+      "bytes": 65907,
+      "sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/training-source.py"
+      ],
+      "scope": "completed252_step_V6_source_config_logs_checkpoint_metadata_no_weights_optimizer_or_rng_binary",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v6-01/snapshots/step-000128/adapter-config.json",
+      "intended_phase_path": "phases/v6-completed-07/training-run/snapshots/step-000128/adapter-config.json",
+      "bytes": 6368,
+      "sha256": "1a159297809162e628c7b3b44079b832a10d78f63a881d2902777aaa5797c490",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/adapter-config.json"
+      ],
+      "scope": "completed252_step_V6_source_config_logs_checkpoint_metadata_no_weights_optimizer_or_rng_binary",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v6-01/snapshots/step-000128/training-source.py",
+      "intended_phase_path": "phases/v6-completed-07/training-run/snapshots/step-000128/training-source.py",
+      "bytes": 65907,
+      "sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/training-source.py"
+      ],
+      "scope": "completed252_step_V6_source_config_logs_checkpoint_metadata_no_weights_optimizer_or_rng_binary",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v6-01-export/notices/ADDITIONAL_TERMS.md",
+      "intended_phase_path": "phases/v6-completed-07/native-export/notices/ADDITIONAL_TERMS.md",
+      "bytes": 2015,
+      "sha256": "3778f7257e4a80126d5307179fbe9157db49e09fd091364df5dbc56628815bb1",
+      "exact_public_paths": [
+        "base-model/notices/ADDITIONAL_TERMS.md",
+        "exports/v3-03/notices/ADDITIONAL_TERMS.md",
+        "exports/v4-01/notices/ADDITIONAL_TERMS.md",
+        "exports/v4-01-IQ4_XS/notices/ADDITIONAL_TERMS.md",
+        "phases/v5-active-prefix-05/original-control-IQ4_XS/notices/ADDITIONAL_TERMS.md",
+        "phases/v5-completed-native-proof-06/export/notices/ADDITIONAL_TERMS.md",
+        "pilot-export/notices/ADDITIONAL_TERMS.md"
+      ],
+      "scope": "actual_unmerged184_F32_conversion_data_source_parent_byte_checks_notices_and_performance_input_no_weights",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v6-01-export/notices/LICENSE",
+      "intended_phase_path": "phases/v6-completed-07/native-export/notices/LICENSE",
+      "bytes": 10574,
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+      "exact_public_paths": [
+        "base-model/notices/LICENSE",
+        "exports/v4-01-IQ4_XS/notices/LICENSE",
+        "phases/v5-active-prefix-05/original-control-IQ4_XS/notices/LICENSE",
+        "phases/v5-completed-native-proof-06/export/notices/LICENSE"
+      ],
+      "scope": "actual_unmerged184_F32_conversion_data_source_parent_byte_checks_notices_and_performance_input_no_weights",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v6-01-export/notices/MODIFICATIONS.md",
+      "intended_phase_path": "phases/v6-completed-07/native-export/notices/MODIFICATIONS.md",
+      "bytes": 2532,
+      "sha256": "1364f2c396d45a4ec000a972e1ca0599984b25990fb3e4dc2e42793ff8b73b95",
+      "exact_public_paths": [
+        "base-model/notices/MODIFICATIONS.md",
+        "exports/v3-03/notices/MODIFICATIONS.md",
+        "exports/v4-01/notices/MODIFICATIONS.md",
+        "exports/v4-01-IQ4_XS/notices/MODIFICATIONS.md",
+        "phases/v5-active-prefix-05/original-control-IQ4_XS/notices/MODIFICATIONS.md",
+        "phases/v5-completed-native-proof-06/export/notices/MODIFICATIONS.md",
+        "pilot-export/notices/MODIFICATIONS.md"
+      ],
+      "scope": "actual_unmerged184_F32_conversion_data_source_parent_byte_checks_notices_and_performance_input_no_weights",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v6-01-export/notices/NOTICE",
+      "intended_phase_path": "phases/v6-completed-07/native-export/notices/NOTICE",
+      "bytes": 5713,
+      "sha256": "4d0d40d15ca51c17c0d9b61ed5a0f9c06ed3640a106ae20cfea4a8f36cd02b73",
+      "exact_public_paths": [
+        "base-model/notices/NOTICE",
+        "exports/v4-01-IQ4_XS/notices/NOTICE",
+        "phases/v5-active-prefix-05/original-control-IQ4_XS/notices/NOTICE",
+        "phases/v5-completed-native-proof-06/export/notices/NOTICE"
+      ],
+      "scope": "actual_unmerged184_F32_conversion_data_source_parent_byte_checks_notices_and_performance_input_no_weights",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/v6-native-export-preparation/run.py",
+      "intended_phase_path": "phases/v6-completed-07/controller-preparation/run.py",
+      "bytes": 22770,
+      "sha256": "9746eca1bda5edc48ab32a448d32b9d9671fb59e8489624fcbf42682a3332026",
+      "exact_public_paths": [
+        "phases/v6-completed-07/native-export/executed-export-controller.py"
+      ],
+      "scope": "executed_work_only_export_and_knownset_controllers_with_historical_preparation_metadata_no_model_jobs_by_collector",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/command-results.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/command-results.json",
+      "bytes": 16,
+      "sha256": "464013c0a715e978d1e4ac7ae69ef1f8042f2e46ab9c77ac196327b8905ef157",
+      "exact_public_paths": [
+        "evaluation/v4-01-retry1-core/command-results.json",
+        "evaluation/v4-01-retry1-dictionary10-core/command-results.json",
+        "phases/primary500-retired-runtime-04/evaluation/primary500-IQ4_XS-final-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-02-F16-retired-primary500-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-02-IQ4_XS-retired-primary500-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-native-LoRA-F32-retired-primary500-core/command-results.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/probe-corpus.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/probe-corpus.json",
+      "bytes": 366204,
+      "sha256": "def0ae07b9e9fa922d2b11a90f0e981de12be499d5fdadaddcff3f0f6ef8a643",
+      "exact_public_paths": [
+        "phases/primary500-retired-runtime-04/validation-retired-primary500/corpus.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-development546-core/cleanup-manifest.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-development546-core/cleanup-manifest.json",
+      "bytes": 1093,
+      "sha256": "9ef290185817d31dad00a9b01826f7b8e2fb648cacdb6ab1d6269449e856fe79",
+      "exact_public_paths": [
+        "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/cleanup-manifest.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-development546-core/command-results.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-development546-core/command-results.json",
+      "bytes": 16,
+      "sha256": "7d6297c77f0c5970c011e19a710cd245f0521dd00cb9366cd41a8f84d213ebae",
+      "exact_public_paths": [
+        "evaluation/baseline-core/command-results.json",
+        "evaluation/baseline-hard80-core/command-results.json",
+        "evaluation/pilot-01-core/command-results.json",
+        "evaluation/pilot-01-hard80-core/command-results.json",
+        "evaluation/v3-03-core/command-results.json",
+        "evaluation/v3-03-hard80-core/command-results.json",
+        "evaluation/v3-03-old40-core/command-results.json",
+        "evaluation/v4-01-IQ4_XS-development546-core/command-results.json",
+        "evaluation/v4-01-IQ4_XS-hard80-core/command-results.json",
+        "evaluation/v4-01-retry1-old40-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-02-IQ4_XS-development546-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-02-IQ4_XS-hard80-core/command-results.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-development546-core/probe-corpus.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-development546-core/probe-corpus.json",
+      "bytes": 243432,
+      "sha256": "1e2a438ffdb3fae025d3450eb7b223eca7dbb91936e4627f22e682f560c4edaa",
+      "exact_public_paths": [
+        "data/development-core-corpus.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-hard80-core/cleanup-manifest.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-hard80-core/cleanup-manifest.json",
+      "bytes": 1093,
+      "sha256": "9ef290185817d31dad00a9b01826f7b8e2fb648cacdb6ab1d6269449e856fe79",
+      "exact_public_paths": [
+        "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-retired-primary500-core/cleanup-manifest.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-hard80-core/command-results.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-hard80-core/command-results.json",
+      "bytes": 16,
+      "sha256": "7d6297c77f0c5970c011e19a710cd245f0521dd00cb9366cd41a8f84d213ebae",
+      "exact_public_paths": [
+        "evaluation/baseline-core/command-results.json",
+        "evaluation/baseline-hard80-core/command-results.json",
+        "evaluation/pilot-01-core/command-results.json",
+        "evaluation/pilot-01-hard80-core/command-results.json",
+        "evaluation/v3-03-core/command-results.json",
+        "evaluation/v3-03-hard80-core/command-results.json",
+        "evaluation/v3-03-old40-core/command-results.json",
+        "evaluation/v4-01-IQ4_XS-development546-core/command-results.json",
+        "evaluation/v4-01-IQ4_XS-hard80-core/command-results.json",
+        "evaluation/v4-01-retry1-old40-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-02-IQ4_XS-development546-core/command-results.json",
+        "phases/v5-completed-native-proof-06/evaluation/v5-02-IQ4_XS-hard80-core/command-results.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-hard80-core/probe-corpus.json",
+      "intended_phase_path": "phases/v6-completed-07/evaluation/v6-01-native-LoRA-F32-hard80-core/probe-corpus.json",
+      "bytes": 43027,
+      "sha256": "3fc48150a815679cd2a3c5df76ff285c42cdf2a1f21beafae972dcc3bfc7f04b",
+      "exact_public_paths": [
+        "data/development-hard-80.json"
+      ],
+      "scope": "complete_Core_development_outputs_candidate_errors_and_delivery_metadata_not_fresh_accuracy",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/proof/native-hf-base-agreement/q8-k-activation-smoke/executed-pipeline.py",
+      "intended_phase_path": "phases/v6-completed-07/numeric-proof/q8-k-activation-smoke/executed-pipeline.py",
+      "bytes": 65907,
+      "sha256": "ef07d31f161f97d6fe0a21cc89e57c9b2879d58e9a0fc79c89b017dda67e5daa",
+      "exact_public_paths": [
+        "phases/v6-completed-07/training-run/training-source.py"
+      ],
+      "scope": "used_inverse_base_KV_rank_and_2x2_fixed6_Q8_activation_development_proof_no_population_or_exact_forward_claim",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/verification/native-adapter-csharp-independent-audit-final.json",
+      "intended_phase_path": "phases/v6-completed-07/verification/native-adapter-csharp-independent-audit-final.json",
+      "bytes": 11072,
+      "sha256": "814c51d645b6570cd30cbf972655bc396f154579cbd3c18a5deb85d74961cc54",
+      "exact_public_paths": [
+        "phases/v5-completed-native-proof-06/verification/native-adapter-csharp-independent-audit-final.json"
+      ],
+      "scope": "independently_audited_optional_runtime_adapter_and_strict_receipt_guards_used_by_V6",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/verification/native-adapter-python-independent-audit-final.json",
+      "intended_phase_path": "phases/v6-completed-07/verification/native-adapter-python-independent-audit-final.json",
+      "bytes": 5318,
+      "sha256": "9c0c712111297d8e59b4558fa5acd4613526e277aa3ad0e1e2f3b3ad99783270",
+      "exact_public_paths": [
+        "phases/v5-completed-native-proof-06/verification/native-adapter-python-independent-audit-final.json"
+      ],
+      "scope": "independently_audited_optional_runtime_adapter_and_strict_receipt_guards_used_by_V6",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/verification/runtime-adapter-base-scale-source-status.json",
+      "intended_phase_path": "phases/v6-completed-07/verification/runtime-adapter-base-scale-source-status.json",
+      "bytes": 1877,
+      "sha256": "7aa156ced6ef6dfb74b86dc4c87a2f5811981d0e248559d9ee28881f3aa61a4b",
+      "exact_public_paths": [
+        "phases/v5-completed-native-proof-06/verification/runtime-adapter-base-scale-source-status.json"
+      ],
+      "scope": "independently_audited_optional_runtime_adapter_and_strict_receipt_guards_used_by_V6",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/Properties/AssemblyInfo.cs",
+      "intended_phase_path": "phases/v6-completed-07/performance/source/src/Freehand.Speech/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68",
+      "exact_public_paths": [
+        "phases/v6-completed-07/performance/source/src/Freehand.Core/Properties/AssemblyInfo.cs"
+      ],
+      "scope": "actual_N10_JFK_Linux_partial_pipeline_complete_delivery_RSS_latency_and180_artifact_pin_proofs_sources_and_preserved_wrapper_correction_no_binaries",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json",
+      "intended_phase_path": "phases/v6-completed-07/performance/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json",
+      "bytes": 399,
+      "sha256": "a7c7bcbb687e7c4dd09b15eb1d5a3c6a79a4bf1c2b1b7ab3493d4592425e0e04",
+      "exact_public_paths": [
+        "phases/v5-completed-native-proof-06/performance/v5-02-Q5_K_M-no-pgo/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json",
+        "phases/v5-completed-native-proof-06/performance/v5-02-Q5_K_M-no-pgo/worker-profile/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json"
+      ],
+      "scope": "actual_N10_JFK_Linux_partial_pipeline_complete_delivery_RSS_latency_and180_artifact_pin_proofs_sources_and_preserved_wrapper_correction_no_binaries",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    },
+    {
+      "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/worker-profile/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json",
+      "intended_phase_path": "phases/v6-completed-07/performance/worker-profile/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json",
+      "bytes": 399,
+      "sha256": "a7c7bcbb687e7c4dd09b15eb1d5a3c6a79a4bf1c2b1b7ab3493d4592425e0e04",
+      "exact_public_paths": [
+        "phases/v5-completed-native-proof-06/performance/v5-02-Q5_K_M-no-pgo/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json",
+        "phases/v5-completed-native-proof-06/performance/v5-02-Q5_K_M-no-pgo/worker-profile/verification/F09CAC6170AD288BE9930E66837EB9775EB8E003B9862094E89DF0178C973554.json"
+      ],
+      "scope": "actual_N10_JFK_Linux_partial_pipeline_complete_delivery_RSS_latency_and180_artifact_pin_proofs_sources_and_preserved_wrapper_correction_no_binaries",
+      "reason": "Exact source bytes already preserved; explicit immutable content reference avoids redundant copies."
+    }
+  ],
+  "non_utf8_native_log_bytes_preserved": [],
+  "previous_collection": {
+    "files": 726,
+    "total_bytes": 31116726,
+    "index_sha256": "ea28918c7575a152150361693921241b9ec0c9b0f8e305b4d9c7fdf1807b636b"
+  },
+  "excluded": [
+    "Any fresh-round2 corpus/commitment/authors/status/content; only the explicitly allowed opaque aggregate overlap proof was read",
+    "Reserved270, additional100, unlikelihood/prototype/future curricula",
+    "Models, adapter weights, native/managed binaries, optimizer/RNG binaries and tar archives"
+  ],
+  "limitations": [
+    "Retired500 is development,475/500=95% joint;99% target fails. Faithful485,clean485,9critical,1provider failure.",
+    "Broad545/546 andhard79/80 are consumed development diagnostics, not fresh qualification.",
+    "Core scores post-trim-v1/restored candidates; no pretrim raw completion is claimed.",
+    "Q8 inverse/activation/2x2 proofs and initial failed layout/rank guards are preserved; no exact native/HF arithmetic claim.",
+    "N10 is one Linux partial-pipeline public-JFK cohort including firsttrial; no Windows/whole-app/population claim or default promotion."
+  ]
+}

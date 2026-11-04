@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-04T00:50:30.959261+00:00",
+  "entrypoint": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/run_ignore_dead.py",
+    "bytes": 2175,
+    "sha256": "da5e2b7a748569b4a5a4b11e02700c3d6ecd25324ceeb9658a7d9e7960060d9d"
+  },
+  "original_controller": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/controller.py",
+    "bytes": 26016,
+    "sha256": "9c46a319bfa4ca31b4f9cec9ad7716789d71636b0f35ba515d129dda14e9decc"
+  },
+  "frozen": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/frozen.json",
+    "bytes": 45456,
+    "sha256": "1b6cdcba126ac6b4a04e35e1b72695a4fd5b9001935e988291c1591fb8fb1f57"
+  },
+  "change": "Only ignore dead Z/X process records in the preflight guard; live native workers still block.",
+  "initial_preflight_failed_before_child_spawn": true,
+  "initial_excluded_dead_pids": [
+    44005,
+    75049
+  ],
+  "build_controller_frozen_profile_and_timed_evaluator_unchanged": true
+}

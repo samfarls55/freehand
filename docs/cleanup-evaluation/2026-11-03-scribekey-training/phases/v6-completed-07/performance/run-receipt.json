@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-11-04T00:50:31.681510+00:00",
+  "completed_utc": "2026-11-04T00:52:20.653267+00:00",
+  "elapsed_seconds": 108.97176510300051,
+  "frozen": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/frozen.json",
+    "bytes": 45456,
+    "sha256": "1b6cdcba126ac6b4a04e35e1b72695a4fd5b9001935e988291c1591fb8fb1f57"
+  },
+  "return_code": 0,
+  "command": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Evaluation.dll",
+    "/tmp/freehand-native-lora-parser-guard-build/bin/Freehand.App/release/Freehand.App",
+    "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/parakeet-110m",
+    "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/replay-10s-manifest.json",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/native-LoRA-10s-r10.json",
+    "--realtime",
+    "--repeat",
+    "10",
+    "--include-text",
+    "--portable-worker",
+    "--cleanup-manifest",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/cleanup-manifest.json"
+  ],
+  "explicit_cpu_release_confirmed_by_caller": true,
+  "rte_inference_priority_cleared_by_caller": true,
+  "environment_overrides": {
+    "DOTNET_ROOT": "/workspace/freehand/.dotnet",
+    "DOTNET_TieredPGO": "0",
+    "LLAMA_ARG_DEVICE": "none",
+    "LD_LIBRARY_PATH": "/workspace/freehand/work/cleanup-small-models-2026-11-03/whole-pipeline-assets/native"
+  },
+  "removed_environment_names": [],
+  "observed_environment": [
+    {
+      "pid": 82083,
+      "parent_pid": 82077,
+      "is_evaluator": true,
+      "selected_public_environment": [
+        "DOTNET_TieredPGO=0",
+        "LLAMA_ARG_DEVICE=none"
+      ]
+    },
+    {
+      "pid": 82099,
+      "parent_pid": 82083,
+      "is_evaluator": false,
+      "selected_public_environment": [
+        "LLAMA_ARG_DEVICE=none",
+        "DOTNET_TieredPGO=0"
+      ]
+    },
+    {
+      "pid": 82130,
+      "parent_pid": 82083,
+      "is_evaluator": false,
+      "selected_public_environment": [
+        "LLAMA_ARG_DEVICE=none",
+        "DOTNET_TieredPGO=0"
+      ]
+    }
+  ],
+  "log": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/native-LoRA-10s-r10.log",
+    "bytes": 323,
+    "sha256": "e2293054cbfe31bae4796c42f2ff83585c49afbd0592a3c8ce0afce2aca5b351"
+  },
+  "artifacts_before_after_verified": true,
+  "semantic_quality_unknown": true,
+  "linux_partial_only": true
+}

@@ -8,8 +8,8 @@ to complete delivery. **No new trained model is qualified yet.** The first
 independent 500-case test scored **471/500 (94.2%)** jointly faithful and clean,
 below the required 495. Its complete result is preserved and the set is now
 retired as development material. Subsequent V5 candidates score 94.8–96.2% on
-that consumed set; these are development results and remain below the gate.
-Further training is in preparation and the new independent test remains
+that consumed set; V6 scores **475/500 (95.0%)**. These development results remain
+below the gate. Further training is in preparation and the new independent test remains
 unconsumed. The selected Linux runtime configuration passes the measured
 partial-pipeline resource limits; Windows qualification remains unavailable.
 
@@ -279,7 +279,7 @@ The earlier rubric requested a paired baseline on this final set; only the
 pre-frozen selected derivative ran here, so no paired 500-case improvement claim
 is made. Paired baseline evidence remains confined to development sets.
 
-## V5 continuation and numerical checks
+## V5/V6 continuation and numerical checks
 
 V5 completed 330 optimizer steps with 1,320 training exposures representing 900
 unique pairs. It resumed a saved optimizer/RNG checkpoint after a workspace
@@ -293,6 +293,7 @@ All results below use actual Core outputs and independent semantic reviews.
 | V5 merged IQ4 | 477/500 — 95.4% | 8 | 2 |
 | V5 merged F16 diagnostic | 481/500 — 96.2% | 6 | 1 |
 | Original IQ4 plus unmerged V5 F32 adapter | 474/500 — 94.8% | 9 | 2 |
+| Original IQ4 plus unmerged V6 F32 adapter | **475/500 — 95.0%** | **9** | **1** |
 
 The higher-precision model is a quality diagnostic, not a memory-qualified
 candidate. V5 merged IQ4 also scored 537/546 on broad development and 76/80 on
@@ -309,20 +310,43 @@ five with it. Changing only native adapter-run KV storage from F16 to F32 change
 the remaining decision to match HF. Larger IQ4 probability differences also
 remain, so recovered weights do not establish identical forward arithmetic.
 
-V6 has started with the full 2,014-pair training history and trains against the
+V6 completed with the full 2,014-pair training history and trained against the
 original deployed IQ4 weights with native Q8_K activation rounding. It retains
-rank 8 and FP32 KV storage in training. The fixed six-case numerical comparison
+rank 8 and FP32 KV storage in training. Its 252 optimizer updates took 1,036
+seconds. The final adapter SHA-256 is
+`157af046d18471d2e87d6936208d629e129739746f2c807636915f955968f207`;
+the unmerged F32 GGUF is 12,006,240 bytes, SHA-256
+`d5b2bb684183a62fa8b5f2f86674f519bef6199d25ef85f94f99eb78b2e5f537`.
+All 184 adapter tensor payloads match through conversion, and all 1,126 Core
+development cases completed with one delivery and verified deployment identity.
+The fixed six-case numerical comparison
 remains five-of-six even with activation/cache emulation, so this is an
 approximation to deployed inference. Hash-only comparison finds zero exact normalized input/target overlap
 with the newly frozen 500-case acceptance set. That set remains unopened by the
 training controller and trainer and has received no inference. No new candidate
-is qualified and no 99% accuracy claim is made.
+is qualified and no 99% accuracy claim is made. V6 scores **545/546 (99.82%)**
+on broad development with no critical errors, and **79/80** on hard development.
+The remaining hard error drops an unretracted invoice-send instruction. The
+broader retired set still has 25 joint failures, including dropped facts or
+actions, incorrect correction scope, accidental stutters, deliberate-emphasis
+loss and a rejected literal correction. Three reviewers supplied hash-bound
+casewise decisions; root read all 54 non-reference/failure pairs outside the 20
+dictionary cases independently read by the reviewers. Exact successful
+inheritances retain per-case proofs. Fallback receives no model-quality credit.
+
+The next preparation adds independently reviewed contrasts and a controlled
+semantic unlikelihood objective. It keeps the same positive examples and
+exposures in the supervised control and weighted arm. New examples and objective
+prototypes are not evidence of an accuracy improvement before actual evaluation.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe
 checks. The Python evaluator retains separate selected/control deployment
 identities and continues the original control even after malformed selected
-metadata. All 74 training-tool tests and 63 evaluation-framework tests pass.
+metadata. At the V6 checkpoint, all 74 training-tool tests and 63
+evaluation-framework tests pass. The subsequent optional semantic-loss trainer
+passes 85 training-tool tests, including exact zero-weight supervised optimizer
+identity and strict event/positive-file/resume binding.
 These checks establish implementation integrity, not model accuracy.
 
 A separate V5 Q5_K_M diagnostic passes both measured Linux limits in ten trials:
@@ -334,6 +358,16 @@ Windows behavior. The run uses preserved compiled evaluator artifacts and
 discloses their source differences from the newer optional-adapter implementation.
 The comparison also changes trained weights, so it is not a quantization-only
 causal experiment. No Q5 model has passed the accuracy gate.
+
+The actual V6 unmerged-adapter path also passes a fresh ten-trial Linux run:
+counted complete-delivery p50 **604.09 ms**, p95/maximum **779.64 ms**, and
+simultaneous host/speech/cleanup RSS **693,297,152 bytes**. All ten first-retained
+trials deliver the complete unchanged public transcript once, without fallback.
+The fresh evaluator build, all 180 artifact/source/profile pins and simultaneous
+memory attribution pass before/after checks and an independent report audit.
+Initialization is separate; this cohort does not test representative editing
+quality, long-input tails, the Windows desktop or physical delivery. The same
+runtime and rank-8 adapter shape remain the basis for further quality experiments.
 
 A fresh isolated Windows App, Probe and platform-layer publish succeeds, and all
 eight default/frozen DLLs remain unchanged. Its 433,677,045-byte preview archive

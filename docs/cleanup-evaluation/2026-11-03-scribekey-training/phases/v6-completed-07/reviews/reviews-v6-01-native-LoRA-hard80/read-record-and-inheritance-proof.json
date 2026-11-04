@@ -1,0 +1,944 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex assistant /root/cleanup_pipeline_review",
+  "reviewed_at_utc": "2026-11-04T00:49:24.980929+00:00",
+  "results_sha256": "f8de71c7f3fde2035dcda874a2c270046f2ef1030adfea6cf53abb448e3e99ae",
+  "results": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/evaluation/v6-01-native-LoRA-F32-hard80-core/core-results.json",
+    "bytes": 107486,
+    "sha256": "f8de71c7f3fde2035dcda874a2c270046f2ef1030adfea6cf53abb448e3e99ae"
+  },
+  "prior_full_report": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/evaluation/v5-02-IQ4_XS-hard80-core/core-results.json",
+    "bytes": 107170,
+    "sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6"
+  },
+  "prior_full_review": {
+    "path": "work/cleanup-scribekey-training-2026-11-03/reviews-v5-02-IQ4_XS-current/hard80-reviewed.json",
+    "bytes": 127845,
+    "sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab"
+  },
+  "policy": "Strict faithful AND clean/directly usable, with explicit critical flags. References are diagnostics, not a semantic oracle. Only exact successful input/candidate/output/provider/delivery and reference-check matches inherited; every changed/status-changed and all prior failed cases personally read. Provider errors/fallback receive no model-quality credit.",
+  "exact_case_ids": [
+    "scribe-harddev-001",
+    "scribe-harddev-002",
+    "scribe-harddev-003",
+    "scribe-harddev-004",
+    "scribe-harddev-005",
+    "scribe-harddev-006",
+    "scribe-harddev-007",
+    "scribe-harddev-008",
+    "scribe-harddev-009",
+    "scribe-harddev-010",
+    "scribe-harddev-011",
+    "scribe-harddev-012",
+    "scribe-harddev-013",
+    "scribe-harddev-014",
+    "scribe-harddev-015",
+    "scribe-harddev-016",
+    "scribe-harddev-017",
+    "scribe-harddev-018",
+    "scribe-harddev-019",
+    "scribe-harddev-020",
+    "scribe-harddev-021",
+    "scribe-harddev-022",
+    "scribe-harddev-023",
+    "scribe-harddev-024",
+    "scribe-harddev-025",
+    "scribe-harddev-026",
+    "scribe-harddev-027",
+    "scribe-harddev-028",
+    "scribe-harddev-029",
+    "scribe-harddev-030",
+    "scribe-harddev-031",
+    "scribe-harddev-032",
+    "scribe-harddev-033",
+    "scribe-harddev-034",
+    "scribe-harddev-035",
+    "scribe-harddev-036",
+    "scribe-harddev-037",
+    "scribe-harddev-038",
+    "scribe-harddev-039",
+    "scribe-harddev-040",
+    "scribe-harddev-041",
+    "scribe-harddev-042",
+    "scribe-harddev-043",
+    "scribe-harddev-044",
+    "scribe-harddev-045",
+    "scribe-harddev-046",
+    "scribe-harddev-047",
+    "scribe-harddev-048",
+    "scribe-harddev-049",
+    "scribe-harddev-050",
+    "scribe-harddev-051",
+    "scribe-harddev-052",
+    "scribe-harddev-053",
+    "scribe-harddev-054",
+    "scribe-harddev-055",
+    "scribe-harddev-056",
+    "scribe-harddev-057",
+    "scribe-harddev-058",
+    "scribe-harddev-059",
+    "scribe-harddev-060",
+    "scribe-harddev-061",
+    "scribe-harddev-062",
+    "scribe-harddev-063",
+    "scribe-harddev-064",
+    "scribe-harddev-065",
+    "scribe-harddev-066",
+    "scribe-harddev-067",
+    "scribe-harddev-068",
+    "scribe-harddev-069",
+    "scribe-harddev-070",
+    "scribe-harddev-071",
+    "scribe-harddev-072",
+    "scribe-harddev-073",
+    "scribe-harddev-074",
+    "scribe-harddev-075",
+    "scribe-harddev-076",
+    "scribe-harddev-077",
+    "scribe-harddev-078",
+    "scribe-harddev-079",
+    "scribe-harddev-080"
+  ],
+  "source_data_or_model_edits": false,
+  "models_builds_or_native_jobs_run": false,
+  "fresh_round_two_accessed": false,
+  "exact_comparison_fields": [
+    "input",
+    "normalized_input",
+    "cleanup_input",
+    "candidate_text",
+    "output",
+    "cleanup_status",
+    "insertion_count",
+    "delivered_count",
+    "delivery_outcome",
+    "dictation_outcome",
+    "error",
+    "applied_correction_count",
+    "normalized_targets",
+    "normalized_checks"
+  ],
+  "personally_read_cases": [
+    {
+      "position_one_based": 39,
+      "case_id": "scribe-harddev-039",
+      "changed_fields": [
+        "candidate_text",
+        "output"
+      ],
+      "previous_failure": true,
+      "input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "normalized_input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "candidate_text": "Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "output": "Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "provider_status": "Applied",
+      "error": null,
+      "previous_output": "Upside down the keys were returned yesterday although nobody has signed the receipt.",
+      "previous_candidate": "Upside down the keys were returned yesterday although nobody has signed the receipt.",
+      "previous_status": "Applied",
+      "previous_judgment": {
+        "case_id": "scribe-harddev-039",
+        "output_sha256": "b96a3df00555a45c209e862dd7637a5ebc9bf4ad0ae08f13d99bf2cd164bf14f",
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Manually read the complete changed actual input/output pair. Replaces the explicit uncertainty qualifier apparently with the invented unsupported phrase Upside down. The source attestation qualification is lost and a new orientation description is introduced."
+      },
+      "new_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Removes uh, capitalizes and punctuates while preserving apparently as an explicit qualification, the returned-yesterday claim and the unsigned receipt. The missing optional comma before although is harmless; the old invented Upside down phrase is gone."
+      },
+      "new_case_record_sha256": "bb6a64862f6a6ad660f03d7ae1635de5a1e01aa331275882c521d19ffde10ced"
+    },
+    {
+      "position_one_based": 52,
+      "case_id": "scribe-harddev-052",
+      "changed_fields": [
+        "candidate_text",
+        "output"
+      ],
+      "previous_failure": true,
+      "input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "normalized_input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "candidate_text": "Leave March alone and archive April, then update the index.",
+      "output": "Leave March alone and archive April, then update the index.",
+      "provider_status": "Applied",
+      "error": null,
+      "previous_output": "Archive the March photographs, leave March alone and archive April, then update the index.",
+      "previous_candidate": "Archive the March photographs, leave March alone and archive April, then update the index.",
+      "previous_status": "Applied",
+      "previous_judgment": {
+        "case_id": "scribe-harddev-052",
+        "output_sha256": "eb082fb5e3a0ccd93f09ec3d690e5fe08a00e9c3d413ee8fbcdbb1d2f2c2719c",
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Manually read the complete changed actual input/output pair. Restores the independent index update but deletes the retraction cue no while retaining Archive the March photographs, activating that canceled action alongside contradictory leave-March-alone wording."
+      },
+      "new_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Correctly cancels archiving March, retains leave March alone, archives April and keeps the independent index-update instruction. The entire corrected action sequence is clean and usable."
+      },
+      "new_case_record_sha256": "d6e7f4bd3428db97733865e3a5f57a390c19c16f90789106f65a4c7c706b2868"
+    },
+    {
+      "position_one_based": 55,
+      "case_id": "scribe-harddev-055",
+      "changed_fields": [],
+      "previous_failure": true,
+      "input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+      "normalized_input": "Send the invoice and the receipt, wait, do not send the receipt until I approve the wording.",
+      "candidate_text": "Do not send the receipt until I approve the wording.",
+      "output": "Do not send the receipt until I approve the wording.",
+      "provider_status": "Applied",
+      "error": null,
+      "previous_output": "Do not send the receipt until I approve the wording.",
+      "previous_candidate": "Do not send the receipt until I approve the wording.",
+      "previous_status": "Applied",
+      "previous_judgment": {
+        "case_id": "scribe-harddev-055",
+        "output_sha256": "ad1614c41fb8f36cbccaabda3def0ad07afb568e15059a3ba01d0a0640f91b7a",
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Inherited the prior V4 IQ4 fixed-rubric judgment after exact input/reference/final-output SHA, provider-candidate and Core structural identity checks. Manually read the complete changed actual input/output pair. Keeps the receipt withholding condition but deletes the separate still-active invoice-send instruction.",
+        "inherited_from_v4_iq4": {
+          "results_sha256": "372afd07918daa6aa402db18fbb20f5ee572bd7ef57d5047fcb9330e9c591eb6",
+          "judgments_sha256": "4282e999397241cc9984b10154269787c50d418a0b57b49a752c20518530fc28"
+        }
+      },
+      "new_judgment": {
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Retains the receipt-withholding-until-approval condition but deletes the independent still-active instruction to send the invoice. The complete action list is not directly usable; this remains the same critical primary-action omission as the earlier strict judgment."
+      },
+      "new_case_record_sha256": "002ef90bed95bb9f09a99d0c03e25d306e3b03532bd24bc8196bc40cfe7e187f"
+    },
+    {
+      "position_one_based": 60,
+      "case_id": "scribe-harddev-060",
+      "changed_fields": [
+        "candidate_text",
+        "output"
+      ],
+      "previous_failure": true,
+      "input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "normalized_input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "candidate_text": "Order three black panels and two grey ones.",
+      "output": "Order three black panels and two grey ones.",
+      "provider_status": "Applied",
+      "error": null,
+      "previous_output": "Order three white panels and two black ones.",
+      "previous_candidate": "Order three white panels and two black ones.",
+      "previous_status": "Applied",
+      "previous_judgment": {
+        "case_id": "scribe-harddev-060",
+        "output_sha256": "40b3249127164ef401960970eda641bd331d28308d695cae4831ee698e82f1ca",
+        "semantic_faithful": false,
+        "clean_usable": false,
+        "critical_error": true,
+        "reason": "Manually read the complete changed actual input/output pair. Assigns the colour repair to the wrong item: three white and two black panels replace the intended three black and two grey panels. Both the superseded white attribute and unintended change to grey panels are factual errors."
+      },
+      "new_judgment": {
+        "semantic_faithful": true,
+        "clean_usable": true,
+        "critical_error": false,
+        "reason": "Applies the white-to-black correction to the three panels while keeping the other two panels grey. Both quantities and the unaffected grey attribute remain correct, with the repair cue removed."
+      },
+      "new_case_record_sha256": "2af6c893d87e7d18acb08225a03162e99cb8a47a0e9883ae452fa11304f5e7d3"
+    }
+  ],
+  "exact_inheritance_proofs": [
+    {
+      "case_id": "scribe-harddev-001",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "a662866f1d3dbcdbb3be879cd032129aa3835584c2b8137eb615aecf925a740c",
+      "old_review_case_sha256": "5a360ea6d11817ba8606b22da4fe659579b9b4584ffe284cc64bccdeeb2757e7",
+      "old_case_record_sha256": "e06097791dae71ae8aaa2c2923264eee92c9333699f0ccac47366db67be7e671",
+      "new_case_record_sha256": "3b90252e0c943569d68c6945989410c7d7af672cb6e91190c359f03bc52eba6f"
+    },
+    {
+      "case_id": "scribe-harddev-002",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "17afe2e95790446aa700c163e5739c1925709a114255216e5a44a39f6d4b71b2",
+      "old_review_case_sha256": "129d89678f73fa0305da50ba233c65ba5bde2248a6bc3cd16fe9d1f66c83b63c",
+      "old_case_record_sha256": "b12bdf095c370ae3d88231a19b6f9241703787eabcc156b9e8d009c4f1329388",
+      "new_case_record_sha256": "b50a859798f9c4c84b3a01f577f417fa0f51445fd26e653c1c61f7e2c9edc20c"
+    },
+    {
+      "case_id": "scribe-harddev-003",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "c6c576997b15dcbb05d0018c15439657da08cbd96dc58bba54be2af5063ba28b",
+      "old_review_case_sha256": "f17603ae4589ac2d401853035895fa716d546b195015387be511fea9bce1f1eb",
+      "old_case_record_sha256": "52b106019058853d5fed050f1ec3285ca8aef0d816884aa162cd782938f2a740",
+      "new_case_record_sha256": "0903cfcb9dde88e667d36d7669be1f4fd58d0370cd58f5fe49ebcd72efcff0d6"
+    },
+    {
+      "case_id": "scribe-harddev-004",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "f1787da6e5c7606b5b5cc30238701511065733be09ee697a7430a10a76b32bed",
+      "old_review_case_sha256": "9b526e23f127d69862adc60497a5f43500abb0e56a3e7156280035fd13f51713",
+      "old_case_record_sha256": "3ca0b16035a0b47ae69d62a0d56f8b2475a6ab3fd10b89ceadccdc1e902963d2",
+      "new_case_record_sha256": "c161f0db11f881d25c2f773b0710d4509427166f453fa535d1b16b351f2e7946"
+    },
+    {
+      "case_id": "scribe-harddev-005",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "aab05f0b9ff3345ccf9554fb6e0fa4ffb03b71c9041708d6328cfd406d5b64a4",
+      "old_review_case_sha256": "a5a81dd4918bcc466dc81b2f50c8ec9f98cba1ce4d07da1585a3734c59f6e8e7",
+      "old_case_record_sha256": "1f59c321d2cf2dffcc67255e176dd9532625df84d4a2d1e2a4a8ea40d6565e5a",
+      "new_case_record_sha256": "b1ceff43290b1ffe946093a6212bd166fae6dc2a705edbe603c7a1d3cf6ff6ff"
+    },
+    {
+      "case_id": "scribe-harddev-006",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "0d6e80bc2d20e61c99273790b2ac9cbebab109f064c1978aee81e5937786e230",
+      "old_review_case_sha256": "e80b601950005b1209e3df38b3de3b7aaf008ba3734d39117d50d1a38f7e5689",
+      "old_case_record_sha256": "29ace5902f5286741efd8a55baa81930fb7503d0fee568dd48fdede273e0786a",
+      "new_case_record_sha256": "a0a340d158f224616659c1637a0e2e5b9ded8f9e757013333c3829c25a4a1eef"
+    },
+    {
+      "case_id": "scribe-harddev-007",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "0ec7930bac6cd09390512cda96269ec78c47cd76d328eec03fce66a2752b5705",
+      "old_review_case_sha256": "0709e5ab6dbc2c3df550c71c3604d42dec2a56ba4e7aa623483bb13abb6df78a",
+      "old_case_record_sha256": "7684474b905b91b810bdbcd9c104881fc608b08a176541a4d4c1f798b9f7c04d",
+      "new_case_record_sha256": "7b9a28cc643df766160b8021e328c3d6b55e2105c783667a254c907329e5e9ef"
+    },
+    {
+      "case_id": "scribe-harddev-008",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "699b8621ab269626e9bcf2eb6d8a6c39131898e9bf3c5b23cb979eb1337f2105",
+      "old_review_case_sha256": "49dbe41816938bf69e120b1fec93252a80dc61067391a48a0042cdf709996ec5",
+      "old_case_record_sha256": "17f06e6867b33d10f8aefafc1de5b1cd70fb6b75f23508ed011be09e59911a33",
+      "new_case_record_sha256": "9da6ce6117dc59bb642fe80c306be4112073ee50316e4c1255a110aba6f5f48d"
+    },
+    {
+      "case_id": "scribe-harddev-009",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "7107d1166c13370984475cdbf4c4dc0537b7fd346b2df13f6424c6e45a2e2c92",
+      "old_review_case_sha256": "2150610f3656d3cb6f2ec6c2a776fb5f9e66fb728308a69ff138755b0b6ca3a7",
+      "old_case_record_sha256": "517158b055e7bbbc7ae0fc3cad12104812851371b038a4385d8f936aecba4bd7",
+      "new_case_record_sha256": "b86c54cece80c9e504248467c647c39977c5f27f482b4170089d61910aa74039"
+    },
+    {
+      "case_id": "scribe-harddev-010",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "91653e3d180cbe2bc86f373454d858560fb16d19f8d1874a5f85cf2f964ffa8f",
+      "old_review_case_sha256": "c574c206568fe32eb20ca3a0348e1975ec649fc28075f51f3f8e8351ea145925",
+      "old_case_record_sha256": "833d1577a5181bbb9386c8ec26f8a4f9c97b1dc449f03d499a311349a64ec557",
+      "new_case_record_sha256": "9c07c7bcb9afa794da2deacebcab728733cb115479785f4b302c14de24f2552a"
+    },
+    {
+      "case_id": "scribe-harddev-011",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "950fabe5c60dee5f52cb400df317fcea99e89a0d6697a609fad406ee534f0466",
+      "old_review_case_sha256": "9c461ac002b37cfa1b5e89416de9a4b6adc06ed391e884afd7c48bbaa4f82b4d",
+      "old_case_record_sha256": "dd9172fc925a97654af5f62e7f02a32f743323986dbaa305de68f8023f0fd3d6",
+      "new_case_record_sha256": "1c2ccde1d6e27ad3dd797f4d3a0255bcea8eeaa7bda6febf0ecd572ee8acc26d"
+    },
+    {
+      "case_id": "scribe-harddev-012",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "4caf214896a2af6b6344ceec4fce23d567bd4b9226ea613118a360b134ff0857",
+      "old_review_case_sha256": "2857fc0ed8cffcf298eaf316a2183c8cff98ee768c51c1963ea75ad2fa401221",
+      "old_case_record_sha256": "9d09f35aa41b0ecfc4fe2232bdf09f146683c2352826cc07d74bd079d4d29355",
+      "new_case_record_sha256": "ba490e3cf3815e85b7114e97794e85952524106e2e650f9e91ddf3581d84c58f"
+    },
+    {
+      "case_id": "scribe-harddev-013",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "739cd088f48172e99c3775c341707f0cf340c8b1cdbed9e6cd7e9ee1c0dd07f7",
+      "old_review_case_sha256": "1729751e0a57954e722f0d62744c7a518aba36eff573fd0bac1ae08e0e6525bf",
+      "old_case_record_sha256": "1c222df5503f02693a33ff9f69e27eed598e27b3a592b642ea2ff0c58ffe8ce0",
+      "new_case_record_sha256": "a727a2fbabb943e61ecac373c0ea5ab4a6895f15f87666ebfe282b1908aba5ec"
+    },
+    {
+      "case_id": "scribe-harddev-014",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "226970b001ad8669108a7ab046f18328d8576618b8286ec9d2cfebed2f12f9fd",
+      "old_review_case_sha256": "d4c53de76b85f83410aa36a7b039a1e832deb8b4b83302dcb7809664e8687be0",
+      "old_case_record_sha256": "2ef2e1ffb18c9e4bb8d86ebd96bde868166a51c7b40bd9fb57485f2a03bd2fd5",
+      "new_case_record_sha256": "dc556b9225fafb5d3b06274483acc7377d07d60f0f7a827b788d6ef69d58e74d"
+    },
+    {
+      "case_id": "scribe-harddev-015",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "303c922c210eb812f116858e5cf24cdfcae62cd15a753a0c96860a322e7ba787",
+      "old_review_case_sha256": "16478d3b92b06083fd5b57e04c203685781ea6afb95c0ede8ef825549f38c90f",
+      "old_case_record_sha256": "cb8dc455ce86ab61098d29890d2a9cf61cc32792a502134818ce8ed77759028b",
+      "new_case_record_sha256": "f46788c07b05d4f52823c317392d6641a4b12670da9228d2c2fe76a91f51e58b"
+    },
+    {
+      "case_id": "scribe-harddev-016",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "6f8d33fbdadf761afbce6981ab0b2b81108ddc5908a33b2d4c1b2afcb891b2de",
+      "old_review_case_sha256": "772ed688281584145f81d774fba3e7def3a8df3c67fc1b29701806521f618226",
+      "old_case_record_sha256": "4d03dff69b1046f9f83edbd927c1668c5c583b598a61d57fb46d6f0d3bf65420",
+      "new_case_record_sha256": "c15a1ec9911b5bf9002a860aed3a0c3eba0c94614359a003294be85896fa1f94"
+    },
+    {
+      "case_id": "scribe-harddev-017",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "09283fd223cb8d6d27a5759ea9b96253abefebbcedb957aede2f1acb69f5de0f",
+      "old_review_case_sha256": "32f67c40f12353c32bfc2df23c1cf689f0f2fe73f1432c8a568ef59646b48778",
+      "old_case_record_sha256": "b9c644c77364d05be4ee55c07a17e15cfb46a9abf6a8533c5547ce4af380be0b",
+      "new_case_record_sha256": "f7bf9660b2518c414c9452fbca8c049e9a9584bd3d298ca1b7ef53c7224a4816"
+    },
+    {
+      "case_id": "scribe-harddev-018",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "813c2eb406e26814549f030cf62ebae2ceffcea8aca9d8599db4b52470680ea3",
+      "old_review_case_sha256": "66b71b9f3449d66f8c5598f0431e236998d3b602c6758b8aa6d2967f5d181926",
+      "old_case_record_sha256": "479e6a69b411627bfaaad125f97ad15d187cdd0e9b5c0f9ae34277e680fed654",
+      "new_case_record_sha256": "843f50b1ed5d59792622a8a42a74668fd9cec2962fe76c35daf29501aaa6d28a"
+    },
+    {
+      "case_id": "scribe-harddev-019",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "cc72f8792d9a7f34ece8debce58253f2853170ac76f291634d8f53cf53d807da",
+      "old_review_case_sha256": "1d4d135b0d91eb248833e1ace0290ce0987fc4a6d88ca0f9c1df35404fd1e4fc",
+      "old_case_record_sha256": "368ee1fb7659983fe19d6a7efa1677aba46332a7f843542f497d10d96be9a768",
+      "new_case_record_sha256": "7073db19bb6b9fb63dc63e40700df625a92cecad69a7f30e97435025dc6c7684"
+    },
+    {
+      "case_id": "scribe-harddev-020",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "cc6d2871edc15b7d69168c0199fd39d2fed49a4f2c2409796a56a92d0814cf03",
+      "old_review_case_sha256": "d90d07a04022c4ef9ed391e2ec135e0cfc45a6939d8c726753ef959777ec9439",
+      "old_case_record_sha256": "f6bddfaf7eb8f0e58109904c5742f56a37c5aa53d30e73f64e1b9b77a39bbcd3",
+      "new_case_record_sha256": "e47b92b02bb52b4472c2fa5641f62303a1a9131236d365196436a6da87c3801c"
+    },
+    {
+      "case_id": "scribe-harddev-021",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "a874fca3b388aaa84ecce7ee36c738eb58ee0fc78ec525338ca2113c93fefa99",
+      "old_review_case_sha256": "185cbca776d90ff20a20a83f49ba0e71fb8e401a7272eb8c732e04ea71fa0235",
+      "old_case_record_sha256": "f86e0f9d7e49ca847eac8f65daae67f2e4d45fc6b0af987bbe4216eee2139e49",
+      "new_case_record_sha256": "5772c854686c8a7c2b9227dea11e2d3e5178209d5a094a379f13ca3b8384f191"
+    },
+    {
+      "case_id": "scribe-harddev-022",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "5f0111423562c0a735f5e5c9303100ea1149ee66e4feeb99a7c4cf1e3140d857",
+      "old_review_case_sha256": "7f38edf8301cdd02980d95bc0e679bbf9d6af4c582cf501de3817cbe251ea3d6",
+      "old_case_record_sha256": "0a44eac4e6cb4fd387ff70f2889477203e6fddf3b3cae4b652fb42d700bc364f",
+      "new_case_record_sha256": "2ac2c219434468006d2f0e35f7b1c82c1f7b3654ef296e9efe38bad4ed253b17"
+    },
+    {
+      "case_id": "scribe-harddev-023",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "d8002def8ce57ca8bb1c220363d1bf18b9d96cea851f47d5edc0fe8a3c400511",
+      "old_review_case_sha256": "97916d6f9ba01773a66223b93149db03db3281a3eee8d90bb82d00ccdbca5de3",
+      "old_case_record_sha256": "35adbbfbf8dfc5242bdeb6e5bbf5149890269ef4061346364baf22101155b088",
+      "new_case_record_sha256": "27d01066a8c65196a6ad02c48424b6baa4dfaf4b52570a3e01a0b378984759e2"
+    },
+    {
+      "case_id": "scribe-harddev-024",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "652200797d759b91a9e56a94ef631d38e6290d3ab0aca55ec8c99a5b970a8a67",
+      "old_review_case_sha256": "ed963c8639595875198c175f736e8d46fb9dbcc84e791b247fb5fc002babb635",
+      "old_case_record_sha256": "b1cfeb41e2d2b168f9f265c125fa38a3d0508d8880dd27fea28aa75f806a67fd",
+      "new_case_record_sha256": "fc5de9aa557d44817ad67bb56f1ce454388259dd929ff6579488037bdc110a6f"
+    },
+    {
+      "case_id": "scribe-harddev-025",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "1816091b94ca67aefb80670494d3d997761684043d5d5d625b27a32607bc624d",
+      "old_review_case_sha256": "9d77e3ce7f80e0954003fe6f2fbedddbfac362c32ffff00e8eca69760b0b5a41",
+      "old_case_record_sha256": "95467f1f1c45721668dbc17cc59fab5d18c8d2c483870caaecfbe91ddb58b67e",
+      "new_case_record_sha256": "fea73b13cddc46d8b88ee5480baf96cfc89d995943c006ba9a089e59619f8f6a"
+    },
+    {
+      "case_id": "scribe-harddev-026",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "c740f3ee592b5cdc984b2e79efab4ed69fa602c1bd587eb1726d4948b9d6c39e",
+      "old_review_case_sha256": "c13ea741988cf5a8aacd578fd4be75c76424eaf9ec025ae6cd2c3e28cb9bcd1f",
+      "old_case_record_sha256": "a2809d369fb4d521a4fb2418a757f2a77cfff9f8dde09fe22abca55bfb11b0f7",
+      "new_case_record_sha256": "73caa5df630cd3a19c2fb88442328b1f02df2e2279d56b2a7031e5a83d99e69d"
+    },
+    {
+      "case_id": "scribe-harddev-027",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "9b20a96c4a1489afdd15fa28e8695e4cc6185aefae98969b741ce4c7c0fda265",
+      "old_review_case_sha256": "7424873ff9c1fc1f02e648ffdf9b271f217c4db6a3fe58283f28328e6a2ab6e2",
+      "old_case_record_sha256": "27805335cb91829639ea28c0b5506e18eff23950af6ba741621d83142f3e862f",
+      "new_case_record_sha256": "f2d6e5138abbdb446447bdd85b9908c947783aea37aa6895da706f10ee5cdea5"
+    },
+    {
+      "case_id": "scribe-harddev-028",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "6fa88de2ae9145558346553009dbded6b80007584c40e8e780b1826275e97069",
+      "old_review_case_sha256": "125229a867131d9b526c59747e7816eec1ea999fdd09d5a39f43179a185b8da1",
+      "old_case_record_sha256": "78c4158eb0e654493c7a138de1d08743351b71bbee36be3785fde6d210f67578",
+      "new_case_record_sha256": "fb3388944b138740ea93c097eae89732c39ab7418c0ffb5fcb8de6ae4a10357c"
+    },
+    {
+      "case_id": "scribe-harddev-029",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "3690724ea231cb6ad0bff355606049ecad624136e9ed224a0b6c9c28e431ca4d",
+      "old_review_case_sha256": "c3357a82a38a2711f238f5ceb6b0772557097165fae01b0f76c49186f2c3914d",
+      "old_case_record_sha256": "ea4206b87e29f16e3bb73ec8aff5b747b2350881daed9f1fbc25a28613d4835b",
+      "new_case_record_sha256": "84c6d027475b5cd5219db7aed64eddb9780b1d22abf57b997fdb5ff4c84c58b0"
+    },
+    {
+      "case_id": "scribe-harddev-030",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "aa7f1d04e41d1e3a1d646ed3e2b817f65c42d60a209f0b75244ad182db8d7fc1",
+      "old_review_case_sha256": "0d2ae2ccef79b8e5161e296fefec5035436bb8ea774a0a7d16efeaa82ead656f",
+      "old_case_record_sha256": "de70cc4eb6d848bb3b23a9c98ab60f7ca88427306bc5216b6fb87828b59314e1",
+      "new_case_record_sha256": "2a4cd5f54bba1eb399d3f0872a43fb391b039a38b454e1c594e8e2316eada6f8"
+    },
+    {
+      "case_id": "scribe-harddev-031",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "f553f20af2fadbe1a93576453e809b58904cb74a24fbbe8f4a223aadd152c164",
+      "old_review_case_sha256": "0d448c03bcf9e0f23901196e709785e40fc24cb8e392d20f565a4bd8cba0c792",
+      "old_case_record_sha256": "c0a3f8058ca924aa5415458c7f95b3376cf5f923b15603f5dfec36eb2280e1b8",
+      "new_case_record_sha256": "685ca5a129aef81c37f3ea3836b4baa69ed6ad4bb27618030c8de7cce06b4393"
+    },
+    {
+      "case_id": "scribe-harddev-032",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "c13538660af739503952bbf3f1d238d7b9591a0d80b95d63c9bda12c6b1c98af",
+      "old_review_case_sha256": "2ab8c4d76b227439cb9099e9f0971ec15b780704f80c2d44e5214d23493df7f4",
+      "old_case_record_sha256": "9e2173c618a0e0ab92086247c1f8d1eb7d35e09c53b94e9d17aab09c3ab34d96",
+      "new_case_record_sha256": "214757e5102b01c95e71777219160f029b58c5ed3fe4837a5806b6fda913d44c"
+    },
+    {
+      "case_id": "scribe-harddev-033",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "96741b3201d621ea4d4750150585310ae3196aeb1fdf19c9ab3022ea6883eed1",
+      "old_review_case_sha256": "1b92d0c2a2bd428682aa5a92f82dc117586b8d4c26e6402ddef6d4223b11846d",
+      "old_case_record_sha256": "043eb41699e4352128ea14ddf9fb09331af30df170de836443c9d1cea20ffe1e",
+      "new_case_record_sha256": "984825d90c9e66931968b8a561ff7797eb0a6085ea0bc204a38a094723ad6f1d"
+    },
+    {
+      "case_id": "scribe-harddev-034",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "662b9e253ebe8ca1c0a69fa68014d2249b8857e81e29809b46d4728c02cb8c92",
+      "old_review_case_sha256": "4cf88516d509c0d8b961f7c5146bd67c0bccf59975840adece2e05a0db531f26",
+      "old_case_record_sha256": "eb4f584f1690030c2bc1bf0c684e9d092007f9dc89c1f6b366af8214e41e858b",
+      "new_case_record_sha256": "0d8150f54b8a7667dfa88a16eb84955af292d0af165af3378329ae1702d746f2"
+    },
+    {
+      "case_id": "scribe-harddev-035",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "e7100dc5325d49be45ed81b1320c2ad1b3f4994c28a5ac0f03f42d8aa07287d5",
+      "old_review_case_sha256": "9cda97e76d39af9d46a159014eed0af07af5ccaa68b74445b030f263ce4dd1f6",
+      "old_case_record_sha256": "aa604ffecc2bfd8d9b52de5b468bc4449b3c72f35ae60ff8a8fdb6ebbe2ee767",
+      "new_case_record_sha256": "75ca720e3e8d9a84ba3c7162943a2328ed05193e6e1b44726ae35274bdbd8722"
+    },
+    {
+      "case_id": "scribe-harddev-036",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "14884a1f6f9d01bff1503d57a91a508cf39a01f44485086602da21f040ef3037",
+      "old_review_case_sha256": "b683085b2c4617328057cc66a11225a4cdaba63d09801347223d4263380bcb8c",
+      "old_case_record_sha256": "d5f762d863ea32feed91d66ef4753fd4900147f8c151e6d3418a4bdce8497869",
+      "new_case_record_sha256": "8f3f00dec377f4d578be53ed201535863d9342d8daf6e14e244613bbd2c5c269"
+    },
+    {
+      "case_id": "scribe-harddev-037",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "f919ff2f2bb079e3edeabe58d15954fe55a3f56c2114e2fc7072ea8b0d922385",
+      "old_review_case_sha256": "788176f2386dacabc74b765d1f6256f89a0509701795ab10a6825fcfc4996bfb",
+      "old_case_record_sha256": "5e8aff086aba4238cb264fbbee0fdd2a3e5379d16e75c6c9c389b7569e7ba3a0",
+      "new_case_record_sha256": "45a6249447391003f66cbee44298e1b2768f353e85696b6c858bcb372fbe0103"
+    },
+    {
+      "case_id": "scribe-harddev-038",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "6627b448c76a669ecfbe088f6922bb00a1663170c07a43b9e6a57b07c378ff57",
+      "old_review_case_sha256": "e41b9a0e8e305579f73beee36cf4aee7ebf02389e5a0f8ef929d5fb08f6cc6f1",
+      "old_case_record_sha256": "60842e7f3ac7f2f238144dd4219e3503257fe6b30c5d3b65009de981ea7224bf",
+      "new_case_record_sha256": "7c064a3726edcdfb4216575fc2e2cb4fbd6ff4ddcc549d9d30f2649dba42f52a"
+    },
+    {
+      "case_id": "scribe-harddev-040",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "02093621cd66c2617cf8ad14b403540fb3ca8509aff9fa0e91d97c5acae37918",
+      "old_review_case_sha256": "806fddfb88b27fd42b410b372521cd58d3dd1cad9cc98316cf2ed5f2347825dc",
+      "old_case_record_sha256": "834d36c01fb2e9e5620ec298212f88473e2fe968914c4c4c57050a036633b2d9",
+      "new_case_record_sha256": "21515a6d4fd5af5ffe7443e7ca029e260f76f365f630185efeda40a30bff5882"
+    },
+    {
+      "case_id": "scribe-harddev-041",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "53781f737e97c71996ab76fa72f0f398529abbb94312d68821ca7f97dd156793",
+      "old_review_case_sha256": "44739bc8d4c31b4e3673dbe1259eb1b275501125b3041ad82b563180d99cce98",
+      "old_case_record_sha256": "32215852b825233679bc7803d9892ea0428246e3462d45cdc3d2faaf8c7d22e8",
+      "new_case_record_sha256": "4c9184d21f75ccbb823382c304010af60822811da4153e07ead214a5a802c2d6"
+    },
+    {
+      "case_id": "scribe-harddev-042",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "7892d124f87f1f56d7b0dd28d419252e899bacea5720d07f3bd25ffc9a22cb43",
+      "old_review_case_sha256": "164f3e0dc08bf59cfbc369e4ffb23aa1b713ad4af19578e59f50a3b1c52251b2",
+      "old_case_record_sha256": "8d6fa487ce3cd40dd5ca0d09da440d0df98e487376628da45d972fbe1859668d",
+      "new_case_record_sha256": "e53d3fb0c8e4ccae7a283ff08b4a9f1abd6f381d75ccaf50c87900767f9b338f"
+    },
+    {
+      "case_id": "scribe-harddev-043",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "2274ea564ef99ba9d0f7cfe21a7e9b27caa70e8315668d8793dde3deae49ec12",
+      "old_review_case_sha256": "9c57ab06c8eb3e0b876f41e7274c99d4c00aef3a838849bc9dc88eb3f756bdc8",
+      "old_case_record_sha256": "6a36a1ad2169258abd2298a1f2ecdd4994e41d73491ae5aa92219a6efee38190",
+      "new_case_record_sha256": "a3374a5bc61206c708f3b7c86fd2633f246e00e25999382b9b138fe49b08883e"
+    },
+    {
+      "case_id": "scribe-harddev-044",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "4f99968fbec5bd36b33e3b0e29ba12386d03e695e83557880ccf11761f89f954",
+      "old_review_case_sha256": "082ebce4b4bb4d2b591c873763c4f8792f3ab0f79ccf3cf20fc86657257175ce",
+      "old_case_record_sha256": "eb5888ef37d7d92a10d4c0a6cc843f459f777253165e7c0534d448baeafd86a3",
+      "new_case_record_sha256": "2c9ad6ac5f8ed4512fd8edb8de8ccb01f42f61fa28bd17d1fb06ac5789ab2b97"
+    },
+    {
+      "case_id": "scribe-harddev-045",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "d7fca0ed536abb494652a5fe7430176331f3d90a58d3713e90f17841327db196",
+      "old_review_case_sha256": "57bd0163afe1f62b69d2c68e67f6e49205cb435975f81b3bd33588663d69e7d5",
+      "old_case_record_sha256": "078cdc568373a096ac21b3aae2e804778d95768f7c248208de5ae3992e468f29",
+      "new_case_record_sha256": "c5aec770187ecf4d7b18deaca9decc32d32031c7d157224e19bab9a70612ed9b"
+    },
+    {
+      "case_id": "scribe-harddev-046",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "84f447df8d6a487530774e7f43ef295487a4c3ec0383445f2ba569e629366484",
+      "old_review_case_sha256": "81f6692e8be7a0a694538477d629364d3bcf43450142b540ee35f24bbdcf4ba3",
+      "old_case_record_sha256": "2595b0b605462ac1be055d1f9b9093c93974f3036bb2bccdf6f17e294636e550",
+      "new_case_record_sha256": "9fce340b2816e16f8c3f24416d8f31393b059797ac9ca0b36406efd00df7096a"
+    },
+    {
+      "case_id": "scribe-harddev-047",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "20b9317c143446fa3d30e1642cec60b1b4bf63bda19a290d32108c3539addc15",
+      "old_review_case_sha256": "63567a397c83ac68b3131321c1a2c59b0d1a8132b4d0b5964ed0ae694dd6d24d",
+      "old_case_record_sha256": "052230e51efa39e6b756625072287375ef54960b00b599f1caf2ec1c154b8023",
+      "new_case_record_sha256": "880941c83d5c9f7dbf558f960e5b7176d0ef2542d88994c4b4d9308c21caef2e"
+    },
+    {
+      "case_id": "scribe-harddev-048",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "a428fcdf418775e23a373bce5b7bd051b6bbeb0b82ec2ffe2c4b04b2675d0435",
+      "old_review_case_sha256": "ec9fd8c21094139cb785878225c2eb0d0f8e7ba936b17bf7c2d612ec88061d8d",
+      "old_case_record_sha256": "7ed68e6613989ca5db4f466c72df5d18139ff99cc1e55e8946855f8466df784a",
+      "new_case_record_sha256": "767c959be51f951447669d7b74500c9c7075c6d1f31bbc126a662cf6da36e967"
+    },
+    {
+      "case_id": "scribe-harddev-049",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "3b7d142765e35b273b5104bf7a5bbdaeb4819e6c3862b1f9470626f98dd7fb52",
+      "old_review_case_sha256": "41a41c0d5eaec82043afc4dc18a94d7d101d2ac23e249821f5691b19cef9887a",
+      "old_case_record_sha256": "1a94add5e2247ebf426f250b4b9c23c8d7f221b85415cfc9429e6d96b9d06480",
+      "new_case_record_sha256": "bf20fc89f683128d8d757d815f29e92a3947985580127baf44129941a42cf65d"
+    },
+    {
+      "case_id": "scribe-harddev-050",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "88a7cadac5eaef18ce68d9c7e2fa13993c71f87d827de34627f8dc69067319ac",
+      "old_review_case_sha256": "3574421eea56b432adbe7022a0efd50175e9fc0daa3552f326372a79c6708373",
+      "old_case_record_sha256": "f19027a863fde6539c0e894492c9bb678f365318ee47565635e191a1b6234247",
+      "new_case_record_sha256": "6db39b1f56f66474576c26fa26fd1117896d5e8629fd23b1702bb62b02390cd0"
+    },
+    {
+      "case_id": "scribe-harddev-051",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "6ac771bde6a40ec497ca5cfef4701f5e2e5178c571df3adc0edd919c16a6889e",
+      "old_review_case_sha256": "f7d105e2354d24a8cf4ca3166787d1643f9eb5640fa6ed2a7246e607d1cdd0e3",
+      "old_case_record_sha256": "67a0f98c6edaa00f20e201538e905c2effed6482f313a5dbd1bff0803e66ba43",
+      "new_case_record_sha256": "323db54712d9baa94f04a789d082619bdbd087ad6e39648e26dff7e702d8db82"
+    },
+    {
+      "case_id": "scribe-harddev-053",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "8b5c9540d513b6a1a8cb3a230c04c9c82f8078fea77b97ad4059862f0b490cea",
+      "old_review_case_sha256": "605c2c154708764374aacbc4624a91dd50631fd3e2018d88316a2f92d5082e9d",
+      "old_case_record_sha256": "64564e4958db747af940b0db96e066d5ba49802a1fd8297d09c799af2690984f",
+      "new_case_record_sha256": "944e08d5c16702da9d27e95480ee8c311e518f3ebc7d1acae6b33ad6fefc17d2"
+    },
+    {
+      "case_id": "scribe-harddev-054",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "7f945e331f663ff92f1bf62a3dc957e1a67117625dc087b172c672c3bc669fd7",
+      "old_review_case_sha256": "965c8f6471415f0b3d7c1d31c5c7b1d897635848154663f948c27be056e0e7df",
+      "old_case_record_sha256": "a8e6fe36cc3e7889b4269895e369cc880ab0424e4616add8f134be7f8853b670",
+      "new_case_record_sha256": "c035d232c46e0fbb79b4f8005a91c5efae4814f02398f518eaa8a48e787b5f8c"
+    },
+    {
+      "case_id": "scribe-harddev-056",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "c12138c4cb6d3ff7e39321a72dcfeda5636e6a096744842047d5f58cc654b692",
+      "old_review_case_sha256": "be35d2f65a2ec7406d49c2645a18d34aaa0b2ba10f237c50a11e357d6559ebf2",
+      "old_case_record_sha256": "4af7ccf85defaa4a18dacf50aa060f99c6996e9907cfbf63014bbec9cfa5fe0e",
+      "new_case_record_sha256": "ff8602222cc113714fb45fa19b358d367be4fb3e8c915994c0dbae94b782fc6e"
+    },
+    {
+      "case_id": "scribe-harddev-057",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "147075e23a36359446f75cbf9316213c781628c25dd31c24b317af4405fcb509",
+      "old_review_case_sha256": "ee0432a0b6e3776a45ae70131c061433ca9ffea54db27ce54651109b797be731",
+      "old_case_record_sha256": "e1e9a4572d11bbba04ddb01840db87feae616e41545c2924993a60bd44218471",
+      "new_case_record_sha256": "7d823c5f271a0ee84286c125079592e5a99d15a09322d1ed3380f514c1f496b6"
+    },
+    {
+      "case_id": "scribe-harddev-058",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "363fc1b0a41bd64cd4fd9f9d50c27880d1747fec5643603db9c53e76106f923d",
+      "old_review_case_sha256": "6e97cccff34d2eab75be8b8161e5b22f7498bbed15e31f360c84da2a04e46493",
+      "old_case_record_sha256": "45eccbc72846353d49d4ef78b2e54bca5994bab375a9cbd2da62fcd18a75257d",
+      "new_case_record_sha256": "b7b5f939abddb48966148148790eab6bda78f04555fb71d2b309bdb4f909c485"
+    },
+    {
+      "case_id": "scribe-harddev-059",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "024b63e2b8f6f2d5b2bdf0bf93dc39ed6fa689fb61ecce9f243f222e0106d69f",
+      "old_review_case_sha256": "638c51b029eac2a8f4508b39d5f346c332a4076e561189ff445c98e2cd7e31c8",
+      "old_case_record_sha256": "df12b099a0ec87dc1995efda81ed94582ff79dfb1b0df8821abfa563c146b9df",
+      "new_case_record_sha256": "a39b7a09d112c7d51ff8760ed142c668e2126b69df4fd3c716f0f0fea0956cb2"
+    },
+    {
+      "case_id": "scribe-harddev-061",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "3a15b2077aa4945eccd73e66b0577b882fef98a36f21a312c6b0a9b9c1c6910a",
+      "old_review_case_sha256": "d0a24b8f08e506f2fcd0e2b1fab3a128af2e9e6c3444237feeb04311ba6a939d",
+      "old_case_record_sha256": "99fddf87c67a2ecee2b38da06371ff420c6a57df270abebc5cf72921c9924b25",
+      "new_case_record_sha256": "a2dbecab3ed387fb29a871f8684c6beb499891ad9e0788e27fb78a9086bca507"
+    },
+    {
+      "case_id": "scribe-harddev-062",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "c2fe4ec035e2d389d464a4edfa709c4f185b5f5392445ebd898983dcc48bb800",
+      "old_review_case_sha256": "d24b67d95fce24fbb4a836e1ca6f51d8a4f0312df86f517fbf6bd5978d5a1716",
+      "old_case_record_sha256": "145e7c2ebae1d4a63060e561c07389ffa93b31bbfff6bf9251cf271bd77ccb17",
+      "new_case_record_sha256": "f705f238066582b9f5c571c0a0b23a8f238d049c823bcc0ffb4b10aad70c5375"
+    },
+    {
+      "case_id": "scribe-harddev-063",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "8b8664d6b3f4b4694939bf703c9b7b0408d043bebbdc7b1fa5cf74d17b6f6a3a",
+      "old_review_case_sha256": "40506f663b35f6c573621f5f428276b3a25e77ab1709fb09ff20e757bf403a6c",
+      "old_case_record_sha256": "0e9b371e361f462f4d1108e1e2149877c95b3abac87a095aff3058513af7b858",
+      "new_case_record_sha256": "c7cee1584ede0b568f7ddfc7d32cade216fa97205aca007e1974ca7e2270528a"
+    },
+    {
+      "case_id": "scribe-harddev-064",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "5a76d4938ec8a6afb3259f230660093b18a9127eef3b217d729e01088a71562b",
+      "old_review_case_sha256": "67a6c3ee168387767948d77835b2e8aafdd2ef817b033996b67fe993cb627e3e",
+      "old_case_record_sha256": "9abdb37ea99ca70e763e83df5c001300f9e448df105dd8d9c04e3a9eff250e33",
+      "new_case_record_sha256": "a7e7c4d4c785214980ea08f7957a41e6593764ccacecc81133121c83f412ad73"
+    },
+    {
+      "case_id": "scribe-harddev-065",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "e1215f8195b930815f76ab49daf1246817be22331b9a945a2665be205a94a6ad",
+      "old_review_case_sha256": "7b0c972909aacec052e7e75c4bc5d75edccc7f739f34839b3e3b3b5b46a34e61",
+      "old_case_record_sha256": "ab023d714e7935876c2adc0edaeb5fcf77ce887f1675e4f2ca643b9150ffe2e8",
+      "new_case_record_sha256": "6b382e180c954b334c144a5f5dcc08a85ed51da9544dcec3b59bb57b3e7b6d88"
+    },
+    {
+      "case_id": "scribe-harddev-066",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "434f1b6815633a591a42728d4b27c0063a88bf88c21848d8b3f3464849fb85a0",
+      "old_review_case_sha256": "c95a6f75d0d058ec352572b7f14b65b2499f536769377c4a0e01d2389d93c482",
+      "old_case_record_sha256": "2886919e4c102d3ac25f8fa1caa8696d4bc09c24e1922b3c2dba191bdd5d125d",
+      "new_case_record_sha256": "d2899c725d58ac34079628bf2a840c963f7ff7e79bab5cd739331eb273bcca4b"
+    },
+    {
+      "case_id": "scribe-harddev-067",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "076ecb3b1ecf463cd3248c9269df2929bfa15fccf3cb905e69eb6952c53549fd",
+      "old_review_case_sha256": "beb35bf3105444d32c020d4158a6e97c244f7f8ae89eb00e9ea539b30f5466b1",
+      "old_case_record_sha256": "8c91c7f0eb92f457d76808d6e1ca5b9795d64c182370c4dd0d4dd58fc43db1c2",
+      "new_case_record_sha256": "5d14a939d6690415d58988d5cb3b4bef6ed6c515f238b1cf15ebdae74b7c4e2d"
+    },
+    {
+      "case_id": "scribe-harddev-068",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "0ebe0021cd0d70f2f1a8e29dfefd6238a5c4707f02c3c4d4bbdd45a2c20b4354",
+      "old_review_case_sha256": "91b6d41cf1227069fbf8bf8ed7d100946305f33aab56bcdbbbb8d2a987ba59e5",
+      "old_case_record_sha256": "c07a7a29ebfca5299200eafcfb9607b539eaec1d77df06e8c35d3984488fcfc3",
+      "new_case_record_sha256": "fbd66c3a66c47ae5c373f27d4f4c70722cfc1861e77b031637972c0aa84e862e"
+    },
+    {
+      "case_id": "scribe-harddev-069",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "50d21d334ed0bc4f747348d54c11ac862f49c271b2ab62723ee55bffbece67c0",
+      "old_review_case_sha256": "769a454d8d41e2e5d6f09bee6b34d637a5d3f6a97824a7fa1305153c20c4e6b6",
+      "old_case_record_sha256": "2a01bfec4fff9545df472f271fdcdc49adb763ccd8f3e6ea837a54fea1af16c8",
+      "new_case_record_sha256": "a33e69e23352267805dd3e1650e87a5a07843de16c9a02200fb9da6203313be0"
+    },
+    {
+      "case_id": "scribe-harddev-070",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "94c3bcd2127dc1b2e11d808872761c812e59ff2e42a13be49c73f5cc646e0a7a",
+      "old_review_case_sha256": "1b76c503965faf4286a56a1884eb7b27667f21abc7226fa756fd012b4b1944f5",
+      "old_case_record_sha256": "370518b15c52a923bd8fd47f5344ea20a7094f707ec8862aa3b86827440c49da",
+      "new_case_record_sha256": "48774a964116f2e1fedbe416674b97aa7130a0dce906c9e7c4b7c9cd49725415"
+    },
+    {
+      "case_id": "scribe-harddev-071",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "b28066ddab7eff560dc8ca574f2bc85f53f6c2aaa8c6cb7f1a9d5d81b522ba5c",
+      "old_review_case_sha256": "923be9ce269dc699eaa64605d7536c853aba6fd5b91b0664bcece857c1731d43",
+      "old_case_record_sha256": "a217c8705fa0cd15d6a482caf371a9f13a156644db80dd1f7bebe4dba95ec7f9",
+      "new_case_record_sha256": "d5e0f75b4b2b93d5a590c1f4e32d9c985da4473a5c237b93a85f3d2604bfbcc8"
+    },
+    {
+      "case_id": "scribe-harddev-072",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "3a42f01bbf102d5a81a4913a7de78ac656f34eb871df92aa61057694a6e5acab",
+      "old_review_case_sha256": "ba2f85cc8e7d94c47e049a644da8bb82710a454666604cffcf89bf2854b3f807",
+      "old_case_record_sha256": "5dd4bf93a353281e37b865a0f593c1f2fd5d523c4cef54d20a33852927ae87bf",
+      "new_case_record_sha256": "041178fdced5a5ded0d2e579ff1e933208b6328e2a9c81d2bb3777a9da1b7070"
+    },
+    {
+      "case_id": "scribe-harddev-073",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "7c95a83f5982c79ba2707202ebb4303cc4c7233278615b85e3945db543f4428b",
+      "old_review_case_sha256": "6227725842c1b8ac310f43ccf8775549a2c2af85945948c4cdd1369c4d082b23",
+      "old_case_record_sha256": "85f7fccdb8ab912bc4e617ddae589127892ded5abf3cea6bf9b081816268424e",
+      "new_case_record_sha256": "86ee58de91bceccc54dd91b65587ef2495ffa8a703501515e1588fb023a1d892"
+    },
+    {
+      "case_id": "scribe-harddev-074",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "2f919ad2846f61929eef6295a46f5a98e2079618ead5812eef578911f94c7def",
+      "old_review_case_sha256": "a2a4a966980fe2bf979cd28593825e657c963191d16a86d282daa7d82fafd95c",
+      "old_case_record_sha256": "beb89b89af3141d9dbd71bd6faf7b7ad326f658caed8c0f1bc2aed5d481adf47",
+      "new_case_record_sha256": "b72a08d48304b71f123916e939e865b0aa29ca69b012c706ea93eefca7d9369e"
+    },
+    {
+      "case_id": "scribe-harddev-075",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "cb25a9443deb29fa5c5c647443a21963a7751d1c0db6ec6ebf806d170bccd8b9",
+      "old_review_case_sha256": "8f3ca85bd9107e007d8d986e83fb9f8893d183b00c506f6541d0f5a6d48db0e2",
+      "old_case_record_sha256": "dfc9f91441a0d1f020d15a45a1b9a108d15a7ec3f4ee8290eb1df273a6df3fe5",
+      "new_case_record_sha256": "a00d15596c6635c214a8f826bca9f9a21be910a3f430f3948481ff62fd50a772"
+    },
+    {
+      "case_id": "scribe-harddev-076",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "4b17458278843b46fb22d0f3af2b68738cb1619a00a1458445ca40eb59894a21",
+      "old_review_case_sha256": "2b0bed74e67f17547a38dd38897518bc7d4f71657466fe86592842f9a665451a",
+      "old_case_record_sha256": "11b750c3ec9ada82dde8801f62ea494d66141f50a6146fa8b96eb9ae2e497d43",
+      "new_case_record_sha256": "6e0ccf0963d3409ac210fc0470a47e5c6241e2f4279db35bbcb5903ec5fea5c7"
+    },
+    {
+      "case_id": "scribe-harddev-077",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "46b09057cec6ac0c4dddd3bd31ae284450b4a5915a131bf38901624a35496a05",
+      "old_review_case_sha256": "fe8cf3e5506858cc36f66f913d1df5cfb0e8fda97ec94c1bcdc623e8daf97c8a",
+      "old_case_record_sha256": "5f0997a550f1205a7560ac3287f1a8f93a0809c50f17e2bc9844560ceee5e42c",
+      "new_case_record_sha256": "b0cd274befce063c6bbd70bdd8c8bde6b93a53162e50b49a71d25326fcd8a457"
+    },
+    {
+      "case_id": "scribe-harddev-078",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "e151e1a25aa117a5671e846efcb67f80582ff531816e935294d0d1c8617385d8",
+      "old_review_case_sha256": "d0d3d7992120f59bf3ff294f67d14acd55c355a3ce886afc16a3eac34eccb755",
+      "old_case_record_sha256": "6b41837750413503e56ffa11c7c7b1c54d74323ca32d457d11a3381c6eebf83c",
+      "new_case_record_sha256": "4833d10ea615ef55ceebf2720dc16d9605c841806a90e276ff53b3c0921cbf7e"
+    },
+    {
+      "case_id": "scribe-harddev-079",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "41a12b2617b6fc65abb4fe6cb79791ae656d8c5ad8b9df21affa63ac4d16f9d0",
+      "old_review_case_sha256": "e5d048af66df95fd443144a5665392adddf856cb7b6a46b32b1c59c5f47d095e",
+      "old_case_record_sha256": "7b48ced60bfa56fef3006cc9bc0ed3584b24db6fb175fbf583d22abf20b9ee8e",
+      "new_case_record_sha256": "997dce0a8f6aac43c5c9f36e6068feb8018cf1a2064edeccbe4285162ee43b33"
+    },
+    {
+      "case_id": "scribe-harddev-080",
+      "prior_report_sha256": "91b02d8acd2c685608ab34e13c17292e16976a8ed95440f91a72fbd4d9b37ba6",
+      "prior_review_sha256": "c6794625e55e39e3f1413e7ae666a96ee547f066ad1deb1f2cfdf3ac70d127ab",
+      "old_and_new_exact_comparison_sha256": "16555b0d6853067a14c9adfb779360a8ff5bccad4e17aa169f22c4925a7b3e04",
+      "old_review_case_sha256": "843a3d72be0265a64d991d6047713967a49260bc0e40dc0c01f70075665474b7",
+      "old_case_record_sha256": "519a4e0dc5abe70f1904cc6fed34d8886094d438bb1431bca781397a9fc5e2b2",
+      "new_case_record_sha256": "704604aeff66b23323eea9c191d245d5ddb6baa37d817ffa907f5091e94a8077"
+    }
+  ]
+}

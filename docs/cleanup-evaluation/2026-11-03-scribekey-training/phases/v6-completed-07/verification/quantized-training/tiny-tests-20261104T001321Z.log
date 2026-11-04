@@ -1,0 +1,27 @@
+COMMAND ["/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python", "-m", "unittest", "discover", "-s", "tools/Freehand.Cleanup.Training", "-p", "test_quantized_training.py", "-v"]
+test_inverse_rejects_nonfinite_nonfp32_or_wrong_sized_decoding (test_quantized_training.GgufFrozenBaseTests.test_inverse_rejects_nonfinite_nonfp32_or_wrong_sized_decoding) ... ok
+test_legacy_merge_and_generate_refuse_quantized_adapter_before_loading (test_quantized_training.GgufFrozenBaseTests.test_legacy_merge_and_generate_refuse_quantized_adapter_before_loading) ... ok
+test_maps_all148_tensors_and_reconstructs_exact_row_major_conv_layout (test_quantized_training.GgufFrozenBaseTests.test_maps_all148_tensors_and_reconstructs_exact_row_major_conv_layout) ... ok
+test_rejects_missing_extra_duplicate_unmapped_and_shape_incompatible_tensors (test_quantized_training.GgufFrozenBaseTests.test_rejects_missing_extra_duplicate_unmapped_and_shape_incompatible_tensors) ... ok
+test_source_hashes_are_checked_before_model_import_or_allocation (test_quantized_training.GgufFrozenBaseTests.test_source_hashes_are_checked_before_model_import_or_allocation) ... ok
+test_fp16_roundtrip_forward_and_identity_backward_are_both_real (test_quantized_training.KvPrecisionTests.test_fp16_roundtrip_forward_and_identity_backward_are_both_real) ... ok
+test_tiny_lfm_prefill_decode_and_teacher_force_share_rounded_kv_only (test_quantized_training.KvPrecisionTests.test_tiny_lfm_prefill_decode_and_teacher_force_share_rounded_kv_only) ... ok
+test_tiny_lfm_rank8_to16_logit_check_with_f16_kv_enabled (test_quantized_training.KvPrecisionTests.test_tiny_lfm_rank8_to16_logit_check_with_f16_kv_enabled) ... ok
+test_resume_rejects_changed_frozen_base_parent_or_expansion_before_mutation (test_quantized_training.QuantizedBaseResumeTests.test_resume_rejects_changed_frozen_base_parent_or_expansion_before_mutation) ... ok
+test_expansion_logit_check_restores_expanded_parameters_and_detects_changes (test_quantized_training.RankExpansionTests.test_expansion_logit_check_restores_expanded_parameters_and_detects_changes) ... ok
+test_rank8_to16_preserves_learned_function_and_enables_new_columns (test_quantized_training.RankExpansionTests.test_rank8_to16_preserves_learned_function_and_enables_new_columns) ... ok
+test_refuses_incompatible_rank_scale_pairing_shapes_and_nonfinite_weights (test_quantized_training.RankExpansionTests.test_refuses_incompatible_rank_scale_pairing_shapes_and_nonfinite_weights) ... ok
+test_seeded_extension_is_repeatable_isolated_and_uses_seed (test_quantized_training.RankExpansionTests.test_seeded_extension_is_repeatable_isolated_and_uses_seed) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.787s
+
+OK
+COMMAND ["/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/conversion-env/bin/python", "-m", "unittest", "discover", "-s", "tools/Freehand.Cleanup.Training", "-p", "test_resume.py", "-v"]
+test_resume_rejects_different_training_data_or_optimization_contract (test_resume.OptimizerResumeTests.test_resume_rejects_different_training_data_or_optimization_contract) ... ok
+test_save_reload_matches_uninterrupted_updates_optimizer_rng_and_schedule_position (test_resume.OptimizerResumeTests.test_save_reload_matches_uninterrupted_updates_optimizer_rng_and_schedule_position) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.779s
+
+OK

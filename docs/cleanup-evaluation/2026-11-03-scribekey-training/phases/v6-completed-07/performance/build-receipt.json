@@ -1,0 +1,830 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-11-04T00:48:27.091991+00:00",
+  "completed_utc": "2026-11-04T00:48:56.135400+00:00",
+  "command": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "build",
+    "tools/Freehand.Evaluation/Freehand.Evaluation.csproj",
+    "-c",
+    "Release",
+    "--no-incremental",
+    "-warnaserror",
+    "-p:EnableWindowsTargeting=true",
+    "--artifacts-path",
+    "/tmp/freehand-v6-native-lora-evaluation-build"
+  ],
+  "controller": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/controller.py",
+    "bytes": 26016,
+    "sha256": "9c46a319bfa4ca31b4f9cec9ad7716789d71636b0f35ba515d129dda14e9decc"
+  },
+  "plan": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/plan.json",
+    "bytes": 33520,
+    "sha256": "588381bb83b06149debabc86469e7586c4ff62e7891b2d584e2502dcaaf46a1b"
+  },
+  "source_files": {
+    "Directory.Build.props": {
+      "path": "/workspace/freehand/Directory.Build.props",
+      "bytes": 2140,
+      "sha256": "72861bc6a2889f1ca763046051df9e2c3bb027702897fa328b5c3fd5abc0fbf8"
+    },
+    "Directory.Packages.props": {
+      "path": "/workspace/freehand/Directory.Packages.props",
+      "bytes": 2303,
+      "sha256": "c09bce2b106e739a13041690cc0f613b0ba8af9f35d7fc994a0e5f8a8b0eece5"
+    },
+    "Version.props": {
+      "path": "/workspace/freehand/Version.props",
+      "bytes": 186,
+      "sha256": "d9bfa834130288ffd85d5327d24233ae06bf5ddb832fbcad686a4b2bc049f2e0"
+    },
+    "global.json": {
+      "path": "/workspace/freehand/global.json",
+      "bytes": 81,
+      "sha256": "b48d6da8fa62c0da7cc8a2da4ea036ac55836660a448ba533135abb5b8451b73"
+    },
+    "packaging/model-manifest.json": {
+      "path": "/workspace/freehand/packaging/model-manifest.json",
+      "bytes": 1053,
+      "sha256": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545"
+    },
+    "shared/transcript-cleanup-prompt.txt": {
+      "path": "/workspace/freehand/shared/transcript-cleanup-prompt.txt",
+      "bytes": 1091,
+      "sha256": "c0f823a67a100b0656e2a818965a97d41d1e2a3da29b8952bdf1c0f3d81cf425"
+    },
+    "src/Freehand.Abstractions/CleanupWorker.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/CleanupWorker.cs",
+      "bytes": 915,
+      "sha256": "90cdb0dc2ae03694633584b826659706b50e7a909c55e229fa92512242f886f6"
+    },
+    "src/Freehand.Abstractions/DeliveryProbe.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/DeliveryProbe.cs",
+      "bytes": 640,
+      "sha256": "6e6801aee9ae2803c83abfc9d638e9f17de03723aed6be4d1d5fb730c1c149de"
+    },
+    "src/Freehand.Abstractions/DesktopServices.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/DesktopServices.cs",
+      "bytes": 4642,
+      "sha256": "9a5c41d233efc4bf3d11c8408883a341602afa90619d50fd4b0fc8505439b3e3"
+    },
+    "src/Freehand.Abstractions/Freehand.Abstractions.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/Freehand.Abstractions.csproj",
+      "bytes": 337,
+      "sha256": "3e019ab20aa591f3dda40caf825da1e008721d15860901fe145697555f830c00"
+    },
+    "src/Freehand.Abstractions/GpuMemory.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/GpuMemory.cs",
+      "bytes": 1499,
+      "sha256": "86ed003a4415468ce1110a8713df4eab9773588af1b50f9be8f8ecaaaf8dae3c"
+    },
+    "src/Freehand.Abstractions/IHotkeyRecorder.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/IHotkeyRecorder.cs",
+      "bytes": 475,
+      "sha256": "25d3ddaf07036c78c7957dd4c836a1b3f21ef74b666cb3d770c4cee85c145b10"
+    },
+    "src/Freehand.Abstractions/IKeyNameProvider.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/IKeyNameProvider.cs",
+      "bytes": 309,
+      "sha256": "cd34d326e9a907ad759abfa0c010e3d3d711a02d81e5281acb2f9afa9eca34d3"
+    },
+    "src/Freehand.Abstractions/ITextDeliveryHotkeySource.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/ITextDeliveryHotkeySource.cs",
+      "bytes": 515,
+      "sha256": "67d29760d08db619c705f8a18fc815d6d064f4a1f8b0b323bbda84386dcd9f63"
+    },
+    "src/Freehand.Abstractions/IUpdateInstaller.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/IUpdateInstaller.cs",
+      "bytes": 539,
+      "sha256": "a09a0e6f4dac71150dc7462ea30a94195eaecbba33928a1f5230f5590b28c471"
+    },
+    "src/Freehand.Abstractions/Interfaces.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/Interfaces.cs",
+      "bytes": 4590,
+      "sha256": "c200104fd9816fea82ad3e04c0689c5a5b2d5e5339f20b0868da2e1924977c16"
+    },
+    "src/Freehand.Abstractions/ModelAssets.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/ModelAssets.cs",
+      "bytes": 417,
+      "sha256": "141263c8d0c4dceb9cbcf9ae2b79d3738fd6b8d55ac785dd599aabb96233e430"
+    },
+    "src/Freehand.Abstractions/ProcessMemory.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/ProcessMemory.cs",
+      "bytes": 657,
+      "sha256": "048ce8f23e52bcce4b8235d96b0c1f2b27fcdecd0e1d302f21c998a8568a7d53"
+    },
+    "src/Freehand.Abstractions/TranscriptPostProcessing.cs": {
+      "path": "/workspace/freehand/src/Freehand.Abstractions/TranscriptPostProcessing.cs",
+      "bytes": 924,
+      "sha256": "c0fc69acf142f7d16595dfdf5a998d9bba4da48464f8d017a7be7cf4f0b9b0aa"
+    },
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/CleanupAssetInstaller.cs",
+      "bytes": 32617,
+      "sha256": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847"
+    },
+    "src/Freehand.Cleanup/CleanupPrompt.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/CleanupPrompt.cs",
+      "bytes": 7139,
+      "sha256": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6"
+    },
+    "src/Freehand.Cleanup/CleanupProtocol.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/CleanupProtocol.cs",
+      "bytes": 2374,
+      "sha256": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256"
+    },
+    "src/Freehand.Cleanup/Freehand.Cleanup.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/Freehand.Cleanup.csproj",
+      "bytes": 419,
+      "sha256": "7dacf700bdbe30ccd9edd454a37ad3741c0a5e1a56b71979adf842fa379c76bb"
+    },
+    "src/Freehand.Cleanup/LiteralProtectionMask.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LiteralProtectionMask.cs",
+      "bytes": 7003,
+      "sha256": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a"
+    },
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+      "bytes": 22219,
+      "sha256": "319991cf666a35802449710c7105e925e72397677ef1bc2d5207a4e5dc87e08e"
+    },
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+      "bytes": 20778,
+      "sha256": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907"
+    },
+    "src/Freehand.Cleanup/SpecialistLiteralMask.cs": {
+      "path": "/workspace/freehand/src/Freehand.Cleanup/SpecialistLiteralMask.cs",
+      "bytes": 7079,
+      "sha256": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8"
+    },
+    "src/Freehand.Core/AppDataPaths.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/AppDataPaths.cs",
+      "bytes": 523,
+      "sha256": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f"
+    },
+    "src/Freehand.Core/AppSettings.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/AppSettings.cs",
+      "bytes": 7324,
+      "sha256": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24"
+    },
+    "src/Freehand.Core/AudioSegmenter.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/AudioSegmenter.cs",
+      "bytes": 3891,
+      "sha256": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9"
+    },
+    "src/Freehand.Core/DiagnosticLog.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/DiagnosticLog.cs",
+      "bytes": 2098,
+      "sha256": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646"
+    },
+    "src/Freehand.Core/DictationEngine.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/DictationEngine.cs",
+      "bytes": 32687,
+      "sha256": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9"
+    },
+    "src/Freehand.Core/DictionaryFile.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/DictionaryFile.cs",
+      "bytes": 6821,
+      "sha256": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8"
+    },
+    "src/Freehand.Core/EnglishTextNormalizer.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/EnglishTextNormalizer.cs",
+      "bytes": 9905,
+      "sha256": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96"
+    },
+    "src/Freehand.Core/Freehand.Core.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Core/Freehand.Core.csproj",
+      "bytes": 533,
+      "sha256": "aafe6ccb47fc67d3d1fb07a822bc3a44d59e641a5ea03cb635247dc8d657e97a"
+    },
+    "src/Freehand.Core/Properties/AssemblyInfo.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68"
+    },
+    "src/Freehand.Core/RecordingBuffer.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/RecordingBuffer.cs",
+      "bytes": 2548,
+      "sha256": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e"
+    },
+    "src/Freehand.Core/TranscriptStore.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/TranscriptStore.cs",
+      "bytes": 7549,
+      "sha256": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038"
+    },
+    "src/Freehand.Core/Updates/GitHubUpdateSource.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Updates/GitHubUpdateSource.cs",
+      "bytes": 7338,
+      "sha256": "dab4b4c6349d14f15aa1ae1bb98551ca581f8ef1c8206a18ed884f0248124416"
+    },
+    "src/Freehand.Core/Updates/UpdatePackage.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Updates/UpdatePackage.cs",
+      "bytes": 1377,
+      "sha256": "5153b4702ea6516bb4c68bca28b23248682e8f3397addcd2ce19fb2d48b7c0f8"
+    },
+    "src/Freehand.Core/Updates/UpdateService.cs": {
+      "path": "/workspace/freehand/src/Freehand.Core/Updates/UpdateService.cs",
+      "bytes": 6898,
+      "sha256": "6d47c568921aa17aec868ae2518740949593108a283d353292f4ae52416f01fe"
+    },
+    "src/Freehand.Dictionary/DictionaryCorrector.cs": {
+      "path": "/workspace/freehand/src/Freehand.Dictionary/DictionaryCorrector.cs",
+      "bytes": 10333,
+      "sha256": "06c63333ad2499b678bd440c8376c294793e5afb04597323a9254746f2b06b57"
+    },
+    "src/Freehand.Dictionary/DictionaryEntry.cs": {
+      "path": "/workspace/freehand/src/Freehand.Dictionary/DictionaryEntry.cs",
+      "bytes": 6142,
+      "sha256": "629ef9794a98b94472e1e850142efc447466beb8213b0ed83cdb07d38ad00a15"
+    },
+    "src/Freehand.Dictionary/Freehand.Dictionary.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Dictionary/Freehand.Dictionary.csproj",
+      "bytes": 397,
+      "sha256": "07faff6f9c84a992507b8862ececaee658f82b5bfdb9c49d5587b3c5b375a68b"
+    },
+    "src/Freehand.Speech/Freehand.Speech.csproj": {
+      "path": "/workspace/freehand/src/Freehand.Speech/Freehand.Speech.csproj",
+      "bytes": 1423,
+      "sha256": "432a02b6c4d88fcfe8bb9cc3efe6ede24be44e3e5329e33373fd9263022cca2f"
+    },
+    "src/Freehand.Speech/GgmlTranscriber.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/GgmlTranscriber.cs",
+      "bytes": 10550,
+      "sha256": "d40b8a55367022da3ded66b346b372354ce43b3e1673334ba841c66e7f04734d"
+    },
+    "src/Freehand.Speech/ModelResolver.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ModelResolver.cs",
+      "bytes": 8139,
+      "sha256": "66b3478442a6e4cb8b7bf4b5fe05202d67d2e9b67b693f9ce00f9372b3536bd6"
+    },
+    "src/Freehand.Speech/ParakeetHotwords.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ParakeetHotwords.cs",
+      "bytes": 2230,
+      "sha256": "d3445ca01810ebef9e2547e07768e221945e008148bc77c586578c74ed9e99bd"
+    },
+    "src/Freehand.Speech/ParakeetRecognizer.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ParakeetRecognizer.cs",
+      "bytes": 2773,
+      "sha256": "9c7b10b960aabeda5ba089d6f2858487596387cabf22002d0bb265aa6f58b37b"
+    },
+    "src/Freehand.Speech/ParakeetTranscriber.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/ParakeetTranscriber.cs",
+      "bytes": 6258,
+      "sha256": "725e64e03234c8622f4a3b65e1dd654b74d2d386471621685bf8da4ae9530cd6"
+    },
+    "src/Freehand.Speech/Properties/AssemblyInfo.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68"
+    },
+    "src/Freehand.Speech/SpeechPresenceDetector.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/SpeechPresenceDetector.cs",
+      "bytes": 7817,
+      "sha256": "5cb1529bd7213f6e3e7e45fb1eea4692a227be934ccc92ca2ca857d6ec30bc3a"
+    },
+    "src/Freehand.Speech/SpeechWorker.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/SpeechWorker.cs",
+      "bytes": 4640,
+      "sha256": "104f6b4481c269830a12eec230eb03d95d778e37946f6698d9409d3865f019a0"
+    },
+    "src/Freehand.Speech/SpeechWorkerClient.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/SpeechWorkerClient.cs",
+      "bytes": 14524,
+      "sha256": "22e5c935ade76d5719ff0edb18bb3415f6f7106c7bc5944577da3248453ed0b2"
+    },
+    "src/Freehand.Speech/WorkerProtocol.cs": {
+      "path": "/workspace/freehand/src/Freehand.Speech/WorkerProtocol.cs",
+      "bytes": 5078,
+      "sha256": "098ae0077b6e41e72e9eb50691d3c52284106182972ff021d8b64374f3ebd6f0"
+    },
+    "src/Freehand.Speech/speech-cpu.config": {
+      "path": "/workspace/freehand/src/Freehand.Speech/speech-cpu.config",
+      "bytes": 198,
+      "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+    },
+    "tools/Freehand.Evaluation/Freehand.Evaluation.csproj": {
+      "path": "/workspace/freehand/tools/Freehand.Evaluation/Freehand.Evaluation.csproj",
+      "bytes": 541,
+      "sha256": "1c288e6bb098c9f3a23ed997e1b127cbb684b87ec7094c1fa8216be7a5bfef34"
+    },
+    "tools/Freehand.Evaluation/Program.cs": {
+      "path": "/workspace/freehand/tools/Freehand.Evaluation/Program.cs",
+      "bytes": 48768,
+      "sha256": "81e91ff4b46c50cdc8e656c1e66dd68c811ada2e22d1e4ef98cf3252452bd33a"
+    }
+  },
+  "source_snapshot_files": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/Directory.Build.props",
+      "bytes": 2140,
+      "sha256": "72861bc6a2889f1ca763046051df9e2c3bb027702897fa328b5c3fd5abc0fbf8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/Directory.Packages.props",
+      "bytes": 2303,
+      "sha256": "c09bce2b106e739a13041690cc0f613b0ba8af9f35d7fc994a0e5f8a8b0eece5"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/Version.props",
+      "bytes": 186,
+      "sha256": "d9bfa834130288ffd85d5327d24233ae06bf5ddb832fbcad686a4b2bc049f2e0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/global.json",
+      "bytes": 81,
+      "sha256": "b48d6da8fa62c0da7cc8a2da4ea036ac55836660a448ba533135abb5b8451b73"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/packaging/model-manifest.json",
+      "bytes": 1053,
+      "sha256": "98b3d1515887136eaaea9f3d4651b1dc37bfe376cdabedc827e2d7eb0d7cc545"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/shared/transcript-cleanup-prompt.txt",
+      "bytes": 1091,
+      "sha256": "c0f823a67a100b0656e2a818965a97d41d1e2a3da29b8952bdf1c0f3d81cf425"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/CleanupWorker.cs",
+      "bytes": 915,
+      "sha256": "90cdb0dc2ae03694633584b826659706b50e7a909c55e229fa92512242f886f6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/DeliveryProbe.cs",
+      "bytes": 640,
+      "sha256": "6e6801aee9ae2803c83abfc9d638e9f17de03723aed6be4d1d5fb730c1c149de"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/DesktopServices.cs",
+      "bytes": 4642,
+      "sha256": "9a5c41d233efc4bf3d11c8408883a341602afa90619d50fd4b0fc8505439b3e3"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/Freehand.Abstractions.csproj",
+      "bytes": 337,
+      "sha256": "3e019ab20aa591f3dda40caf825da1e008721d15860901fe145697555f830c00"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/GpuMemory.cs",
+      "bytes": 1499,
+      "sha256": "86ed003a4415468ce1110a8713df4eab9773588af1b50f9be8f8ecaaaf8dae3c"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/IHotkeyRecorder.cs",
+      "bytes": 475,
+      "sha256": "25d3ddaf07036c78c7957dd4c836a1b3f21ef74b666cb3d770c4cee85c145b10"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/IKeyNameProvider.cs",
+      "bytes": 309,
+      "sha256": "cd34d326e9a907ad759abfa0c010e3d3d711a02d81e5281acb2f9afa9eca34d3"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/ITextDeliveryHotkeySource.cs",
+      "bytes": 515,
+      "sha256": "67d29760d08db619c705f8a18fc815d6d064f4a1f8b0b323bbda84386dcd9f63"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/IUpdateInstaller.cs",
+      "bytes": 539,
+      "sha256": "a09a0e6f4dac71150dc7462ea30a94195eaecbba33928a1f5230f5590b28c471"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/Interfaces.cs",
+      "bytes": 4590,
+      "sha256": "c200104fd9816fea82ad3e04c0689c5a5b2d5e5339f20b0868da2e1924977c16"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/ModelAssets.cs",
+      "bytes": 417,
+      "sha256": "141263c8d0c4dceb9cbcf9ae2b79d3738fd6b8d55ac785dd599aabb96233e430"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/ProcessMemory.cs",
+      "bytes": 657,
+      "sha256": "048ce8f23e52bcce4b8235d96b0c1f2b27fcdecd0e1d302f21c998a8568a7d53"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Abstractions/TranscriptPostProcessing.cs",
+      "bytes": 924,
+      "sha256": "c0fc69acf142f7d16595dfdf5a998d9bba4da48464f8d017a7be7cf4f0b9b0aa"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/CleanupAssetInstaller.cs",
+      "bytes": 32617,
+      "sha256": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/CleanupPrompt.cs",
+      "bytes": 7139,
+      "sha256": "9eae4ac8a99e630e3d341f2253247d210f46ac4ae6936e0d996ab1a150b565f6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/CleanupProtocol.cs",
+      "bytes": 2374,
+      "sha256": "fb008172ddc2598003802d37c2820a393065a3b93068df9c1cbbeb45a0d9e256"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/Freehand.Cleanup.csproj",
+      "bytes": 419,
+      "sha256": "7dacf700bdbe30ccd9edd454a37ad3741c0a5e1a56b71979adf842fa379c76bb"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/LiteralProtectionMask.cs",
+      "bytes": 7003,
+      "sha256": "829be9363cb03137ecfb36b73a8a41e8a4f9b5db75b9d67dfc7b29d091c9f63a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/LlamaCleanupOptions.cs",
+      "bytes": 22219,
+      "sha256": "319991cf666a35802449710c7105e925e72397677ef1bc2d5207a4e5dc87e08e"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs",
+      "bytes": 20778,
+      "sha256": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Cleanup/SpecialistLiteralMask.cs",
+      "bytes": 7079,
+      "sha256": "e33b76586ee1f177b455efd52d32c2979598924a8d30dce619425f3b38505ed8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/AppDataPaths.cs",
+      "bytes": 523,
+      "sha256": "297992951a02495256063f3920d11d24d6e00d9c1c77ade86e242dfb7f3a5c4f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/AppSettings.cs",
+      "bytes": 7324,
+      "sha256": "65f68b2b3d026b25cd4b355c9d381bdb65c358e9a930c879e6b0d0114576be24"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/AudioSegmenter.cs",
+      "bytes": 3891,
+      "sha256": "d956c384ded67c590968e1d717516c7eea78a575a47db6634ec6591bd90aa4b9"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/DiagnosticLog.cs",
+      "bytes": 2098,
+      "sha256": "4a916ee8dd587d5cc2628da0b2fe43703619a9065e29ffdb1c2bd112cac90646"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/DictationEngine.cs",
+      "bytes": 32687,
+      "sha256": "56b90bfc3bb0e6ecf95d02cba6914c64f5f36e2112f2b3c3ee4bebe218705fc9"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/DictionaryFile.cs",
+      "bytes": 6821,
+      "sha256": "3980c1ab800dd4ae042e63bf7717d881a7be8dcb58e54115e0e8b2eb1af16eb8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/EnglishTextNormalizer.cs",
+      "bytes": 9905,
+      "sha256": "6eeb073ba8da83b0b3a40bce115c9674f2ca731d46d2f7fecf5268676caedb96"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/Freehand.Core.csproj",
+      "bytes": 533,
+      "sha256": "aafe6ccb47fc67d3d1fb07a822bc3a44d59e641a5ea03cb635247dc8d657e97a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/RecordingBuffer.cs",
+      "bytes": 2548,
+      "sha256": "d2c1573afd8ff51c43c3573ac0847bbf3226b17b8568b59b4d147798170d851e"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/TranscriptStore.cs",
+      "bytes": 7549,
+      "sha256": "19bd6880a77bfea61a7533f823197391673c4dcfcdc85ffbc88acf8d0e409038"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/Updates/GitHubUpdateSource.cs",
+      "bytes": 7338,
+      "sha256": "dab4b4c6349d14f15aa1ae1bb98551ca581f8ef1c8206a18ed884f0248124416"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/Updates/UpdatePackage.cs",
+      "bytes": 1377,
+      "sha256": "5153b4702ea6516bb4c68bca28b23248682e8f3397addcd2ce19fb2d48b7c0f8"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Core/Updates/UpdateService.cs",
+      "bytes": 6898,
+      "sha256": "6d47c568921aa17aec868ae2518740949593108a283d353292f4ae52416f01fe"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Dictionary/DictionaryCorrector.cs",
+      "bytes": 10333,
+      "sha256": "06c63333ad2499b678bd440c8376c294793e5afb04597323a9254746f2b06b57"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Dictionary/DictionaryEntry.cs",
+      "bytes": 6142,
+      "sha256": "629ef9794a98b94472e1e850142efc447466beb8213b0ed83cdb07d38ad00a15"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Dictionary/Freehand.Dictionary.csproj",
+      "bytes": 397,
+      "sha256": "07faff6f9c84a992507b8862ececaee658f82b5bfdb9c49d5587b3c5b375a68b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/Freehand.Speech.csproj",
+      "bytes": 1423,
+      "sha256": "432a02b6c4d88fcfe8bb9cc3efe6ede24be44e3e5329e33373fd9263022cca2f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/GgmlTranscriber.cs",
+      "bytes": 10550,
+      "sha256": "d40b8a55367022da3ded66b346b372354ce43b3e1673334ba841c66e7f04734d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/ModelResolver.cs",
+      "bytes": 8139,
+      "sha256": "66b3478442a6e4cb8b7bf4b5fe05202d67d2e9b67b693f9ce00f9372b3536bd6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/ParakeetHotwords.cs",
+      "bytes": 2230,
+      "sha256": "d3445ca01810ebef9e2547e07768e221945e008148bc77c586578c74ed9e99bd"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/ParakeetRecognizer.cs",
+      "bytes": 2773,
+      "sha256": "9c7b10b960aabeda5ba089d6f2858487596387cabf22002d0bb265aa6f58b37b"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/ParakeetTranscriber.cs",
+      "bytes": 6258,
+      "sha256": "725e64e03234c8622f4a3b65e1dd654b74d2d386471621685bf8da4ae9530cd6"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/Properties/AssemblyInfo.cs",
+      "bytes": 94,
+      "sha256": "566bbb8e2921e374b4c9f912f12936bc9c8ba591582f9d70e55dd17bafe70f68"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/SpeechPresenceDetector.cs",
+      "bytes": 7817,
+      "sha256": "5cb1529bd7213f6e3e7e45fb1eea4692a227be934ccc92ca2ca857d6ec30bc3a"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/SpeechWorker.cs",
+      "bytes": 4640,
+      "sha256": "104f6b4481c269830a12eec230eb03d95d778e37946f6698d9409d3865f019a0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/SpeechWorkerClient.cs",
+      "bytes": 14524,
+      "sha256": "22e5c935ade76d5719ff0edb18bb3415f6f7106c7bc5944577da3248453ed0b2"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/WorkerProtocol.cs",
+      "bytes": 5078,
+      "sha256": "098ae0077b6e41e72e9eb50691d3c52284106182972ff021d8b64374f3ebd6f0"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/src/Freehand.Speech/speech-cpu.config",
+      "bytes": 198,
+      "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/tools/Freehand.Evaluation/Freehand.Evaluation.csproj",
+      "bytes": 541,
+      "sha256": "1c288e6bb098c9f3a23ed997e1b127cbb684b87ec7094c1fa8216be7a5bfef34"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/source/tools/Freehand.Evaluation/Program.cs",
+      "bytes": 48768,
+      "sha256": "81e91ff4b46c50cdc8e656c1e66dd68c811ada2e22d1e4ef98cf3252452bd33a"
+    }
+  ],
+  "worker_files": [
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Abstractions.dll",
+      "bytes": 18944,
+      "sha256": "a22070136e9d3e087d37fb214ad755a01ec7aeff00e319232d2b5badfea194b2"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Abstractions.pdb",
+      "bytes": 14324,
+      "sha256": "68d133d89fd6347b82fa70c847c50cdd361eb6f42dee7bd0176ed37708c515a3"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Abstractions.xml",
+      "bytes": 27140,
+      "sha256": "d94164072bd615389cc3d79c3bda5ac01b0520c34cb10ecebdedb1ed23d22177"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Cleanup.dll",
+      "bytes": 166912,
+      "sha256": "a24b0fdc31db10ad2f7ef6072dccf6b32d16e302bd175e747d39023ab98eec4f"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Cleanup.pdb",
+      "bytes": 57580,
+      "sha256": "ca6571b3b356689abf56d9ed1c89c78434738bc7033e559a69005d91fa03cb51"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Cleanup.xml",
+      "bytes": 30342,
+      "sha256": "4e1844b8b00f3b7c1d33da1a227a91a0a22d8f258e7888a86798d393a509ad68"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Core.dll",
+      "bytes": 201216,
+      "sha256": "d51f29f279379ed139cf471b6149822cb269d62bf306066528b7f64cc2533572"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Core.pdb",
+      "bytes": 115832,
+      "sha256": "96a76e3ef43aaf4e65866f8827b4bdee5f9e81bbac88f66d533620a9fba97cb9"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Core.xml",
+      "bytes": 226759,
+      "sha256": "8fe8b705a9c292f7b6c08c4c8efe54170bf9a6472af66f434cde1204a54ef12a"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Dictionary.dll",
+      "bytes": 22528,
+      "sha256": "cfb56f4c2b5fa2eaf3717e411d2e9a3907a16ea4ea2a5606e14ba31fe945c30b"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Dictionary.pdb",
+      "bytes": 14584,
+      "sha256": "8c19ced87170823c99273cb087e98a8c69a829fc1afff06456be9c36ce16ae6c"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Dictionary.xml",
+      "bytes": 10315,
+      "sha256": "32e3c3c4764aef0a73c61fd683e44cd10e626a5a698c5eeca0096c344a60192b"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Evaluation",
+      "bytes": 76416,
+      "sha256": "aa662187cd138d567cf59167af18cd8633fab6e22d617f5043e3f6442cbe1d17"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Evaluation.deps.json",
+      "bytes": 11166,
+      "sha256": "c7e650fe12ad4321bfa930ecfa5dbcf0df8a7d38834693c61a6ef29f9345dcef"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Evaluation.dll",
+      "bytes": 176128,
+      "sha256": "0851dfde299f669375ba51bcf70b991e39d34ef201564bb27edcabf44332bcf1"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Evaluation.pdb",
+      "bytes": 76620,
+      "sha256": "768bdc6413bc4fd60d1d7a0e6c768d74820f701b82e1bf180071c1fd894c0748"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Evaluation.runtimeconfig.json",
+      "bytes": 377,
+      "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Speech.dll",
+      "bytes": 105984,
+      "sha256": "90eb0440b018d150c3212ba5e141704fe5adf9d1eb3c192b6f56e9d833d2ac8b"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Speech.pdb",
+      "bytes": 52952,
+      "sha256": "d0d7e72f93334a5e36f293708bdc2880d70404a7e86eb0d2b6d9cd4717314a5f"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/Freehand.Speech.xml",
+      "bytes": 16071,
+      "sha256": "f6294713b74060fc6dd3dd2b5979918069f2d524f798a60fdbc4765436293191"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/parakeet-110m.bpe.vocab",
+      "bytes": 10962,
+      "sha256": "1bb9b52a1d2c3a6c6a4d6e9256a3152b78e0f1f4cdd32f235e9597436313e552"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/android-arm64/native/libonnxruntime.so",
+      "bytes": 22249560,
+      "sha256": "33847ad43bffe204699fd4a27f7f3603452a8cdaf2f9a44983a0bc31ffcf2da1"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/android-arm64/native/libsherpa-onnx-c-api.so",
+      "bytes": 4256760,
+      "sha256": "0fc6b64da1327a072dc6432a332d0cbd39f5cd1c9f5126e126951e1f592689cd"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/android-x64/native/libonnxruntime.so",
+      "bytes": 25581120,
+      "sha256": "087e84297cad64acb823c3d901d6e0cc934e91add7cdb20da802cd1c0bea5c3e"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/android-x64/native/libsherpa-onnx-c-api.so",
+      "bytes": 4727320,
+      "sha256": "65926a6f2e7c93639ec770f624e9bf85471326a50d3e5cc8d5f9ceb4bea6aef4"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/linux-arm64/native/libonnxruntime.so",
+      "bytes": 34606912,
+      "sha256": "cfc800d4438f15e8d9017521326776ca7117d8783cb847ccccc2fc61ac4d540f"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/linux-arm64/native/libsherpa-onnx-c-api.so",
+      "bytes": 4374312,
+      "sha256": "f125a49590c96cf8b47110de4192cc0017a17add6d6cc52d6ed5b24154a01d96"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/linux-x64/native/libonnxruntime.so",
+      "bytes": 27026609,
+      "sha256": "4b3607aebd1784b26b6f9b20e4bd974c7ab8287043e4d095cb7d2cb40b5e566e"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/linux-x64/native/libsherpa-onnx-c-api.so",
+      "bytes": 4838808,
+      "sha256": "e4ab80c332da6fdf634cc18cb6f4039b35d3fc47c8bd5fb21b74f16240a6e848"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/osx-arm64/native/libonnxruntime.dylib",
+      "bytes": 29006384,
+      "sha256": "b0613d0ae53199a83b05fa48e169211498e9d40d54beaa372068ebe5ec5b0929"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/osx-arm64/native/libsherpa-onnx-c-api.dylib",
+      "bytes": 4100712,
+      "sha256": "9f27fc4e1f9f31bba5709f807eb8de71aceee1340d6d4cc6270aa78e37312dd6"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/osx-x64/native/libonnxruntime.dylib",
+      "bytes": 32315856,
+      "sha256": "2bf27180c09e6fd3f407c9ab25205ebf1ff95f2d53bfa35e35409b5849e0ac70"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/osx-x64/native/libsherpa-onnx-c-api.dylib",
+      "bytes": 4392320,
+      "sha256": "0e191687eed72e837f1279a94f712f239131d605cd7d1943d983b2c177cb2005"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/win-arm64/native/onnxruntime.dll",
+      "bytes": 17635328,
+      "sha256": "968d081836cad9af537105f59e34d4997bca2ce6d78ff39d3e47660620e8a642"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/win-arm64/native/sherpa-onnx-c-api.dll",
+      "bytes": 4250624,
+      "sha256": "08ed67915f344e08cb64bcab96f3fb34ae7042f768d24e6ce65a0e41794f54ed"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/win-x64/native/onnxruntime.dll",
+      "bytes": 17799168,
+      "sha256": "7f66f939a881baf4f46a2216496798edf4a1429878b646d12674aa62f27d8a25"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/win-x64/native/sherpa-onnx-c-api.dll",
+      "bytes": 4249088,
+      "sha256": "5534797438348994e7e21630044e94924a33c85ce638f954550b6878d56f8c6e"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/win-x86/native/onnxruntime.dll",
+      "bytes": 15285760,
+      "sha256": "f97ee62a7b275bd660d5247d8921755f7bc31cccf8f6c4675d1e185fde8440f9"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/runtimes/win-x86/native/sherpa-onnx-c-api.dll",
+      "bytes": 3519488,
+      "sha256": "6b889a31f7cecb87542fe50a1ee89784a1d8f410bd78af7bb0d35111dd70e97b"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/sherpa-onnx.dll",
+      "bytes": 53248,
+      "sha256": "015ee6308b6a723cf5922c007f752d422beddb566218c76619668f4123df7167"
+    },
+    {
+      "path": "/tmp/freehand-v6-native-lora-evaluation-build/bin/Freehand.Evaluation/release/speech-cpu.config",
+      "bytes": 198,
+      "sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+    }
+  ],
+  "log": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/performance/v6-native-LoRA-no-pgo/build.log",
+    "bytes": 1396,
+    "sha256": "f7433e1793b6cdd768c500716c7e1a77c8652646b77de3d065350c6436745bf6"
+  },
+  "runtimeconfig_properties": {
+    "System.Globalization.Invariant": false,
+    "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+    "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+  },
+  "runtime_model_executed": false,
+  "source_before_after_verified": true
+}

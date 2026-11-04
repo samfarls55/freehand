@@ -166,3 +166,32 @@ build (zero warnings/errors), 339 cleanup tests, 151 Core tests and 42/63 Python
 tests, including casewise TRX and exact log hashes. These support the later
 implementation revision; they do not replace the earlier frozen V5 inference
 source/assembly identities. No current source or DLL is substituted.
+
+## Completed V6 numerical-base-aligned native adapter
+
+The [V6 phase](phases/v6-completed-07/phase-summary.json) preserves the actual
+used 2,014-row full-history curriculum, Core 1,537 export, prior 420 and legacy 57
+provenance, all 62 independent normalization reviews, and the opaque aggregate
+overlap proof without any fresh-test material. It records complete 252-step
+training/source/configuration, 184 byte-identical F32 adapter conversion checks,
+all 500/546/80 Core outputs and complete casewise reviews. Earlier 726 raw and
+derived snapshots remain exact, with old README/catalog/index bytes preserved.
+
+The canonical retired 500 result is 475/500 jointly faithful and clean (95%):
+485 credited faithful, 485 clean, 9 critical errors and 1 failed provider case.
+It fails the requested 495/500 target. Broad development is 545/546 with zero
+critical errors; hard development is 79/80 with one critical error. These are
+consumed development diagnostics, never fresh 99% or population qualification.
+
+The original IQ4 base plus unmerged F32 adapter met both caps in one Linux
+partial-pipeline N10 cohort: counting-complete p50 604.0863 ms, p95/max 779.6414 ms,
+simultaneous peak RSS 693,297,152 bytes. All ten first-inclusive public-JFK trials
+delivered full text once without fallback. Build, wrapper correction and 180-pin
+pre/post verification are preserved. This does not verify Windows, the entire
+desktop application, semantic accuracy or default promotion.
+
+The numerical proofs retain initial/corrected Q8 block-layout evidence, fixed
+six-case 2x2 comparisons, 18 source unit tests, 2 legacy checks and the root 74-test
+suite. Exact inverse tensors and native activation emulation do not establish
+identical full-model forward arithmetic. Reserved/future curricula, all fresh
+round2 content, weights, binaries, optimizer/RNG tensors and archives are absent.
