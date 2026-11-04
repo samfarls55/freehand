@@ -30,7 +30,10 @@ public sealed class WindowsDeliveryProbe : ITextDeliveryProbe
     {
         _threadId = GetCurrentThreadId();
         _window = CreateWindowEx(0, "STATIC", "Freehand delivery benchmark", 0x10CF0000, 100, 100, 600, 240, 0, 0, 0, 0);
-        _edit = CreateWindowEx(0, "EDIT", "", 0x50801004, 12, 12, 550, 150, _window, 0, 0, 0);
+        // Multiline EDIT controls reject text beyond the visible lines unless
+        // ES_AUTOVSCROLL (0x40) is enabled. Keep a vertical scrollbar as well;
+        // otherwise long-delivery tests measure a full field, not lost input.
+        _edit = CreateWindowEx(0, "EDIT", "", 0x50A01044, 12, 12, 550, 150, _window, 0, 0, 0);
         _original = SetWindowLongPtr(_edit, -4, Marshal.GetFunctionPointerForDelegate(_procedure));
         _ready.Set();
         try
