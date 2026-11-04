@@ -4,8 +4,14 @@ The user authorized targeted training with ScribeKey as the base and raised
 acceptance to **99%: at least 495 of 500 complete outputs must preserve meaning
 and be directly usable cleaned text**. The full-app limits remain 747,500,000
 host-memory bytes and 805 ms from ready release to complete delivery.
-**No new model is qualified.** The selected ScribeKey factor blend reached
-495/500 on the older development set, but the subsequent fresh 500-case test
+**No new model is qualified.** The completed V10 checkpoints score **493/500
+and 492/500** on the older development set, and **464/500 and 469/500** on the
+retired second 500-case set. The latter final result is **93.8%**, not the
+superseded provisional 471/500. Both checkpoints miss the 99% reference on both
+500-case sets. The independent third corpus remains untouched.
+
+The earlier parent ScribeKey factor blend reached 495/500 on the older
+development set, but its subsequent fresh 500-case test
 scored **462/500 (92.4%)**, with **482 faithful, 475 clean and 10 critical errors**.
 All 500 selected cases completed the actual Core path with one delivery and no
 provider fallback. Every fresh output was personally read by named assistant
@@ -14,10 +20,11 @@ about unquoted identifiers were independently adjudicated against the existing
 policy, with the original reviews and conflicting author notes preserved. This
 does not change the failed acceptance decision.
 
-The selected weights with microbatch64 pass the measured **Linux partial-pipeline
-N10** bounds: complete-delivery p95=max **780.6206 ms** and coherent simultaneous
-RSS **693,895,168 bytes**. All first ten trials remain counted. The same profile
-still scores 495/500 on the older development set; broad546 and hard80 regression
+The earlier parent's microbatch64 profile passed its measured **Linux
+partial-pipeline N10** bounds: complete-delivery p95=max **780.6206 ms** and
+coherent simultaneous RSS **693,895,168 bytes**. This historical pass does not
+qualify either V10 checkpoint. All first ten trials remain counted. That parent
+profile scored 495/500 on the older development set; broad546 and hard80 regression
 results are 544/546 with one critical error and 78/80 with two critical errors.
 The earlier microbatch32 results—805.3532 ms with lookup16 and 929.6313 ms with
 lookup31—remain failures and are preserved. These measurements do not establish
@@ -55,8 +62,8 @@ IDs, with exact source-derived literal restoration. The first Core test attempt
 hit Linux's socket-path limit under a long temporary directory; its 16 failures
 are preserved, and all 151 Core tests pass using a short directory without a
 source change. Actual Windows execution remains unverified. These checks qualify
-transport behavior; the new code generation has no model-quality or resource
-qualification yet.
+the v4 transport implementation; the completed V10 quality and resource results
+below do not meet acceptance.
 
 The trainer now supports opt-in v4 literal protection and nonreentrant gradient
 checkpointing, with strict resume identities and 53 affected training tests
@@ -66,9 +73,14 @@ Worker peak RSS was 2,779,525,120 bytes and sampled cgroup memory peaked at
 14,613,848,064 bytes. This required evicting unused disk-file cache through
 read-only file advice; an earlier guarded attempt stopped for memory and remains
 preserved. These are training measurements, separate from the app's RAM budget.
-The next ScribeKey adapter experiment uses 600 reviewed examples, including all
-400 new pairs and 200 older replay examples, with fixed checkpoints at 50 and
-150 optimizer updates. Training is in progress; no accuracy result is implied.
+V10 used 600 reviewed examples—400 new pairs and 200 older replay
+examples—over two epochs, retaining the fixed 150-update learning-rate schedule
+at its separately saved 50- and 150-update endpoints. It used cross-entropy
+supervision, without unlikelihood loss. The phase150 raw process monitor is
+**incomplete**. A separate artifact verification (`29ed…`) passes all 184 finite
+adapter/optimizer states, update counters and saved RNG checks. This establishes
+the terminal artifact and recovery state, not continuous training-memory
+coverage or a whole-run RAM peak.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -77,16 +89,95 @@ The [tool guide](../tools/Freehand.Cleanup.Training/README.md) and
 describe reproduction. This document is a progress checkpoint, not a shipping
 recommendation or a claim of 99% population accuracy.
 
-## Base and training
+## Completed V10 evaluation and next controlled experiment
 
-Training uses the original ScribeKey Fast v1.1 BF16 checkpoint at revision
+Both fixed V10 endpoints ran all 1,626 planned development cases through actual
+Core. Complete inventories, single insertion/delivery, native arguments, v4
+literal protection and deployed identities were checked; failed outputs would
+remain in the denominator. Exact target matching is not the semantic score.
+
+| Consumed development cohort | Earlier parent | V10 update50 | V10 update150 |
+|---|---:|---:|---:|
+| Older 500: faithful and clean | 495/500 | 493/500 | 492/500 |
+| Retired second 500: faithful and clean | 462/500 | 464/500 | 469/500 |
+| Broad 546: faithful and clean | 544/546 | 544/546 | 544/546 |
+| Hard 80: faithful and clean | 78/80 | 78/80 | 78/80 |
+| Total joint passes | 1,579/1,626 | 1,579/1,626 | 1,583/1,626 |
+| Critical errors | 13 | 15 | 12 |
+
+The pooled score does not replace either 500-case reference or a fresh test.
+Update150 has 1,609
+faithful and 1,596 clean outputs. Its review reuses 1,463 successful prior
+judgments only after strict typed field/context equality and separate verification
+of the new v4 execution path. Each of the 163 remaining actual pairs was
+personally read by root and a named cohort reviewer without using targets as
+semantic oracles. Four
+explicit adjudications preserve the original conflicting reviews and their
+case/output bindings. Update50 likewise retains its complete reviews and four
+adjudications. Neither model is recommended as a new default.
+
+The current semantic receipts are the `step50-all1626-canonical-summary.json`
+and `step150-all1626-canonical-summary.json` files under
+`work/cleanup-scribekey-training-2026-11-03/v10-development-review-preparation/`.
+The update150 rollup is SHA-256
+`7e93403149af3aeb3aea2b2605efe6dc703e58c01cc6ec535ab0618da3c6d1d0`.
+Phase16 public-evidence curation is pending; these workspace receipts are not a
+claim that that publication step has finished.
+
+All 1,200 training input/target prompt exports agree between Core v4 and Python.
+This covers 595 direct rows and five legacy framed rows; the latter comparison
+does not independently verify their live dictionary context. On 32 stratified
+**training** examples, Hugging Face and native outputs
+agree exactly in 32/32 cases, with 30/32 approved target matches. The remaining
+two outputs lose independent instructions. The teacher-forced token fit of
+1,418/1,422 is a separate diagnostic; it is not complete-output accuracy. Prompt
+agreement and high token fit do not establish semantic correctness.
+
+The latest inference measurements also fail the requested Linux partial-pipeline
+limits. All first ten trials remain counted, with complete text delivered once
+and no provider fallback; the memory values are coherent simultaneous RSS.
+
+| Linux partial-pipeline N10 generation | Complete p95/max | Simultaneous RSS | Result against 805 ms / 747,500,000 B |
+|---|---:|---:|---|
+| Earlier parent, microbatch64 (historical) | 780.6206 ms | 693,895,168 B | Historical measured pass |
+| V10 update150, initial run | 861.2813 ms | 701,030,400 B | Latency failure |
+| V10 update150, ASR startup-warmup experiment | 831.6796 ms | 751,116,288 B | Latency and RAM failure |
+
+The ASR startup-warmup experiment passed a strict build and 720 portable tests
+in its own generation. Its failed N10 run, source and build artifacts remain
+archived. The two production C# files were restored byte-for-byte, and the new
+experimental test file was preserved outside the active test tree. No app
+warmup change is retained.
+The earlier 714-test v4 transport qualification belongs to its preserved
+generation, and 720 is not presented as a new test count for restored source.
+The restoration receipt is
+`cpu-asr-startup-warmup-preparation/root-failed-experiment-restoration-receipt.json`
+(`0c1fc657…`) under the training work directory.
+
+Data for a controlled 75-update cross-entropy versus unlikelihood comparison is
+prepared with 34 freshly generated v4 negative events; its execution bundle is
+under review. Neither arm has trained yet;
+this preparation supplies no new accuracy or resource result. The completed V10
+experiment remains the same 600-example, two-epoch, 150-update CE-only run.
+
+There is no Windows test machine, no Windows whole-app qualification and no
+consumption of the untouched third corpus. No model-default promotion, normal
+installation update, push, PR, merge or release has occurred.
+
+## Base and historical training
+
+The sections below retain earlier experiments, interim plans and measurements.
+Forward-looking statements in these historical sections describe their own
+checkpoint; the completed V10 status and current next experiment are above.
+
+The original training source is the ScribeKey Fast v1.1 BF16 checkpoint at revision
 `c484dad2d815bff83d376e46b25a11dbc820992a`, with weights SHA-256
 `1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a`.
 The original weights remain unchanged. Rank-8 LoRA exposes 2,998,272 trainable
-parameters across 92 linear modules; updates are merged into a separate
-checkpoint before native GGUF quantization for the completed merged candidates.
-An optional unmerged F32 native adapter route is also implemented and tested;
-it preserves the original four-bit base and deploys updates separately.
+parameters across 92 linear modules. Earlier full-precision-base experiments
+merged updates into separate checkpoints before native GGUF quantization.
+V10 instead freezes the verified original IQ4 base and deploys its unmerged F32
+adapter separately, preserving the original base bytes.
 
 The trainer uses the production ScribeKey prompt, one BOS, the expected EOS,
 assistant-only next-token loss and input-derived literal masks on both sides.
@@ -113,7 +204,7 @@ incidentally exposed to two other agents through
 completed-agent status metadata after their data was frozen; disclosures are
 retained, and those agents supplied no subsequent new training content.
 
-## Completed first pilot
+## Historical first pilot and V3
 
 The first pilot used 512 examples selected across training families, two epochs,
 rank 8, learning rate 0.0001 and 128 optimizer steps. Actual training took about
@@ -162,7 +253,7 @@ attribute correction and a lost comparison. The older regression's remaining
 failure retains an accidental lexical repetition. Exact reviewed outputs and
 all failures remain counted.
 
-## Current experiment and remaining qualification
+## Historical V3–V4 experiments and qualification work
 
 The V3 curriculum had 1,364 examples: 1,024 selected from the expanded
 training pool, 100 disclosed longer compositions, and 240 examples derived from
@@ -299,7 +390,7 @@ no basis for a large logits-buffer saving from reducing the logical batch alone.
 The selected cleanup semantic configuration remains lookup16/batch64/micro32;
 the first independent 500-case result is described below.
 
-## First independent 500-case result and continuation
+## Historical first independent 500-case result and continuation
 
 The pre-frozen V4 IQ4_XS candidate completed all 500 cases through actual Core.
 Every case delivered once; two rejected provider outputs fell back to original
@@ -336,7 +427,7 @@ The earlier rubric requested a paired baseline on this final set; only the
 pre-frozen selected derivative ran here, so no paired 500-case improvement claim
 is made. Paired baseline evidence remains confined to development sets.
 
-## V5–V8 continuation and numerical checks
+## Historical V5–V9 continuation and numerical checks
 
 V5 completed 330 optimizer steps with 1,320 training exposures representing 900
 unique pairs. It resumed a saved optimizer/RNG checkpoint after a workspace
