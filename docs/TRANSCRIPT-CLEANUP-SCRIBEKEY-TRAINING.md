@@ -10,12 +10,14 @@ below the required 495. Its complete result is preserved and the set is now
 retired as development material. Subsequent V5 candidates score 94.8–96.2% on
 that consumed set; V6 scores **475/500 (95.0%)**, and the V7 supervised control
 scores **482/500 (96.4%)**. Its matched semantic-loss arm scores
-**483/500 (96.6%)**, and expanded V8 reaches **492/500 (98.4%)** with one
-critical error. These development results remain below the gate. The new
+**483/500 (96.6%)**, expanded V8 reaches **492/500 (98.4%)** with one
+critical error, and V9 reaches **494/500 (98.8%)** with no critical errors.
+These development results remain below the gate. The new
 independent test remains unconsumed. V6 passes the measured Linux partial-pipeline
-resource limits; the V7/V8 weights have not been remeasured. Windows qualification
+resource limits; the V7/V8/V9 weights have not been remeasured. Windows qualification
 remains unavailable. Three fixed parent–child weight interpolations were tested
-and did not improve V8; the V9 supervised training run is active.
+and did not improve V8. A separate comparison now tests the same three fixed
+fractions between the completed V8 and V9 checkpoints.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.
@@ -439,8 +441,9 @@ This keeps rank and adapter storage fixed but does not establish improved
 quality or unchanged application performance. All three full cohorts complete
 with one delivery per case and no provider failures. Casewise review scores
 them **487, 489 and 490 of 500**, with **7, 4 and 2 critical errors** respectively.
-The predeclared selection rule retains V8 at 492; no further coefficient search
-is used. Three regressions were not recovered without losing other corrections.
+The predeclared selection rule retains V8 at 492; that V7-to-V8 comparison ends
+with these three coefficients. Three regressions were not recovered without
+losing other corrections.
 A separately reviewed 80-pair curriculum and 20 additional attribute-fragment
 repairs/controls supply the next training pass. All 100 new pairs have independent
 semantic and Core-alignment approvals. Each is exposed four times, with all
@@ -454,8 +457,35 @@ V9 starts from V8 with a fresh optimizer and the same rank, learning rate,
 numerical base, activation quantization and semantic-loss weight. The frozen
 positive-file SHA-256 is
 `50b208ed5e16b6d7027e46fd4785940ef036e7b0bc3bc581c460ac601bb75451`.
-The one-epoch schedule is 455 updates over 909 microbatches, with 45 warmup
-updates. Training is active; no V9 accuracy or resource result is claimed.
+The one-epoch schedule completes all **455 updates and 909 microbatches** in
+1,997.96 active seconds, without interruption. All 184 F32 tensors are finite;
+all 184 AdamW states reach update 455. The 32 canonical semantic-loss events
+retain their 64 scheduled exposures. Actual RNG state is retained at the last
+durable checkpoint, update 448; final-update RNG capture is not claimed.
+The final raw adapter is
+`3de792128cce7469465ca8c42ebef5f769e868415db80198eb036e8cbec05787`;
+its unmerged native adapter is
+`16b9f356f4e82a3af2b55bc061219b801285963ee5b02ebc1aa41d4c39b8ce1f`.
+
+The exact native adapter completes all 500 retired development cases once:
+304 Applied, 196 Unchanged, no provider failures, and one delivery per case.
+Three named reviews give **500 faithful, 494 clean and 494 joint passes**, with
+**zero critical errors**. The score is **98.8%, one case short of 495/500**.
+The review transparently inherits 462 identical successful prior judgments
+under typed equality of all 13 fields; 38 pairs require personal review, and
+root also cross-reads all 38. V9 fixes the dropped bolt instruction, deliberate
+repetition and a quoted-request stutter. A new malformed question and five
+remaining cleanup failures prevent acceptance. Full results and judgments are
+bound by report SHA-256
+`d59ff5167f5c1df224f060c62fea144403425503b9fc1b0ebe6b02dcc18e0089`
+and canonical review SHA-256
+`9ec70b6b9dfa008b53e2ffd3bba13cee8298109703827cb72edb9d522f8a36e4`.
+
+A separate V8-to-V9 factor comparison fixes fractions 0.5, 0.75 and 0.875 before
+inference, using the same rank-8 representation and unchanged original helper
+guards. It is a development experiment, with cross terms explicitly disclosed;
+no improvement is assumed. V9 has no new resource result, and the independent
+acceptance corpus remains unopened.
 
 The optional native adapter integration passes a strict solution build with
 zero warnings/errors, 339 cleanup tests, 151 Core tests and isolated Probe
