@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "captured_utc": "2026-11-03T22:46:40.958808+00:00",
+  "phase": "v5-active-prefix-05",
+  "status": "active_prefix_snapshot_not_completed_training_or_model_qualification",
+  "training_data": {
+    "raw240v3_sha256": "639707f47876fba10f44263105e57663317c77f6e4eb7b771840bb6f2fb29689",
+    "raw180v1_sha256": "4a1b524a16075d931a68610d885008856141f3411beae26bac68ed03d6e0ce0e",
+    "actually_used1320_sha256": "9b75baaf0df25faf9c2d30f5c8f8b2e75a8e38d0fba20f4bdf332886bec54ef4",
+    "effective_rows": 1320,
+    "unique_input_target_pairs": 900,
+    "unchanged_rows": 440,
+    "composition": "480 byte-exact V4 replay rows plus 420 Core-normalized new rows exposed twice. Effective exposure count is not independent-example count.",
+    "prelaunch_manifest_training_started_false": "Preserved historical prelaunch value; actual use established by executed V5 training config/data hash and optimizer-step logs."
+  },
+  "training_observations": [
+    {
+      "run": "v5-01",
+      "source_sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+      "data_sha256": "9b75baaf0df25faf9c2d30f5c8f8b2e75a8e38d0fba20f4bdf332886bec54ef4",
+      "captured_log_rows": 17,
+      "first_step": 1,
+      "last_step": 17,
+      "expected_total_optimizer_steps": 330,
+      "completion_asserted": false,
+      "source_association": "Source hash is asserted by adjacent config/checkpoint metadata, not embedded in each metric row."
+    },
+    {
+      "run": "v5-02",
+      "source_sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+      "data_sha256": "9b75baaf0df25faf9c2d30f5c8f8b2e75a8e38d0fba20f4bdf332886bec54ef4",
+      "captured_log_rows": 166,
+      "first_step": 17,
+      "last_step": 182,
+      "expected_total_optimizer_steps": 330,
+      "completion_asserted": false,
+      "source_association": "Source hash is asserted by adjacent config/checkpoint metadata, not embedded in each metric row."
+    }
+  ],
+  "exact_resume": {
+    "interrupted_v5_01_step17": true,
+    "saved_resume_step": 16,
+    "rng_and_optimizer_restored": true,
+    "step17_bit_identical": true,
+    "tensors_copied_or_rehashed_by_collector": false
+  },
+  "future_round_known_opaque_metadata_only": {
+    "canonical_corpus_sha256": "4f8ae77f163b9d8b81f2f6ce0b0f76c3c5d29a93a2965f204afa5c7535078419",
+    "cases": 500,
+    "joint_successes_required": 495,
+    "corpus_or_author_or_commitment_content_accessed": false
+  },
+  "previous_collection": {
+    "files": 427,
+    "bytes": 14536067,
+    "index_sha256": "762a472d54c0ea0ecbb0e9326c587ccf8ffafd3d6e60ccfd038c2c073efafa91",
+    "previous_derived_exact_bytes": "historical/previous-*"
+  },
+  "new_model_inference_training_build_jobs_by_collector": false,
+  "previous_primary500_status": "failed471/500 joint and retired; no new99% qualification claimed"
+}

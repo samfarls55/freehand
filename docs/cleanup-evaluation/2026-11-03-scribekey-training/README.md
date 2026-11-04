@@ -110,3 +110,59 @@ verification only. Windows/GPU execution was not performed. Exact builder text a
 original-path restoration metadata are preserved without binaries, models or archives.
 Historical snapshots of the prior README, catalog and index preserve the previous
 297-file collection bytes before this append. All previous raw snapshots remain exact.
+
+## Active V5 snapshot
+
+The [V5 phase](phases/v5-active-prefix-05/phase-summary.json) records data actually
+used by V5 training: reviewed 240-row and 180-row raw curricula, Core normalization
+of all 420 new rows, and 480 byte-exact V4 replay rows. The final training file has
+1,320 exposures (900 unique pairs); each new row is exposed twice. Its prelaunch
+manifest remains unchanged, including the historical training-not-started field.
+Executed run configurations and metric steps establish subsequent actual use.
+
+V5-01 was interrupted at step17; V5-02 resumed checkpoint16 with saved optimizer,
+Torch CPU RNG and Python RNG state. The step17 verification is bit-identical for
+all recorded training fields. Exact executed source and config bytes are retained.
+Logs and checkpoint pointers are **create-only prefixes observed during active
+training**, not completed-run or final-model evidence. Later training results must
+use a new phase. Optimizer/RNG inventories are metadata; no tensors are copied.
+
+Controller-authored opaque aggregate overlap proofs retain only already known
+future-round hashes/counts and zero-overlap claims. No future blind corpus, author
+script, commitment contents, case IDs or case text was opened or copied. This phase
+does not claim 99% quality, a completed V5 model, or Windows/GPU qualification.
+
+## Completed V5, native adapter and numerical proof
+
+The [completed phase](phases/v5-completed-native-proof-06/phase-summary.json) adds
+final V5 source/configuration, all 330 metric steps across the interrupted/resumed
+runs, exact resume receipts, export metadata, complete 546/80 Core outputs and
+all three consumed 500 replays with complete casewise reviews. Joint successes
+are 537/546 and 76/80 for merged IQ4 development; retired500 results are 477 merged
+IQ4, 481 diagnostic F16 and 474 original IQ4 plus unmerged F32 adapter. These
+results do not meet 495/500, and none is a fresh acceptance test. Previous active
+prefix snapshots remain unchanged alongside these later completed records.
+
+The phase preserves fixed 15-prompt precision/lookup/native-adapter diagnostics,
+all 148 inverse-tensor checks, fixed native/HF response receipts and their recovery
+records. Exact inverse weights do not establish identical forward arithmetic.
+The original fixed proof records KV-rounding sensitivity and remaining IQ4
+probability differences. Later Q8_K/quantized-mode smoke artifacts are excluded.
+
+The Q5 ten-repeat Linux partial-pipeline run has complete-delivery p50 611.1973 ms,
+p95/max 720.6074 ms and simultaneous peak host RSS 745,455,616 bytes. All ten met
+the two development caps, with 2,044,384 bytes of memory margin. Exact analysis
+explains the inherited V4 label in the unchanged original plan. This is not a
+quantization-only causal comparison or Windows/population/quality qualification.
+
+Historical snapshots preserve all previous 490-file README/catalog/index bytes;
+all earlier raw evidence remains exact. Byte-identical per-run corpora reference
+the existing public 546/80/retired500 copies. Future unused curricula, blind-round2
+material, model weights, native libraries, optimizer/RNG tensors and archives are
+excluded. No model job, normal installation update or publication was performed.
+
+Separate later implementation receipts preserve the optional parser-guard strict
+build (zero warnings/errors), 339 cleanup tests, 151 Core tests and 42/63 Python
+tests, including casewise TRX and exact log hashes. These support the later
+implementation revision; they do not replace the earlier frozen V5 inference
+source/assembly identities. No current source or DLL is substituted.

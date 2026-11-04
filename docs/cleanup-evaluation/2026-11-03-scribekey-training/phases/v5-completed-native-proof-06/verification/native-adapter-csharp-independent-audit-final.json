@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "reviewer": "training_evaluation_runtime independent C# source review",
+  "scope": "Optional deployed adapter integration plus actual pinned argument parser; read-only, no builds/models/fresh data",
+  "source_sha256": {
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "319991cf666a35802449710c7105e925e72397677ef1bc2d5207a4e5dc87e08e",
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907",
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847",
+    "tools/Freehand.Cleanup.Probe/Program.cs": "6eeafa73aeea37c3d91db01a8c582552e91bb22da4697fc936dad540637576ec",
+    "tests/Freehand.Cleanup.Tests/AdapterOptionsTests.cs": "304e62c1cd2ce3c2f8fb417e329a8ea3e34935bdbbea9eed326f2d2f4ac1b46d",
+    "tests/Freehand.Cleanup.Tests/ProviderTests.cs": "c7c3fd01c003fa1af621a41c47a5a34890d2ee024912d05281bf1c34fed8b438",
+    "tests/Freehand.Cleanup.Tests/AssetInstallerTests.cs": "7c31486446997eaca572d5921fcce35a98d3c898e2d07957070ee8dc069662f6",
+    "src/Freehand.App/Composition.cs": "9444c5551522b2186eb30ca7ea9771d274fa6c2eddf2ca4d00109ad1404e8c48",
+    "src/Freehand.App/BenchmarkCleanupReplay.cs": "2c53a470553b2c4e651c6f6e7b2cedde261e06e65d082924bb3fb611957ff398"
+  },
+  "pinned_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+  "pinned_archive": "/workspace/freehand/work/cleanup-small-models-2026-11-03/scribe-precision-source/llama.cpp-a34de861-source.tar.gz",
+  "parser_source": {
+    "/common/arg.cpp": {
+      "archive_member": "llama.cpp-a34de8618b25dfc32ee43749db47d767a9f0a25d/common/arg.cpp",
+      "complete_member_sha256": "83cd576c95940ac4f84059da3c5b34914c15a94a834a608743389f2d43f25ea2",
+      "first_line": 2914,
+      "last_line": 2937,
+      "observed_excerpt": "    ));\n    add_opt(common_arg(\n        {\"--lora\"}, \"FNAME\",\n        \"path to LoRA adapter (use comma-separated values to load multiple adapters)\",\n        [](common_params & params, const std::string & value) {\n            for (const auto & item : parse_csv_row(value)) {\n                params.lora_adapters.push_back({ item, 1.0, \"\", \"\", nullptr });\n            }\n        }\n        // we define this arg on both COMMON and EXPORT_LORA, so when showing help message of export-lora, it will be categorized as \"example-specific\" arg\n    ).set_examples({LLAMA_EXAMPLE_COMMON, LLAMA_EXAMPLE_EXPORT_LORA}));\n    add_opt(common_arg(\n        {\"--lora-scaled\"}, \"FNAME:SCALE,...\",\n        \"path to LoRA adapter with user defined scaling (format: FNAME:SCALE,...)\\n\"\n        \"note: use comma-separated values\",\n        [](common_params & params, const std::string & value) {\n            for (const auto & item : parse_csv_row(value)) {\n                auto parts = string_split<std::string>(item, ':');\n                if (parts.size() != 2) {\n                    throw std::invalid_argument(\"lora-scaled format: FNAME:SCALE\");\n                }\n                params.lora_adapters.push_back({ parts[0], std::stof(parts[1]), \"\", \"\", nullptr });\n            }\n        }"
+    },
+    "/common/common.h": {
+      "archive_member": "llama.cpp-a34de8618b25dfc32ee43749db47d767a9f0a25d/common/common.h",
+      "complete_member_sha256": "d43b2f128d8162e2fdc374f1f55d22c37b54b3f65001459237c57f5ba8cddb1f",
+      "first_line": 839,
+      "last_line": 852,
+      "observed_excerpt": "template<>\ninline std::vector<std::string> string_split<std::string>(const std::string & str, char delim)\n{\n    std::vector<std::string> parts;\n    size_t begin_pos = 0;\n    size_t delim_pos = str.find(delim);\n    while (delim_pos != std::string::npos) {\n        std::string part = str.substr(begin_pos, delim_pos - begin_pos);\n        parts.emplace_back(part);\n        begin_pos = delim_pos + 1;\n        delim_pos = str.find(delim, begin_pos);\n    }\n    parts.emplace_back(str.substr(begin_pos));\n    return parts;"
+    }
+  },
+  "findings_fixed_in_current_source": [
+    "Both native adapter options parse comma-separated rows: all adapter paths reject comma",
+    "Scaled parser splits at every colon and requires exactly2parts: only nonunit paths reject colon; unit drive-qualified paths unchanged",
+    "Scaled syntax is exactly one FNAME:SCALE argv value, invariant numeric formatting"
+  ],
+  "remaining_blocking_source_issues_found": [],
+  "other_checks": [
+    "Path/hash pair and finite bounded scale validation",
+    "Exact adapter inventory path/hash including Linux case sensitivity and size verification",
+    "Base and adapter hashes checked before worker launch and rechecked on restart",
+    "No default adapter activation or duplicate embedded alpha/rank scaling",
+    "Immutable provider options and unchanged literal restoration/token-budget/cache arguments",
+    "App manifest/options fingerprints include adapter properties and epoch reset prevents stale identity reuse",
+    "Installer cannot reuse an adapter absent from its acquisition plan",
+    "Probe adapter metadata has expected path/hash and actual hash only after finalization"
+  ],
+  "twelve_prior_dll_checks": [
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+      "expected_sha256": "ad479bec39e0cd5cd62ab7055b72885a1b96252a8be3abb31bfa33c8e76dbd76",
+      "actual_sha256": "ad479bec39e0cd5cd62ab7055b72885a1b96252a8be3abb31bfa33c8e76dbd76",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+      "expected_sha256": "e600a623d8ea9798294963eda89dfe6946da6bd1f9dde96981a9397068813bcd",
+      "actual_sha256": "e600a623d8ea9798294963eda89dfe6946da6bd1f9dde96981a9397068813bcd",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+      "expected_sha256": "87d2171175e1a88a07ce1a5623089d6bd4bc3ef7c8ad720d4c992f1554970eb0",
+      "actual_sha256": "87d2171175e1a88a07ce1a5623089d6bd4bc3ef7c8ad720d4c992f1554970eb0",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+      "expected_sha256": "bde45bb19dc4be966f1eadf5199321263226a257d230e18ea39ba1aef405fab5",
+      "actual_sha256": "bde45bb19dc4be966f1eadf5199321263226a257d230e18ea39ba1aef405fab5",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+      "expected_sha256": "c948c62a1a001221920ee0fd07dda266cf94ba3191bebdeed1da9698a8bed9d3",
+      "actual_sha256": "c948c62a1a001221920ee0fd07dda266cf94ba3191bebdeed1da9698a8bed9d3",
+      "unchanged": true
+    },
+    {
+      "path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+      "expected_sha256": "a4f46c6ef3519464ccd36b89546275626ba529f908b13584ab3d18c6472c9236",
+      "actual_sha256": "a4f46c6ef3519464ccd36b89546275626ba529f908b13584ab3d18c6472c9236",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/freehand-native-lora-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll",
+      "expected_sha256": "010c636f0f5bbb8add4d73c0e2cb8504f2fc9f6748ecb5f780566928a12f42ed",
+      "actual_sha256": "010c636f0f5bbb8add4d73c0e2cb8504f2fc9f6748ecb5f780566928a12f42ed",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/freehand-native-lora-build/bin/Freehand.Cleanup.Probe/release/Freehand.Dictionary.dll",
+      "expected_sha256": "8b171664f6a1b11c390fc9f2586e6955d5fb6659a31e98022f2dd8cac6c36644",
+      "actual_sha256": "8b171664f6a1b11c390fc9f2586e6955d5fb6659a31e98022f2dd8cac6c36644",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/freehand-native-lora-build/bin/Freehand.Cleanup.Probe/release/Freehand.Testing.dll",
+      "expected_sha256": "dad847869fd04ef8fcf33e535d814c660dadc040f0efd9cc92caf75e208fb8e4",
+      "actual_sha256": "dad847869fd04ef8fcf33e535d814c660dadc040f0efd9cc92caf75e208fb8e4",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/freehand-native-lora-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.dll",
+      "expected_sha256": "b9d554c5fa53534144f0b71de00ad1ca429daad10cc6710777f4faeeb4e9699d",
+      "actual_sha256": "b9d554c5fa53534144f0b71de00ad1ca429daad10cc6710777f4faeeb4e9699d",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/freehand-native-lora-build/bin/Freehand.Cleanup.Probe/release/Freehand.Core.dll",
+      "expected_sha256": "2d89e3e19218a0671a3570a1a9cac098caa85dafc8967a1f93a4404049672167",
+      "actual_sha256": "2d89e3e19218a0671a3570a1a9cac098caa85dafc8967a1f93a4404049672167",
+      "unchanged": true
+    },
+    {
+      "path": "/tmp/freehand-native-lora-build/bin/Freehand.Cleanup.Probe/release/Freehand.Abstractions.dll",
+      "expected_sha256": "8adc936258644aa217e888847f944824514c17b81136b9888b1fbec277c29241",
+      "actual_sha256": "8adc936258644aa217e888847f944824514c17b81136b9888b1fbec277c29241",
+      "unchanged": true
+    }
+  ],
+  "new_guard_strict_build_tests": "Pending separate owner build after authorized CPU queue; prior integration receipt reports336Cleanup/151Core, not claimed as testing this later source revision",
+  "windows_execution_tested": false,
+  "csv_parser_source": {
+    "member": "llama.cpp-a34de8618b25dfc32ee43749db47d767a9f0a25d/common/arg.cpp",
+    "complete_member_sha256": "83cd576c95940ac4f84059da3c5b34914c15a94a834a608743389f2d43f25ea2",
+    "first_line": 1300,
+    "last_line": 1341,
+    "observed_excerpt": "static std::vector<std::string> parse_csv_row(const std::string& input) {\n    std::vector<std::string> fields;\n    std::string field;\n    bool in_quotes = false;\n\n    for (size_t i = 0; i < input.length(); ++i) {\n        char ch = input[i];\n\n        if (ch == '\"') {\n            if (!in_quotes) {\n                // start of quoted field (only valid if at beginning of field)\n                if (!field.empty()) {\n                    // quote appeared in middle of unquoted field, treat as literal\n                    field += '\"';\n                } else {\n                    in_quotes = true; // start\n                }\n            } else {\n                if (i + 1 < input.length() && input[i + 1] == '\"') {\n                    // escaped quote: \"\"\n                    field += '\"';\n                    ++i; // skip the next quote\n                } else {\n                    in_quotes = false; // end\n                }\n            }\n        } else if (ch == ',') {\n            if (in_quotes) {\n                field += ',';\n            } else {\n                fields.push_back(std::move(field));\n                field.clear();\n            }\n        } else {\n            field += ch;\n        }\n    }\n\n    // Add the last field\n    fields.push_back(std::move(field));\n\n    return fields;"
+  },
+  "tests_independently_rerun_by_reviewer": false,
+  "source_only_review_complete": true
+}

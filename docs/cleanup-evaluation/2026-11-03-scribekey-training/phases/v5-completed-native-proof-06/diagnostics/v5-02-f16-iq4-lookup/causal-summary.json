@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "phase": "development",
+  "case_count_each": 15,
+  "condition_count": 4,
+  "total_requests": 60,
+  "same_exact_token_array_and_request_hash_all_conditions": true,
+  "lookup16_vs0_raw_differences": 0,
+  "F16_vs_IQ4_raw_differences": 8,
+  "quantization_specific_meaning_regressions_observed": [
+    "broad zero-based61/175/181/473: adds negation to final corrected recipient",
+    "hard ID039: Apparently becomes Upside down"
+  ],
+  "shared_training_semantic_failures_observed": [
+    "broad62 hinge action omission",
+    "broad197/340 prohibition omission",
+    "broad357 false map distribution location",
+    "hard052 contradictory archive correction",
+    "hard060 wrong colour/quantity output in both formats"
+  ],
+  "literal_contract_diagnostics": [
+    "retired368: F16 emits both protected IDs in explicit negative-old/positive-new form; IQ4 drops obsolete ID and strict restoration fails",
+    "retired380: both formats emit same malformed correction with obsolete ID omitted and strict restoration fails"
+  ],
+  "repeats": 1,
+  "whole_app_sla_claim": false,
+  "accuracy_claim": false,
+  "fresh_round2_opened": false
+}

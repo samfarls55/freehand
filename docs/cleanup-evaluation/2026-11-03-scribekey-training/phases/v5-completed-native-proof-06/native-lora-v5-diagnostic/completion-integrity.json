@@ -1,0 +1,891 @@
+{
+  "schema_version": 1,
+  "diagnostic_only": true,
+  "no_app_or_population_accuracy_claim": true,
+  "one_repeat_completed_case_count": 15,
+  "all15_exact_request_hashes_equal_F16_IQ4_Q5": true,
+  "all184_custom_peft_gguf_f32_values_bit_identical": true,
+  "main_worker_exit_code": 0,
+  "main_controller_exit_code": 1,
+  "post_run_identity_verification_completed_before_final_log_assertion": true,
+  "post_run_verification_execution_basis": "Preserved controller run.py completed its verification loop+source equality+runtime inventory (lines219–225) before the traceback assertion atline229; no error occurred in those checks.",
+  "assertion_failure_and_verbose_startup_failure_preserved": true,
+  "all92_native_loader_pairs_verified": true,
+  "native_loader_184_tensors_verified": true,
+  "artifacts": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/run.py",
+      "bytes": 14592,
+      "sha256": "a2556f5b27219420d6416df44e91884fd1f67fe74f64e72153e76e486932ac56"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/conversion-report.json",
+      "bytes": 88502,
+      "sha256": "26b691da0ba9c4cdb9ac6a399e7afc55bf68e626afafe414eedf9e15370fb5b9"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/conversion.log",
+      "bytes": 17809,
+      "sha256": "ec64c3cca6e4f5e431525ecf7958fd26348aa992f3c7c900a458ca9bb9490f99"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/native-report.json",
+      "bytes": 130658,
+      "sha256": "4246492aafe4e3403ec0bc1a4911e09e39ec80cd2abc5def112906857ef71978"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/outputs.jsonl",
+      "bytes": 75285,
+      "sha256": "dc94e6e6b702750903da8234b60ad06c3de69f0d898f9df6624bd95028139c19"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/native-server.log",
+      "bytes": 15247,
+      "sha256": "2567b953b55059d2fddabdebcd81611613805a123e87655220635c173f1eb79d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/console.log",
+      "bytes": 3851,
+      "sha256": "5cedf812b4a7008cbc9cf81cdaa57f8873015a75edec1c2a4491477a9e9c8375"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/load-proof-server.log",
+      "bytes": 181201,
+      "sha256": "4f578bc2688601e6875b607f0f5c569f769d9c458be4fcdf29bdb8344039791f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/load-proof.json",
+      "bytes": 4512,
+      "sha256": "669417b0f1ce853105b147fff6b6e26545235dc3d2cba30519697da44e89cabc"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/reviewed-comparison.json",
+      "bytes": 65365,
+      "sha256": "a1097b1a22ffdfa0eec6ed220796b0a1ec2ac77818cbaef5304c0b974f6f4b6f"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/summary.json",
+      "bytes": 4588,
+      "sha256": "b5504e5cb727bcc5fdedae25123c8206e1ffbcacd2dbeb7f2b31da1d6209071d"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/source-snapshot.tar.gz",
+      "bytes": 128688,
+      "sha256": "9177882792a5a90593d870593cd3865d7318bbbfea7893e1bc9c0a1e51e0e090"
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/native-lora-v5-diagnostic/README.md",
+      "bytes": 4642,
+      "sha256": "a5956231e65c197ff9fab783c5f3520bc011221f4a4d70dd2c9767bc6db9c41b"
+    }
+  ],
+  "adapter_gguf": {
+    "path": "/tmp/freehand-native-lora-v5/V5-02-native-LoRA-F32.gguf",
+    "bytes": 12006240,
+    "sha256": "06431957f0db134c23f532edf8baef837ccbeb52436233ff912424dacd97af33"
+  },
+  "original_IQ4_base": {
+    "path": "/tmp/freehand-scribekey-original-control-IQ4_XS/ScribeKey-Fast-v1.1-Freehand-original-control-IQ4_XS.gguf",
+    "bytes": 211804448,
+    "sha256": "82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174",
+    "tensor_count": 148,
+    "tensor_types": {
+      "14": 1,
+      "0": 55,
+      "13": 2,
+      "23": 90
+    },
+    "tensor_names_and_shapes": {
+      "token_embd.weight": [
+        1024,
+        65536
+      ],
+      "token_embd_norm.weight": [
+        1024
+      ],
+      "blk.0.attn_norm.weight": [
+        1024
+      ],
+      "blk.0.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.0.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.ffn_norm.weight": [
+        1024
+      ],
+      "blk.0.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.0.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.0.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.0.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.1.attn_norm.weight": [
+        1024
+      ],
+      "blk.1.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.1.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.ffn_norm.weight": [
+        1024
+      ],
+      "blk.1.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.1.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.1.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.1.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.2.attn_k_norm.weight": [
+        64
+      ],
+      "blk.2.attn_norm.weight": [
+        1024
+      ],
+      "blk.2.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.2.attn_q_norm.weight": [
+        64
+      ],
+      "blk.2.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.2.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.2.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.2.ffn_norm.weight": [
+        1024
+      ],
+      "blk.2.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.attn_norm.weight": [
+        1024
+      ],
+      "blk.3.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.3.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.ffn_norm.weight": [
+        1024
+      ],
+      "blk.3.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.3.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.3.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.3.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.4.attn_norm.weight": [
+        1024
+      ],
+      "blk.4.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.4.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.ffn_norm.weight": [
+        1024
+      ],
+      "blk.4.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.4.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.4.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.4.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.5.attn_k_norm.weight": [
+        64
+      ],
+      "blk.5.attn_norm.weight": [
+        1024
+      ],
+      "blk.5.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.5.attn_q_norm.weight": [
+        64
+      ],
+      "blk.5.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.5.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.5.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.5.ffn_norm.weight": [
+        1024
+      ],
+      "blk.5.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.attn_norm.weight": [
+        1024
+      ],
+      "blk.6.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.6.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.ffn_norm.weight": [
+        1024
+      ],
+      "blk.6.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.6.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.6.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.6.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.7.attn_norm.weight": [
+        1024
+      ],
+      "blk.7.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.7.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.ffn_norm.weight": [
+        1024
+      ],
+      "blk.7.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.7.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.7.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.7.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.8.attn_k_norm.weight": [
+        64
+      ],
+      "blk.8.attn_norm.weight": [
+        1024
+      ],
+      "blk.8.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.8.attn_q_norm.weight": [
+        64
+      ],
+      "blk.8.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.8.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.8.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.8.ffn_norm.weight": [
+        1024
+      ],
+      "blk.8.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.attn_norm.weight": [
+        1024
+      ],
+      "blk.9.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.9.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.ffn_norm.weight": [
+        1024
+      ],
+      "blk.9.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.9.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.9.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.9.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.10.attn_k_norm.weight": [
+        64
+      ],
+      "blk.10.attn_norm.weight": [
+        1024
+      ],
+      "blk.10.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.10.attn_q_norm.weight": [
+        64
+      ],
+      "blk.10.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.10.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.10.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.10.ffn_norm.weight": [
+        1024
+      ],
+      "blk.10.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.attn_norm.weight": [
+        1024
+      ],
+      "blk.11.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.11.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.ffn_norm.weight": [
+        1024
+      ],
+      "blk.11.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.11.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.11.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.11.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.12.attn_k_norm.weight": [
+        64
+      ],
+      "blk.12.attn_norm.weight": [
+        1024
+      ],
+      "blk.12.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.12.attn_q_norm.weight": [
+        64
+      ],
+      "blk.12.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.12.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.12.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.12.ffn_norm.weight": [
+        1024
+      ],
+      "blk.12.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.attn_norm.weight": [
+        1024
+      ],
+      "blk.13.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.13.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.ffn_norm.weight": [
+        1024
+      ],
+      "blk.13.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.13.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.13.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.13.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_k.weight": [
+        1024,
+        512
+      ],
+      "blk.14.attn_k_norm.weight": [
+        64
+      ],
+      "blk.14.attn_norm.weight": [
+        1024
+      ],
+      "blk.14.attn_output.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q.weight": [
+        1024,
+        1024
+      ],
+      "blk.14.attn_q_norm.weight": [
+        64
+      ],
+      "blk.14.attn_v.weight": [
+        1024,
+        512
+      ],
+      "blk.14.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.14.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.14.ffn_norm.weight": [
+        1024
+      ],
+      "blk.14.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.attn_norm.weight": [
+        1024
+      ],
+      "blk.15.ffn_down.weight": [
+        4608,
+        1024
+      ],
+      "blk.15.ffn_gate.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.ffn_norm.weight": [
+        1024
+      ],
+      "blk.15.ffn_up.weight": [
+        1024,
+        4608
+      ],
+      "blk.15.shortconv.conv.weight": [
+        3,
+        1024
+      ],
+      "blk.15.shortconv.in_proj.weight": [
+        1024,
+        3072
+      ],
+      "blk.15.shortconv.out_proj.weight": [
+        1024,
+        1024
+      ]
+    },
+    "token_count": 65536,
+    "token_bytes_fingerprint": "6df99b75be04e0db2e9e57fb1b18cf2c20d2966fb52f95131cab7dd465f6f4a6"
+  },
+  "source_adapter": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v5-02/adapter.safetensors",
+    "bytes": 12012752,
+    "sha256": "741826d27bf20da1c59eebc5d397f0a7de972ef1f566ce7e04abbf8abc0cf961"
+  },
+  "source_adapter_config": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/pipeline/v5-02/adapter-config.json",
+    "bytes": 5423,
+    "sha256": "42b3e9948e75605189d68234d7d6fbacc3f643d7ee1e79c4950bc368a0206bd9"
+  },
+  "reference_runs": {
+    "IQ4_XS-lookup16": {
+      "outputs": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/IQ4_XS-lookup16/outputs.jsonl",
+        "bytes": 60669,
+        "sha256": "1e662aeb193cb4e465b06acff91b0506b603c7135e87f030f0e38559a47c6f60"
+      },
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/IQ4_XS-lookup16/report.json",
+        "bytes": 7378,
+        "sha256": "bff06422007ae3db82309adc1a8286d471383ae3d8c51f34d0832c1c41fbda73"
+      },
+      "candidate": {
+        "id": "IQ4_XS-lookup16",
+        "verified": true,
+        "path": "/tmp/freehand-scribekey-v5-02-export/ScribeKey-Freehand-trained-IQ4_XS.gguf",
+        "bytes": 211804448,
+        "sha256": "f0d86179c6741270ab03966464171f31e9e4cd903b65405428288e1c2e33857d"
+      },
+      "runtime": {
+        "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+        "bytes": 17864,
+        "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+      },
+      "profile": {
+        "context": 1024,
+        "max_output": 512,
+        "threads": 4,
+        "batch": 64,
+        "micro_batch": 32,
+        "cache_ram_mib": 0,
+        "repeats": 1,
+        "extra_server_args": [
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--no-repack",
+          "--spec-type",
+          "ngram-map-k",
+          "--spec-ngram-map-k-size-n",
+          "3",
+          "--spec-ngram-map-k-size-m",
+          "16"
+        ]
+      },
+      "prompts_sha256": "4ce612211a7eeb3a742602229eeb6ada09040b278d213f1d7e05a1f143053cd7"
+    },
+    "F16-lookup16": {
+      "outputs": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/F16-lookup16/outputs.jsonl",
+        "bytes": 61534,
+        "sha256": "b213ec2dd6277408d172aac2ba06153f65631d7c7ee0b8c844e2465474ffd4d8"
+      },
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/F16-lookup16/report.json",
+        "bytes": 7328,
+        "sha256": "283bbda34415bab3fd0701416e36d21f81b4fcaa909fb8d8f8492e2d01f64874"
+      },
+      "candidate": {
+        "id": "F16-lookup16",
+        "verified": true,
+        "path": "/tmp/freehand-scribekey-v5-02-export/merged-F16.gguf",
+        "bytes": 711483680,
+        "sha256": "c83bf04627584bc6262772fa6f40030895924599f8c24afeb8d98934bed6835c"
+      },
+      "runtime": {
+        "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+        "bytes": 17864,
+        "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+      },
+      "profile": {
+        "context": 1024,
+        "max_output": 512,
+        "threads": 4,
+        "batch": 64,
+        "micro_batch": 32,
+        "cache_ram_mib": 0,
+        "repeats": 1,
+        "extra_server_args": [
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--no-repack",
+          "--spec-type",
+          "ngram-map-k",
+          "--spec-ngram-map-k-size-n",
+          "3",
+          "--spec-ngram-map-k-size-m",
+          "16"
+        ]
+      },
+      "prompts_sha256": "4ce612211a7eeb3a742602229eeb6ada09040b278d213f1d7e05a1f143053cd7"
+    },
+    "IQ4_XS-lookup0": {
+      "outputs": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/IQ4_XS-lookup0/outputs.jsonl",
+        "bytes": 60576,
+        "sha256": "9105f5019ad7d61af53c265831432059374454ec513986fe08cc66016034dbe0"
+      },
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/IQ4_XS-lookup0/report.json",
+        "bytes": 7119,
+        "sha256": "ace2d1f71e012a80cb0d100e71d3a417852a3212286a5bc824f715bf35dd36a1"
+      },
+      "candidate": {
+        "id": "IQ4_XS-lookup0",
+        "verified": true,
+        "path": "/tmp/freehand-scribekey-v5-02-export/ScribeKey-Freehand-trained-IQ4_XS.gguf",
+        "bytes": 211804448,
+        "sha256": "f0d86179c6741270ab03966464171f31e9e4cd903b65405428288e1c2e33857d"
+      },
+      "runtime": {
+        "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+        "bytes": 17864,
+        "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+      },
+      "profile": {
+        "context": 1024,
+        "max_output": 512,
+        "threads": 4,
+        "batch": 64,
+        "micro_batch": 32,
+        "cache_ram_mib": 0,
+        "repeats": 1,
+        "extra_server_args": [
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--no-repack"
+        ]
+      },
+      "prompts_sha256": "4ce612211a7eeb3a742602229eeb6ada09040b278d213f1d7e05a1f143053cd7"
+    },
+    "F16-lookup0": {
+      "outputs": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/F16-lookup0/outputs.jsonl",
+        "bytes": 61261,
+        "sha256": "210258934fb951c28abb3a74d849f91e233e9cc73134555d2357ec737d994556"
+      },
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/F16-lookup0/report.json",
+        "bytes": 7063,
+        "sha256": "ed05d163dc9741b6d422e96615d9ac11f47ba3d87de70949c06deedbc05ea961"
+      },
+      "candidate": {
+        "id": "F16-lookup0",
+        "verified": true,
+        "path": "/tmp/freehand-scribekey-v5-02-export/merged-F16.gguf",
+        "bytes": 711483680,
+        "sha256": "c83bf04627584bc6262772fa6f40030895924599f8c24afeb8d98934bed6835c"
+      },
+      "runtime": {
+        "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+        "bytes": 17864,
+        "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+      },
+      "profile": {
+        "context": 1024,
+        "max_output": 512,
+        "threads": 4,
+        "batch": 64,
+        "micro_batch": 32,
+        "cache_ram_mib": 0,
+        "repeats": 1,
+        "extra_server_args": [
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--no-repack"
+        ]
+      },
+      "prompts_sha256": "4ce612211a7eeb3a742602229eeb6ada09040b278d213f1d7e05a1f143053cd7"
+    },
+    "Q5_K_M-lookup16": {
+      "outputs": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-Q5_K_M-lookup16/outputs.jsonl",
+        "bytes": 61766,
+        "sha256": "5a479e77b1bd0088f0b29544df53e01f186e6160c1db27b1d34cfad4e8d0ee4a"
+      },
+      "report": {
+        "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-Q5_K_M-lookup16/report.json",
+        "bytes": 7374,
+        "sha256": "840b461e5c1e5a0af1de412015dd1866deb230f60b32f4298ff82bd6bbd7d711"
+      },
+      "candidate": {
+        "id": "V5-Q5_K_M-lookup16",
+        "verified": true,
+        "path": "/tmp/freehand-scribekey-v5-02-Q5_K_M/ScribeKey-Freehand-V5-02-Q5_K_M.gguf",
+        "bytes": 260374816,
+        "sha256": "6ba6da632bcb76bcf9309522b26b1a7d5688733d7d4f1bddda6188f438e87b3b"
+      },
+      "runtime": {
+        "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+        "bytes": 17864,
+        "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+      },
+      "profile": {
+        "context": 1024,
+        "max_output": 512,
+        "threads": 4,
+        "batch": 64,
+        "micro_batch": 32,
+        "cache_ram_mib": 0,
+        "repeats": 1,
+        "extra_server_args": [
+          "--cache-type-k",
+          "f16",
+          "--cache-type-v",
+          "f16",
+          "--no-repack",
+          "--spec-type",
+          "ngram-map-k",
+          "--spec-ngram-map-k-size-n",
+          "3",
+          "--spec-ngram-map-k-size-m",
+          "16"
+        ]
+      },
+      "prompts_sha256": "4ce612211a7eeb3a742602229eeb6ada09040b278d213f1d7e05a1f143053cd7"
+    }
+  },
+  "Q5_precision_comparison_receipt": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-Q5_K_M-lookup16/precision-comparison.json",
+    "bytes": 14017,
+    "sha256": "b78655386102272294974fcd849a6c2b835383db94e94d6017b9c3985d22d037"
+  },
+  "cpu_explicitly_released_to_cleanup_pipeline_review_for_tmp_builds": true
+}

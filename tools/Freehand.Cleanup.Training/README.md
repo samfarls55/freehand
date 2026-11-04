@@ -171,7 +171,7 @@ SHA256 `82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174`.
 It inversely maps all 148 tensors, restores ten convolution singleton dimensions,
 and decodes them directly into an FP32 HF model in RAM. The tied output head is
 preserved. This is quantization-aware base selection, not a four-bit training
-kernel: the decoded base occupies approximately1.42GB RAM and is never saved.
+kernel: the decoded base occupies approximately 1.42 GB RAM and is never saved.
 
 Initialize this optional route using `--resume-adapter` and an explicit complete
 `--parent-adapter-sha256`; this starts a fresh AdamW optimizer. Its configuration
@@ -181,6 +181,7 @@ Exact checkpoint recovery requires the same identities. The legacy `merge` and
 `generate` commands reject adapters from this route rather than silently applying
 them to the BF16 base. Deployment requires the exact original native IQ4 base
 and an **unmerged F32 adapter**, with separate conversion and evaluation receipts.
+The external native adapter scale is 1; alpha/rank scaling is encoded internally.
 
 Two optional numerical emulations are available, both disabled by default:
 
@@ -191,13 +192,13 @@ Two optional numerical emulations are available, both disabled by default:
   pinned Linux Haswell `quantize_row_q8_K` and native `dequantize_row_q8_K` symbols,
   with 256-value/292-byte blocks and identity backward gradients. The frozen
   quantized Linear path receives the round-tripped activation; the parallel
-  LoRA path retains its original FP32 input. All92 layer matmuls and the tied
+  LoRA path retains its original FP32 input. All 92 layer matmuls and the tied
   output matmul are covered. Both native library hashes and the complete
   per-matrix type/input-width inventory are checkpoint-bound.
 
 These options do not establish native-forward equivalence. The bounded proof
-on six consumed cases found5/6 native output agreement for all four activation/KV
-combinations, while original-F16 reconstruction agreed6/6 with and without the
+on six consumed cases found 5/6 native output agreement for all four activation/KV
+combinations, while original-F16 reconstruction agreed 6/6 with and without the
 adapter. Preserve that limitation when interpreting subsequent training results.
 
 `--expand-adapter-rank` can explicitly initialize a larger-rank phase: copy the
@@ -206,35 +207,5 @@ set additional B columns to zero. Alpha/rank must stay constant. The trainer
 checks matrix deltas and actual initial logits before optimization. The real
 rank8-to16 smoke exceeded the tight logit tolerance under F16-KV rounding and
 stopped correctly; rank16 is not a qualified continuation. The proposed first
-control keeps rank8/alpha16. No optional mode automatically launches training.
-## Optional training against the original IQ4 base
-
-The default trainer still uses the pinned original BF16 checkpoint. The explicit
-`--training-base-mode original-iq4-dequantized-fp32-v1` route instead reconstructs
-the exact original IQ4 GGUF weights in memory as frozen FP32 tensors. It requires
-`--gguf-base`, an explicit parent adapter hash, and either adapter initialization
-or exact checkpoint recovery. The original BF16 checkpoint supplies verified
-architecture/tokenizer provenance; it is not the numerical training base in
-this mode. No full dequantized checkpoint is serialized.
-
-`--activation-quantization native-q8-k --native-runtime <pinned-runtime-directory>`
-uses the pinned native CPU quantizer and dequantizer on the frozen projection
-inputs, including the tied output head. The separate LoRA path receives the
-original FP32 input. Rounding uses identity straight-through gradients. Optional
-`--kv-roundtrip f16` rounds keys after RoPE and projected values; `none` retains
-FP32 storage. Both settings are bound into checkpoint identity. These options
-approximate deployed arithmetic: the fixed six-case native/HF diagnostic still
-differs on one complete output, including with both emulations enabled. They do
-not establish native forward equivalence or a quality improvement.
-
-Deploy adapters trained in this mode as **unmerged F32 native LoRA with the exact
-original IQ4 base**. The BF16 merge and legacy HF generation paths reject them.
-Conversion and candidate freezes must retain the actual IQ4 base hash, original
-BF16 provenance, parent adapter/config, executed source and training data hashes.
-The native adapter scale is 1; alpha/rank scaling is already encoded in it.
-
-Rank expansion is optional and guarded by matrix-delta and actual-logit checks.
-The real-model rank-16 check exceeded its tight logit tolerance despite a passing
-matrix check, so the next control retains rank 8. A tiny-model test passing does
-not supersede that real-model failure. No accuracy or application-resource gate
-is relaxed by these training options.
+control keeps rank8/alpha16. A tiny-model test passing does not supersede that
+real-model failure. No accuracy or resource gate is relaxed by these options.

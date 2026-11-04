@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "status": "prepared",
+  "argv": [
+    "/workspace/freehand/.dotnet/dotnet",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/frozen-probe/Freehand.Cleanup.Probe.dll",
+    "--export-prompts",
+    "--input",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/new-420-raw-core-fixtures.json",
+    "--output",
+    "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/new-420-core-export.json",
+    "--prompt-style",
+    "ScribeKeyFast",
+    "--mask-specialist-literals",
+    "true"
+  ],
+  "inference_requested": false,
+  "sources": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v5-correction-curriculum/train-240-v3.jsonl",
+      "bytes": 90551,
+      "sha256": "639707f47876fba10f44263105e57663317c77f6e4eb7b771840bb6f2fb29689",
+      "rows": 240
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v5-literal-scope-curriculum/train-180-v1.jsonl",
+      "bytes": 92115,
+      "sha256": "4a1b524a16075d931a68610d885008856141f3411beae26bac68ed03d6e0ce0e",
+      "rows": 180
+    }
+  ],
+  "frozen_files": {
+    "Freehand.Cleanup.Probe.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+      "bytes": 184832,
+      "sha256": "ad479bec39e0cd5cd62ab7055b72885a1b96252a8be3abb31bfa33c8e76dbd76"
+    },
+    "Freehand.Core.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+      "bytes": 201216,
+      "sha256": "a4f46c6ef3519464ccd36b89546275626ba529f908b13584ab3d18c6472c9236"
+    },
+    "Freehand.Cleanup.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+      "bytes": 162816,
+      "sha256": "87d2171175e1a88a07ce1a5623089d6bd4bc3ef7c8ad720d4c992f1554970eb0"
+    },
+    "Freehand.Dictionary.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+      "bytes": 22528,
+      "sha256": "c948c62a1a001221920ee0fd07dda266cf94ba3191bebdeed1da9698a8bed9d3"
+    },
+    "Freehand.Testing.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+      "bytes": 12800,
+      "sha256": "bde45bb19dc4be966f1eadf5199321263226a257d230e18ea39ba1aef405fab5"
+    },
+    "Freehand.Abstractions.dll": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+      "bytes": 18944,
+      "sha256": "e600a623d8ea9798294963eda89dfe6946da6bd1f9dde96981a9397068813bcd"
+    },
+    "Freehand.Cleanup.Probe.runtimeconfig.json": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.runtimeconfig.json",
+      "bytes": 377,
+      "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+    },
+    "Freehand.Cleanup.Probe.deps.json": {
+      "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.deps.json",
+      "bytes": 2445,
+      "sha256": "6927cd8464fa8975464de63e54624ca7ed23c7ada9875621e820dd675140e10b"
+    }
+  },
+  "source_snapshots": {
+    "/workspace/freehand/tools/Freehand.Cleanup.Probe/Program.cs": {
+      "sha256": "fabc7a3ad29dbdc1965a71624f69a0d6f35ba06acf6b13f4aba4d02bf33f5dc2",
+      "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/0-Program.cs"
+    },
+    "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py": {
+      "sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+      "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/1-pipeline.py"
+    },
+    "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": {
+      "sha256": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+      "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/2-specialist_literal_protection.py"
+    },
+    "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/literal_protection.py": {
+      "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+      "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/3-literal_protection.py"
+    }
+  },
+  "preparation_source_sha256": "24fca58beb444438bb0a8210243660bed41dfa529a8dc9eb61fb28f5f62a0b62"
+}

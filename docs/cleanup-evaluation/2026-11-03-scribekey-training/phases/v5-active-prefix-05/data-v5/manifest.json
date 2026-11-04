@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "status": "prepared_for_root_overlap_and_training_approval_NOT_TRAINED",
+  "sources": [
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v5-correction-curriculum/train-240-v3.jsonl",
+      "bytes": 90551,
+      "sha256": "639707f47876fba10f44263105e57663317c77f6e4eb7b771840bb6f2fb29689",
+      "rows": 240
+    },
+    {
+      "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v5-literal-scope-curriculum/train-180-v1.jsonl",
+      "bytes": 92115,
+      "sha256": "4a1b524a16075d931a68610d885008856141f3411beae26bac68ed03d6e0ce0e",
+      "rows": 180
+    }
+  ],
+  "normalization": {
+    "argv": [
+      "/workspace/freehand/.dotnet/dotnet",
+      "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/frozen-probe/Freehand.Cleanup.Probe.dll",
+      "--export-prompts",
+      "--input",
+      "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/new-420-raw-core-fixtures.json",
+      "--output",
+      "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/new-420-core-export.json",
+      "--prompt-style",
+      "ScribeKeyFast",
+      "--mask-specialist-literals",
+      "true"
+    ],
+    "exit_code": 0,
+    "seconds": 9.938643302004493,
+    "model_inference": false,
+    "rows": 420,
+    "input_changes": 19,
+    "target_changes": 19,
+    "changed_rows": 19,
+    "normalized_inputs_targets_used_not_compact_prompt_strings": true,
+    "all_model_input_hashes_match_real_Core_export": true,
+    "all_complete_prompt_bytes_match": true,
+    "all_literal_target_roundtrips_exact": true,
+    "frozen_files": {
+      "Freehand.Cleanup.Probe.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.dll",
+        "bytes": 184832,
+        "sha256": "ad479bec39e0cd5cd62ab7055b72885a1b96252a8be3abb31bfa33c8e76dbd76"
+      },
+      "Freehand.Core.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Core.dll",
+        "bytes": 201216,
+        "sha256": "a4f46c6ef3519464ccd36b89546275626ba529f908b13584ab3d18c6472c9236"
+      },
+      "Freehand.Cleanup.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.dll",
+        "bytes": 162816,
+        "sha256": "87d2171175e1a88a07ce1a5623089d6bd4bc3ef7c8ad720d4c992f1554970eb0"
+      },
+      "Freehand.Dictionary.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Dictionary.dll",
+        "bytes": 22528,
+        "sha256": "c948c62a1a001221920ee0fd07dda266cf94ba3191bebdeed1da9698a8bed9d3"
+      },
+      "Freehand.Testing.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Testing.dll",
+        "bytes": 12800,
+        "sha256": "bde45bb19dc4be966f1eadf5199321263226a257d230e18ea39ba1aef405fab5"
+      },
+      "Freehand.Abstractions.dll": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Abstractions.dll",
+        "bytes": 18944,
+        "sha256": "e600a623d8ea9798294963eda89dfe6946da6bd1f9dde96981a9397068813bcd"
+      },
+      "Freehand.Cleanup.Probe.runtimeconfig.json": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.runtimeconfig.json",
+        "bytes": 377,
+        "sha256": "6eaff27a497447817e02c096da9afb530324590c005c1c011cd87bf2669f9dfd"
+      },
+      "Freehand.Cleanup.Probe.deps.json": {
+        "source_path": "/workspace/freehand/tools/Freehand.Cleanup.Probe/bin/Release/net10.0/Freehand.Cleanup.Probe.deps.json",
+        "bytes": 2445,
+        "sha256": "6927cd8464fa8975464de63e54624ca7ed23c7ada9875621e820dd675140e10b"
+      }
+    },
+    "source_snapshots": {
+      "/workspace/freehand/tools/Freehand.Cleanup.Probe/Program.cs": {
+        "sha256": "fabc7a3ad29dbdc1965a71624f69a0d6f35ba06acf6b13f4aba4d02bf33f5dc2",
+        "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/0-Program.cs"
+      },
+      "/workspace/freehand/tools/Freehand.Cleanup.Training/pipeline.py": {
+        "sha256": "eacdcb8a1958853de89ea78d34d4995960b6322e824092d6273f79051a708af0",
+        "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/1-pipeline.py"
+      },
+      "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/specialist_literal_protection.py": {
+        "sha256": "4bc6aaeae0ced059e49b9990f461fbd40a74729101e087fdb7ffdb2acadb474e",
+        "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/2-specialist_literal_protection.py"
+      },
+      "/workspace/freehand/tools/Freehand.Cleanup.Evaluation/literal_protection.py": {
+        "sha256": "5f70868a4cfe6ae59d9eb56faefcb5aef3a050fb214f8bf40d98e33cb19309dc",
+        "snapshot": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v5-candidate/source-snapshots/3-literal_protection.py"
+      }
+    },
+    "export_sha256": "3a2ba40c19a25649e8d9df79f72785ad537d36b9e96c3f8b8c9730ecbab45caf"
+  },
+  "replay": {
+    "source": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/data-v4-candidate/focused-repair-replay-1150.jsonl",
+    "source_sha256": "463edcfe52558dfb614741ce548cc7a7de9a2284ef91f6e372ef7fc44f93eff9",
+    "prefix_rows": 480,
+    "prefix_bytes_sha256": "b9f6accab9a98af57ad5a5a63dd7127fad54576cb9895a148383f3f8edc78652",
+    "bytes_unchanged": true
+  },
+  "effective_rows": 1320,
+  "unique_input_target_pairs": 900,
+  "unchanged_rows": 440,
+  "unchanged_fraction": 0.3333333333333333,
+  "complete_token_range": [
+    37,
+    158
+  ],
+  "new_rows_oversampling_factor": 2,
+  "family_counts": {
+    "abandoned_word_starts": 5,
+    "accidental_function_repeats": 5,
+    "action_backtrack": 5,
+    "ambiguous_preserve": 5,
+    "ambiguous_preserve_with_filler": 5,
+    "clean_conditional_action": 5,
+    "clean_copy": 5,
+    "clean_multi_sentence": 5,
+    "clean_numeric_instruction": 5,
+    "clean_recipient_instruction": 5,
+    "contractions_voice": 5,
+    "contractions_voice_with_filler": 5,
+    "controlled_long_mixed_edits": 5,
+    "controlled_long_unchanged": 5,
+    "deliberate_repetition": 5,
+    "deliberate_repetition_with_filler": 5,
+    "dictionary_literal_preservation": 5,
+    "epistemic_precision": 5,
+    "epistemic_precision_with_filler": 5,
+    "explicit_action_backtrack": 5,
+    "explicit_numeric_correction": 5,
+    "explicit_recipient_correction": 5,
+    "filler_case_and_punctuation": 5,
+    "grammatical_name_verb": 5,
+    "grammatical_name_verb_hesitation": 5,
+    "grammatical_noun_modal": 5,
+    "grammatical_noun_modal_hesitation": 5,
+    "grammatical_tense": 5,
+    "grammatical_tense_hesitation": 5,
+    "hard_action_cancel": 5,
+    "hard_action_cancel_clean_target": 5,
+    "hard_dictation_not_answer": 5,
+    "hard_dictation_not_answer_with_filler": 5,
+    "hard_infix_hesitation": 5,
+    "hard_infix_hesitation_clean_target": 5,
+    "hard_intentional_emphasis": 5,
+    "hard_intentional_emphasis_clean_target": 4,
+    "hard_intentional_emphasis_with_filler": 5,
+    "hard_item_repair": 5,
+    "hard_item_repair_clean_target": 5,
+    "hard_like_content": 5,
+    "hard_like_content_clean_target": 4,
+    "hard_like_content_with_filler": 5,
+    "hard_multiple_repair": 5,
+    "hard_multiple_repair_clean_target": 5,
+    "hard_negative_backtrack": 5,
+    "hard_negative_backtrack_clean_target": 5,
+    "hard_precision_words": 5,
+    "hard_precision_words_clean_target": 4,
+    "hard_precision_words_with_filler": 5,
+    "hard_quantity_scope": 5,
+    "hard_quantity_scope_clean_target": 4,
+    "hard_quantity_scope_with_filler": 5,
+    "hard_scope_negation": 5,
+    "hard_scope_negation_clean_target": 5,
+    "hard_scope_negation_with_filler": 5,
+    "hard_uncertainty_keep": 5,
+    "hard_uncertainty_keep_clean_target": 4,
+    "hard_uncertainty_keep_with_filler": 5,
+    "hard_well_content": 5,
+    "hard_well_content_clean_target": 4,
+    "hard_well_content_with_filler": 5,
+    "hard_word_start_repair": 5,
+    "hard_word_start_repair_clean_target": 5,
+    "independent_clauses": 5,
+    "independent_clauses_hesitation": 5,
+    "instruction_content": 5,
+    "instruction_content_with_filler": 5,
+    "leading_er": 5,
+    "leading_uh": 5,
+    "leading_um": 5,
+    "limited_item_backtrack": 5,
+    "local_correction": 5,
+    "local_correction_hesitation": 5,
+    "multi_sentence_fillers": 5,
+    "multiple_backtracks": 5,
+    "multiple_leading_fillers": 5,
+    "negation_scope": 5,
+    "negation_scope_with_filler": 5,
+    "quantity_contrast": 5,
+    "quantity_contrast_with_filler": 5,
+    "questions_are_dictation": 5,
+    "questions_are_dictation_with_filler": 5,
+    "quoted_instruction_content": 5,
+    "quoted_instruction_content_with_filler": 5,
+    "quoted_literal_preservation": 5,
+    "reported_history": 4,
+    "reported_history_hesitation": 4,
+    "reported_words": 4,
+    "reported_words_hesitation": 4,
+    "sentence_case_and_punctuation": 4,
+    "substantive_actually": 4,
+    "substantive_actually_with_filler": 4,
+    "substantive_like": 4,
+    "substantive_like_with_filler": 4,
+    "substantive_well": 4,
+    "substantive_well_with_filler": 4,
+    "terminal_punctuation": 4,
+    "well_compounds": 4,
+    "well_compounds_hesitation": 4,
+    "local_argument_repair": 40,
+    "whole_request_replacement": 40,
+    "sentence_crossing_repair": 40,
+    "negation_and_condition_scope": 40,
+    "units_totals_and_local_values": 40,
+    "independent_neighbors_and_reasons": 40,
+    "outer_voice_and_reporting_frames": 40,
+    "local_references_not_global_replacement": 40,
+    "clean_past_intention_and_history": 40,
+    "clean_metalinguistic_correction_words": 40,
+    "clean_negated_preferences_and_uncertainty": 40,
+    "clean_deliberate_emphasis_and_grammatical_contrasts": 40,
+    "active_correction_protected_literals": 120,
+    "local_correction_repeated_entity_scope": 80,
+    "partial_np_tense_discourse_repair": 80,
+    "already_clean_literal_scope": 80
+  },
+  "raw_source_files_changed": false,
+  "fresh_blind_data_read": false,
+  "actual_model_training_started": false,
+  "files": {
+    "new-420-core-normalized.jsonl": {
+      "bytes": 485517,
+      "sha256": "c63757913c476f98d8ce3d62b37d2a2ea0ed233c2ea6a1921971da9dc19804ec"
+    },
+    "replay-480-exact.jsonl": {
+      "bytes": 208909,
+      "sha256": "b9f6accab9a98af57ad5a5a63dd7127fad54576cb9895a148383f3f8edc78652"
+    },
+    "focused-correction-replay-1320.jsonl": {
+      "bytes": 1232023,
+      "sha256": "9b75baaf0df25faf9c2d30f5c8f8b2e75a8e38d0fba20f4bdf332886bec54ef4"
+    },
+    "new-420-raw-core-fixtures.json": {
+      "bytes": 130816,
+      "sha256": "dea6303330ca977060ef62f91df0bc8878644c172c92c810daee16ba23ff4032"
+    },
+    "new-420-core-export.json": {
+      "bytes": 564837,
+      "sha256": "3a2ba40c19a25649e8d9df79f72785ad537d36b9e96c3f8b8c9730ecbab45caf"
+    }
+  }
+}

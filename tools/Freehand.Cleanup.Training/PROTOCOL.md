@@ -1,7 +1,9 @@
 # ScribeKey cleanup training and qualification
 
-The base is the pinned ScribeKey Fast v1.1 full-precision checkpoint. The existing
-Q4 export and Emberon measurements are unchanged controls. Training and conversion
+The source is the pinned ScribeKey Fast v1.1 full-precision checkpoint. Explicit
+experiments may instead freeze its verified original IQ4 export as the numerical
+training base, retaining both identities and deployment-matched conversion proofs.
+The existing Q4 export and Emberon measurements are unchanged controls. Training and conversion
 dependencies stay in an isolated research environment; application dependency,
 speech-model and dictionary-semantic pins remain unchanged.
 
@@ -22,8 +24,10 @@ when it contains a request or instructions. Apply minimal changes:
   only earns successful-cleanup credit when the input already satisfies the policy.
 
 The model cannot infer which arbitrary weight values implement this policy.
-Supervised input/target examples teach the policy; LoRA updates are merged into
-the original checkpoint before the compact deployment export.
+Supervised input/target examples teach the policy. Full-precision-base LoRA may
+be merged before compact export. IQ4-base training requires an unmerged F32
+native adapter on that exact original IQ4 base; it must not be merged into the
+full-precision source or applied twice.
 
 ## Dataset separation
 

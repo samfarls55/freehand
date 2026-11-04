@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "started_utc": "2026-11-03T23:07:40Z",
+  "candidate": {
+    "id": "F16-lookup16",
+    "verified": true,
+    "path": "/tmp/freehand-scribekey-v5-02-export/merged-F16.gguf",
+    "bytes": 711483680,
+    "sha256": "c83bf04627584bc6262772fa6f40030895924599f8c24afeb8d98934bed6835c"
+  },
+  "runtime": {
+    "path": "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "bytes": 17864,
+    "sha256": "9e0f40401ce7079bc0de040b6cf0fb456417bbf9fbc4c82a0b96f591917682f6"
+  },
+  "asset_index_sha256": "efe2905ea32154c55fea2cf61f8a85af9859d3768cfd28bd99a717271247c228",
+  "runtime_file_index": {
+    "path": "/workspace/freehand/work/cleanup-small-models-2026-11-03/runtime-file-index.json",
+    "sha256": "08c088f9680b17f0ecaea2638e1d7e1d5812983cfb0f121f104edddf91212c85",
+    "verified_file_count": 51,
+    "verified_symlink_count": 10,
+    "verification": "complete_file_hashes_sizes_and_local_symlink_targets"
+  },
+  "prompts_sha256": "4ce612211a7eeb3a742602229eeb6ada09040b278d213f1d7e05a1f143053cd7",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "specialist_output_normalization": "trim-v1",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "AD479BEC39E0CD5CD62AB7055B72885A1B96252A8BE3ABB31BFA33C8E76DBD76",
+    "Freehand.Core.dll": "A4F46C6EF3519464CCD36B89546275626BA529F908B13584AB3D18C6472C9236",
+    "Freehand.Cleanup.dll": "87D2171175E1A88A07CE1A5623089D6BD4BC3EF7C8AD720D4C992F1554970EB0",
+    "Freehand.Dictionary.dll": "C948C62A1A001221920EE0FD07DDA266CF94BA3191BEBDEED1DA9698A8BED9D3",
+    "Freehand.Testing.dll": "BDE45BB19DC4BE966F1EADF5199321263226A257D230E18EA39BA1AEF405FAB5",
+    "Freehand.Abstractions.dll": "E600A623D8EA9798294963EDA89DFE6946DA6BD1F9DDE96981A9397068813BCD"
+  },
+  "host": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "profile": {
+    "context": 1024,
+    "max_output": 512,
+    "threads": 4,
+    "batch": 64,
+    "micro_batch": 32,
+    "cache_ram_mib": 0,
+    "repeats": 1,
+    "extra_server_args": [
+      "--cache-type-k",
+      "f16",
+      "--cache-type-v",
+      "f16",
+      "--no-repack",
+      "--spec-type",
+      "ngram-map-k",
+      "--spec-ngram-map-k-size-n",
+      "3",
+      "--spec-ngram-map-k-size-m",
+      "16"
+    ]
+  },
+  "incomplete": false,
+  "limitations": "Cleanup-server native replay only; no ASR, UI, real capture or Windows delivery. Artifact hashing warms OS pages before startup. First request is cold inference after server warmup, not a filesystem-cold model load. Memory excludes the Python harness and whole Freehand app; no whole-app SLA pass is claimed.",
+  "startup_to_health_seconds": 0.19320960200275294,
+  "server_command": [
+    "/workspace/freehand/work/cleanup-poc/runtime/llama-b12015/llama-server",
+    "--model",
+    "/tmp/freehand-scribekey-v5-02-export/merged-F16.gguf",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "34089",
+    "--alias",
+    "local-cleanup",
+    "--ctx-size",
+    "1024",
+    "--parallel",
+    "1",
+    "--threads",
+    "4",
+    "--threads-batch",
+    "4",
+    "--batch-size",
+    "64",
+    "--ubatch-size",
+    "32",
+    "--cache-ram",
+    "0",
+    "--ctx-checkpoints",
+    "0",
+    "--n-gpu-layers",
+    "0",
+    "--n-predict",
+    "512",
+    "--fit",
+    "off",
+    "--no-context-shift",
+    "--no-webui",
+    "--no-slots",
+    "--no-mmproj",
+    "--offline",
+    "--log-disable",
+    "--no-jinja",
+    "--cache-type-k",
+    "f16",
+    "--cache-type-v",
+    "f16",
+    "--no-repack",
+    "--spec-type",
+    "ngram-map-k",
+    "--spec-ngram-map-k-size-n",
+    "3",
+    "--spec-ngram-map-k-size-m",
+    "16"
+  ],
+  "summary": {
+    "row_count": 15,
+    "attempt_count": 15,
+    "not_attempted_count": 0,
+    "completed_count": 14,
+    "operational_failures": 1,
+    "known_quality_failures": 0,
+    "target_matches": 6,
+    "review_required_nonmatches": 8,
+    "complete_response_seconds": {
+      "median": 0.44484192350137164,
+      "p95_nearest_rank": 0.8957575239983271,
+      "maximum": 0.8957575239983271,
+      "sample_count": 14
+    },
+    "by_category": {
+      "clean_conditional_action": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "clean_multi_sentence": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "correction_scope": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "explicit_recipient_correction": {
+        "completed": 4,
+        "known_quality_failures": 0,
+        "target_matches": 4
+      },
+      "multi_sentence_fillers": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "precision_uncertainty": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "quoted_literal_code_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "retain_unaffected_clause": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      }
+    }
+  },
+  "warm_summary": {
+    "row_count": 14,
+    "attempt_count": 14,
+    "not_attempted_count": 0,
+    "completed_count": 13,
+    "operational_failures": 1,
+    "known_quality_failures": 0,
+    "target_matches": 5,
+    "review_required_nonmatches": 8,
+    "complete_response_seconds": {
+      "median": 0.47100236699770903,
+      "p95_nearest_rank": 0.8957575239983271,
+      "maximum": 0.8957575239983271,
+      "sample_count": 13
+    },
+    "by_category": {
+      "clean_conditional_action": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "clean_multi_sentence": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 1
+      },
+      "correction_scope": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "explicit_recipient_correction": {
+        "completed": 3,
+        "known_quality_failures": 0,
+        "target_matches": 3
+      },
+      "multi_sentence_fillers": {
+        "completed": 2,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "precision_uncertainty": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "quoted_literal_code_path": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      },
+      "retain_unaffected_clause": {
+        "completed": 1,
+        "known_quality_failures": 0,
+        "target_matches": 0
+      }
+    }
+  },
+  "memory": {
+    "scope": "owned_cleanup_server_process_tree_only",
+    "sample_interval_seconds": 0.02,
+    "sample_count": 272,
+    "unavailable_samples": 0,
+    "peak_working_set_bytes": 777670656,
+    "peak_private_resident_bytes": 777072640,
+    "peak_private_commit_bytes": null,
+    "peak_process_count": 1,
+    "notes": "Sampled simultaneous process-tree sums; shared pages may be counted twice. Linux private resident memory differs from Windows private commit. GPU memory and the Freehand desktop/ASR worker are excluded. Sampling can affect timing."
+  },
+  "finished_utc": "2026-11-03T23:07:48Z",
+  "not_run_count": 0
+}

@@ -1,0 +1,2750 @@
+{
+  "schema_version": 1,
+  "scope": "All original F16 tensor bytes versus prescribed BF16-to-export casts; no model serialization",
+  "original_hf_sha256": "1a9ab3fcd2384f9c4053f4b55d5e0f40de195487853fdd006b1fa810cd69e16a",
+  "original_f16_sha256": "f11b2e31506e87e4e270a36a91fabfb7698dde68f942b64b02f6428cdc8f71dc",
+  "tensor_count": 148,
+  "storage_types": {
+    "F16": 93,
+    "F32": 55
+  },
+  "conv_unsqueezes": 10,
+  "all_exact": true,
+  "generic_matrix_transpose": false,
+  "tied_output_head": "HF ties lm_head to model.embed_tokens; no independent output tensor in original HF or GGUF",
+  "tensors": [
+    {
+      "hf_name": "model.embed_tokens.weight",
+      "gguf_name": "token_embd.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        65536,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        65536,
+        1024
+      ],
+      "storage_bytes": 134217728,
+      "expected_storage_sha256": "c726c240a1ef0478ec9260c3ce7382e4843cb79942772614d6425eb997813f26",
+      "actual_storage_sha256": "c726c240a1ef0478ec9260c3ce7382e4843cb79942772614d6425eb997813f26",
+      "inverse_fp32_sha256": "764d3999f4f782571cc55bc02bcde5f2a253b1f9a2a3ea1a7d051d6bf9fbe955",
+      "exact": true
+    },
+    {
+      "hf_name": "model.embedding_norm.weight",
+      "gguf_name": "token_embd_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "3693c116bad7e673560a5df3b80dee9ce835eee269f2f7d5f5536284515ac6c0",
+      "actual_storage_sha256": "3693c116bad7e673560a5df3b80dee9ce835eee269f2f7d5f5536284515ac6c0",
+      "inverse_fp32_sha256": "3693c116bad7e673560a5df3b80dee9ce835eee269f2f7d5f5536284515ac6c0",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.conv.conv.weight",
+      "gguf_name": "blk.0.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "ab45c293eeec8af981bf48592320df5edb4fc383cbe66e2dad84056f58bbfb27",
+      "actual_storage_sha256": "ab45c293eeec8af981bf48592320df5edb4fc383cbe66e2dad84056f58bbfb27",
+      "inverse_fp32_sha256": "ab45c293eeec8af981bf48592320df5edb4fc383cbe66e2dad84056f58bbfb27",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.conv.in_proj.weight",
+      "gguf_name": "blk.0.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "b5da645a020a67230d125562edccbb37e896aa0dca0588313fa2aa1aa906bbf2",
+      "actual_storage_sha256": "b5da645a020a67230d125562edccbb37e896aa0dca0588313fa2aa1aa906bbf2",
+      "inverse_fp32_sha256": "66e1ef7551667dea961f0e704e356d1dfb97b7d38b52c04a473b9f7b08fbac9f",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.conv.out_proj.weight",
+      "gguf_name": "blk.0.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "b724950ea161c8d2f8ad662dae171890d4f3c348b9eb2fe9d68f3ba8412b3df0",
+      "actual_storage_sha256": "b724950ea161c8d2f8ad662dae171890d4f3c348b9eb2fe9d68f3ba8412b3df0",
+      "inverse_fp32_sha256": "05fbfffb096ab86cb4d8631e9b7bb8d0abb17c8acb2cbe7ea920dc9c2680e2fe",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.feed_forward.w1.weight",
+      "gguf_name": "blk.0.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "94910f166b3b7ce4f46f6040a5c960f5d04b01f23e2e90aba8dcef55f83f4217",
+      "actual_storage_sha256": "94910f166b3b7ce4f46f6040a5c960f5d04b01f23e2e90aba8dcef55f83f4217",
+      "inverse_fp32_sha256": "a4187c297378cca02c6015c112fac37e5430fdf3b94614062fc25d0dc3cd7375",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.feed_forward.w2.weight",
+      "gguf_name": "blk.0.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "17408b736d9c69988bb1859cba2b50e2ea24a0261fc17e094c638722490cd9c1",
+      "actual_storage_sha256": "17408b736d9c69988bb1859cba2b50e2ea24a0261fc17e094c638722490cd9c1",
+      "inverse_fp32_sha256": "093c10aa707778ff1cdd7282582b367f098b16f85350be5ccb77021f11fa9c5f",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.feed_forward.w3.weight",
+      "gguf_name": "blk.0.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "82a27ea2e919aa7cf57190b5a2f2e09f697e4e90551eb977bebf7d2fd0a48f79",
+      "actual_storage_sha256": "82a27ea2e919aa7cf57190b5a2f2e09f697e4e90551eb977bebf7d2fd0a48f79",
+      "inverse_fp32_sha256": "dd068fc4ff4d152d55df252ab97dbb82452a66c56c29df650afedaa55227dda4",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.ffn_norm.weight",
+      "gguf_name": "blk.0.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "6104974bbe9ace77a3b762afa06552eb9cd4e5aba9ed906eb77b66100cde0d23",
+      "actual_storage_sha256": "6104974bbe9ace77a3b762afa06552eb9cd4e5aba9ed906eb77b66100cde0d23",
+      "inverse_fp32_sha256": "6104974bbe9ace77a3b762afa06552eb9cd4e5aba9ed906eb77b66100cde0d23",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.0.operator_norm.weight",
+      "gguf_name": "blk.0.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "3759defc9a6cfa0de8cb67b4a4f8bea0b180bc2b80ffe389395ebadc658c4d23",
+      "actual_storage_sha256": "3759defc9a6cfa0de8cb67b4a4f8bea0b180bc2b80ffe389395ebadc658c4d23",
+      "inverse_fp32_sha256": "3759defc9a6cfa0de8cb67b4a4f8bea0b180bc2b80ffe389395ebadc658c4d23",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.conv.conv.weight",
+      "gguf_name": "blk.1.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "d167090c4b60e6d1fd6a7123df6b91a54e256546906404765aac2ece97b222d8",
+      "actual_storage_sha256": "d167090c4b60e6d1fd6a7123df6b91a54e256546906404765aac2ece97b222d8",
+      "inverse_fp32_sha256": "d167090c4b60e6d1fd6a7123df6b91a54e256546906404765aac2ece97b222d8",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.conv.in_proj.weight",
+      "gguf_name": "blk.1.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "b95cd4d8e35eae6f2a955915e9c7fdd2119ef22c81c3224cad5a48ccfe061e8a",
+      "actual_storage_sha256": "b95cd4d8e35eae6f2a955915e9c7fdd2119ef22c81c3224cad5a48ccfe061e8a",
+      "inverse_fp32_sha256": "059a55fb012e206a9738e7c21919f62f0dc04026deec7e93d3cdea29c9b5759d",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.conv.out_proj.weight",
+      "gguf_name": "blk.1.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "75b12fc87c2e12af3bd5ddf03e5a950fb03f55c3136cd40d4e19fb2859adf247",
+      "actual_storage_sha256": "75b12fc87c2e12af3bd5ddf03e5a950fb03f55c3136cd40d4e19fb2859adf247",
+      "inverse_fp32_sha256": "2a1ed37224de1e43e4c3e2edb3a9a22ab896b5b5779d175e1fc1df9063dbf68a",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.feed_forward.w1.weight",
+      "gguf_name": "blk.1.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "086d764aee055e72589fd7da9f6f6aca4d650eb9a0f50706ed5e9ec27cb5b367",
+      "actual_storage_sha256": "086d764aee055e72589fd7da9f6f6aca4d650eb9a0f50706ed5e9ec27cb5b367",
+      "inverse_fp32_sha256": "615b01048b12e2957897760e43705f8029ba78aa1464cfd1bc0b85843db91384",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.feed_forward.w2.weight",
+      "gguf_name": "blk.1.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "c49f1ee5e552acd08dfc8677c761409629f4bbe6f81740f4028cc33963df639c",
+      "actual_storage_sha256": "c49f1ee5e552acd08dfc8677c761409629f4bbe6f81740f4028cc33963df639c",
+      "inverse_fp32_sha256": "a7bcf98b6ab553289a97d56e58eedf6ac40359d0a97b46fbf1a3d185da5a660b",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.feed_forward.w3.weight",
+      "gguf_name": "blk.1.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "14899831427e833107899a5fe5ca6d5f20c87836865f8b29041afbce6c82d4e2",
+      "actual_storage_sha256": "14899831427e833107899a5fe5ca6d5f20c87836865f8b29041afbce6c82d4e2",
+      "inverse_fp32_sha256": "1fa43335cb20d3243635347124ea6d3065664355157085495dfec74e1a0210ad",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.ffn_norm.weight",
+      "gguf_name": "blk.1.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "90c2b0954ec7f4fd6e8448988032edfb1f6d38c7760a899d1a00ee0b2041a463",
+      "actual_storage_sha256": "90c2b0954ec7f4fd6e8448988032edfb1f6d38c7760a899d1a00ee0b2041a463",
+      "inverse_fp32_sha256": "90c2b0954ec7f4fd6e8448988032edfb1f6d38c7760a899d1a00ee0b2041a463",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.1.operator_norm.weight",
+      "gguf_name": "blk.1.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "b60645c83296264ead19322cef254e1574c9175425ad089fcca1eb85fff17a1f",
+      "actual_storage_sha256": "b60645c83296264ead19322cef254e1574c9175425ad089fcca1eb85fff17a1f",
+      "inverse_fp32_sha256": "b60645c83296264ead19322cef254e1574c9175425ad089fcca1eb85fff17a1f",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.feed_forward.w1.weight",
+      "gguf_name": "blk.10.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "f1dd604f16d0dfff7ca5e5429c88c778fa20deaab675dedc3c7a53f15e90e1f8",
+      "actual_storage_sha256": "f1dd604f16d0dfff7ca5e5429c88c778fa20deaab675dedc3c7a53f15e90e1f8",
+      "inverse_fp32_sha256": "4a1bde66df782ea3da87ff58aef31436710a320f3f391f1d8f3913e787da55da",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.feed_forward.w2.weight",
+      "gguf_name": "blk.10.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "53bd8da3844dcb24976d8c211e8f7a54fa9d9d4880216515fab1afd4c16163f4",
+      "actual_storage_sha256": "53bd8da3844dcb24976d8c211e8f7a54fa9d9d4880216515fab1afd4c16163f4",
+      "inverse_fp32_sha256": "1c2143df420b69816704b885723b1b5697c61476f0eb936109356199dcde1535",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.feed_forward.w3.weight",
+      "gguf_name": "blk.10.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "3497002c95ee34153af4d109ed7b605a6c71b58aa3fbad68e647fc59f133ccde",
+      "actual_storage_sha256": "3497002c95ee34153af4d109ed7b605a6c71b58aa3fbad68e647fc59f133ccde",
+      "inverse_fp32_sha256": "4acf8891bc8367611a66b052e390f09b92e8aa99a7d8b6ab0afc05eb2da57730",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.ffn_norm.weight",
+      "gguf_name": "blk.10.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "fa3a64c984bdf57e3ac44e62f447941d7ce5bb639f50317c211eba160945ee33",
+      "actual_storage_sha256": "fa3a64c984bdf57e3ac44e62f447941d7ce5bb639f50317c211eba160945ee33",
+      "inverse_fp32_sha256": "fa3a64c984bdf57e3ac44e62f447941d7ce5bb639f50317c211eba160945ee33",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.operator_norm.weight",
+      "gguf_name": "blk.10.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "81102399023aeed7b530e241eb97c84b2b4c026b45cfdea739248cfa49c505f7",
+      "actual_storage_sha256": "81102399023aeed7b530e241eb97c84b2b4c026b45cfdea739248cfa49c505f7",
+      "inverse_fp32_sha256": "81102399023aeed7b530e241eb97c84b2b4c026b45cfdea739248cfa49c505f7",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.self_attn.k_layernorm.weight",
+      "gguf_name": "blk.10.attn_k_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "1b9f65b441b2d34b7baf09eee2904104a72aa5bf29189dd2ab03e2d1776e31ea",
+      "actual_storage_sha256": "1b9f65b441b2d34b7baf09eee2904104a72aa5bf29189dd2ab03e2d1776e31ea",
+      "inverse_fp32_sha256": "1b9f65b441b2d34b7baf09eee2904104a72aa5bf29189dd2ab03e2d1776e31ea",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.self_attn.k_proj.weight",
+      "gguf_name": "blk.10.attn_k.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "afbd406e58381e6e9b209f6acb99d6ad326ac651420355d01aa455f4f8e0a189",
+      "actual_storage_sha256": "afbd406e58381e6e9b209f6acb99d6ad326ac651420355d01aa455f4f8e0a189",
+      "inverse_fp32_sha256": "9f1f1f58df17dbe1a3f3007de140b6b98b3afc25c516731d5de9ea88fc2c7e73",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.self_attn.out_proj.weight",
+      "gguf_name": "blk.10.attn_output.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "9f5b4250611ecb26316b858c4c54f7acff3a03aff46c5ba19771577334886dea",
+      "actual_storage_sha256": "9f5b4250611ecb26316b858c4c54f7acff3a03aff46c5ba19771577334886dea",
+      "inverse_fp32_sha256": "966a482ae6bbf3ed56fb082b2b0b6c64999b055691792334ba2c5b6ec06c3729",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.self_attn.q_layernorm.weight",
+      "gguf_name": "blk.10.attn_q_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "50800532e18d6b707554269802aa0aa9fe99bb18cc4a35a377fcabae4253ef38",
+      "actual_storage_sha256": "50800532e18d6b707554269802aa0aa9fe99bb18cc4a35a377fcabae4253ef38",
+      "inverse_fp32_sha256": "50800532e18d6b707554269802aa0aa9fe99bb18cc4a35a377fcabae4253ef38",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.self_attn.q_proj.weight",
+      "gguf_name": "blk.10.attn_q.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "d70c469a0b0da8e5ddb383eb10b5eeb213229a831a19f99d317daf7311d39945",
+      "actual_storage_sha256": "d70c469a0b0da8e5ddb383eb10b5eeb213229a831a19f99d317daf7311d39945",
+      "inverse_fp32_sha256": "342c60a6d8f4fdb8313e163a603d50d41df714c3e851aac0ca7a1202c9f1f02a",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.10.self_attn.v_proj.weight",
+      "gguf_name": "blk.10.attn_v.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "ad4ee59990e1cbb1082269c472a5faba239b364409c66eb254066159014936b0",
+      "actual_storage_sha256": "ad4ee59990e1cbb1082269c472a5faba239b364409c66eb254066159014936b0",
+      "inverse_fp32_sha256": "b098698d748a86122952ff90cabd415a0eb80c9807fb988d66a479377c85ac0f",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.conv.conv.weight",
+      "gguf_name": "blk.11.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "14a635e7731aeab5dbe01354500df2524c8bb25fc61c96b715d797e812127865",
+      "actual_storage_sha256": "14a635e7731aeab5dbe01354500df2524c8bb25fc61c96b715d797e812127865",
+      "inverse_fp32_sha256": "14a635e7731aeab5dbe01354500df2524c8bb25fc61c96b715d797e812127865",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.conv.in_proj.weight",
+      "gguf_name": "blk.11.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "746137751c35a914fc6437014300715188c989cca0aabdcaf8ba80b7c28eef55",
+      "actual_storage_sha256": "746137751c35a914fc6437014300715188c989cca0aabdcaf8ba80b7c28eef55",
+      "inverse_fp32_sha256": "9404d1298ccf6bedf19eee87742302f652b88868d3a2792040aa73e7208f91c2",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.conv.out_proj.weight",
+      "gguf_name": "blk.11.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "ff85e304324b86a3111c5e3910aa09ea43b77d98095e5732cc978b6e91e6271d",
+      "actual_storage_sha256": "ff85e304324b86a3111c5e3910aa09ea43b77d98095e5732cc978b6e91e6271d",
+      "inverse_fp32_sha256": "ba031cce76c201924984f2af896dae4886999d892b8ada5284db25d975bf4098",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.feed_forward.w1.weight",
+      "gguf_name": "blk.11.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "29dcf9aafd0072d9b14a20ce29d1343f6c795dc6019d2746a0c96b4297890df2",
+      "actual_storage_sha256": "29dcf9aafd0072d9b14a20ce29d1343f6c795dc6019d2746a0c96b4297890df2",
+      "inverse_fp32_sha256": "1dbf085d01f183c03856a637486dc7d2f0fb52275b738de1086dc89723008e51",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.feed_forward.w2.weight",
+      "gguf_name": "blk.11.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "79b7d949367aa5eb029979e1a704d9731fd5855c860c8a9c82c5d9a35ea08084",
+      "actual_storage_sha256": "79b7d949367aa5eb029979e1a704d9731fd5855c860c8a9c82c5d9a35ea08084",
+      "inverse_fp32_sha256": "91a1d5edc734239da5c147d437a77fafbebd067c9e2abfaf5c194188bcc24289",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.feed_forward.w3.weight",
+      "gguf_name": "blk.11.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "892e31dc68585580418c1483f82b02748f8dbe8730e375c98ced0a4e289e318b",
+      "actual_storage_sha256": "892e31dc68585580418c1483f82b02748f8dbe8730e375c98ced0a4e289e318b",
+      "inverse_fp32_sha256": "4da2273371a0b05514b703c1be09571ded46ed8bf53ffcfa0f904e46940909e0",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.ffn_norm.weight",
+      "gguf_name": "blk.11.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "c5a55e65afb59e48b7699ef5b0750cf99a51eb7068a26d5bd16effa81796f509",
+      "actual_storage_sha256": "c5a55e65afb59e48b7699ef5b0750cf99a51eb7068a26d5bd16effa81796f509",
+      "inverse_fp32_sha256": "c5a55e65afb59e48b7699ef5b0750cf99a51eb7068a26d5bd16effa81796f509",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.11.operator_norm.weight",
+      "gguf_name": "blk.11.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "daeb3b9f3ec98dd5dd8310eb297e2d903b4b3fa3853ad8e4976457f10b8da9c6",
+      "actual_storage_sha256": "daeb3b9f3ec98dd5dd8310eb297e2d903b4b3fa3853ad8e4976457f10b8da9c6",
+      "inverse_fp32_sha256": "daeb3b9f3ec98dd5dd8310eb297e2d903b4b3fa3853ad8e4976457f10b8da9c6",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.feed_forward.w1.weight",
+      "gguf_name": "blk.12.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "e812f3a585f449fcdcc003b92bb984bf895b5918d255859eda00159fcc2ec4c0",
+      "actual_storage_sha256": "e812f3a585f449fcdcc003b92bb984bf895b5918d255859eda00159fcc2ec4c0",
+      "inverse_fp32_sha256": "38b3a8c1400f4a337e176f5c6327cf0de3cea53c6cd1374e7b9040e10aaa1731",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.feed_forward.w2.weight",
+      "gguf_name": "blk.12.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "55806d3c0117ecda095f99ce7860614d8752aa46d1e7ddf14138fb3d8cb3c9c5",
+      "actual_storage_sha256": "55806d3c0117ecda095f99ce7860614d8752aa46d1e7ddf14138fb3d8cb3c9c5",
+      "inverse_fp32_sha256": "b5cea4c9e08bb42ca94cab4e5bf8598dbf60dcea37a02b45fee804ba5976a402",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.feed_forward.w3.weight",
+      "gguf_name": "blk.12.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "e646877c7f1795cd58cd3f4c06feb3486c243457f525df188c7e3333b7a028a5",
+      "actual_storage_sha256": "e646877c7f1795cd58cd3f4c06feb3486c243457f525df188c7e3333b7a028a5",
+      "inverse_fp32_sha256": "95741c3592eb2a45cf64ca238ce28d2d1b7776d8bd87ee865ef921594163ae19",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.ffn_norm.weight",
+      "gguf_name": "blk.12.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "db4dd091d6796d038ae4bd37baf754f152dcfd4095af8ae271bb223497442dc8",
+      "actual_storage_sha256": "db4dd091d6796d038ae4bd37baf754f152dcfd4095af8ae271bb223497442dc8",
+      "inverse_fp32_sha256": "db4dd091d6796d038ae4bd37baf754f152dcfd4095af8ae271bb223497442dc8",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.operator_norm.weight",
+      "gguf_name": "blk.12.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "324d1aa95aaccf60d24a49722dd656147cbb81374a3507d2d14e9f01162fe2d0",
+      "actual_storage_sha256": "324d1aa95aaccf60d24a49722dd656147cbb81374a3507d2d14e9f01162fe2d0",
+      "inverse_fp32_sha256": "324d1aa95aaccf60d24a49722dd656147cbb81374a3507d2d14e9f01162fe2d0",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.self_attn.k_layernorm.weight",
+      "gguf_name": "blk.12.attn_k_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "762695b76b4377300e7bad3ae4991216dd89d45a7c8717191c97815207f55508",
+      "actual_storage_sha256": "762695b76b4377300e7bad3ae4991216dd89d45a7c8717191c97815207f55508",
+      "inverse_fp32_sha256": "762695b76b4377300e7bad3ae4991216dd89d45a7c8717191c97815207f55508",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.self_attn.k_proj.weight",
+      "gguf_name": "blk.12.attn_k.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "99744ef19d11f169540b0a8d7cc1c4b6e76b04fc142dbc73b60c9c55c40cdb0d",
+      "actual_storage_sha256": "99744ef19d11f169540b0a8d7cc1c4b6e76b04fc142dbc73b60c9c55c40cdb0d",
+      "inverse_fp32_sha256": "c052c9a0d042bfce84abcab359a2faca7d8e7feca327f00ae1719786392719bf",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.self_attn.out_proj.weight",
+      "gguf_name": "blk.12.attn_output.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "2efa174e2f798573f36153f2065c618fd301d83d056e1afecf3885ba2e6bea2e",
+      "actual_storage_sha256": "2efa174e2f798573f36153f2065c618fd301d83d056e1afecf3885ba2e6bea2e",
+      "inverse_fp32_sha256": "2b00d298d4e2f598c8c0fcd3ff270dae5abb10dd66a56b01f75d4c85307d69e5",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.self_attn.q_layernorm.weight",
+      "gguf_name": "blk.12.attn_q_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "115064c4820c9eb389cc0ae4931d428e8303b176ce5ed7ca2dafce69f9e1a930",
+      "actual_storage_sha256": "115064c4820c9eb389cc0ae4931d428e8303b176ce5ed7ca2dafce69f9e1a930",
+      "inverse_fp32_sha256": "115064c4820c9eb389cc0ae4931d428e8303b176ce5ed7ca2dafce69f9e1a930",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.self_attn.q_proj.weight",
+      "gguf_name": "blk.12.attn_q.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "fea7a6dd883a909774702803cd0d6df7ec16119fcd58688195b708999728dd96",
+      "actual_storage_sha256": "fea7a6dd883a909774702803cd0d6df7ec16119fcd58688195b708999728dd96",
+      "inverse_fp32_sha256": "37da19a08d37c6a6852c650b6444bb0a33dd8f681d39d21d5db06d60f6f66117",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.12.self_attn.v_proj.weight",
+      "gguf_name": "blk.12.attn_v.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "2480433488d2356427455345d99284f206a73e365c301a6cedb45534775ae370",
+      "actual_storage_sha256": "2480433488d2356427455345d99284f206a73e365c301a6cedb45534775ae370",
+      "inverse_fp32_sha256": "4a251aa144534249204d51f1e65c76975bce527c82d8e27605e505ffd11f0693",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.conv.conv.weight",
+      "gguf_name": "blk.13.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "60ce059c75c1c44e0a441b4a1c1b963f1a7b2d50f36249530430073b94737b51",
+      "actual_storage_sha256": "60ce059c75c1c44e0a441b4a1c1b963f1a7b2d50f36249530430073b94737b51",
+      "inverse_fp32_sha256": "60ce059c75c1c44e0a441b4a1c1b963f1a7b2d50f36249530430073b94737b51",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.conv.in_proj.weight",
+      "gguf_name": "blk.13.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "b4082cbc2b939216e666a91a517c5d0f293f53528ff25334f6eb8f4ca65ab636",
+      "actual_storage_sha256": "b4082cbc2b939216e666a91a517c5d0f293f53528ff25334f6eb8f4ca65ab636",
+      "inverse_fp32_sha256": "ce0150190c68ac2036aae41956f3cc65a8919359deec7918eea20d95c85d624c",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.conv.out_proj.weight",
+      "gguf_name": "blk.13.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "6f7b48caf1c4f3efaca9d9acfe26b11b09f697f98920035a5295694919ef745b",
+      "actual_storage_sha256": "6f7b48caf1c4f3efaca9d9acfe26b11b09f697f98920035a5295694919ef745b",
+      "inverse_fp32_sha256": "7c9492ecbad7cffc5885180b25792f0cedb44464c12d1c66d6c9047253b9357a",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.feed_forward.w1.weight",
+      "gguf_name": "blk.13.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "ec8f7d130f837dd568aa4d737a78bd5fd934dfd73c8cb7849f2def0130f320d4",
+      "actual_storage_sha256": "ec8f7d130f837dd568aa4d737a78bd5fd934dfd73c8cb7849f2def0130f320d4",
+      "inverse_fp32_sha256": "2b3ad92bf8d3f4e7ee510027fb05bde275b0eb5f89175604c82b776eeb0c7813",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.feed_forward.w2.weight",
+      "gguf_name": "blk.13.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "f747913d83f359544a65306c4d8a9ba3003c793eaf03fb7330d39689072dfcfa",
+      "actual_storage_sha256": "f747913d83f359544a65306c4d8a9ba3003c793eaf03fb7330d39689072dfcfa",
+      "inverse_fp32_sha256": "cd0cc52b4789bf7715ddcdfd01c872faa900319b2faeb195b4567cea41432dda",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.feed_forward.w3.weight",
+      "gguf_name": "blk.13.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "9a87ebc0125632309aa61074509b668dbc333dd12630fa78194e77cadf4f4ef3",
+      "actual_storage_sha256": "9a87ebc0125632309aa61074509b668dbc333dd12630fa78194e77cadf4f4ef3",
+      "inverse_fp32_sha256": "eb2491a02fab1bc359b2c0fbcc9d102347ad72b3c265fc34a96dcc9a24e0d06a",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.ffn_norm.weight",
+      "gguf_name": "blk.13.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "cd3856df617ec3ea82b8e9feb208a955bdde27eacb1c064c4863d2445addefd5",
+      "actual_storage_sha256": "cd3856df617ec3ea82b8e9feb208a955bdde27eacb1c064c4863d2445addefd5",
+      "inverse_fp32_sha256": "cd3856df617ec3ea82b8e9feb208a955bdde27eacb1c064c4863d2445addefd5",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.13.operator_norm.weight",
+      "gguf_name": "blk.13.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "a7a9c2ac7c965d29e196431ceb11cdad966e93fc37d85c6739886a73d282d83b",
+      "actual_storage_sha256": "a7a9c2ac7c965d29e196431ceb11cdad966e93fc37d85c6739886a73d282d83b",
+      "inverse_fp32_sha256": "a7a9c2ac7c965d29e196431ceb11cdad966e93fc37d85c6739886a73d282d83b",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.feed_forward.w1.weight",
+      "gguf_name": "blk.14.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "872470324e0a4e9873c8f73be86be1cbbb6398c487c1f758e2e8ce9f350542ab",
+      "actual_storage_sha256": "872470324e0a4e9873c8f73be86be1cbbb6398c487c1f758e2e8ce9f350542ab",
+      "inverse_fp32_sha256": "6946ce5a0b575b63bf337d1c7fe29b457908c2917c33820562cd1712b9b1dd48",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.feed_forward.w2.weight",
+      "gguf_name": "blk.14.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "daa6cb31f58a5c7fffa543f2ef1f530eb14bcc47c1bef0a0367d7b6ad23582c8",
+      "actual_storage_sha256": "daa6cb31f58a5c7fffa543f2ef1f530eb14bcc47c1bef0a0367d7b6ad23582c8",
+      "inverse_fp32_sha256": "8ccdf128a455204e2198117ec19a6e1d9f6a42c935003afd6859bd3952287549",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.feed_forward.w3.weight",
+      "gguf_name": "blk.14.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "02c8a9cae9e3b598b4d42ef89f6b94bf5832158d9bc5cc6249cc8d1488637907",
+      "actual_storage_sha256": "02c8a9cae9e3b598b4d42ef89f6b94bf5832158d9bc5cc6249cc8d1488637907",
+      "inverse_fp32_sha256": "b1e2da62b6b0fe4f1a1f4b40a9be63a028e62d1db6cceb1c1f97d550e8af3130",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.ffn_norm.weight",
+      "gguf_name": "blk.14.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "30ee005771cc6bba4cda74a79231510c9c6953029d350c05592c161649705bee",
+      "actual_storage_sha256": "30ee005771cc6bba4cda74a79231510c9c6953029d350c05592c161649705bee",
+      "inverse_fp32_sha256": "30ee005771cc6bba4cda74a79231510c9c6953029d350c05592c161649705bee",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.operator_norm.weight",
+      "gguf_name": "blk.14.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "e4c403495d2ba4b2175fa87d849b2fb5031ecdde6e9b02967aa4703af1e38fae",
+      "actual_storage_sha256": "e4c403495d2ba4b2175fa87d849b2fb5031ecdde6e9b02967aa4703af1e38fae",
+      "inverse_fp32_sha256": "e4c403495d2ba4b2175fa87d849b2fb5031ecdde6e9b02967aa4703af1e38fae",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.self_attn.k_layernorm.weight",
+      "gguf_name": "blk.14.attn_k_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "e359aebe60d76dee57c882e76c9c09a6beaac0b660fba1d0602c6f40179f7939",
+      "actual_storage_sha256": "e359aebe60d76dee57c882e76c9c09a6beaac0b660fba1d0602c6f40179f7939",
+      "inverse_fp32_sha256": "e359aebe60d76dee57c882e76c9c09a6beaac0b660fba1d0602c6f40179f7939",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.self_attn.k_proj.weight",
+      "gguf_name": "blk.14.attn_k.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "b1cf013cc29cd6a9c15b28674e47a4f4ea32cc092069c3213ba3065341cbc3bc",
+      "actual_storage_sha256": "b1cf013cc29cd6a9c15b28674e47a4f4ea32cc092069c3213ba3065341cbc3bc",
+      "inverse_fp32_sha256": "2d3acfcd6b8be10c8f4efd34052928b74bd21cb742a331014ebe223de4a345c2",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.self_attn.out_proj.weight",
+      "gguf_name": "blk.14.attn_output.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "a4cf2f32df2afd58514188f652a5c7f419e73d52d792c7b22a789d5a6347e3f0",
+      "actual_storage_sha256": "a4cf2f32df2afd58514188f652a5c7f419e73d52d792c7b22a789d5a6347e3f0",
+      "inverse_fp32_sha256": "3bb44dde9a8ca6a8d3bc61944543c4d58233ff5c73f2463e19a9d6ec62effbe6",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.self_attn.q_layernorm.weight",
+      "gguf_name": "blk.14.attn_q_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "346c5ceb7a1b0aa0eb7b0491b96de6c7aa0b298a44fe535be18af9d6b1b67262",
+      "actual_storage_sha256": "346c5ceb7a1b0aa0eb7b0491b96de6c7aa0b298a44fe535be18af9d6b1b67262",
+      "inverse_fp32_sha256": "346c5ceb7a1b0aa0eb7b0491b96de6c7aa0b298a44fe535be18af9d6b1b67262",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.self_attn.q_proj.weight",
+      "gguf_name": "blk.14.attn_q.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "22e17cb71dec629808ab2286a3514d812b8ec997ffd5158eabd977054f22ba8d",
+      "actual_storage_sha256": "22e17cb71dec629808ab2286a3514d812b8ec997ffd5158eabd977054f22ba8d",
+      "inverse_fp32_sha256": "5d393fecb302ab3896c7398b1b15e5c218ff0581882f42c0993c69d1fdf7f502",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.14.self_attn.v_proj.weight",
+      "gguf_name": "blk.14.attn_v.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "8707fb73e196fd6212eeef634d0a361228e0f0cfd960448d2508595cf3021033",
+      "actual_storage_sha256": "8707fb73e196fd6212eeef634d0a361228e0f0cfd960448d2508595cf3021033",
+      "inverse_fp32_sha256": "7ba8be45e9c49a12fc929ca2f2aaa393e224306f848e2f4996e9dd7cbf7e796a",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.conv.conv.weight",
+      "gguf_name": "blk.15.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "7f60fce86c6c1a1e9577002b480998191d42fcf0bb90cc367da2a1e6e5ccf4d4",
+      "actual_storage_sha256": "7f60fce86c6c1a1e9577002b480998191d42fcf0bb90cc367da2a1e6e5ccf4d4",
+      "inverse_fp32_sha256": "7f60fce86c6c1a1e9577002b480998191d42fcf0bb90cc367da2a1e6e5ccf4d4",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.conv.in_proj.weight",
+      "gguf_name": "blk.15.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "af557c7234d374bd59e774c3d2d5d4c6f2290ff9751627d519e028331b195a33",
+      "actual_storage_sha256": "af557c7234d374bd59e774c3d2d5d4c6f2290ff9751627d519e028331b195a33",
+      "inverse_fp32_sha256": "480063ffc2da907effee787b113be0568a94417afce58f3496a847da184a99ad",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.conv.out_proj.weight",
+      "gguf_name": "blk.15.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "3784ffb7e09d33e45e450fb929705106e9b37354f94fd126e8951124a9bc854c",
+      "actual_storage_sha256": "3784ffb7e09d33e45e450fb929705106e9b37354f94fd126e8951124a9bc854c",
+      "inverse_fp32_sha256": "574098ff9ef1470054e8697d0264a519f4d4974073908dbdf1edb9c7161ac708",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.feed_forward.w1.weight",
+      "gguf_name": "blk.15.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "3bb738324fdcb4bb9bc75bd4702d0e077eb9869d016c4926fba31c056c3e671c",
+      "actual_storage_sha256": "3bb738324fdcb4bb9bc75bd4702d0e077eb9869d016c4926fba31c056c3e671c",
+      "inverse_fp32_sha256": "61fcdd234e8048af3296458122b8f88172e39fbd8dd6b9dacd17aa305c1969c1",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.feed_forward.w2.weight",
+      "gguf_name": "blk.15.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "125cb1793a6dd32f5212e88ae99b290eb7a601918f1086ce5f166fbffd7b930b",
+      "actual_storage_sha256": "125cb1793a6dd32f5212e88ae99b290eb7a601918f1086ce5f166fbffd7b930b",
+      "inverse_fp32_sha256": "afcfa00c1a94da49c3991caecaa596eac8485fcbf7f3c0db4be317537253f727",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.feed_forward.w3.weight",
+      "gguf_name": "blk.15.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "42a5291d7ace62acb205c6d216885af1016e8c995a1c683beadf159c691fc55b",
+      "actual_storage_sha256": "42a5291d7ace62acb205c6d216885af1016e8c995a1c683beadf159c691fc55b",
+      "inverse_fp32_sha256": "3e74362903c3156211e5236bc45cefa64868cb5aa10fbee2f908660c5e80ae11",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.ffn_norm.weight",
+      "gguf_name": "blk.15.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "de0a5d987d86022068062d8d4430773daacc497e59f5e33db817efc214bf119d",
+      "actual_storage_sha256": "de0a5d987d86022068062d8d4430773daacc497e59f5e33db817efc214bf119d",
+      "inverse_fp32_sha256": "de0a5d987d86022068062d8d4430773daacc497e59f5e33db817efc214bf119d",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.15.operator_norm.weight",
+      "gguf_name": "blk.15.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "8ae89b0cc361c19e83d28b01a1b962dd1eb718447e8f4d8d22d533df4998bc51",
+      "actual_storage_sha256": "8ae89b0cc361c19e83d28b01a1b962dd1eb718447e8f4d8d22d533df4998bc51",
+      "inverse_fp32_sha256": "8ae89b0cc361c19e83d28b01a1b962dd1eb718447e8f4d8d22d533df4998bc51",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.feed_forward.w1.weight",
+      "gguf_name": "blk.2.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "371002efc80614cab085a908422d7f65868aec7e04b23bede5e681e15d5ee3e2",
+      "actual_storage_sha256": "371002efc80614cab085a908422d7f65868aec7e04b23bede5e681e15d5ee3e2",
+      "inverse_fp32_sha256": "6fc53ff609e130e8bf37764568b7278e0963d4e8374577e2d19e2305bf96bd0a",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.feed_forward.w2.weight",
+      "gguf_name": "blk.2.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "f5f315108e3ddc6063bef5db63d76c91af6e54911584417032bb6d70c08bdf14",
+      "actual_storage_sha256": "f5f315108e3ddc6063bef5db63d76c91af6e54911584417032bb6d70c08bdf14",
+      "inverse_fp32_sha256": "099ec51a68817a2a753ffc5adf5fc8884626e1a1a9849aafb0ae7d72cc183a25",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.feed_forward.w3.weight",
+      "gguf_name": "blk.2.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "af287f93cd349aa1866a6429ed28655faa56fbc616f2529966f8974cb0d136a5",
+      "actual_storage_sha256": "af287f93cd349aa1866a6429ed28655faa56fbc616f2529966f8974cb0d136a5",
+      "inverse_fp32_sha256": "6344dfb04a9292ad86efb7fd59e3e81b33e065c186e37c36e2ceadb6aed64316",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.ffn_norm.weight",
+      "gguf_name": "blk.2.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "2330844e76ae1b3fc04ce71fcd65afe9b849d3123a9dcb8dd284c9724f6709eb",
+      "actual_storage_sha256": "2330844e76ae1b3fc04ce71fcd65afe9b849d3123a9dcb8dd284c9724f6709eb",
+      "inverse_fp32_sha256": "2330844e76ae1b3fc04ce71fcd65afe9b849d3123a9dcb8dd284c9724f6709eb",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.operator_norm.weight",
+      "gguf_name": "blk.2.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "eab558d11dcf9b7642fa0533772cf30ff352f7c4d7f50fcd86a2a91553564854",
+      "actual_storage_sha256": "eab558d11dcf9b7642fa0533772cf30ff352f7c4d7f50fcd86a2a91553564854",
+      "inverse_fp32_sha256": "eab558d11dcf9b7642fa0533772cf30ff352f7c4d7f50fcd86a2a91553564854",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.self_attn.k_layernorm.weight",
+      "gguf_name": "blk.2.attn_k_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "74ea07ad397660388443f68d0155bf9dc4217bdf6abd46ffc08dd7479e95e552",
+      "actual_storage_sha256": "74ea07ad397660388443f68d0155bf9dc4217bdf6abd46ffc08dd7479e95e552",
+      "inverse_fp32_sha256": "74ea07ad397660388443f68d0155bf9dc4217bdf6abd46ffc08dd7479e95e552",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.self_attn.k_proj.weight",
+      "gguf_name": "blk.2.attn_k.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "2f623800df25b66898129027311c9b156d1771957a91e7ff039f540b9ad1d19e",
+      "actual_storage_sha256": "2f623800df25b66898129027311c9b156d1771957a91e7ff039f540b9ad1d19e",
+      "inverse_fp32_sha256": "927cabbe680ee32be015db62fa8f14ba13a7b4f556d449899a3e0492d7a2262f",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.self_attn.out_proj.weight",
+      "gguf_name": "blk.2.attn_output.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "917a322dc3a1027125ef86fafbe52d8ad595deb43a65d2f4dd92678d94a5c843",
+      "actual_storage_sha256": "917a322dc3a1027125ef86fafbe52d8ad595deb43a65d2f4dd92678d94a5c843",
+      "inverse_fp32_sha256": "cb037c2342f85ad2fd7fef76393adfdbb17d9488c6dfe968cf02fb5bdf21f636",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.self_attn.q_layernorm.weight",
+      "gguf_name": "blk.2.attn_q_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "e5d2ed7b477c18ea8b28bd333d207c6541fa18897ce803c0f718ab21c58a8231",
+      "actual_storage_sha256": "e5d2ed7b477c18ea8b28bd333d207c6541fa18897ce803c0f718ab21c58a8231",
+      "inverse_fp32_sha256": "e5d2ed7b477c18ea8b28bd333d207c6541fa18897ce803c0f718ab21c58a8231",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.self_attn.q_proj.weight",
+      "gguf_name": "blk.2.attn_q.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "a279d1f264acc1065e6f4f31add51712cd6658a728c2b1770a64853f9eb005fb",
+      "actual_storage_sha256": "a279d1f264acc1065e6f4f31add51712cd6658a728c2b1770a64853f9eb005fb",
+      "inverse_fp32_sha256": "baccfa812d69a6f01ed6f6d44eb3bd0b65121f976be6756840c1dce2e1af26c2",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.2.self_attn.v_proj.weight",
+      "gguf_name": "blk.2.attn_v.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "8f0acb4b3889fcd59712a974651d74be2c4480b22ef211b6ed686bd3635e9eda",
+      "actual_storage_sha256": "8f0acb4b3889fcd59712a974651d74be2c4480b22ef211b6ed686bd3635e9eda",
+      "inverse_fp32_sha256": "926c10003e7f566efdb1024e6a3df67f79566b736d6c3fcfb0508ca9055bd020",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.conv.conv.weight",
+      "gguf_name": "blk.3.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "99eed87894e9f6ee199546665d136a84b98f4bb3b808aacc6e08e53db4430af7",
+      "actual_storage_sha256": "99eed87894e9f6ee199546665d136a84b98f4bb3b808aacc6e08e53db4430af7",
+      "inverse_fp32_sha256": "99eed87894e9f6ee199546665d136a84b98f4bb3b808aacc6e08e53db4430af7",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.conv.in_proj.weight",
+      "gguf_name": "blk.3.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "3faae3238e2eef508b3cb2927c9717bd9eb30fd02fb2d77d2f2cb8e39c04a1a6",
+      "actual_storage_sha256": "3faae3238e2eef508b3cb2927c9717bd9eb30fd02fb2d77d2f2cb8e39c04a1a6",
+      "inverse_fp32_sha256": "ca338fd34409f038c1417642bcaaa1a8d5be82c9f045196e4a9f09734cbbadfa",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.conv.out_proj.weight",
+      "gguf_name": "blk.3.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "3156891e40c781dcd91d773a689708a009db6d5af2b1c33ca1e7bd2d1fd5db9a",
+      "actual_storage_sha256": "3156891e40c781dcd91d773a689708a009db6d5af2b1c33ca1e7bd2d1fd5db9a",
+      "inverse_fp32_sha256": "f8ea250132ac97b985f5fe39fb933c18d41a4d411181eae027207aaa8376606b",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.feed_forward.w1.weight",
+      "gguf_name": "blk.3.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "8f6e8594821f457b5b5f0c03e5d1fea3b2164e1e7bc83970c08bd3efa016ea3c",
+      "actual_storage_sha256": "8f6e8594821f457b5b5f0c03e5d1fea3b2164e1e7bc83970c08bd3efa016ea3c",
+      "inverse_fp32_sha256": "218929a290253b5700f31ce155649eedf74094287f074b32e5c8e8422a9e33f2",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.feed_forward.w2.weight",
+      "gguf_name": "blk.3.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "00712b2cd4f70b4794ab3ed3e98a848e8a1f0a780d00ac1f29ec8e4269fb74e0",
+      "actual_storage_sha256": "00712b2cd4f70b4794ab3ed3e98a848e8a1f0a780d00ac1f29ec8e4269fb74e0",
+      "inverse_fp32_sha256": "030f08bfa7270daaa402f151716136e09d21eb145c73124dbacb566073b2b217",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.feed_forward.w3.weight",
+      "gguf_name": "blk.3.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "91dfad3fd930e659906e8ecac28dc4e09404dd031b94b908a6b8cd333d7342fe",
+      "actual_storage_sha256": "91dfad3fd930e659906e8ecac28dc4e09404dd031b94b908a6b8cd333d7342fe",
+      "inverse_fp32_sha256": "7cbd522d173576bbe0a75daeb2497709fa1d3dd0b055a0fcafb186ba2ad663e1",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.ffn_norm.weight",
+      "gguf_name": "blk.3.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "8ad934973edafc6fc1972ec41aa948b6c20a86357a2776749e95a0f0f7c1628e",
+      "actual_storage_sha256": "8ad934973edafc6fc1972ec41aa948b6c20a86357a2776749e95a0f0f7c1628e",
+      "inverse_fp32_sha256": "8ad934973edafc6fc1972ec41aa948b6c20a86357a2776749e95a0f0f7c1628e",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.3.operator_norm.weight",
+      "gguf_name": "blk.3.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "27b26f6c208f147968496672a90d20ff7760c8db34598deda4a5aae0a6818b63",
+      "actual_storage_sha256": "27b26f6c208f147968496672a90d20ff7760c8db34598deda4a5aae0a6818b63",
+      "inverse_fp32_sha256": "27b26f6c208f147968496672a90d20ff7760c8db34598deda4a5aae0a6818b63",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.conv.conv.weight",
+      "gguf_name": "blk.4.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "0e50243961b52ae3a7d09f310d58e0d8cbae7263590705e964488025806a511e",
+      "actual_storage_sha256": "0e50243961b52ae3a7d09f310d58e0d8cbae7263590705e964488025806a511e",
+      "inverse_fp32_sha256": "0e50243961b52ae3a7d09f310d58e0d8cbae7263590705e964488025806a511e",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.conv.in_proj.weight",
+      "gguf_name": "blk.4.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "c51dda6e22ac73357e14a3395db03e04cd5d72aa8bddcdedd58b309f28a07dc9",
+      "actual_storage_sha256": "c51dda6e22ac73357e14a3395db03e04cd5d72aa8bddcdedd58b309f28a07dc9",
+      "inverse_fp32_sha256": "e12e45bcf2e5ac49edb44772bb178db6c4ed48d6d7048a1148fb75f90080c46e",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.conv.out_proj.weight",
+      "gguf_name": "blk.4.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "c3b244161b30bf8a0f6def56ec023181463339a7dca1b7d03314155ad7ebf00f",
+      "actual_storage_sha256": "c3b244161b30bf8a0f6def56ec023181463339a7dca1b7d03314155ad7ebf00f",
+      "inverse_fp32_sha256": "876991ba653930f037686523fa81abda9ca1daa6b10fe40e4807cf6569a302bc",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.feed_forward.w1.weight",
+      "gguf_name": "blk.4.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "3539f98d0360b7d16629a8debda0976ec4e2f47d83c92107c5cda51974ec9bbb",
+      "actual_storage_sha256": "3539f98d0360b7d16629a8debda0976ec4e2f47d83c92107c5cda51974ec9bbb",
+      "inverse_fp32_sha256": "86a715bd6463b68295ad82ee81b635104aaa3e2adc16aee195f9b6dfab329657",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.feed_forward.w2.weight",
+      "gguf_name": "blk.4.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "af69726225fc332c48035e2a61a02ab5fa3fe14adba1b12c86abafd76cdd1c4e",
+      "actual_storage_sha256": "af69726225fc332c48035e2a61a02ab5fa3fe14adba1b12c86abafd76cdd1c4e",
+      "inverse_fp32_sha256": "d76b65951996e765b54ed3c34b138d66d68d7b966bed35cba32cd0bef513d5cc",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.feed_forward.w3.weight",
+      "gguf_name": "blk.4.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "67cb6c1ee405b396429fca88e083ed354c02d04c3957d2088cf3303cbbde292d",
+      "actual_storage_sha256": "67cb6c1ee405b396429fca88e083ed354c02d04c3957d2088cf3303cbbde292d",
+      "inverse_fp32_sha256": "039e3319989562d4011dfbefd92a7b3b02299b10b5f63f915a81fba5c3c68ab1",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.ffn_norm.weight",
+      "gguf_name": "blk.4.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "13d7487fbe7eefbf85e49cb1d191229c0a7115dc4f9e77c35a534b7d9a2eac07",
+      "actual_storage_sha256": "13d7487fbe7eefbf85e49cb1d191229c0a7115dc4f9e77c35a534b7d9a2eac07",
+      "inverse_fp32_sha256": "13d7487fbe7eefbf85e49cb1d191229c0a7115dc4f9e77c35a534b7d9a2eac07",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.4.operator_norm.weight",
+      "gguf_name": "blk.4.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "48ed7da803c26cf316ea21707a67ebc107f7cc9c0fd287fbe0152c2cf9e7eca8",
+      "actual_storage_sha256": "48ed7da803c26cf316ea21707a67ebc107f7cc9c0fd287fbe0152c2cf9e7eca8",
+      "inverse_fp32_sha256": "48ed7da803c26cf316ea21707a67ebc107f7cc9c0fd287fbe0152c2cf9e7eca8",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.feed_forward.w1.weight",
+      "gguf_name": "blk.5.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "9de6a44ae6da71e2b33d2558f39106f3f62e762bd2e696779a7c6167084fbae2",
+      "actual_storage_sha256": "9de6a44ae6da71e2b33d2558f39106f3f62e762bd2e696779a7c6167084fbae2",
+      "inverse_fp32_sha256": "7022a4539fdc463c8dbbe04111da8cb3531ef8cbd4c385103dc2402b61cf0a40",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.feed_forward.w2.weight",
+      "gguf_name": "blk.5.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "6ba747fdd677042bd42a2baf9a12ef2f2e9b7c3740c67780045512fceb4683a3",
+      "actual_storage_sha256": "6ba747fdd677042bd42a2baf9a12ef2f2e9b7c3740c67780045512fceb4683a3",
+      "inverse_fp32_sha256": "2146e337fc1634f7befcd231a39b276f18c4890ce5155b0a2ad4f2efdbd56c17",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.feed_forward.w3.weight",
+      "gguf_name": "blk.5.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "dce79d19434030a7eed09d271c3e58c618f6fd79061c0cc58d1f84ac543f3c41",
+      "actual_storage_sha256": "dce79d19434030a7eed09d271c3e58c618f6fd79061c0cc58d1f84ac543f3c41",
+      "inverse_fp32_sha256": "dcd99d42277794cdbd70ee6f7f430190f23bbe73dd5871cd95a883f17bbfb97c",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.ffn_norm.weight",
+      "gguf_name": "blk.5.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "5821ade7f06eed9fc0af79755c1e445fc03a366e2d8ad6346694bed645479004",
+      "actual_storage_sha256": "5821ade7f06eed9fc0af79755c1e445fc03a366e2d8ad6346694bed645479004",
+      "inverse_fp32_sha256": "5821ade7f06eed9fc0af79755c1e445fc03a366e2d8ad6346694bed645479004",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.operator_norm.weight",
+      "gguf_name": "blk.5.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "939db5362dd6e06725bc0e446f9b59fb044bbf712da005be7b02779e4b504b7b",
+      "actual_storage_sha256": "939db5362dd6e06725bc0e446f9b59fb044bbf712da005be7b02779e4b504b7b",
+      "inverse_fp32_sha256": "939db5362dd6e06725bc0e446f9b59fb044bbf712da005be7b02779e4b504b7b",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.self_attn.k_layernorm.weight",
+      "gguf_name": "blk.5.attn_k_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "f4e972f643f1fd41849b30bf30cce5c72e86ba047e2d206b5d59aee799e79d90",
+      "actual_storage_sha256": "f4e972f643f1fd41849b30bf30cce5c72e86ba047e2d206b5d59aee799e79d90",
+      "inverse_fp32_sha256": "f4e972f643f1fd41849b30bf30cce5c72e86ba047e2d206b5d59aee799e79d90",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.self_attn.k_proj.weight",
+      "gguf_name": "blk.5.attn_k.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "f35dcdf3c9362a4bfc57ba12e4da532abb9cfb4d7cf77a8f263eefe5d17c2feb",
+      "actual_storage_sha256": "f35dcdf3c9362a4bfc57ba12e4da532abb9cfb4d7cf77a8f263eefe5d17c2feb",
+      "inverse_fp32_sha256": "fd2db2b28d7a1e8412630ed99ace9526c3de71dabfeab2bb2113872cb3867ab2",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.self_attn.out_proj.weight",
+      "gguf_name": "blk.5.attn_output.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "d91b0427b1a955741bca6e67ae689e7695a2304a4b7faf8b835d1c9ebb26fd6c",
+      "actual_storage_sha256": "d91b0427b1a955741bca6e67ae689e7695a2304a4b7faf8b835d1c9ebb26fd6c",
+      "inverse_fp32_sha256": "9b87e37c16947332b71270885bfa8c9553919b8c35acd4f74b3faf55bc712ef7",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.self_attn.q_layernorm.weight",
+      "gguf_name": "blk.5.attn_q_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "296b540ee882f76adb7cb77ad790630753e1e82385b15b69ce31bfaf66c48e7e",
+      "actual_storage_sha256": "296b540ee882f76adb7cb77ad790630753e1e82385b15b69ce31bfaf66c48e7e",
+      "inverse_fp32_sha256": "296b540ee882f76adb7cb77ad790630753e1e82385b15b69ce31bfaf66c48e7e",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.self_attn.q_proj.weight",
+      "gguf_name": "blk.5.attn_q.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "0a5a439fcdfa16320ee2c12e2c4edcb1a0da10fc475a0e6d69cd7d9c83eb7170",
+      "actual_storage_sha256": "0a5a439fcdfa16320ee2c12e2c4edcb1a0da10fc475a0e6d69cd7d9c83eb7170",
+      "inverse_fp32_sha256": "3d27e44ddda8a4ecf4cd87a921000b21b18206f8fdec255e1ab76a351258adda",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.5.self_attn.v_proj.weight",
+      "gguf_name": "blk.5.attn_v.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "f51b3857985f229309f4d87c77c878640811af6c5403c40b14274face5ea4602",
+      "actual_storage_sha256": "f51b3857985f229309f4d87c77c878640811af6c5403c40b14274face5ea4602",
+      "inverse_fp32_sha256": "9d7f770a22f391e5181a9d8ed672f7b8e6f2b5c18ea9d151910923ccd79d952e",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.conv.conv.weight",
+      "gguf_name": "blk.6.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "cab1a2d4d12591b8c64cdd1ce1818aaae256611d9034f9ec720e16ee6a835ce6",
+      "actual_storage_sha256": "cab1a2d4d12591b8c64cdd1ce1818aaae256611d9034f9ec720e16ee6a835ce6",
+      "inverse_fp32_sha256": "cab1a2d4d12591b8c64cdd1ce1818aaae256611d9034f9ec720e16ee6a835ce6",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.conv.in_proj.weight",
+      "gguf_name": "blk.6.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "3221b117b705ff2d21ef97c7e9b0cc282e2a87255d6b873e82268fb1d9086685",
+      "actual_storage_sha256": "3221b117b705ff2d21ef97c7e9b0cc282e2a87255d6b873e82268fb1d9086685",
+      "inverse_fp32_sha256": "9fd087ebf0e7ebf452d0f39e8679ef3df072f841c6c621c1dabe68d6177d48a7",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.conv.out_proj.weight",
+      "gguf_name": "blk.6.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "6a63e7a1afe178738b4ed4c2d96fa5a0e47d4f14b292bac9250ec7420648ddd0",
+      "actual_storage_sha256": "6a63e7a1afe178738b4ed4c2d96fa5a0e47d4f14b292bac9250ec7420648ddd0",
+      "inverse_fp32_sha256": "862a67613a440d89946f49e26fedbfce7622aae1f2c4a897f3d04b5fac706515",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.feed_forward.w1.weight",
+      "gguf_name": "blk.6.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "fe34f67e6e7097c137c4a0fb910dbe305b6d23c1630c706cde6242bcb081e8a6",
+      "actual_storage_sha256": "fe34f67e6e7097c137c4a0fb910dbe305b6d23c1630c706cde6242bcb081e8a6",
+      "inverse_fp32_sha256": "0b749c899bcf7f4ab5f9dc82d33cda603f9eb91c0bc662cd8d2d891c07485f76",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.feed_forward.w2.weight",
+      "gguf_name": "blk.6.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "8c36368283c5509d22b31a77d6ca5458d8f946042521df6fa9caa7a8ad49952e",
+      "actual_storage_sha256": "8c36368283c5509d22b31a77d6ca5458d8f946042521df6fa9caa7a8ad49952e",
+      "inverse_fp32_sha256": "b117475972205727e19ca682bf3c5914e6c41b50581c3e249c4d86181b10b06d",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.feed_forward.w3.weight",
+      "gguf_name": "blk.6.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "712b4bc13e51ac1115424fe4a26c44de2574f66fd2568073173651aa483df91a",
+      "actual_storage_sha256": "712b4bc13e51ac1115424fe4a26c44de2574f66fd2568073173651aa483df91a",
+      "inverse_fp32_sha256": "7444bff23d9299fe0ca26350e621e9caa7465eb27a35c921015b9972b1b49836",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.ffn_norm.weight",
+      "gguf_name": "blk.6.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "0fd9f2306881e3a3d73634894aa69826a24c5693acd91e47cebe84c67f7a6a59",
+      "actual_storage_sha256": "0fd9f2306881e3a3d73634894aa69826a24c5693acd91e47cebe84c67f7a6a59",
+      "inverse_fp32_sha256": "0fd9f2306881e3a3d73634894aa69826a24c5693acd91e47cebe84c67f7a6a59",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.6.operator_norm.weight",
+      "gguf_name": "blk.6.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "601f600f028ac85465db5d68e9e0a63401551918519d5985c065201e75ce42ae",
+      "actual_storage_sha256": "601f600f028ac85465db5d68e9e0a63401551918519d5985c065201e75ce42ae",
+      "inverse_fp32_sha256": "601f600f028ac85465db5d68e9e0a63401551918519d5985c065201e75ce42ae",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.conv.conv.weight",
+      "gguf_name": "blk.7.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "c221be32d5bb17a6d4953ebc5af70359201d69e7cf25a3b6ad490edba8f747b5",
+      "actual_storage_sha256": "c221be32d5bb17a6d4953ebc5af70359201d69e7cf25a3b6ad490edba8f747b5",
+      "inverse_fp32_sha256": "c221be32d5bb17a6d4953ebc5af70359201d69e7cf25a3b6ad490edba8f747b5",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.conv.in_proj.weight",
+      "gguf_name": "blk.7.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "a86b834a5f24403500a7e4e27e761f5fe3ecbff9e6682df0e81a5f667ccc1f79",
+      "actual_storage_sha256": "a86b834a5f24403500a7e4e27e761f5fe3ecbff9e6682df0e81a5f667ccc1f79",
+      "inverse_fp32_sha256": "86571157aa56b8db88a99c3b502a2d6dc3bfb5506a73c0d473879beb83fb92fe",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.conv.out_proj.weight",
+      "gguf_name": "blk.7.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "ac3145b001204e3618af9f3612f494c543bd437d782a74279ea951f7fc808ab5",
+      "actual_storage_sha256": "ac3145b001204e3618af9f3612f494c543bd437d782a74279ea951f7fc808ab5",
+      "inverse_fp32_sha256": "da6dc31def37eec6b002b9d59ae6aef91a430ef7a49a66c287bd7569b5b5ca61",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.feed_forward.w1.weight",
+      "gguf_name": "blk.7.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "5bc5ccda294d1723681e02837b59a14937980d1ead43ae546a2ccaa849f3f39c",
+      "actual_storage_sha256": "5bc5ccda294d1723681e02837b59a14937980d1ead43ae546a2ccaa849f3f39c",
+      "inverse_fp32_sha256": "d38d26dec3e41b36be3ade7786bfafdb1ab463b7822e4c612a20fb52f393fefd",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.feed_forward.w2.weight",
+      "gguf_name": "blk.7.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "a397200108a7db46970e0988d23823e682ef9ee79dca2e5168fca00d5aa2f928",
+      "actual_storage_sha256": "a397200108a7db46970e0988d23823e682ef9ee79dca2e5168fca00d5aa2f928",
+      "inverse_fp32_sha256": "2e9024e9a4202daccf0f639d590551e9ff60b8fc562d2c87c372393b1b35e992",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.feed_forward.w3.weight",
+      "gguf_name": "blk.7.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "5238761964940daf7caa98e78ce8f96b3a62a0bfd18bbba9e6f1bf3771eaaf09",
+      "actual_storage_sha256": "5238761964940daf7caa98e78ce8f96b3a62a0bfd18bbba9e6f1bf3771eaaf09",
+      "inverse_fp32_sha256": "b2e44526c62cfb36a9b56f84c6f7bb7eb74b0a4edc22ef284a6914c103043595",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.ffn_norm.weight",
+      "gguf_name": "blk.7.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "6ca0fb58832fa8c6221404e854d998afdaa22723042efe82560b4d966ded1609",
+      "actual_storage_sha256": "6ca0fb58832fa8c6221404e854d998afdaa22723042efe82560b4d966ded1609",
+      "inverse_fp32_sha256": "6ca0fb58832fa8c6221404e854d998afdaa22723042efe82560b4d966ded1609",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.7.operator_norm.weight",
+      "gguf_name": "blk.7.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "ded5b6dd4adf84efacf9e20f5e4f53fd96e28f7b37f84c060826f70e0df965ab",
+      "actual_storage_sha256": "ded5b6dd4adf84efacf9e20f5e4f53fd96e28f7b37f84c060826f70e0df965ab",
+      "inverse_fp32_sha256": "ded5b6dd4adf84efacf9e20f5e4f53fd96e28f7b37f84c060826f70e0df965ab",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.feed_forward.w1.weight",
+      "gguf_name": "blk.8.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "2abc83603553baa70f9c8e6d276ddafd5fd0d9acd287d50587457c4db96125e4",
+      "actual_storage_sha256": "2abc83603553baa70f9c8e6d276ddafd5fd0d9acd287d50587457c4db96125e4",
+      "inverse_fp32_sha256": "85e9ee3daed95980cce810fd1f5a4fcc61f4bad4d0d9bdd9c0cefea88c6857ca",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.feed_forward.w2.weight",
+      "gguf_name": "blk.8.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "9e9f8c7b2ffd4cdeee16c43ee981e063a4346cb567bdad06278072cd79d9de6d",
+      "actual_storage_sha256": "9e9f8c7b2ffd4cdeee16c43ee981e063a4346cb567bdad06278072cd79d9de6d",
+      "inverse_fp32_sha256": "5cf629974f1da2293c28ec05fe8a9c25351479683ecd1be2c5af9d133f14fb3b",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.feed_forward.w3.weight",
+      "gguf_name": "blk.8.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "85e0b5221f1d3d85a49b9fb3e94d0cce002ee3be86c6eb76464242754dc045c2",
+      "actual_storage_sha256": "85e0b5221f1d3d85a49b9fb3e94d0cce002ee3be86c6eb76464242754dc045c2",
+      "inverse_fp32_sha256": "f3310314d9a5aab78ebaf6e55caf0b90c20e2ab652257129a255df5e56868a99",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.ffn_norm.weight",
+      "gguf_name": "blk.8.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "18c205331e99c83f48b1b19d88f56d096c80346eb176abf32ade2689d8503e50",
+      "actual_storage_sha256": "18c205331e99c83f48b1b19d88f56d096c80346eb176abf32ade2689d8503e50",
+      "inverse_fp32_sha256": "18c205331e99c83f48b1b19d88f56d096c80346eb176abf32ade2689d8503e50",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.operator_norm.weight",
+      "gguf_name": "blk.8.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "7210d69cd61232dd2aef52f484cc731f76a3886d74b5070846b98ae1d431c3a8",
+      "actual_storage_sha256": "7210d69cd61232dd2aef52f484cc731f76a3886d74b5070846b98ae1d431c3a8",
+      "inverse_fp32_sha256": "7210d69cd61232dd2aef52f484cc731f76a3886d74b5070846b98ae1d431c3a8",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.self_attn.k_layernorm.weight",
+      "gguf_name": "blk.8.attn_k_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "33750069685caf567c32dc371e823fb3e731c9f1934453ddd01ca107956e2fb9",
+      "actual_storage_sha256": "33750069685caf567c32dc371e823fb3e731c9f1934453ddd01ca107956e2fb9",
+      "inverse_fp32_sha256": "33750069685caf567c32dc371e823fb3e731c9f1934453ddd01ca107956e2fb9",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.self_attn.k_proj.weight",
+      "gguf_name": "blk.8.attn_k.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "9049ee9b6ec2e0cf78a042d34ca89cf47ad37cfee6c27e92d1318c2379008345",
+      "actual_storage_sha256": "9049ee9b6ec2e0cf78a042d34ca89cf47ad37cfee6c27e92d1318c2379008345",
+      "inverse_fp32_sha256": "c4a08f5cdb4db1e75de629ac4152680ea1412b4a9e5bfd81fe39362eb32ac354",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.self_attn.out_proj.weight",
+      "gguf_name": "blk.8.attn_output.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "082de2d858352abdeb81b067aaa208e882daa168d1cb1a96d5a9ec862c16b5a4",
+      "actual_storage_sha256": "082de2d858352abdeb81b067aaa208e882daa168d1cb1a96d5a9ec862c16b5a4",
+      "inverse_fp32_sha256": "c37fd49feb62131539bac287f429dc5cfe6daf0573f1d9cd0047824b448f5ec5",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.self_attn.q_layernorm.weight",
+      "gguf_name": "blk.8.attn_q_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        64
+      ],
+      "gguf_numpy_shape": [
+        64
+      ],
+      "storage_bytes": 256,
+      "expected_storage_sha256": "d23987f585093c5436638de7a1f0b01824e23a69bad685d6434af73be746b8f0",
+      "actual_storage_sha256": "d23987f585093c5436638de7a1f0b01824e23a69bad685d6434af73be746b8f0",
+      "inverse_fp32_sha256": "d23987f585093c5436638de7a1f0b01824e23a69bad685d6434af73be746b8f0",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.self_attn.q_proj.weight",
+      "gguf_name": "blk.8.attn_q.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "c3be392eb27db0fabbc82a53d98f0389ab954e45bc7ba0511ef21324cf3e9d38",
+      "actual_storage_sha256": "c3be392eb27db0fabbc82a53d98f0389ab954e45bc7ba0511ef21324cf3e9d38",
+      "inverse_fp32_sha256": "cd96b27ac7a9e1fb3e4f2c058d5973999aafb3c5208c4e1bf3326834a04e7b08",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.8.self_attn.v_proj.weight",
+      "gguf_name": "blk.8.attn_v.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        512,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        512,
+        1024
+      ],
+      "storage_bytes": 1048576,
+      "expected_storage_sha256": "482c749b5529e6ab88e1262dee236af4ebb868e7d2966a171463346c42dc496b",
+      "actual_storage_sha256": "482c749b5529e6ab88e1262dee236af4ebb868e7d2966a171463346c42dc496b",
+      "inverse_fp32_sha256": "28e5f91f66937d04e740f8e50659d824eb7e3e8521b331debb328f7c3d1cba50",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.conv.conv.weight",
+      "gguf_name": "blk.9.shortconv.conv.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024,
+        1,
+        3
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        3
+      ],
+      "storage_bytes": 12288,
+      "expected_storage_sha256": "7c19782df96e846b37a2b9f75969e2d415029ac59bda95e9f1a5669059dfb22c",
+      "actual_storage_sha256": "7c19782df96e846b37a2b9f75969e2d415029ac59bda95e9f1a5669059dfb22c",
+      "inverse_fp32_sha256": "7c19782df96e846b37a2b9f75969e2d415029ac59bda95e9f1a5669059dfb22c",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.conv.in_proj.weight",
+      "gguf_name": "blk.9.shortconv.in_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        3072,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        3072,
+        1024
+      ],
+      "storage_bytes": 6291456,
+      "expected_storage_sha256": "ed85961bb7288c8bd43cdf7a6ee6b824886c3aa3b89d851adf95224ea103d321",
+      "actual_storage_sha256": "ed85961bb7288c8bd43cdf7a6ee6b824886c3aa3b89d851adf95224ea103d321",
+      "inverse_fp32_sha256": "b01cb9af1c0b213db549d198a6d6a5f9eee15be06b95dd9a45fd620e98ea7056",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.conv.out_proj.weight",
+      "gguf_name": "blk.9.shortconv.out_proj.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        1024
+      ],
+      "storage_bytes": 2097152,
+      "expected_storage_sha256": "0276e51eab18c7ef09541aece3df40f2d86f9873d4178802f86887bd6dc54e97",
+      "actual_storage_sha256": "0276e51eab18c7ef09541aece3df40f2d86f9873d4178802f86887bd6dc54e97",
+      "inverse_fp32_sha256": "48d45fde0a1cb20820d699d7843263ee292d1ba4cfd8062f14e91624d30989a5",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.feed_forward.w1.weight",
+      "gguf_name": "blk.9.ffn_gate.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "ab7a543565fd5c1e15c1a032c45fc429961fff87ea6e4696273381379026a897",
+      "actual_storage_sha256": "ab7a543565fd5c1e15c1a032c45fc429961fff87ea6e4696273381379026a897",
+      "inverse_fp32_sha256": "6b08971308e901a68304cf1195f0a106d08180924f1357060d7934f2ada58b56",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.feed_forward.w2.weight",
+      "gguf_name": "blk.9.ffn_down.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        1024,
+        4608
+      ],
+      "gguf_numpy_shape": [
+        1024,
+        4608
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "5c17eaebae84502f38eed23188e7a4485d00e81e82d09beb77af2e9ca6c68084",
+      "actual_storage_sha256": "5c17eaebae84502f38eed23188e7a4485d00e81e82d09beb77af2e9ca6c68084",
+      "inverse_fp32_sha256": "4ef7745e8cea825f8d108aa9fb306f434dacd7a995791daf315f35f62759ecdd",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.feed_forward.w3.weight",
+      "gguf_name": "blk.9.ffn_up.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F16",
+      "hf_shape": [
+        4608,
+        1024
+      ],
+      "gguf_numpy_shape": [
+        4608,
+        1024
+      ],
+      "storage_bytes": 9437184,
+      "expected_storage_sha256": "19b0ff5f74691a8fe0219a7a3cd0659d0bf1ed5353957f806b688c7474157b8e",
+      "actual_storage_sha256": "19b0ff5f74691a8fe0219a7a3cd0659d0bf1ed5353957f806b688c7474157b8e",
+      "inverse_fp32_sha256": "5590cee86d0c2c7124bee04f4acb0a5aa9029189087779f035b6793de4433230",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.ffn_norm.weight",
+      "gguf_name": "blk.9.ffn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "301d2141de5d00a141e6c9d273c7f8a65a1cc9fcd4e5475bc95f295c44f72a13",
+      "actual_storage_sha256": "301d2141de5d00a141e6c9d273c7f8a65a1cc9fcd4e5475bc95f295c44f72a13",
+      "inverse_fp32_sha256": "301d2141de5d00a141e6c9d273c7f8a65a1cc9fcd4e5475bc95f295c44f72a13",
+      "exact": true
+    },
+    {
+      "hf_name": "model.layers.9.operator_norm.weight",
+      "gguf_name": "blk.9.attn_norm.weight",
+      "original_dtype": "BF16",
+      "gguf_dtype": "F32",
+      "hf_shape": [
+        1024
+      ],
+      "gguf_numpy_shape": [
+        1024
+      ],
+      "storage_bytes": 4096,
+      "expected_storage_sha256": "0104aa6fdb3a7370e0ab308005ec3ec6429a0e29c757ac35c2ff7e9b7af81481",
+      "actual_storage_sha256": "0104aa6fdb3a7370e0ab308005ec3ec6429a0e29c757ac35c2ff7e9b7af81481",
+      "inverse_fp32_sha256": "0104aa6fdb3a7370e0ab308005ec3ec6429a0e29c757ac35c2ff7e9b7af81481",
+      "exact": true
+    }
+  ],
+  "script_sha256": "a1f92f0c72b77497ff460b6457dbf0efe72b8dfe8930ee6cd8e1e75821d72f85"
+}

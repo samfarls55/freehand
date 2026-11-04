@@ -1,0 +1,40 @@
+{
+  "recorded_at_utc": "2026-11-04T00:10:16.729259+00:00",
+  "pinned_commit": "a34de8618b25dfc32ee43749db47d767a9f0a25d",
+  "archive": {
+    "path": "work/cleanup-small-models-2026-11-03/scribe-precision-source/llama.cpp-a34de861-source.tar.gz",
+    "bytes": 38838054,
+    "sha256": "07db9bbf20777b621608b2c6b694e7fe9e86cd9d800ca189a4251288562cb9ac"
+  },
+  "pinned_source_files": {
+    "common/arg.cpp": {
+      "member": "llama.cpp-a34de8618b25dfc32ee43749db47d767a9f0a25d/common/arg.cpp",
+      "bytes": 223926,
+      "sha256": "83cd576c95940ac4f84059da3c5b34914c15a94a834a608743389f2d43f25ea2",
+      "line_start": 2915,
+      "line_end": 2935,
+      "excerpt": "2915:     add_opt(common_arg(\n2916:         {\"--lora\"}, \"FNAME\",\n2917:         \"path to LoRA adapter (use comma-separated values to load multiple adapters)\",\n2918:         [](common_params & params, const std::string & value) {\n2919:             for (const auto & item : parse_csv_row(value)) {\n2920:                 params.lora_adapters.push_back({ item, 1.0, \"\", \"\", nullptr });\n2921:             }\n2922:         }\n2923:         // we define this arg on both COMMON and EXPORT_LORA, so when showing help message of export-lora, it will be categorized as \"example-specific\" arg\n2924:     ).set_examples({LLAMA_EXAMPLE_COMMON, LLAMA_EXAMPLE_EXPORT_LORA}));\n2925:     add_opt(common_arg(\n2926:         {\"--lora-scaled\"}, \"FNAME:SCALE,...\",\n2927:         \"path to LoRA adapter with user defined scaling (format: FNAME:SCALE,...)\\n\"\n2928:         \"note: use comma-separated values\",\n2929:         [](common_params & params, const std::string & value) {\n2930:             for (const auto & item : parse_csv_row(value)) {\n2931:                 auto parts = string_split<std::string>(item, ':');\n2932:                 if (parts.size() != 2) {\n2933:                     throw std::invalid_argument(\"lora-scaled format: FNAME:SCALE\");\n2934:                 }\n2935:                 params.lora_adapters.push_back({ parts[0], std::stof(parts[1]), \"\", \"\", nullptr });"
+    },
+    "common/common.h": {
+      "member": "llama.cpp-a34de8618b25dfc32ee43749db47d767a9f0a25d/common/common.h",
+      "bytes": 58120,
+      "sha256": "d43b2f128d8162e2fdc374f1f55d22c37b54b3f65001459237c57f5ba8cddb1f",
+      "line_start": 839,
+      "line_end": 852,
+      "excerpt": "839: template<>\n840: inline std::vector<std::string> string_split<std::string>(const std::string & str, char delim)\n841: {\n842:     std::vector<std::string> parts;\n843:     size_t begin_pos = 0;\n844:     size_t delim_pos = str.find(delim);\n845:     while (delim_pos != std::string::npos) {\n846:         std::string part = str.substr(begin_pos, delim_pos - begin_pos);\n847:         parts.emplace_back(part);\n848:         begin_pos = delim_pos + 1;\n849:         delim_pos = str.find(delim, begin_pos);\n850:     }\n851:     parts.emplace_back(str.substr(begin_pos));\n852:     return parts;"
+    }
+  },
+  "findings": [
+    "Unit --lora parses its value with parse_csv_row, so unescaped comma paths are not a single literal pinned adapter.",
+    "Nonunit --lora-scaled parses CSV entries then splits EVERY colon and requires exactly2parts. A Windows drive path adds another colon and cannot be passed as-is at nonunit scale.",
+    "The previous last-colon assumption was incorrect; unit Windows drive paths remain supported because --lora does not split colons."
+  ],
+  "bounded_fix": "Reject comma in any configured adapter path; reject colon only for nonunit scale; keep unit --lora PATH and all pin/default/profile behavior unchanged. No CSV quoting feature added.",
+  "source_sha256": {
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": "319991cf666a35802449710c7105e925e72397677ef1bc2d5207a4e5dc87e08e",
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": "6f8a5c75082d1b7a2ee3580992263316258683b87abaf639f52c7b7c6fb43907",
+    "tests/Freehand.Cleanup.Tests/AdapterOptionsTests.cs": "304e62c1cd2ce3c2f8fb417e329a8ea3e34935bdbbea9eed326f2d2f4ac1b46d",
+    "tests/Freehand.Cleanup.Tests/ProviderTests.cs": "c7c3fd01c003fa1af621a41c47a5a34890d2ee024912d05281bf1c34fed8b438"
+  },
+  "status": "Source/tests corrected; build/tests pending explicit CPU release. No native/model job run for this correction."
+}

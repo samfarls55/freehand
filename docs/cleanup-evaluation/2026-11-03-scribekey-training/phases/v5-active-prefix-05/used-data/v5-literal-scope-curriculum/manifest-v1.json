@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-03T22:15:44.011722+00:00",
+  "purpose": "Feedback-directed TRAINING curriculum; not an independent evaluation corpus.",
+  "dataset_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/audit/v5-literal-scope-curriculum/train-180-v1.jsonl",
+  "dataset_sha256": "4a1b524a16075d931a68610d885008856141f3411beae26bac68ed03d6e0ce0e",
+  "dataset_bytes": 92115,
+  "case_count": 180,
+  "family_counts": {
+    "active_correction_protected_literals": 60,
+    "local_correction_repeated_entity_scope": 40,
+    "partial_np_tense_discourse_repair": 40,
+    "already_clean_literal_scope": 40
+  },
+  "cleanup_pairs": 140,
+  "unchanged_controls": 40,
+  "quoted_payloads_total": 127,
+  "active_literal_subtypes": {
+    "both_old_and_new_quoted": 20,
+    "only_old_quoted_new_plain": 20,
+    "mixed_with_only_new_or_additional_unaffected_quotes": 20
+  },
+  "controlled_expansions_disclosed": [
+    "60 protected-literal active corrections use deliberately repeated negative-context structures across individually authored subjects: 20 both old/new quoted, 20 old quoted/new plain, 20 mixed situations.",
+    "40 local-scope cases deliberately repeat a corrected word/entity later in an unretracted independent instruction or fact.",
+    "40 minimal repairs include 10 unfinished-word restarts, 6 interrupted noun-phrase restarts, 16 tense/voice-preserving hesitation removals, 8 discourse/grammatical-repeat examples.",
+    "40 unchanged controls cover 10 reported correction phrases, 10 deliberate repeats, 10 punctuation-instruction-as-data examples, 10 exact literal cases.",
+    "These are controlled assistant-authored synthetic training expansions, not 180 independent naturally occurring dictations or evidence of 99% generalization."
+  ],
+  "provenance": "Authored from the parent-provided failure-family brief only. No retired validation case text or new blind content was opened for this task; no external corpus text was imported.",
+  "authors": [
+    "/root/editing_architectures (first 100 and three target-phrasing refinements)",
+    "/root/editing_architectures/v5_clean_controls (last 80)"
+  ],
+  "review": {
+    "all_targets_personally_audited_by": "/root/editing_architectures",
+    "human_review": false,
+    "casewise_path": "casewise-audit-v1.json",
+    "casewise_sha256": "b4b7c170c3cd0b78421f8a983aff09c83ba8d2dc85d76ddb63d7c6085d904282",
+    "remaining_defects": 0,
+    "root_independent_review": "Pending"
+  },
+  "loader_validation": {
+    "path": "loader-validation-v1.json",
+    "sha256": "98708ac1c3d9146081080bc92f1fb534e57e0b7e23ba503b44f4362de62ea792",
+    "rows_passed": 180,
+    "quoted_payload_round_trips": 127,
+    "model_packages_imported": false
+  },
+  "source_parts": [
+    {
+      "path": "literal-scope-part-100.jsonl",
+      "sha256": "f532649030309e0542abb2d86ad222135eea729bbbbfd73235ae4ca047a4a636"
+    },
+    {
+      "path": "minimal-repairs-part.jsonl",
+      "sha256": "694e21d8b43b5deeeda35101909b7d54f76e2e93910524b1a2b0baaa7d8fec3b"
+    },
+    {
+      "path": "clean-controls-part.jsonl",
+      "sha256": "dfbf6ce6dfcc619cb4f377900709049dda5a12aba84dcf5eb9112bea0d499596"
+    }
+  ],
+  "separation": {
+    "new_blind_content_seen": false,
+    "retired_validation_content_seen": false,
+    "model_runs": 0,
+    "training_runs": 0,
+    "application_code_changes": false,
+    "dictionary_metadata_or_literal_wrappers_added_to_dataset": false,
+    "root_hash_only_overlap_check": "Pending"
+  },
+  "integration_instruction": "Use only train-180-v1.jsonl as the 180-row training input. Part files are preserved authoring artifacts and must not be concatenated with the complete input."
+}

@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "status": "Linux_partial_pipeline_development_only",
+  "utc": "2026-11-04T00:10:19.398346+00:00",
+  "plan_sha256": "6d6a9eee3a8ff0e5343586e6d0141ee386588fb59a6087cdb4b004110f462e15",
+  "report_sha256": "58627b04058ddd6b5b50e13f658bb2b159c465a9d521c7fb6fa41ef07c3e2e0c",
+  "comparison_report_sha256": "7d4980cc907829b6d938a72bfd14c80969f1a312a0417740379f69d2c460be4e",
+  "candidate": "ScribeKey-Freehand-v5-02-Q5_K_M-development",
+  "n": 10,
+  "first_trial_included": true,
+  "p95": "nearest rank N10=max",
+  "metrics": {
+    "TranscriptMilliseconds": {
+      "values": [
+        720.3998,
+        644.6138,
+        575.4662,
+        618.6199,
+        591.4314,
+        642.8094,
+        611.1873,
+        599.9159,
+        630.5585,
+        610.3861
+      ],
+      "p50": 611.1873,
+      "p95": 720.3998,
+      "max": 720.3998
+    },
+    "CountingInjectorCompleteMilliseconds": {
+      "values": [
+        720.6074,
+        644.6962,
+        575.4754,
+        618.6301,
+        591.4408,
+        642.818,
+        611.1973,
+        599.9274,
+        630.571,
+        610.398
+      ],
+      "p50": 611.1973,
+      "p95": 720.6074,
+      "max": 720.6074
+    },
+    "CleanupMilliseconds": {
+      "values": [
+        362.6263,
+        348.6737,
+        309.2069,
+        311.6992,
+        322.5623,
+        395.2884,
+        304.8982,
+        328.6799,
+        299.0214,
+        322.4676
+      ],
+      "p50": 322.4676,
+      "p95": 395.2884,
+      "max": 395.2884
+    },
+    "SpeechCpuDuringCleanupMilliseconds": {
+      "values": [
+        40,
+        10,
+        20,
+        10,
+        0,
+        0,
+        0,
+        0,
+        10,
+        10
+      ],
+      "p50": 10,
+      "p95": 40,
+      "max": 40
+    }
+  },
+  "simultaneous_peak": {
+    "PeakSummedWorkingSetBytes": 745455616,
+    "PeakHostWorkingSetBytes": 101421056,
+    "PeakSpeechWorkingSetBytes": 329953280,
+    "PeakCleanupWorkingSetBytes": 328720384,
+    "AtSummedWorkingSetPeak": {
+      "HostWorkingSetBytes": 86781952,
+      "SpeechWorkingSetBytes": 329953280,
+      "CleanupWorkingSetBytes": 328720384
+    }
+  },
+  "latency_gate_field": "CountingInjectorCompleteMilliseconds",
+  "latency_cap_ms": 805,
+  "ram_cap_bytes": 747500000,
+  "latency_gate_pass": true,
+  "ram_gate_pass": true,
+  "ram_margin_bytes": 2044384,
+  "all_ten_full_text_once_no_fallback": true,
+  "executed_artifacts_and_archived_compiled_source_verified": true,
+  "live_source_drift_disclosed_in_plan": {
+    "src/Freehand.Cleanup/CleanupAssetInstaller.cs": {
+      "preserved_compiled_sha256": "34d01f1dd18e733a98b449020aec608b331f79b2911f826bb6b6394bae2c0daa",
+      "current_sha256": "17b6a6bfeedf6f29e9b3804da19d009e3281deacf8a8da84aa4132bc901e5847"
+    },
+    "src/Freehand.Cleanup/LlamaCleanupOptions.cs": {
+      "preserved_compiled_sha256": "0ab959f9f28ad0ce15d94f483b512f7966446162c4b94fb7ab6bf0fc1fe425b5",
+      "current_sha256": "4596bb8d616297e57c8d29140690dbcbb5c78f38b181c30e57bf6f78e7fcefc2"
+    },
+    "src/Freehand.Cleanup/LlamaTranscriptPostProcessor.cs": {
+      "preserved_compiled_sha256": "7eb0bf4b0bfed36ed4336b180d5209abe49747d117698a640457a9497279741a",
+      "current_sha256": "2c9b4de33121b8b6a771057f55785e49136852b4ba5c472cf264e0965328ebcd"
+    },
+    "src/Freehand.Speech/speech-cpu.config": {
+      "preserved_compiled_sha256": "c4636ae4b87ddc53c1ea297241b5ddfe1a34650f4880fb3232bb8607c15f3ca9",
+      "current_sha256": "0d2e1a0192d981a06ec6a6839810bc9f58cbfc7fdeea0c9ae1a708949562f7c9"
+    }
+  },
+  "inherited_plan_metadata_correction": "The copied plan.experiment object describes the prior V4 PGO experiment; it is historical supporting metadata, not the treatment for this run. This run uses V5 Q5 model SHA6ba6... instead of V4 IQ4de03..., with the same pinned evaluator/native/speech profile and PGO0. Plan scope/model/commands correctly identify this run; exact original plan retained. Model weights/training differ, so this is not a quantization-only causal comparison.",
+  "quality_gate_passed": false,
+  "whole_app_or_Windows_or_population_qualified": false,
+  "environment_receipt": [
+    {
+      "pid": 77473,
+      "parent_pid": 77468,
+      "is_eval_host": true,
+      "public_runtime_environment": [
+        "DOTNET_TieredPGO=0"
+      ]
+    },
+    {
+      "pid": 77489,
+      "parent_pid": 77473,
+      "is_eval_host": false,
+      "public_runtime_environment": [
+        "DOTNET_TieredPGO=0"
+      ]
+    },
+    {
+      "pid": 77519,
+      "parent_pid": 77473,
+      "is_eval_host": false,
+      "public_runtime_environment": [
+        "DOTNET_TieredPGO=0"
+      ]
+    }
+  ]
+}

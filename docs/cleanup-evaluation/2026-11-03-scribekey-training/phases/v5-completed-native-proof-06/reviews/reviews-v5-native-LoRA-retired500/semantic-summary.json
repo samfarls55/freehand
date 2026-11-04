@@ -1,0 +1,569 @@
+{
+  "schema_version": 1,
+  "development_only": true,
+  "corpus_status": "Retired primary500 validation/development material; native-LoRA actual-Core diagnostic, not fresh blinded accuracy evidence or app resource qualification.",
+  "reviewer": "Codex assistant /root/final_review_c",
+  "results_sha256": "727281b725f9a1143289e5768a355df4cd52b0244f828f353220138c4ee7cb8b",
+  "denominator": 500,
+  "semantic_faithful": 484,
+  "clean_usable": 484,
+  "jointly_successful": 474,
+  "critical_errors": [
+    {
+      "position": 219,
+      "case_id": "blind-b-020",
+      "reason": "Deletes substantive negation: source says do not wait for permission unless above the approved limit, but output says wait unless above that limit, critically reversing the instruction."
+    },
+    {
+      "position": 222,
+      "case_id": "blind-b-023",
+      "reason": "Drops the substantive negated intention I don't want less testing. The second clause clarifies a preference for fewer redundant copies rather than retracting that boundary; losing the negative testing constraint changes the stated intention."
+    },
+    {
+      "position": 268,
+      "case_id": "blind-b-069",
+      "reason": "Splices the canceled Tell the driver to frame into the replacement ask him to wait, yielding Tell the driver to ask him to wait. This changes who must request whose waiting and leaves the false-start repair unusable."
+    },
+    {
+      "position": 270,
+      "case_id": "blind-b-071",
+      "reason": "Produces malformed I want the report email me the accessible PDF and deletes the explicit do-not-print restriction, critically losing the canceled-print boundary and usable action structure."
+    },
+    {
+      "position": 278,
+      "case_id": "blind-b-079",
+      "reason": "Corrupts intended fridge placement into medicine in the label of the fridge and drops label-says-refrigerate fact; entity relationship and refrigeration instruction are malformed."
+    },
+    {
+      "position": 290,
+      "case_id": "blind-b-091",
+      "reason": "Deletes the primary action tighten the bolt, leaving We need to counterclockwise on this reverse thread; critical primary-action omission and broken grammar."
+    },
+    {
+      "position": 298,
+      "case_id": "blind-b-099",
+      "reason": "Correctly retains only-first-filter replacement but drops the independent unretracted fact that the second filter was changed yesterday, losing factual status and chronology."
+    },
+    {
+      "position": 320,
+      "case_id": "blind-b-121",
+      "reason": "Deletes all reported no more, no more content, including its refusal meaning and deliberate repetition; He kept saying whenever someone mentioned another test is incomplete and loses the primary reported speech."
+    },
+    {
+      "position": 457,
+      "case_id": "blind-c-108",
+      "reason": "Drops publishing the draft agenda entirely while retaining wait-until-chair-approval, confidentiality, and reminder conditions; what the recipient must wait to do is no longer stated. Fidelity of this contextual ellipsis is uncertain and flagged for cross-review. Root/independent cross-adjudication: The explicit instruction to publish the draft agenda after approval is lost. Agenda/circulation context does not itself preserve that affirmative action; this is a critical primary-action omission."
+    }
+  ],
+  "joint_percent": 94.8,
+  "user_99_percent_gate_met": false,
+  "provider_status_counts": {
+    "Applied": 304,
+    "Unchanged": 194,
+    "Failed": 2
+  },
+  "provider_failures": 2,
+  "missing_deliveries": 0,
+  "unchanged_outputs": 196,
+  "exact_reference_matches_diagnostic_only": 445,
+  "F16_semantic_counts": {
+    "semantic_faithful": 488,
+    "clean_usable": 490,
+    "jointly_successful": 481,
+    "critical_errors": 6
+  },
+  "IQ4_strict_semantic_counts": {
+    "semantic_faithful": 484,
+    "clean_usable": 489,
+    "jointly_successful": 477,
+    "critical_errors": 8
+  },
+  "joint_fixed_count_versus_F16": 0,
+  "joint_regressed_count_versus_F16": 7,
+  "joint_net_delta_versus_F16": -7,
+  "joint_net_delta_versus_IQ4": -3,
+  "fixes_versus_F16": [],
+  "regressions_versus_F16": [
+    {
+      "position": 25,
+      "case_id": "blind-a-026",
+      "reason": "Unchanged output preserves enjoyed-chapter meaning and substantive really/especially emphasis, but leaves unmistakable accidental I, I repetition."
+    },
+    {
+      "position": 270,
+      "case_id": "blind-b-071",
+      "reason": "Produces malformed I want the report email me the accessible PDF and deletes the explicit do-not-print restriction, critically losing the canceled-print boundary and usable action structure."
+    },
+    {
+      "position": 290,
+      "case_id": "blind-b-091",
+      "reason": "Deletes the primary action tighten the bolt, leaving We need to counterclockwise on this reverse thread; critical primary-action omission and broken grammar."
+    },
+    {
+      "position": 295,
+      "case_id": "blind-b-096",
+      "reason": "Retains office-number action and home-number prohibition but drops witness recipient description, leaving her without its source antecedent; preserve strict earlier IQ4 judgment on this exact pair."
+    },
+    {
+      "position": 320,
+      "case_id": "blind-b-121",
+      "reason": "Deletes all reported no more, no more content, including its refusal meaning and deliberate repetition; He kept saying whenever someone mentioned another test is incomplete and loses the primary reported speech."
+    },
+    {
+      "position": 359,
+      "case_id": "blind-c-010",
+      "reason": "Deletes object it from customer called it well made; The customer called well made is incomplete and corrupts the attributed item-description relationship."
+    },
+    {
+      "position": 368,
+      "case_id": "blind-c-019",
+      "reason": "Failed provider with null candidate delivers original event-name correction; Open studio remains final intention but canceled Evening workshop and correction cue remain uncleaned."
+    }
+  ],
+  "judgment_conflicts_on_exact_pairs": [],
+  "remaining_failure_families": {
+    "negation_or_primary_action_boundary": {
+      "count": 5,
+      "cases": [
+        {
+          "position": 219,
+          "case_id": "blind-b-020"
+        },
+        {
+          "position": 222,
+          "case_id": "blind-b-023"
+        },
+        {
+          "position": 270,
+          "case_id": "blind-b-071"
+        },
+        {
+          "position": 290,
+          "case_id": "blind-b-091"
+        },
+        {
+          "position": 457,
+          "case_id": "blind-c-108"
+        }
+      ]
+    },
+    "actor_entity_malformed_correction": {
+      "count": 2,
+      "cases": [
+        {
+          "position": 268,
+          "case_id": "blind-b-069"
+        },
+        {
+          "position": 278,
+          "case_id": "blind-b-079"
+        }
+      ]
+    },
+    "independent_factual_content_omission": {
+      "count": 3,
+      "cases": [
+        {
+          "position": 272,
+          "case_id": "blind-b-073"
+        },
+        {
+          "position": 286,
+          "case_id": "blind-b-087"
+        },
+        {
+          "position": 298,
+          "case_id": "blind-b-099"
+        }
+      ]
+    },
+    "reported_speech_content_deleted": {
+      "count": 1,
+      "cases": [
+        {
+          "position": 320,
+          "case_id": "blind-b-121"
+        }
+      ]
+    },
+    "recipient_antecedent_lost": {
+      "count": 1,
+      "cases": [
+        {
+          "position": 295,
+          "case_id": "blind-b-096"
+        }
+      ]
+    },
+    "deliberate_emphasis_removed": {
+      "count": 3,
+      "cases": [
+        {
+          "position": 300,
+          "case_id": "blind-b-101"
+        },
+        {
+          "position": 407,
+          "case_id": "blind-c-058"
+        },
+        {
+          "position": 459,
+          "case_id": "blind-c-110"
+        }
+      ]
+    },
+    "unresolved_explicit_correction": {
+      "count": 4,
+      "cases": [
+        {
+          "position": 289,
+          "case_id": "blind-b-090"
+        },
+        {
+          "position": 291,
+          "case_id": "blind-b-092"
+        },
+        {
+          "position": 292,
+          "case_id": "blind-b-093"
+        },
+        {
+          "position": 297,
+          "case_id": "blind-b-098"
+        }
+      ]
+    },
+    "grammar_or_punctuation": {
+      "count": 3,
+      "cases": [
+        {
+          "position": 359,
+          "case_id": "blind-c-010"
+        },
+        {
+          "position": 370,
+          "case_id": "blind-c-021"
+        },
+        {
+          "position": 433,
+          "case_id": "blind-c-084"
+        }
+      ]
+    },
+    "provider_failed_fallback": {
+      "count": 2,
+      "cases": [
+        {
+          "position": 368,
+          "case_id": "blind-c-019"
+        },
+        {
+          "position": 380,
+          "case_id": "blind-c-031"
+        }
+      ]
+    },
+    "accidental_repeat_left": {
+      "count": 2,
+      "cases": [
+        {
+          "position": 25,
+          "case_id": "blind-a-026"
+        },
+        {
+          "position": 383,
+          "case_id": "blind-c-034"
+        }
+      ]
+    }
+  },
+  "all_failed_joint_cases": [
+    {
+      "position": 25,
+      "case_id": "blind-a-026",
+      "output_sha256": "52434844e9a4b5a3ba4f3b9b03e4c68dd05b2bedf6de104f1433729464decb1d",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Unchanged output preserves enjoyed-chapter meaning and substantive really/especially emphasis, but leaves unmistakable accidental I, I repetition.",
+      "cleanup_status": "Unchanged",
+      "error": null
+    },
+    {
+      "position": 219,
+      "case_id": "blind-b-020",
+      "output_sha256": "78a3836c387913940a907a0415bf1fc6061a486e464fd1dc05baa9891d65733b",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "Deletes substantive negation: source says do not wait for permission unless above the approved limit, but output says wait unless above that limit, critically reversing the instruction.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 222,
+      "case_id": "blind-b-023",
+      "output_sha256": "e587410f589f1cfee2cd32882ac90acc45e3b11d9885f2d8e5b4fea2c8d7df82",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "Drops the substantive negated intention I don't want less testing. The second clause clarifies a preference for fewer redundant copies rather than retracting that boundary; losing the negative testing constraint changes the stated intention.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 268,
+      "case_id": "blind-b-069",
+      "output_sha256": "c09e534722271ed2484f8bde452f8f7ee7bda64e501248915e8b5650e49e7e94",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Splices the canceled Tell the driver to frame into the replacement ask him to wait, yielding Tell the driver to ask him to wait. This changes who must request whose waiting and leaves the false-start repair unusable.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 270,
+      "case_id": "blind-b-071",
+      "output_sha256": "c398556982d7767bc9ca3119ae2767406b538e1be96abed02ce2accf9ffd8ee7",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Produces malformed I want the report email me the accessible PDF and deletes the explicit do-not-print restriction, critically losing the canceled-print boundary and usable action structure.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 272,
+      "case_id": "blind-b-073",
+      "output_sha256": "591e7da518183bfcc1af55cc9ad7b0ed157477da3982a98adc638ae119f1d7c5",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Correctly asks Mateo to sign for Leena but drops the unretracted factual explanation that Leena is away. The shortened sentence is clean yet incomplete in meaning.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 278,
+      "case_id": "blind-b-079",
+      "output_sha256": "6bdba23ec3b552a960f60aab47b3501ce6cff6b7bf4879770053bcd9afe36711",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Corrupts intended fridge placement into medicine in the label of the fridge and drops label-says-refrigerate fact; entity relationship and refrigeration instruction are malformed.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 286,
+      "case_id": "blind-b-087",
+      "output_sha256": "e83f6101ebc3f0b309a20df7bd1af1907ef87f7187c0dcb26b7e816e1741d18c",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains the straight-to-roundabout action but omits the unretracted fact that the road at the chapel is blocked. Losing this road-condition fact removes substantive safety-relevant route context. Root/independent cross-adjudication: The road-blockage explanation is unretracted and its omission fails fidelity. The final straight-ahead direction remains correct; severity is calibrated with the secondary Leena-availability omission.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 289,
+      "case_id": "blind-b-090",
+      "output_sha256": "b6dd6c56db68425e1a35744bb2b04b54fc01c6fc2661e2507cd96f4d2712b56c",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Retains scratch-that cue and final inquiry about which identity documents she can provide, so passport-copy action remains canceled; missing punctuation and unresolved original correction make the output unusable as cleaned prose.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 290,
+      "case_id": "blind-b-091",
+      "output_sha256": "cb12b13ca5b506fd8257facc9f0dc10676109d6b8781ad5ab7e74c10989d5faf",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Deletes the primary action tighten the bolt, leaving We need to counterclockwise on this reverse thread; critical primary-action omission and broken grammar.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 291,
+      "case_id": "blind-b-092",
+      "output_sha256": "ce6aced65fd6abcba3f1eac4de5fc89d49f334541636b14ed78771b80d790fd4",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Unchanged output keeps the rejected inspection-pass statement, no cue, wrong-line explanation and pending status. The negation still cancels the pass claim, but the explicit false-start correction is uncleaned.",
+      "cleanup_status": "Unchanged",
+      "error": null
+    },
+    {
+      "position": 292,
+      "case_id": "blind-b-093",
+      "output_sha256": "ae59c9fbb499bf958b1b64e966b028ac7e85bbd5c12c5296a6954d7a4a56acda",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Unchanged output retains the corrected scope with make that five total divided between offices, so meaning survives; it fails to remove the superseded five-per-office instruction.",
+      "cleanup_status": "Unchanged",
+      "error": null
+    },
+    {
+      "position": 295,
+      "case_id": "blind-b-096",
+      "output_sha256": "56164be367a78a95a9a2bd39b36da7cadc426bc7f8aaa2bbf3217fa9857b0347",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Retains office-number action and home-number prohibition but drops witness recipient description, leaving her without its source antecedent; preserve strict earlier IQ4 judgment on this exact pair.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 297,
+      "case_id": "blind-b-098",
+      "output_sha256": "b538dace8e5c38be550e402712dafc446e290723dc9fdefc5d3e3c3723d0d985",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Unchanged output retains the confidential-to-restricted correction and legal-request explanation. Actually still signals the final intended category, but the superseded instruction remains uncleaned.",
+      "cleanup_status": "Unchanged",
+      "error": null
+    },
+    {
+      "position": 298,
+      "case_id": "blind-b-099",
+      "output_sha256": "28c0ea048feb00fa9e3d985ba32e298946540fc689c42c62d21d6b56a7bce4b7",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "Correctly retains only-first-filter replacement but drops the independent unretracted fact that the second filter was changed yesterday, losing factual status and chronology.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 300,
+      "case_id": "blind-b-101",
+      "output_sha256": "af507e3c222bf7b69e228ea821d3a6382d3e62776826f1f5c32dd1afb1fb3fe5",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes the deliberate repeated the original emphasis; original-versus-photocopy fact survives but intentional repetition required by policy is lost.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 320,
+      "case_id": "blind-b-121",
+      "output_sha256": "3fa541f7ad3d9d9d57f351d97707e10448bd3886042e383012728353ffb66005",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": true,
+      "reason": "Deletes all reported no more, no more content, including its refusal meaning and deliberate repetition; He kept saying whenever someone mentioned another test is incomplete and loses the primary reported speech.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 359,
+      "case_id": "blind-c-010",
+      "output_sha256": "3e4be2bc0c4c6a4d6d66382c641c094e86435002bf333d3860f2dab0b3dbbd37",
+      "semantic_faithful": false,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Deletes object it from customer called it well made; The customer called well made is incomplete and corrupts the attributed item-description relationship.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 368,
+      "case_id": "blind-c-019",
+      "output_sha256": "e0e1a9c392ae72ef53f8d20505ba9fe62d1a0c9f1b4d0c37917c07540a21c9f0",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Failed provider with null candidate delivers original event-name correction; Open studio remains final intention but canceled Evening workshop and correction cue remain uncleaned.",
+      "cleanup_status": "Failed",
+      "error": "Processor:InvalidDataException"
+    },
+    {
+      "position": 370,
+      "case_id": "blind-c-021",
+      "output_sha256": "6ddedef451829047e6781090d025d702a96151b6c970a5c62da2bd55d84b8a3a",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Removes Uh while preserving exact quoted refund sentence and full-sentence clarification, but leaves lowercase that immediately after the quoted sentence boundary, requiring capitalization repair for direct use.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 380,
+      "case_id": "blind-c-031",
+      "output_sha256": "a87138b73741a225940090d2b19672ef51a16a2fe9978eb5ee8bae65a9747be4",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Failed provider with null candidate delivers original status correction; final awaiting parts meaning survives but canceled on hold and sorry cue remain uncleaned.",
+      "cleanup_status": "Failed",
+      "error": "Processor:InvalidDataException"
+    },
+    {
+      "position": 383,
+      "case_id": "blind-c-034",
+      "output_sha256": "21dcf428adfbe878578d0c93f99ba6cd0291dc8ff86ed4b8d861e07841043aea",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Unchanged text preserves exact regex and uncertainty but leaves unmistakable accidental I, I duplication.",
+      "cleanup_status": "Unchanged",
+      "error": null
+    },
+    {
+      "position": 407,
+      "case_id": "blind-c-058",
+      "output_sha256": "507e1ccaadabe313fd733c73f28b2aba42b9c3f2645a465cd67711fd5b5907fe",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Removes deliberately repeated Please emphasis from already usable request; duplicate request ID action remains but required intentional repetition is lost.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 433,
+      "case_id": "blind-c-084",
+      "output_sha256": "474eeb1f261c223e0b63860a18a1472fa301063e5efe38ab6259f54766e31799",
+      "semantic_faithful": true,
+      "clean_usable": false,
+      "critical_error": false,
+      "reason": "Actually, just print it still identifies the final printing action and cancels earlier emailing, with wrong-address explanation retained; malformed I need just print the receipt emailed to me and unresolved repeated correction require repair.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 457,
+      "case_id": "blind-c-108",
+      "output_sha256": "e918e1e11407bdc3ef2dcc4f7738b1840979c1bba359802184e9115f05a8f9a6",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": true,
+      "reason": "Drops publishing the draft agenda entirely while retaining wait-until-chair-approval, confidentiality, and reminder conditions; what the recipient must wait to do is no longer stated. Fidelity of this contextual ellipsis is uncertain and flagged for cross-review. Root/independent cross-adjudication: The explicit instruction to publish the draft agenda after approval is lost. Agenda/circulation context does not itself preserve that affirmative action; this is a critical primary-action omission.",
+      "cleanup_status": "Applied",
+      "error": null
+    },
+    {
+      "position": 459,
+      "case_id": "blind-c-110",
+      "output_sha256": "ebfe4274adac14dd0430b6b71d077ab3236a95d25d9c4f722ce86c9091800153",
+      "semantic_faithful": false,
+      "clean_usable": true,
+      "critical_error": false,
+      "reason": "Deletes the deliberate I cannot, I absolutely cannot repetition; substantive uncertainty and other details remain, but required intentional emphatic repetition is lost.",
+      "cleanup_status": "Applied",
+      "error": null
+    }
+  ],
+  "limitations": "Finite assistant-authored synthetic retired development set with assistant adjudication and verified exact-pair inheritance. Actual fresh accuracy remains unproven. No blind-round2/new500, author/status files, agent listings, source/model changes or model jobs accessed. All initial judgments preserved."
+}

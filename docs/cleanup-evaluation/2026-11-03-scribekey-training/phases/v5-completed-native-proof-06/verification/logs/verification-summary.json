@@ -1,0 +1,50 @@
+{
+  "probe_path": "/tmp/freehand-native-lora-parser-guard-build/bin/Freehand.Cleanup.Probe/release/Freehand.Cleanup.Probe.dll",
+  "probe_selftest": "passed",
+  "checks": [
+    {
+      "case": "unit",
+      "scale": 1,
+      "expected_exit_code": 1,
+      "no_native_launch": true,
+      "result": "artifact_verification_failure_with_single_insertion"
+    },
+    {
+      "case": "nonunit",
+      "scale": 0.375,
+      "expected_exit_code": 1,
+      "no_native_launch": true,
+      "result": "artifact_verification_failure_with_single_insertion"
+    },
+    {
+      "case": "unit_drive",
+      "scale": 1,
+      "expected_exit_code": 1,
+      "no_native_launch": true,
+      "result": "artifact_verification_failure_with_single_insertion"
+    },
+    {
+      "case": "nonunit_drive",
+      "scale": 0.375,
+      "expected_exit_code": 2,
+      "no_native_launch": true,
+      "result": "validated_rejection_before_report"
+    },
+    {
+      "case": "unit_comma",
+      "scale": 1,
+      "expected_exit_code": 2,
+      "no_native_launch": true,
+      "result": "validated_rejection_before_report"
+    },
+    {
+      "case": "nonunit_comma",
+      "scale": 0.375,
+      "expected_exit_code": 2,
+      "no_native_launch": true,
+      "result": "validated_rejection_before_report"
+    }
+  ],
+  "all_eighteen_prior_probe_dlls_unchanged": true,
+  "windows_execution": false
+}

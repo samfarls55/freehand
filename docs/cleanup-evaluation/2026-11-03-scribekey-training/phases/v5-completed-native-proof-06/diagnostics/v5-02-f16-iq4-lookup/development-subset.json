@@ -1,0 +1,218 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+      "input": "Hand the booking confirmation to Soren, sorry, to Pavel.",
+      "targets": [
+        "Hand the booking confirmation to Pavel."
+      ],
+      "split": "development",
+      "category": "explicit_recipient_correction",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+      "input": "Please inspect the hinge and replace the lock, scratch that, lubricate the lock.",
+      "targets": [
+        "Please inspect the hinge and lubricate the lock."
+      ],
+      "split": "development",
+      "category": "retain_unaffected_clause",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+      "input": "Hand the booking confirmation to Pavel, sorry, to Soren.",
+      "targets": [
+        "Hand the booking confirmation to Soren."
+      ],
+      "split": "development",
+      "category": "explicit_recipient_correction",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+      "input": "Hand the booking confirmation to Oriana, sorry, to Soren.",
+      "targets": [
+        "Hand the booking confirmation to Soren."
+      ],
+      "split": "development",
+      "category": "explicit_recipient_correction",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-cb42b8f89780ca46",
+      "input": "Um, please do not edit the approved quotation. Uh, please keep the two samples in different containers.",
+      "targets": [
+        "Please do not edit the approved quotation. Please keep the two samples in different containers."
+      ],
+      "split": "development",
+      "category": "multi_sentence_fillers",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-0567d238460bdb29",
+      "input": "Please do not edit the approved quotation. Please keep the two samples in different containers.",
+      "targets": [
+        "Please do not edit the approved quotation. Please keep the two samples in different containers."
+      ],
+      "split": "development",
+      "category": "clean_multi_sentence",
+      "needs_cleanup": false,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-bb4850a5cd16eb1f",
+      "input": "Um, our volunteers will distribute the maps at the main entrance. Uh, the kitchen tap drips only when the hot water runs.",
+      "targets": [
+        "Our volunteers will distribute the maps at the main entrance. The kitchen tap drips only when the hot water runs."
+      ],
+      "split": "development",
+      "category": "multi_sentence_fillers",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-542d15f804c3250d",
+      "input": "Hand the booking confirmation to Rina, sorry, to Soren.",
+      "targets": [
+        "Hand the booking confirmation to Soren."
+      ],
+      "split": "development",
+      "category": "explicit_recipient_correction",
+      "needs_cleanup": true,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "blind-c-019",
+      "split": "heldout",
+      "category": "quoted_literal_code_path",
+      "input": "Call the event \"Evening workshop\", no, call it \"Open studio\".",
+      "targets": [
+        "Call the event \"Open studio\"."
+      ],
+      "needs_cleanup": true,
+      "checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [
+          "Open studio"
+        ],
+        "any_of": [],
+        "ordered": []
+      },
+      "notes": "Explicit replacement cancels the first proposed event name. Removing a canceled quote is semantically correct even if a protection adapter refuses it; fallback is not clean success.",
+      "critical_semantic_case": true,
+      "references_are_normalized": false
+    },
+    {
+      "id": "blind-c-031",
+      "split": "heldout",
+      "category": "quoted_literal_code_path",
+      "input": "Change the status to \"on hold\", sorry, leave it \"awaiting parts\" instead.",
+      "targets": [
+        "Leave the status \"awaiting parts\" instead."
+      ],
+      "needs_cleanup": true,
+      "checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [
+          "awaiting parts"
+        ],
+        "any_of": [],
+        "ordered": []
+      },
+      "notes": "The final instruction supersedes the requested status change; retaining an active on-hold instruction is a critical error.",
+      "critical_semantic_case": true,
+      "references_are_normalized": false
+    },
+    {
+      "id": "scribe-harddev-039",
+      "split": "development",
+      "category": "precision_uncertainty",
+      "input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "targets": [
+        "Apparently the keys were returned yesterday, although nobody has signed the receipt."
+      ],
+      "needs_cleanup": true,
+      "references_are_normalized": false,
+      "checks": {},
+      "rubric_notes": "Do not convert an apparent report into an unqualified fact."
+    },
+    {
+      "id": "scribe-harddev-052",
+      "split": "development",
+      "category": "correction_scope",
+      "input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "targets": [
+        "Leave March alone and archive April, then update the index."
+      ],
+      "needs_cleanup": true,
+      "references_are_normalized": false,
+      "checks": {},
+      "rubric_notes": "Do not reactivate canceled March archival; retain index update."
+    },
+    {
+      "id": "scribe-harddev-060",
+      "split": "development",
+      "category": "correction_scope",
+      "input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "targets": [
+        "Order three black panels and two grey ones."
+      ],
+      "needs_cleanup": true,
+      "references_are_normalized": false,
+      "checks": {},
+      "rubric_notes": "Change only white to black; retain both quantities and grey item."
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+      "input": "Let the parking permit expire once the depot opens.",
+      "targets": [
+        "Let the parking permit expire once the depot opens."
+      ],
+      "split": "development",
+      "category": "clean_conditional_action",
+      "needs_cleanup": false,
+      "checks": {
+        "literals": []
+      }
+    },
+    {
+      "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+      "input": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+      "targets": [
+        "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions."
+      ],
+      "split": "development",
+      "category": "clean_multi_sentence",
+      "needs_cleanup": false,
+      "checks": {
+        "literals": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,672 @@
+{
+  "schema_version": 1,
+  "corpus_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-f16-iq4-lookup/development-subset.json",
+  "corpus_sha256": "3A0C1AA7B24AA3764EF4076843D50F1EAE4BC152D541A026FCF144813C6CA74A",
+  "prompt_style": "ScribeKeyFast",
+  "mask_literals": true,
+  "literal_mask_protocol": "specialist-compact-v3",
+  "specialist_output_normalization": "trim-v1",
+  "input_note": "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
+  "managed_assembly_sha256": {
+    "Freehand.Cleanup.Probe.dll": "AD479BEC39E0CD5CD62AB7055B72885A1B96252A8BE3ABB31BFA33C8E76DBD76",
+    "Freehand.Core.dll": "A4F46C6EF3519464CCD36B89546275626BA529F908B13584AB3D18C6472C9236",
+    "Freehand.Cleanup.dll": "87D2171175E1A88A07CE1A5623089D6BD4BC3EF7C8AD720D4C992F1554970EB0",
+    "Freehand.Dictionary.dll": "C948C62A1A001221920EE0FD07DDA266CF94BA3191BEBDEED1DA9698A8BED9D3",
+    "Freehand.Testing.dll": "BDE45BB19DC4BE966F1EADF5199321263226A257D230E18EA39BA1AEF405FAB5",
+    "Freehand.Abstractions.dll": "E600A623D8EA9798294963EDA89DFE6946DA6BD1F9DDE96981A9397068813BCD"
+  },
+  "cases": [
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+        "input": "Hand the booking confirmation to Soren, sorry, to Pavel.",
+        "targets": [
+          "Hand the booking confirmation to Pavel."
+        ],
+        "split": "development",
+        "category": "explicit_recipient_correction",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Hand the booking confirmation to Soren, sorry, to Pavel.",
+      "normalized_targets": [
+        "Hand the booking confirmation to Pavel."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "72d5fef6af4b9e60e2e2752ae86791299f0360057bebfe7c2906d42d94c850a2",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHand the booking confirmation to Soren, sorry, to Pavel.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+        "input": "Please inspect the hinge and replace the lock, scratch that, lubricate the lock.",
+        "targets": [
+          "Please inspect the hinge and lubricate the lock."
+        ],
+        "split": "development",
+        "category": "retain_unaffected_clause",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Please inspect the hinge and replace the lock, scratch that, lubricate the lock.",
+      "normalized_targets": [
+        "Please inspect the hinge and lubricate the lock."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "37dff90cac2292182a02ed53249ace4ecd6fd22694cabbf6d571f2cd08ef5975",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease inspect the hinge and replace the lock, scratch that, lubricate the lock.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+        "input": "Hand the booking confirmation to Pavel, sorry, to Soren.",
+        "targets": [
+          "Hand the booking confirmation to Soren."
+        ],
+        "split": "development",
+        "category": "explicit_recipient_correction",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Hand the booking confirmation to Pavel, sorry, to Soren.",
+      "normalized_targets": [
+        "Hand the booking confirmation to Soren."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "7f95d8381d4a9a68006f00a5daa45fe09cb3c6a75eda8c75aa8ef8e2570e2b12",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHand the booking confirmation to Pavel, sorry, to Soren.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+        "input": "Hand the booking confirmation to Oriana, sorry, to Soren.",
+        "targets": [
+          "Hand the booking confirmation to Soren."
+        ],
+        "split": "development",
+        "category": "explicit_recipient_correction",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Hand the booking confirmation to Oriana, sorry, to Soren.",
+      "normalized_targets": [
+        "Hand the booking confirmation to Soren."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "c249648b8cee43794bbfef77cf8a9c2f8477482bf17238502a725549fd5c1094",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHand the booking confirmation to Oriana, sorry, to Soren.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-cb42b8f89780ca46",
+        "input": "Um, please do not edit the approved quotation. Uh, please keep the two samples in different containers.",
+        "targets": [
+          "Please do not edit the approved quotation. Please keep the two samples in different containers."
+        ],
+        "split": "development",
+        "category": "multi_sentence_fillers",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Um, please do not edit the approved quotation. Uh, please keep the two samples in different containers.",
+      "normalized_targets": [
+        "Please do not edit the approved quotation. Please keep the two samples in different containers."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "6fe5d9c40010ee7f6318e4591f163c231573762eb6d3679d45a2041542230ce6",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUm, please do not edit the approved quotation. Uh, please keep the two samples in different containers.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-0567d238460bdb29",
+        "input": "Please do not edit the approved quotation. Please keep the two samples in different containers.",
+        "targets": [
+          "Please do not edit the approved quotation. Please keep the two samples in different containers."
+        ],
+        "split": "development",
+        "category": "clean_multi_sentence",
+        "needs_cleanup": false,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Please do not edit the approved quotation. Please keep the two samples in different containers.",
+      "normalized_targets": [
+        "Please do not edit the approved quotation. Please keep the two samples in different containers."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "37d09bc791e8ba345f3f20e324211eb422f7501565bdc5188bfab8fa753f468d",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nPlease do not edit the approved quotation. Please keep the two samples in different containers.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-bb4850a5cd16eb1f",
+        "input": "Um, our volunteers will distribute the maps at the main entrance. Uh, the kitchen tap drips only when the hot water runs.",
+        "targets": [
+          "Our volunteers will distribute the maps at the main entrance. The kitchen tap drips only when the hot water runs."
+        ],
+        "split": "development",
+        "category": "multi_sentence_fillers",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Um, our volunteers will distribute the maps at the main entrance. Uh, the kitchen tap drips only when the hot water runs.",
+      "normalized_targets": [
+        "Our volunteers will distribute the maps at the main entrance. The kitchen tap drips only when the hot water runs."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "d5e10d7922d47c25872bbe3fcbf3143e70b0581b0cd24e135423e03ee9b7c8e1",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nUm, our volunteers will distribute the maps at the main entrance. Uh, the kitchen tap drips only when the hot water runs.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-542d15f804c3250d",
+        "input": "Hand the booking confirmation to Rina, sorry, to Soren.",
+        "targets": [
+          "Hand the booking confirmation to Soren."
+        ],
+        "split": "development",
+        "category": "explicit_recipient_correction",
+        "needs_cleanup": true,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Hand the booking confirmation to Rina, sorry, to Soren.",
+      "normalized_targets": [
+        "Hand the booking confirmation to Soren."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "63bb305bf8891c1b68eade3827113bef3752237c673a9dea5e3dfc6458a9723c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nHand the booking confirmation to Rina, sorry, to Soren.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "blind-c-019",
+        "split": "heldout",
+        "category": "quoted_literal_code_path",
+        "input": "Call the event \u0022Evening workshop\u0022, no, call it \u0022Open studio\u0022.",
+        "targets": [
+          "Call the event \u0022Open studio\u0022."
+        ],
+        "needs_cleanup": true,
+        "checks": {
+          "include": [],
+          "exclude": [],
+          "literals": [
+            "Open studio"
+          ],
+          "any_of": [],
+          "ordered": []
+        },
+        "notes": "Explicit replacement cancels the first proposed event name. Removing a canceled quote is semantically correct even if a protection adapter refuses it; fallback is not clean success.",
+        "critical_semantic_case": true,
+        "references_are_normalized": false
+      },
+      "normalized_input": "Call the event \u0022Evening workshop\u0022, no, call it \u0022Open studio\u0022.",
+      "normalized_targets": [
+        "Call the event \u0022Open studio\u0022."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [
+          "Open studio"
+        ],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "4ca25d2639fa721a93b4f20eb5718018f556996265207267ffad43fefa6abaff",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nCall the event FHX_e4e83418, no, call it FHX_50c9548a.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "blind-c-031",
+        "split": "heldout",
+        "category": "quoted_literal_code_path",
+        "input": "Change the status to \u0022on hold\u0022, sorry, leave it \u0022awaiting parts\u0022 instead.",
+        "targets": [
+          "Leave the status \u0022awaiting parts\u0022 instead."
+        ],
+        "needs_cleanup": true,
+        "checks": {
+          "include": [],
+          "exclude": [],
+          "literals": [
+            "awaiting parts"
+          ],
+          "any_of": [],
+          "ordered": []
+        },
+        "notes": "The final instruction supersedes the requested status change; retaining an active on-hold instruction is a critical error.",
+        "critical_semantic_case": true,
+        "references_are_normalized": false
+      },
+      "normalized_input": "Change the status to \u0022on hold\u0022, sorry, leave it \u0022awaiting parts\u0022 instead.",
+      "normalized_targets": [
+        "Leave the status \u0022awaiting parts\u0022 instead."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [
+          "awaiting parts"
+        ],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "dafd09bae3d5a693e2b45a939e46eaf6fa7b9f793d53a21ff8d65e9eb85eadf7",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nChange the status to FHX_66722f85, sorry, leave it FHX_49d4950e instead.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-harddev-039",
+        "split": "development",
+        "category": "precision_uncertainty",
+        "input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+        "targets": [
+          "Apparently the keys were returned yesterday, although nobody has signed the receipt."
+        ],
+        "needs_cleanup": true,
+        "references_are_normalized": false,
+        "checks": {},
+        "rubric_notes": "Do not convert an apparent report into an unqualified fact."
+      },
+      "normalized_input": "uh apparently the keys were returned yesterday although nobody has signed the receipt",
+      "normalized_targets": [
+        "Apparently the keys were returned yesterday, although nobody has signed the receipt."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "b40518c1adc1514716c0bc9d586cfa6bcebf12e05078ab1e7abe60b91790fd40",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nuh apparently the keys were returned yesterday although nobody has signed the receipt\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-harddev-052",
+        "split": "development",
+        "category": "correction_scope",
+        "input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+        "targets": [
+          "Leave March alone and archive April, then update the index."
+        ],
+        "needs_cleanup": true,
+        "references_are_normalized": false,
+        "checks": {},
+        "rubric_notes": "Do not reactivate canceled March archival; retain index update."
+      },
+      "normalized_input": "Archive the March photographs, no, leave March alone and archive April, then update the index.",
+      "normalized_targets": [
+        "Leave March alone and archive April, then update the index."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "f7feeef1399c7939b9790321c61be9ffa14f3583ff6557dae4a75f4657126038",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nArchive the March photographs, no, leave March alone and archive April, then update the index.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribe-harddev-060",
+        "split": "development",
+        "category": "correction_scope",
+        "input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+        "targets": [
+          "Order three black panels and two grey ones."
+        ],
+        "needs_cleanup": true,
+        "references_are_normalized": false,
+        "checks": {},
+        "rubric_notes": "Change only white to black; retain both quantities and grey item."
+      },
+      "normalized_input": "Order three white panels and two grey ones, no, make the white panels black but keep both quantities.",
+      "normalized_targets": [
+        "Order three black panels and two grey ones."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "868be9a5146eea7a54410f69e265fa428274520ada41b17294ba54e2112b342c",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nOrder three white panels and two grey ones, no, make the white panels black but keep both quantities.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+        "input": "Let the parking permit expire once the depot opens.",
+        "targets": [
+          "Let the parking permit expire once the depot opens."
+        ],
+        "split": "development",
+        "category": "clean_conditional_action",
+        "needs_cleanup": false,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "Let the parking permit expire once the depot opens.",
+      "normalized_targets": [
+        "Let the parking permit expire once the depot opens."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "00aed06ff79ae4dbc7e9857dff7015e9177b93743ac473e3947f9ae73b50ae34",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nLet the parking permit expire once the depot opens.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    },
+    {
+      "fixture": {
+        "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+        "input": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+        "targets": [
+          "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions."
+        ],
+        "split": "development",
+        "category": "clean_multi_sentence",
+        "needs_cleanup": false,
+        "checks": {
+          "literals": []
+        }
+      },
+      "normalized_input": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+      "normalized_targets": [
+        "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions."
+      ],
+      "normalized_checks": {
+        "include": [],
+        "exclude": [],
+        "literals": [],
+        "any_of": [],
+        "ordered": []
+      },
+      "mask_literals": true,
+      "literal_mask_protocol": "specialist-compact-v3",
+      "specialist_output_normalization": "trim-v1",
+      "model_input_sha256": "a55e42b1ec32d57e5fae011ef62a6be5d2b717985b661b2352f3fca934796872",
+      "completion": {
+        "text": "\u003C|startoftext|\u003E### Input:\n[Styling: semi-casual] [Structure: prose] [Context: general]\nThe second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.\n\n### Output:\n",
+        "stop": [
+          "###",
+          "\u003C|im_end|\u003E"
+        ],
+        "temperature": 0,
+        "repeat_penalty": 1,
+        "add_special": false,
+        "seed": 42
+      },
+      "messages": null
+    }
+  ]
+}

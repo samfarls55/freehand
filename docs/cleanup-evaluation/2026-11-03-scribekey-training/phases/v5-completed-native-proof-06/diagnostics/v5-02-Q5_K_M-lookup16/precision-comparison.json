@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "phase": "development",
+  "Q5_model": {
+    "path": "/tmp/freehand-scribekey-v5-02-Q5_K_M/ScribeKey-Freehand-V5-02-Q5_K_M.gguf",
+    "bytes": 260374816,
+    "sha256": "6ba6da632bcb76bcf9309522b26b1a7d5688733d7d4f1bddda6188f438e87b3b"
+  },
+  "native_report": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-Q5_K_M-lookup16/report.json",
+    "bytes": 7374,
+    "sha256": "840b461e5c1e5a0af1de412015dd1866deb230f60b32f4298ff82bd6bbd7d711"
+  },
+  "native_outputs": {
+    "path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-Q5_K_M-lookup16/outputs.jsonl",
+    "bytes": 61766,
+    "sha256": "5a479e77b1bd0088f0b29544df53e01f186e6160c1db27b1d34cfad4e8d0ee4a"
+  },
+  "worker_memory_only": {
+    "scope": "owned_cleanup_server_process_tree_only",
+    "sample_interval_seconds": 0.02,
+    "sample_count": 167,
+    "unavailable_samples": 0,
+    "peak_working_set_bytes": 328024064,
+    "peak_private_resident_bytes": 326651904,
+    "peak_private_commit_bytes": null,
+    "peak_process_count": 1,
+    "notes": "Sampled simultaneous process-tree sums; shared pages may be counted twice. Linux private resident memory differs from Windows private commit. GPU memory and the Freehand desktop/ASR worker are excluded. Sampling can affect timing."
+  },
+  "case_count": 15,
+  "status_counts": {
+    "completed": 14,
+    "failed": 1
+  },
+  "comparisons": [
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 61,
+        "id": "scribekey-minimal-edit-synthetic-v1-e7f1cde1784483d8",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Hand the booking confirmation to Pavel.",
+      "Q5_normalized_model_output": "Hand the booking confirmation to Pavel.",
+      "Q5_output": "Hand the booking confirmation to Pavel.",
+      "Q5_error": null,
+      "F16_raw_output": "Hand the booking confirmation to Pavel.",
+      "IQ4_raw_output": "Do not hand the booking confirmation to Pavel."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 62,
+        "id": "scribekey-minimal-edit-synthetic-v1-75f753dba2fd23e7",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Please lubricate the lock.",
+      "Q5_normalized_model_output": "Please lubricate the lock.",
+      "Q5_output": "Please lubricate the lock.",
+      "Q5_error": null,
+      "F16_raw_output": "Please lubricate the lock.",
+      "IQ4_raw_output": "Please lubricate the lock."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 175,
+        "id": "scribekey-minimal-edit-synthetic-v1-1c4eb68fce8d46b6",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Hand the booking confirmation to Soren.",
+      "Q5_normalized_model_output": "Hand the booking confirmation to Soren.",
+      "Q5_output": "Hand the booking confirmation to Soren.",
+      "Q5_error": null,
+      "F16_raw_output": "Hand the booking confirmation to Soren.",
+      "IQ4_raw_output": "Do not hand the booking confirmation to Soren."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 181,
+        "id": "scribekey-minimal-edit-synthetic-v1-fbcc235929983ec3",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Hand the booking confirmation to Soren.",
+      "Q5_normalized_model_output": "Hand the booking confirmation to Soren.",
+      "Q5_output": "Hand the booking confirmation to Soren.",
+      "Q5_error": null,
+      "F16_raw_output": "Hand the booking confirmation to Soren.",
+      "IQ4_raw_output": "Do not hand the booking confirmation to Soren."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-cb42b8f89780ca46",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 197,
+        "id": "scribekey-minimal-edit-synthetic-v1-cb42b8f89780ca46",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Please keep the two samples in different containers.",
+      "Q5_normalized_model_output": "Please keep the two samples in different containers.",
+      "Q5_output": "Please keep the two samples in different containers.",
+      "Q5_error": null,
+      "F16_raw_output": "Please keep the two samples in different containers.",
+      "IQ4_raw_output": "Please keep the two samples in different containers."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-0567d238460bdb29",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 340,
+        "id": "scribekey-minimal-edit-synthetic-v1-0567d238460bdb29",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Please keep the two samples in different containers.",
+      "Q5_normalized_model_output": "Please keep the two samples in different containers.",
+      "Q5_output": "Please keep the two samples in different containers.",
+      "Q5_error": null,
+      "F16_raw_output": "Please keep the two samples in different containers.",
+      "IQ4_raw_output": "Please keep the two samples in different containers."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-bb4850a5cd16eb1f",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 357,
+        "id": "scribekey-minimal-edit-synthetic-v1-bb4850a5cd16eb1f",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Our volunteers will distribute the maps at the kitchen tap. The kitchen tap drips only when the hot water runs.",
+      "Q5_normalized_model_output": "Our volunteers will distribute the maps at the kitchen tap. The kitchen tap drips only when the hot water runs.",
+      "Q5_output": "Our volunteers will distribute the maps at the kitchen tap. The kitchen tap drips only when the hot water runs.",
+      "Q5_error": null,
+      "F16_raw_output": "Our volunteers will distribute the maps at the kitchen tap. The kitchen tap drips only when the hot water runs.",
+      "IQ4_raw_output": "Our volunteers will distribute the maps at the kitchen tap. The tap drips only when the hot water runs."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-542d15f804c3250d",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 473,
+        "id": "scribekey-minimal-edit-synthetic-v1-542d15f804c3250d",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Hand the booking confirmation to Soren.",
+      "Q5_normalized_model_output": "Hand the booking confirmation to Soren.",
+      "Q5_output": "Hand the booking confirmation to Soren.",
+      "Q5_error": null,
+      "F16_raw_output": "Hand the booking confirmation to Soren.",
+      "IQ4_raw_output": "Do not hand the booking confirmation to Soren."
+    },
+    {
+      "case_id": "blind-c-019",
+      "mapping": {
+        "source": "retired",
+        "zero_based_index": 368,
+        "id": "blind-c-019",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Do not call the event FHX_e4e83418; call it FHX_50c9548a.",
+      "Q5_normalized_model_output": "Do not call the event FHX_e4e83418; call it FHX_50c9548a.",
+      "Q5_output": "Do not call the event \"Evening workshop\"; call it \"Open studio\".",
+      "Q5_error": null,
+      "F16_raw_output": "Do not call the event FHX_e4e83418; call it FHX_50c9548a.",
+      "IQ4_raw_output": "Call the event FHX_50c9548a."
+    },
+    {
+      "case_id": "blind-c-031",
+      "mapping": {
+        "source": "retired",
+        "zero_based_index": 380,
+        "id": "blind-c-031",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "failed",
+      "Q5_raw_output": "Change the status to leave the status FHX_49d4950e instead.",
+      "Q5_normalized_model_output": "Change the status to leave the status FHX_49d4950e instead.",
+      "Q5_output": null,
+      "Q5_error": "ValueError: Cleanup changed the specialist literal identifiers or their order",
+      "F16_raw_output": "Change the status to leave the status FHX_49d4950e instead.",
+      "IQ4_raw_output": "Change the status to leave the status FHX_49d4950e instead."
+    },
+    {
+      "case_id": "scribe-harddev-039",
+      "mapping": {
+        "source": "hard",
+        "id": "scribe-harddev-039",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": " Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "Q5_normalized_model_output": "Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "Q5_output": "Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "Q5_error": null,
+      "F16_raw_output": " Apparently the keys were returned yesterday although nobody has signed the receipt.",
+      "IQ4_raw_output": "Upside down the keys were returned yesterday although nobody has signed the receipt."
+    },
+    {
+      "case_id": "scribe-harddev-052",
+      "mapping": {
+        "source": "hard",
+        "id": "scribe-harddev-052",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Archive the March photographs, leave March alone and archive April, then update the index.",
+      "Q5_normalized_model_output": "Archive the March photographs, leave March alone and archive April, then update the index.",
+      "Q5_output": "Archive the March photographs, leave March alone and archive April, then update the index.",
+      "Q5_error": null,
+      "F16_raw_output": "Archive the March photographs, leave March alone and archive April, then update the index.",
+      "IQ4_raw_output": "Archive the March photographs, leave March alone and archive April, then update the index."
+    },
+    {
+      "case_id": "scribe-harddev-060",
+      "mapping": {
+        "source": "hard",
+        "id": "scribe-harddev-060",
+        "role": "known_failure"
+      },
+      "Q5_raw_matches_F16": false,
+      "Q5_raw_matches_IQ4": false,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Order three white panels and two grey ones, make the white panels black but keep both quantities.",
+      "Q5_normalized_model_output": "Order three white panels and two grey ones, make the white panels black but keep both quantities.",
+      "Q5_output": "Order three white panels and two grey ones, make the white panels black but keep both quantities.",
+      "Q5_error": null,
+      "F16_raw_output": "Order three white panels and two grey ones, not three.",
+      "IQ4_raw_output": "Order three white panels and two black ones."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 8,
+        "id": "scribekey-minimal-edit-synthetic-v1-70212b1f87e72ae3",
+        "role": "unchanged_control"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "completed",
+      "Q5_raw_output": "Let the parking permit expire once the depot opens.",
+      "Q5_normalized_model_output": "Let the parking permit expire once the depot opens.",
+      "Q5_output": "Let the parking permit expire once the depot opens.",
+      "Q5_error": null,
+      "F16_raw_output": "Let the parking permit expire once the depot opens.",
+      "IQ4_raw_output": "Let the parking permit expire once the depot opens."
+    },
+    {
+      "case_id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+      "mapping": {
+        "source": "broad",
+        "zero_based_index": 11,
+        "id": "scribekey-minimal-edit-synthetic-v1-cc19943b414162fe",
+        "role": "unchanged_control"
+      },
+      "Q5_raw_matches_F16": true,
+      "Q5_raw_matches_IQ4": true,
+      "Q5_status": "completed",
+      "Q5_raw_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+      "Q5_normalized_model_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+      "Q5_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+      "Q5_error": null,
+      "F16_raw_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions.",
+      "IQ4_raw_output": "The second drawer contains the signed attendance sheets. The first batch passed inspection without any exceptions."
+    }
+  ],
+  "same_exact_tokens_and_request_hashes": true,
+  "source_model_postverified": true,
+  "whole_app_sla_claim": false,
+  "accuracy_claim": false,
+  "fresh_round2_opened": false
+}

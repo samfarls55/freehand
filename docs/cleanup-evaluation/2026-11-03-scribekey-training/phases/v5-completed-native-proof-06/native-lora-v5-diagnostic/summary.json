@@ -1,0 +1,121 @@
+{
+  "conversion": {
+    "gguf": {
+      "path": "/tmp/freehand-native-lora-v5/V5-02-native-LoRA-F32.gguf",
+      "bytes": 12006240,
+      "sha256": "06431957f0db134c23f532edf8baef837ccbeb52436233ff912424dacd97af33"
+    },
+    "all184_tensor_values_bit_identical": true,
+    "alpha": 16,
+    "rank": 8,
+    "native_scale": 1,
+    "loader_modules": 92,
+    "loader_tensors": 184,
+    "loader_buffer_mib": 11.44
+  },
+  "native_case_count": 15,
+  "same_request_hashes": true,
+  "same_input_tokens": true,
+  "restored": 13,
+  "literal_failures": 2,
+  "semantic_failures": 4,
+  "joint_usable": 9,
+  "exact_target_matches": 8,
+  "worker_peak_mib": 271.11328125,
+  "worker_peak_difference_vs_mergedIQ4_mib": 11.72265625,
+  "completed13_response_times": {
+    "median": 0.2852586410008371,
+    "p95_nearest_rank": 0.44349681500170846,
+    "maximum": 0.44349681500170846,
+    "sample_count": 13
+  },
+  "all15_case_wall_median": 0.30428786200354807,
+  "main_worker_exit_code": 0,
+  "main_controller_exit_code": 1,
+  "final_assertion_failure_preserved": "Expected native-library log line absent atverbosity3; not a generation/conversionfailure.",
+  "additional_load_proof": "Startup only atverbosity5 loaded184/92 and11.44MiB then exited1 on subsequent chattemplate debuganalysis. No repeated completions.",
+  "proof_file": "load-proof.json",
+  "no_app_or_qualification_claim": true,
+  "native_cpu_released": true,
+  "Q5_comparison": {
+    "source_path": "/workspace/freehand/work/cleanup-scribekey-training-2026-11-03/diagnostics/v5-02-Q5_K_M-lookup16/outputs.jsonl",
+    "all15_request_and_token_hashes_match": true,
+    "summary": {
+      "row_count": 15,
+      "attempt_count": 15,
+      "not_attempted_count": 0,
+      "completed_count": 14,
+      "operational_failures": 1,
+      "known_quality_failures": 0,
+      "target_matches": 6,
+      "review_required_nonmatches": 8,
+      "complete_response_seconds": {
+        "median": 0.2487572994978109,
+        "p95_nearest_rank": 0.5191425849989173,
+        "maximum": 0.5191425849989173,
+        "sample_count": 14
+      },
+      "by_category": {
+        "clean_conditional_action": {
+          "completed": 1,
+          "known_quality_failures": 0,
+          "target_matches": 1
+        },
+        "clean_multi_sentence": {
+          "completed": 2,
+          "known_quality_failures": 0,
+          "target_matches": 1
+        },
+        "correction_scope": {
+          "completed": 2,
+          "known_quality_failures": 0,
+          "target_matches": 0
+        },
+        "explicit_recipient_correction": {
+          "completed": 4,
+          "known_quality_failures": 0,
+          "target_matches": 4
+        },
+        "multi_sentence_fillers": {
+          "completed": 2,
+          "known_quality_failures": 0,
+          "target_matches": 0
+        },
+        "precision_uncertainty": {
+          "completed": 1,
+          "known_quality_failures": 0,
+          "target_matches": 0
+        },
+        "quoted_literal_code_path": {
+          "completed": 1,
+          "known_quality_failures": 0,
+          "target_matches": 0
+        },
+        "retain_unaffected_clause": {
+          "completed": 1,
+          "known_quality_failures": 0,
+          "target_matches": 0
+        }
+      }
+    },
+    "memory": {
+      "scope": "owned_cleanup_server_process_tree_only",
+      "sample_interval_seconds": 0.02,
+      "sample_count": 167,
+      "unavailable_samples": 0,
+      "peak_working_set_bytes": 328024064,
+      "peak_private_resident_bytes": 326651904,
+      "peak_private_commit_bytes": null,
+      "peak_process_count": 1,
+      "notes": "Sampled simultaneous process-tree sums; shared pages may be counted twice. Linux private resident memory differs from Windows private commit. GPU memory and the Freehand desktop/ASR worker are excluded. Sampling can affect timing."
+    }
+  },
+  "Q5_worker_peak_mib": 312.828125,
+  "Q5_comparison_notes": [
+    "Native retains hinge-inspection and already-clean quotation instruction that Q5 drops.",
+    "Both native and Q5 fix the four merged-IQ4 spurious recipient negations and the apparently corruption.",
+    "Q5 preserves both event-name literal tokens by making the old name explicitly negative; native drops the old token and fails strict restoration.",
+    "Q5 retains a recognizable white-to-black correction directive for panels; native applies black to the wrong grey-panel group, so native is semantically worse on this case.",
+    "Both retain harmful multi-sentence deletion/location corruption and unresolved March correction; native is not uniformly better than Q5/F16."
+  ]
+}
