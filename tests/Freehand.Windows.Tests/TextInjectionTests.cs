@@ -47,7 +47,7 @@ public sealed class TextInjectionTests
         {
             Assert.False(held);
             delivered.AddRange(inputs); return (uint)inputs.Length;
-        }, _ => { pauses++; held = false; });
+        }, _ => { if (held) { pauses++; held = false; } });
         Assert.Equal(DeliveryOutcome.Delivered,
             await injector.InjectAsync("Not a Ctrl shortcut", Target, CancellationToken.None));
         Assert.Equal(1, pauses);
