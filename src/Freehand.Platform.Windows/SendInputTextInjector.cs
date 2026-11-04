@@ -22,10 +22,25 @@ namespace Freehand.Platform.Windows;
 public sealed class SendInputTextInjector : ITargetedTextInjector
 {
     /// <summary>Characters per <c>SendInput</c> call when typing.</summary>
-    private const int ChunkSize = 128;
+    private const int ChunkSize = 32;
 
     /// <summary>Pause between chunks, so slower targets keep up.</summary>
     private static readonly TimeSpan ChunkGap = TimeSpan.FromMilliseconds(4);
+    private static readonly TimeSpan ModifierWait = TimeSpan.FromSeconds(1);
+    private readonly Func<ForegroundTarget, bool> _isCurrent;
+    private readonly Func<bool> _modifiersHeld;
+    private readonly Func<INPUT[], uint> _send;
+    private readonly Action<TimeSpan> _pause;
+
+    /// <summary>Creates a foreground-checked Windows keyboard injector.</summary>
+    public SendInputTextInjector() : this(WindowsForeground.IsCurrent, ModifiersHeld,
+        inputs => SendInput((uint)inputs.Length, inputs, InputSize), Thread.Sleep) { }
+
+    internal SendInputTextInjector(Func<ForegroundTarget, bool> isCurrent, Func<bool> modifiersHeld,
+        Func<INPUT[], uint> send, Action<TimeSpan> pause)
+    {
+        _isCurrent = isCurrent; _modifiersHeld = modifiersHeld; _send = send; _pause = pause;
+    }
 
     private const uint INPUT_KEYBOARD = 1;
     private const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
@@ -39,7 +54,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     private const uint MAPVK_VK_TO_VSC = 0;
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct MOUSEINPUT
+    internal struct MOUSEINPUT
     {
         public int X, Y;
         public uint Data, Flags, Time;
@@ -47,7 +62,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct KEYBDINPUT
+    internal struct KEYBDINPUT
     {
         public ushort VirtualKey;
         public ushort ScanCode;
@@ -57,14 +72,14 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct HARDWAREINPUT
+    internal struct HARDWAREINPUT
     {
         public uint Message;
         public ushort ParamL, ParamH;
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    private struct InputUnion
+    internal struct InputUnion
     {
         [FieldOffset(0)] public MOUSEINPUT Mouse;
         [FieldOffset(0)] public KEYBDINPUT Keyboard;
@@ -72,7 +87,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct INPUT
+    internal struct INPUT
     {
         public uint Type;
         public InputUnion Union;
@@ -83,6 +98,14 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
 
     [DllImport("user32.dll", EntryPoint = "MapVirtualKeyW")]
     private static extern uint MapVirtualKey(uint code, uint mapType);
+
+    [DllImport("user32.dll")]
+    private static extern short GetAsyncKeyState(int virtualKey);
+
+    private static bool ModifiersHeld() =>
+        (GetAsyncKeyState(0x10) & 0x8000) != 0 || (GetAsyncKeyState(0x11) & 0x8000) != 0 ||
+        (GetAsyncKeyState(0x12) & 0x8000) != 0 || (GetAsyncKeyState(0x5B) & 0x8000) != 0 ||
+        (GetAsyncKeyState(0x5C) & 0x8000) != 0;
 
     private static readonly int InputSize = Marshal.SizeOf<INPUT>();
 
@@ -101,7 +124,17 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     public ValueTask<DeliveryOutcome> InjectAsync(string text, ForegroundTarget target, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (!WindowsForeground.IsCurrent(target)) return ValueTask.FromResult(DeliveryOutcome.TargetChanged);
+        if (!_isCurrent(target)) return ValueTask.FromResult(DeliveryOutcome.TargetChanged);
+        // SendInput does not reset physical keyboard state. A failed hotkey pause
+        // is not permission to type through a held Ctrl/Alt/Shift/Windows key.
+        var deadline = System.Diagnostics.Stopwatch.StartNew();
+        while (_modifiersHeld())
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!_isCurrent(target)) return ValueTask.FromResult(DeliveryOutcome.TargetChanged);
+            if (deadline.Elapsed >= ModifierWait) return ValueTask.FromResult(DeliveryOutcome.PartialOrUncertain);
+            _pause(ChunkGap);
+        }
         return ValueTask.FromResult(TypeWithNewlines(text, target, cancellationToken)
             ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain);
     }
@@ -120,12 +153,12 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     /// from a normal process can return success and do nothing.
     /// </para>
     /// </remarks>
-    private static bool TypeUnicode(string text, ForegroundTarget target, CancellationToken token)
+    private bool TypeUnicode(string text, ForegroundTarget target, CancellationToken token)
     {
         for (var offset = 0; offset < text.Length;)
         {
             token.ThrowIfCancellationRequested();
-            if (!WindowsForeground.IsCurrent(target)) return false;
+            if (!_isCurrent(target) || _modifiersHeld()) return false;
             var length = Math.Min(ChunkSize, text.Length - offset);
 
             // Never split a surrogate pair across two SendInput calls.
@@ -139,33 +172,43 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
                 inputs[(i * 2) + 1] = UnicodeInput(unit, up: true);
             }
 
-            if (SendInput((uint)inputs.Length, inputs, InputSize) != inputs.Length) return false;
+            if (!SendBalanced(inputs)) return false;
             offset += length;
-            if (offset < text.Length) Thread.Sleep(ChunkGap);
+            if (offset < text.Length) _pause(ChunkGap);
         }
 
         return true;
     }
 
     /// <summary>Types text, sending a real Return for each newline.</summary>
-    private static bool TypeWithNewlines(string text, ForegroundTarget target, CancellationToken token)
+    private bool TypeWithNewlines(string text, ForegroundTarget target, CancellationToken token)
     {
-        var lines = text.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n');
+        var lines = text.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n');
 
         for (var i = 0; i < lines.Length; i++)
         {
             token.ThrowIfCancellationRequested();
-            if (!WindowsForeground.IsCurrent(target)) return false;
+            if (!_isCurrent(target) || _modifiersHeld()) return false;
             if (lines[i].Length > 0 && !TypeUnicode(lines[i], target, token)) return false;
 
             if (i < lines.Length - 1)
             {
                 INPUT[] enter = [KeyInput(VK_RETURN, up: false), KeyInput(VK_RETURN, up: true)];
-                if (SendInput(2, enter, InputSize) != 2) return false;
+                if (!_isCurrent(target) || _modifiersHeld() || !SendBalanced(enter)) return false;
             }
         }
 
         return true;
+    }
+
+    private bool SendBalanced(INPUT[] inputs)
+    {
+        var sent = _send(inputs);
+        if (sent == inputs.Length) return true;
+        // A short write can end on key-down. Release only that injected key;
+        // never resend the text prefix or leave Return/VK_PACKET pressed.
+        if (sent < inputs.Length && (sent & 1) != 0) _ = _send([inputs[sent]]);
+        return false;
     }
 
     private static INPUT UnicodeInput(ushort codeUnit, bool up) => new()
