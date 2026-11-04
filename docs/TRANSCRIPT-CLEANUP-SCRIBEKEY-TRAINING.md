@@ -24,13 +24,30 @@ lookup31—remain failures and are preserved. These measurements do not establis
 Windows or whole-app qualification; the user has no Windows machine available.
 
 The failed fresh test is now retired development material. Its paired original
-ScribeKey control also completed all 500 cases; three provider failures stay in
-the denominator and receive no successful-cleanup credit. Control semantic review
-is pending. A new independent corpus is committed and remains unseen by the
-training work. The next work is an actual ScribeKey source-copy/edit-head
-prototype, explicit opt-in single-quote protection, and 400 newly authored and
-independently reviewed training pairs. No new head has been trained or qualified
-yet. No app default, normal installation or release has been promoted.
+ScribeKey control also completed all 500 cases and scored **430/500 (86.0%)**
+joint passes with 16 critical errors. Its three provider failures stay in the
+denominator and receive no successful-cleanup credit. The paired comparison has
+411 cases passing both models, 51 passing only the trained blend, 19 passing only
+the original control and 19 failing both. Control review uses 348 exact typed
+same-fresh successful selected judgments and 152 personally read control pairs;
+it inherits no development judgments. A new independent corpus is committed and
+remains unseen by the training work. The next model experiment is a ScribeKey
+source-copy/edit head using 400 newly authored and independently reviewed training
+pairs. No head has been trained or qualified yet. No app default, normal
+installation or release has been promoted.
+
+Opt-in `specialist-compact-v4` quote protection is now implemented in C#, Python,
+asset preparation and the probe. It protects balanced single and double quotes,
+keeps ordinary apostrophes distinct, and preserves the v3 default and original C#
+API. The strict solution build has zero warnings/errors; all 714 portable .NET,
+124 Python and 78 affected script tests pass. All 800 new training input/target
+exports agree between actual Core and Python masks/prompts/official tokenizer
+IDs, with exact source-derived literal restoration. The first Core test attempt
+hit Linux's socket-path limit under a long temporary directory; its 16 failures
+are preserved, and all 151 Core tests pass using a short directory without a
+source change. Actual Windows execution remains unverified. These checks qualify
+transport behavior; the new code generation has no model-quality or resource
+qualification yet.
 
 The [training protocol](../tools/Freehand.Cleanup.Training/PROTOCOL.md) fixes the
 editing policy, complete denominator, dataset separation and measurement scope.

@@ -1,4 +1,4 @@
-"""Mirror of Freehand.Cleanup.SpecialistLiteralMask, protocols compact-v2/v3.
+"""Mirror of Freehand.Cleanup.SpecialistLiteralMask, protocols compact-v2/v3/v4.
 
 This protects exact Core literal blocks and paired quoted wording. It does not
 correct language or decide which words are meaningful. Native results retain
@@ -15,6 +15,7 @@ from literal_protection import LiteralProtectionMask, TOKEN_SUFFIX
 
 TOKEN_FAMILY = "FHX_"
 PROTOCOL = "specialist-compact-v3"
+SINGLE_QUOTE_PROTOCOL = "specialist-compact-v4"
 
 
 def _trim_end_length(text: str) -> int:
@@ -52,6 +53,85 @@ def _quote_spans(text: str) -> list[tuple[int, int]]:
     return spans
 
 
+def _word_at(text: str, index: int) -> bool:
+    if not 0 <= index < len(text):
+        return False
+    # The new table is loaded only on the explicit v4 path, never for v3.
+    from specialist_literal_word_ranges import is_word
+    return is_word(ord(text[index]))
+
+
+def _quote_spans_v4(text: str) -> list[tuple[int, int]]:
+    spans, closing = [], []
+    opening = -1
+    paired_single_families = bare_possessive_families = 0
+    leading_elision_families = 0
+
+    def push(character):
+        if len(closing) >= 64:
+            raise ValueError("Specialist literal v4 quote nesting is too deep")
+        closing.append(character)
+
+    for index, character in enumerate(text):
+        if character not in ('"', '“', '”', "'", '‘', '’') or _escaped(text, index):
+            continue
+        single = character in ("'", '‘', '’')
+        before, after = _word_at(text, index - 1), _word_at(text, index + 1)
+        if single and before and after:
+            continue
+        if character in ("'", '’') and not before and _leading_elision(text, index):
+            if not closing:
+                leading_elision_families |= 1 if character == "'" else 2
+            continue
+        if closing and character == closing[-1]:
+            if character in ('"', "'") and not before and after:
+                push(character)
+                continue
+            closing.pop()
+            if single:
+                paired_single_families |= 1 if character == "'" else 2
+            if not closing:
+                spans.append((opening, index + 1))
+            continue
+        if character in ('”', '’'):
+            if character == '’' and before and '’' not in closing:
+                if not closing and _ambiguous_terminal_apostrophe(text, index):
+                    bare_possessive_families |= 2
+                continue
+            raise ValueError("Specialist literal v4 found unmatched or crossing quote delimiters")
+        if character == "'" and before:
+            if not closing and _ambiguous_terminal_apostrophe(text, index):
+                bare_possessive_families |= 1
+            continue
+        if not closing:
+            opening = index
+        push({'“': '”', '‘': '’'}.get(character, character))
+    if closing or (paired_single_families | leading_elision_families) & bare_possessive_families:
+        raise ValueError("Specialist literal v4 found an unmatched or ambiguous quote boundary")
+    return spans
+
+
+def _leading_elision(text: str, index: int) -> bool:
+    end = index + 1
+    while _word_at(text, end):
+        end += 1
+    if end < len(text) and text[end] == text[index]:
+        return False
+    word = text[index + 1:end]
+    return word.isascii() and word.lower() in ('cause', 'em', 'tis')
+
+
+def _ambiguous_terminal_apostrophe(text: str, index: int) -> bool:
+    suffix = text[max(0, index - 2):index]
+    if suffix.isascii() and suffix.lower() == 'in':
+        return False
+    after = index + 1
+    while after < len(text) and (text[after] in "\t\n\v\f\r\x85"
+                               or unicodedata.category(text[after]) in ('Zs', 'Zl', 'Zp')):
+        after += 1
+    return not _word_at(text, after)
+
+
 class SpecialistLiteralMask:
     def __init__(self, masked_text: str, legacy: LiteralProtectionMask,
                  tokens: list[str], payloads: list[str], terminal_quote_token: str | None = None):
@@ -62,12 +142,19 @@ class SpecialistLiteralMask:
         self.terminal_quote_token = terminal_quote_token
 
     @classmethod
-    def create(cls, text: str, remove_added_quote_period: bool = True):
+    def create(cls, text: str, remove_added_quote_period: bool = True, *, protocol: str = PROTOCOL):
+        if protocol not in (PROTOCOL, SINGLE_QUOTE_PROTOCOL):
+            raise ValueError("Unsupported specialist literal protocol")
+        if protocol == SINGLE_QUOTE_PROTOCOL:
+            if remove_added_quote_period is not True:
+                raise ValueError("Specialist literal v4 includes terminal quote normalization")
+            # Reject lone surrogates instead of inventing replacement bytes.
+            text.encode("utf-8")
         if TOKEN_FAMILY in text:
             raise ValueError("Transcript contains a reserved specialist literal identifier")
         legacy = LiteralProtectionMask.create(text)
         source = legacy.masked_text
-        quote_spans = _quote_spans(source)
+        quote_spans = _quote_spans_v4(source) if protocol == SINGLE_QUOTE_PROTOCOL else _quote_spans(source)
         quote_index = 0
         terminal_quote_token = None
         literal = re.compile(re.escape(legacy.token_prefix) + r"[0-9]+" + re.escape(TOKEN_SUFFIX))

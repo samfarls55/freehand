@@ -45,6 +45,7 @@ internal static class Program
         string? input = null, output = null, styleText = null;
         var split = "all";
         var maskSpecialistLiterals = false;
+        var specialistProtocol = SpecialistLiteralProtocol.CompactV3;
         for (var index = 0; index < args.Length; index++)
         {
             if (index + 1 >= args.Length) throw new ArgumentException("Each export option needs a value.");
@@ -60,6 +61,14 @@ internal static class Program
                     if (!bool.TryParse(value, out maskSpecialistLiterals))
                         throw new ArgumentException("--mask-specialist-literals must be true or false.");
                     break;
+                case "--specialist-literal-protocol":
+                    specialistProtocol = value switch
+                    {
+                        "specialist-compact-v3" => SpecialistLiteralProtocol.CompactV3,
+                        "specialist-compact-v4" => SpecialistLiteralProtocol.CompactV4,
+                        _ => throw new ArgumentException("Unsupported specialist literal protocol."),
+                    };
+                    break;
                 default: throw new ArgumentException("Unknown prompt export option: " + option);
             }
         }
@@ -69,6 +78,9 @@ internal static class Program
         if (split is not ("all" or "development" or "heldout")) throw new ArgumentException("Unsupported split.");
         if (!Enum.TryParse<CleanupPromptStyle>(styleText, true, out var style) || !Enum.IsDefined(style))
             throw new ArgumentException("Unsupported prompt style.");
+        if (specialistProtocol == SpecialistLiteralProtocol.CompactV4 && (!maskSpecialistLiterals || CleanupPrompt.IsGeneral(style)))
+            throw new ArgumentException("Specialist literal v4 requires an enabled specialist mask.");
+        var specialistProtocolName = specialistProtocol == SpecialistLiteralProtocol.CompactV4 ? "specialist-compact-v4" : "specialist-compact-v3";
         var bytes = await File.ReadAllBytesAsync(input).ConfigureAwait(false);
         using var document = JsonDocument.Parse(bytes);
         var parsed = ReadCases(document.RootElement, split).ToDictionary(fixture => fixture.Id, StringComparer.Ordinal);
@@ -84,9 +96,9 @@ internal static class Program
             var references = await NormalizeReferencesAsync(source, CancellationToken.None).ConfigureAwait(false);
             var general = CleanupPrompt.IsGeneral(style);
             var maskLiterals = general || maskSpecialistLiterals;
-            var maskProtocol = general ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none";
+            var maskProtocol = general ? "literal-token-v1" : maskSpecialistLiterals ? specialistProtocolName : "none";
             var modelText = general ? LiteralProtectionMask.Create(text).MaskedText
-                : maskSpecialistLiterals ? SpecialistLiteralMask.Create(text).MaskedText : text;
+                : maskSpecialistLiterals ? SpecialistLiteralMask.Create(text, protocol: specialistProtocol).MaskedText : text;
             var completion = general ? null : CleanupPrompt.BuildCompletion(style, modelText);
             ExportedChatMessage[]? messages = general
                 ? [new("system", CleanupPrompt.Text), new("user", CleanupPrompt.WrapTranscript(modelText))]
@@ -97,7 +109,7 @@ internal static class Program
         }
         var report = new PromptExport(1, input, Convert.ToHexString(SHA256.HashData(bytes)), style.ToString(),
             CleanupPrompt.IsGeneral(style) || maskSpecialistLiterals,
-            CleanupPrompt.IsGeneral(style) ? "literal-token-v1" : maskSpecialistLiterals ? "specialist-compact-v3" : "none",
+            CleanupPrompt.IsGeneral(style) ? "literal-token-v1" : maskSpecialistLiterals ? specialistProtocolName : "none",
             CleanupPrompt.IsGeneral(style) ? "none" : LlamaTranscriptPostProcessor.SpecialistOutputNormalization,
             "Inputs and references are normalized through the real Core pipeline with cleanup disabled. Native replay excludes dictionary-protection markers; use the integrated probe for dictionary-contract qualification.",
             await ManagedHashesAsync(CancellationToken.None).ConfigureAwait(false), exported);
@@ -156,7 +168,11 @@ internal static class Program
             RuntimeInformation.OSDescription, RuntimeInformation.ProcessArchitecture.ToString(),
             RuntimeInformation.FrameworkDescription, Environment.ProcessorCount, GC.GetGCMemoryInfo().TotalAvailableMemoryBytes,
             typeof(Program).Assembly.GetName().Version?.ToString(),
-            await ManagedHashesAsync(cancellationToken).ConfigureAwait(false), Limitations);
+            await ManagedHashesAsync(cancellationToken).ConfigureAwait(false), Limitations)
+        {
+            SpecialistLiteralProtocol = cleanupOptions?.SpecialistLiteralProtocol == SpecialistLiteralProtocol.CompactV4
+                ? "specialist-compact-v4" : null,
+        };
         var results = new List<ProbeCaseResult>();
         var report = new ProbeReport(1, metadata, true, results);
         await WriteReportAsync(arguments.Output, report).ConfigureAwait(false);
@@ -470,7 +486,11 @@ internal sealed record ProbeMetadata(DateTimeOffset StartedAtUtc, string CorpusP
     string? CacheTypeK, string? CacheTypeV,
     double CleanupTimeoutSeconds, string Split, string OperatingSystem, string Architecture,
     string Framework, int LogicalProcessorCount, long GcTotalAvailableMemoryBytes, string? ProbeVersion,
-    IReadOnlyDictionary<string, string> ManagedAssemblySha256, string Limitations);
+    IReadOnlyDictionary<string, string> ManagedAssemblySha256, string Limitations)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SpecialistLiteralProtocol { get; init; }
+}
 internal sealed record ProbeCaseResult(string Id, string Split, string Input, string? NormalizedInput,
     string? Output, string? CandidateText, string? CleanupInput, string CleanupStatus,
     double? CleanupTimeMs, double? ProcessingTimeMs, double ElapsedMs, int InsertionCount, int DeliveredCount,

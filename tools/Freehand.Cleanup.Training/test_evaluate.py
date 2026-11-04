@@ -12,6 +12,70 @@ import evaluate
 
 
 class ProfileTests(unittest.TestCase):
+    def test_literal_v4_is_an_explicit_typed_profile_while_legacy_fields_stay_absent(self):
+        baseline = evaluate.runtime_profile()
+        self.assertNotIn("specialistLiteralProtocol", baseline)
+        self.assertEqual("specialist-compact-v3", evaluate.frozen_specialist_literal_protocol({"profile": baseline}))
+        current = evaluate.runtime_profile(literal_protocol="specialist-compact-v4")
+        self.assertEqual({**baseline, "specialistLiteralProtocol": "CompactV4"}, current)
+        self.assertEqual("specialist-compact-v4", evaluate.frozen_specialist_literal_protocol(
+            {"profile": current, "specialist_literal_protocol": "specialist-compact-v4"}))
+        for invalid in (None, True, 4, "CompactV4", "specialist-compact-v5"):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                evaluate.runtime_profile(literal_protocol=invalid)
+        for frozen in ({"profile": current}, {"profile": baseline, "specialist_literal_protocol": "specialist-compact-v4"},
+                       {"profile": baseline, "specialist_literal_protocol": True}):
+            with self.subTest(frozen=frozen), self.assertRaises(ValueError):
+                evaluate.frozen_specialist_literal_protocol(frozen)
+
+    def test_v4_freeze_manifest_export_and_actual_probe_protocol_are_bound(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            paths = {}
+            for name in ("model", "runtime", "runtime_inventory", "probe"):
+                paths[name] = root / name
+                paths[name].write_text("fixture " + name)
+            dataset = root / "dataset.json"
+            corpus = {"cases": [{"id": "fixture", "input": "Um, keep 'Uh, wait' here.", "targets": ["Keep 'Uh, wait' here."]}]}
+            dataset.write_text(json.dumps(corpus))
+            args = argparse.Namespace(**paths, output=root / "freeze.json", adapter_config=None,
+                prompt_lookup_tokens=16, specialist_literal_protocol="specialist-compact-v4",
+                dataset=dataset, phase="development", mode="native", blind_commitment=None, dotnet=root / "no-dotnet")
+            with patch("evaluate.source_files", return_value={}), patch("evaluate.managed_files", return_value=[]), \
+                    patch("evaluate.small_models.verify_runtime_inventory", return_value={}), patch("builtins.print"):
+                evaluate.freeze(args)
+                frozen = evaluate.verify_freeze(args.output)
+                self.assertEqual("specialist-compact-v4", frozen["specialist_literal_protocol"])
+                output = root / "evaluation"
+                evaluate.prepare_evaluation(args, frozen, evaluate.artifact(args.output), corpus, output, "selected_primary", None)
+                metadata = json.loads((output / "evaluation-pre-run-freeze.json").read_text())
+                self.assertEqual("specialist-compact-v4", metadata["specialist_literal_protocol"])
+                with patch("evaluate.invoke", return_value=1) as invoke:
+                    evaluate.execute_evaluation(args, frozen, output)
+                command = invoke.call_args.args[0]
+                self.assertEqual("specialist-compact-v4", command[command.index("--specialist-literal-protocol") + 1])
+                manifest_path = output / "cleanup-manifest.json"
+                manifest = json.loads(manifest_path.read_text());manifest.pop("specialistLiteralProtocol")
+                manifest_path.write_text(json.dumps(manifest))
+                with patch("evaluate.invoke") as invoke, self.assertRaisesRegex(ValueError, "manifest specialist"):
+                    evaluate.execute_evaluation(args, frozen, output)
+                invoke.assert_not_called()
+
+    def test_v4_requires_matching_typed_actual_probe_metadata_but_legacy_does_not(self):
+        identity = {"base_sha256": "a" * 64, "base_bytes": 5, "runtime_adapter_sha256": None,
+                    "runtime_adapter_bytes": None, "runtime_adapter_scale": None}
+        metadata = {"model": {"expected_sha256": "a" * 64, "actual_sha256": "a" * 64}}
+        with tempfile.TemporaryDirectory() as temporary:
+            report = Path(temporary) / "report.json"
+            report.write_text(json.dumps({"metadata": metadata}))
+            evaluate.verify_core_deployment(report, identity)
+            for value in (None, True, 4, "specialist-compact-v3", "CompactV4"):
+                report.write_text(json.dumps({"metadata": {**metadata, "specialist_literal_protocol": value}}))
+                with self.subTest(value=value), self.assertRaisesRegex(ValueError, "literal protocol"):
+                    evaluate.verify_core_deployment(report, identity, literal_protocol="specialist-compact-v4")
+            report.write_text(json.dumps({"metadata": {**metadata, "specialist_literal_protocol": "specialist-compact-v4"}}))
+            evaluate.verify_core_deployment(report, identity, literal_protocol="specialist-compact-v4")
+
     def test_cache_precision_is_explicit_typed_and_defaults_to_f16(self):
         baseline = evaluate.runtime_profile()
         self.assertEqual(("f16", "f16"), (baseline["cacheTypeK"], baseline["cacheTypeV"]))

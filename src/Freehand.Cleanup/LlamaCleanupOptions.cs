@@ -70,6 +70,8 @@ public sealed record LlamaCleanupOptions
     /// <summary>Whether to protect dictionary blocks and paired quoted wording with verified compact specialist identifiers.</summary>
     /// <remarks>Disabled by default so trained specialist contracts can be evaluated independently of this adapter.</remarks>
     public bool MaskSpecialistLiterals { get; init; }
+    /// <summary>Explicit specialist literal protocol; defaults to the existing v3 adapter.</summary>
+    public SpecialistLiteralProtocol SpecialistLiteralProtocol { get; init; } = SpecialistLiteralProtocol.CompactV3;
     /// <summary>Absolute manifest directory for a complete bundle inventory, when supplied.</summary>
     public string? BundleDirectory { get; init; }
     /// <summary>Optional complete inventory, including runtime dependencies, the model and accompanying assets.</summary>
@@ -143,6 +145,7 @@ public sealed record LlamaCleanupOptions
             ModelId = Required(root, "modelId"),
             PromptStyle = style,
             MaskSpecialistLiterals = Boolean(root, "maskSpecialistLiterals", false),
+            SpecialistLiteralProtocol = ReadSpecialistLiteralProtocol(root),
             BundleDirectory = artifacts.Length > 0 ? directory : null,
             Artifacts = artifacts,
             Threads = Integer(root, "threads", 4),
@@ -191,6 +194,10 @@ public sealed record LlamaCleanupOptions
         if (AdapterPath?.Contains(',') == true || (AdapterScale != 1 && AdapterPath?.Contains(':') == true))
             throw new ArgumentException("The cleanup adapter path contains a separator unsupported by its native adapter option.", nameof(AdapterPath));
         if (!Enum.IsDefined(PromptStyle)) throw new ArgumentOutOfRangeException(nameof(PromptStyle));
+        if (!Enum.IsDefined(SpecialistLiteralProtocol)) throw new ArgumentOutOfRangeException(nameof(SpecialistLiteralProtocol));
+        if (SpecialistLiteralProtocol == SpecialistLiteralProtocol.CompactV4
+            && (!MaskSpecialistLiterals || CleanupPrompt.IsGeneral(PromptStyle)))
+            throw new ArgumentException("Specialist literal v4 requires an enabled specialist mask.", nameof(SpecialistLiteralProtocol));
         if (Threads is < 1 or > 256) throw new ArgumentOutOfRangeException(nameof(Threads));
         if (BatchSize is < 1 or > 8192) throw new ArgumentOutOfRangeException(nameof(BatchSize));
         if (MicroBatchSize < 1 || MicroBatchSize > BatchSize) throw new ArgumentOutOfRangeException(nameof(MicroBatchSize));
@@ -313,6 +320,16 @@ public sealed record LlamaCleanupOptions
         if (value.ValueKind != JsonValueKind.String) throw new InvalidDataException("Cleanup manifest contains an invalid string: " + name + ".");
         return value.GetString()!;
     }
+    private static SpecialistLiteralProtocol ReadSpecialistLiteralProtocol(JsonElement root)
+    {
+        var value = OptionalString(root, "specialistLiteralProtocol", nameof(SpecialistLiteralProtocol.CompactV3));
+        if (value.Equals(nameof(SpecialistLiteralProtocol.CompactV3), StringComparison.OrdinalIgnoreCase))
+            return SpecialistLiteralProtocol.CompactV3;
+        if (value.Equals(nameof(SpecialistLiteralProtocol.CompactV4), StringComparison.OrdinalIgnoreCase))
+            return SpecialistLiteralProtocol.CompactV4;
+        throw new InvalidDataException("Cleanup manifest specialistLiteralProtocol is unsupported.");
+    }
+
     private static bool Boolean(JsonElement root, string name, bool fallback)
     {
         var value = Property(root, name);

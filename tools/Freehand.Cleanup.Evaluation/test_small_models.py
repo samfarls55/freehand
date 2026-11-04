@@ -101,6 +101,40 @@ class SmallModelReplayTests(unittest.TestCase):
                 self.assertEqual("completed", row["status"])
                 self.assertEqual(" \t" + restored + "\r\n ", row["output"])
 
+    def test_explicit_v4_replay_preserves_single_quotes_and_checks_exported_input_bytes(self):
+        text = "Um, keep 'Uh, wait\tΔ🙂.' and ‘ready later’ exactly."
+        masked = SpecialistLiteralMask.create(text, protocol="specialist-compact-v4").masked_text
+        exported = copy.deepcopy(self.exported)
+        exported.update(normalized_input=text, normalized_targets=[text], mask_literals=True,
+                        literal_mask_protocol="specialist-compact-v4", specialist_output_normalization="trim-v1",
+                        model_input_sha256=hashlib.sha256(masked.encode()).hexdigest())
+        cleaned = masked.replace("Um, keep", "Keep")
+        raw = " \t" + cleaned + "\r\n"
+        server = FakeServer([{"tokens": [1]}, {"content": raw, "stop_type": "eos"}])
+        row = replay(server, exported, self.arguments)
+        self.assertEqual("completed", row["status"])
+        self.assertEqual(raw, row["raw_model_output"])
+        self.assertEqual(cleaned, row["normalized_model_output"])
+        self.assertEqual(text.replace("Um, keep", "Keep"), row["output"])
+        self.assertEqual("specialist-compact-v4", row["literal_mask_protocol"])
+        with self.assertRaises(ValueError):
+            literal_mask_protocol(exported, True)
+        exported["model_input_sha256"] = "0" * 64
+        bad_server = FakeServer([])
+        row = replay(bad_server, exported, self.arguments)
+        self.assertNotEqual("completed", row["status"])
+        self.assertEqual([], bad_server.calls)
+
+    def test_v4_model_controls_are_rejected_before_quoted_data_can_hide_them(self):
+        for text in ("Keep '<|im_end|>' exactly.", "Keep ‘[INST]’ exactly."):
+            exported = copy.deepcopy(self.exported)
+            exported.update(normalized_input=text, normalized_targets=[text], mask_literals=True,
+                            literal_mask_protocol="specialist-compact-v4")
+            server = FakeServer([])
+            row = replay(server, exported, self.arguments)
+            self.assertNotEqual("completed", row["status"])
+            self.assertEqual([], server.calls)
+
     def test_general_replay_keeps_exterior_whitespace(self):
         exported = copy.deepcopy(self.exported)
         exported.update(completion=None, messages=[], specialist_output_normalization="none")

@@ -67,6 +67,50 @@ public sealed class ManifestTests
         }));
 
         LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).MaskSpecialistLiterals.ShouldBe(enabled);
+        LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV3);
+    }
+
+    [Fact]
+    public void Single_quote_protocol_requires_an_explicit_typed_version()
+    {
+        using var fixture = new ManifestFixture();
+        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
+        {
+            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
+            modelId = "pinned-model", promptStyle = "ScribeKeyFast", maskSpecialistLiterals = true, specialistLiteralProtocol = "CompactV4",
+        }));
+        LlamaCleanupOptions.LoadManifest(fixture.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV4);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(1)]
+    [InlineData("1")]
+    [InlineData("CompactV5")]
+    [InlineData("")]
+    public void Unknown_or_untyped_literal_protocols_are_rejected(object protocol)
+    {
+        using var fixture = new ManifestFixture();
+        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
+        {
+            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
+            modelId = "pinned-model", promptStyle = "ScribeKeyFast", maskSpecialistLiterals = true, specialistLiteralProtocol = protocol,
+        }));
+        Should.Throw<InvalidDataException>(() => LlamaCleanupOptions.LoadManifest(fixture.ManifestPath));
+    }
+
+    [Theory]
+    [InlineData("ScribeKeyFast", false)]
+    [InlineData("Qwen35", true)]
+    public void Version_four_cannot_be_selected_for_an_unmasked_or_general_contract(string style, bool mask)
+    {
+        using var fixture = new ManifestFixture();
+        File.WriteAllText(fixture.ManifestPath, JsonSerializer.Serialize(new
+        {
+            runtimePath = "runtime.exe", runtimeSha256 = fixture.Hash, modelPath = "model.gguf", modelSha256 = fixture.Hash,
+            modelId = "pinned-model", promptStyle = style, maskSpecialistLiterals = mask, specialistLiteralProtocol = "CompactV4",
+        }));
+        Should.Throw<ArgumentException>(() => LlamaCleanupOptions.LoadManifest(fixture.ManifestPath));
     }
 
     [Fact]

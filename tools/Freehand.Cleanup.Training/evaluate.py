@@ -122,7 +122,8 @@ def freeze(arguments) -> int:
     profile = runtime_profile(arguments.prompt_lookup_tokens, deployed,
                               getattr(arguments, "runtime_adapter_scale", 1),
                               cache_type_k=getattr(arguments, "cache_type_k", "f16"),
-                              cache_type_v=getattr(arguments, "cache_type_v", "f16"))
+                              cache_type_v=getattr(arguments, "cache_type_v", "f16"),
+                              literal_protocol=getattr(arguments, "specialist_literal_protocol", "specialist-compact-v3"))
     runtime = artifact(arguments.runtime)
     inventory = small_models.verify_runtime_inventory(arguments.runtime_inventory, Path(runtime["path"]))
     value = {"schema_version": 1, "created_utc": utc(), "purpose": "candidate_frozen_before_final_test_opening",
@@ -135,6 +136,8 @@ def freeze(arguments) -> int:
              "cache_configuration": {key: profile[key] for key in ("cacheTypeK", "cacheTypeV")},
              "quality_target": quality_target(500),
              "limitations": "A candidate freeze is identity evidence, not quality or performance qualification."}
+    if "specialistLiteralProtocol" in profile:
+        value["specialist_literal_protocol"] = "specialist-compact-v4"
     if deployed is not None:
         value["runtime_adapter"] = deployed
         verify_runtime_adapter(value)
@@ -160,6 +163,7 @@ def freeze(arguments) -> int:
 def verify_freeze(path: Path) -> dict:
     value = json.loads(path.read_text(encoding="utf-8"))
     caches = frozen_cache_configuration(value)
+    literal_protocol = frozen_specialist_literal_protocol(value)
     for key in ("model", "runtime", "runtime_inventory", "probe"):
         verify_artifact(value[key])
     for key in ("adapter", "adapter_config"):
@@ -180,7 +184,8 @@ def verify_freeze(path: Path) -> dict:
     small_models.verify_runtime_inventory(Path(value["runtime_inventory"]["path"]), Path(value["runtime"]["path"]))
     if value["profile"] != runtime_profile(value["profile"].get("promptLookupTokens"),
                                           value.get("runtime_adapter"), value["profile"].get("adapterScale", 1),
-                                          cache_type_k=caches["cacheTypeK"], cache_type_v=caches["cacheTypeV"]):
+                                          cache_type_k=caches["cacheTypeK"], cache_type_v=caches["cacheTypeV"],
+                                          literal_protocol=literal_protocol):
         raise ValueError("Runtime profile drift after candidate freeze")
     if value.get("quality_target") != quality_target(500):
         raise ValueError("Candidate freeze does not record the current 99 percent acceptance target")
@@ -251,8 +256,23 @@ def frozen_cache_configuration(value: dict) -> dict:
     return expected
 
 
+def specialist_literal_protocol(value: str) -> str:
+    if type(value) is not str or value not in ("specialist-compact-v3", "specialist-compact-v4"):
+        raise ValueError("Unsupported specialist literal protocol")
+    return value
+
+
+def frozen_specialist_literal_protocol(value: dict) -> str:
+    protocol = specialist_literal_protocol(value.get("specialist_literal_protocol", "specialist-compact-v3"))
+    field = value["profile"].get("specialistLiteralProtocol")
+    if field != ("CompactV4" if protocol == "specialist-compact-v4" else None):
+        raise ValueError("Frozen specialist literal declaration differs from its runtime profile")
+    return protocol
+
+
 def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None = None,
-                    adapter_scale: float = 1, *, cache_type_k: str = "f16", cache_type_v: str = "f16") -> dict:
+                    adapter_scale: float = 1, *, cache_type_k: str = "f16", cache_type_v: str = "f16",
+                    literal_protocol: str = "specialist-compact-v3") -> dict:
     if type(prompt_lookup_tokens) is not int or not 0 <= prompt_lookup_tokens < 64:
         raise ValueError("Prompt lookup draft tokens must be an integer from 0 through 63, below batch64")
     if type(adapter_scale) not in (int, float) or not math.isfinite(adapter_scale) or not 0 < adapter_scale <= 1:
@@ -265,6 +285,8 @@ def runtime_profile(prompt_lookup_tokens: int = 16, runtime_adapter: dict | None
             "cacheTypeK": cache_type(cache_type_k), "cacheTypeV": cache_type(cache_type_v),
             "repack": False, "gpuLayers": 0, "startupTimeoutSeconds": 60, "idleTimeoutSeconds": 60,
             "maskSpecialistLiterals": True, "promptLookupTokens": prompt_lookup_tokens, "promptLookupMatchTokens": 3}
+    if specialist_literal_protocol(literal_protocol) == "specialist-compact-v4":
+        profile["specialistLiteralProtocol"] = "CompactV4"
     if runtime_adapter is not None:
         digest = runtime_adapter.get("sha256", "")
         path = runtime_adapter.get("path", "")
@@ -297,11 +319,16 @@ def effective_model_identity(value: dict) -> dict:
             "runtime_adapter_scale": value["profile"].get("adapterScale") if deployed else None}
 
 
-def verify_core_deployment(results: Path, identity: dict, cache_configuration: dict | None = None) -> None:
+def verify_core_deployment(results: Path, identity: dict, cache_configuration: dict | None = None,
+                           literal_protocol: str | None = None) -> None:
     report = json.loads(results.read_text(encoding="utf-8"))
     if not isinstance(report, dict) or not isinstance(report.get("metadata", {}), dict):
         raise ValueError("Core deployment metadata must be an object")
     metadata = report.get("metadata", {})
+    if literal_protocol is not None:
+        expected_protocol = specialist_literal_protocol(literal_protocol)
+        if type(metadata.get("specialist_literal_protocol")) is not str or metadata["specialist_literal_protocol"] != expected_protocol:
+            raise ValueError("Core report specialist literal protocol differs from its frozen declaration")
     def verify_report_artifact(entry: dict | None, expected_hash: str, expected_bytes: int, label: str) -> None:
         if not isinstance(entry, dict) or any(not isinstance(entry.get(key), str)
                 or entry[key].lower() != expected_hash for key in ("expected_sha256", "actual_sha256")):
@@ -444,6 +471,8 @@ def prepare_evaluation(arguments, frozen: dict, frozen_identity: dict, corpus: d
                          "primary_qualification_candidate": role == "selected_primary"})
     if "cache_configuration" in frozen:
         metadata["cache_configuration"] = frozen_cache_configuration(frozen)
+    if "specialist_literal_protocol" in frozen:
+        metadata["specialist_literal_protocol"] = frozen_specialist_literal_protocol(frozen)
     write_new(output / "evaluation-pre-run-freeze.json", metadata)
     profile = dict(frozen["profile"])
     manifest = {"runtimePath": frozen["runtime"]["path"], "runtimeSha256": frozen["runtime"]["sha256"],
@@ -461,14 +490,18 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     profile = frozen["profile"]
     caches = frozen_cache_configuration(frozen)
+    literal_protocol = frozen_specialist_literal_protocol(frozen)
     if any(cache_type(manifest.get(key, "f16")) != expected for key, expected in caches.items()):
         raise ValueError("Core manifest cache configuration differs from the frozen runtime profile")
+    if manifest.get("specialistLiteralProtocol") != profile.get("specialistLiteralProtocol"):
+        raise ValueError("Core manifest specialist literal protocol differs from the frozen runtime profile")
     codes = {}
     probe_argv = [str(arguments.dotnet), frozen["probe"]["path"]]
     if arguments.mode in ("native", "both"):
         prompts = output / "production-prompts.json"
+        protocol_arguments = ["--specialist-literal-protocol", literal_protocol] if literal_protocol == "specialist-compact-v4" else []
         codes["export_prompts"] = invoke(probe_argv + ["--export-prompts", "--input", str(corpus_path),
-            "--output", str(prompts), "--prompt-style", "ScribeKeyFast", "--mask-specialist-literals", "true"],
+            "--output", str(prompts), "--prompt-style", "ScribeKeyFast", "--mask-specialist-literals", "true"] + protocol_arguments,
             output / "export-prompts.log")
         if codes["export_prompts"]:
             return codes
@@ -489,7 +522,8 @@ def execute_evaluation(arguments, frozen: dict, output: Path) -> dict:
         report_path = output / "core-results.json"
         deployment = {"effective_model_identity": effective_model_identity(frozen), "verified": False}
         try:
-            verify_core_deployment(report_path, deployment["effective_model_identity"], frozen.get("cache_configuration"))
+            verify_core_deployment(report_path, deployment["effective_model_identity"], frozen.get("cache_configuration"),
+                                   frozen.get("specialist_literal_protocol"))
             deployment["verified"] = True
         except (OSError, ValueError, KeyError, TypeError) as error:
             codes["runtime_deployment"] = 1
@@ -701,7 +735,8 @@ def review(arguments) -> int:
         raise ValueError("Results need their pre-run evaluation metadata; partial denominators are forbidden")
     metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     if "effective_model_identity" in metadata and arguments.results.suffix != ".jsonl":
-        verify_core_deployment(arguments.results, metadata["effective_model_identity"], metadata.get("cache_configuration"))
+        verify_core_deployment(arguments.results, metadata["effective_model_identity"], metadata.get("cache_configuration"),
+                               metadata.get("specialist_literal_protocol"))
     paired_receipt = paired_review_receipt(arguments.results, metadata_path, metadata)
     if len(rows) != metadata["case_count"] or {row["case_id"] for row in rows} != set(metadata["case_ids"]):
         raise ValueError("Results do not cover the exact pre-run case inventory")
@@ -755,6 +790,8 @@ def main() -> int:
                         help="Explicit key-cache precision for this new runtime freeze; default f16")
     frozen.add_argument("--cache-type-v", choices=("f16", "f32"), default="f16",
                         help="Explicit value-cache precision for this new runtime freeze; default f16")
+    frozen.add_argument("--specialist-literal-protocol", choices=("specialist-compact-v3", "specialist-compact-v4"),
+                        default="specialist-compact-v3", help="Explicit quote/literal adapter; existing v3 remains the default")
     native_parser = sub.add_parser("native")
     for name in ("dataset", "candidate-freeze", "dotnet", "output"):
         native_parser.add_argument("--" + name, type=Path, required=True)

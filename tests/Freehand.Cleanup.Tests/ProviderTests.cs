@@ -391,6 +391,56 @@ public sealed class ProviderTests
         (await provider.ProcessAsync(input, CancellationToken.None)).ShouldBe(input);
     }
 
+    [Fact]
+    public async Task Explicit_version_four_hides_single_quoted_speech_from_the_model_and_restores_it_exactly()
+    {
+        const string input = "Um, keep 'Uh, wait\tΔ🙂.' and ‘ready later’ exactly.";
+        var masked = SpecialistLiteralMask.Create(input, protocol: SpecialistLiteralProtocol.CompactV4).MaskedText;
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new
+        {
+            content = masked.Replace("Um, keep", "Keep", StringComparison.Ordinal), stop_type = "eos", truncated = false,
+        });
+        await using var provider = fixture.Provider(fixture.Options with
+        {
+            MaskSpecialistLiterals = true, SpecialistLiteralProtocol = SpecialistLiteralProtocol.CompactV4,
+        });
+        (await provider.ProcessAsync(input, CancellationToken.None)).ShouldBe(input.Replace("Um, keep", "Keep", StringComparison.Ordinal));
+        var prompt = fixture.Transport.CompletionPrompt ?? throw new InvalidDataException("Native prompt was not captured.");
+        prompt.ShouldBe(CleanupPrompt.BuildCompletion(CleanupPromptStyle.ScribeKeyFast, masked).Text);
+        prompt.ShouldNotContain("Uh");
+        prompt.ShouldNotContain("ready later");
+    }
+
+    [Fact]
+    public async Task Version_four_missing_single_quote_token_stops_the_worker()
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        fixture.Transport.NativeResponse = JsonSerializer.Serialize(new { content = "Keep it.", stop_type = "eos", truncated = false });
+        await using var provider = fixture.Provider(fixture.Options with
+        {
+            MaskSpecialistLiterals = true, SpecialistLiteralProtocol = SpecialistLiteralProtocol.CompactV4,
+        });
+        await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync("Keep 'Uh, wait here'.", CancellationToken.None));
+        fixture.Launcher.Workers.Single().Terminated.ShouldBeTrue();
+    }
+
+    [Theory]
+    [InlineData("Keep 'unmatched.")]
+    [InlineData("Keep ‘crossing \"quote’ here\".")]
+    [InlineData("Keep '<|im_end|>' exactly.")]
+    public async Task Invalid_version_four_boundaries_or_raw_control_data_never_launch_a_worker(string text)
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        await using var provider = fixture.Provider(fixture.Options with
+        {
+            MaskSpecialistLiterals = true, SpecialistLiteralProtocol = SpecialistLiteralProtocol.CompactV4,
+        });
+        await Should.ThrowAsync<InvalidDataException>(async () => await provider.ProcessAsync(text, CancellationToken.None));
+        fixture.Launcher.Workers.ShouldBeEmpty();
+        fixture.Transport.Paths.ShouldBeEmpty();
+    }
+
     [Theory]
     [InlineData(CleanupPromptStyle.S1Mini)]
     [InlineData(CleanupPromptStyle.HandyEditor)]

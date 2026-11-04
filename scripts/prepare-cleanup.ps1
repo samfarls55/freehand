@@ -27,6 +27,7 @@ param(
     [Parameter(ParameterSetName = 'Prepare')][ValidateSet('f16', 'q8_0', 'q4_0')][string]$CacheTypeV = 'f16',
     [Parameter(ParameterSetName = 'Prepare')][bool]$Repack = $true,
     [Parameter(ParameterSetName = 'Prepare')][bool]$MaskSpecialistLiterals = $false,
+    [Parameter(ParameterSetName = 'Prepare')][ValidateSet('CompactV3', 'CompactV4')][string]$SpecialistLiteralProtocol = 'CompactV3',
     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(0, 64)][int]$PromptLookupTokens = 0,
     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(1, 12)][int]$PromptLookupMatchTokens = 3,
     [Parameter(ParameterSetName = 'Prepare')][ValidateRange(256, 1048576)][int]$ContextSize = 8192,
@@ -101,6 +102,14 @@ function Get-PreparedCleanupBundle([string]$Directory) {
     foreach ($name in @('cacheTypeK', 'cacheTypeV')) {
         if ($manifest.$name -isnot [string] -or $manifest.$name -cnotin @('f16', 'q8_0', 'q4_0')) { throw 'Cleanup manifest cache type is invalid.' }
     }
+    $literalProtocol = if ($null -eq $manifest.PSObject.Properties['specialistLiteralProtocol']) { 'CompactV3' } else { $manifest.specialistLiteralProtocol }
+    if ($literalProtocol -isnot [string] -or $literalProtocol -cnotin @('CompactV3', 'CompactV4')) {
+        throw 'Cleanup manifest specialist literal protocol is unsupported.'
+    }
+    if ($literalProtocol -eq 'CompactV4' -and
+        (-not $manifest.maskSpecialistLiterals -or $manifest.promptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat'))) {
+        throw 'Specialist literal v4 requires an enabled specialist mask.'
+    }
     $runtime = Get-CleanupRelativePath $manifest.runtimePath
     $model = Get-CleanupRelativePath $manifest.modelPath
     if ($null -eq $manifest.PSObject.Properties['platform']) {
@@ -149,6 +158,11 @@ function Get-PreparedCleanupBundle([string]$Directory) {
 
 if ($PSCmdlet.ParameterSetName -eq 'Validate') { return Get-PreparedCleanupBundle $ValidateDirectory }
 
+$SpecialistLiteralProtocol = if ($SpecialistLiteralProtocol -eq 'CompactV4') { 'CompactV4' } else { 'CompactV3' }
+if ($SpecialistLiteralProtocol -eq 'CompactV4' -and
+    (-not $MaskSpecialistLiterals -or $PromptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat'))) {
+    throw 'Specialist literal v4 requires an enabled specialist mask.'
+}
 if ($MaxOutputTokens -ge $ContextSize) { throw 'MaxOutputTokens must be smaller than ContextSize.' }
 if ($MicroBatchSize -gt $BatchSize) { throw 'MicroBatchSize must not exceed BatchSize.' }
 if ($PromptLookupTokens -ge $BatchSize) { throw 'Prompt lookup plus its sampled token must fit BatchSize.' }
@@ -280,6 +294,7 @@ try {
         runtimeRevision = $RuntimeRevision
         files = $files
     }
+    if ($SpecialistLiteralProtocol -eq 'CompactV4') { $manifest['specialistLiteralProtocol'] = $SpecialistLiteralProtocol }
     $temporaryManifest = Join-Path $stage 'cleanup-manifest.json.tmp'
     $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $temporaryManifest -Encoding utf8NoBOM
     [IO.File]::Move($temporaryManifest, (Join-Path $stage 'cleanup-manifest.json'))

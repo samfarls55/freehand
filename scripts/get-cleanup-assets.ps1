@@ -105,7 +105,7 @@ $limits = @{
     PromptLookupTokens = @(0, 64); PromptLookupMatchTokens = @(1, 12)
 }
 $optionalSettings = @{ BatchSize = 128; MicroBatchSize = 128; PromptCacheMiB = 0; ContextCheckpoints = 0
-    CacheTypeK = 'f16'; CacheTypeV = 'f16'; Repack = $true; MaskSpecialistLiterals = $false
+    CacheTypeK = 'f16'; CacheTypeV = 'f16'; Repack = $true; MaskSpecialistLiterals = $false; SpecialistLiteralProtocol = 'CompactV3'
     PromptLookupTokens = 0; PromptLookupMatchTokens = 3 }
 foreach ($name in $optionalSettings.Keys) {
     if ($null -eq $selected.Inference.PSObject.Properties[$name]) {
@@ -128,6 +128,14 @@ foreach ($name in @('CacheTypeK', 'CacheTypeV')) {
     if ($selected.Inference.$name -isnot [string] -or $selected.Inference.$name -cnotin @('f16', 'q8_0', 'q4_0')) {
         throw "Cleanup cache type is invalid: $name"
     }
+}
+if ($selected.Inference.SpecialistLiteralProtocol -isnot [string] -or
+    $selected.Inference.SpecialistLiteralProtocol -cnotin @('CompactV3', 'CompactV4')) {
+    throw 'Cleanup specialist literal protocol is unsupported.'
+}
+if ($selected.Inference.SpecialistLiteralProtocol -eq 'CompactV4' -and
+    (-not $selected.Inference.MaskSpecialistLiterals -or $selected.PromptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat'))) {
+    throw 'Specialist literal v4 requires an enabled specialist mask.'
 }
 
 if ($ValidateManifestOnly) {
@@ -177,7 +185,7 @@ try {
         RuntimeSourceUrl = $native.Source; RuntimeRevision = $runtime.SourceCommit
     }
     foreach ($name in $limits.Keys) { $prepare[$name] = $selected.Inference.$name }
-    foreach ($name in @('CacheTypeK', 'CacheTypeV', 'Repack', 'MaskSpecialistLiterals')) { $prepare[$name] = $selected.Inference.$name }
+    foreach ($name in @('CacheTypeK', 'CacheTypeV', 'Repack', 'MaskSpecialistLiterals', 'SpecialistLiteralProtocol')) { $prepare[$name] = $selected.Inference.$name }
     return & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') @prepare
 } finally {
     if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }

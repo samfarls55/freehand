@@ -135,11 +135,11 @@ def literal_mask_protocol(exported: dict, general: bool) -> str:
     # Initial specialist experiments deliberately reused the legacy general mask.
     # Their unchanged exports lack the protocol field and must remain legacy.
     protocol = exported.get("literal_mask_protocol", "literal-token-v1" if masked else "none")
-    if protocol not in ("none", "literal-token-v1", "specialist-compact-v2", "specialist-compact-v3"):
+    if protocol not in ("none", "literal-token-v1", "specialist-compact-v2", "specialist-compact-v3", "specialist-compact-v4"):
         raise ValueError("Unsupported literal mask protocol")
     if masked != (protocol != "none"):
         raise ValueError("Literal mask protocol disagrees with mask_literals")
-    if general and protocol in ("specialist-compact-v2", "specialist-compact-v3"):
+    if general and protocol in ("specialist-compact-v2", "specialist-compact-v3", "specialist-compact-v4"):
         raise ValueError("General-model contracts retain the legacy literal mask")
     return protocol
 
@@ -155,8 +155,13 @@ def replay(server: OwnedServer, exported: dict, arguments: argparse.Namespace) -
         general = contract is None
         protocol = literal_mask_protocol(exported, general)
         normalization = specialist_output_normalization(exported, general)
-        protection = (SpecialistLiteralMask.create(fixture["input"], remove_added_quote_period=protocol == "specialist-compact-v3")
-                      if protocol in ("specialist-compact-v2", "specialist-compact-v3")
+        if protocol == "specialist-compact-v4" and any(control in fixture["input"] for control in (
+                "<|im_start|>", "<|im_end|>", "<|channel>", "<start_of_turn>", "<end_of_turn>",
+                "[INST]", "[/INST]", "[SYSTEM_PROMPT]", "[/SYSTEM_PROMPT]", "<|endoftext|>", "<|startoftext|>")):
+            raise ValueError("Transcript contains unsupported model control tokens")
+        protection = (SpecialistLiteralMask.create(fixture["input"], remove_added_quote_period=protocol != "specialist-compact-v2",
+                                                 protocol="specialist-compact-v4" if protocol == "specialist-compact-v4" else "specialist-compact-v3")
+                      if protocol in ("specialist-compact-v2", "specialist-compact-v3", "specialist-compact-v4")
                       else LiteralProtectionMask.create(fixture["input"]) if protocol == "literal-token-v1" else None)
         row["mask_literals"] = protocol != "none"
         row["literal_mask_protocol"] = protocol

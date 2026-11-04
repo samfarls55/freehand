@@ -285,6 +285,8 @@ public sealed class CleanupAssetInstaller
             writer.WriteString("runtimeRevision", plan.RuntimeRevision);
             foreach (var setting in plan.Inference) writer.WriteNumber(char.ToLowerInvariant(setting.Key[0]) + setting.Key[1..], setting.Value);
             writer.WriteBoolean("maskSpecialistLiterals", plan.MaskSpecialistLiterals);
+            if (plan.SpecialistLiteralProtocol != SpecialistLiteralProtocol.CompactV3)
+                writer.WriteString("specialistLiteralProtocol", plan.SpecialistLiteralProtocol.ToString());
             writer.WriteBoolean("repack", plan.Repack);
             writer.WriteString("cacheTypeK", plan.CacheTypeK);
             writer.WriteString("cacheTypeV", plan.CacheTypeV);
@@ -319,6 +321,7 @@ public sealed class CleanupAssetInstaller
                 || options.PromptCacheMiB != plan.Inference["PromptCacheMiB"] || options.ContextCheckpoints != plan.Inference["ContextCheckpoints"]
                 || options.PromptLookupTokens != plan.Inference["PromptLookupTokens"] || options.PromptLookupMatchTokens != plan.Inference["PromptLookupMatchTokens"]
                 || options.MaskSpecialistLiterals != plan.MaskSpecialistLiterals || options.Repack != plan.Repack
+                || options.SpecialistLiteralProtocol != plan.SpecialistLiteralProtocol
                 || options.CacheTypeK != plan.CacheTypeK || options.CacheTypeV != plan.CacheTypeV
                 || options.StartupTimeout != TimeSpan.FromSeconds(plan.Inference["StartupTimeoutSeconds"])
                 || options.IdleTimeout != TimeSpan.FromSeconds(plan.Inference["IdleTimeoutSeconds"])
@@ -367,7 +370,7 @@ public sealed class CleanupAssetInstaller
     private sealed record Plan(string ModelId, string PromptStyle, string ModelRevision, string RuntimeRevision, string RuntimePlatform,
         Artifact Model, Artifact ModelLicense, Artifact RuntimeLicense, Artifact Archive, Artifact[] Notices,
         string ExecutableSha256, IReadOnlyDictionary<string, int> Inference,
-        bool MaskSpecialistLiterals, bool Repack, string CacheTypeK, string CacheTypeV)
+        bool MaskSpecialistLiterals, SpecialistLiteralProtocol SpecialistLiteralProtocol, bool Repack, string CacheTypeK, string CacheTypeV)
     {
         internal long TotalBytes => checked(Model.Size + ModelLicense.Size + RuntimeLicense.Size + Archive.Size + Notices.Sum(notice => notice.Size));
     }
@@ -431,8 +434,17 @@ public sealed class CleanupAssetInstaller
         if (settings["MaxOutputTokens"] >= settings["ContextSize"]) throw new InvalidDataException("Cleanup output must fit inside its context budget.");
         if (settings["MicroBatchSize"] > settings["BatchSize"]) throw new InvalidDataException("Cleanup micro-batch must not exceed its logical batch.");
         if (settings["PromptLookupTokens"] >= settings["BatchSize"]) throw new InvalidDataException("Cleanup prompt lookup plus its sampled token must fit the logical batch.");
+        var maskSpecialistLiterals = OptionalBoolean(inference, "MaskSpecialistLiterals", false);
+        var literalProtocol = inference.TryGetProperty("SpecialistLiteralProtocol", out _) ? Text(inference, "SpecialistLiteralProtocol") switch
+        {
+            nameof(SpecialistLiteralProtocol.CompactV3) => SpecialistLiteralProtocol.CompactV3,
+            nameof(SpecialistLiteralProtocol.CompactV4) => SpecialistLiteralProtocol.CompactV4,
+            _ => throw new InvalidDataException("Cleanup acquisition specialist literal protocol is unsupported."),
+        } : SpecialistLiteralProtocol.CompactV3;
+        if (literalProtocol == SpecialistLiteralProtocol.CompactV4 && (!maskSpecialistLiterals || CleanupPrompt.IsGeneral(parsed)))
+            throw new InvalidDataException("Specialist literal v4 requires an enabled specialist mask.");
         return new(id, style, revision, runtimeRevision, runtimePlatform, weights, license, runtimeLicense, archive, notices, executableHash, settings,
-            OptionalBoolean(inference, "MaskSpecialistLiterals", false), OptionalBoolean(inference, "Repack", true),
+            maskSpecialistLiterals, literalProtocol, OptionalBoolean(inference, "Repack", true),
             CacheType(inference, "CacheTypeK"), CacheType(inference, "CacheTypeV"));
     }
 

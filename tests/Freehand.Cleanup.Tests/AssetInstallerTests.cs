@@ -36,6 +36,8 @@ public sealed class AssetInstallerTests
         options.ModelSha256.ShouldBe(Hash(fixture.ModelBytes));
         options.BatchSize.ShouldBe(128); options.MicroBatchSize.ShouldBe(128);
         options.MaskSpecialistLiterals.ShouldBeFalse(); options.Repack.ShouldBeTrue();
+        options.SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV3);
+        File.ReadAllText(installed.ManifestPath).ShouldNotContain("specialistLiteralProtocol");
         options.PromptCacheMiB.ShouldBe(0); options.ContextCheckpoints.ShouldBe(0);
         options.PromptLookupTokens.ShouldBe(0); options.PromptLookupMatchTokens.ShouldBe(3);
         options.Artifacts.Count.ShouldBe(7);
@@ -75,6 +77,29 @@ public sealed class AssetInstallerTests
         var requests = fixture.Transport.RequestCount;
         (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
         fixture.Transport.RequestCount.ShouldBe(requests);
+    }
+
+    [Fact]
+    public async Task Explicit_quote_v4_setup_preserves_version_and_repairs_a_changed_cached_protocol()
+    {
+        using var fixture = new Fixture();
+        fixture.SetInference(new Dictionary<string, object>
+        {
+            ["MaskSpecialistLiterals"] = true, ["SpecialistLiteralProtocol"] = "CompactV4",
+        });
+        var installer = fixture.Installer();
+        var installed = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        LlamaCleanupOptions.LoadManifest(installed.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV4);
+        var requests = fixture.Transport.RequestCount;
+        (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
+        fixture.Transport.RequestCount.ShouldBe(requests);
+        var manifest = System.Text.Json.Nodes.JsonNode.Parse(await File.ReadAllTextAsync(installed.ManifestPath))!;
+        manifest["specialistLiteralProtocol"] = "CompactV3";
+        await File.WriteAllTextAsync(installed.ManifestPath, manifest.ToJsonString());
+        var repaired = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        repaired.DirectoryPath.ShouldNotBe(installed.DirectoryPath);
+        LlamaCleanupOptions.LoadManifest(repaired.ManifestPath).SpecialistLiteralProtocol.ShouldBe(SpecialistLiteralProtocol.CompactV4);
+        File.Exists(installed.ManifestPath).ShouldBeTrue();
     }
 
     [Fact]
@@ -169,6 +194,9 @@ public sealed class AssetInstallerTests
     [InlineData("BatchSize", "128")]
     [InlineData("BatchSize", true)]
     [InlineData("MaskSpecialistLiterals", "true")]
+    [InlineData("SpecialistLiteralProtocol", "CompactV4")]
+    [InlineData("SpecialistLiteralProtocol", "CompactV5")]
+    [InlineData("SpecialistLiteralProtocol", true)]
     [InlineData("Repack", 0)]
     [InlineData("CacheTypeK", "q2_bad")]
     [InlineData("CacheTypeV", 8)]

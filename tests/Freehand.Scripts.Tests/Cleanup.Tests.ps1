@@ -121,9 +121,33 @@ Describe 'Cleanup asset preparation and packaging' {
         $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
     }
 
+    It 'prepares an explicitly selected v4 bundle and refuses a contradictory validated profile' {
+        $cleanupPrepare.PromptStyle = 'ScribeKeyFast'
+        $cleanupPrepare.MaskSpecialistLiterals = $true
+        $cleanupPrepare.SpecialistLiteralProtocol = 'CompactV4'
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        $manifest.specialistLiteralProtocol | Should-Be 'CompactV4'
+        $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+        $manifest.maskSpecialistLiterals = $false
+        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $bundle.ManifestPath
+        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory } | Should-Throw '*enabled specialist mask*'
+    }
+
+    It 'rejects a prepared bundle with an unknown or untyped literal protocol' -ForEach @(
+        @{ Value = 'CompactV5' }, @{ Value = $true }, @{ Value = 4 }
+    ) {
+        $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        $manifest | Add-Member -NotePropertyName specialistLiteralProtocol -NotePropertyValue $Value
+        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $bundle.ManifestPath
+        { & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory } | Should-Throw '*literal protocol*'
+    }
+
     It 'validates legacy bundles without the optional resource settings' {
         $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
         $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        ($null -eq $manifest.PSObject.Properties['specialistLiteralProtocol']) | Should-BeTrue
         foreach ($name in @('platform', 'batchSize', 'microBatchSize', 'promptCacheMiB', 'contextCheckpoints', 'cacheTypeK', 'cacheTypeV', 'repack', 'maskSpecialistLiterals', 'promptLookupTokens', 'promptLookupMatchTokens')) {
             $manifest.PSObject.Properties.Remove($name)
         }

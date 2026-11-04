@@ -61,7 +61,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             throw new InvalidDataException("The transcript contains unsupported model control tokens.");
         var literals = CleanupPrompt.IsGeneral(_options.PromptStyle) ? LiteralProtectionMask.Create(text) : null;
         var specialistLiterals = !CleanupPrompt.IsGeneral(_options.PromptStyle) && _options.MaskSpecialistLiterals
-            ? SpecialistLiteralMask.Create(text) : null;
+            ? SpecialistLiteralMask.Create(text, protocol: _options.SpecialistLiteralProtocol) : null;
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
         await _gate.WaitAsync(linked.Token).ConfigureAwait(false);
         try

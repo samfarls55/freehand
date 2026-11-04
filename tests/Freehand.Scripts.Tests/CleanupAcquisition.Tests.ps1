@@ -77,6 +77,7 @@ Describe 'Pinned default cleanup acquisition' {
         $manifest.modelRevision | Should-Be ('a' * 40)
         $manifest.runtimeRevision | Should-Be ('b' * 40)
         $manifest.platform | Should-Be 'win-x64-cpu'
+        ($null -eq $manifest.PSObject.Properties['specialistLiteralProtocol']) | Should-BeTrue
         (Get-Content -LiteralPath (Join-Path $bundle.Directory 'licenses/model/BASE-LICENSE.txt')) | Should-Be 'fixture base model license'
         @($manifest.files | Where-Object { $_.path -eq 'runtime/llama.dll' }).Count | Should-Be 1
         Should-Invoke Invoke-WebRequest -Exactly -Times 5
@@ -172,10 +173,35 @@ Describe 'Pinned default cleanup acquisition' {
         $manifest.promptLookupMatchTokens | Should-Be 3
     }
 
+    It 'preserves an explicit quote-v4 acquisition through prepared bundle validation' {
+        $acquisitionSelected.PromptStyle = 'ScribeKeyFast'
+        $acquisitionSelected.Inference.MaskSpecialistLiterals = $true
+        $acquisitionSelected.Inference.SpecialistLiteralProtocol = 'CompactV4'
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+        $bundle = & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions
+        $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+        $manifest.specialistLiteralProtocol | Should-Be 'CompactV4'
+        $manifest.maskSpecialistLiterals | Should-BeTrue
+        $null = & (Join-Path $acquisitionScripts 'prepare-cleanup.ps1') -ValidateDirectory $bundle.Directory
+    }
+
+    It 'rejects quote-v4 without an enabled specialist route before downloading' -ForEach @(
+        @{ Style = 'S1Mini'; Enabled = $false }, @{ Style = 'Qwen35'; Enabled = $true }
+    ) {
+        $acquisitionSelected.PromptStyle = $Style
+        $acquisitionSelected.Inference.MaskSpecialistLiterals = $Enabled
+        $acquisitionSelected.Inference.SpecialistLiteralProtocol = 'CompactV4'
+        $acquisitionSelected | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $acquisitionOptions.ManifestPath
+        { & (Join-Path $acquisitionScripts 'get-cleanup-assets.ps1') @acquisitionOptions -ValidateManifestOnly } | Should-Throw '*enabled specialist mask*'
+        Should-NotInvoke Invoke-WebRequest
+        (Test-Path -LiteralPath $acquisitionOptions.CacheDirectory) | Should-BeFalse
+    }
+
     It 'rejects invalid acquisition profile setting <Field> before downloading' -ForEach @(
         @{ Field = 'BatchSize'; Value = '128' }, @{ Field = 'MicroBatchSize'; Value = 129 },
         @{ Field = 'PromptCacheMiB'; Value = -1 }, @{ Field = 'ContextCheckpoints'; Value = 33 },
         @{ Field = 'MaskSpecialistLiterals'; Value = 'true' }, @{ Field = 'Repack'; Value = 0 },
+        @{ Field = 'SpecialistLiteralProtocol'; Value = 'CompactV5' }, @{ Field = 'SpecialistLiteralProtocol'; Value = $true },
         @{ Field = 'CacheTypeK'; Value = 'q2_bad' }, @{ Field = 'CacheTypeV'; Value = 8 },
         @{ Field = 'PromptLookupTokens'; Value = 65 }, @{ Field = 'PromptLookupMatchTokens'; Value = 0 },
         @{ Field = 'PromptLookupTokens'; Value = '16' }, @{ Field = 'PromptLookupMatchTokens'; Value = $true }
