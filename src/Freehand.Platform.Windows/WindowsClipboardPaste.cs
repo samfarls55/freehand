@@ -14,13 +14,9 @@ internal sealed class WindowsClipboardPaste : IDisposable
     private static readonly TimeSpan ModifierTimeout = TimeSpan.FromSeconds(1);
     private static readonly TimeSpan RestoreTimeout = TimeSpan.FromSeconds(5);
     private static readonly uint PrivacyFormat = RegisterClipboardFormat("ExcludeClipboardContentFromMonitorProcessing");
-    private static readonly HashSet<uint> SupportedFormats =
-    [
-        1, Bitmap, 7, 8, Palette, UnicodeText, 16, 17, // text, locale, DIB and GDI images
-        RegisterClipboardFormat("HTML Format"), RegisterClipboardFormat("PNG"), RegisterClipboardFormat("JFIF"),
-        RegisterClipboardFormat("Chromium internal source RFH token"), RegisterClipboardFormat("Chromium internal source URL"),
-        RegisterClipboardFormat("CanIncludeInClipboardHistory"), RegisterClipboardFormat("CanUploadToCloudClipboard"), PrivacyFormat,
-    ];
+    // OLE's clipboard bookkeeping only describes OLE's own ownership. The content formats
+    // beside it are restored; these would point the next OleGetClipboard at a stale owner.
+    private static readonly uint[] OleOwnership = [RegisterClipboardFormat("DataObject"), RegisterClipboardFormat("Ole Private Data")];
 
     private readonly ForegroundTarget _target;
     private readonly WindowProcedure _procedure;
@@ -109,7 +105,7 @@ internal sealed class WindowsClipboardPaste : IDisposable
             if (!OpenClipboard(_window)) return false;
             try
             {
-                // Check every format before replacing the clipboard. Unknown data stays with its owner.
+                // Copy every format before replacing the clipboard. Data that can't be copied stays with its owner.
                 for (uint format = 0; ;)
                 {
                     format = EnumClipboardFormats(format);
@@ -118,7 +114,7 @@ internal sealed class WindowsClipboardPaste : IDisposable
                         if (Marshal.GetLastPInvokeError() != 0) return false;
                         break;
                     }
-                    if (!SupportedFormats.Contains(format)) return false;
+                    if (OleOwnership.Contains(format)) continue;
                     var handle = GetClipboardData(format);
                     if (handle == 0) return false;
                     var copy = OleDuplicateData(handle, (ushort)format, 0);
