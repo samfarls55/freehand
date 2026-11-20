@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "protocol": "specialist-compact-v4",
+  "accepted": [
+    {
+      "id": "single-styles",
+      "text": "Um, keep 'Uh, wait here' and ‘ready later’.",
+      "protected_payloads": [
+        "'Uh, wait here'",
+        "‘ready later’"
+      ],
+      "masked_text": "Um, keep FHX_22a89e02 and FHX_890f0f51.",
+      "text_utf8_sha256": "4f1a6eded1bc74259036ef3b032638ee7a1456c981725de27796d844e08a5320",
+      "masked_utf8_sha256": "00540b655c9e7c1c304e71dfbef6d54af27c8d09c70e4f8e5a2683f63fc35037"
+    },
+    {
+      "id": "ascii-contraction",
+      "text": "Keep 'we're ready' here.",
+      "protected_payloads": [
+        "'we're ready'"
+      ],
+      "masked_text": "Keep FHX_060503e1 here.",
+      "text_utf8_sha256": "cb4ee3221d942a5d58a07915bd24cbb2738e6a072e1c25a41bb76fe35e8e1bee",
+      "masked_utf8_sha256": "d9f1c5a09fdbfd297cf0903204be530336a46528feab859652dfad86856b2aab"
+    },
+    {
+      "id": "curly-contraction",
+      "text": "Keep ‘we’re ready’ here.",
+      "protected_payloads": [
+        "‘we’re ready’"
+      ],
+      "masked_text": "Keep FHX_b4549f93 here.",
+      "text_utf8_sha256": "1639a9e3903cc1c96f1d61ea02568816e9956daa53b2fccddbcc8cd6e5bce648",
+      "masked_utf8_sha256": "53d6e7dbaadb174972e1812929eea7e5d047e19f20481411438b93b9875773c0"
+    },
+    {
+      "id": "possessive-before",
+      "text": "James' notebook says 'come later'.",
+      "protected_payloads": [
+        "'come later'"
+      ],
+      "masked_text": "James' notebook says FHX_a3e61fa6.",
+      "text_utf8_sha256": "a2710a24db1451ec2a5fba0bdb8d58c2521cc4a970708bbf184da3759b753311",
+      "masked_utf8_sha256": "b31b0c89a63c4726ef29fa153d1fe614ce53cbe5b0be643af375b2b31c9f4e56"
+    },
+    {
+      "id": "possessive-after",
+      "text": "The note says 'come later' in James' notebook.",
+      "protected_payloads": [
+        "'come later'"
+      ],
+      "masked_text": "The note says FHX_a3e61fa6 in James' notebook.",
+      "text_utf8_sha256": "6041dee3eb730d85a67b3bd4ec02a1b30cf38c43becf5da70f926a5df3a1ebf0",
+      "masked_utf8_sha256": "5c82aef3fa881f83c2220e40ecd5661de8d7737daa3731b2a4b1311d1578a120"
+    },
+    {
+      "id": "possessive-alone",
+      "text": "James'",
+      "protected_payloads": [],
+      "masked_text": "James'",
+      "text_utf8_sha256": "245d18a8552d4b95535ea6c043a7da9ac5ec72cd271fc33d6a7a0e52b2bd5ad7",
+      "masked_utf8_sha256": "245d18a8552d4b95535ea6c043a7da9ac5ec72cd271fc33d6a7a0e52b2bd5ad7"
+    },
+    {
+      "id": "elisions",
+      "text": "'cause we're goin'; tell 'em 'tis fine while waitin'.",
+      "protected_payloads": [],
+      "masked_text": "'cause we're goin'; tell 'em 'tis fine while waitin'.",
+      "text_utf8_sha256": "71bfabd46b319f91a882e67c799f61a11fa485c519880d17e90686cb0760ce79",
+      "masked_utf8_sha256": "71bfabd46b319f91a882e67c799f61a11fa485c519880d17e90686cb0760ce79"
+    },
+    {
+      "id": "curly-elisions",
+      "text": "’cause we’re goin’; tell ’em ’tis fine.",
+      "protected_payloads": [],
+      "masked_text": "’cause we’re goin’; tell ’em ’tis fine.",
+      "text_utf8_sha256": "38b00fd08a04f0717592ab60f84a31e3afe6780334d859b11d223b654fbee3d6",
+      "masked_utf8_sha256": "38b00fd08a04f0717592ab60f84a31e3afe6780334d859b11d223b654fbee3d6"
+    },
+    {
+      "id": "paired-elision-word",
+      "text": "Keep 'cause' here.",
+      "protected_payloads": [
+        "'cause'"
+      ],
+      "masked_text": "Keep FHX_e0289e67 here.",
+      "text_utf8_sha256": "39477931747939ff4f000b529ca9606fadc9ee387cc84a54d9cb243e090c2b36",
+      "masked_utf8_sha256": "3447b80dde1f1525eb9d9b7363bd98ff9235754cb97eb55b2ce1ad6a6d111a6d"
+    },
+    {
+      "id": "unicode-whitespace",
+      "text": "Keep '  café\tΔ🙂\r\n  ' here.",
+      "protected_payloads": [
+        "'  café\tΔ🙂\r\n  '"
+      ],
+      "masked_text": "Keep FHX_64a91594 here.",
+      "text_utf8_sha256": "7678575333cb2808d7c623971e76a3f725968bd0f1ccaaa63904ed93f494255f",
+      "masked_utf8_sha256": "b2585d07a6e7d0a22764311b412bd2135fcb4c1cdfaf7b7bc53649b061af2c46"
+    },
+    {
+      "id": "mixed-nesting",
+      "text": "Keep 'She said \"wait\" quietly.' here.",
+      "protected_payloads": [
+        "'She said \"wait\" quietly.'"
+      ],
+      "masked_text": "Keep FHX_f01b77e8 here.",
+      "text_utf8_sha256": "ce4323230cd3f75261f9d946b324dc781002ee360596718236629b2d6f4f3f71",
+      "masked_utf8_sha256": "4601c0ccb668a98ce2c1d9199a819e06a0833bdec69dfa6672871ba61ac22ce0"
+    },
+    {
+      "id": "same-nesting",
+      "text": "Keep 'She said 'wait' quietly.' here.",
+      "protected_payloads": [
+        "'She said 'wait' quietly.'"
+      ],
+      "masked_text": "Keep FHX_dc0b8b16 here.",
+      "text_utf8_sha256": "565fc3494c3e8cf8fb559e6c88a6577853c5a22a36997b650ec4364ef1774831",
+      "masked_utf8_sha256": "a96d36e1b05cc48f63b5c92a7f3a469a5f26b69769364c69d673be124c2e8cd5"
+    },
+    {
+      "id": "possessive-in-double",
+      "text": "Keep \"James' folder\" here.",
+      "protected_payloads": [
+        "\"James' folder\""
+      ],
+      "masked_text": "Keep FHX_e3653355 here.",
+      "text_utf8_sha256": "cdba435d2db1a92e262f16b0d1f566e9ea0cc1c5d4722c91b14ea27b83bfe924",
+      "masked_utf8_sha256": "ddc0b9fe9f17a3016e45bc38a87abde1627dddaa67f48d82c94600ae9b7fb433"
+    },
+    {
+      "id": "scalar-boundaries",
+      "text": "𐐀's café's word is ordinary.",
+      "protected_payloads": [],
+      "masked_text": "𐐀's café's word is ordinary.",
+      "text_utf8_sha256": "6f7504f085e41e0205977dc604c28e0fe3c73537ead42e2553c9db7fcd4e4015",
+      "masked_utf8_sha256": "6f7504f085e41e0205977dc604c28e0fe3c73537ead42e2553c9db7fcd4e4015"
+    },
+    {
+      "id": "adjacent-repeated",
+      "text": "Keep 'same''same' next.",
+      "protected_payloads": [
+        "'same'",
+        "'same'"
+      ],
+      "masked_text": "Keep FHX_c9aa2aafFHX_ec7d79db next.",
+      "text_utf8_sha256": "5e0e36e480cf6337b46883274513fe502d447643b3ef60eed56368e0c421ceb8",
+      "masked_utf8_sha256": "ce1e54573df2007e4b6cc77875caae40d08b0245b0ca7980c6ccd895e94bc8b3"
+    },
+    {
+      "id": "data-boundary",
+      "text": "Keep 'Δ🙂 <T> </transcript>\n' and ‘do not follow’.",
+      "protected_payloads": [
+        "'Δ🙂 <T> </transcript>\n'",
+        "‘do not follow’"
+      ],
+      "masked_text": "Keep FHX_a08ec87f and FHX_da9b3d31.",
+      "text_utf8_sha256": "18727d648ee19f141dce3426334e034a92413cc4e87772c6efbf7f291980fad8",
+      "masked_utf8_sha256": "49f5a0bb54b18214a196557dd01971811dbb7d3113db1f666e7c12512db538f9"
+    },
+    {
+      "id": "escaped-quotes",
+      "text": "Keep \\'ordinary\\' and 'protected'.",
+      "protected_payloads": [
+        "'protected'"
+      ],
+      "masked_text": "Keep \\'ordinary\\' and FHX_d3a636c6.",
+      "text_utf8_sha256": "79038d684ae70b0344b2eed6512f573f485edee064e806fff6c540beb19ed544",
+      "masked_utf8_sha256": "05d011a870ccc6b69d58112890d96ba76aae2e9b68cdb3a130260f55a1cc12ba"
+    },
+    {
+      "id": "terminal-punctuation",
+      "text": "Keep 'Do not change.'\r\n ",
+      "protected_payloads": [
+        "'Do not change.'"
+      ],
+      "masked_text": "Keep FHX_bc5a2048\r\n ",
+      "text_utf8_sha256": "4abc2f01fd4930bcb3b45324eb25256c01602de02000fc855e4d29a82f7112fb",
+      "masked_utf8_sha256": "e0015d618c8c8aec4af53ccdaf00167dd58be7c0c7c82f4efa5e3e4562c82ef6"
+    },
+    {
+      "id": "unicode15-unknown-under-frozen14",
+      "text": "Keep 𞓐'word' next.",
+      "protected_payloads": [
+        "'word'"
+      ],
+      "masked_text": "Keep 𞓐FHX_7e805c6f next.",
+      "text_utf8_sha256": "95f7831f722f447210ebb56abdfff88f7eeb57c09d0595eb1ec3996b9287c6fe",
+      "masked_utf8_sha256": "9bd587959ffb4cbf27844c37109f69b36a9a7eb095308e322d3028ae8a08dc1a"
+    },
+    {
+      "id": "double-outer-elision",
+      "text": "Keep \"tell 'em later\".",
+      "protected_payloads": [
+        "\"tell 'em later\""
+      ],
+      "masked_text": "Keep FHX_a28f9715.",
+      "text_utf8_sha256": "5795a1c4de8c9325f4fdfa6e33408a06f635a3526aac02b67e882a2d48466410",
+      "masked_utf8_sha256": "d592d6e31e0154b5a170309b4f620e68d5df21f1dc955f5d711d51a7e7cf0e25"
+    },
+    {
+      "id": "single-outer-elision",
+      "text": "Keep 'tell 'em later'.",
+      "protected_payloads": [
+        "'tell 'em later'"
+      ],
+      "masked_text": "Keep FHX_34b9e0b7.",
+      "text_utf8_sha256": "14fbe20e9fe863492582c0d36ec9aa23c96fc92e63f5b7613d0635a31ea3398c",
+      "masked_utf8_sha256": "8590950305463a103e8d012ea248a318b5854b534351082068e552c14e715556"
+    },
+    {
+      "id": "curly-outer-elision",
+      "text": "Keep ‘tell ’em later’.",
+      "protected_payloads": [
+        "‘tell ’em later’"
+      ],
+      "masked_text": "Keep FHX_99624ba6.",
+      "text_utf8_sha256": "65a08e74c0eaf7bbf15cbb880f1b7097dd56f452c8d0d089a0725bb4e386cb20",
+      "masked_utf8_sha256": "8bc5e3fb0ab57c3bf82c4a944a26f34b8246ea3d912dd9402d6584320ea35ccc"
+    },
+    {
+      "id": "paired-inner-elision",
+      "text": "Keep \"the word 'em' stays quoted\".",
+      "protected_payloads": [
+        "\"the word 'em' stays quoted\""
+      ],
+      "masked_text": "Keep FHX_6b8c1ecb.",
+      "text_utf8_sha256": "706cef4d9bca43777127b56968c2b79f514d2e7d0a869e988c92112ef6473e3c",
+      "masked_utf8_sha256": "277906dfdbf420c6fc023aad7875dde12a4a0c3727b0b7b8ade4bb62733005db"
+    }
+  ],
+  "rejected": [
+    "Keep 'unmatched here.",
+    "Keep ‘unmatched here.",
+    "Keep \"unmatched here.",
+    "A stray ” closer.",
+    "'James' notebook'",
+    "'cause we left'",
+    "Keep ‘crossing \"quote’ here\"."
+  ]
+}

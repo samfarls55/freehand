@@ -1,11 +1,30 @@
 #Requires -Version 7.0
 param(
     [string]$Dotnet,
-    [string]$ModelSource
+    [string]$ModelSource,
+    [string]$CleanupSource,
+    [switch]$SkipCleanup
 )
 . (Join-Path $PSScriptRoot 'common.ps1')
 $Dotnet = Resolve-FreehandDotnet $Dotnet
 Set-Location -LiteralPath $projectRoot
+if ($SkipCleanup -and $CleanupSource) { throw 'Choose either CleanupSource or SkipCleanup.' }
+$cleanupBundle = $null
+$cleanupProvisioning = $null
+$selectedCleanup = Join-Path $projectRoot 'packaging/cleanup-model-manifest.json'
+if (-not $SkipCleanup) {
+    if ($CleanupSource) {
+        $cleanupBundle = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $CleanupSource
+    } elseif (Test-Path -LiteralPath $selectedCleanup -PathType Leaf) {
+        # Ship verified acquisition metadata; users explicitly choose Settings setup.
+        # Weights are kept out of the release asset and the ordinary CI workspace.
+        $cleanupProvisioning = & (Join-Path $PSScriptRoot 'get-cleanup-assets.ps1') -ManifestPath $selectedCleanup -ValidateManifestOnly
+    }
+    if ($cleanupBundle -and ($cleanupBundle.Platform -notin @('win-x64-cpu', 'win-x64-vulkan') -or
+        (Get-Content -LiteralPath $cleanupBundle.ManifestPath -Raw | ConvertFrom-Json).runtimePath -ne 'runtime/llama-server.exe')) {
+        throw 'Windows packaging requires a Windows cleanup bundle.'
+    }
+}
 $build = (git rev-parse --short HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source commit.' }
 $changes = git status --porcelain
@@ -62,6 +81,22 @@ $modelTarget = Join-Path $publish ('models/' + $manifest.DirectoryName)
 New-Item -ItemType Directory -Force -Path $modelTarget | Out-Null
 foreach ($asset in $manifest.Files) { Copy-Item -LiteralPath (Join-Path $modelCache $asset.Name) -Destination $modelTarget }
 Copy-Item -LiteralPath packaging/model-manifest.json -Destination (Join-Path $modelTarget 'manifest.json') -Force
+if ($cleanupProvisioning) {
+    $cleanupMetadata = Join-Path $publish 'models/cleanup-provisioning'
+    New-Item -ItemType Directory -Path $cleanupMetadata -Force | Out-Null
+    Copy-Item -LiteralPath $cleanupProvisioning.ModelManifestPath -Destination (Join-Path $cleanupMetadata 'cleanup-model-manifest.json')
+    Copy-Item -LiteralPath $cleanupProvisioning.RuntimeManifestPath -Destination (Join-Path $cleanupMetadata 'cleanup-runtime-manifest.json')
+}
+if ($cleanupBundle) {
+    $cleanupTarget = Join-Path $publish 'models/cleanup'
+    foreach ($asset in $cleanupBundle.Files) {
+        $destination = Join-Path $cleanupTarget $asset.path
+        New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
+        Copy-Item -LiteralPath (Join-Path $cleanupBundle.Directory $asset.path) -Destination $destination
+    }
+    Copy-Item -LiteralPath $cleanupBundle.ManifestPath -Destination (Join-Path $cleanupTarget 'cleanup-manifest.json')
+    $null = & (Join-Path $PSScriptRoot 'prepare-cleanup.ps1') -ValidateDirectory $cleanupTarget
+}
 New-Item -ItemType Directory -Force -Path (Join-Path $publish 'fixtures') | Out-Null
 $fixtureCache = Join-Path $projectRoot 'artifacts/model-cache/jfk.wav'
 if (-not (Test-Path -LiteralPath $fixtureCache)) {

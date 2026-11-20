@@ -15,22 +15,40 @@ namespace Freehand.Platform.Windows;
 /// own sample code says plainly: "text input must be simulated."
 /// </para>
 /// <para>
-/// Text is delivered as Unicode packets in paced blocks, checking the original foreground
-/// target before each block. The clipboard stays available for explicit Copy.
+/// Text uses the target's keyboard layout where possible. Each character is paced
+/// so the target can process its keystrokes before the next character is submitted.
+/// The original foreground is checked throughout; the clipboard remains untouched.
 /// </para>
 /// </remarks>
 public sealed class SendInputTextInjector : ITargetedTextInjector
 {
-    /// <summary>Characters per <c>SendInput</c> call when typing.</summary>
-    private const int ChunkSize = 128;
+    // Notepad can drop or misread queued keystrokes even when SendInput accepts all of them.
+    private static readonly TimeSpan KeyGap = TimeSpan.FromMilliseconds(15);
+    private static readonly TimeSpan UnicodeGap = TimeSpan.FromMilliseconds(30);
+    private static readonly TimeSpan ModifierPollInterval = TimeSpan.FromMilliseconds(4);
+    private static readonly TimeSpan ModifierWait = TimeSpan.FromSeconds(1);
+    private readonly Func<ForegroundTarget, bool> _isCurrent;
+    private readonly Func<bool> _modifiersHeld;
+    private readonly Func<INPUT[], uint> _send;
+    private readonly Action<TimeSpan> _pause;
+    private readonly Func<char, ForegroundTarget, INPUT?> _mapKey;
 
-    /// <summary>Pause between chunks, so slower targets keep up.</summary>
-    private static readonly TimeSpan ChunkGap = TimeSpan.FromMilliseconds(4);
+    /// <summary>Creates a foreground-checked Windows keyboard injector.</summary>
+    public SendInputTextInjector() : this(WindowsForeground.IsCurrent, ModifiersHeld,
+        inputs => SendInput((uint)inputs.Length, inputs, InputSize), Thread.Sleep, MapTextKey) { }
+
+    internal SendInputTextInjector(Func<ForegroundTarget, bool> isCurrent, Func<bool> modifiersHeld,
+        Func<INPUT[], uint> send, Action<TimeSpan> pause, Func<char, ForegroundTarget, INPUT?>? mapKey = null)
+    {
+        _isCurrent = isCurrent; _modifiersHeld = modifiersHeld; _send = send; _pause = pause;
+        _mapKey = mapKey ?? ((_, _) => null);
+    }
 
     private const uint INPUT_KEYBOARD = 1;
     private const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
     private const uint KEYEVENTF_KEYUP = 0x0002;
     private const uint KEYEVENTF_UNICODE = 0x0004;
+    private const uint KEYEVENTF_SCANCODE = 0x0008;
 
     private const int VK_RETURN = 0x0D;
     // Unassigned by Windows. Unlike Ctrl or Escape, this has no normal shortcut action.
@@ -39,7 +57,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     private const uint MAPVK_VK_TO_VSC = 0;
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct MOUSEINPUT
+    internal struct MOUSEINPUT
     {
         public int X, Y;
         public uint Data, Flags, Time;
@@ -47,7 +65,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct KEYBDINPUT
+    internal struct KEYBDINPUT
     {
         public ushort VirtualKey;
         public ushort ScanCode;
@@ -57,14 +75,14 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct HARDWAREINPUT
+    internal struct HARDWAREINPUT
     {
         public uint Message;
         public ushort ParamL, ParamH;
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    private struct InputUnion
+    internal struct InputUnion
     {
         [FieldOffset(0)] public MOUSEINPUT Mouse;
         [FieldOffset(0)] public KEYBDINPUT Keyboard;
@@ -72,7 +90,7 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct INPUT
+    internal struct INPUT
     {
         public uint Type;
         public InputUnion Union;
@@ -84,7 +102,81 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     [DllImport("user32.dll", EntryPoint = "MapVirtualKeyW")]
     private static extern uint MapVirtualKey(uint code, uint mapType);
 
+    [DllImport("user32.dll")]
+    private static extern short GetAsyncKeyState(int virtualKey);
+
+    [DllImport("user32.dll")]
+    private static extern uint GetWindowThreadProcessId(nint window, out uint processId);
+
+    [DllImport("user32.dll")]
+    private static extern nint GetKeyboardLayout(uint threadId);
+
+    [DllImport("user32.dll", EntryPoint = "VkKeyScanExW", CharSet = CharSet.Unicode)]
+    private static extern short VkKeyScanEx(char character, nint layout);
+
+    [DllImport("user32.dll", EntryPoint = "MapVirtualKeyExW")]
+    private static extern uint MapVirtualKeyEx(uint code, uint mapType, nint layout);
+
+    [DllImport("user32.dll")]
+    private static extern short GetKeyState(int virtualKey);
+
+    [DllImport("user32.dll", EntryPoint = "ToUnicodeEx", CharSet = CharSet.Unicode)]
+    private static extern int ToUnicodeEx(uint virtualKey, uint scanCode, byte[] state,
+        [Out] char[] characters, int capacity, uint flags, nint layout);
+
+    internal static INPUT? MapTextKey(char character, ForegroundTarget target)
+    {
+        // Do not synthesize Shift/AltGr chords or disturb a dead-key composition.
+        // Control characters and non-ASCII text take the paced Unicode route.
+        if (character is < ' ' or > '~' || (GetKeyState(0x14) & 1) != 0) return null;
+        var thread = GetWindowThreadProcessId(target.Window, out _);
+        if (thread == 0) return null;
+        var layout = GetKeyboardLayout(thread);
+        var key = VkKeyScanEx(character, layout);
+        if (key < 0 || (key & 0xFF00) != 0) return null;
+        var virtualKey = (uint)(key & 0xFF);
+        var scan = MapVirtualKeyEx(virtualKey, 4, layout); // MAPVK_VK_TO_VSC_EX
+        if (scan == 0) return null;
+        var state = new byte[256];
+        state[virtualKey] = 0x80;
+        var result = new char[2];
+        // Flag4 checks the translation without mutating Windows' dead-key buffer.
+        if (ToUnicodeEx(virtualKey, scan & 0xFF, state, result, result.Length, 4, layout) != 1 || result[0] != character)
+            return null;
+        return new INPUT
+        {
+            Type = INPUT_KEYBOARD,
+            Union = new InputUnion
+            {
+                Keyboard = new KEYBDINPUT
+                {
+                    ScanCode = (ushort)(scan & 0xFF),
+                    Flags = KEYEVENTF_SCANCODE | ((scan & 0xFF00) == 0xE000 ? KEYEVENTF_EXTENDEDKEY : 0),
+                    ExtraInfo = PushToTalkHook.InjectedTag,
+                },
+            },
+        };
+    }
+
+    internal static bool ModifiersHeld() =>
+        (GetAsyncKeyState(0x10) & 0x8000) != 0 || (GetAsyncKeyState(0x11) & 0x8000) != 0 ||
+        (GetAsyncKeyState(0x12) & 0x8000) != 0 || (GetAsyncKeyState(0x5B) & 0x8000) != 0 ||
+        (GetAsyncKeyState(0x5C) & 0x8000) != 0;
+
     private static readonly int InputSize = Marshal.SizeOf<INPUT>();
+
+    internal static bool SendPasteShortcut(bool useInsert)
+    {
+        var modifier = useInsert ? 0x10 : 0x11;
+        var key = useInsert ? 0x2D : 0x56;
+        INPUT[] chord = [KeyInput(modifier, up: false), KeyInput(key, up: false),
+            KeyInput(key, up: true), KeyInput(modifier, up: true)];
+        var sent = SendInput((uint)chord.Length, chord, InputSize);
+        if (sent == chord.Length) return true;
+        if (sent == 2) _ = SendInput(2, chord[2..], InputSize);
+        else if (sent is 1 or 3) _ = SendInput(1, [chord[3]], InputSize);
+        return false;
+    }
 
     /// <summary>Prevents held Windows/Alt keys from opening menus on release.</summary>
     internal static void MaskModifierMenu()
@@ -101,14 +193,24 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     public ValueTask<DeliveryOutcome> InjectAsync(string text, ForegroundTarget target, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        if (!WindowsForeground.IsCurrent(target)) return ValueTask.FromResult(DeliveryOutcome.TargetChanged);
-        return ValueTask.FromResult(TypeWithNewlines(text, target, cancellationToken)
+        if (!_isCurrent(target)) return ValueTask.FromResult(DeliveryOutcome.TargetChanged);
+        // SendInput does not reset physical keyboard state. A failed hotkey pause
+        // is not permission to type through a held Ctrl/Alt/Shift/Windows key.
+        var deadline = System.Diagnostics.Stopwatch.StartNew();
+        while (_modifiersHeld())
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            if (!_isCurrent(target)) return ValueTask.FromResult(DeliveryOutcome.TargetChanged);
+            if (deadline.Elapsed >= ModifierWait) return ValueTask.FromResult(DeliveryOutcome.PartialOrUncertain);
+            _pause(ModifierPollInterval);
+        }
+        return ValueTask.FromResult(TypeText(text, target, cancellationToken)
             ? DeliveryOutcome.Delivered : DeliveryOutcome.PartialOrUncertain);
     }
-    /// <summary>Types arbitrary text as Unicode packets.</summary>
+    /// <summary>Types layout-mapped keys, Unicode scalars, and Return for line breaks.</summary>
     /// <remarks>
     /// <para>
-    /// Iterating by UTF-16 code unit is correct and intentional. A non-BMP character — an
+    /// The Unicode fallback sends UTF-16 code units. A non-BMP character — an
     /// emoji, some CJK extensions — is two surrogate halves, and each is sent as its own
     /// event; Unicode-aware controls recombine them. The 16-bit <c>ScanCode</c> field cannot
     /// carry a full 21-bit code point.
@@ -120,52 +222,45 @@ public sealed class SendInputTextInjector : ITargetedTextInjector
     /// from a normal process can return success and do nothing.
     /// </para>
     /// </remarks>
-    private static bool TypeUnicode(string text, ForegroundTarget target, CancellationToken token)
+    private bool TypeText(string text, ForegroundTarget target, CancellationToken token)
     {
+        text = text.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
         for (var offset = 0; offset < text.Length;)
         {
             token.ThrowIfCancellationRequested();
-            if (!WindowsForeground.IsCurrent(target)) return false;
-            var length = Math.Min(ChunkSize, text.Length - offset);
-
-            // Never split a surrogate pair across two SendInput calls.
-            if (offset + length < text.Length && char.IsHighSurrogate(text[offset + length - 1])) length++;
-
-            var inputs = new INPUT[length * 2];
-            for (var i = 0; i < length; i++)
+            if (!_isCurrent(target) || _modifiersHeld()) return false;
+            var character = text[offset++];
+            var key = character == '\n' ? KeyInput(VK_RETURN, up: false) : _mapKey(character, target);
+            INPUT[] inputs;
+            if (key is { } down)
             {
-                var unit = text[offset + i];
-                inputs[i * 2] = UnicodeInput(unit, up: false);
-                inputs[(i * 2) + 1] = UnicodeInput(unit, up: true);
+                var up = down;
+                up.Union.Keyboard.Flags |= KEYEVENTF_KEYUP;
+                inputs = [down, up];
             }
+            else if (char.IsHighSurrogate(character) && offset < text.Length && char.IsLowSurrogate(text[offset]))
+            {
+                var low = text[offset++];
+                inputs = [UnicodeInput(character, up: false), UnicodeInput(character, up: true),
+                    UnicodeInput(low, up: false), UnicodeInput(low, up: true)];
+            }
+            else inputs = [UnicodeInput(character, up: false), UnicodeInput(character, up: true)];
 
-            if (SendInput((uint)inputs.Length, inputs, InputSize) != inputs.Length) return false;
-            offset += length;
-            if (offset < text.Length) Thread.Sleep(ChunkGap);
+            if (!SendBalanced(inputs)) return false;
+            if (offset < text.Length) _pause(key.HasValue ? KeyGap : UnicodeGap);
         }
 
         return true;
     }
 
-    /// <summary>Types text, sending a real Return for each newline.</summary>
-    private static bool TypeWithNewlines(string text, ForegroundTarget target, CancellationToken token)
+    private bool SendBalanced(INPUT[] inputs)
     {
-        var lines = text.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n');
-
-        for (var i = 0; i < lines.Length; i++)
-        {
-            token.ThrowIfCancellationRequested();
-            if (!WindowsForeground.IsCurrent(target)) return false;
-            if (lines[i].Length > 0 && !TypeUnicode(lines[i], target, token)) return false;
-
-            if (i < lines.Length - 1)
-            {
-                INPUT[] enter = [KeyInput(VK_RETURN, up: false), KeyInput(VK_RETURN, up: true)];
-                if (SendInput(2, enter, InputSize) != 2) return false;
-            }
-        }
-
-        return true;
+        var sent = _send(inputs);
+        if (sent == inputs.Length) return true;
+        // A short write can end on key-down. Release only that injected key;
+        // never resend the text prefix or leave Return/VK_PACKET pressed.
+        if (sent < inputs.Length && (sent & 1) != 0) _ = _send([inputs[sent]]);
+        return false;
     }
 
     private static INPUT UnicodeInput(ushort codeUnit, bool up) => new()

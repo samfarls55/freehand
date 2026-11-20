@@ -4,6 +4,7 @@ using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
 using Avalonia.Threading;
@@ -21,6 +22,14 @@ namespace Freehand.AppTests;
 public static class TestAppBuilder
 {
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<TestApp>().UseSkia()
+        .With(new FontManagerOptions
+        {
+            // Some Linux images resolve sans-serif to a WOFF2 font with zero-height
+            // Skia line metrics. Use a TrueType fallback for headless layout checks.
+            FontFamilyMappings = OperatingSystem.IsLinux()
+                ? new Dictionary<string, FontFamily> { ["sans-serif"] = new("DejaVu Sans") }
+                : null,
+        })
         .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 }
 public sealed class TestApp : Application

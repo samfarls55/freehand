@@ -66,6 +66,79 @@ including loading. It excludes Avalonia UI and other Freehand instances. Working
 sets may double-count shared pages. These figures do not establish whole-app RAM
 or Wispr Flow parity. Transcript text is omitted unless `-IncludeText` is supplied.
 
+The executable also accepts `--cleanup-manifest PATH` to run a pinned local
+cleanup model after real ASR and the existing Core normalization. Invoke the
+evaluator directly when using these additional options:
+
+```powershell
+dotnet run --project tools/Freehand.Evaluation -c Release -- `
+  artifacts/publish/Freehand.App.exe artifacts/model-cache/parakeet-110m `
+  work/accuracy-evaluation/fleurs-en-us/manifest.json work/cleanup-replay.json `
+  --cleanup-manifest work/prepared-cleanup/cleanup-manifest.json `
+  --realtime --repeat 3 --include-text
+```
+
+Cleanup is warmed once with a synthetic sentence before recording; its complete
+first-use time is reported separately. `--skip-cleanup-warmup` includes that
+startup in the first actual cleanup call. The evaluator deliberately overrides
+cleanup's idle timeout to one hour so a long recording does not unload a worker
+whose ready-state performance is being measured. The report records that
+evaluation-only override. It does not validate production idle/readiness policy.
+The per-trial cleanup outcome distinguishes applied, unchanged, rejected and
+failed results; fallback is not model success. With text included, the report
+retains normalized original, provider input and provider output separately.
+
+With cleanup enabled, simultaneous memory samples include evaluator, ASR worker
+and cleanup worker, including initialization and inference. On Linux, private
+commit is omitted because process private memory does not establish the Windows
+commit metric. A research-only Linux native runtime may be selected through the
+inherited loader path without changing production packages; retain its exact
+version, source and hashes beside the report. The resulting replay still excludes
+desktop UI, real microphone/hotkey activity and physical foreground delivery.
+It cannot certify Windows whole-app RAM or the complete delivery SLA.
+
+Memory reports retain host, ASR and cleanup working sets at the sampled total
+peak, plus each component's separate maximum. The separate maxima may occur at
+different instants and must not be added to create a synthetic total. CPU counters
+before and after cleanup record host, ASR worker and cleanup worker processor time
+during that interval. In particular, ASR CPU activity during cleanup can expose
+overlap that a wall-clock subtraction cannot identify. Counter precision depends
+on the OS (Linux commonly reports scheduler ticks); missing or exited processes
+yield omitted counters. These few process queries add measurement overhead.
+Provider failures retain a fixed diagnostic code or exception type, excluding
+exception messages that might contain transcript data.
+Per-trial allocation and GC counters are read before capture and after completed
+timing, without forcing collection. Managed heap size is an estimate, and the
+committed GC byte count describes the last collection. These host-only diagnostics
+explain allocation trends; they do not replace process working-set sampling.
+The final report includes the highest simultaneous snapshot observed by either
+the global or per-trial monitor; their sampling phases can catch different brief
+peaks. Earlier instrumented control reports retain both values separately.
+
+The current Linux observer samples every 10 ms with cached `/proc/PID/statm`
+descriptors and stack-based UTF-8 parsing. A worker-generation identity closes
+the previous descriptor on replacement, including numeric PID reuse. Its
+self-test checks the resident count against `Process.WorkingSet64` and verifies
+missing/replaced process handling. Earlier preliminary reports used 5 ms
+`System.Diagnostics.Process` sampling, which allocates and parses more data.
+Keep those reports labeled with their original observer; a difference after
+changing observers is a measurement experiment until independently confirmed.
+Windows evaluator sampling and the application's native Windows memory counters
+are unchanged.
+
+Linux research can additionally select `--portable-worker`. This launches the
+evaluator's own research entry point, which calls the same `SpeechWorker` and
+native ASR implementation. The positional `APP` argument is then a reference
+artifact; its app host is not the launched worker. The report labels this mode
+and hashes the actual research worker assembly. The wrapper logs provided and
+child-observed parent start ticks without logging pipe names or secrets. It
+requires the same parent PID and bounds any timestamp discrepancy to two seconds,
+then passes the child's timestamp observation to the worker's exact parent-handle
+check. This handles cross-process Linux boot-time timestamp rounding. It does
+not change the application's Windows process ownership or native launcher.
+This option is rejected on other platforms. Retain its diagnostic and native
+library hashes with results, and compare baseline and candidates in the same mode.
+
 Each recording stops waiting when the engine finishes, awaits a manual retry, or
 stops. A separate after-release deadline defaults to 180 seconds and can be set
 with `-CompletionTimeoutSeconds`. A failed or expired trial is recorded in

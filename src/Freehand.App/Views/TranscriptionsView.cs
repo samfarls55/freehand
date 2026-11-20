@@ -85,16 +85,7 @@ public sealed class TranscriptionsView : UserControl
 
     private Border BuildRow(TranscriptRecord record)
     {
-        var copy = Panels.Button("Copy", quiet: true);
-        copy.Click += async (_, _) =>
-        {
-            var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
-            if (clipboard is null) return;
-            await clipboard.SetTextAsync(record.Text).ConfigureAwait(true);
-            copy.Content = "Copied";
-            await Task.Delay(TimeSpan.FromSeconds(1.4)).ConfigureAwait(true);
-            copy.Content = "Copy";
-        };
+        var copy = CopyAction("Copy", record.Text);
         var more = Panels.More("Transcript actions");
         var delete = new MenuItem { Header = "Delete transcript" };
         delete.Click += (_, _) => { _store.Remove(record.Id); _search.Focus(); };
@@ -117,8 +108,26 @@ public sealed class TranscriptionsView : UserControl
                 ? $"{c.From} → {c.To} ×{c.Count}" : $"{c.From} → {c.To}")), Tokens.Fonts.Label, muted: true));
         var row = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = Tokens.Space.Roomy };
         row.Children.Add(body);
-        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, VerticalAlignment = VerticalAlignment.Center, Children = { copy, more } };
+        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, VerticalAlignment = VerticalAlignment.Center, Children = { copy } };
+        if (!string.IsNullOrWhiteSpace(record.OriginalText) && !string.Equals(record.OriginalText, record.Text, StringComparison.Ordinal))
+            actions.Children.Add(CopyAction("Copy original", record.OriginalText));
+        actions.Children.Add(more);
         Grid.SetColumn(actions, 1); row.Children.Add(actions);
         return Panels.Row(row);
+    }
+
+    private Button CopyAction(string label, string text)
+    {
+        var copy = Panels.Button(label, quiet: true);
+        copy.Click += async (_, _) =>
+        {
+            var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
+            if (clipboard is null) return;
+            await clipboard.SetTextAsync(text).ConfigureAwait(true);
+            copy.Content = "Copied";
+            await Task.Delay(TimeSpan.FromSeconds(1.4)).ConfigureAwait(true);
+            copy.Content = label;
+        };
+        return copy;
     }
 }

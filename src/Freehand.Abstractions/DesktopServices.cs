@@ -1,7 +1,11 @@
 namespace Freehand.Abstractions;
 
 /// <summary>A foreground window and its process, captured before recording.</summary>
-public readonly record struct ForegroundTarget(nint Window, int ProcessId);
+public readonly record struct ForegroundTarget(nint Window, int ProcessId)
+{
+    /// <summary>The focused child control, when the platform can identify it.</summary>
+    public nint FocusedControl { get; init; }
+}
 
 /// <summary>Reads foreground identity without activating a window.</summary>
 public interface IForegroundWindow
