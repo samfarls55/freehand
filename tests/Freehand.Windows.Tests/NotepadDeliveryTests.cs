@@ -9,7 +9,7 @@ namespace Freehand.Windows.Tests;
 [Collection("Native text delivery")]
 public sealed class NotepadDeliveryTests
 {
-    [Theory]
+    [DesktopTheory]
     [InlineData("Testing, testing, testing, this is an interesting thing and I really want to see if it works and I really hope that it's best.")]
     [InlineData("Trying one more time, I know sometimes the first dictation might not always be perfect.")]
     [InlineData("Unicode: café, naïve, 日本語, emoji 🐕.\r\nRepeated letters: bbbbbbbbbbbbbbbb. ")]
