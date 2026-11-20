@@ -200,7 +200,7 @@ public sealed class NativeTextDeliveryGroup;
 [Collection("Native text delivery")]
 public sealed class NativeTextDeliveryTests
 {
-    [Fact]
+    [DesktopFact]
     public void Ordinary_letters_take_the_real_target_layout_scan_code_route()
     {
         using var field = new WindowsDeliveryProbe();
@@ -211,7 +211,7 @@ public sealed class NativeTextDeliveryTests
         Assert.Null(SendInputTextInjector.MapTextKey('日', target));
     }
 
-    [Theory]
+    [DesktopTheory]
     [InlineData("Testing, testing, testing, this is an interesting thing and I really want to see if it works and I really hope that it's best.")]
     [InlineData("Trying one more time, I know sometimes the first dictation might not always be perfect.")]
     public async Task Real_SendInput_delivers_the_reported_examples_exactly(string text)
@@ -225,7 +225,7 @@ public sealed class NativeTextDeliveryTests
         Assert.Equal(text, field.ReadText());
     }
 
-    [Fact]
+    [DesktopFact]
     public async Task Real_SendInput_preserves_complete_multiline_Unicode_text_in_a_Windows_edit_control()
     {
         using var field = new WindowsDeliveryProbe();

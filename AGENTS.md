@@ -53,7 +53,8 @@ amber indicates attention. Keep dictation in the tray and preserve native Window
 
 Use `dotnet build Freehand.sln -c Release --no-incremental -warnaserror` for compiler and
 analyzer validation. Run the existing tests after behavior changes. Use the published
-executable's `--selftest` for packaging checks. Hardware claims require an actual microphone,
+executable's `--selftest` for packaging checks. Tests that take over the desktop run only with
+`FREEHAND_DESKTOP_TESTS=1`. Never set it on Sam's machine; CI runs them. Hardware claims require an actual microphone,
 physical hotkey, and delivery into a foreground text field.
 
 ## Migration baseline

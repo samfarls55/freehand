@@ -18,6 +18,10 @@ copies can discover. Merge or publish only when Sam explicitly requests shipping
 | `pwsh -File ./scripts/verify.ps1 -Package -SkipCleanup` | Creates and verifies an explicit baseline installer without cleanup assets |
 | `pwsh -File ./scripts/deploy-local.ps1` | Verifies and packages the changes, saves the previous repair installer, then updates the installed app |
 
+Tests that open Notepad or a test window, take the foreground, and send real keystrokes
+or clipboard pastes are skipped unless `FREEHAND_DESKTOP_TESTS=1`. CI sets it. Set it
+locally only when you can leave the desktop alone while the tests run.
+
 Run commands from the repository root in PowerShell 7 on Windows x64. Each build
 command accepts `-Dotnet 'C:/path/to/dotnet.exe'` when the SDK is elsewhere.
 Packaging copies the Visual C++ runtime into the cleanup bundle, so the packaging

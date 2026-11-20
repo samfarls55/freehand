@@ -12,6 +12,9 @@ jobs:
   preview:
     runs-on: windows-latest
     timeout-minutes: 30
+    env:
+      # Runners have a disposable desktop, so run the tests that take it over.
+      FREEHAND_DESKTOP_TESTS: '1'
     steps:
       - uses: actions/checkout@v4
         with:
