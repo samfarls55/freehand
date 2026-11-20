@@ -41,8 +41,8 @@ app. A startup self-test must exercise the published executable after packaging 
 ## Keep the Compact design
 
 Use the tokens in `src/Freehand.App/Design/DesignTokens.cs` for interface styling.
-Follow [DESIGN.md](DESIGN.md) for the approved Compact interface: a dark graphite window,
-text tabs, readable transcript rows, and restrained sage actions. Red indicates recording;
+Follow [DESIGN.md](DESIGN.md) for the logo-aligned interface: the logo's black ground, the f mark,
+text tabs, readable transcript rows, and cream actions. Red indicates recording;
 amber indicates attention. Keep dictation in the tray and preserve native Windows controls.
 
 ## Verify the affected behavior

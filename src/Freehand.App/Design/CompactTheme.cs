@@ -6,7 +6,7 @@ using Avalonia.Styling;
 
 namespace Freehand.App.Design;
 
-/// <summary>Compact styling over the native Fluent control templates.</summary>
+/// <summary>Logo-derived styling over the native Fluent control templates.</summary>
 internal sealed class CompactTheme : Styles
 {
     public CompactTheme()
@@ -27,6 +27,25 @@ internal sealed class CompactTheme : Styles
         Resources["TextControlForeground"] = Tokens.Brushes.Ink;
         Resources["TextControlForegroundFocused"] = Tokens.Brushes.Ink;
         Resources["TextControlForegroundPointerOver"] = Tokens.Brushes.Ink;
+        foreach (var suffix in new[] { "", "PointerOver", "Pressed" })
+        {
+            Resources["ToggleSwitchFillOn" + suffix] = Tokens.Brushes.Accent;
+            Resources["ToggleSwitchStrokeOn" + suffix] = Tokens.Brushes.Accent;
+            Resources["ToggleSwitchKnobFillOn" + suffix] = Tokens.Brushes.Chassis;
+            Resources["ToggleSwitchFillOff" + suffix] = Avalonia.Media.Brushes.Transparent;
+            Resources["ToggleSwitchStrokeOff" + suffix] = Tokens.Brushes.Muted;
+            Resources["ToggleSwitchKnobFillOff" + suffix] = Tokens.Brushes.Muted;
+        }
+        foreach (var suffix in new[] { "", "PointerOver", "Pressed", "Disabled" })
+        {
+            Resources["ExpanderHeaderBackground" + suffix] = Avalonia.Media.Brushes.Transparent;
+            Resources["ExpanderHeaderBorderBrush" + suffix] = Avalonia.Media.Brushes.Transparent;
+        }
+        Resources["ExpanderContentBackground"] = Avalonia.Media.Brushes.Transparent;
+        Resources["ExpanderContentBorderBrush"] = Avalonia.Media.Brushes.Transparent;
+        Resources["ExpanderHeaderForeground"] = Tokens.Brushes.Muted;
+        Resources["ExpanderHeaderForegroundPointerOver"] = Tokens.Brushes.Ink;
+        Resources["ExpanderChevronForeground"] = Tokens.Brushes.Muted;
         SetButtonResources(Resources, Tokens.Brushes.Panel, Tokens.Brushes.Ink);
         foreach (var suffix in new[] { "", "PointerOver", "Pressed", "Disabled" })
         {
@@ -56,6 +75,10 @@ internal sealed class CompactTheme : Styles
             new Setter(TextBox.SelectionBrushProperty, Tokens.Brushes.Accent),
             new Setter(TextBox.SelectionForegroundBrushProperty, Tokens.Brushes.AccentInk),
             new Setter(TextBox.CaretBrushProperty, Tokens.Brushes.Accent),
+        } });
+        Add(new Style(s => s.OfType<Expander>().Template().OfType<ToggleButton>()) { Setters =
+        {
+            new Setter(TemplatedControl.PaddingProperty, new Thickness(0)),
         } });
         Add(new Style(s => s.OfType<Button>().Class(":disabled")) { Setters =
         {

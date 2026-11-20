@@ -62,7 +62,9 @@ the controls. Keep necessary field labels, status feedback, and recovery actions
 Sam selected Compact on October 22, 2026 after the image concepts and browser
 prototype. The native implementation now uses its dark graphite window, centered
 text tabs, single transcript column, and inline actions. Windows retains its title
-bar and native controls. DESIGN.md records the implemented visual system.
+bar and native controls. On November 19, 2026, Sam asked for the interface to match
+the logo and drop filler text. The Compact structure remains, rethemed in the logo's
+black and cream. DESIGN.md records the implemented visual system.
 
 ## Evidence on hand
 

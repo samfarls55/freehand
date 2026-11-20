@@ -48,11 +48,8 @@ public sealed class SettingsView : UserControl
         _updates.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { CheckForUpdates = _updates.IsChecked == true }); };
         _idle.ValueChanged += (_, _) => { if (!_syncing && _idle.Value is { } value) Save(_settings.Data with { IdleModelMinutes = (int)value }); };
         _modelTimer.Tick += (_, _) => UpdateModelStatus();
-        Content = new DockPanel { Children =
-        {
-            Panels.Docked(Panels.Heading("Settings"), Dock.Top),
-            new ScrollViewer { HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
-                Content = new StackPanel { Spacing = Tokens.Space.Wide, Children =
+        Content = new ScrollViewer { HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+                Content = new StackPanel { Spacing = Tokens.Space.Wide, Margin = new Thickness(0, Tokens.Space.Wide), Children =
                 {
                     _error,
                     Group("Dictation", new StackPanel { Children =
@@ -73,10 +70,8 @@ public sealed class SettingsView : UserControl
                     {
                         SettingRow("Check for updates automatically", _updates), new UpdateView(_composition?.Updates),
                     } }),
-                    Panels.Text("Changes made during dictation apply when it finishes.", Tokens.Fonts.Label, muted: true),
                 } },
-            },
-        } };
+            };
         Synchronize();
     }
 
@@ -132,8 +127,8 @@ public sealed class SettingsView : UserControl
         repair.IsEnabled = _composition is not null; logs.IsEnabled = _composition is not null;
         return new StackPanel { Spacing = Tokens.Space.Base, Children =
         {
-            Panels.Text(ModelResolver.DisplayName, Tokens.Fonts.Section), _modelStatus,
-            new Expander { Header = "Model details", HorizontalAlignment = HorizontalAlignment.Stretch,
+            StatusRow(Panels.Text(ModelResolver.DisplayName), _modelStatus),
+            new Expander { Header = "Details", HorizontalAlignment = HorizontalAlignment.Stretch,
                 Content = new StackPanel { Spacing = Tokens.Space.Base, Children =
                 {
                     _modelPath,
@@ -171,12 +166,21 @@ public sealed class SettingsView : UserControl
         grid.Children.Add(Panels.Text(label)); Grid.SetColumn(input, 1); grid.Children.Add(input);
         return new Border { Padding = new Thickness(0, Tokens.Space.Base), Child = grid };
     }
-    private static StackPanel Group(string title, Control content) => new StackPanel
+    private static Grid StatusRow(TextBlock name, TextBlock status)
     {
-        Spacing = Tokens.Space.Base, Children =
+        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = Tokens.Space.Wide, Margin = new Thickness(0, Tokens.Space.Snug, 0, 0) };
+        status.TextAlignment = TextAlignment.Right; status.MaxWidth = 320; Grid.SetColumn(status, 1);
+        grid.Children.Add(name); grid.Children.Add(status);
+        return grid;
+    }
+    private static StackPanel Group(string title, Control content)
+    {
+        var heading = Panels.Text(title, Tokens.Fonts.Control, muted: true);
+        heading.FontWeight = FontWeight.SemiBold; heading.Margin = new Thickness(Tokens.Space.Roomy, 0, 0, 0);
+        return new StackPanel { Spacing = Tokens.Space.Snug, Children =
         {
-            Panels.Text(title, Tokens.Fonts.Section),
+            heading,
             new Border { Background = Tokens.Brushes.Panel, CornerRadius = new CornerRadius(Tokens.Radius.Panel), Padding = new Thickness(Tokens.Space.Roomy, Tokens.Space.Snug), Child = content },
-        },
-    };
+        } };
+    }
 }

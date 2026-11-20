@@ -7,7 +7,7 @@ using Freehand.App.Design;
 
 namespace Freehand.App.Views;
 
-/// <summary>Shared Compact layout and control factories.</summary>
+/// <summary>Shared layout and control factories.</summary>
 internal static class Panels
 {
     public static TextBlock Text(string text, double size = Tokens.Fonts.Body, bool muted = false) => new()
@@ -55,40 +55,23 @@ internal static class Panels
     public static void Select(Button button, bool selected)
     {
         CompactTheme.SetButtonResources(button.Resources,
-            selected ? Tokens.Brushes.Cap : Brushes.Transparent,
-            selected ? Tokens.Brushes.Ink : Tokens.Brushes.Muted);
+            selected ? Tokens.Brushes.Accent : Brushes.Transparent,
+            selected ? Tokens.Brushes.AccentInk : Tokens.Brushes.Muted);
+        if (selected) foreach (var state in new[] { "PointerOver", "Pressed" }) button.Resources["ButtonBackground" + state] = Tokens.Brushes.Accent;
         button.FontWeight = selected ? FontWeight.SemiBold : FontWeight.Normal;
         AutomationProperties.SetName(button, button.Content + (selected ? ", selected" : ""));
     }
 
-    public static Border Heading(string title, Control? action = null)
-    {
-        var label = Text(title, Tokens.Fonts.Title);
-        label.FontWeight = FontWeight.SemiBold;
-        var row = new DockPanel();
-        if (action is not null) row.Children.Add(Docked(action, Dock.Right));
-        row.Children.Add(label);
-        return new Border { Padding = new Thickness(0, Tokens.Space.Panel, 0, Tokens.Space.Wide), Child = row };
-    }
-
-    public static Border SearchRow(Control search, Control? trailing = null)
+    public static Border SearchRow(Control search, params Control[] trailing)
     {
         var row = new DockPanel();
-        if (trailing is not null)
+        foreach (var control in trailing.Reverse())
         {
-            trailing.Margin = new Thickness(Tokens.Space.Base, 0, 0, 0);
-            row.Children.Add(Docked(trailing, Dock.Right));
+            control.Margin = new Thickness(Tokens.Space.Snug, 0, 0, 0);
+            row.Children.Add(Docked(control, Dock.Right));
         }
         row.Children.Add(search);
-        return new Border { Padding = new Thickness(0, 0, 0, Tokens.Space.Wide), Child = row };
-    }
-
-    public static Border Footer(Control leading, Control trailing)
-    {
-        var row = new DockPanel();
-        row.Children.Add(Docked(trailing, Dock.Right));
-        row.Children.Add(leading);
-        return new Border { Padding = new Thickness(0, Tokens.Space.Base, 0, Tokens.Space.Base), Child = row };
+        return new Border { Padding = new Thickness(0, Tokens.Space.Wide, 0, Tokens.Space.Base), Child = row };
     }
 
     public static Border Row(Control content) => new()
