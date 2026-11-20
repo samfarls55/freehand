@@ -47,9 +47,16 @@ public sealed class NotepadDeliveryTests
             Assert.NotEqual(0, edit);
             if (GetForegroundWindow() != window) Assert.True(SetForegroundWindow(window));
             Assert.Equal(window, GetForegroundWindow());
+            // The app captures its target at key press, after the editor has settled focus.
+            // A just-launched Notepad may still be moving focus to its edit control.
+            var target = WindowsForeground.Capture();
+            while (target.FocusedControl != edit && !deadline.IsCancellationRequested)
+            {
+                await Task.Delay(20); target = WindowsForeground.Capture();
+            }
+            Assert.Equal(new ForegroundTarget(window, process.Id) { FocusedControl = edit }, target);
             var injector = new ClipboardPasteTextInjector();
-            Assert.Equal(DeliveryOutcome.Delivered,
-                await injector.InjectAsync(text, new ForegroundTarget(window, process.Id), deadline.Token));
+            Assert.Equal(DeliveryOutcome.Delivered, await injector.InjectAsync(text, target, deadline.Token));
             var received = ReadText(edit);
             while (received != text && !deadline.IsCancellationRequested)
             {
