@@ -9,7 +9,7 @@ namespace Freehand.Windows.Tests;
 [Collection("Native text delivery")]
 public sealed class ClipboardPasteTests
 {
-    [Fact]
+    [DesktopFact]
     public async Task Ole_and_app_specific_clipboard_formats_are_pasted_and_come_back()
     {
         // Avalonia, WinForms and Office copy through OLE, which adds its ownership formats.
