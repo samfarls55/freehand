@@ -3,6 +3,7 @@
 param(
     [Parameter(Mandatory, ParameterSetName = 'Prepare')][string]$RuntimeDirectory,
     [Parameter(Mandatory, ParameterSetName = 'Prepare')][string]$ModelPath,
+    [Parameter(ParameterSetName = 'Prepare')][string]$AdapterPath,
     [Parameter(Mandatory, ParameterSetName = 'Prepare')][string]$ModelId,
     [Parameter(Mandatory, ParameterSetName = 'Prepare')]
     [ValidateSet('QuillChatMl', 'Qwen35', 'Ministral3', 'Gemma4', 'S1Mini', 'HandyEditor', 'HandyEditorUserOnly',
@@ -112,6 +113,10 @@ function Get-PreparedCleanupBundle([string]$Directory) {
     }
     $runtime = Get-CleanupRelativePath $manifest.runtimePath
     $model = Get-CleanupRelativePath $manifest.modelPath
+    $adapter = if ($null -eq $manifest.PSObject.Properties['adapterPath']) { $null } else { Get-CleanupRelativePath $manifest.adapterPath }
+    if ($adapter -and ($adapter -ne 'adapter.gguf' -or $manifest.adapterSha256 -notmatch '\A[0-9a-fA-F]{64}\z')) {
+        throw 'Cleanup manifest adapter must be adapter.gguf with a SHA-256.'
+    }
     if ($null -eq $manifest.PSObject.Properties['platform']) {
         $manifest | Add-Member -NotePropertyName platform -NotePropertyValue $(if ($runtime -eq 'runtime/llama-server.exe') { 'win-x64-cpu' } else { 'linux-x64-cpu' })
     }
@@ -131,7 +136,7 @@ function Get-PreparedCleanupBundle([string]$Directory) {
         $runtimeNotice = $relative -match '^licenses/runtime/(?:LICENSE|LICENCE|NOTICE|COPYING|THIRD[-_ ]?PARTY)[^/]*$' -and
             [IO.Path]::GetExtension($relative) -in @('', '.txt', '.md')
         $modelNotice = $relative -match '^licenses/model/[A-Za-z0-9][A-Za-z0-9_.-]*\.(?:txt|md)$'
-        $allowed = $relative -ieq $runtime -or $relative -ieq $model -or
+        $allowed = $relative -ieq $runtime -or $relative -ieq $model -or ($adapter -and $relative -ieq $adapter) -or
             $relative -match '^runtime/[^/]+\.dll$' -or
             ($runtime -eq 'runtime/llama-server' -and $relative -match '^runtime/[^/]+\.so(?:\.[0-9]+)*$') -or
             $modelNotice -or
@@ -145,13 +150,16 @@ function Get-PreparedCleanupBundle([string]$Directory) {
             throw "Cleanup asset verification failed: $relative"
         }
     }
-    foreach ($required in @($runtime, $model, 'licenses/model-LICENSE.txt', 'licenses/runtime-LICENSE.txt')) {
+    foreach ($required in @($runtime, $model, 'licenses/model-LICENSE.txt', 'licenses/runtime-LICENSE.txt') + @($adapter | Where-Object { $_ })) {
         if (-not $known.Contains($required)) { throw "Cleanup manifest omits a required asset: $required" }
     }
     $runtimeFile = @($files | Where-Object { $_.path.Replace('\', '/') -ieq $runtime })[0]
     $modelFile = @($files | Where-Object { $_.path.Replace('\', '/') -ieq $model })[0]
     if ($manifest.runtimeSha256 -ine $runtimeFile.sha256 -or $manifest.modelSha256 -ine $modelFile.sha256) {
         throw 'Cleanup manifest primary hashes disagree with its asset list.'
+    }
+    if ($adapter -and @($files | Where-Object { $_.path.Replace('\', '/') -ieq $adapter })[0].sha256 -ine $manifest.adapterSha256) {
+        throw 'Cleanup manifest adapter hash disagrees with its asset list.'
     }
     return [pscustomobject]@{ Directory = $directoryPath; ManifestPath = $manifestPath; ModelId = $manifest.modelId; Platform = $manifest.platform; Files = $files }
 }
@@ -184,6 +192,10 @@ $runtimeInput = (Resolve-Path -LiteralPath $RuntimeDirectory).Path
 $modelInput = (Resolve-Path -LiteralPath $ModelPath).Path
 if ([IO.Path]::GetExtension($modelInput) -ine '.gguf') { throw 'ModelPath must select a GGUF file.' }
 if (-not (Test-Path -LiteralPath $modelInput -PathType Leaf)) { throw 'ModelPath must select a GGUF file.' }
+$adapterInput = if ($AdapterPath) { (Resolve-Path -LiteralPath $AdapterPath).Path } else { $null }
+if ($adapterInput -and ([IO.Path]::GetExtension($adapterInput) -ine '.gguf' -or -not (Test-Path -LiteralPath $adapterInput -PathType Leaf))) {
+    throw 'AdapterPath must select a GGUF file.'
+}
 $serverName = if ($Platform -in @('win-x64-cpu', 'win-x64-vulkan')) { 'llama-server.exe' } else { 'llama-server' }
 $serverInput = Join-Path $runtimeInput $serverName
 if (-not (Test-Path -LiteralPath $serverInput -PathType Leaf)) { throw "RuntimeDirectory must contain $serverName." }
@@ -208,7 +220,7 @@ if (-not $OutputDirectory) {
 $destination = [IO.Path]::GetFullPath($OutputDirectory)
 $parentDirectory = Split-Path -Parent $destination
 if (-not $parentDirectory -or $destination -eq [IO.Path]::GetPathRoot($destination)) { throw 'OutputDirectory must be a dedicated cleanup asset directory.' }
-foreach ($inputPath in @($runtimeInput, $modelInput, $modelLicenseInput, $runtimeLicenseInput) + $modelNoticeInputs) {
+foreach ($inputPath in @($runtimeInput, $modelInput, $modelLicenseInput, $runtimeLicenseInput) + $modelNoticeInputs + @($adapterInput | Where-Object { $_ })) {
     if ($inputPath.Equals($destination, [StringComparison]::OrdinalIgnoreCase) -or
         $inputPath.StartsWith($destination + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
         throw 'OutputDirectory must not contain any input artifacts.'
@@ -251,6 +263,7 @@ try {
     if ($LinkModel) {
         New-Item -ItemType HardLink -Path (Join-Path $stage 'model.gguf') -Target $modelInput | Out-Null
     } else { Copy-Item -LiteralPath $modelInput -Destination (Join-Path $stage 'model.gguf') }
+    if ($adapterInput) { Copy-Item -LiteralPath $adapterInput -Destination (Join-Path $stage 'adapter.gguf') }
     foreach ($notice in $modelNoticeInputs) {
         Copy-Item -LiteralPath $notice -Destination (Join-Path $stage 'licenses/model')
     }
@@ -295,6 +308,10 @@ try {
         files = $files
     }
     if ($SpecialistLiteralProtocol -eq 'CompactV4') { $manifest['specialistLiteralProtocol'] = $SpecialistLiteralProtocol }
+    if ($adapterInput) {
+        $manifest['adapterPath'] = 'adapter.gguf'
+        $manifest['adapterSha256'] = (Get-FileHash -LiteralPath (Join-Path $stage 'adapter.gguf') -Algorithm SHA256).Hash.ToLowerInvariant()
+    }
     $temporaryManifest = Join-Path $stage 'cleanup-manifest.json.tmp'
     $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $temporaryManifest -Encoding utf8NoBOM
     [IO.File]::Move($temporaryManifest, (Join-Path $stage 'cleanup-manifest.json'))

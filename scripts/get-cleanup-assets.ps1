@@ -150,13 +150,10 @@ if ($ValidateManifestOnly) {
         RuntimeManifestPath = (Resolve-Path -LiteralPath $RuntimeManifestPath).Path
     }
 }
-if ($null -ne $adapter) {
-    throw 'This manifest pins a cleanup adapter. Use Settings > Set up cleanup, or scripts/dev-scribekey.ps1 for a development preview.'
-}
-
 $CacheDirectory = [IO.Path]::GetFullPath($CacheDirectory)
 New-Item -ItemType Directory -Path $CacheDirectory -Force | Out-Null
 $modelPath = Get-CleanupDownload $selected.Model '.gguf'
+$adapterPath = if ($null -ne $adapter) { Get-CleanupDownload $adapter.Value '.gguf' } else { $null }
 $modelLicense = Get-CleanupDownload $selected.ModelLicense '.txt'
 $runtimeLicense = Get-CleanupDownload $selected.RuntimeLicense '.txt'
 $archivePath = Get-CleanupDownload $archive $(if ($Platform -in @('win-x64-cpu', 'win-x64-vulkan')) { '.zip' } else { '.tar.gz' })
@@ -186,7 +183,7 @@ try {
         throw 'Cleanup runtime executable does not match its pinned manifest.'
     }
     $prepare = @{
-        RuntimeDirectory = $executables[0].DirectoryName; ModelPath = $modelPath; ModelId = $selected.ModelId
+        RuntimeDirectory = $executables[0].DirectoryName; ModelPath = $modelPath; AdapterPath = $adapterPath; ModelId = $selected.ModelId
         PromptStyle = $selected.PromptStyle; ModelLicense = $modelLicense; RuntimeLicense = $runtimeLicense
         ModelNotices = $noticePaths; Platform = $Platform; LinkModel = $LinkModel
         OutputDirectory = $OutputDirectory; ModelSourceUrl = $selected.Model.Source; ModelRevision = $selected.Model.Revision

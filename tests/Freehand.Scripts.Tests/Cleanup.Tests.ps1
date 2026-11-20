@@ -310,25 +310,51 @@ if ($CliArguments[0] -eq 'publish') {
             Should-NotInvoke Invoke-WebRequest
         }
 
-        It 'packages only pinned setup metadata even when a large-model bundle exists in the local cache' {
-            Write-CleanupMetadataFixture
-            $cleanupPrepare.OutputDirectory = Join-Path $cleanupFixtureRoot 'artifacts/cleanup-assets'
-            $null = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') @cleanupPrepare
-            & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech
-            $publish = Join-Path $cleanupFixtureRoot 'artifacts/publish'
-            $package = Get-Content -LiteralPath (Join-Path $publish 'package-manifest.json') -Raw | ConvertFrom-Json
-            @($package.Files | Where-Object { $_.Path.Replace('\', '/') -like 'models/cleanup-provisioning/*' }).Count | Should-Be 2
-            (Test-Path -LiteralPath (Join-Path $publish 'models/cleanup/model.gguf')) | Should-BeFalse
-            (Test-Path -LiteralPath (Join-Path $cleanupPrepare.OutputDirectory 'model.gguf')) | Should-BeTrue
-            $selected = Get-Content -LiteralPath (Join-Path $publish 'models/cleanup-provisioning/cleanup-model-manifest.json') -Raw | ConvertFrom-Json
-            $selected.Model.Size | Should-Be 9000000000
-            $selected.ModelId | Should-Be 'fixture-selected-editor'
-            Should-NotInvoke Invoke-WebRequest
-        }
+        It 'bundles the selected cleanup model and adapter by default from the verified download cache' {
+            $sources = Join-Path $cleanupInputs 'selected'
+            $native = Join-Path $sources 'native'
+            New-Item -ItemType Directory -Path $native -Force | Out-Null
+            Set-Content -LiteralPath (Join-Path $native 'llama-server.exe') -Value 'fixture runtime'
+            Set-Content -LiteralPath (Join-Path $native 'llama.dll') -Value 'fixture runtime dependency'
+            Compress-Archive -Path (Join-Path $native '*') -DestinationPath (Join-Path $sources 'runtime.zip')
+            $cache = Join-Path $cleanupFixtureRoot 'artifacts/cleanup-downloads'
+            New-Item -ItemType Directory -Path $cache -Force | Out-Null
+            $pins = @{}
+            foreach ($entry in @(@('model.gguf', 'fixture base'), @('adapter.gguf', 'fixture adapter'), @('model-license.txt', 'fixture model license'),
+                @('runtime-license.txt', 'fixture runtime license'), @('NOTICE.txt', 'fixture notice'), @('runtime.zip', $null))) {
+                $path = Join-Path $sources $entry[0]
+                if ($null -ne $entry[1]) { Set-Content -LiteralPath $path -Value $entry[1] }
+                $hash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([IO.File]::ReadAllBytes($path))).ToLowerInvariant()
+                Copy-Item -LiteralPath $path -Destination (Join-Path $cache ($hash + [IO.Path]::GetExtension($entry[0])))
+                $pins[$entry[0]] = @{ Source = 'https://example.test/' + $entry[0]; Sha256 = $hash; Size = (Get-Item -LiteralPath $path).Length }
+            }
+            $pins['model.gguf'].Revision = 'a' * 40
+            $pins['NOTICE.txt'].Name = 'NOTICE.txt'
+            @{
+                SchemaVersion = 1; ModelId = 'fixture-selected-editor'; PromptStyle = 'ScribeKeyFast'
+                Model = $pins['model.gguf']; Adapter = $pins['adapter.gguf']; ModelLicense = $pins['model-license.txt']
+                ModelNotices = @($pins['NOTICE.txt']); RuntimeLicense = $pins['runtime-license.txt']
+                Inference = @{ Threads = 4; ContextSize = 1024; MaxOutputTokens = 512; GpuLayers = 0; StartupTimeoutSeconds = 60; IdleTimeoutSeconds = 300 }
+            } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-model-manifest.json')
+            @{
+                SchemaVersion = 1; SourceCommit = 'b' * 40
+                Artifacts = @(@{ Platform = 'win-x64-cpu'; Source = $pins['runtime.zip'].Source; ArchiveSha256 = $pins['runtime.zip'].Sha256
+                    ArchiveSize = $pins['runtime.zip'].Size; Executable = 'llama-server.exe'
+                    ExecutableSha256 = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([IO.File]::ReadAllBytes((Join-Path $native 'llama-server.exe')))) })
+            } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/cleanup-runtime-manifest.json')
 
-        It 'preserves baseline packaging when no cleanup bundle was prepared' {
             & (Join-Path $cleanupScripts 'build-release.ps1') -Dotnet $cleanupSdk -ModelSource $cleanupSpeech
-            (Test-Path -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/publish/models/cleanup')) | Should-BeFalse
+
+            $publish = Join-Path $cleanupFixtureRoot 'artifacts/publish'
+            (Test-Path -LiteralPath (Join-Path $publish 'models/cleanup-provisioning')) | Should-BeFalse
+            $bundle = & (Join-Path $cleanupScripts 'prepare-cleanup.ps1') -ValidateDirectory (Join-Path $publish 'models/cleanup')
+            $bundle.ModelId | Should-Be 'fixture-selected-editor'
+            $manifest = Get-Content -LiteralPath $bundle.ManifestPath -Raw | ConvertFrom-Json
+            $manifest.adapterPath | Should-Be 'adapter.gguf'
+            $manifest.adapterSha256 | Should-Be $pins['adapter.gguf'].Sha256
+            (Get-Content -LiteralPath (Join-Path $publish 'models/cleanup/licenses/model/NOTICE.txt')) | Should-Be 'fixture notice'
+            $package = Get-Content -LiteralPath (Join-Path $publish 'package-manifest.json') -Raw | ConvertFrom-Json
+            @($package.Files | Where-Object { $_.Path.Replace('\', '/') -eq 'models/cleanup/adapter.gguf' }).Count | Should-Be 1
             Should-NotInvoke Invoke-WebRequest
         }
 

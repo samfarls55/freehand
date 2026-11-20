@@ -4,7 +4,7 @@
 
 Freehand is a local dictation app for Windows. Hold Right Ctrl, speak, and release. It transcribes your recording on your computer, applies your dictionary corrections, formats numbers and currency, optionally cleans up the complete transcript with a local model, and inserts the result at the caret in the app where you started.
 
-The installer includes the speech model and runtime. Optional cleanup assets are downloaded only after you choose **Set up cleanup** in Settings. You don't need an account, API key, GPU, or separate speech service. Dictation and prepared cleanup run offline.
+The installer includes the speech model, the cleanup model and their runtimes, so cleanup works on first launch. You don't need an account, API key, GPU, or separate speech service. Dictation and prepared cleanup run offline.
 
 [Download for Windows x64](https://github.com/samfarls55/freehand/releases/latest) · [Report a problem](https://github.com/samfarls55/freehand/issues) · [Build from source](#build-from-source)
 
@@ -144,7 +144,7 @@ The selected model can still weaken emphasis, add formatting, or leave spoken co
 
 When cleanup changes the text, **Copy original** retrieves the dictionary-corrected, number-formatted transcript from before model editing. With history enabled, the original is available beside the saved result. With history disabled, the main window still offers **Copy** and **Copy original** for the latest result held in memory; that result is not saved and lasts until replaced or you quit Freehand.
 
-Choose **Set up cleanup** in the **Cleanup model** section of Settings to download the pinned model and runtime, about 250 MB. The model is derived from ScribeKey Fast by ScribeKey; its licenses are installed with it. Setup displays download progress, verifies the assets, and installs them into your local data profile. Use **Cancel setup** to stop or **Retry setup** after a failure. Missing cleanup assets leave ordinary dictation available. You can also select a prepared local bundle or reload existing assets. Cleanup runs locally with no account, API key or separate model service. Its worker unloads after its configured idle interval, independently of the speech-model timeout.
+The installer bundles the pinned cleanup model and runtime, about 250 MB. The model is derived from ScribeKey Fast by ScribeKey; its licenses are installed with it. Missing or damaged cleanup assets leave ordinary dictation available. In the **Cleanup model** section of Settings you can also select a prepared local bundle, return to the bundled model, or reload existing assets. Cleanup runs locally with no account, API key or separate model service. Its worker unloads after its configured idle interval, independently of the speech-model timeout.
 
 For source builds, asset preparation and the explicit speech-only package option, see [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md).
 
@@ -161,7 +161,7 @@ The default data folder is `%LOCALAPPDATA%\Freehand`:
 | `transcripts.jsonl` | Saved transcript history, including pre-cleanup originals when present, only when enabled |
 | `logs/` | Diagnostic states, timing, job IDs, and failure types |
 | `verification/` | Model verification cache |
-| `models/cleanup/` | Cleanup assets acquired through Settings setup |
+| `models/cleanup/` | Cleanup assets acquired through Settings setup in older versions |
 | `installer/` | Saved installer for repair |
 
 History is enabled by default. Turn it off in Settings to stop saving new transcripts and their originals. The latest result and its pre-cleanup original can still remain in memory for copying. Use **Delete all** in the Transcriptions view to remove existing history. Logs do not contain audio or transcript text. Local history files are plain text, so handle them like other personal documents.
@@ -174,7 +174,7 @@ After you accept, Freehand downloads and verifies the installer. Installation wa
 
 Copies installed before automatic updates were added need one manual update from the [latest release](https://github.com/samfarls55/freehand/releases/latest). You can always download and run a newer installer yourself.
 
-Update checks contact GitHub for public release metadata. Cleanup setup contacts the pinned model and runtime publishers only after you request it. Neither operation sends recordings, transcripts, dictionary entries, or preferences. Failed checks leave dictation working offline.
+Update checks contact GitHub for public release metadata. They do not send recordings, transcripts, dictionary entries, or preferences. Failed checks leave dictation working offline.
 
 For missing or damaged files, use **Repair bundled model** in Settings or run the installer again. If a custom model directory is unavailable, choose **Use bundled model**.
 
@@ -189,7 +189,7 @@ To uninstall, open **Windows Settings > Apps > Installed apps > Freehand > Unins
 | The model says installed but unloaded | This is normal before the first dictation or after the idle timeout. Start a recording to load it. |
 | The first transcript takes longer | Model loading happens on demand. Keep the text field focused until processing completes. |
 | Missing or damaged model | Run setup again or use **Repair bundled model**. A custom directory must contain the exact pinned assets. |
-| Cleanup says no model is installed | Choose **Set up cleanup** in Settings, or select a prepared local bundle. Ordinary dictation remains available; source builds can prepare assets separately. |
+| Cleanup says no model is installed | Choose **Use bundled cleanup** in Settings, or run the installer again to repair the bundled model. Ordinary dictation remains available. |
 | Cleanup changed wording you wanted to keep | Use **Copy original** for the pre-cleanup text, and turn off **Clean up dictated text** to use dictionary correction and number formatting alone. |
 | Processing fails twice | Fix the reported problem, then use **Retry**, or choose **Discard** before recording again. |
 | Text was transcribed but not inserted | Keep the original field focused and enable automatic insertion in Settings. Use **Copy** if the app does not accept simulated text input. |
@@ -238,7 +238,7 @@ The build treats compiler and analyzer warnings as errors. Keep dependency versi
 pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source
 ```
 
-The script publishes a self-contained x64 app, downloads the pinned speech model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. When the selected cleanup manifest is present, it validates and packages the pinned acquisition metadata for Settings setup. It does not download or embed cleanup weights by default; invalid setup metadata fails packaging. An internet connection is needed for NuGet restore and uncached downloads. The speech model files total about 130 MiB. Cleanup model, runtime and license downloads happen separately through explicit setup.
+The script publishes a self-contained x64 app, downloads the pinned speech model and known speech fixture, verifies their SHA-256 hashes, collects dependency notices, and embeds the complete package in the installer. It also downloads the pinned cleanup model, adapter, runtime and licenses, verifies them, and embeds the prepared bundle; invalid cleanup metadata fails packaging. An internet connection is needed for NuGet restore and uncached downloads. The speech model files total about 130 MiB and the cleanup bundle about 250 MB. Downloads are cached under `artifacts/` for later builds.
 
 The script can reuse matching model files from your installed app or its build cache. To use an existing download in another folder:
 
@@ -248,7 +248,7 @@ pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source -Mode
 
 That directory must contain the files listed in [packaging/model-manifest.json](packaging/model-manifest.json). A different model revision will fail verification. The cache is only a build input. The installed app uses its own bundled speech files; Settings cleanup setup keeps its separate assets in the local data profile.
 
-The isolated `dev.ps1` preview includes validated setup metadata without downloading cleanup weights, so **Set up cleanup** is available in its Settings. To run the selected model from LFS instead, use `pwsh -File ./scripts/dev-scribekey.ps1`. Existing profile selections and an explicit `-CleanupSource` are preserved. Release packaging includes only setup metadata for the selected default. Use `build-release.ps1 -SkipCleanup` or `verify.ps1 -Package -SkipCleanup` when deliberately creating a baseline package with no cleanup assets or setup metadata. `-CleanupSource` on `build-release.ps1` embeds an already verified custom bundle, provided the final installer remains below the 2 GiB release limit. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for offline cache reuse and exact artifact verification.
+The isolated `dev.ps1` preview includes validated setup metadata without downloading cleanup weights, so **Set up cleanup** is available in its Settings. To run the selected model from LFS instead, use `pwsh -File ./scripts/dev-scribekey.ps1`. Existing profile selections and an explicit `-CleanupSource` are preserved. Release packaging bundles the selected default. Use `build-release.ps1 -SkipCleanup` or `verify.ps1 -Package -SkipCleanup` when deliberately creating a baseline package with no cleanup assets. `-CleanupSource` on `build-release.ps1` embeds an already verified custom bundle, provided the final installer remains below the 2 GiB release limit. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for offline cache reuse and exact artifact verification.
 
 Build outputs are:
 
@@ -272,7 +272,7 @@ $check = Start-Process -FilePath $app -ArgumentList '--selftest' -Wait -PassThru
 if ($check.ExitCode -ne 0) { throw "Self-test failed with exit code $($check.ExitCode)." }
 ```
 
-With the full package present, this checks dictionary and storage behavior, reflected Windows platform loading, native speech-model loading, known speech transcription, and speech-worker stop/restart. Default cleanup setup metadata is validated without downloading weights. When cleanup assets are bundled, it also starts the actual cleanup worker and requires a complete response; that startup check is not a quality benchmark. It does not verify physical microphone capture or hotkey delivery into another app. The installer also runs this check against the installed executable.
+With the full package present, this checks dictionary and storage behavior, reflected Windows platform loading, native speech-model loading, known speech transcription, and speech-worker stop/restart. When cleanup assets are bundled, as in default packages, it also starts the actual cleanup worker and requires a complete response; that startup check is not a quality benchmark. It does not verify physical microphone capture or hotkey delivery into another app. The installer also runs this check against the installed executable.
 
 The [Windows workflow](.github/workflows/windows.yml) builds, tests, packages, and runs the published self-test. Its downloadable artifact contains the installer and checksum.
 Merging application changes to `main` publishes a GitHub Release after upgrade and rollback checks also pass. See
