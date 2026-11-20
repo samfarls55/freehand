@@ -125,13 +125,15 @@ public sealed class MainWindowTests
         var window = data.Window(); window.Show(); window.ShowSection("Settings"); window.UpdateLayout();
         try
         {
-            var details = window.GetVisualDescendants().OfType<Expander>().Single();
-            details.IsExpanded = true; window.UpdateLayout();
-            var modelPath = window.GetVisualDescendants().OfType<TextBlock>()
-                .Single(b => b.Text?.StartsWith(resolver.BundledDirectory, StringComparison.Ordinal) == true);
-            var custom = Path.Combine(Path.GetTempPath(), "freehand-custom-model");
-            data.Settings.Update(data.Settings.Data with { ModelDirectory = custom });
-            modelPath.Text.ShouldNotBeNull(); modelPath.Text.StartsWith(custom, StringComparison.Ordinal).ShouldBeTrue();
+            var manage = window.GetVisualDescendants().OfType<Expander>().Single();
+            manage.IsExpanded = true; window.UpdateLayout();
+            window.GetVisualDescendants().OfType<TextBlock>()
+                .Any(b => b.Text?.Contains(resolver.BundledDirectory, StringComparison.Ordinal) == true).ShouldBeFalse();
+            Button Find(string text) => window.GetVisualDescendants().OfType<Button>().Single(b => Equals(b.Content, text));
+            Find("Open speech folder").ShouldNotBeNull();
+            Find("Use bundled speech model").IsVisible.ShouldBeFalse();
+            data.Settings.Update(data.Settings.Data with { ModelDirectory = Path.Combine(Path.GetTempPath(), "freehand-custom-model") });
+            Find("Use bundled speech model").IsVisible.ShouldBeTrue();
         }
         finally { window.Close(); }
     }

@@ -31,20 +31,21 @@ public sealed class SettingsView : UserControl
     private readonly TextBlock _warning = Panels.Text("", Tokens.Fonts.Label);
     private readonly TextBlock _error = Panels.Text("", Tokens.Fonts.Label);
     private readonly TextBlock _modelStatus = Panels.Text("");
-    private readonly TextBlock _modelPath = Panels.Text("", Tokens.Fonts.Label, muted: true);
+    private readonly TextBlock _modelError = Panels.Text("", Tokens.Fonts.Label);
     private readonly TextBlock _cleanupName = Panels.Text("");
     private readonly TextBlock _cleanupStatus = Panels.Text("");
-    private readonly TextBlock _cleanupPath = Panels.Text("", Tokens.Fonts.Label, muted: true);
     private readonly TextBlock _cleanupDownloadDescription = Panels.Text("", Tokens.Fonts.Label, muted: true);
     private readonly CleanupSetupCoordinator? _cleanupSetup;
     private readonly TextBlock _cleanupSetupStatus = Panels.Text("", Tokens.Fonts.Label, muted: true);
     private readonly ProgressBar _cleanupSetupProgress = new() { Minimum = 0, Maximum = 100, IsVisible = false };
     private readonly Button _setupCleanup = Panels.Button("Set up cleanup", primary: true);
     private readonly Button _cancelCleanupSetup = Panels.Button("Cancel setup", quiet: true);
-    private readonly Button _chooseCleanup = Panels.Button("Choose model folder", quiet: true);
+    private readonly Button _bundledModel = Panels.Button("Use bundled speech model", quiet: true);
+    private readonly Button _chooseCleanup = Panels.Button("Choose cleanup folder", quiet: true);
     private readonly Button _bundledCleanup = Panels.Button("Use bundled cleanup", quiet: true);
     private readonly Button _reloadCleanup = Panels.Button("Reload cleanup model", quiet: true);
     private readonly DispatcherTimer _modelTimer = new() { Interval = TimeSpan.FromSeconds(1) };
+    private string _speechDirectory = "";
     private bool _syncing;
 
     /// <summary>Builds settings using the existing persistence and preference coordinator.</summary>
@@ -61,6 +62,7 @@ public sealed class SettingsView : UserControl
         AutomationProperties.SetName(_cleanupSetupProgress, "Cleanup setup download progress");
         AutomationProperties.SetLiveSetting(_cleanupSetupStatus, AutomationLiveSetting.Polite);
         _warning.Foreground = Tokens.Brushes.Attention; _error.Foreground = Tokens.Brushes.Attention;
+        _modelError.Foreground = Tokens.Brushes.Attention;
         _inject.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { InjectText = _inject.IsChecked == true }); };
         _history.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { KeepHistory = _history.IsChecked == true }); };
         _cleanup.IsCheckedChanged += (_, _) => { if (!_syncing) Save(_settings.Data with { CleanupEnabled = _cleanup.IsChecked == true }); };
@@ -86,8 +88,7 @@ public sealed class SettingsView : UserControl
                             ? SettingRow("Model residency", Panels.Text("While Freehand is open"))
                             : SettingRow("Release model after idle minutes", _idle),
                     } }),
-                    Group("Speech model", BuildModelSection()),
-                    Group("Cleanup model", BuildCleanupSection()),
+                    Group("Models", BuildModelsSection()),
                     Group("Updates", new StackPanel { Spacing = Tokens.Space.Base, Children =
                     {
                         SettingRow("Check for updates automatically", _updates), new UpdateView(_composition?.Updates),
@@ -140,11 +141,14 @@ public sealed class SettingsView : UserControl
     }
     private void Save(SettingsData data) { _settings.TryUpdate(data); Synchronize(); }
 
-    private StackPanel BuildModelSection()
+    private StackPanel BuildModelsSection()
     {
-        var bundled = Panels.Button("Use bundled model", quiet: true);
-        bundled.Click += (_, _) => Save(_settings.Data with { ModelDirectory = null });
-        var repair = Panels.Button("Repair model", quiet: true);
+        _bundledModel.Click += (_, _) => Save(_settings.Data with { ModelDirectory = null });
+        var speechFolder = Panels.Button("Open speech folder", quiet: true);
+        speechFolder.Click += (_, _) => _composition?.Desktop?.Open(_speechDirectory);
+        var cleanupFolder = Panels.Button("Open cleanup folder", quiet: true);
+        cleanupFolder.Click += (_, _) => _composition?.Desktop?.Open(_settings.Data.CleanupDirectory ?? ConfiguredTranscriptPostProcessor.DefaultDirectory);
+        var repair = Panels.Button("Repair speech model", quiet: true);
         repair.Click += (_, _) =>
         {
             var installer = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Freehand", "installer", "FreehandSetup.exe");
@@ -157,39 +161,7 @@ public sealed class SettingsView : UserControl
             Directory.CreateDirectory(_composition.Logs.DirectoryPath); _composition.Desktop?.Open(_composition.Logs.DirectoryPath);
         };
         // A standalone headless view cannot launch platform actions.
-        repair.IsEnabled = _composition is not null; logs.IsEnabled = _composition is not null;
-        return new StackPanel { Spacing = Tokens.Space.Base, Children =
-        {
-            StatusRow(Panels.Text(ModelResolver.DisplayName), _modelStatus),
-            new Expander { Header = "Details", HorizontalAlignment = HorizontalAlignment.Stretch,
-                Content = new StackPanel { Spacing = Tokens.Space.Base, Children =
-                {
-                    _modelPath,
-                    new WrapPanel { ItemSpacing = Tokens.Space.Snug, LineSpacing = Tokens.Space.Snug, Children = { bundled, repair, logs } },
-                } },
-            },
-        } };
-    }
-    private void UpdateModelStatus()
-    {
-        _key.IsEnabled = _composition is null || _composition.IsDictationReady;
-        var located = _composition?.Models.ResolvedDirectory ?? _settings.Data.ModelDirectory ?? Path.Combine(AppContext.BaseDirectory, "models", ModelResolver.DirectoryName);
-        var found = _composition?.Models.IsVerified ?? ParakeetTranscriber.IsComplete(located);
-        var state = _composition?.Speech?.State ?? Freehand.Abstractions.ModelState.Unloaded;
-        var preparing = _composition?.IsPreparingSpeech == true;
-        _modelStatus.Text = preparing ? "Preparing speech model" : found ? state switch
-        {
-            Freehand.Abstractions.ModelState.Unloaded => _keepModelResident ? "Installed · preparing" : "Installed · loads when you dictate",
-            Freehand.Abstractions.ModelState.Ready => "Installed · loaded",
-            Freehand.Abstractions.ModelState.Starting or Freehand.Abstractions.ModelState.Loading => "Installed · preparing",
-            Freehand.Abstractions.ModelState.Stopping => "Installed · releasing memory",
-            _ => "Installed · last load failed",
-        } : "Model needs verification or repair";
-        _modelStatus.Foreground = found || preparing ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
-        _modelPath.Text = located + (found || preparing ? "" : "\n" + (_composition?.Models.Error ?? "Run the installer again to verify and repair the bundled model."));
-    }
-    private StackPanel BuildCleanupSection()
-    {
+        speechFolder.IsEnabled = cleanupFolder.IsEnabled = repair.IsEnabled = logs.IsEnabled = _composition is not null;
         _setupCleanup.Click += async (_, _) =>
         {
             if (_cleanupSetup is not null) await _cleanupSetup.StartAsync().ConfigureAwait(true);
@@ -222,19 +194,45 @@ public sealed class SettingsView : UserControl
         _reloadCleanup.Click += (_, _) => _composition?.ReloadCleanupModel();
         return new StackPanel { Spacing = Tokens.Space.Base, Children =
         {
-            _cleanupName, _cleanupStatus, _cleanupPath,
+            StatusRow(Panels.Text(ModelResolver.DisplayName), _modelStatus), _modelError,
+            StatusRow(_cleanupName, _cleanupStatus),
             _cleanupDownloadDescription,
             new WrapPanel { ItemSpacing = Tokens.Space.Snug, LineSpacing = Tokens.Space.Snug, Children = { _setupCleanup, _cancelCleanupSetup } },
             _cleanupSetupStatus, _cleanupSetupProgress,
-            new WrapPanel { ItemSpacing = Tokens.Space.Snug, LineSpacing = Tokens.Space.Snug, Children = { _chooseCleanup, _bundledCleanup, _reloadCleanup } },
+            new Expander { Header = "Manage", HorizontalAlignment = HorizontalAlignment.Stretch,
+                Content = new WrapPanel { ItemSpacing = Tokens.Space.Snug, LineSpacing = Tokens.Space.Snug, Children =
+                {
+                    speechFolder, cleanupFolder, _chooseCleanup, _bundledModel, _bundledCleanup, _reloadCleanup, repair, logs,
+                } },
+            },
         } };
+    }
+    private void UpdateModelStatus()
+    {
+        _key.IsEnabled = _composition is null || _composition.IsDictationReady;
+        var located = _composition?.Models.ResolvedDirectory ?? _settings.Data.ModelDirectory ?? Path.Combine(AppContext.BaseDirectory, "models", ModelResolver.DirectoryName);
+        var found = _composition?.Models.IsVerified ?? ParakeetTranscriber.IsComplete(located);
+        var state = _composition?.Speech?.State ?? Freehand.Abstractions.ModelState.Unloaded;
+        var preparing = _composition?.IsPreparingSpeech == true;
+        _modelStatus.Text = preparing ? "Preparing speech model" : found ? state switch
+        {
+            Freehand.Abstractions.ModelState.Unloaded => _keepModelResident ? "Installed · preparing" : "Installed · loads when you dictate",
+            Freehand.Abstractions.ModelState.Ready => "Installed · loaded",
+            Freehand.Abstractions.ModelState.Starting or Freehand.Abstractions.ModelState.Loading => "Installed · preparing",
+            Freehand.Abstractions.ModelState.Stopping => "Installed · releasing memory",
+            _ => "Installed · last load failed",
+        } : "Model needs verification or repair";
+        _modelStatus.Foreground = found || preparing ? Tokens.Brushes.Muted : Tokens.Brushes.Attention;
+        _speechDirectory = located;
+        _modelError.Text = found || preparing ? "" : _composition?.Models.Error ?? "Run the installer again to verify and repair the bundled model.";
+        _modelError.IsVisible = !string.IsNullOrEmpty(_modelError.Text);
+        _bundledModel.IsVisible = _settings.Data.ModelDirectory is not null;
     }
     private void UpdateCleanupStatus()
     {
         var selected = _settings.Data.CleanupDirectory ?? ConfiguredTranscriptPostProcessor.DefaultDirectory;
         var cleanup = _composition?.Cleanup;
         _cleanupName.Text = cleanup?.ModelId ?? _cleanupSetup?.ModelName ?? "Local transcript cleanup";
-        _cleanupPath.Text = selected;
         _cleanupStatus.Text = cleanup?.Status(_settings.Data.CleanupEnabled)
             ?? (!_settings.Data.CleanupEnabled ? "Off"
                 : File.Exists(Path.Combine(selected, "cleanup-manifest.json")) ? "Installed · verifies and loads when you dictate"
