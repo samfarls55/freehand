@@ -29,6 +29,41 @@ public sealed class TranscriptCleanupTests
         injector.Injected.ShouldHaveSingleItem().ShouldBe("Send it Monday for $25. ");
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task Pressing_the_key_warms_enabled_cleanup_while_recording(bool enabled)
+    {
+        var key = new FakeHotkeySource(); var injector = new RecordingTextInjector();
+        var processor = new Processor((text, _) => ValueTask.FromResult(text));
+        await using var engine = new DictationEngine(FakeAudioCapture.Tone(0.2), key, new FakeTranscriber("hello"), injector,
+            () => [], transcriptPostProcessor: processor, cleanupEnabled: () => enabled);
+
+        var captured = CaptureSignal(engine); key.Press();
+        await captured.WaitAsync(TimeSpan.FromSeconds(5));
+        if (enabled) await processor.Warmed.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        engine.State.ShouldBe(DictationState.Recording);
+        key.Release();
+        await LifecycleTests.WaitUntilAsync(() => engine.State == DictationState.Idle);
+
+        processor.Warmed.Task.IsCompleted.ShouldBe(enabled);
+        processor.Calls.ShouldBe(enabled ? 1 : 0);
+    }
+
+    [Fact]
+    public async Task Failed_warm_up_still_cleans_the_transcript()
+    {
+        var key = new FakeHotkeySource(); var injector = new RecordingTextInjector();
+        var processor = new Processor((_, _) => ValueTask.FromResult("Hello.")) { WarmFailure = new IOException("worker failed") };
+        await using var engine = Build(key, new FakeTranscriber("um hello"), injector, processor);
+
+        await DictateAsync(key, engine);
+
+        processor.Warmed.Task.IsCompleted.ShouldBeTrue();
+        engine.LastResult!.CleanupOutcome.ShouldBe(TranscriptCleanupOutcome.Applied);
+        injector.Injected.ShouldHaveSingleItem().ShouldBe("Hello. ");
+    }
+
     [Fact]
     public async Task Number_formatting_realigns_dictionary_literals_and_keeps_their_whitespace()
     {
@@ -238,6 +273,13 @@ public sealed class TranscriptCleanupTests
         {
             Calls++; LastInput = text; Token = cancellationToken; Started.TrySetResult();
             return process(text, cancellationToken);
+        }
+        public TaskCompletionSource Warmed { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public Exception? WarmFailure { get; init; }
+        public ValueTask WarmAsync(CancellationToken cancellationToken)
+        {
+            Warmed.TrySetResult();
+            return WarmFailure is null ? ValueTask.CompletedTask : ValueTask.FromException(WarmFailure);
         }
         public ValueTask DisposeAsync() { Disposed = true; return ValueTask.CompletedTask; }
     }

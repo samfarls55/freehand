@@ -8,7 +8,7 @@ The installer includes the speech model and runtime. Optional cleanup assets are
 
 [Download for Windows x64](https://github.com/samfarls55/freehand/releases/latest) · [Report a problem](https://github.com/samfarls55/freehand/issues) · [Build from source](#build-from-source)
 
-Cleanup development: [the small-model evaluation](docs/TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md) records the current experimental profiles, fidelity failures and strict performance gates. No cleanup model is yet qualified as a production default under the requested 15% SLA allowance.
+Cleanup is experimental. To try the local ScribeKey cleanup model, see the [development preview](docs/TRANSCRIPT-CLEANUP.md#try-the-scribekey-development-preview).
 
 ## What it does
 
@@ -140,7 +140,7 @@ Explicit dictionary replacements keep their exact text, including whitespace, an
 
 The editor is intended to remove fillers, accidental repetition and spoken false starts while preserving your meaning. Dictionary replacements must keep their exact literal text. An unavailable model, incomplete response, failed verification or timeout leaves the existing normalized transcript in place. Cleanup does not retry speech recognition or automatically insert a second version.
 
-The selected model can still weaken emphasis, add formatting, or leave spoken corrections partly cleaned. Structural checks do not catch every meaning change. See the [measured quality and resource costs](docs/TRANSCRIPT-CLEANUP-EVALUATION.md) when deciding whether to enable cleanup.
+The selected model can still weaken emphasis, add formatting, or leave spoken corrections partly cleaned. Structural checks do not catch every meaning change. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for its measured accuracy before deciding whether to enable it.
 
 When cleanup changes the text, **Copy original** retrieves the dictionary-corrected, number-formatted transcript from before model editing. With history enabled, the original is available beside the saved result. With history disabled, the main window still offers **Copy** and **Copy original** for the latest result held in memory; that result is not saved and lasts until replaced or you quit Freehand.
 

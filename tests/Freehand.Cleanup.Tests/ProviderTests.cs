@@ -676,6 +676,36 @@ public sealed class ProviderTests
     }
 
     [Fact]
+    public async Task Warm_up_starts_the_worker_that_the_next_request_reuses()
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        await using var provider = fixture.Provider();
+
+        await provider.WarmAsync(CancellationToken.None);
+        fixture.Launcher.Workers.ShouldHaveSingleItem().HasExited.ShouldBeFalse();
+        await provider.ProcessAsync("send it Friday", CancellationToken.None);
+
+        fixture.Launcher.Workers.Count.ShouldBe(1);
+    }
+
+    [Fact]
+    public async Task Worker_restart_skips_hashing_unchanged_artifacts()
+    {
+        using var fixture = new Fixture(CleanupPromptStyle.ScribeKeyFast);
+        await using var provider = fixture.Provider();
+        await provider.ProcessAsync("first request", CancellationToken.None);
+        fixture.Launcher.Workers[0].Terminate();
+        // Same size and timestamp: only a rehash could notice this change.
+        var written = File.GetLastWriteTimeUtc(fixture.Options.ModelPath);
+        await File.WriteAllTextAsync(fixture.Options.ModelPath, "TEST MODEL");
+        File.SetLastWriteTimeUtc(fixture.Options.ModelPath, written);
+
+        await provider.ProcessAsync("second request", CancellationToken.None);
+
+        fixture.Launcher.Workers.Count.ShouldBe(2);
+    }
+
+    [Fact]
     public async Task Worker_restart_reverifies_changed_model_artifact()
     {
         using var fixture = new Fixture(CleanupPromptStyle.QuillChatMl);

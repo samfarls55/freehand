@@ -32,6 +32,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
     private CancellationTokenSource? _idleCancellation;
     private Task _idleTask = Task.CompletedTask;
     private IWorkerProcess? _process;
+    private (string Path, long Length, DateTime WrittenUtc)[]? _verifiedStamps;
     private Uri? _endpoint;
     private string? _apiKey;
     private int _disposed;
@@ -116,6 +117,30 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
         }
     }
 
+    /// <inheritdoc />
+    public async ValueTask WarmAsync(CancellationToken cancellationToken)
+    {
+        ObjectDisposedException.ThrowIf(Volatile.Read(ref _disposed) != 0, this);
+        using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
+        await _gate.WaitAsync(linked.Token).ConfigureAwait(false);
+        try
+        {
+            ObjectDisposedException.ThrowIf(Volatile.Read(ref _disposed) != 0, this);
+            CancelIdle();
+            await EnsureWorkerAsync(linked.Token).ConfigureAwait(false);
+        }
+        catch
+        {
+            await StopWorkerAsync().ConfigureAwait(false);
+            throw;
+        }
+        finally
+        {
+            ScheduleIdle();
+            _gate.Release();
+        }
+    }
+
     private async Task EnsureWorkerAsync(CancellationToken token)
     {
         if (_process is { HasExited: false }) return;
@@ -124,17 +149,24 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
         deadline.CancelAfter(_options.StartupTimeout);
         try
         {
-            if (_options.Artifacts.Count == 0)
+            // Hashing the bundle costs about half a second. Repeat it only when a file changed.
+            var stamps = ArtifactStamps();
+            if (_verifiedStamps is null || !_verifiedStamps.SequenceEqual(stamps))
             {
-                await VerifyArtifactAsync(_options.RuntimePath, _options.RuntimeSha256, "runtime", null, deadline.Token).ConfigureAwait(false);
-                await VerifyArtifactAsync(_options.ModelPath, _options.ModelSha256, "model", null, deadline.Token).ConfigureAwait(false);
-                if (_options.AdapterPath is not null)
-                    await VerifyArtifactAsync(_options.AdapterPath, _options.AdapterSha256!, "adapter", null, deadline.Token).ConfigureAwait(false);
-            }
-            else
-            {
-                foreach (var artifact in _options.Artifacts)
-                    await VerifyArtifactAsync(artifact.Path, artifact.Sha256, "bundle artifact", artifact.Size, deadline.Token).ConfigureAwait(false);
+                _verifiedStamps = null;
+                if (_options.Artifacts.Count == 0)
+                {
+                    await VerifyArtifactAsync(_options.RuntimePath, _options.RuntimeSha256, "runtime", null, deadline.Token).ConfigureAwait(false);
+                    await VerifyArtifactAsync(_options.ModelPath, _options.ModelSha256, "model", null, deadline.Token).ConfigureAwait(false);
+                    if (_options.AdapterPath is not null)
+                        await VerifyArtifactAsync(_options.AdapterPath, _options.AdapterSha256!, "adapter", null, deadline.Token).ConfigureAwait(false);
+                }
+                else
+                {
+                    foreach (var artifact in _options.Artifacts)
+                        await VerifyArtifactAsync(artifact.Path, artifact.Sha256, "bundle artifact", artifact.Size, deadline.Token).ConfigureAwait(false);
+                }
+                _verifiedStamps = stamps;
             }
             var listener = new TcpListener(IPAddress.Loopback, 0);
             int port;
@@ -197,6 +229,15 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
         {
             throw new TimeoutException("The cleanup model did not become ready within its startup deadline.");
         }
+    }
+
+    private (string Path, long Length, DateTime WrittenUtc)[] ArtifactStamps()
+    {
+        var paths = _options.Artifacts.Count == 0
+            ? new[] { _options.RuntimePath, _options.ModelPath, _options.AdapterPath }.OfType<string>()
+            : _options.Artifacts.Select(artifact => artifact.Path);
+        return paths.Select(path => new FileInfo(path)).Select(info => info.Exists
+            ? (info.FullName, info.Length, info.LastWriteTimeUtc) : (info.FullName, -1L, DateTime.MinValue)).ToArray();
     }
 
     private static async Task VerifyArtifactAsync(string path, string expected, string label, long? size, CancellationToken token)

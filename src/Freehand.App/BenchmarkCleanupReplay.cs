@@ -184,6 +184,8 @@ internal sealed class BenchmarkCleanupProcessor(ITranscriptPostProcessor inner, 
         return LastCandidate = result;
     }
 
+    public ValueTask WarmAsync(CancellationToken cancellationToken) => inner.WarmAsync(cancellationToken);
+
     public ValueTask DisposeAsync() => ValueTask.CompletedTask;
 }
 

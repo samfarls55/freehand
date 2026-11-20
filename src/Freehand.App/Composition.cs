@@ -494,6 +494,17 @@ internal sealed class ConfiguredTranscriptPostProcessor : ITranscriptPostProcess
         }
     }
 
+    public ValueTask WarmAsync(CancellationToken cancellationToken)
+    {
+        ITranscriptPostProcessor processor;
+        lock (_sync)
+        {
+            if (_disposed || _options is null || _launcher is null) return ValueTask.CompletedTask;
+            processor = _processor ??= _factory(_options, _launcher);
+        }
+        return processor.WarmAsync(cancellationToken);
+    }
+
     public async ValueTask DisposeAsync()
     {
         ITranscriptPostProcessor? previous;

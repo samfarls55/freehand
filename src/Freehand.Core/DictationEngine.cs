@@ -238,6 +238,7 @@ public sealed class DictationEngine : IAsyncDisposable
             if (_speech is ISpeechSession session) await session.BeginWorkAsync(_lifetime.Token).ConfigureAwait(false);
             return await _speech.LoadAsync(_lifetime.Token).ConfigureAwait(false);
         });
+        if (cleanupEnabled) _ = Task.Run(() => WarmCleanupAsync(job));
         Task<string>? transcript = null;
         try
         {
@@ -443,6 +444,12 @@ public sealed class DictationEngine : IAsyncDisposable
             stop.Cancel(); _log?.Write(job, "cleanup-" + e.GetType().Name);
             return (original, TranscriptCleanupOutcome.Failed);
         }
+    }
+    private async Task WarmCleanupAsync(Guid job)
+    {
+        // Load the cleanup model while the user speaks. CleanupAsync retries a failed warm-up.
+        try { await _transcriptPostProcessor!.WarmAsync(_lifetime.Token).ConfigureAwait(false); }
+        catch (Exception e) { if (!_lifetime.IsCancellationRequested) _log?.Write(job, "cleanup-warm-" + e.GetType().Name); }
     }
     private static async Task ObserveCleanupAsync(Task<string> operation)
     {

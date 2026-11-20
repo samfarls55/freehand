@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "origin": "Public synthetic dictionary integration diagnostics; no private recordings.",
+  "purpose": "Exercise actual dictionary marker insertion and restoration through Core and the native provider. Not a representative speech benchmark.",
+  "cases": [
+    {
+      "id": "integration-01",
+      "split": "development",
+      "category": "literal_whitespace",
+      "input": "Um send it to cloud code please.",
+      "targets": [
+        "Send it to   Claude\tCode   please."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "cloud code",
+          "write": "  Claude\tCode  "
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "um"
+        ],
+        "literals": [
+          "  Claude\tCode  "
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-02",
+      "split": "development",
+      "category": "literal_path",
+      "input": "Uh open project file and check the logs.",
+      "targets": [
+        "Open C:\\Work\\Freehand\\src\\App.cs and check the logs."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "project file",
+          "write": "C:\\Work\\Freehand\\src\\App.cs"
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "C:\\Work\\Freehand\\src\\App.cs"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-03",
+      "split": "development",
+      "category": "literal_currency",
+      "input": "Um the quoted price is special price exactly.",
+      "targets": [
+        "The quoted price is $  42.00 exactly."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "special price",
+          "write": "$  42.00"
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "um"
+        ],
+        "literals": [
+          "$  42.00"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-04",
+      "split": "development",
+      "category": "literal_multiple",
+      "input": "Uh send company alias the config path this afternoon.",
+      "targets": [
+        "Send ACME  Labs the /etc/freehand/settings.json this afternoon."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "company alias",
+          "write": "ACME  Labs"
+        },
+        {
+          "kind": "Correction",
+          "hear": "config path",
+          "write": "/etc/freehand/settings.json"
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "ACME  Labs",
+          "/etc/freehand/settings.json"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-05",
+      "split": "development",
+      "category": "literal_multiline",
+      "input": "Um replace the snippet with code snippet exactly.",
+      "targets": [
+        "Replace the snippet with v2::Thing<T>\n  value exactly."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "code snippet",
+          "write": "v2::Thing<T>\n  value"
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "um"
+        ],
+        "literals": [
+          "v2::Thing<T>\n  value"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-06",
+      "split": "development",
+      "category": "literal_number_normalization",
+      "input": "Uh send fifty dollars to company alias before lunch.",
+      "targets": [
+        "Send $50 to ACME before lunch."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "company alias",
+          "write": "ACME"
+        }
+      ],
+      "checks": {
+        "include": [
+          "$50",
+          "before lunch"
+        ],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "ACME"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-07",
+      "split": "development",
+      "category": "literal_no_cascade",
+      "input": "Um alpha is ready.",
+      "targets": [
+        "BetaProject is ready."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "alpha",
+          "write": "BetaProject"
+        },
+        {
+          "kind": "Correction",
+          "hear": "BetaProject",
+          "write": "GammaProject"
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "GammaProject",
+          "um"
+        ],
+        "literals": [
+          "BetaProject"
+        ]
+      },
+      "notes": "The longer BetaProject trigger runs before alpha, so first Apply leaves BetaProject. A second Apply would change it to GammaProject; preserve the first result.",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-08",
+      "split": "development",
+      "category": "literal_correction",
+      "input": "Send it to company alias on Thursday, sorry, Friday.",
+      "targets": [
+        "Send it to ACME on Friday."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "company alias",
+          "write": "ACME"
+        }
+      ],
+      "checks": {
+        "include": [
+          "Friday"
+        ],
+        "exclude": [
+          "Thursday"
+        ],
+        "literals": [
+          "ACME"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-09",
+      "split": "development",
+      "category": "literal_superseded",
+      "input": "Send it to company alias, sorry, send it to Priya instead.",
+      "targets": [
+        "Send it to Priya instead."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "company alias",
+          "write": "ACME"
+        }
+      ],
+      "checks": {
+        "include": [
+          "Priya"
+        ],
+        "exclude": [
+          "ACME"
+        ],
+        "literals": []
+      },
+      "notes": "Strict dictionary protection rejects removing this superseded literal. Report fallback as limited useful-cleanup coverage, not a success.",
+      "references_are_normalized": true
+    },
+    {
+      "id": "integration-10",
+      "split": "development",
+      "category": "literal_unicode",
+      "input": "Uh ask person alias whether the test passed.",
+      "targets": [
+        "Ask Zoë Nguyễn whether the test passed."
+      ],
+      "needs_cleanup": true,
+      "dictionary": [
+        {
+          "kind": "Correction",
+          "hear": "person alias",
+          "write": "Zoë Nguyễn"
+        }
+      ],
+      "checks": {
+        "include": [],
+        "exclude": [
+          "uh"
+        ],
+        "literals": [
+          "Zoë Nguyễn"
+        ]
+      },
+      "notes": "",
+      "references_are_normalized": true
+    }
+  ]
+}

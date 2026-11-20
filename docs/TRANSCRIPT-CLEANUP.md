@@ -1,15 +1,41 @@
 # Local transcript cleanup
 
-## Current qualification status — November 3, 2026
+## Status
 
-Small-model contracts, bounded CPU profiles, verified literal/quote restoration
-and optional Windows Vulkan bundles are implemented. The
-[actual evaluation](TRANSCRIPT-CLEANUP-SMALL-MODEL-EVALUATION.md) found no model
-ready to become a production default: accepted meaning errors remain, and the
-747,500,000-byte / 805-ms whole-app Windows gates are unverified. The Qwen9B
-acquisition pin described below is a preserved prototype reference. Use explicit
-experimental bundles for the small-model profiles; no failed candidate has been
-promoted automatically.
+Cleanup is experimental. The candidate is ScribeKey Fast (IQ4_XS base) with
+Freehand's rank-8 adapter, a 50/50 blend of training rounds V8 and V9. On a fresh
+500-case test it produced faithful, directly usable text for 462 cases (92.4%),
+with 10 critical meaning errors; the original ScribeKey scored 430. Use
+**Copy original** when cleanup makes a mistake. Training is stopped. Its history,
+datasets and evidence are on the `codex/scribekey-blend-dev` branch.
+
+## Try the ScribeKey development preview
+
+Use Windows x64, PowerShell 7 and Git LFS. Quit the installed Freehand from its
+tray menu, then run from the repository root:
+
+```powershell
+git lfs pull
+pwsh -NoProfile -File ./scripts/setup-dev.ps1
+pwsh -NoProfile -File ./scripts/dev-scribekey.ps1
+```
+
+The script verifies the two LFS weights (223,810,688 bytes in total), downloads the
+pinned speech model and llama.cpp runtime, publishes a Release build under
+`artifacts/scribekey-dev-*`, runs the bundled-worker self-test and opens the
+preview. Use `-BuildOnly` to skip opening it. Settings and history stay in the
+preview's own `profile` folder. The **ScribeKey development preview** workflow
+builds the same preview on GitHub Actions.
+
+The cleanup worker starts loading when you press the dictation key, so loading
+overlaps your speech. It stays loaded for five minutes after the last dictation,
+like the speech worker. Bundle files are hashed when the worker first starts and
+again only after a file's size or timestamp changes.
+
+Base SHA-256: `82ab22cebc8e5a9acc41f0673d69d39ec65812c9872fb91b276137452798b174`.
+Adapter SHA-256: `4d14e22826d039a12444236124459363f02e77de247117b7b8379ccfe257cfb1`.
+
+## How cleanup runs
 
 Freehand can run a final local edit after dictionary correction and English number
 formatting. The complete result is checked before the existing single insertion.
@@ -53,10 +79,10 @@ automatically downloading weights during the build. An existing selected folder
 and an explicit `-CleanupSource` remain selected. The following command is an
 alternative for preparing assets before launching the preview.
 
-The selected default is Qwen3.5 9B, Unsloth Q8_0, pinned in
-`packaging/cleanup-model-manifest.json`. Its weight file is 9,527,502,048 bytes;
-file size is not a RAM measurement. The first implementation prioritizes fidelity
-over the historical memory/delay gates. See the [actual model evaluation](TRANSCRIPT-CLEANUP-EVALUATION.md). The
+**Set up cleanup** still downloads the earlier Qwen3.5 9B prototype (Unsloth Q8_0),
+pinned in `packaging/cleanup-model-manifest.json`. Its weight file is 9,527,502,048
+bytes. The ScribeKey blend is not hosted for download; use the development preview
+above. The
 llama.cpp release and complete archive digest are pinned separately in
 `packaging/cleanup-runtime-manifest.json`. To acquire assets explicitly for an
 isolated development preview, run from the repository root:

@@ -13,4 +13,7 @@ public interface ITranscriptPostProcessor : IAsyncDisposable
 {
     /// <summary>Conservatively edits the supplied text and returns complete text only.</summary>
     ValueTask<string> ProcessAsync(string text, CancellationToken cancellationToken);
+
+    /// <summary>Prepares the model while the user is still speaking. A failed warm-up is retried by <see cref="ProcessAsync"/>.</summary>
+    ValueTask WarmAsync(CancellationToken cancellationToken) => ValueTask.CompletedTask;
 }
