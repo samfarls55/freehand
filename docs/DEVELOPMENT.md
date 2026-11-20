@@ -20,6 +20,9 @@ copies can discover. Merge or publish only when Sam explicitly requests shipping
 
 Run commands from the repository root in PowerShell 7 on Windows x64. Each build
 command accepts `-Dotnet 'C:/path/to/dotnet.exe'` when the SDK is elsewhere.
+Packaging copies the Visual C++ runtime into the cleanup bundle, so the packaging
+machine needs the [x64 Visual C++ redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
+installed. GitHub's Windows runners already have it.
 
 ## First setup
 
