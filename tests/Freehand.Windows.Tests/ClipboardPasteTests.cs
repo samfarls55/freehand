@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using System.Text;
+using Freehand.Abstractions;
 using Freehand.Platform.Windows;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace Freehand.Windows.Tests;
 public sealed class ClipboardPasteTests
 {
     [Fact]
-    public void Ole_and_app_specific_clipboard_formats_take_the_paste_route_and_come_back()
+    public async Task Ole_and_app_specific_clipboard_formats_are_pasted_and_come_back()
     {
         // Avalonia, WinForms and Office copy through OLE, which adds its ownership formats.
         var custom = RegisterClipboardFormat("Freehand.Tests.AppSpecific");
@@ -29,9 +30,12 @@ public sealed class ClipboardPasteTests
         var target = field.BeginTrial();
         using (var paste = new WindowsClipboardPaste(target))
         {
-            // Null is the "can't preserve the clipboard" answer that sends the text through per-key typing.
-            Assert.NotNull(paste.Deliver("Pasted, not typed.", CancellationToken.None));
+            // Null would mean "can't preserve the clipboard" and send the text through per-key typing.
+            Assert.Equal(DeliveryOutcome.Delivered, paste.Deliver("Pasted, not typed.", CancellationToken.None));
         }
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+        while (field.ReadText() != "Pasted, not typed." && !deadline.IsCancellationRequested) await Task.Delay(20);
+        Assert.Equal("Pasted, not typed.", field.ReadText());
 
         Assert.True(OpenClipboard(0));
         try
