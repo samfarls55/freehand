@@ -9,7 +9,6 @@ internal sealed class WindowsClipboardPaste : IDisposable
     private const uint UnicodeText = 13;
     private const uint Bitmap = 2;
     private const uint Palette = 9;
-    private const uint EnhancedMetafile = 14;
     private const uint RenderFormat = 0x0305;
     private const uint RenderAllFormats = 0x0306;
     private static readonly TimeSpan ModifierTimeout = TimeSpan.FromSeconds(1);
@@ -210,7 +209,6 @@ internal sealed class WindowsClipboardPaste : IDisposable
         {
             if (handle == 0) continue;
             if (format is Bitmap or Palette) _ = DeleteObject(handle);
-            else if (format == EnhancedMetafile) _ = DeleteEnhMetaFile(handle);
             else _ = GlobalFree(handle);
         }
     }
@@ -242,5 +240,4 @@ internal sealed class WindowsClipboardPaste : IDisposable
     [DllImport("kernel32.dll")] private static extern nint GlobalFree(nint memory);
     [DllImport("ole32.dll")] private static extern nint OleDuplicateData(nint source, ushort format, uint flags);
     [DllImport("gdi32.dll")] [return: MarshalAs(UnmanagedType.Bool)] private static extern bool DeleteObject(nint handle);
-    [DllImport("gdi32.dll")] [return: MarshalAs(UnmanagedType.Bool)] private static extern bool DeleteEnhMetaFile(nint handle);
 }
