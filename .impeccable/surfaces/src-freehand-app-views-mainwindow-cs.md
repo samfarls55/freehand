@@ -1,25 +1,28 @@
-# Freehand Compact native implementation
+---
+version: 1
+slug: "src-freehand-app-views-mainwindow-cs"
+primary_target: "src/Freehand.App/Views/MainWindow.cs"
+related_targets: []
+---
 
-Mode: Operate. Target: `src/Freehand.App/Views/MainWindow.cs` and related Avalonia views.
+# Freehand logo-aligned native interface
+
+Mode: Operate. Target: `src/Freehand.App/Views/MainWindow.cs` and related Avalonia views, the dictionary editor, the recording indicator, the update panel, the quit dialog, and tray text.
 
 ## Direction contract
 
-THESIS: Freehand is a tray-first dictation utility. Its main window manages history, dictionary, and settings through a compact single-column workspace.
+THESIS: The app should look like it came from the same hand as its logo, a soft cream cursive "f" on warm black. It rejects the generic graphite-and-sage utility look and its filler headings, counts, and helper lines.
 
-OWN-WORLD: Port the approved browser prototype into native Avalonia controls. Graphite window, Segoe UI, near-white transcripts, sage selection underline and primary actions. Flat rows with inline Copy and overflow. Red identifies recording. Amber identifies recovery.
+OWN-WORLD: Logo black #12110F ground, warm raised panel #1C1A17, cream #E3DCCB for primary pills, toggles, focus, and selection, warm ink #EEE8DC, warm muted #A39B8E. Pill buttons, 10-DIP fields, 14-DIP groups. The selected tab carries a hand-drawn swash taken from the f's crossbar. Red still means recording, and amber still means attention.
 
-STORY: Sam returns to copy a transcript, correct a recurring phrase, or change a preference. Global dictation continues through the existing engine and platform services.
+STORY: Sam opens Freehand from the tray to copy a transcript, fix a phrase, or change a preference. The f mark and the cream accents say Freehand without any label.
 
-FIRST VIEWPORT: Slim brand and centered text tabs. A 30 DIP page title above a search field. Readable transcript rows with dates, inline actions, and subtle dividers. A small bottom recording control preserves the existing on-screen action. Windows retains its title bar. Native minimum is 720 by 520; default is 880 by 700. Scrolling preserves access at smaller heights.
+FIRST VIEWPORT: The real f mark sits at the left gutter. Centered text tabs have a cream swash under the selected one. There is no page title. Search fills the first row, with that tab's actions beside it. Transcript rows follow. The footer has a centered Record pill and the hotkey as a keycap at the right.
 
-FORM: Compact, approved by Sam from the original direction round, seed 1bb00cfa. This is an implementation of the approved prototype, not another direction round. The prototype and decision comp remain the visual references.
+FORM: Retheme of the approved Compact structure. seed: none (pinned) "It's currently not consistent with the logo and looks a bit generic and AI-generated, including too many subtitles and filler text"; Sam chose "Retheme + cut copy" and "Cream from the logo".
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
 ## Scope
 
-Use real stores and settings. Preserve Right Ctrl, tray lifecycle, nonactivating indicator, preference deferral, model resolution, literal dictionary behavior, retries, retained audio, and text delivery. No dependency, engine, speech, capture, hook, or injection changes. No installed update or GitHub publication.
-
-## Evidence
-
-Native captures under `.impeccable/review/native/` come from Avalonia headless Skia rendering. The test fixtures are synthetic. Captures prove native layout and presentation; they do not prove a physical microphone, hotkey, or delivery to another application.
+Use the existing stores and engine. Do not change dictation, delivery, hotkey, or model behavior. Keep the strings the tests depend on.

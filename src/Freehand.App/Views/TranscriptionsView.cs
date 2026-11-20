@@ -16,10 +16,10 @@ public sealed class TranscriptionsView : UserControl
     private readonly TranscriptStore _store;
     private readonly TextBox _search = Panels.SearchBox("Search history");
     private readonly StackPanel _list = new();
-    private readonly TextBlock _count = Panels.Text("", Tokens.Fonts.Label, muted: true);
     private readonly TextBlock _error = Panels.Text("", Tokens.Fonts.Label);
     private readonly Button _older = Panels.Button("Older", quiet: true);
     private readonly Button _newer = Panels.Button("Newer", quiet: true);
+    private readonly StackPanel _pager;
     private int _page;
 
     /// <summary>Builds the view over the transcript store.</summary>
@@ -35,18 +35,19 @@ public sealed class TranscriptionsView : UserControl
         _older.Click += (_, _) => { _page++; Refresh(); };
         _newer.Click += (_, _) => { _page = Math.Max(0, _page - 1); Refresh(); };
         _error.Foreground = Tokens.Brushes.Attention;
+        _pager = new StackPanel
+        {
+            Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, HorizontalAlignment = HorizontalAlignment.Right,
+            Margin = new Thickness(0, Tokens.Space.Base), Children = { _newer, _older },
+        };
         Content = new DockPanel
         {
             LastChildFill = true,
             Children =
             {
-                Panels.Docked(Panels.Heading("History", more), Dock.Top),
-                Panels.Docked(Panels.SearchRow(_search), Dock.Top),
+                Panels.Docked(Panels.SearchRow(_search, more), Dock.Top),
                 Panels.Docked(_error, Dock.Bottom),
-                Panels.Docked(Panels.Footer(_count, new StackPanel
-                {
-                    Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, Children = { _newer, _older },
-                }), Dock.Bottom),
+                Panels.Docked(_pager, Dock.Bottom),
                 new ScrollViewer { Content = _list, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled },
             },
         };
@@ -70,10 +71,11 @@ public sealed class TranscriptionsView : UserControl
 
     private void Refresh()
     {
-        var records = _store.ReadPage(_search.Text ?? string.Empty, _page);
+        var query = _search.Text ?? string.Empty;
+        var records = _store.ReadPage(query, _page);
         _list.Children.Clear();
-        _count.Text = string.Create(CultureInfo.CurrentCulture, $"{records.Count} transcripts · Page {_page + 1}");
-        _newer.IsEnabled = _page > 0; _older.IsEnabled = records.Count == TranscriptStore.PageSize;
+        _newer.IsEnabled = _page > 0; _older.IsEnabled = records.Count == TranscriptStore.PageSize && _store.ReadPage(query, _page + 1).Count > 0;
+        _pager.IsVisible = _newer.IsEnabled || _older.IsEnabled;
         _error.Text = _store.LastError; _error.IsVisible = !string.IsNullOrEmpty(_store.LastError);
         if (records.Count == 0)
         {

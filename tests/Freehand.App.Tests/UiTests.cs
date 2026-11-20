@@ -170,6 +170,22 @@ public sealed class MainWindowTests
         finally { window.Close(); }
     }
 
+    [AvaloniaTheory]
+    [InlineData(100, false)]
+    [InlineData(101, true)]
+    public void History_pager_appears_only_when_an_older_page_has_transcripts(int count, bool pager)
+    {
+        using var data = new UiData();
+        for (var i = 0; i < count; i++) data.Store.Add(new TranscriptRecord { At = DateTimeOffset.Now, Text = "Transcript " + i });
+        var window = data.Window(); window.Show(); window.ShowSection("History"); window.UpdateLayout();
+        try
+        {
+            var older = window.GetVisualDescendants().OfType<Button>().Single(b => Equals(b.Content, "Older"));
+            older.IsEnabled.ShouldBe(pager); older.IsEffectivelyVisible.ShouldBe(pager);
+        }
+        finally { window.Close(); }
+    }
+
     [AvaloniaFact]
     public void Dictionary_toggle_preserves_focus_when_two_entries_write_the_same_text()
     {

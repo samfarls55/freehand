@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -16,7 +17,6 @@ public sealed class DictionaryView : UserControl
     private readonly DictionaryFile _file;
     private readonly TextBox _search = Panels.SearchBox("Search dictionary");
     private readonly StackPanel _list = new();
-    private readonly TextBlock _count = Panels.Text("", Tokens.Fonts.Label, muted: true);
     private readonly TextBlock _error = Panels.Text("", Tokens.Fonts.Label);
 
     /// <summary>Builds the dictionary view.</summary>
@@ -26,15 +26,16 @@ public sealed class DictionaryView : UserControl
         _search.TextChanged += (_, _) => Refresh();
         var add = Panels.Button("Add entry", primary: true);
         add.Click += (_, _) => ShowEditor(null);
-        var reveal = Panels.Button("Open dictionary.txt", quiet: true);
+        var more = Panels.More("Dictionary actions");
+        var reveal = new MenuItem { Header = "Open dictionary.txt" };
         reveal.Click += (_, _) => OpenInEditor(_file.FilePath);
+        more.ContextMenu = new ContextMenu { Items = { reveal } };
+        more.Click += (_, _) => more.ContextMenu.Open(more);
         _error.Foreground = Tokens.Brushes.Attention;
         Content = new DockPanel { Children =
         {
-            Panels.Docked(Panels.Heading("Dictionary", add), Dock.Top),
-            Panels.Docked(Panels.SearchRow(_search), Dock.Top),
+            Panels.Docked(Panels.SearchRow(_search, add, more), Dock.Top),
             Panels.Docked(_error, Dock.Bottom),
-            Panels.Docked(Panels.Footer(_count, reveal), Dock.Bottom),
             new ScrollViewer { Content = _list, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled },
         } };
         Refresh();
@@ -57,7 +58,6 @@ public sealed class DictionaryView : UserControl
     {
         var entries = _file.Search(_search.Text ?? string.Empty);
         _list.Children.Clear();
-        _count.Text = string.Create(System.Globalization.CultureInfo.CurrentCulture, $"{_file.Entries.Count} entries");
         _error.Text = _file.LastError; _error.IsVisible = !string.IsNullOrEmpty(_error.Text);
         if (entries.Count == 0) _list.Children.Add(Panels.EmptyState(_file.Entries.Count == 0 ? "No dictionary entries yet" : "No matching entries"));
         foreach (var entry in entries) _list.Children.Add(BuildRow(entry));
@@ -84,12 +84,16 @@ public sealed class DictionaryView : UserControl
         more.ContextMenu = new ContextMenu { Items = { delete } };
         more.Click += (_, _) => more.ContextMenu.Open(more);
         var row = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = Tokens.Space.Roomy };
-        row.Children.Add(new StackPanel { Spacing = Tokens.Space.Tight, Opacity = entry.IsEnabled ? 1 : 0.65, Children =
+        var text = new TextBlock
         {
-            Panels.Text(entry.Kind == EntryKind.Correction ? $"{entry.Hear} → {entry.Write}" : entry.Write),
-            Panels.Text(entry.Kind == EntryKind.Correction ? "Correction" : "Saved term", Tokens.Fonts.Label, muted: true),
-        } });
-        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, Children = { enabled, edit, more } };
+            FontFamily = Tokens.Fonts.Grotesque, FontSize = Tokens.Fonts.Transcript, Foreground = Tokens.Brushes.Ink,
+            VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap, Opacity = entry.IsEnabled ? 1 : 0.5,
+        };
+        if (entry.Kind == EntryKind.Correction)
+            text.Inlines!.AddRange([new Run(entry.Hear) { Foreground = Tokens.Brushes.Muted }, new Run("  →  ") { Foreground = Tokens.Brushes.Muted }]);
+        text.Inlines!.Add(new Run(entry.Write));
+        row.Children.Add(text);
+        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, VerticalAlignment = VerticalAlignment.Center, Children = { enabled, edit, more } };
         Grid.SetColumn(actions, 1); row.Children.Add(actions);
         return Panels.Row(row);
     }
