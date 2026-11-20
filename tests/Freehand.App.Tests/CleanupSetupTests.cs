@@ -218,8 +218,13 @@ public sealed class CleanupSetupTests
         return new(directory, Path.Combine(directory, "cleanup-manifest.json"), "fixture-model");
     }
 
-    private static Button FindButton(Control view, string text) => view.GetVisualDescendants().OfType<Button>()
-        .Single(button => Equals(button.Content, text));
+    private static Button FindButton(Control view, string text)
+    {
+        // Folder and reload actions sit inside the collapsed Manage expander.
+        foreach (var expander in view.GetVisualDescendants().OfType<Expander>()) expander.IsExpanded = true;
+        view.UpdateLayout();
+        return view.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, text));
+    }
 
     private static async Task WaitUntilAsync(Func<bool> condition)
     {
