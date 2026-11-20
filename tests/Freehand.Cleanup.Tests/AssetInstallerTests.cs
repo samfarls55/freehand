@@ -92,6 +92,21 @@ public sealed class AssetInstallerTests
     }
 
     [Fact]
+    public async Task Damaged_cached_manifest_is_repaired_by_a_fresh_install()
+    {
+        using var fixture = new Fixture();
+        var installer = fixture.Installer();
+        var first = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        File.WriteAllText(first.ManifestPath, File.ReadAllText(first.ManifestPath)
+            .Replace("\"QuillChatMl\"", "\"Bogus\"", StringComparison.Ordinal));
+
+        var repaired = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+
+        repaired.DirectoryPath.ShouldNotBe(first.DirectoryPath);
+        LlamaCleanupOptions.LoadManifest(repaired.ManifestPath).PromptStyle.ShouldBe(CleanupPromptStyle.QuillChatMl);
+    }
+
+    [Fact]
     public void Adapter_requires_a_specialist_model()
     {
         using var fixture = new Fixture();

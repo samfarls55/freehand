@@ -69,6 +69,9 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'ScribeKey development publish failed.' }
 } finally { Pop-Location }
 if (-not (Test-Path (Join-Path $app 'Freehand.Platform.Windows.dll'))) { throw 'Published Windows platform assembly is missing.' }
+Copy-Item -LiteralPath (Join-Path $projectRoot 'packaging/THIRD-PARTY-NOTICES.txt') -Destination $app
+New-Item -ItemType Directory -Force -Path (Join-Path $app 'licenses') | Out-Null
+Copy-Item -LiteralPath (Join-Path $projectRoot 'docs/UNICODE-DATA-LICENSE.txt') -Destination (Join-Path $app 'licenses/unicode-LICENSE.txt')
 # The packaged self-test starts the actual bundled cleanup worker and adapter.
 & (Join-Path $output 'Start Freehand ScribeKey Dev.ps1') -SelfTest
 if ($LASTEXITCODE -ne 0) { throw 'Published ScribeKey development self-test failed.' }

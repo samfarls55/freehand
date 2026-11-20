@@ -102,7 +102,7 @@ If you change focus during processing or delivery, Freehand keeps the transcript
 
 Freehand usually pastes your transcript in one operation. It marks the transcript so Windows leaves it out of Clipboard History and cloud sync, then restores what you previously copied after the target reads the text. If you copy something else in the meantime, Freehand leaves that copy alone.
 
-If Freehand can't preserve the formats on your clipboard, it types the transcript one character at a time. If the paste can't be confirmed, the transcript may remain on the clipboard so you can paste it yourself.
+If Freehand can't preserve the formats on your clipboard, it types the transcript one character at a time. If the paste can't be confirmed, Freehand still restores your clipboard and keeps the transcript for **Copy** in Freehand.
 
 ### Dictionary corrections
 

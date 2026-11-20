@@ -274,6 +274,8 @@ if ($CliArguments[0] -eq 'publish') {
             @{ libraries = @{}; packageFolders = @{ (Split-Path -Parent $cleanupSdk) = @{} } } | ConvertTo-Json -Depth 4 |
                 Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'src/Freehand.App/obj/project.assets.json')
             Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'packaging/THIRD-PARTY-NOTICES.txt') -Value 'fixture notices'
+            New-Item -ItemType Directory -Force -Path (Join-Path $cleanupFixtureRoot 'docs') | Out-Null
+            Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'docs/UNICODE-DATA-LICENSE.txt') -Value 'fixture Unicode notice'
             Set-Content -LiteralPath (Join-Path $cleanupFixtureRoot 'artifacts/model-cache/jfk.wav') -Value 'fixture audio'
             Mock Get-Process { }
             Mock git { $global:LASTEXITCODE = 0; if ($args[0] -eq 'rev-parse') { 'abc1234' } }

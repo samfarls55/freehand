@@ -357,7 +357,8 @@ public sealed class CleanupAssetInstaller
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
             return Directory.EnumerateFiles(directory, "*", SearchOption.AllDirectories).All(owned.Contains);
         }
-        catch (Exception error) when (error is IOException or UnauthorizedAccessException or JsonException or ArgumentException or InvalidOperationException)
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException or JsonException or ArgumentException
+            or InvalidOperationException or InvalidDataException)
         { return false; }
     }
 

@@ -12,6 +12,7 @@ internal sealed class WindowsClipboardPaste : IDisposable
     private const uint RenderFormat = 0x0305;
     private const uint RenderAllFormats = 0x0306;
     private static readonly TimeSpan ModifierTimeout = TimeSpan.FromSeconds(1);
+    private static readonly TimeSpan RestoreTimeout = TimeSpan.FromSeconds(5);
     private static readonly uint PrivacyFormat = RegisterClipboardFormat("ExcludeClipboardContentFromMonitorProcessing");
     private static readonly HashSet<uint> SupportedFormats =
     [
@@ -55,7 +56,6 @@ internal sealed class WindowsClipboardPaste : IDisposable
         if (!TargetHasFocus()) return DeliveryOutcome.TargetChanged;
         if (!Prepare(text)) return TargetHasFocus() ? null : DeliveryOutcome.TargetChanged;
 
-        var keepForRecovery = false;
         try
         {
             token.ThrowIfCancellationRequested();
@@ -77,11 +77,9 @@ internal sealed class WindowsClipboardPaste : IDisposable
                 else
                 {
                     if (!TargetHasFocus()) return DeliveryOutcome.PartialOrUncertain;
-                    if (Stopwatch.GetElapsedTime(started) >= restoreDelay + TimeSpan.FromSeconds(1))
-                    {
-                        keepForRecovery = true;
-                        return DeliveryOutcome.PartialOrUncertain;
-                    }
+                    // The target ignored the paste. Freehand keeps the transcript for Copy;
+                    // the user's own clipboard must come back.
+                    if (Stopwatch.GetElapsedTime(started) >= restoreDelay + TimeSpan.FromSeconds(1)) return DeliveryOutcome.PartialOrUncertain;
                 }
                 Thread.Sleep(5);
             }
@@ -90,7 +88,7 @@ internal sealed class WindowsClipboardPaste : IDisposable
         }
         finally
         {
-            if (!keepForRecovery) Restore();
+            Restore();
         }
     }
 
@@ -147,7 +145,8 @@ internal sealed class WindowsClipboardPaste : IDisposable
     private void Restore()
     {
         var started = Stopwatch.GetTimestamp();
-        while (GetClipboardOwner() == _window && Stopwatch.GetElapsedTime(started) < ModifierTimeout)
+        // Another app may hold the clipboard open briefly; the saved copy is freed after this.
+        while (GetClipboardOwner() == _window && Stopwatch.GetElapsedTime(started) < RestoreTimeout)
         {
             if (OpenClipboard(_window))
             {

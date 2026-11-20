@@ -124,6 +124,8 @@ foreach ($library in $assets.libraries.GetEnumerator()) {
     if ($nuspec) { Copy-Item -LiteralPath $nuspec.FullName -Destination (Join-Path $notices ($label + '.nuspec')) -Force }
 }
 $index | Set-Content -LiteralPath (Join-Path $notices 'dependencies.txt')
+# Cleanup's literal word table is derived from Unicode data.
+Copy-Item -LiteralPath docs/UNICODE-DATA-LICENSE.txt -Destination (Join-Path $notices 'unicode-LICENSE.txt') -Force
 Copy-Item -LiteralPath (Join-Path (Split-Path $Dotnet) 'LICENSE.txt') -Destination (Join-Path $notices 'dotnet-LICENSE.txt') -Force
 Copy-Item -LiteralPath (Join-Path (Split-Path $Dotnet) 'ThirdPartyNotices.txt') -Destination (Join-Path $notices 'dotnet-ThirdPartyNotices.txt') -Force
 New-FreehandPackageManifest -Directory $publish -Version $version -Build $build
