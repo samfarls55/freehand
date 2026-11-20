@@ -71,9 +71,10 @@ public sealed class TranscriptionsView : UserControl
 
     private void Refresh()
     {
-        var records = _store.ReadPage(_search.Text ?? string.Empty, _page);
+        var query = _search.Text ?? string.Empty;
+        var records = _store.ReadPage(query, _page);
         _list.Children.Clear();
-        _newer.IsEnabled = _page > 0; _older.IsEnabled = records.Count == TranscriptStore.PageSize;
+        _newer.IsEnabled = _page > 0; _older.IsEnabled = records.Count == TranscriptStore.PageSize && _store.ReadPage(query, _page + 1).Count > 0;
         _pager.IsVisible = _newer.IsEnabled || _older.IsEnabled;
         _error.Text = _store.LastError; _error.IsVisible = !string.IsNullOrEmpty(_store.LastError);
         if (records.Count == 0)
