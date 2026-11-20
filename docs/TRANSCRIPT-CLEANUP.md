@@ -9,7 +9,7 @@ with 10 critical meaning errors; the original ScribeKey scored 430. Use
 **Copy original** when cleanup makes a mistake. Training is stopped. Its history,
 datasets and evidence are on the `codex/scribekey-blend-dev` branch.
 
-Choose **Settings > Set up cleanup** to install it. Setup downloads 248,408,334
+The installer bundles it. Packaging downloads 248,408,334
 bytes from the [`cleanup-model-v1`](https://github.com/samfarls55/freehand/releases/tag/cleanup-model-v1)
 release and llama.cpp's own release, pinned in `packaging/cleanup-model-manifest.json`
 and `packaging/cleanup-runtime-manifest.json`. That release is a prerelease, so the
@@ -62,25 +62,23 @@ and in order. This protects literals without relying on a model to copy whitespa
 can disable cleanup, and history offers **Copy original** when cleanup changed
 the text. History persistence still follows the existing preference.
 
-Cleanup setup downloads assets only after an explicit Settings action. The
-application never sends dictated text to a remote inference service. It starts an
+The application never sends dictated text to a remote inference service. It starts an
 owned, authenticated loopback worker using the verified local model and runtime, then unloads the idle worker.
 
-## Set up cleanup in the application
+## Bundled cleanup
 
-The normal Windows installer includes the speech model and the pinned cleanup
-acquisition metadata. Cleanup weights and their native runtime are acquired
-separately, after you choose **Set up cleanup** in Settings. The app displays
-byte progress while downloading and verifies the exact sizes and SHA-256 hashes
-before making a prepared bundle active. Downloads contain model/runtime assets
-and license texts; they do not send your dictation text to an inference service.
+The normal Windows installer includes the speech model and the prepared cleanup
+bundle under `models/cleanup`, so cleanup runs on first launch. The worker
+verifies the bundle's sizes and SHA-256 hashes before loading it. Ordinary
+dictation continues if cleanup assets are missing or damaged. Changing or
+disabling cleanup applies through the existing idle preference coordinator.
 
-Setup writes into the Freehand data profile rather than the application install
-folder. **Cancel setup** stops an active acquisition; a failed or cancelled setup
-keeps any previous verified bundle and offers **Retry setup**. Ordinary dictation
-continues while cleanup assets are absent. After setup, inference uses only the
-local bundle. Changing or disabling cleanup applies through the existing idle
-preference coordinator.
+Installations that ran **Set up cleanup** in an older version keep using that
+profile copy until you choose **Use bundled cleanup**. **Set up cleanup** appears
+only in builds that ship acquisition metadata, such as the `dev.ps1` preview.
+It downloads into the Freehand data profile with progress, cancellation and
+retry, and verifies the exact sizes and SHA-256 hashes before making the bundle
+active.
 
 **Copy original** retrieves the dictionary-corrected, number-formatted transcript
 from before cleanup. With history enabled, it is available beside a saved result
@@ -95,18 +93,16 @@ automatically downloading weights during the build. An existing selected folder
 and an explicit `-CleanupSource` remain selected. The following command is an
 alternative for preparing assets before launching the preview.
 
-`get-cleanup-assets.ps1` prepares bundles without an adapter. It rejects the
-selected manifest, which pins one; use **Set up cleanup** or the ScribeKey
-development preview instead. For another manifest passed with `-ManifestPath`, run
-from the repository root:
+`get-cleanup-assets.ps1` prepares the selected manifest, including its adapter,
+or another manifest passed with `-ManifestPath`. Run from the repository root:
 
 ```powershell
 pwsh -File ./scripts/get-cleanup-assets.ps1
 pwsh -File ./scripts/dev.ps1
 ```
 
-The first command downloads the selected Windows CPU model, native runtime and
-license texts. It verifies their exact sizes and SHA-256 values, verifies the
+The first command downloads the selected Windows CPU model, adapter, native
+runtime and license texts. It verifies their exact sizes and SHA-256 values, verifies the
 runtime executable inside its authenticated archive, and prepares
 `artifacts/cleanup-assets`. This can require a multi-gigabyte download and enough
 disk for both the download cache and the prepared bundle. The existing bundle
@@ -120,22 +116,17 @@ corrupted cache entry is reported instead of being reused. Its path is named by
 the expected hash; remove only that failed cache entry before retrying the
 download.
 
-## Package setup metadata
+## Package the cleanup bundle
 
-`verify.ps1 -Package` and `build-release.ps1` package the validated acquisition
-manifests under `models/cleanup-provisioning`. They do not download or embed the
-cleanup weights, even when a development bundle exists in the local cache. This
-keeps the ordinary CI workspace and installer independent of the cleanup weight
-size. The installed application uses those pinned manifests for explicit Settings
-setup.
+`verify.ps1 -Package` and `build-release.ps1` run `get-cleanup-assets.ps1` for the
+selected manifest and embed the prepared bundle under `models/cleanup`. The
+download cache makes repeat builds offline.
 
 `-CleanupSource` on `build-release.ps1` selects an already prepared custom Windows
 bundle to embed instead. The final installer must remain strictly below 2 GiB to
 fit GitHub Releases and the existing updater; oversized bundles fail packaging.
-Use Settings setup or the isolated development bundle for larger models.
 
-For an explicit baseline package without either cleanup setup metadata or bundled
-cleanup assets, run:
+For an explicit baseline package without bundled cleanup assets, run:
 
 ```powershell
 pwsh -File ./scripts/verify.ps1 -Package -SkipCleanup

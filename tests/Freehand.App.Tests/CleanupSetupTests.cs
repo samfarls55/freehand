@@ -192,7 +192,7 @@ public sealed class CleanupSetupTests
     }
 
     [AvaloniaFact]
-    public async Task Missing_setup_metadata_keeps_the_manual_folder_path_available()
+    public async Task Missing_setup_metadata_hides_setup_and_keeps_the_manual_folder_path_available()
     {
         using var data = new UiData();
         var calls = 0;
@@ -204,7 +204,7 @@ public sealed class CleanupSetupTests
         var window = new Window { Content = view }; window.Show();
         try
         {
-            FindButton(view, "Set up cleanup").IsEnabled.ShouldBeFalse();
+            FindButton(view, "Set up cleanup").IsVisible.ShouldBeFalse();
             FindButton(view, "Use bundled cleanup").IsEnabled.ShouldBeTrue();
             await setup.StartAsync();
             calls.ShouldBe(0);

@@ -244,10 +244,14 @@ public sealed class SettingsView : UserControl
         _cleanupStatus.Foreground = attention ? Tokens.Brushes.Attention : Tokens.Brushes.Muted;
         var setup = _cleanupSetup?.Snapshot;
         var installing = setup?.Phase == CleanupSetupPhase.Installing;
+        // Installers bundle the cleanup model, so download setup appears only where acquisition metadata ships.
+        var canSetUp = _cleanupSetup?.IsAvailable == true;
+        _setupCleanup.IsVisible = canSetUp;
+        _cleanupDownloadDescription.IsVisible = canSetUp;
         _cleanupDownloadDescription.Text = _cleanupSetup is { ModelBytes: > 0 } assets
             ? string.Create(CultureInfo.CurrentCulture, $"Set up downloads about {assets.ModelBytes / 1_000_000_000.0:0.0} GB plus the local runtime. Dictation stays on this computer.")
             : "Set up downloads the selected model and local runtime. Dictation stays on this computer.";
-        _setupCleanup.IsEnabled = _cleanupSetup?.IsAvailable == true && !installing;
+        _setupCleanup.IsEnabled = canSetUp && !installing;
         _setupCleanup.Content = setup?.Phase switch
         {
             CleanupSetupPhase.Cancelled or CleanupSetupPhase.Failed => "Retry setup",
@@ -262,8 +266,7 @@ public sealed class SettingsView : UserControl
         _cleanupSetupProgress.IsVisible = installing;
         _cleanupSetupProgress.IsIndeterminate = setup is null || setup.TotalBytes <= 0;
         _cleanupSetupProgress.Value = setup is { TotalBytes: > 0 } ? Math.Clamp(100.0 * setup.BytesReceived / setup.TotalBytes, 0, 100) : 0;
-        _cleanupSetupStatus.Text = _cleanupSetup?.IsAvailable != true
-            ? "Cleanup setup is unavailable in this build. Choose a prepared model folder or reinstall Freehand."
+        _cleanupSetupStatus.Text = !canSetUp ? ""
             : setup is { Phase: CleanupSetupPhase.Installing, TotalBytes: > 0 }
                 ? string.Create(CultureInfo.CurrentCulture, $"{setup.Status} · {setup.BytesReceived / 1_000_000_000.0:0.0} / {setup.TotalBytes / 1_000_000_000.0:0.0} GB")
                 : setup?.Status ?? "";
