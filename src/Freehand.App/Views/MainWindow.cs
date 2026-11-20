@@ -10,7 +10,7 @@ using Freehand.Core;
 
 namespace Freehand.App.Views;
 
-/// <summary>The Compact history, dictionary, and settings window.</summary>
+/// <summary>The history, dictionary, and settings window.</summary>
 public sealed class MainWindow : Window
 {
     private readonly Composition? _composition;
@@ -19,7 +19,7 @@ public sealed class MainWindow : Window
     private readonly AppSettings? _settings;
     private readonly ContentControl _sectionHost = new();
     private readonly Dictionary<string, Button> _tabs = new(StringComparer.Ordinal);
-    private readonly Dictionary<string, Border> _tabLines = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Control> _tabLines = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Control> _views = new(StringComparer.Ordinal);
     private readonly Button _record = Panels.Button("Record");
     private readonly Lamp _recordLamp = new();
@@ -31,7 +31,7 @@ public sealed class MainWindow : Window
     private readonly TextBox _latest = new() { IsReadOnly = true, TextWrapping = TextWrapping.Wrap, MaxHeight = Tokens.Size.TranscriptHeight, AcceptsReturn = true };
     private readonly Button _retry = Panels.Button("Retry", primary: true);
     private readonly Button _discard = Panels.Button("Discard", quiet: true);
-    private readonly Button _copy = Panels.Button("Copy", quiet: true);
+    private readonly Button _copy = Panels.Button("Copy", primary: true);
     private readonly Button _copyOriginal = Panels.Button("Copy original", quiet: true);
     private readonly Border _feedback;
     private readonly DispatcherTimer _timer;
@@ -102,44 +102,48 @@ public sealed class MainWindow : Window
 
     private DockPanel BuildLayout()
     {
-        var nav = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Snug, HorizontalAlignment = HorizontalAlignment.Center };
+        var nav = new StackPanel { Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Tight, HorizontalAlignment = HorizontalAlignment.Center };
         foreach (var section in new[] { "History", "Dictionary", "Settings" })
         {
             var tab = Panels.Button(section, quiet: true);
             tab.Click += (_, _) => ShowSection(section);
             _tabs.Add(section, tab);
-            var line = new Border { BorderThickness = new Thickness(0, 0, 0, Tokens.Material.NavigationUnderline), Padding = new Thickness(0, Tokens.Space.Snug), Child = tab };
-            _tabLines.Add(section, line); nav.Children.Add(line);
-        }
-        var wordmark = Panels.Text("Freehand", Tokens.Fonts.Section);
-        wordmark.FontWeight = FontWeight.SemiBold;
-        var brand = new StackPanel
-        {
-            Orientation = Orientation.Horizontal, Spacing = Tokens.Space.Base, VerticalAlignment = VerticalAlignment.Center,
-            Children =
+            // The selected tab is marked with the logo's crossbar stroke.
+            var swash = new Avalonia.Controls.Shapes.Path
             {
-                new Avalonia.Controls.Shapes.Path
-                {
-                    Data = Geometry.Parse("M 2 9 V 15 M 7 4 V 20 M 12 1 V 23 M 17 6 V 18 M 22 9 V 15"),
-                    Width = Tokens.Size.BrandMark, Height = Tokens.Size.BrandMark,
-                    Stroke = Tokens.Brushes.Ink, StrokeThickness = Tokens.Material.IconStroke,
-                    StrokeLineCap = PenLineCap.Round, Stretch = Stretch.Uniform,
-                },
-                wordmark,
-            },
+                Data = Geometry.Parse("M 0 6.5 C 8 1.5 15 1.5 22 4 C 30 6.5 37 6 42.5 2 A 3.4 3.4 0 0 1 46.5 7.2 C 39 10.6 30 10 22 7.2 C 15 4.6 8 4.4 0 6.5 Z"),
+                Fill = Tokens.Brushes.Accent, Stretch = Stretch.Uniform,
+                Width = Tokens.Material.SwashWidth, HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            _tabLines.Add(section, swash);
+            nav.Children.Add(new StackPanel { Margin = new Thickness(0, Tokens.Space.Base, 0, Tokens.Space.Snug), Children = { tab, swash } });
+        }
+        var brand = new Image
+        {
+            Source = new Avalonia.Media.Imaging.Bitmap(Avalonia.Platform.AssetLoader.Open(new Uri("avares://Freehand.App/Assets/brand-mark.png"))),
+            Width = Tokens.Size.BrandMark, Height = Tokens.Size.BrandMark,
+            HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center,
         };
+        RenderOptions.SetBitmapInterpolationMode(brand, Avalonia.Media.Imaging.BitmapInterpolationMode.HighQuality);
+        Avalonia.Automation.AutomationProperties.SetName(brand, "Freehand");
         var header = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto,*"),
-            Margin = new Thickness(Tokens.Space.Panel, 0), Children = { brand, nav },
+            Margin = new Thickness(Tokens.Space.Gutter - Tokens.Space.Tight, 0), Children = { brand, nav },
         };
         Grid.SetColumn(nav, 1);
+        var keycap = new Border
+        {
+            BorderBrush = Tokens.Brushes.Seam, BorderThickness = new Thickness(Tokens.Border.Hairline),
+            CornerRadius = new CornerRadius(Tokens.Radius.Field), Padding = new Thickness(Tokens.Space.Snug, Tokens.Space.Tight),
+            HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center, Child = _shortcut,
+        };
         var footer = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,Auto,*"),
-            Margin = new Thickness(Tokens.Space.Gutter, Tokens.Space.Roomy), Children = { _record, _shortcut },
+            Margin = new Thickness(Tokens.Space.Gutter, Tokens.Space.Roomy), Children = { _record, keycap },
         };
-        Grid.SetColumn(_record, 1); Grid.SetColumn(_shortcut, 2); _shortcut.HorizontalAlignment = HorizontalAlignment.Right;
+        Grid.SetColumn(_record, 1); Grid.SetColumn(keycap, 2);
         var root = new DockPanel();
         root.Children.Add(Panels.Docked(new Border
         {
@@ -161,7 +165,7 @@ public sealed class MainWindow : Window
             var selected = string.Equals(name, section, StringComparison.Ordinal);
             CompactTheme.SetButtonResources(tab.Resources, Brushes.Transparent, selected ? Tokens.Brushes.Ink : Tokens.Brushes.Muted);
             tab.FontWeight = selected ? FontWeight.SemiBold : FontWeight.Normal;
-            _tabLines[name].BorderBrush = selected ? Tokens.Brushes.Accent : Brushes.Transparent;
+            _tabLines[name].Opacity = selected ? 1 : 0;
             Avalonia.Automation.AutomationProperties.SetName(tab, name + (selected ? ", selected" : ""));
         }
         if (!_views.TryGetValue(section, out var view))
@@ -171,7 +175,7 @@ public sealed class MainWindow : Window
                 "History" when _transcripts is not null => new TranscriptionsView(_transcripts),
                 "Dictionary" when _dictionary is not null => new DictionaryView(_dictionary),
                 "Settings" when _settings is not null => new SettingsView(_settings, _composition),
-                _ => new StackPanel { Children = { Panels.Heading(section), Panels.EmptyState(section == "History" ? "No transcripts yet" : "No entries yet") } },
+                _ => Panels.EmptyState(section == "History" ? "No transcripts yet" : "No entries yet"),
             };
             _views.Add(section, view);
         }

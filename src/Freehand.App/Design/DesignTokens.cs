@@ -2,24 +2,24 @@ using Avalonia.Media;
 
 namespace Freehand.App.Design;
 
-/// <summary>The approved Compact palette, typography, and native control geometry.</summary>
+/// <summary>Palette, typography, and control geometry drawn from the Freehand logo.</summary>
 internal static class Tokens
 {
     internal static class Colors
     {
-        public static Color Chassis => Color.Parse("#1C1F20");
-        public static Color Panel => Color.Parse("#232728");
-        public static Color Cap => Color.Parse("#252A2A");
+        public static Color Chassis => Color.Parse("#12110F");
+        public static Color Panel => Color.Parse("#1C1A17");
+        public static Color Cap => Color.Parse("#27241F");
         public static Color Deck => Chassis;
-        public static Color Seam => Color.Parse("#343A39");
-        public static Color Ink => Color.Parse("#F1F3F2");
-        public static Color InkSecondary => Color.Parse("#AFB6B3");
+        public static Color Seam => Color.Parse("#2F2B26");
+        public static Color Ink => Color.Parse("#EEE8DC");
+        public static Color InkSecondary => Color.Parse("#A39B8E");
         public static Color InkOnDeck => Ink;
-        public static Color Record => Color.Parse("#F45B55");
-        public static Color Accent => Color.Parse("#B5C9BC");
-        public static Color AccentInk => Color.Parse("#18231C");
+        public static Color Record => Color.Parse("#F0645A");
+        public static Color Accent => Color.Parse("#E3DCCB");
+        public static Color AccentInk => Color.Parse("#12110F");
         public static Color MeterGreen => Accent;
-        public static Color MeterAmber => Color.Parse("#E3BD7B");
+        public static Color MeterAmber => Color.Parse("#E4B66C");
     }
 
     internal static class Brushes
@@ -48,7 +48,6 @@ internal static class Tokens
         public const double Transcript = 16;
         public const double TranscriptLine = 27;
         public const double Section = 17;
-        public const double Title = 30;
     }
 
     internal static class Space
@@ -66,9 +65,9 @@ internal static class Tokens
     internal static class Radius
     {
         public const double Chip = 2;
-        public const double Field = 6;
-        public const double Control = 7;
-        public const double Panel = 8;
+        public const double Field = 10;
+        public const double Control = Size.InputHeight / 2;
+        public const double Panel = 14;
         public const double Status = Size.StatusHeight / 2;
     }
 
@@ -88,7 +87,7 @@ internal static class Tokens
         public const double StatusDimOpacity = 0.35;
         public const double DisabledOpacity = 0.45;
         public const double IconStroke = 1.5;
-        public const double NavigationUnderline = 3;
+        public const double SwashWidth = 46;
     }
 
     internal static class Size
@@ -98,7 +97,7 @@ internal static class Tokens
         public const double MinimumWidth = 720;
         public const double MinimumHeight = 520;
         public const double InputHeight = 38;
-        public const double BrandMark = 24;
+        public const double BrandMark = 30;
         public const double StatusWidth = 208;
         public const double StatusHeight = 44;
         public const double StatusAttentionWidth = 288;

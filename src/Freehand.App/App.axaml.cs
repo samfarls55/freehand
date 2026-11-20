@@ -208,11 +208,11 @@ public partial class App : Application
         {
             ShowMain();
             var dialog = new Window { Title = "Quit Freehand?", Width = Tokens.Size.QuitDialogWidth, SizeToContent = SizeToContent.Height, CanResize = false, WindowStartupLocation = WindowStartupLocation.CenterOwner };
-            var quit = new Button { Content = "Discard recording and quit" };
-            var stay = new Button { Content = "Keep Freehand running" };
+            var quit = Views.Panels.Button("Discard and quit", quiet: true);
+            var stay = Views.Panels.Button("Keep running", primary: true);
             quit.Click += (_, _) => dialog.Close(true); stay.Click += (_, _) => dialog.Close(false);
             dialog.Content = new StackPanel { Margin = new Thickness(Tokens.Space.Panel), Spacing = Tokens.Space.Wide, Children =
-                { new TextBlock { Text = "Quitting will discard the current recording and cancel any pending text delivery.", TextWrapping = Avalonia.Media.TextWrapping.Wrap }, stay, quit } };
+                { Views.Panels.Text("The current recording will be lost."), new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right, Spacing = Tokens.Space.Snug, Children = { quit, stay } } } };
             if (!await dialog.ShowDialog<bool>(_main).ConfigureAwait(true)) return;
         }
         _quitting = true;
