@@ -34,8 +34,8 @@ internal static class Program
         }
         catch (Exception exception) when (exception is ArgumentException or IOException or JsonException or InvalidDataException or UnauthorizedAccessException)
         {
-            Console.Error.WriteLine(exception.GetType().Name + ": " + exception.Message);
-            Console.Error.WriteLine("Usage: Freehand.Cleanup.Probe --input corpus.json --output results.json [--manifest cleanup-manifest.json] [--split development|heldout|all] [--cleanup-timeout-seconds 120]");
+            await Console.Error.WriteLineAsync(exception.GetType().Name + ": " + exception.Message).ConfigureAwait(false);
+            await Console.Error.WriteLineAsync("Usage: Freehand.Cleanup.Probe --input corpus.json --output results.json [--manifest cleanup-manifest.json] [--split development|heldout|all] [--cleanup-timeout-seconds 120]").ConfigureAwait(false);
             return 2;
         }
     }

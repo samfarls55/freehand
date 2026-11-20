@@ -210,7 +210,8 @@ public sealed class DictationEngine : IAsyncDisposable
             _recording = recording; _released = released; SetState(DictationState.Recording);
             var job = _job;
             var cleanupEnabled = _transcriptPostProcessor is not null && _cleanupEnabled();
-            _operation = Task.Run(() => RecordAsync(job, target, recording, released, cleanupEnabled));
+            // RecordAsync owns its recording and lifetime cancellation.
+            _operation = Task.Run(() => RecordAsync(job, target, recording, released, cleanupEnabled), CancellationToken.None);
         }
     }
     private void EndRecording()
@@ -238,7 +239,7 @@ public sealed class DictationEngine : IAsyncDisposable
             if (_speech is ISpeechSession session) await session.BeginWorkAsync(_lifetime.Token).ConfigureAwait(false);
             return await _speech.LoadAsync(_lifetime.Token).ConfigureAwait(false);
         });
-        if (cleanupEnabled) _ = Task.Run(() => WarmCleanupAsync(job));
+        if (cleanupEnabled) _ = Task.Run(() => WarmCleanupAsync(job), CancellationToken.None);
         Task<string>? transcript = null;
         try
         {
@@ -421,7 +422,7 @@ public sealed class DictationEngine : IAsyncDisposable
         {
             var processor = _transcriptPostProcessor!;
             var token = stop.Token;
-            var operation = Task.Run(async () => await processor.ProcessAsync(input, token).ConfigureAwait(false));
+            var operation = Task.Run(async () => await processor.ProcessAsync(input, token).ConfigureAwait(false), token);
             _cleanupPending = operation;
             _ = ObserveCleanupAsync(operation);
             var output = await operation.WaitAsync(_cleanupTimeout, _lifetime.Token).ConfigureAwait(false);
@@ -433,15 +434,15 @@ public sealed class DictationEngine : IAsyncDisposable
             }
             return (restored, restored == original ? TranscriptCleanupOutcome.Unchanged : TranscriptCleanupOutcome.Applied);
         }
-        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { stop.Cancel(); throw; }
+        catch (OperationCanceledException) when (_lifetime.IsCancellationRequested) { await stop.CancelAsync().ConfigureAwait(false); throw; }
         catch (TimeoutException)
         {
-            stop.Cancel(); _log?.Write(job, "cleanup-timeout");
+            await stop.CancelAsync().ConfigureAwait(false); _log?.Write(job, "cleanup-timeout");
             return (original, TranscriptCleanupOutcome.TimedOut);
         }
         catch (Exception e)
         {
-            stop.Cancel(); _log?.Write(job, "cleanup-" + e.GetType().Name);
+            await stop.CancelAsync().ConfigureAwait(false); _log?.Write(job, "cleanup-" + e.GetType().Name);
             return (original, TranscriptCleanupOutcome.Failed);
         }
     }

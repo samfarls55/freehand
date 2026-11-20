@@ -181,9 +181,10 @@ public sealed class CleanupAssetInstaller
 
     private static async Task PrepareRuntimeAsync(string stage, Plan plan, CancellationToken token)
     {
-        var extracted = Path.Combine(stage, ".runtime-extract");
+        var extracted = Path.GetFullPath(Path.Combine(stage, ".runtime-extract"));
+        var extractedRoot = extracted + Path.DirectorySeparatorChar;
         Directory.CreateDirectory(extracted);
-        using (var archive = ZipFile.OpenRead(Path.Combine(stage, "runtime.zip")))
+        await using (var archive = await ZipFile.OpenReadAsync(Path.Combine(stage, "runtime.zip"), token).ConfigureAwait(false))
         {
             var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             long expanded = 0;
@@ -198,10 +199,12 @@ public sealed class CleanupAssetInstaller
                     throw new InvalidDataException("The cleanup runtime archive contains a link or unsupported file type.");
                 expanded = checked(expanded + entry.Length);
                 if (expanded > MaximumExtractedBytes) throw new InvalidDataException("The cleanup runtime archive is too large after extraction.");
-                var path = Path.Combine(extracted, relative.TrimEnd('/'));
+                var path = Path.GetFullPath(Path.Combine(extracted, relative.TrimEnd('/')));
+                if (!path.StartsWith(extractedRoot, StringComparison.OrdinalIgnoreCase))
+                    throw new InvalidDataException("The cleanup runtime archive contains an unsafe path.");
                 if (relative.EndsWith('/')) { Directory.CreateDirectory(path); continue; }
                 Directory.CreateDirectory(Path.GetDirectoryName(path)!);
-                await using var source = entry.Open();
+                await using var source = await entry.OpenAsync(token).ConfigureAwait(false);
                 await using var target = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.None,
                     131072, FileOptions.Asynchronous | FileOptions.SequentialScan);
                 var buffer = new byte[131072];

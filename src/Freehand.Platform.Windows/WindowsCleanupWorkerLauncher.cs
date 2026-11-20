@@ -72,7 +72,7 @@ public sealed class WindowsCleanupWorkerLauncher : ICleanupWorkerLauncher
             _process = process; _job = job; Id = process.Id;
             _output = DrainAsync(process.StandardOutput, _drainCancellation.Token);
             _error = DrainAsync(process.StandardError, _drainCancellation.Token);
-            _exited = process.WaitForExitAsync();
+            _exited = process.WaitForExitAsync(CancellationToken.None);
         }
 
         public int Id { get; }
@@ -103,12 +103,12 @@ public sealed class WindowsCleanupWorkerLauncher : ICleanupWorkerLauncher
             try
             {
                 _job.Dispose();
-                await _exited.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                await _exited.WaitAsync(TimeSpan.FromSeconds(5), CancellationToken.None).ConfigureAwait(false);
             }
             finally
             {
                 await _drainCancellation.CancelAsync().ConfigureAwait(false);
-                try { await Task.WhenAll(_output, _error).WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false); }
+                try { await Task.WhenAll(_output, _error).WaitAsync(TimeSpan.FromSeconds(2), CancellationToken.None).ConfigureAwait(false); }
                 finally
                 {
                     lock (_sync) { _disposed = true; _process.Dispose(); }

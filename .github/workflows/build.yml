@@ -59,13 +59,16 @@ jobs:
             '/d:sonar.coverageReportPaths=artifacts/coverage/scripts.xml'
             '/d:sonar.test.inclusions=tests/**'
             '/d:sonar.coverage.exclusions=tools/**,scripts/dev-accuracy.ps1,scripts/evaluate-dictation.ps1,scripts/prepare-dictation-fixtures.py,src/Freehand.Speech/GgmlTranscriber.cs,src/Freehand.Speech/SpeechPresenceDetector.cs,src/Freehand.App/DesktopDeliveryBenchmark.cs,src/Freehand.App/EngineeringChecks.cs,src/Freehand.Platform.Windows/WindowsGpuMemoryReader.cs,src/Freehand.Platform.Windows/WindowsDeliveryProbe.cs'
-            '/d:sonar.issue.ignore.multicriteria=cliScore,cliFixtures,exactBoundary'
+            '/d:sonar.issue.ignore.multicriteria=cliScore,cliFixtures,exactBoundary,exactAdapterScale'
             '/d:sonar.issue.ignore.multicriteria.cliScore.ruleKey=pythonsecurity:S8707'
             '/d:sonar.issue.ignore.multicriteria.cliScore.resourceKey=tools/Freehand.Evaluation/score_reports.py'
             '/d:sonar.issue.ignore.multicriteria.cliFixtures.ruleKey=pythonsecurity:S8707'
             '/d:sonar.issue.ignore.multicriteria.cliFixtures.resourceKey=scripts/prepare-dictation-fixtures.py'
             '/d:sonar.issue.ignore.multicriteria.exactBoundary.ruleKey=python:S1244'
             '/d:sonar.issue.ignore.multicriteria.exactBoundary.resourceKey=tools/Freehand.Evaluation/score_reports.py'
+            # An adapter scale of exactly 1 selects llama.cpp's unscaled --lora option.
+            '/d:sonar.issue.ignore.multicriteria.exactAdapterScale.ruleKey=csharpsquid:S1244'
+            '/d:sonar.issue.ignore.multicriteria.exactAdapterScale.resourceKey=src/Freehand.Cleanup/Llama*.cs'
           )
           & $scanner begin @analysisOptions
           if ($LASTEXITCODE -ne 0) { throw 'SonarQube initialization failed.' }

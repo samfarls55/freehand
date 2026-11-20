@@ -292,7 +292,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
             var read = await stream.ReadAsync(buffer, token).ConfigureAwait(false);
             if (read == 0) break;
             if (bytes.Length + read > MaximumResponseBytes) throw new InvalidDataException("The cleanup response exceeds the allowed size.");
-            bytes.Write(buffer, 0, read);
+            await bytes.WriteAsync(buffer.AsMemory(0, read), token).ConfigureAwait(false);
         }
         try { return JsonDocument.Parse(bytes.GetBuffer().AsMemory(0, checked((int)bytes.Length)), new JsonDocumentOptions { MaxDepth = 32 }); }
         catch (JsonException) { throw new InvalidDataException("The cleanup runtime returned malformed JSON."); }
@@ -375,7 +375,8 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
         _apiKey = null;
         if (process is null) return;
         try { if (!process.HasExited) process.Terminate(); }
-        finally { await process.DisposeAsync().AsTask().WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false); }
+        // Disposal must finish even after the provider's lifetime is cancelled.
+        finally { await process.DisposeAsync().AsTask().WaitAsync(TimeSpan.FromSeconds(5), CancellationToken.None).ConfigureAwait(false); }
     }
 
     /// <inheritdoc />
@@ -386,7 +387,7 @@ public sealed class LlamaTranscriptPostProcessor : ITranscriptPostProcessor
         CancelIdle();
         try
         {
-            await _gate.WaitAsync().ConfigureAwait(false);
+            await _gate.WaitAsync(CancellationToken.None).ConfigureAwait(false);
             try { await StopWorkerAsync().ConfigureAwait(false); }
             finally { _gate.Release(); }
             await _idleTask.ConfigureAwait(false);

@@ -111,7 +111,7 @@ public static class SelfTest
         catch (Exception exception)
         {
             // Neither native output nor response text belongs in startup diagnostics.
-            Console.Error.WriteLine("  [FAIL] bundled cleanup startup/completion: " + exception.GetType().Name);
+            await Console.Error.WriteLineAsync("  [FAIL] bundled cleanup startup/completion: " + exception.GetType().Name).ConfigureAwait(false);
             return 1;
         }
     }
@@ -163,7 +163,7 @@ public static class SelfTest
                      && reopened.Records[0].Corrections?[0].To == "Claude Code"
                      && reopened.Records[0].OriginalText == "um Claude Code"
                      && reopened.Records[0].CleanupOutcome == TranscriptCleanupOutcome.Applied
-                     && reopened.Records[0].CleanupSeconds == 0.5;
+                     && Math.Abs(reopened.Records[0].CleanupSeconds.GetValueOrDefault() - 0.5) < 1e-9;
 
             var settings = new AppSettings(Path.Combine(directory, "settings.json"));
             settings.Update(settings.Data with { PushToTalkKey = 0x7C, PushToTalkKeys = [0x7C, 0xA3], CleanupEnabled = false, CleanupDirectory = directory });
