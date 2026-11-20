@@ -54,6 +54,53 @@ public sealed class AssetInstallerTests
     }
 
     [Fact]
+    public async Task Adapter_setup_downloads_pins_and_reuses_the_adapter()
+    {
+        using var fixture = new Fixture();
+        var adapter = Encoding.UTF8.GetBytes("fixture adapter");
+        fixture.SetAdapter(adapter);
+        var installer = fixture.Installer();
+        CleanupAssetInstaller.ValidateAcquisitionMetadata(fixture.ModelManifest, fixture.RuntimeManifest).DownloadBytes
+            .ShouldBeGreaterThan(adapter.Length + fixture.ModelBytes.Length);
+
+        var installed = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+        var options = LlamaCleanupOptions.LoadManifest(installed.ManifestPath);
+
+        options.AdapterPath.ShouldBe(Path.Combine(installed.DirectoryPath, "adapter.gguf"));
+        options.AdapterSha256.ShouldBe(Hash(adapter), StringCompareShould.IgnoreCase);
+        options.AdapterScale.ShouldBe(1);
+        options.Artifacts.ShouldContain(artifact => artifact.Path == options.AdapterPath && artifact.Size == adapter.Length);
+        var requests = fixture.Transport.RequestCount;
+        (await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest)).DirectoryPath.ShouldBe(installed.DirectoryPath);
+        fixture.Transport.RequestCount.ShouldBe(requests);
+    }
+
+    [Fact]
+    public async Task Changed_adapter_pin_installs_a_fresh_bundle()
+    {
+        using var fixture = new Fixture();
+        fixture.SetAdapter(Encoding.UTF8.GetBytes("first adapter"));
+        var installer = fixture.Installer();
+        var first = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+
+        fixture.SetAdapter(Encoding.UTF8.GetBytes("second adapter"));
+        var second = await installer.InstallAsync(fixture.ModelManifest, fixture.RuntimeManifest);
+
+        second.DirectoryPath.ShouldNotBe(first.DirectoryPath);
+        LlamaCleanupOptions.LoadManifest(second.ManifestPath).AdapterSha256
+            .ShouldBe(Hash(Encoding.UTF8.GetBytes("second adapter")), StringCompareShould.IgnoreCase);
+    }
+
+    [Fact]
+    public void Adapter_requires_a_specialist_model()
+    {
+        using var fixture = new Fixture();
+        fixture.SetAdapter(Encoding.UTF8.GetBytes("adapter"), promptStyle: "Qwen35");
+
+        Should.Throw<InvalidDataException>(() => CleanupAssetInstaller.ValidateAcquisitionMetadata(fixture.ModelManifest, fixture.RuntimeManifest));
+    }
+
+    [Fact]
     public async Task Specialist_setup_preserves_the_complete_explicit_profile_and_reuses_it()
     {
         using var fixture = new Fixture();
@@ -449,6 +496,13 @@ public sealed class AssetInstallerTests
             foreach (var setting in overrides) settings[setting.Key] = setting.Value;
             _model["Inference"] = settings;
             _model["PromptStyle"] = "S1Mini";
+            File.WriteAllText(ModelManifest, JsonSerializer.Serialize(_model));
+        }
+        internal void SetAdapter(byte[] bytes, string promptStyle = "ScribeKeyFast")
+        {
+            Transport.Payloads["/adapter"] = bytes;
+            _model["Adapter"] = Artifact("adapter", bytes);
+            _model["PromptStyle"] = promptStyle;
             File.WriteAllText(ModelManifest, JsonSerializer.Serialize(_model));
         }
         internal void SetModel(byte[] bytes)

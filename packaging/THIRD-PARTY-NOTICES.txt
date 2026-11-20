@@ -18,6 +18,20 @@ Copyright the sherpa-onnx contributors. Apache License 2.0.
 https://github.com/k2-fsa/sherpa-onnx
 Its native distribution includes ONNX Runtime, MIT license.
 
+Optional transcript cleanup model, downloaded only after Settings > Set up cleanup
+Freehand cleanup V8-V9. Derived from ScribeKey Fast by ScribeKey.
+Based on ScribeKey Fast v1.1 by ScribeKey, Sotto by juanquivilla (MIT) and
+LFM2.5-350M-Base by Liquid AI, Inc. Freehand quantized the ScribeKey Fast weights to
+IQ4_XS and trained a separate LoRA adapter. No endorsement is implied.
+Licenses: LFM Open License v1.0 and the ScribeKey Fast Model Terms v1.0. The complete
+license, NOTICE and modification records are installed with the model under
+licenses/model and published at
+https://github.com/samfarls55/freehand/releases/tag/cleanup-model-v1
+
+llama.cpp b12015, downloaded with the optional cleanup model
+Copyright the llama.cpp contributors. MIT license.
+https://github.com/ggml-org/llama.cpp/releases/tag/b12015
+
 NAudio 2.3.0, Avalonia 11.3.20, SkiaSharp and their resolved dependencies
 See licenses/dependencies.txt and the included package license texts and metadata
 for exact versions and notices.

@@ -77,6 +77,11 @@ if ($selected.SchemaVersion -ne 1 -or $runtime.SchemaVersion -ne 1 -or
     $runtime.SourceCommit -notmatch '\A[0-9a-fA-F]{40}\z') {
     throw 'Cleanup acquisition manifests require a selected model, prompt style and immutable source revisions.'
 }
+$adapter = $selected.PSObject.Properties['Adapter']
+if ($null -ne $adapter) {
+    Assert-CleanupDownload $adapter.Value
+    if ($selected.PromptStyle -in @('Qwen35', 'Ministral3', 'Gemma4', 'GenericChat')) { throw 'A cleanup adapter requires a specialist model.' }
+}
 $artifacts = @($runtime.Artifacts | Where-Object { $_.Platform -eq $Platform })
 if ($artifacts.Count -ne 1) { throw 'Cleanup runtime manifest must select exactly one artifact for the requested platform.' }
 $native = $artifacts[0]
@@ -144,6 +149,9 @@ if ($ValidateManifestOnly) {
         ModelManifestPath = (Resolve-Path -LiteralPath $ManifestPath).Path
         RuntimeManifestPath = (Resolve-Path -LiteralPath $RuntimeManifestPath).Path
     }
+}
+if ($null -ne $adapter) {
+    throw 'This manifest pins a cleanup adapter. Use Settings > Set up cleanup, or scripts/dev-scribekey.ps1 for a development preview.'
 }
 
 $CacheDirectory = [IO.Path]::GetFullPath($CacheDirectory)

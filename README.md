@@ -8,7 +8,7 @@ The installer includes the speech model and runtime. Optional cleanup assets are
 
 [Download for Windows x64](https://github.com/samfarls55/freehand/releases/latest) · [Report a problem](https://github.com/samfarls55/freehand/issues) · [Build from source](#build-from-source)
 
-Cleanup is experimental. To try the local ScribeKey cleanup model, see the [development preview](docs/TRANSCRIPT-CLEANUP.md#try-the-scribekey-development-preview).
+Cleanup is experimental and opt-in. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for its accuracy and licensing.
 
 ## What it does
 
@@ -144,7 +144,7 @@ The selected model can still weaken emphasis, add formatting, or leave spoken co
 
 When cleanup changes the text, **Copy original** retrieves the dictionary-corrected, number-formatted transcript from before model editing. With history enabled, the original is available beside the saved result. With history disabled, the main window still offers **Copy** and **Copy original** for the latest result held in memory; that result is not saved and lasts until replaced or you quit Freehand.
 
-Choose **Set up cleanup** in the **Cleanup model** section of Settings to download the pinned model and runtime. Setup displays download progress, verifies the assets, and installs them into your local data profile. Use **Cancel setup** to stop or **Retry setup** after a failure. Missing cleanup assets leave ordinary dictation available. You can also select a prepared local bundle or reload existing assets. Cleanup runs locally with no account, API key or separate model service. Its worker unloads after its configured idle interval, independently of the speech-model timeout.
+Choose **Set up cleanup** in the **Cleanup model** section of Settings to download the pinned model and runtime, about 250 MB. The model is derived from ScribeKey Fast by ScribeKey; its licenses are installed with it. Setup displays download progress, verifies the assets, and installs them into your local data profile. Use **Cancel setup** to stop or **Retry setup** after a failure. Missing cleanup assets leave ordinary dictation available. You can also select a prepared local bundle or reload existing assets. Cleanup runs locally with no account, API key or separate model service. Its worker unloads after its configured idle interval, independently of the speech-model timeout.
 
 For source builds, asset preparation and the explicit speech-only package option, see [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md).
 
@@ -248,7 +248,7 @@ pwsh -File .\scripts\build-release.ps1 -Dotnet (Get-Command dotnet).Source -Mode
 
 That directory must contain the files listed in [packaging/model-manifest.json](packaging/model-manifest.json). A different model revision will fail verification. The cache is only a build input. The installed app uses its own bundled speech files; Settings cleanup setup keeps its separate assets in the local data profile.
 
-The isolated `dev.ps1` preview includes validated setup metadata without downloading cleanup weights, so **Set up cleanup** is available in its Settings. To prepare a bundle before launching instead, run `pwsh -File ./scripts/get-cleanup-assets.ps1` and then `dev.ps1`. Existing profile selections and an explicit `-CleanupSource` are preserved. Release packaging includes only setup metadata for the selected default. Use `build-release.ps1 -SkipCleanup` or `verify.ps1 -Package -SkipCleanup` when deliberately creating a baseline package with no cleanup assets or setup metadata. `-CleanupSource` on `build-release.ps1` embeds an already verified custom bundle, provided the final installer remains below the 2 GiB release limit. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for offline cache reuse and exact artifact verification.
+The isolated `dev.ps1` preview includes validated setup metadata without downloading cleanup weights, so **Set up cleanup** is available in its Settings. To run the selected model from LFS instead, use `pwsh -File ./scripts/dev-scribekey.ps1`. Existing profile selections and an explicit `-CleanupSource` are preserved. Release packaging includes only setup metadata for the selected default. Use `build-release.ps1 -SkipCleanup` or `verify.ps1 -Package -SkipCleanup` when deliberately creating a baseline package with no cleanup assets or setup metadata. `-CleanupSource` on `build-release.ps1` embeds an already verified custom bundle, provided the final installer remains below the 2 GiB release limit. See [local transcript cleanup](docs/TRANSCRIPT-CLEANUP.md) for offline cache reuse and exact artifact verification.
 
 Build outputs are:
 

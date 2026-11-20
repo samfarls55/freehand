@@ -9,6 +9,22 @@ with 10 critical meaning errors; the original ScribeKey scored 430. Use
 **Copy original** when cleanup makes a mistake. Training is stopped. Its history,
 datasets and evidence are on the `codex/scribekey-blend-dev` branch.
 
+Choose **Settings > Set up cleanup** to install it. Setup downloads 248,408,334
+bytes from the [`cleanup-model-v1`](https://github.com/samfarls55/freehand/releases/tag/cleanup-model-v1)
+release and llama.cpp's own release, pinned in `packaging/cleanup-model-manifest.json`
+and `packaging/cleanup-runtime-manifest.json`. That release is a prerelease, so the
+app updater ignores it.
+
+## Licensing
+
+The weights are **Derived from ScribeKey Fast by ScribeKey** and inherit the LFM Open
+License v1.0 and the ScribeKey Fast Model Terms v1.0. Every place that names the
+model, including the manifest's `ModelId` and `DisplayName`, must carry that credit,
+and the license, `NOTICE` and modification files must travel with the weights.
+Setup installs them under `licenses/model`. The LFM license restricts commercial use
+only for organizations with $10 million or more in annual revenue. A new model
+release must describe its changes in `FREEHAND-MODIFICATIONS.md`.
+
 ## Try the ScribeKey development preview
 
 Use Windows x64, PowerShell 7 and Git LFS. Quit the installed Freehand from its
@@ -79,13 +95,10 @@ automatically downloading weights during the build. An existing selected folder
 and an explicit `-CleanupSource` remain selected. The following command is an
 alternative for preparing assets before launching the preview.
 
-**Set up cleanup** still downloads the earlier Qwen3.5 9B prototype (Unsloth Q8_0),
-pinned in `packaging/cleanup-model-manifest.json`. Its weight file is 9,527,502,048
-bytes. The ScribeKey blend is not hosted for download; use the development preview
-above. The
-llama.cpp release and complete archive digest are pinned separately in
-`packaging/cleanup-runtime-manifest.json`. To acquire assets explicitly for an
-isolated development preview, run from the repository root:
+`get-cleanup-assets.ps1` prepares bundles without an adapter. It rejects the
+selected manifest, which pins one; use **Set up cleanup** or the ScribeKey
+development preview instead. For another manifest passed with `-ManifestPath`, run
+from the repository root:
 
 ```powershell
 pwsh -File ./scripts/get-cleanup-assets.ps1

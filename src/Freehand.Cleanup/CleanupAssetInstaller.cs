@@ -97,6 +97,7 @@ public sealed class CleanupAssetInstaller
                 (plan.RuntimeLicense, "licenses/runtime-LICENSE.txt", "Downloading runtime license"),
                 (plan.Archive, "runtime.zip", "Downloading cleanup runtime"),
             };
+            if (plan.Adapter is not null) downloads.Insert(1, (plan.Adapter, "adapter.gguf", "Downloading cleanup adapter"));
             downloads.AddRange(plan.Notices.Select(notice => (notice, "licenses/model/" + notice.Name, "Downloading model notices")));
             long received = 0;
             foreach (var download in downloads)
@@ -277,6 +278,11 @@ public sealed class CleanupAssetInstaller
             writer.WriteString("runtimeSha256", plan.ExecutableSha256);
             writer.WriteString("modelPath", "model.gguf");
             writer.WriteString("modelSha256", plan.Model.Sha256);
+            if (plan.Adapter is not null)
+            {
+                writer.WriteString("adapterPath", "adapter.gguf");
+                writer.WriteString("adapterSha256", plan.Adapter.Sha256);
+            }
             writer.WriteString("modelId", plan.ModelId);
             writer.WriteString("promptStyle", plan.PromptStyle);
             writer.WriteString("modelSourceUrl", plan.Model.Source.AbsoluteUri);
@@ -313,7 +319,9 @@ public sealed class CleanupAssetInstaller
                 ? configuredPlatform.ValueKind == JsonValueKind.String ? configuredPlatform.GetString() : null : "win-x64-cpu";
             if (platform != plan.RuntimePlatform) return false;
             if (options.ModelId != plan.ModelId || options.ModelSha256 != plan.Model.Sha256 || options.RuntimeSha256 != plan.ExecutableSha256
-                || options.AdapterPath is not null
+                || (plan.Adapter is null ? options.AdapterPath is not null
+                    : !string.Equals(options.AdapterSha256, plan.Adapter.Sha256, StringComparison.OrdinalIgnoreCase)
+                        || !string.Equals(options.AdapterPath, Path.Combine(directory, "adapter.gguf"), StringComparison.OrdinalIgnoreCase))
                 || options.PromptStyle.ToString() != plan.PromptStyle
                 || options.Threads != plan.Inference["Threads"] || options.ContextSize != plan.Inference["ContextSize"]
                 || options.MaxOutputTokens != plan.Inference["MaxOutputTokens"] || options.GpuLayers != plan.Inference["GpuLayers"]
@@ -335,6 +343,7 @@ public sealed class CleanupAssetInstaller
                 ("licenses/runtime-LICENSE.txt", plan.RuntimeLicense.Sha256, plan.RuntimeLicense.Size),
             };
             required.AddRange(plan.Notices.Select(notice => ("licenses/model/" + notice.Name, notice.Sha256, (long?)notice.Size)));
+            if (plan.Adapter is not null) required.Add(("adapter.gguf", plan.Adapter.Sha256, plan.Adapter.Size));
             if (required.Any(expected => !options.Artifacts.Any(actual =>
                 actual.Path.Equals(Path.GetFullPath(expected.Path, directory), StringComparison.OrdinalIgnoreCase)
                 && actual.Sha256.Equals(expected.Hash, StringComparison.OrdinalIgnoreCase)
@@ -368,11 +377,12 @@ public sealed class CleanupAssetInstaller
 
     private sealed record Artifact(Uri Source, string Sha256, long Size, string? Name = null);
     private sealed record Plan(string ModelId, string PromptStyle, string ModelRevision, string RuntimeRevision, string RuntimePlatform,
-        Artifact Model, Artifact ModelLicense, Artifact RuntimeLicense, Artifact Archive, Artifact[] Notices,
+        Artifact Model, Artifact? Adapter, Artifact ModelLicense, Artifact RuntimeLicense, Artifact Archive, Artifact[] Notices,
         string ExecutableSha256, IReadOnlyDictionary<string, int> Inference,
         bool MaskSpecialistLiterals, SpecialistLiteralProtocol SpecialistLiteralProtocol, bool Repack, string CacheTypeK, string CacheTypeV)
     {
-        internal long TotalBytes => checked(Model.Size + ModelLicense.Size + RuntimeLicense.Size + Archive.Size + Notices.Sum(notice => notice.Size));
+        internal long TotalBytes => checked(Model.Size + (Adapter?.Size ?? 0) + ModelLicense.Size + RuntimeLicense.Size + Archive.Size
+            + Notices.Sum(notice => notice.Size));
     }
 
     private static Plan ReadPlan(byte[] modelBytes, byte[] runtimeBytes)
@@ -395,6 +405,10 @@ public sealed class CleanupAssetInstaller
         if (weights.Source.Host.Equals("huggingface.co", StringComparison.OrdinalIgnoreCase)
             && !weights.Source.AbsolutePath.Contains("/resolve/" + revision + "/", StringComparison.Ordinal))
             throw new InvalidDataException("Hugging Face cleanup downloads must resolve the pinned revision.");
+        var adapter = selected.TryGetProperty("Adapter", out var adapterInfo) ? ReadArtifact(adapterInfo) : null;
+        if (adapter is not null && (CleanupPrompt.IsGeneral(parsed) || adapter.Source.Host.Equals("huggingface.co", StringComparison.OrdinalIgnoreCase)
+            && !adapter.Source.AbsolutePath.Contains("/resolve/" + revision + "/", StringComparison.Ordinal)))
+            throw new InvalidDataException("A cleanup adapter requires a specialist model and its pinned revision.");
         var runtimePlatform = selected.TryGetProperty("RuntimePlatform", out _) ? Text(selected, "RuntimePlatform") : "win-x64-cpu";
         if (runtimePlatform is not ("win-x64-cpu" or "win-x64-vulkan"))
             throw new InvalidDataException("Cleanup setup requires a supported pinned Windows runtime platform.");
@@ -443,7 +457,7 @@ public sealed class CleanupAssetInstaller
         } : SpecialistLiteralProtocol.CompactV3;
         if (literalProtocol == SpecialistLiteralProtocol.CompactV4 && (!maskSpecialistLiterals || CleanupPrompt.IsGeneral(parsed)))
             throw new InvalidDataException("Specialist literal v4 requires an enabled specialist mask.");
-        return new(id, style, revision, runtimeRevision, runtimePlatform, weights, license, runtimeLicense, archive, notices, executableHash, settings,
+        return new(id, style, revision, runtimeRevision, runtimePlatform, weights, adapter, license, runtimeLicense, archive, notices, executableHash, settings,
             maskSpecialistLiterals, literalProtocol, OptionalBoolean(inference, "Repack", true),
             CacheType(inference, "CacheTypeK"), CacheType(inference, "CacheTypeV"));
     }
