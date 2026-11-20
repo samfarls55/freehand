@@ -40,6 +40,8 @@ public sealed class SettingsView : UserControl
     private readonly ProgressBar _cleanupSetupProgress = new() { Minimum = 0, Maximum = 100, IsVisible = false };
     private readonly Button _setupCleanup = Panels.Button("Set up cleanup", primary: true);
     private readonly Button _cancelCleanupSetup = Panels.Button("Cancel setup", quiet: true);
+    private readonly Button _speechFolder = Panels.Button("Open speech folder", quiet: true);
+    private readonly Button _cleanupFolder = Panels.Button("Open cleanup folder", quiet: true);
     private readonly Button _bundledModel = Panels.Button("Use bundled speech model", quiet: true);
     private readonly Button _chooseCleanup = Panels.Button("Choose cleanup folder", quiet: true);
     private readonly Button _bundledCleanup = Panels.Button("Use bundled cleanup", quiet: true);
@@ -144,10 +146,6 @@ public sealed class SettingsView : UserControl
     private StackPanel BuildModelsSection()
     {
         _bundledModel.Click += (_, _) => Save(_settings.Data with { ModelDirectory = null });
-        var speechFolder = Panels.Button("Open speech folder", quiet: true);
-        speechFolder.Click += (_, _) => _composition?.Desktop?.Open(_speechDirectory);
-        var cleanupFolder = Panels.Button("Open cleanup folder", quiet: true);
-        cleanupFolder.Click += (_, _) => _composition?.Desktop?.Open(_settings.Data.CleanupDirectory ?? ConfiguredTranscriptPostProcessor.DefaultDirectory);
         var repair = Panels.Button("Repair speech model", quiet: true);
         repair.Click += (_, _) =>
         {
@@ -160,8 +158,10 @@ public sealed class SettingsView : UserControl
             if (_composition is null) return;
             Directory.CreateDirectory(_composition.Logs.DirectoryPath); _composition.Desktop?.Open(_composition.Logs.DirectoryPath);
         };
+        _speechFolder.Click += (_, _) => _composition?.Desktop?.Open(_speechDirectory);
+        _cleanupFolder.Click += (_, _) => _composition?.Desktop?.Open(_settings.Data.CleanupDirectory ?? ConfiguredTranscriptPostProcessor.DefaultDirectory);
         // A standalone headless view cannot launch platform actions.
-        speechFolder.IsEnabled = cleanupFolder.IsEnabled = repair.IsEnabled = logs.IsEnabled = _composition is not null;
+        repair.IsEnabled = logs.IsEnabled = _composition is not null;
         _setupCleanup.Click += async (_, _) =>
         {
             if (_cleanupSetup is not null) await _cleanupSetup.StartAsync().ConfigureAwait(true);
@@ -202,7 +202,7 @@ public sealed class SettingsView : UserControl
             new Expander { Header = "Manage", HorizontalAlignment = HorizontalAlignment.Stretch,
                 Content = new WrapPanel { ItemSpacing = Tokens.Space.Snug, LineSpacing = Tokens.Space.Snug, Children =
                 {
-                    speechFolder, cleanupFolder, _chooseCleanup, _bundledModel, _bundledCleanup, _reloadCleanup, repair, logs,
+                    _speechFolder, _cleanupFolder, _chooseCleanup, _bundledModel, _bundledCleanup, _reloadCleanup, repair, logs,
                 } },
             },
         } };
@@ -227,6 +227,8 @@ public sealed class SettingsView : UserControl
         _modelError.Text = found || preparing ? "" : _composition?.Models.Error ?? "Run the installer again to verify and repair the bundled model.";
         _modelError.IsVisible = !string.IsNullOrEmpty(_modelError.Text);
         _bundledModel.IsVisible = _settings.Data.ModelDirectory is not null;
+        // Opening a missing folder throws from the shell, so only offer folders that exist.
+        _speechFolder.IsEnabled = _composition is not null && Directory.Exists(located);
     }
     private void UpdateCleanupStatus()
     {
@@ -261,6 +263,7 @@ public sealed class SettingsView : UserControl
         _bundledCleanup.IsVisible = File.Exists(Path.Combine(ConfiguredTranscriptPostProcessor.DefaultDirectory, "cleanup-manifest.json"));
         _bundledCleanup.IsEnabled = !installing;
         _reloadCleanup.IsEnabled = _composition is not null && !installing;
+        _cleanupFolder.IsEnabled = _composition is not null && Directory.Exists(selected);
         _cleanupSetupProgress.IsVisible = installing;
         _cleanupSetupProgress.IsIndeterminate = setup is null || setup.TotalBytes <= 0;
         _cleanupSetupProgress.Value = setup is { TotalBytes: > 0 } ? Math.Clamp(100.0 * setup.BytesReceived / setup.TotalBytes, 0, 100) : 0;
