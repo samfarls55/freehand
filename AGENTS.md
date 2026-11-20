@@ -30,7 +30,11 @@ app. A startup self-test must exercise the published executable after packaging 
 
 - Right Ctrl is the default push-to-talk key. Observe the key without swallowing it.
 - Audio reaching the transcriber is owned, 16 kHz mono float32 data.
-- Use `SendInput` for text insertion at the caret. UI Automation is not a substitute.
+- Insert text at the caret with one clipboard paste: the paste shortcut is sent through
+  `SendInput`, the transcript stays out of Clipboard History and cloud sync, and the
+  previous clipboard is restored. Fall back to paced `SendInput` typing when the clipboard
+  can't be preserved. Per-character typing corrupted text in Notepad on Sam's machine.
+  UI Automation is not a substitute.
 - Keep native model loading and inference off the keyboard hook thread.
 - Dispatch background transcript updates onto Avalonia's UI thread.
 - Parakeet TDT 110M uses CPU inference, four threads, 80 features, and `nemo_transducer`.

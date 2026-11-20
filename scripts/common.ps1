@@ -15,6 +15,12 @@ function New-FreehandInstaller([string]$PublishDirectory, [string]$Runtime, [str
     $zip = $Destination + '.payload.zip'
     try {
         [IO.Compression.ZipFile]::CreateFromDirectory($PublishDirectory, $zip, [IO.Compression.CompressionLevel]::Fastest, $false)
+        # GitHub Releases and the installed updater both require assets below 2 GiB.
+        # Include the payload digest (32 bytes), length (8), and magic (8) in the limit.
+        $installerSize = (Get-Item -LiteralPath $Runtime).Length + (Get-Item -LiteralPath $zip).Length + 48L
+        if ($installerSize -ge 2GB) {
+            throw 'Installer must be smaller than 2 GiB for GitHub Releases and automatic updates. Use Settings cleanup setup instead of embedding large model weights.'
+        }
         Copy-Item -LiteralPath $Runtime -Destination $Destination -Force
         $archiveStream = [IO.File]::OpenRead($zip)
         $installerStream = [IO.File]::Open($Destination, [IO.FileMode]::Append)

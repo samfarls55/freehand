@@ -79,9 +79,10 @@ internal static class PlatformFactory
 
     /// <summary>Creates the SendInput injector, or null off Windows.</summary>
     public static ITextInjector? CreateTextInjector() =>
-        Create<ITextInjector>("SendInputTextInjector", []);
+        Create<ITextInjector>("ClipboardPasteTextInjector", []);
 
     public static IWorkerLauncher? CreateWorkerLauncher() => Create<IWorkerLauncher>("WindowsWorkerLauncher", []);
+    public static ICleanupWorkerLauncher? CreateCleanupWorkerLauncher() => Create<ICleanupWorkerLauncher>("WindowsCleanupWorkerLauncher", []);
     public static IDesktopIntegration? CreateDesktopIntegration() => Create<IDesktopIntegration>("WindowsDesktopIntegration", []);
     public static IUpdateInstaller? CreateUpdateInstaller() => Create<IUpdateInstaller>("WindowsUpdateInstaller", []);
     public static ITextDeliveryProbe? CreateDeliveryProbe() => Create<ITextDeliveryProbe>("WindowsDeliveryProbe", []);

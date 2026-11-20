@@ -11,9 +11,11 @@ copies can discover. Merge or publish only when Sam explicitly requests shipping
 | Command | Result |
 |---|---|
 | `pwsh -File ./scripts/setup-dev.ps1` | Finds a compatible SDK or installs the pinned SDK locally, then restores dependencies |
+| `pwsh -File ./scripts/get-cleanup-assets.ps1` | Downloads and verifies the pinned selected cleanup bundle for development or explicit custom packaging |
 | `pwsh -File ./scripts/dev.ps1` | Builds and opens the development app with a separate data folder |
 | `pwsh -File ./scripts/verify.ps1` | Runs the Release build with warnings as errors and the .NET regression tests |
-| `pwsh -File ./scripts/verify.ps1 -Package` | Also creates the installer and tests the published executable |
+| `pwsh -File ./scripts/verify.ps1 -Package` | Also packages cleanup setup metadata, creates the installer, and tests the published executable |
+| `pwsh -File ./scripts/verify.ps1 -Package -SkipCleanup` | Creates and verifies an explicit baseline installer without cleanup assets |
 | `pwsh -File ./scripts/deploy-local.ps1` | Verifies and packages the changes, saves the previous repair installer, then updates the installed app |
 
 Run commands from the repository root in PowerShell 7 on Windows x64. Each build
@@ -33,6 +35,26 @@ Use `-ModelSource 'C:/models/parakeet-110m'` to select an existing download. Pac
 keeps a verified cache under `artifacts/model-cache` so later builds can reuse it.
 The model download is a pinned upstream `.tar.bz2` archive. Packaging verifies the
 archive before extraction with Windows `tar`, then verifies each model file separately.
+
+Packaging validates the selected cleanup model/runtime acquisition manifests and
+includes them under `models/cleanup-provisioning`. It does not download or embed
+cleanup weights by default. Installed users choose **Set up cleanup** in Settings
+to download and verify those assets into their local data profile. `dev.ps1` also
+validates and copies the metadata into its Debug output after a successful build,
+so setup is available in the isolated preview without a build-time model
+download. To prepare a bundle beforehand, run
+`pwsh -File ./scripts/get-cleanup-assets.ps1`. Use `verify.ps1 -Package -SkipCleanup`
+only for an explicit baseline package without cleanup. Downloads, offline cache
+reuse and custom bundles are described in [local transcript cleanup](TRANSCRIPT-CLEANUP.md).
+
+`get-cleanup-assets.ps1 -Offline` requires a complete verified download cache.
+`build-release.ps1 -CleanupSource` embeds an explicitly prepared Windows bundle
+instead of setup metadata. Cached development weights are never bundled
+implicitly. `dev.ps1` discovers prepared assets without starting an automatic
+model download. The application downloads cleanup assets only after an explicit
+Settings setup action, with progress and cancellation; inference stays local.
+`-SkipCleanup` omits both setup metadata and bundled cleanup weights for an
+intentional baseline package.
 
 ## Make a change
 
@@ -55,6 +77,22 @@ history, verification cache, and logs are separate from your installed app's dat
 It does not change Windows login startup. The first development launch uses a fresh
 dictionary; add test rules there as needed. `dev.ps1 -BuildOnly` builds and prepares
 the profile without opening a window.
+
+Cleanup runs after dictionary correction and number formatting, before the
+existing single text delivery. Failed, rejected or incomplete output retains that
+normalized original. The latest result exposes **Copy original** when cleanup
+changed it, including in the main window with history disabled. Disabling history
+prevents both versions from being persisted; it does not remove the latest
+in-memory recovery text. Do not present that original as raw, unformatted ASR.
+
+Default release verification checks the metadata-only package without acquiring
+multi-gigabyte cleanup weights on the CI runner. When a custom cleanup bundle is
+embedded, the published `--selftest` must start its actual native worker and obtain
+a complete response. Explicit setup and post-setup dictation still require their
+own verification using the selected assets. This validates bundle startup and
+protocol completion; it does not establish editing quality, Windows laptop
+latency, or physical microphone/hotkey delivery. Model comparisons must retain
+raw outputs and separate model quality from application fallback behavior.
 
 The SonarQube job runs the .NET tests under the pinned `dotnet-coverage` tool and
 the deployment-script tests under Pester 6.2.0. It imports both reports into the
@@ -109,6 +147,14 @@ the checksum without changing the installation. Without it, the command builds a
 verifies the package before previewing the installation.
 
 ## Publish a version
+
+The release and updater channel carries one installer strictly below 2 GiB.
+`New-FreehandInstaller` checks the complete runtime, compressed payload and trailer
+size before replacing an installer. Keep large cleanup weights in explicit
+Settings setup or an isolated development bundle. Raising a timeout or updater
+limit cannot change GitHub's per-asset release limit. This also avoids duplicating
+large weights across the standard Windows CI runner's package, upgrade and
+rollback fixtures.
 
 Merging to `main` is the decision to ship. The Windows workflow automatically:
 

@@ -48,6 +48,8 @@ BeforeEach {
         ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $fixtureRoot 'packaging/model-manifest.json')
     @{ libraries = @{}; packageFolders = @{ (Split-Path -Parent $sdk) = @{} } } | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $fixtureRoot 'src/Freehand.App/obj/project.assets.json')
     Set-Content -LiteralPath (Join-Path $fixtureRoot 'packaging/THIRD-PARTY-NOTICES.txt') -Value 'fixture notices'
+    New-Item -ItemType Directory -Force -Path (Join-Path $fixtureRoot 'docs') | Out-Null
+    Set-Content -LiteralPath (Join-Path $fixtureRoot 'docs/UNICODE-DATA-LICENSE.txt') -Value 'fixture Unicode notice'
     $script:installer = Join-Path $TestDrive 'FreehandSetup.exe'
     Set-Content -LiteralPath $installer -Value 'fixture installer'
     ((Get-FileHash $installer).Hash + '  FreehandSetup.exe') | Set-Content -LiteralPath ($installer + '.sha256')

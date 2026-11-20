@@ -87,10 +87,11 @@ internal sealed class StatusIndicator : Window
     }
 
     private bool IsProcessing => _state is DictationState.Preparing or DictationState.Transcribing
-        or DictationState.Recovering or DictationState.Delivering;
+        or DictationState.Cleaning or DictationState.Recovering or DictationState.Delivering;
 
     internal static bool IsActiveState(DictationState state) => state is DictationState.Recording
-        or DictationState.Preparing or DictationState.Transcribing or DictationState.Recovering or DictationState.Delivering;
+        or DictationState.Preparing or DictationState.Transcribing or DictationState.Cleaning
+        or DictationState.Recovering or DictationState.Delivering;
 
     internal static bool ShouldShow(bool mainHidden, DictationState state, DictationFeedback? feedback) =>
         IsActiveState(state) || mainHidden && state != DictationState.Stopping &&
@@ -126,6 +127,7 @@ internal sealed class StatusIndicator : Window
         {
             DictationState.Recording => "Recording",
             DictationState.Recovering => "Recovering",
+            DictationState.Cleaning => "Cleaning up",
             DictationState.AwaitingRetry => "Retry or discard in Freehand",
             DictationState.Delivering => "Inserting",
             DictationState.Idle when feedback?.Outcome == DictationOutcome.EmptySpeech => "No audio. Check microphone",
